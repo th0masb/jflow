@@ -4,8 +4,11 @@
 package io.xyz.common.geometry;
 
 import static io.xyz.common.funcutils.PFunctional.combine;
-import static io.xyz.common.funcutils.PFunctional.foldr;
+import static io.xyz.common.funcutils.PFunctional.filter;
 import static io.xyz.common.funcutils.PFunctional.map;
+import static io.xyz.common.funcutils.PFunctional.mapToDouble;
+import static io.xyz.common.funcutils.PFunctional.mapToInt;
+import static io.xyz.common.funcutils.PFunctional.sum;
 import static java.lang.Math.sqrt;
 
 import java.util.Arrays;
@@ -18,18 +21,23 @@ import java.util.stream.DoubleStream;
  */
 public final class RPoint 
 {
-	public static final RPoint ORIGIN_1D = RPoint.of(0);
-	public static final RPoint ORIGIN_2D = RPoint.of(0, 0);
-	public static final RPoint ORIGIN_3D = RPoint.of(0, 0, 0);
+	public static final RPoint ORIGIN_1D = RPoint.copy(0);
+	public static final RPoint ORIGIN_2D = RPoint.copy(0, 0);
+	public static final RPoint ORIGIN_3D = RPoint.copy(0, 0, 0);
 	
 	private final double[] coords;
 	
-	private RPoint(double...ds)
+	public RPoint(double...ds)
 	{
 		coords = ds;
 	}
 	
-	public static RPoint of(double...ds)
+	public RPoint(RPoint src)
+	{
+		coords = Arrays.copyOf(src.coords, src.dim());
+	}
+	
+	public static RPoint copy(double...ds)
 	{
 		return new RPoint(Arrays.copyOf(ds, ds.length));
 	}
@@ -52,6 +60,16 @@ public final class RPoint
 	public double w()
 	{
 		return coords[3];
+	}
+	
+	public double get(int index)
+	{
+		return coords[index];
+	}
+	
+	public double[] coords()
+	{
+		return Arrays.copyOf(coords, dim());
 	}
 	
 	public int dim()
@@ -81,12 +99,23 @@ public final class RPoint
 	
 	public double magnitude()
 	{
-		return sqrt(foldr( (a,b) -> a+b, 0, map(x -> x*x, coords)));//sqrt(valStream().map(x -> x*x).sum());
+		return sqrt(sum(map(x -> x*x, coords)));
 	}
 	
 	public RPoint scale(final double scale)
 	{
 		return new RPoint(map(x -> scale*x, coords));
+	}
+	
+	public static boolean dimensionsAgree(RPoint... ps)
+	{
+		int n = ps.length;
+		if (n == 0)
+		{
+			return true;
+		}
+		int[] dims = mapToInt(p -> p.dim(), ps);
+		return filter(x -> x == dims[0], dims).length == n;
 	}
 
 	/* (non-Javadoc)

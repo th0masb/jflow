@@ -1,15 +1,14 @@
 /**
- * Copyright © 2017 Lhasa Limited
+ * Copyright ï¿½ 2017 Lhasa Limited
  * File created: 3 Nov 2017 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
  */
-package org.lhasalimited.common.graph.splinecurves;
+package io.xyz.common.splines;
 
-import org.lhasalimited.common.math.ICurveParameterisation;
-import org.lhasalimited.common.math.ILhasaToFXPointMap;
-import org.lhasalimited.common.math.Point3D;
-
+import io.xyz.common.geometry.Curve;
+import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.geometry.RPoint;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -28,15 +27,17 @@ public interface ISplineSegment
 	 */
 	double APRROX_STEP_RATIO = 1;
 
-	void draw(final GraphicsContext gc, final ILhasaToFXPointMap coordinateTransform);
+	void draw(final GraphicsContext gc, final PointTransform coordinateTransform);
 
-	void draw(final GraphicsContext gc, final ILhasaToFXPointMap coordinateTransform, Point3D perturbation);
+	void draw(final GraphicsContext gc, final PointTransform coordinateTransform, RPoint perturbation);
 
-	ICurveParameterisation parameterise();
+	Curve parameterise();
 
 	double approximateLength();
 
-	ISplineSegment peturb(Point3D peturbation);
+	ISplineSegment peturb(RPoint peturbation);
+	
+	int dim();
 }
 
 /* ---------------------------------------------------------------------*

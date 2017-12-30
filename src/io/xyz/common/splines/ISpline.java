@@ -8,8 +8,9 @@ package io.xyz.common.splines;
 
 import java.util.Set;
 
-import io.xyz.common.geometry.ICurveParameterisation;
+import io.xyz.common.geometry.Curve;
 import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.geometry.RPoint;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -25,12 +26,9 @@ public interface ISpline
 {
 	void draw(GraphicsContext gc, PointTransform coordinateMap, RPoint perturbation);
 
-	default void draw(final GraphicsContext gc, final PointTransform coordinateMap)
-	{
-		draw(gc, coordinateMap, new RPoint());
-	}
+	void draw(final GraphicsContext gc, final PointTransform coordinateMap);
 
-	ICurveParameterisation parameterise();
+	Curve parameterise();
 
 	Set<RPoint> getPointApproximation(double maximalSpacing);
 
@@ -39,6 +37,8 @@ public interface ISpline
 	IPolyEdge getParent();
 
 	ISpline peturb(RPoint peturbation);
+	
+	int dim();
 }
 
 /* ---------------------------------------------------------------------*

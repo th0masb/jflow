@@ -1,5 +1,5 @@
 /**
- * Copyright © 2017 Lhasa Limited
+ * Copyright ï¿½ 2017 Lhasa Limited
  * File created: 3 Nov 2017 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -14,7 +14,7 @@ import org.lhasalimited.common.math.ICurveParameterisation;
  */
 public interface IParameterisationConstructor
 {
-	ICurveParameterisation parameterise(IPolyEdge edge);
+	Curve parameterise(IPolyEdge edge);
 }
 
 /* ---------------------------------------------------------------------*

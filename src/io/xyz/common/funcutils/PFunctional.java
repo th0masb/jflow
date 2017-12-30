@@ -11,13 +11,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
+import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntUnaryOperator;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
+
+import io.xyz.common.function.BiDoublePredicate;
 
 /**
  * @author t
@@ -131,12 +137,54 @@ public final class PFunctional
 		return result;
 	}
 	
+	@SafeVarargs
+	public static <T> double[] mapToDouble(ToDoubleFunction<T> f, T... xs)
+	{
+		double[] result = new double[xs.length];
+		for (int i = 0; i < xs.length; i++)
+		{
+			result[i] = f.applyAsDouble(xs[i]);
+		}
+		return result;
+	}
+	
+	public static <T> double[] mapToDouble(ToDoubleFunction<T> f, List<T> xs)
+	{
+		double[] result = new double[xs.size()];
+		for (int i = 0; i < xs.size(); i++)
+		{
+			result[i] = f.applyAsDouble(xs.get(i));
+		}
+		return result;
+	}
+	
 	public static int[] mapToInt(DoubleToIntFunction f, double[] xs)
 	{
 		int[] result = new int[xs.length];
 		for (int i = 0; i < xs.length; i++)
 		{
 			result[i] = f.applyAsInt(xs[i]);
+		}
+		return result;
+	}
+	
+	@SafeVarargs
+	public static <T> int[] mapToInt(ToIntFunction<T> f, T... xs)
+	{
+		int[] result = new int[xs.length];
+		for (int i = 0; i < xs.length; i++)
+		{
+			result[i] = f.applyAsInt(xs[i]);
+		}
+		return result;
+	}
+	
+	public static <T> int[] mapToInt(ToIntFunction<T> f, List<T> xs)
+	{
+		int[] result = new int[xs.size()];
+		for (int i = 0; i < xs.size(); i++)
+		{
+			result[i] = f.applyAsInt(xs.get(i));
 		}
 		return result;
 	}
@@ -179,6 +227,36 @@ public final class PFunctional
 		return xs;
 	}
 	
+	public static int[] filter(IntPredicate p, int[] xs)
+	{
+		int n = xs.length;
+		int[] tmp = new int[n];
+		int counter = 0;
+		for (int i = 0; i < n; i++)
+		{
+			if (p.test(xs[i]))
+			{
+				tmp[counter++] = xs[i];
+			}
+		}
+		return Arrays.copyOf(tmp, counter);
+	}
+	
+	public static double[] filter(DoublePredicate p, double[] xs)
+	{
+		int n = xs.length;
+		double[] tmp = new double[n];
+		int counter = 0;
+		for (int i = 0; i < n; i++)
+		{
+			if (p.test(xs[i]))
+			{
+				tmp[counter++] = xs[i];
+			}
+		}
+		return Arrays.copyOf(tmp, counter);
+	}
+	
 	public static int foldr(IntBinaryOperator f, int start, int[] xs)
 	{
 		int cumulativeFold = start;
@@ -189,12 +267,12 @@ public final class PFunctional
 		return cumulativeFold;
 	}
 	
-//	public static double foldr(DoubleBinaryOperator f, double start, int[] xs)
+//	public static boolean foldr(BiDoublePredicate f, boolean start, double[] xs)
 //	{
-//		double cumulativeFold = start;
+//		boolean cumulativeFold = start;
 //		for (int i = xs.length - 1; i > -1; i--)
 //		{
-//			cumulativeFold = f.applyAsDouble(xs[i], cumulativeFold);
+//			cumulativeFold = f.test(xs[i], cumulativeFold);
 //		}
 //		return cumulativeFold;
 //	}

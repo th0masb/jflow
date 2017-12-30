@@ -1,10 +1,4 @@
-/**
- * Copyright © 2017 Lhasa Limited
- * File created: 3 Nov 2017 by ThomasB
- * Creator : ThomasB
- * Version : $Id$
- */
-package org.lhasalimited.common.graph.splinecurves;
+package io.xyz.common.splines;
 
 import org.lhasalimited.common.math.ICurveParameterisation;
 import org.lhasalimited.common.math.ILhasaToFXPointMap;
@@ -42,7 +36,7 @@ public class StraightSegment extends AbstractSplineSegment
 	}
 
 	@Override
-	public ICurveParameterisation parameterise()
+	public Curve parameterise()
 	{
 		return t -> new Point3D((1 - t)*getStart().getX() + t*getEnd().getX(), (1 - t)*getStart().getY() + t*getEnd().getY(), 0);
 	}

@@ -1,5 +1,5 @@
 /**
- * Copyright © 2017 Lhasa Limited
+ * Copyright ï¿½ 2017 Lhasa Limited
  * File created: 6 Nov 2017 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -46,7 +46,7 @@ public final class QuadraticBezier extends AbstractSplineSegment
 	}
 
 	@Override
-	public ICurveParameterisation parameterise()
+	public Curve parameterise()
 	{
 		final Point3D u0 = constituents[0], u1 = constituents[1], u2 = constituents[2];
 		return t -> new Point3D(

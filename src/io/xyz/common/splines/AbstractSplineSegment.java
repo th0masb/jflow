@@ -6,11 +6,13 @@
  */
 package io.xyz.common.splines;
 
+import static io.xyz.common.funcutils.Functional.collect;
 import static java.util.Arrays.stream;
 
 import java.util.List;
 
 import io.xyz.common.geometry.Point;
+import io.xyz.common.geometry.RPoint;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -19,23 +21,23 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public abstract class AbstractSplineSegment implements ISplineSegment
 {
-	/**
-	 * Don't modify this instance obviously!
-	 */
-	private static final Point EMPTY = new Point(0, 0);
+//	/**
+//	 * Don't modify this instance obviously!
+//	 */
+//	private static final Point EMPTY = new Point(0, 0);
 
 	/**
 	 * The constituent points which form this spline segment. In general
 	 * the curve does not travel through each of these points.
 	 */
-	protected final Point[] constituents;
+	protected final RPoint[] constituents;
 
 	/**
 	 *
 	 */
-	public AbstractSplineSegment(final Point... points)
+	public AbstractSplineSegment(final RPoint... points)
 	{
-		constituents = stream(points).map(p -> new Point(p)).toArray(Point[]::new);
+		constituents = stream(points).map(p -> new RPoint(p)).toArray(RPoint[]::new);
 	}
 
 	/**
@@ -68,7 +70,7 @@ public abstract class AbstractSplineSegment implements ISplineSegment
 		final int roughLen = (int) Math.ceil(getRoughLength());
 		final int nSteps = (int) Math.ceil(roughLen*ISplineSegment.APRROX_STEP_RATIO);
 		final double step = 1.0/nSteps;
-		final ICurveParameterisation p = parameterise();
+		final Curve p = parameterise();
 
 		//		double sum = 0;
 		//		for (double t = 0; t < 1; t +=  step)
@@ -76,7 +78,7 @@ public abstract class AbstractSplineSegment implements ISplineSegment
 		//			sum +=
 		//		}
 
-		return drange(0, 1, step).map(t -> p.getPoint(t + step).subtract(p.getPoint(t)).magnitude()).sum();
+		return drange(0, 1, step).map(t -> p.map(t + step).subtract(p.map(t)).magnitude()).sum();
 	}
 
 	protected abstract double getRoughLength();

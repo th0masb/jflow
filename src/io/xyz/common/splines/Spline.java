@@ -1,5 +1,5 @@
 /**
- * Copyright © 2017 Lhasa Limited
+ * Copyright ï¿½ 2017 Lhasa Limited
  * File created: 3 Nov 2017 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -30,8 +30,6 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Spline implements ISpline
 {
-	private final IPolyEdge parent;
-
 	/** The constituent segments of this spline. */
 	private final ISplineSegment[] segments;
 
@@ -39,7 +37,7 @@ public class Spline implements ISpline
 	private final double[] approxLengths;
 
 	/** Cached parameterisation of this spline */
-	private final ICurveParameterisation parameterisation;
+	private final Curve parameterisation;
 
 	public Spline(final List<ISplineSegment> segments, final IPolyEdge parent)
 	{
@@ -49,9 +47,9 @@ public class Spline implements ISpline
 		parameterisation = calculateTotalParameterisation();
 	}
 
-	private ICurveParameterisation calculateTotalParameterisation()
+	private Curve calculateTotalParameterisation()
 	{
-		final List<ICurveParameterisation> individuals = collect(stream(segments).map(seg -> seg.parameterise()));
+		final List<Curve> individuals = collect(stream(segments).map(seg -> seg.parameterise()));
 
 		final double lenSum = getLengthApproximation();
 		final double[] cumulativeRatios = stream(approxLengths).map(len -> len/lenSum).toArray();
@@ -64,12 +62,12 @@ public class Spline implements ISpline
 
 			if (!segIndex.isPresent())
 			{
-				return individuals.get(cumulativeRatios.length - 1).getPoint(1);
+				return individuals.get(cumulativeRatios.length - 1).map(1);
 			}
 
 			final int i = segIndex.getAsInt();
 			final double prevRatio = i == 0? 0 : cumulativeRatios[i-1];
-			return individuals.get(i).getPoint((t - prevRatio) / (cumulativeRatios[i] - prevRatio));
+			return individuals.get(i).map((t - prevRatio) / (cumulativeRatios[i] - prevRatio));
 		};
 	}
 
@@ -83,7 +81,7 @@ public class Spline implements ISpline
 	}
 
 	@Override
-	public ICurveParameterisation parameterise()
+	public Curve parameterise()
 	{
 		return parameterisation;
 	}
@@ -104,7 +102,7 @@ public class Spline implements ISpline
 	public Set<Point3D> getPointApproximation(final double maximalSpacing)
 	{
 		final double stepSize = maximalSpacing/getLengthApproximation();
-		return collectSet(drange(0, 1, stepSize).mapToObj(t -> parameterisation.getPoint(t)));
+		return collectSet(drange(0, 1, stepSize).mapToObj(t -> parameterisation.map(t)));
 	}
 
 	@Override
