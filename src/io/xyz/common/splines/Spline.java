@@ -4,23 +4,18 @@
  * Creator : ThomasB
  * Version : $Id$
  */
-package org.lhasalimited.common.graph.splinecurves;
+package io.xyz.common.splines;
 
-import static io.xyz.common.funcutils.PFunctional.mapToDouble;
-import static org.lhasalimited.common.function.FunctionalUtils.collect;
-import static org.lhasalimited.common.function.FunctionalUtils.collectSet;
-import static org.lhasalimited.common.function.FunctionalUtils.drange;
-import static org.lhasalimited.common.function.FunctionalUtils.range;
+import static io.xyz.common.funcutils.CollectionUtil.asList;
+import static io.xyz.common.funcutils.CollectionUtil.len;
+import static io.xyz.common.funcutils.MapUtil.map;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import org.lhasalimited.common.logging.Common;
-import org.lhasalimited.common.math.ILhasaToFXPointMap;
-import org.lhasalimited.common.math.Point3D;
-
 import io.xyz.common.geometry.Curve;
+import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.geometry.RPoint;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -29,50 +24,28 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Spline implements ISpline {
 	/** The constituent segments of this spline. */
-	private final ISplineSegment[] segments;
-
-	/** The approximated segment lengths */
-	private final double[] approxLengths;
+	private final List<ISplineSegment> segments;
 
 	/** Cached parameterisation of this spline */
 	private final Curve parameterisation;
 
 	public Spline(final List<ISplineSegment> segments) {
-		this.segments = segments.toArray(new ISplineSegment[0]);
-		this.approxLengths = mapToDouble(s -> s.approximateLength(), segments);
-		parameterisation = calculateTotalParameterisation();
+		assert len(segments) > 0;
+		this.segments = asList(segments);
+		parameterisation = Curve.fuse(map(s -> s.parameterise(), segments));
 	}
 
-	// private Curve calculateTotalParameterisation() {
-	// final List<Curve> individuals = collect(stream(segments).map(seg ->
-	// seg.parameterise()));
-	//
-	// final double lenSum = getLengthApproximation();
-	// final double[] cumulativeRatios = stream(approxLengths).map(len ->
-	// len/lenSum).toArray();
-	// Arrays.parallelPrefix(cumulativeRatios, (a, b) -> a+b); // turns array into
-	// cumulative sums.
-	//
-	// return t -> {
-	// final int n = cumulativeRatios.length;
-	// final OptionalInt segIndex = range(n).filter(m ->
-	// t<=cumulativeRatios[m]).findFirst();
-	//
-	// if (!segIndex.isPresent()) {
-	// return individuals.get(cumulativeRatios.length-1).map(1);
-	// }
-	//
-	// final int i = segIndex.getAsInt();
-	// final double prevRatio = i==0? 0 : cumulativeRatios[i-1];
-	// return individuals.get(i).map((t-prevRatio)/(cumulativeRatios[i]-prevRatio));
-	// };
-	// }
+	@Override
+	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPoint perturbation) {
+		for (final ISplineSegment segment : segments) {
+			segment.draw(gc, clipT, perturbation);
+		}
+	}
 
 	@Override
-	public void draw(final GraphicsContext gc, final ILhasaToFXPointMap coordinateMap, final Point3D perturbation) {
-		for (final ISplineSegment segment : segments) {
-			segment.draw(gc, coordinateMap, perturbation);
-		}
+	public void draw(final GraphicsContext gc, final PointTransform coordinateMap) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -81,32 +54,30 @@ public class Spline implements ISpline {
 	}
 
 	@Override
-	public IPolyEdge getParent() {
-		return parent;
+	public Set<RPoint> getPointApproximation(final double maximalSpacing) {
+		final Curve c = parameterise();
+		final double clength = getLengthApproximation();
+
+		return null;
 	}
 
 	@Override
 	public double getLengthApproximation() {
-		return Arrays.stream(approxLengths).sum();
+		final int steps = len(segments) * Curve.LENGTH_APPROX_STEPS;
+		return Curve.length(parameterise(), steps);
 	}
 
 	@Override
-	public Set<Point3D> getPointApproximation(final double maximalSpacing) {
-		final double stepSize = maximalSpacing/getLengthApproximation();
-		return collectSet(drange(0, 1, stepSize).mapToObj(t -> parameterisation.map(t)));
+	public ISpline peturb(final RPoint peturbation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public ISpline peturb(final Point3D peturbation) {
-		return new Spline(collect(range(segments.length).mapToObj(i -> segments[i].peturb(peturbation))), getParent());
+	public int dim() {
+		return segments.get(0).dim();
 	}
 
-	public static void main(final String[] args) {
-		final double[] d = { 0.1, 0.2, 0.5, 0.2 };
-		Arrays.parallelPrefix(d, (a, b) -> a+b);
-
-		Common.out.info(Arrays.toString(d));
-	}
 }
 
 /*

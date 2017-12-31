@@ -3,12 +3,14 @@
  */
 package io.xyz.common.funcutils;
 
+import static io.xyz.common.funcutils.CollectionUtil.asList;
+import static io.xyz.common.funcutils.PrimitiveUtil.abs;
 import static io.xyz.common.funcutils.PrimitiveUtil.max;
+import static io.xyz.common.funcutils.PrimitiveUtil.signum;
 import static io.xyz.common.geometry.Constants.EPSILON;
-import static java.lang.Math.abs;
-import static java.lang.Math.signum;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntFunction;
@@ -25,15 +27,31 @@ public final class RangeUtil {
 
 	public static <T> List<T> rangeMap(final IntFunction<T> f, final int upperBound) {
 		final List<T> mapped = new ArrayList<>(upperBound);
-		for (int i = 0; i<upperBound; i++) {
+		for (int i = 0; i < upperBound; i++) {
 			mapped.add(f.apply(i));
 		}
 		return mapped;
 	}
 
+	public static <T> List<T> rangeMap(final IntFunction<T> f, final int start, final int end, final int step) {
+		final int boundDiff = end - start, stepSign = signum(step);
+		if (start == end) {
+			return Collections.emptyList();
+		} else if (signum(boundDiff) != stepSign) {
+			return asList(f.apply(start));
+		} else {
+			final int n = max(boundDiff / step, 1);
+			final List<T> mapped = new ArrayList<>();
+			for (int i = 0; i < n; i++) {
+				mapped.add(f.apply(start + i * step));
+			}
+			return mapped;
+		}
+	}
+
 	public static int[] rangeMapToInt(final IntUnaryOperator f, final int upperBound) {
 		final int[] mapped = new int[upperBound];
-		for (int i = 0; i<upperBound; i++) {
+		for (int i = 0; i < upperBound; i++) {
 			mapped[i] = f.applyAsInt(i);
 		}
 		return mapped;
@@ -41,7 +59,7 @@ public final class RangeUtil {
 
 	public static double[] rangeMapToDouble(final DoubleUnaryOperator f, final int upperBound) {
 		final double[] mapped = new double[upperBound];
-		for (int i = 0; i<upperBound; i++) {
+		for (int i = 0; i < upperBound; i++) {
 			mapped[i] = f.applyAsDouble(i);
 		}
 		return mapped;
@@ -49,7 +67,7 @@ public final class RangeUtil {
 
 	public static <T> Stream<T> rangeStream(final IntFunction<T> f, final int upperBound) {
 		final List<T> mapped = new ArrayList<>(upperBound);
-		for (int i = 0; i<upperBound; i++) {
+		for (int i = 0; i < upperBound; i++) {
 			mapped.add(f.apply(i));
 		}
 		return mapped.stream();
@@ -60,7 +78,7 @@ public final class RangeUtil {
 	}
 
 	public static int[] rangei(final int upperBound) {
-		return range(upperBound+(upperBound>0? 1 : -1));
+		return range(upperBound + (upperBound > 0? 1 : -1));
 	}
 
 	public static int[] range(final int startBound, final int endBound) {
@@ -68,7 +86,7 @@ public final class RangeUtil {
 	}
 
 	public static int[] rangei(final int startBound, final int endBound) {
-		return range(startBound, endBound+(startBound<endBound? 1 : -1), 1);
+		return range(startBound, endBound + (startBound < endBound? 1 : -1), 1);
 	}
 
 	/**
@@ -80,18 +98,18 @@ public final class RangeUtil {
 	 * @return
 	 */
 	public static int[] range(final int startBound, final int endBound, final int step) {
-		assert step!=0 : "Cannot have 0 step";
-		final int boundDiff = endBound-startBound, stepSign = (int) signum(step);
+		assert step != 0 : "Cannot have 0 step";
+		final int boundDiff = endBound - startBound, stepSign = signum(step);
 
-		if (startBound==endBound) {
+		if (startBound == endBound) {
 			return new int[] {};
-		} else if (signum(boundDiff)!=stepSign) {
+		} else if (signum(boundDiff) != stepSign) {
 			return new int[] { startBound };
 		} else {
-			final int n = max(boundDiff/step, 1);
+			final int n = max(boundDiff / step, 1);
 			final int[] range = new int[n];
-			for (int i = 0; i<n; i++) {
-				range[i] = startBound+i*step;
+			for (int i = 0; i < n; i++) {
+				range[i] = startBound + i * step;
 			}
 			return range;
 		}
@@ -102,18 +120,18 @@ public final class RangeUtil {
 	}
 
 	public static double[] drange(final double lower, final double upper, final double step) {
-		assert abs(step)>=EPSILON : "Cannot have 0 step";
-		final double boundDiff = upper-lower, stepSign = signum(step);
+		assert abs(step) >= EPSILON : "Cannot have 0 step";
+		final double boundDiff = upper - lower, stepSign = signum(step);
 
-		if (abs(upper-lower)<EPSILON) {
+		if (abs(upper - lower) < EPSILON) {
 			return new double[] {};
-		} else if (signum(boundDiff)!=stepSign) {
+		} else if (signum(boundDiff) != stepSign) {
 			return new double[] { lower };
 		} else {
-			final int n = (int) max(boundDiff/step, 1);
+			final int n = (int) max(boundDiff / step, 1);
 			final double[] range = new double[n];
-			for (int i = 0; i<n; i++) {
-				range[i] = lower+i*step;
+			for (int i = 0; i < n; i++) {
+				range[i] = lower + i * step;
 			}
 			return range;
 		}

@@ -15,24 +15,28 @@ public final class PrimitiveUtil {
 	private PrimitiveUtil() {
 	}
 
+	public static <T> boolean isNull(final T t) {
+		return t == null;
+	}
+
 	public static double sum(final double... xs) {
-		return foldr((a, b) -> a+b, 0, xs);
+		return foldr((a, b) -> a + b, 0, xs);
 	}
 
 	public static int sum(final int... xs) {
-		return foldr((a, b) -> a+b, 0, xs);
+		return foldr((a, b) -> a + b, 0, xs);
 	}
 
 	public static double product(final double... xs) {
-		return foldr((a, b) -> a*b, 1, xs);
+		return foldr((a, b) -> a * b, 1, xs);
 	}
 
 	public static int product(final int... xs) {
-		return foldr((a, b) -> a*b, 1, xs);
+		return foldr((a, b) -> a * b, 1, xs);
 	}
 
 	public static int min(final int a, final int b) {
-		return a<b? a : b;
+		return a < b? a : b;
 	}
 
 	public static int min(final int... xs) {
@@ -40,7 +44,7 @@ public final class PrimitiveUtil {
 	}
 
 	public static double min(final double a, final double b) {
-		return a<b? a : b;
+		return a < b? a : b;
 	}
 
 	public static double min(final double... xs) {
@@ -48,7 +52,7 @@ public final class PrimitiveUtil {
 	}
 
 	public static int max(final int a, final int b) {
-		return a<b? b : a;
+		return a < b? b : a;
 	}
 
 	public static int max(final int... xs) {
@@ -56,7 +60,7 @@ public final class PrimitiveUtil {
 	}
 
 	public static double max(final double a, final double b) {
-		return a<b? b : a;
+		return a < b? b : a;
 	}
 
 	public static double max(final double... xs) {
@@ -106,6 +110,11 @@ public final class PrimitiveUtil {
 	public static int[] signum(final int... xs) {
 		return map(x -> signum(x), xs);
 	}
+
+	// public static boolean all(boolean[] bs)
+	// {
+	// boolean all = false;
+	// }
 
 	// public static double[] abs(final double power, final double... xs) {
 	// return map(x -> Math.pow(power, x), xs);

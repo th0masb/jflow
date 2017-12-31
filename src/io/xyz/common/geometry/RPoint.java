@@ -8,9 +8,11 @@ import static io.xyz.common.funcutils.FilterUtil.filter;
 import static io.xyz.common.funcutils.MapUtil.map;
 import static io.xyz.common.funcutils.MapUtil.mapToInt;
 import static io.xyz.common.funcutils.PrimitiveUtil.sum;
+import static io.xyz.common.funcutils.RangeUtil.rangeMap;
 import static java.lang.Math.sqrt;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.DoubleBinaryOperator;
 import java.util.stream.DoubleStream;
 
@@ -20,9 +22,7 @@ import java.util.stream.DoubleStream;
  *         R^n real point
  */
 public final class RPoint {
-	public static final RPoint ORIGIN_1D = RPoint.copy(0);
-	public static final RPoint ORIGIN_2D = RPoint.copy(0, 0);
-	public static final RPoint ORIGIN_3D = RPoint.copy(0, 0, 0);
+	private static final List<RPoint> ORIGIN = rangeMap(RPoint::emptyInit, 15);
 
 	private final double[] coords;
 
@@ -36,6 +36,14 @@ public final class RPoint {
 
 	public static RPoint copy(final double... ds) {
 		return new RPoint(Arrays.copyOf(ds, ds.length));
+	}
+
+	public static RPoint origin(final int dim) {
+		return ORIGIN.get(dim);
+	}
+
+	private static RPoint emptyInit(final int dim) {
+		return new RPoint(new double[dim]);
 	}
 
 	public double x() {
