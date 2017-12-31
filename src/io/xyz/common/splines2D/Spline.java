@@ -4,7 +4,7 @@
  * Creator : ThomasB
  * Version : $Id$
  */
-package io.xyz.common.splines;
+package io.xyz.common.splines2D;
 
 import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.CollectionUtil.len;

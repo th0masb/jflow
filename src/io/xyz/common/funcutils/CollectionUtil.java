@@ -20,6 +20,10 @@ public final class CollectionUtil {
 	private CollectionUtil() {
 	}
 
+	/*
+	 * Need to add sort function
+	 */
+
 	public static <T> int len(final Collection<T> xs) {
 		return xs.size();
 	}
@@ -33,6 +37,14 @@ public final class CollectionUtil {
 	}
 
 	public static int len(final double[] xs) {
+		return xs.length;
+	}
+
+	public static int len(final int[][] xs) {
+		return xs.length;
+	}
+
+	public static int len(final double[][] xs) {
 		return xs.length;
 	}
 
@@ -102,5 +114,46 @@ public final class CollectionUtil {
 	public static <T> List<T> drop(final int n, final List<T> xs) {
 		assert 0 <= n && n <= xs.size();
 		return xs.subList(0, n);
+	}
+
+	public static boolean allEqual(final int... xs) {
+		final int upper = len(xs) - 1;
+		for (int i = 0; i < upper; i++) {
+			if (xs[i] != xs[i + 1]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean allEqual(final double... xs) {
+		final int upper = len(xs) - 1;
+		for (int i = 0; i < upper; i++) {
+			if (xs[i] != xs[i + 1]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static <T> boolean allEqual(final T[] xs) {
+		final int upper = len(xs) - 1;
+		for (int i = 0; i < upper; i++) {
+			if (!xs[i].equals(xs[i + 1])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static <T> boolean allEqual(final Collection<T> xs) {
+		T last = null;
+		for (final T x : xs) {
+			if (last != null && !x.equals(last)) {
+				return false;
+			}
+			last = x;
+		}
+		return true;
 	}
 }

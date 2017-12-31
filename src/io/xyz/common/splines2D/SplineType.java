@@ -4,7 +4,7 @@
  * Creator : ThomasB
  * Version : $Id$
  */
-package io.xyz.common.splines;
+package io.xyz.common.splines2D;
 
 /**
  * TODO - A spline should also be ableto generate its own parameterisation

@@ -1,25 +1,22 @@
 /**
  * Copyright � 2017 Lhasa Limited
- * File created: 6 Nov 2017 by ThomasB
+ * File created: 3 Nov 2017 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
  */
-package io.xyz.common.splines;
+package io.xyz.common.splines2D;
 
 /**
  * @author ThomasB
- * @since 6 Nov 2017
+ * @since 3 Nov 2017
  */
-public final class QuadraticBezier // extends AbstractSplineSegment
-{
-	// public QuadraticBezier(final Point3D start, final Point3D ctrl, final Point3D
-	// end)
+public final class CubicBezier {/// extends AbstractSplineSegment {
+	// public CubicBezier(final Point3D start, final Point3D ctrl1, final Point3D
+	// ctrl2, final Point3D end)
 	// {
-	// super(start, ctrl, end);
+	// super(start, ctrl1, ctrl2, end);
 	// }
-	//
-	// protected QuadraticBezier(final QuadraticBezier src, final Point3D
-	// peturbation)
+	// protected CubicBezier(final CubicBezier src, final Point3D peturbation)
 	// {
 	// super(src, peturbation);
 	// }
@@ -28,7 +25,7 @@ public final class QuadraticBezier // extends AbstractSplineSegment
 	// public void draw(final GraphicsContext gc, final ILhasaToFXPointMap
 	// coordinateTransform, final Point3D perturbation)
 	// {
-	// final Point2D[] p = new Point2D[3];
+	// final Point2D[] p = new Point2D[4];
 	// int i = 0;
 	// for (final Point3D c : constituents)
 	// {
@@ -36,7 +33,8 @@ public final class QuadraticBezier // extends AbstractSplineSegment
 	// }
 	// gc.beginPath();
 	// gc.moveTo(p[0].getX(), p[0].getY());
-	// gc.quadraticCurveTo(p[1].getX(), p[1].getY(), p[2].getX(), p[2].getY());
+	// gc.bezierCurveTo(p[1].getX(), p[1].getY(), p[2].getX(), p[2].getY(),
+	// p[3].getX(), p[3].getY());
 	// gc.stroke();
 	// gc.closePath();
 	// }
@@ -45,12 +43,12 @@ public final class QuadraticBezier // extends AbstractSplineSegment
 	// public Curve parameterise()
 	// {
 	// final Point3D u0 = constituents[0], u1 = constituents[1], u2 =
-	// constituents[2];
+	// constituents[2], u3 = constituents[3];
 	// return t -> new Point3D(
-	// Math.pow(1 - t, 2)*u0.getX() + 2*t*(1 - t)*u1.getX() + Math.pow(t,
-	// 2)*u2.getX(),
-	// Math.pow(1 - t, 2)*u0.getY() + 2*t*(1 - t)*u1.getY() + Math.pow(t,
-	// 2)*u2.getY(),
+	// Math.pow(1 - t, 3)*u0.getX() + 3*t*Math.pow(1 - t, 2)*u1.getX() +
+	// 3*Math.pow(t, 2)*(1 - t)*u2.getX() + Math.pow(t, 3)*u3.getX(),
+	// Math.pow(1 - t, 3)*u0.getY() + 3*t*Math.pow(1 - t, 2)*u1.getY() +
+	// 3*Math.pow(t, 2)*(1 - t)*u2.getY() + Math.pow(t, 3)*u3.getY(),
 	// 0);
 	// }
 	//
@@ -62,7 +60,7 @@ public final class QuadraticBezier // extends AbstractSplineSegment
 	// protected double getRoughLength()
 	// {
 	// double rough = 0;
-	// for (int i = 0; i < 2; i++)
+	// for (int i = 0; i < 3; i++)
 	// {
 	// rough += Point3D.getDistance2D(constituents[i], constituents[i+1]);
 	// }
@@ -72,7 +70,7 @@ public final class QuadraticBezier // extends AbstractSplineSegment
 	// @Override
 	// public ISplineSegment peturb(final Point3D peturbation)
 	// {
-	// return new QuadraticBezier(this, peturbation);
+	// return new CubicBezier(this, peturbation);
 	// }
 }
 

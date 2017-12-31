@@ -1,4 +1,4 @@
-package io.xyz.common.splines;
+package io.xyz.common.splines2D;
 
 import static io.xyz.common.funcutils.PredicateUtil.all;
 
@@ -36,7 +36,7 @@ public abstract class AbstractSplineSegment implements ISplineSegment {
 	*
 	*/
 	public AbstractSplineSegment(final List<RPoint> ps) {
-		assert ps.size() > 1 && all(p -> p.dim() == 2, ps);
+		assert ps.size() > 1 && all(p -> p.dim() == DIMENSION, ps);
 		constituents = ps.toArray(new RPoint[ps.size()]);
 	}
 

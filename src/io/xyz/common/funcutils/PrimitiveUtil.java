@@ -6,6 +6,7 @@ package io.xyz.common.funcutils;
 import static io.xyz.common.funcutils.FoldUtil.foldr;
 import static io.xyz.common.funcutils.MapUtil.map;
 import static io.xyz.common.funcutils.MapUtil.mapToDouble;
+import static io.xyz.common.geometry.Constants.EPSILON;
 
 /**
  * @author t
@@ -13,6 +14,14 @@ import static io.xyz.common.funcutils.MapUtil.mapToDouble;
  */
 public final class PrimitiveUtil {
 	private PrimitiveUtil() {
+	}
+
+	public static boolean isZero(final int x) {
+		return x == 0;
+	}
+
+	public static boolean isZero(final double x) {
+		return abs(x) < EPSILON;
 	}
 
 	public static <T> boolean isNull(final T t) {
@@ -79,6 +88,34 @@ public final class PrimitiveUtil {
 		return mapToDouble(x -> Math.pow(x, power), xs);
 	}
 
+	public static double[] sqrt(final double... xs) {
+		return map(x -> Math.sqrt(x), xs);
+	}
+
+	public static double sqrt(final double x) {
+		return Math.sqrt(x);
+	}
+
+	public static double[] sqrt(final int... xs) {
+		return mapToDouble(x -> sqrt(x), xs);
+	}
+
+	public static double[] square(final double... xs) {
+		return map(x -> x * x, xs);
+	}
+
+	public static double square(final double x) {
+		return x * x;
+	}
+
+	public static int square(final int x) {
+		return x * x;
+	}
+
+	public static int[] square(final int... xs) {
+		return map(x -> x * x, xs);
+	}
+
 	public static double abs(final double x) {
 		return Math.abs(x);
 	}
@@ -111,16 +148,27 @@ public final class PrimitiveUtil {
 		return map(x -> signum(x), xs);
 	}
 
-	// public static boolean all(boolean[] bs)
-	// {
-	// boolean all = false;
-	// }
+	public static double cos(final double x) {
+		return Math.cos(x);
+	}
 
-	// public static double[] abs(final double power, final double... xs) {
-	// return map(x -> Math.pow(power, x), xs);
-	// }
-	//
-	// public static double[] pow(final double power, final int... xs) {
-	// return mapToDouble(x -> Math.pow(power, x), xs);
-	// }
+	public static double[] cos(final double... xs) {
+		return map(x -> cos(x), xs);
+	}
+
+	public static double[] cos(final int... xs) {
+		return mapToDouble(x -> cos(x), xs);
+	}
+
+	public static double sin(final double x) {
+		return Math.sin(x);
+	}
+
+	public static double[] sin(final double... xs) {
+		return map(x -> sin(x), xs);
+	}
+
+	public static double[] sin(final int... xs) {
+		return mapToDouble(x -> sin(x), xs);
+	}
 }

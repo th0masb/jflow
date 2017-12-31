@@ -57,7 +57,7 @@ public final class RangeUtil {
 		return mapped;
 	}
 
-	public static double[] rangeMapToDouble(final DoubleUnaryOperator f, final int upperBound) {
+	public static double[] rangeToDouble(final DoubleUnaryOperator f, final int upperBound) {
 		final double[] mapped = new double[upperBound];
 		for (int i = 0; i < upperBound; i++) {
 			mapped[i] = f.applyAsDouble(i);

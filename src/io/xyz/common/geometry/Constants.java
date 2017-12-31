@@ -13,4 +13,5 @@ public final class Constants {
 
 	public static final double EPSILON = 0.000001;
 	public static final double e = Math.E;
+	public static final double INFINITY = Double.POSITIVE_INFINITY;
 }

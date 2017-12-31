@@ -3,18 +3,26 @@
  */
 package io.xyz.common.geometry;
 
+import static io.xyz.common.funcutils.CollectionUtil.allEqual;
 import static io.xyz.common.funcutils.CombineUtil.combine;
-import static io.xyz.common.funcutils.FilterUtil.filter;
 import static io.xyz.common.funcutils.MapUtil.map;
-import static io.xyz.common.funcutils.MapUtil.mapToInt;
+import static io.xyz.common.funcutils.PredicateUtil.all;
+import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
+import static io.xyz.common.funcutils.PrimitiveUtil.max;
+import static io.xyz.common.funcutils.PrimitiveUtil.min;
+import static io.xyz.common.funcutils.PrimitiveUtil.pow;
+import static io.xyz.common.funcutils.PrimitiveUtil.sqrt;
 import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 import static io.xyz.common.funcutils.RangeUtil.rangeMap;
-import static java.lang.Math.sqrt;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.DoubleBinaryOperator;
 import java.util.stream.DoubleStream;
+
+import org.la4j.Vector;
+import org.la4j.vector.DenseVector;
+
+import io.xyz.common.funcutils.PrimitiveUtil;
 
 /**
  * @author t
@@ -66,6 +74,14 @@ public final class RPoint {
 		return coords[index];
 	}
 
+	public double minCoord() {
+		return min(coords);
+	}
+
+	public double maxCoord() {
+		return max(coords);
+	}
+
 	public double[] coords() {
 		return Arrays.copyOf(coords, dim());
 	}
@@ -74,43 +90,55 @@ public final class RPoint {
 		return coords.length;
 	}
 
-	// public IntStream dimStream()
-	// {
-	// return range(dim());
-	// }
-
 	public DoubleStream valStream() {
 		return DoubleStream.of(coords);
 	}
 
 	public RPoint add(final RPoint p) {
-		return new RPoint(combine((a, b) -> a+b, coords, p.coords));
+		return new RPoint(combine((a, b) -> a + b, coords, p.coords));
 	}
 
 	public RPoint subtract(final RPoint p) {
-		return new RPoint(combine((a, b) -> a-b, coords, p.coords));
-	}
-
-	public double magnitude() {
-		return sqrt(sum(map(x -> x*x, coords)));
+		return new RPoint(combine((a, b) -> a - b, coords, p.coords));
 	}
 
 	public RPoint scale(final double scale) {
-		return new RPoint(map(x -> scale*x, coords));
+		return new RPoint(map(x -> scale * x, coords));
+	}
+
+	public RPoint abs() {
+		return new RPoint(PrimitiveUtil.abs(coords));
+	}
+
+	public double magnitude() {
+		return sqrt(sum(map(x -> x * x, coords)));
+	}
+
+	public RPoint normalise() {
+		if (isOrigin()) {
+			return this;
+		}
+		return scale(1 / magnitude());
 	}
 
 	public double distFrom(final RPoint other) {
-		final DoubleBinaryOperator f = (a, b) -> Math.pow(a-b, 2);
-		return sqrt(sum(combine(f, coords, other.coords)));
+		return sqrt(sum(combine((a, b) -> pow(2, a - b), coords, other.coords)));
+	}
+
+	public double dot(final RPoint other) {
+		return sum(combine((a, b) -> a * b, coords, other.coords));
+	}
+
+	public boolean isOrigin() {
+		return all(x -> isZero(x), coords);
+	}
+
+	public Vector toVector() {
+		return DenseVector.fromArray(coords());
 	}
 
 	public static boolean dimensionsAgree(final RPoint... ps) {
-		final int n = ps.length;
-		if (n==0) {
-			return true;
-		}
-		final int[] dims = mapToInt(p -> p.dim(), ps);
-		return filter(x -> x==dims[0], dims).length==n;
+		return allEqual(map(p -> p.dim(), ps));
 	}
 
 	/*
@@ -122,7 +150,7 @@ public final class RPoint {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime*result+Arrays.hashCode(coords);
+		result = prime * result + Arrays.hashCode(coords);
 		return result;
 	}
 
@@ -133,11 +161,11 @@ public final class RPoint {
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-		if (this==obj)
+		if (this == obj)
 			return true;
-		if (obj==null)
+		if (obj == null)
 			return false;
-		if (getClass()!=obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		final RPoint other = (RPoint) obj;
 		if (!Arrays.equals(coords, other.coords))
