@@ -38,4 +38,8 @@ public class BitArray extends BitSet {
 	public static BitArray of(final IntPredicate p, final int nbits) {
 		return new BitArray(p, nbits);
 	}
+
+	public static BitArray nSetBits(final int nbits) {
+		return new BitArray(i -> true, nbits);
+	}
 }

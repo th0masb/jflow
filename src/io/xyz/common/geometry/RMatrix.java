@@ -19,6 +19,7 @@ import static io.xyz.common.funcutils.RangeUtil.rangeToDouble;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntToDoubleFunction;
 import java.util.regex.Pattern;
@@ -146,23 +147,33 @@ public class RMatrix implements PointTransform {
 	@Override
 	public String toString() {
 		final int sfp = STRING_FORMAT_PRECISION;
-		final int maxLen = max(mapToInt(xs -> max(mapToInt(s -> digitLength(sfp, s), xs)), contents));
-		final int formatłength = maxLen + 2;
-		final List<List<String>> formatted = map(xs -> mapToObj(x -> formatEntry(x, formatłength), xs), contents);
+		final DoubleToIntFunction f = d -> digitLength(sfp, d) + (d < 0? 1 : 0);
+		final int maxLen = max(mapToInt(xs -> max(mapToInt(f, xs)), contents));
+		final int formatLength = maxLen + 2;
+		final List<List<String>> formatted = map(xs -> mapToObj(x -> formatEntry(x, formatLength), xs), contents);
 		return concat("", ROW_SEPARATOR, map(xs -> concat("", PAD, xs), formatted));
 	}
 
-	private static String formatEntry(final double d, final int formattedlength) {
+	/**
+	 * TODO - Should probably align by max digit length per column
+	 * 
+	 * @param d
+	 * @param formattedlen
+	 * @return
+	 */
+	private static String formatEntry(final double d, final int formattedlen) {
 		final int sfp = STRING_FORMAT_PRECISION;
-		final String s = Double.toString(d);
-		final int pointIndex = s.indexOf(".");
-		if (len(s) < formattedlength) {
-			final String pad = concat(rangeMap(i -> "0", formattedlength - len(s)));
-			return concat(s, pad);
+		final String strd = Double.toString(d);
+		final int pointIndex = strd.indexOf(".");
+		final String stripped = strd.substring(0, min(len(strd), pointIndex + sfp + 1));
+		final int sPointIndex = stripped.indexOf(".");
+		if (len(strd) < formattedlen) {
+			final String rpad = concat(rangeMap(i -> "0", 3 - (len(stripped) - sPointIndex)));
+			final String lpad = concat(rangeMap(i -> " ", formattedlen - len(stripped) - len(rpad) - 1));
+			return concat(lpad, strd, rpad);
 		}
 
-		final String stripped = s.substring(0, min(len(s), pointIndex + sfp + 1));
-		final String pad = concat(rangeMap(i -> " ", formattedlength - len(stripped)));
+		final String pad = concat(rangeMap(i -> " ", formattedlen - len(stripped)));
 		return pad + stripped;
 	}
 
@@ -222,11 +233,11 @@ public class RMatrix implements PointTransform {
 	}
 
 	public static void main(final String[] args) {
-		final RMatrix A = new RMatrix(MatrixDescriptor.randInt(5), 2, 2);
+		final RMatrix A = new RMatrix(MatrixDescriptor.rand(5), 2, 2);
 		System.out.println(Arrays.toString(A.row(0)));
 		System.out.println(Arrays.toString(A.row(1)));
 		System.out.println();
-		final RMatrix B = new RMatrix(MatrixDescriptor.randInt(5), 2, 2);
+		final RMatrix B = new RMatrix(MatrixDescriptor.rand(5), 2, 1);
 		System.out.println(Arrays.toString(B.row(0)));
 		System.out.println(Arrays.toString(B.row(1)));
 		System.out.println();
