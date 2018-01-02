@@ -10,6 +10,8 @@ import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
+import io.xyz.common.geometry.BitArray;
+
 /**
  * @author t
  *
@@ -31,6 +33,10 @@ public final class PredicateUtil {
 			}
 		}
 		return true;
+	}
+
+	public static boolean all(final BitArray bits) {
+		return bits.cardinality() == bits.length();
 	}
 
 	public static boolean all(final IntPredicate p, final int... xs) {

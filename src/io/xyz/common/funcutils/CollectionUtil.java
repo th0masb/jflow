@@ -1,6 +1,7 @@
 package io.xyz.common.funcutils;
 
 import static io.xyz.common.funcutils.MapUtil.map;
+import static io.xyz.common.funcutils.PrimitiveUtil.abs;
 import static io.xyz.common.funcutils.RangeUtil.rangeMap;
 
 import java.util.ArrayList;
@@ -9,6 +10,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.DoubleConsumer;
+import java.util.function.IntConsumer;
+import java.util.function.LongConsumer;
 import java.util.function.UnaryOperator;
 
 /**
@@ -23,6 +28,20 @@ public final class CollectionUtil {
 	/*
 	 * Need to add sort function
 	 */
+
+	public static int len(int n) {
+		short len = 1;
+		n = abs(n) / 10;
+		while (n > 0) {
+			len++;
+			n /= 10;
+		}
+		return len;
+	}
+
+	public static int len(final String s) {
+		return s.length();
+	}
 
 	public static <T> int len(final Collection<T> xs) {
 		return xs.size();
@@ -155,5 +174,36 @@ public final class CollectionUtil {
 			last = x;
 		}
 		return true;
+	}
+
+	public static void forEach(final IntConsumer f, final int... xs) {
+		for (final int x : xs) {
+			f.accept(x);
+		}
+	}
+
+	public static void forEach(final DoubleConsumer f, final double... xs) {
+		for (final double x : xs) {
+			f.accept(x);
+		}
+	}
+
+	public static void forEach(final LongConsumer f, final long... xs) {
+		for (final long x : xs) {
+			f.accept(x);
+		}
+	}
+
+	@SafeVarargs
+	public static <T> void forEach(final Consumer<T> f, final T... xs) {
+		for (final T x : xs) {
+			f.accept(x);
+		}
+	}
+
+	public static <T> void forEach(final Consumer<T> f, final Collection<T> xs) {
+		for (final T x : xs) {
+			f.accept(x);
+		}
 	}
 }

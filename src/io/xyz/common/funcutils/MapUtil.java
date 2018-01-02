@@ -10,15 +10,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.Function;
 import java.util.function.IntFunction;
+import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntUnaryOperator;
+import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
+
+import io.xyz.common.geometry.BitArray;
 
 /**
  * @author t
@@ -82,7 +87,7 @@ public final class MapUtil {
 		return xs;
 	}
 
-	public static double[] mapToDouble(final IntToDoubleFunction f, final int[] xs) {
+	public static double[] mapToDoubleIP(final IntToDoubleFunction f, final int[] xs) {
 		final double[] result = new double[len(xs)];
 		for (int i = 0; i < len(xs); i++) {
 			result[i] = f.applyAsDouble(xs[i]);
@@ -107,7 +112,7 @@ public final class MapUtil {
 		return result;
 	}
 
-	public static int[] mapToInt(final DoubleToIntFunction f, final double[] xs) {
+	public static int[] mapToDouble(final DoubleToIntFunction f, final double[] xs) {
 		final int[] result = new int[len(xs)];
 		for (int i = 0; i < len(xs); i++) {
 			result[i] = f.applyAsInt(xs[i]);
@@ -131,6 +136,49 @@ public final class MapUtil {
 		}
 		return result;
 	}
+
+	public static <T> int[] mapToInt(final DoubleToIntFunction f, final double... xs) {
+		final int[] result = new int[len(xs)];
+		for (int i = 0; i < len(xs); i++) {
+			result[i] = f.applyAsInt(xs[i]);
+		}
+		return result;
+	}
+
+	public static BitArray mapToBool(final DoublePredicate f, final double[] xs) {
+		return new BitArray(i -> f.test(xs[i]), len(xs));
+	}
+
+	public static BitArray mapToBool(final IntPredicate f, final int[] xs) {
+		return new BitArray(i -> f.test(xs[i]), len(xs));
+	}
+
+	@SafeVarargs
+	public static <T> BitArray mapToBool(final Predicate<T> f, final T... xs) {
+		return new BitArray(i -> f.test(xs[i]), len(xs));
+	}
+
+	public static <T> BitArray mapToBool(final Predicate<T> f, final List<T> xs) {
+		return new BitArray(i -> f.test(xs.get(i)), len(xs));
+	}
+	//
+	// @SafeVarargs
+	// public static <T> int[] mapToInt(final ToIntFunction<T> f, final T... xs) {
+	// final int[] result = new int[len(xs)];
+	// for (int i = 0; i < len(xs); i++) {
+	// result[i] = f.applyAsInt(xs[i]);
+	// }
+	// return result;
+	// }
+	//
+	// public static <T> int[] mapToInt(final ToIntFunction<T> f, final List<T> xs)
+	// {
+	// final int[] result = new int[len(xs)];
+	// for (int i = 0; i < len(xs); i++) {
+	// result[i] = f.applyAsInt(xs.get(i));
+	// }
+	// return result;
+	// }
 
 	public static <T> List<T> mapToObj(final IntFunction<T> f, final int[] xs) {
 		final List<T> mappedList = new ArrayList<>(len(xs));

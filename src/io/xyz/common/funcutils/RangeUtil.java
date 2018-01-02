@@ -26,6 +26,9 @@ public final class RangeUtil {
 	}
 
 	public static <T> List<T> rangeMap(final IntFunction<T> f, final int upperBound) {
+		if (upperBound < 0) {
+			throw new IllegalArgumentException();
+		}
 		final List<T> mapped = new ArrayList<>(upperBound);
 		for (int i = 0; i < upperBound; i++) {
 			mapped.add(f.apply(i));
@@ -49,7 +52,7 @@ public final class RangeUtil {
 		}
 	}
 
-	public static int[] rangeMapToInt(final IntUnaryOperator f, final int upperBound) {
+	public static int[] rangeToInt(final IntUnaryOperator f, final int upperBound) {
 		final int[] mapped = new int[upperBound];
 		for (int i = 0; i < upperBound; i++) {
 			mapped[i] = f.applyAsInt(i);

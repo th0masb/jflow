@@ -5,7 +5,7 @@ package io.xyz.common.funcutils;
 
 import static io.xyz.common.funcutils.FoldUtil.foldr;
 import static io.xyz.common.funcutils.MapUtil.map;
-import static io.xyz.common.funcutils.MapUtil.mapToDouble;
+import static io.xyz.common.funcutils.MapUtil.mapToDoubleIP;
 import static io.xyz.common.geometry.Constants.EPSILON;
 
 /**
@@ -22,6 +22,26 @@ public final class PrimitiveUtil {
 
 	public static boolean isZero(final double x) {
 		return abs(x) < EPSILON;
+	}
+
+	public static int digitLength(int n) {
+		int dlen = 1;
+		n /= 10;
+		while (!isZero(n)) {
+			n /= 10;
+			dlen++;
+		}
+		return dlen;
+	}
+
+	public static int digitLength(final int decimalplaces, double d) {
+		int dlen = 1 + decimalplaces;
+		d /= 10;
+		while (abs(d) > 1) {
+			d /= 10;
+			dlen++;
+		}
+		return dlen;
 	}
 
 	public static <T> boolean isNull(final T t) {
@@ -85,7 +105,7 @@ public final class PrimitiveUtil {
 	}
 
 	public static double[] pow(final double power, final int... xs) {
-		return mapToDouble(x -> Math.pow(x, power), xs);
+		return mapToDoubleIP(x -> Math.pow(x, power), xs);
 	}
 
 	public static double[] sqrt(final double... xs) {
@@ -97,7 +117,7 @@ public final class PrimitiveUtil {
 	}
 
 	public static double[] sqrt(final int... xs) {
-		return mapToDouble(x -> sqrt(x), xs);
+		return mapToDoubleIP(x -> sqrt(x), xs);
 	}
 
 	public static double[] square(final double... xs) {
@@ -157,7 +177,7 @@ public final class PrimitiveUtil {
 	}
 
 	public static double[] cos(final int... xs) {
-		return mapToDouble(x -> cos(x), xs);
+		return mapToDoubleIP(x -> cos(x), xs);
 	}
 
 	public static double sin(final double x) {
@@ -169,6 +189,10 @@ public final class PrimitiveUtil {
 	}
 
 	public static double[] sin(final int... xs) {
-		return mapToDouble(x -> sin(x), xs);
+		return mapToDoubleIP(x -> sin(x), xs);
+	}
+
+	public static void main(final String[] args) {
+		System.out.println(digitLength(2));// , 134423.3245523));
 	}
 }
