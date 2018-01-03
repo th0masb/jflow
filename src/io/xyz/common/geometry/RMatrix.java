@@ -14,8 +14,8 @@ import static io.xyz.common.funcutils.PredicateUtil.all;
 import static io.xyz.common.funcutils.PrimitiveUtil.digitLength;
 import static io.xyz.common.funcutils.PrimitiveUtil.max;
 import static io.xyz.common.funcutils.PrimitiveUtil.min;
-import static io.xyz.common.funcutils.RangeUtil.rangeMap;
-import static io.xyz.common.funcutils.RangeUtil.rangeToDouble;
+import static io.xyz.common.funcutils.RangeUtil.range;
+import static io.xyz.common.funcutils.StreamUtil.collect;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +29,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import io.xyz.common.function.MatrixBiOperator;
 import io.xyz.common.function.MatrixDescriptor;
 import io.xyz.common.funcutils.PrimitiveUtil;
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author t
@@ -45,14 +47,14 @@ public class RMatrix implements PointTransform {
 	// private final int hashCode; TODO - Should I cache the hash?
 
 	public RMatrix(final MatrixDescriptor f, final int nrows, final int ncols) {
-		this(nrows, ncols, rangeMap(i -> rangeToDouble(j -> f.map(i, (int) j), ncols), nrows));
+		this(nrows, ncols, mapToObj(i -> mapToDouble(j -> f.map(i, j), range(ncols)), range(nrows)));
 	}
 
-	protected RMatrix(final int nrows, final int ncols, final List<double[]> contents) {
+	protected RMatrix(final int nrows, final int ncols, final RangeDescriptor<DoubleRangeDescriptor> rowDescriptors) {
 		/* Check row and column numbers match. */
 		assert nrows > 0 && ncols > 0;
-		assert len(contents) == nrows && all(y -> y == ncols, mapToInt(x -> len(x), contents));
-		this.contents = contents;
+		assert len(rowDescriptors) == nrows && all(y -> len(y) == ncols, rowDescriptors);
+		this.contents = collect(map(x -> collect(x), rowDescriptors));
 		// this.hashCode = initHashCode();
 	}
 
@@ -150,8 +152,9 @@ public class RMatrix implements PointTransform {
 		final DoubleToIntFunction f = d -> digitLength(sfp, d) + (d < 0? 1 : 0);
 		final int maxLen = max(mapToInt(xs -> max(mapToInt(f, xs)), contents));
 		final int formatLength = maxLen + 2;
-		final List<List<String>> formatted = map(xs -> mapToObj(x -> formatEntry(x, formatLength), xs), contents);
-		return concat("", ROW_SEPARATOR, map(xs -> concat("", PAD, xs), formatted));
+		final List<List<String>> formatted = mapCollect(xs -> mapToObj(x -> formatEntry(x, formatLength), xs),
+				contents);
+		return concat("", ROW_SEPARATOR, mapCollect(xs -> concat("", PAD, xs), formatted));
 	}
 
 	/**

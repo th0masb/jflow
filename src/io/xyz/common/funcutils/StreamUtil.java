@@ -15,8 +15,6 @@ import java.util.stream.Stream;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
 
 /**
  * @author t
@@ -74,18 +72,18 @@ public final class StreamUtil {
 		return xs.stream();
 	}
 
-	public static IntRangeDescriptor descriptor(final int[] xs) {
-		return ImmutableIntRangeDescriptor.from(xs);
-	}
-
-	public static DoubleRangeDescriptor descriptor(final double[] xs) {
-		return ImmutableDoubleRangeDescriptor.from(xs);
-	}
-
-	@SafeVarargs
-	public static <T> RangeDescriptor<T> descriptor(final T... xs) {
-		return ImmutableIntRangeDescriptor.from(xs);
-	}
+	// public static IntRangeDescriptor descriptor(final int[] xs) {
+	// return ImmutableIntRangeDescriptor.from(xs);
+	// }
+	//
+	// public static DoubleRangeDescriptor descriptor(final double[] xs) {
+	// return ImmutableDoubleRangeDescriptor.from(xs);
+	// }
+	//
+	// @SafeVarargs
+	// public static <T> RangeDescriptor<T> descriptor(final T... xs) {
+	// return ImmutableIntRangeDescriptor.from(xs);
+	// }
 
 	/**
 	 * @param args

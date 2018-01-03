@@ -33,9 +33,9 @@ public final class ImmutableIntRangeDescriptor extends AbstractRangeDescriptor i
 		return new ImmutableIntRangeDescriptor(len(xs), i -> xs[i]);
 	}
 
-	public static ImmutableIntRangeDescriptor range(final int n) {
-		return new ImmutableIntRangeDescriptor(n, i -> i);
-	}
+	// public static ImmutableIntRangeDescriptor range(final int n) {
+	// return new ImmutableIntRangeDescriptor(n, i -> i);
+	// }
 
 	@Override
 	public IntUnaryOperator getDescriptor() {

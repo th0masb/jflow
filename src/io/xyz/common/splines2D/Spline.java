@@ -8,7 +8,7 @@ package io.xyz.common.splines2D;
 
 import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.CollectionUtil.len;
-import static io.xyz.common.funcutils.MapUtil.map;
+import static io.xyz.common.funcutils.MapUtil.mapCollect;
 
 import java.util.List;
 import java.util.Set;
@@ -32,7 +32,7 @@ public class Spline implements ISpline {
 	public Spline(final List<ISplineSegment> segments) {
 		assert len(segments) > 0;
 		this.segments = asList(segments);
-		parameterisation = Curve.fuse(map(s -> s.parameterise(), segments));
+		parameterisation = Curve.fuse(mapCollect(s -> s.parameterise(), segments));
 	}
 
 	@Override

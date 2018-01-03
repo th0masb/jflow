@@ -3,22 +3,17 @@
  */
 package io.xyz.common.funcutils;
 
-import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.PrimitiveUtil.abs;
 import static io.xyz.common.funcutils.PrimitiveUtil.max;
 import static io.xyz.common.funcutils.PrimitiveUtil.signum;
 import static io.xyz.common.geometry.Constants.EPSILON;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.function.DoubleUnaryOperator;
-import java.util.function.IntFunction;
-import java.util.function.IntPredicate;
-import java.util.function.IntUnaryOperator;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
-import io.xyz.common.geometry.BitArray;
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
 
 /**
  * @author t
@@ -26,77 +21,6 @@ import io.xyz.common.geometry.BitArray;
  */
 public final class RangeUtil {
 	private RangeUtil() {
-	}
-
-	public static <T> List<T> rangeMap(final IntFunction<T> f, final int upperBound) {
-		if (upperBound < 0) {
-			throw new IllegalArgumentException();
-		}
-		final List<T> mapped = new ArrayList<>(upperBound);
-		for (int i = 0; i < upperBound; i++) {
-			mapped.add(f.apply(i));
-		}
-		return mapped;
-	}
-
-	public static <T> List<T> rangeMap(final IntFunction<T> f, final int start, final int end, final int step) {
-		final int boundDiff = end - start, stepSign = signum(step);
-		if (start == end) {
-			return Collections.emptyList();
-		} else if (signum(boundDiff) != stepSign) {
-			return asList(f.apply(start));
-		} else {
-			final int n = max(boundDiff / step, 1);
-			final List<T> mapped = new ArrayList<>();
-			for (int i = 0; i < n; i++) {
-				mapped.add(f.apply(start + i * step));
-			}
-			return mapped;
-		}
-	}
-
-	public static int[] rangeToInt(final IntUnaryOperator f, final int upperBound) {
-		final int[] mapped = new int[upperBound];
-		for (int i = 0; i < upperBound; i++) {
-			mapped[i] = f.applyAsInt(i);
-		}
-		return mapped;
-	}
-
-	public static double[] rangeToDouble(final DoubleUnaryOperator f, final int upperBound) {
-		final double[] mapped = new double[upperBound];
-		for (int i = 0; i < upperBound; i++) {
-			mapped[i] = f.applyAsDouble(i);
-		}
-		return mapped;
-	}
-
-	public static BitArray rangeToBool(final IntPredicate p, final int upperBound) {
-		return BitArray.of(p, upperBound);
-	}
-
-	public static <T> Stream<T> rangeStream(final IntFunction<T> f, final int upperBound) {
-		final List<T> mapped = new ArrayList<>(upperBound);
-		for (int i = 0; i < upperBound; i++) {
-			mapped.add(f.apply(i));
-		}
-		return mapped.stream();
-	}
-
-	public static int[] range(final int endBound) {
-		return range(0, endBound);
-	}
-
-	public static int[] rangei(final int upperBound) {
-		return range(upperBound + (upperBound > 0? 1 : -1));
-	}
-
-	public static int[] range(final int startBound, final int endBound) {
-		return range(startBound, endBound, 1);
-	}
-
-	public static int[] rangei(final int startBound, final int endBound) {
-		return range(startBound, endBound + (startBound < endBound? 1 : -1), 1);
 	}
 
 	/**
@@ -107,51 +31,62 @@ public final class RangeUtil {
 	 * @param step
 	 * @return
 	 */
-	public static int[] range(final int startBound, final int endBound, final int step) {
+	public static IntRangeDescriptor range(final int startBound, final int endBound, final int step) {
 		assert step != 0 : "Cannot have 0 step";
 		final int boundDiff = endBound - startBound, stepSign = signum(step);
 
 		if (startBound == endBound) {
-			return new int[] {};
+			return IntRangeDescriptor.EMPTY;
 		} else if (signum(boundDiff) != stepSign) {
-			return new int[] { startBound };
+			return new ImmutableIntRangeDescriptor(1, i -> startBound);
 		} else {
-			final int n = max(boundDiff / step, 1);
-			final int[] range = new int[n];
-			for (int i = 0; i < n; i++) {
-				range[i] = startBound + i * step;
-			}
-			return range;
+			final int n = (int) max(Math.ceil(((double) boundDiff) / step), 1);
+			return new ImmutableIntRangeDescriptor(n, i -> startBound + i * step);
 		}
 	}
 
-	public static double[] drange(final int upper) {
-		return drange(0, upper, 1);
+	public static IntRangeDescriptor range(final int endBound) {
+		return range(0, endBound);
 	}
 
-	public static double[] drange(final double lower, final double upper, final double step) {
+	public static IntRangeDescriptor rangei(final int upperBound) {
+		return range(upperBound + (upperBound > 0? 1 : -1));
+	}
+
+	public static IntRangeDescriptor range(final int startBound, final int endBound) {
+		return range(startBound, endBound, 1);
+	}
+
+	public static IntRangeDescriptor rangei(final int startBound, final int endBound) {
+		return range(startBound, endBound + (startBound < endBound? 1 : -1), 1);
+	}
+
+	/**
+	 * @param lower
+	 * @param upper
+	 * @param step
+	 * @return
+	 */
+
+	public static DoubleRangeDescriptor drange(final double lower, final double upper, final double step) {
 		assert abs(step) >= EPSILON : "Cannot have 0 step";
 		final double boundDiff = upper - lower, stepSign = signum(step);
 
 		if (abs(upper - lower) < EPSILON) {
-			return new double[] {};
+			return DoubleRangeDescriptor.EMPTY;
 		} else if (signum(boundDiff) != stepSign) {
-			return new double[] { lower };
+			return new ImmutableDoubleRangeDescriptor(1, i -> lower);
 		} else {
-			final int n = (int) max(boundDiff / step, 1);
-			final double[] range = new double[n];
-			for (int i = 0; i < n; i++) {
-				range[i] = lower + i * step;
-			}
-			return range;
+			final int n = max((int) Math.ceil(boundDiff / step), 1);
+			return new ImmutableDoubleRangeDescriptor(n, i -> lower + i * step);
 		}
 	}
 
-	// public static double[] drangei(final int upper) {
-	// return drange(upper + 1);
-	// }
-	//
-	// public static double[] drangei(final int upper) {
-	// return drange(0, upper, 1);
-	// }
+	public static DoubleRangeDescriptor drange(final int upper) {
+		return drange(0, upper, 1);
+	}
+
+	public static void main(final String[] args) {
+		System.out.println(Arrays.toString(drange(0, -1, -0.01).toArray()));
+	}
 }

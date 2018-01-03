@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.xyz.common.funcutils;
+package deprecated;
 
 /**
  * @author t

@@ -9,11 +9,15 @@ import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntToDoubleFunction;
 
+import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
+
 /**
  * @author t
  *
  */
 public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
+
+	static DoubleRangeDescriptor EMPTY = new ImmutableDoubleRangeDescriptor(0, i -> i);
 
 	IntToDoubleFunction getDescriptor();
 
@@ -24,6 +28,11 @@ public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
 	<T> RangeDescriptor<T> mapToObj(DoubleFunction<T> f);
 
 	DoubleRangeDescriptor filter(DoublePredicate p);
+
+	default double get(final int index) {
+		assert 0 <= index && index < rangeBound();
+		return getDescriptor().applyAsDouble(index);
+	}
 
 	default double[] toArray() {
 		final int upper = rangeBound();

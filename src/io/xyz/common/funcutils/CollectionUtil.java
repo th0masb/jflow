@@ -1,8 +1,10 @@
 package io.xyz.common.funcutils;
 
-import static io.xyz.common.funcutils.MapUtil.map;
+import static io.xyz.common.funcutils.MapUtil.mapCollect;
+import static io.xyz.common.funcutils.MapUtil.mapToObj;
 import static io.xyz.common.funcutils.PrimitiveUtil.abs;
-import static io.xyz.common.funcutils.RangeUtil.rangeMap;
+import static io.xyz.common.funcutils.RangeUtil.range;
+import static io.xyz.common.funcutils.StreamUtil.collect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +20,12 @@ import java.util.function.LongConsumer;
 import java.util.function.UnaryOperator;
 
 import io.xyz.common.rangedescriptor.BaseRangeDescriptor;
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableRangeDescriptor;
 
 /**
  *
@@ -84,7 +92,7 @@ public final class CollectionUtil {
 
 	@SafeVarargs
 	public static <T> List<T> asList(final T... xs) {
-		return map(UnaryOperator.identity(), xs);
+		return mapCollect(UnaryOperator.identity(), xs);
 	}
 
 	public static <T> Set<T> asSet(final Collection<T> c) {
@@ -100,6 +108,18 @@ public final class CollectionUtil {
 		return newSet;
 	}
 
+	public static IntRangeDescriptor asDescriptor(final int... xs) {
+		return ImmutableIntRangeDescriptor.from(xs);
+	}
+
+	public static DoubleRangeDescriptor asDescriptor(final double... xs) {
+		return ImmutableDoubleRangeDescriptor.from(xs);
+	}
+
+	public static <T> RangeDescriptor<T> asDescriptor(final List<T> xs) {
+		return ImmutableRangeDescriptor.from(xs);
+	}
+
 	public static int[] take(final int n, final int[] xs) {
 		assert 0 <= n && n <= xs.length;
 		return Arrays.copyOf(xs, n);
@@ -112,7 +132,7 @@ public final class CollectionUtil {
 
 	public static <T> List<T> take(final int n, final T[] xs) {
 		assert 0 <= n && n <= xs.length;
-		return rangeMap(i -> xs[i], n);
+		return collect(mapToObj(i -> xs[i], range(n)));
 	}
 
 	public static <T> List<T> take(final int n, final List<T> xs) {
@@ -138,7 +158,7 @@ public final class CollectionUtil {
 
 	public static <T> List<T> drop(final int n, final T[] xs) {
 		assert 0 <= n && n <= xs.length;
-		return rangeMap(i -> xs[i], n, xs.length, 1);
+		return collect(mapToObj(i -> xs[i], range(n, len(xs))));
 	}
 
 	public static <T> List<T> drop(final int n, final List<T> xs) {

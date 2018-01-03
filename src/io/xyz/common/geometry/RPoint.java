@@ -7,7 +7,7 @@ import static io.xyz.common.funcutils.CollectionUtil.allEqual;
 import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CombineUtil.combine;
-import static io.xyz.common.funcutils.MapUtil.map;
+import static io.xyz.common.funcutils.MapUtil.mapCollect;
 import static io.xyz.common.funcutils.PredicateUtil.all;
 import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
 import static io.xyz.common.funcutils.PrimitiveUtil.pow;
@@ -98,16 +98,16 @@ public final class RPoint extends RMatrix {
 
 	@Override
 	public RPoint scale(final double scale) {
-		return new RPoint(map(x -> scale * x, uncopiedCoords()));
+		return new RPoint(mapCollect(x -> scale * x, uncopiedCoords()));
 	}
 
 	@Override
 	public RPoint abs() {
-		return new RPoint(map(x -> PrimitiveUtil.abs(x), uncopiedCoords()));
+		return new RPoint(mapCollect(x -> PrimitiveUtil.abs(x), uncopiedCoords()));
 	}
 
 	public double magnitude() {
-		return sqrt(sum(map(x -> x * x, uncopiedCoords())));
+		return sqrt(sum(mapCollect(x -> x * x, uncopiedCoords())));
 	}
 
 	public RPoint normalise() {
@@ -136,6 +136,6 @@ public final class RPoint extends RMatrix {
 	}
 
 	public static boolean dimensionsAgree(final RPoint... ps) {
-		return allEqual(map(p -> p.dim(), ps));
+		return allEqual(mapCollect(p -> p.dim(), ps));
 	}
 }

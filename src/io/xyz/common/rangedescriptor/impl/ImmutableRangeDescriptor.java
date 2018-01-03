@@ -3,8 +3,10 @@
  */
 package io.xyz.common.rangedescriptor.impl;
 
+import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CompositionUtil.compose;
 
+import java.util.List;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
@@ -24,9 +26,6 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 
 	private final IntFunction<T> descriptor;
 
-	/**
-	 * @param rangeBound
-	 */
 	public ImmutableRangeDescriptor(final int rangeBound, final IntFunction<T> f) {
 		super(rangeBound);
 		descriptor = f;
@@ -55,6 +54,10 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 
 	}
 
+	public static <T> RangeDescriptor<T> from(final List<T> xs) {
+		return new ImmutableRangeDescriptor<>(len(xs), i -> xs.get(i));
+	}
+
 	@Override
 	public IntFunction<T> getDescriptor() {
 		return descriptor;
@@ -62,7 +65,7 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 
 	@Override
 	public RangeDescriptor<T> filter(final Predicate<T> p) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("NYI");
 	}
+
 }

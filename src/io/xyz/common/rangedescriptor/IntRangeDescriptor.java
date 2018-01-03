@@ -8,11 +8,15 @@ import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntUnaryOperator;
 
+import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
+
 /**
  * @author t
  *
  */
 public interface IntRangeDescriptor extends BaseRangeDescriptor {
+
+	static IntRangeDescriptor EMPTY = new ImmutableIntRangeDescriptor(0, i -> i);
 
 	IntUnaryOperator getDescriptor();
 
@@ -23,6 +27,11 @@ public interface IntRangeDescriptor extends BaseRangeDescriptor {
 	<T> RangeDescriptor<T> mapToObj(IntFunction<T> f);
 
 	IntRangeDescriptor filter(IntPredicate p);
+
+	default int get(final int index) {
+		assert 0 <= index && index < rangeBound();
+		return getDescriptor().applyAsInt(index);
+	}
 
 	default int[] toArray() {
 		final int upper = rangeBound();

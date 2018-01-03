@@ -3,15 +3,23 @@
  */
 package io.xyz.common.funcutils;
 
+import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
+import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.MapUtil.mapToInt;
+import static io.xyz.common.funcutils.PrimitiveUtil.min;
 import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
-import java.util.function.IntToDoubleFunction;
+
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
 
 /**
  * @author t
@@ -21,11 +29,14 @@ public final class CombineUtil {
 	}
 
 	public static double[] concat(final double[]... xs) {
-		final int n = sum(mapToInt(x -> x.length, xs));
-		final double[] combined = new double[n];
+		final OptionalInt n = sum(mapToInt(x -> len(x), asList(xs)));
+		if (!n.isPresent()) {
+			return new double[] {};
+		}
+		final double[] combined = new double[n.getAsInt()];
 		int counter = 0;
-		for (int i = 0; i < xs.length; i++) {
-			final int len = xs[i].length;
+		for (int i = 0; i < len(xs); i++) {
+			final int len = len(xs[i]);
 			System.arraycopy(xs, 0, combined, counter, len);
 			counter += len;
 		}
@@ -57,11 +68,14 @@ public final class CombineUtil {
 	// }
 
 	public static int[] concat(final int[]... xs) {
-		final int n = sum(mapToInt(x -> x.length, xs));
-		final int[] joined = new int[n];
+		final OptionalInt n = sum(mapToInt(x -> len(x), asList(xs)));
+		if (!n.isPresent()) {
+			return new int[] {};
+		}
+		final int[] joined = new int[n.getAsInt()];
 		int counter = 0;
 		for (int i = 0; i < len(xs); i++) {
-			final int len = xs[i].length;
+			final int len = len(xs[i]);
 			System.arraycopy(xs, 0, joined, counter, len);
 			counter += len;
 		}
@@ -152,41 +166,39 @@ public final class CombineUtil {
 		return newList;
 	}
 
-	public static double[] combine(final DoubleBinaryOperator f, final double[] a, final double[] b) {
-		assert a.length == b.length;
-		final int size = a.length;
-		final double[] combined = new double[size];
-		for (int i = 0; i < size; i++) {
-			combined[i] = f.applyAsDouble(a[i], b[i]);
-		}
-		return combined;
+	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final double[] a, final double[] b) {
+		return combine(f, asDescriptor(a), asDescriptor(b));
 	}
 
-	public static double[] combine(final DoubleBinaryOperator f, final IntToDoubleFunction a,
-			final IntToDoubleFunction b, final int size) {
-		final double[] combined = new double[size];
-		for (int i = 0; i < size; i++) {
-			combined[i] = f.applyAsDouble(a.applyAsDouble(i), b.applyAsDouble(i));
-		}
-		return combined;
+	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final DoubleRangeDescriptor a, final DoubleRangeDescriptor b) {
+		final int size = min(len(a), len(b));
+		return new ImmutableDoubleRangeDescriptor(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
 	}
 
-	public static int[] combine(final IntBinaryOperator f, final int[] a, final int[] b) {
-		assert a.length == b.length;
-		final int size = a.length;
-		final int[] combined = new int[size];
-		for (int i = 0; i < size; i++) {
-			combined[i] = f.applyAsInt(a[i], b[i]);
-		}
-		return combined;
+	public static IntRangeDescriptor combine(final IntBinaryOperator f, final IntRangeDescriptor a, final IntRangeDescriptor b) {
+		final int size = min(len(a), len(b));
+		return new ImmutableIntRangeDescriptor(size, i -> f.applyAsInt(a.get(i), b.get(i)));
+	}
+
+	public static IntRangeDescriptor combine(final IntBinaryOperator f, final int[] a, final int[] b) {
+		return combine(f, asDescriptor(a), asDescriptor(b));
+	}
+
+	public static double dotProduct(final DoubleRangeDescriptor a, final DoubleRangeDescriptor b) {
+		assert len(a) > 0 && len(a) == len(b);
+		return sum(combine((x, y) -> x * y, a, b)).getAsDouble();
 	}
 
 	public static double dotProduct(final double[] a, final double[] b) {
-		assert len(a) == len(b);
-		return sum(combine((x, y) -> x * y, a, b));
+		return dotProduct(asDescriptor(a), asDescriptor(b));
 	}
 
-	public static double dotProduct(final IntToDoubleFunction a, final IntToDoubleFunction b, final int n) {
-		return sum(combine((x, y) -> x * y, a, b, n));
+	public static double dotProduct(final IntRangeDescriptor a, final IntRangeDescriptor b) {
+		assert len(a) > 0 && len(a) == len(b);
+		return sum(combine((x, y) -> x * y, a, b)).getAsInt();
+	}
+
+	public static double dotProduct(final int[] a, final int[] b) {
+		return dotProduct(asDescriptor(a), asDescriptor(b));
 	}
 }
