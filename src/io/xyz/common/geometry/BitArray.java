@@ -3,6 +3,8 @@
  */
 package io.xyz.common.geometry;
 
+import static io.xyz.common.funcutils.CollectionUtil.len;
+
 import java.util.BitSet;
 import java.util.function.IntPredicate;
 
@@ -18,11 +20,15 @@ public class BitArray extends BitSet {
 	 * @param nbits
 	 */
 	public BitArray(final IntPredicate p, final int nbits) {
-		super(nbits + 1);
-		set(nbits, true);
+		this(nbits);
 		for (int i = 0; i < nbits; i++) {
 			set(i, p.test(i));
 		}
+	}
+
+	private BitArray(final int nbits) {
+		super(nbits + 1);
+		set(nbits, true);
 	}
 
 	@Override
@@ -41,5 +47,14 @@ public class BitArray extends BitSet {
 
 	public static BitArray nSetBits(final int nbits) {
 		return new BitArray(i -> true, nbits);
+	}
+
+	public static BitArray nEmptyBits(final int nbits) {
+		return new BitArray(nbits);
+	}
+
+	public static void main(final String[] args) {
+		final BitArray arr = BitArray.nEmptyBits(10);
+		System.out.println(len(arr));
 	}
 }

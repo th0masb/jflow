@@ -14,8 +14,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntFunction;
+import java.util.function.IntPredicate;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.Stream;
+
+import io.xyz.common.geometry.BitArray;
 
 /**
  * @author t
@@ -66,6 +69,10 @@ public final class RangeUtil {
 			mapped[i] = f.applyAsDouble(i);
 		}
 		return mapped;
+	}
+
+	public static BitArray rangeToBool(final IntPredicate p, final int upperBound) {
+		return BitArray.of(p, upperBound);
 	}
 
 	public static <T> Stream<T> rangeStream(final IntFunction<T> f, final int upperBound) {

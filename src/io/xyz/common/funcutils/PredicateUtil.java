@@ -3,6 +3,7 @@
  */
 package io.xyz.common.funcutils;
 
+import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.CollectionUtil.take;
 
 import java.util.List;
@@ -40,9 +41,15 @@ public final class PredicateUtil {
 	}
 
 	public static boolean all(final IntPredicate p, final int... xs) {
+		return all(asList(p), xs);
+	}
+
+	public static boolean all(final List<IntPredicate> ps, final int... xs) {
 		for (final int x : xs) {
-			if (!p.test(x)) {
-				return false;
+			for (final IntPredicate p : ps) {
+				if (!p.test(x)) {
+					return false;
+				}
 			}
 		}
 		return true;

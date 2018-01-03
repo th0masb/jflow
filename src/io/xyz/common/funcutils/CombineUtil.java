@@ -7,6 +7,7 @@ import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.MapUtil.mapToInt;
 import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
@@ -139,6 +140,16 @@ public final class CombineUtil {
 			sb.append(x);
 		}
 		return sb.toString();
+	}
+
+	@SafeVarargs
+	public static <T> List<T> append(final List<T> xs, final T... ys) {
+		final List<T> newList = new ArrayList<>(len(xs) + len(ys));
+		newList.addAll(xs);
+		for (final T y : ys) {
+			xs.add(y);
+		}
+		return newList;
 	}
 
 	public static double[] combine(final DoubleBinaryOperator f, final double[] a, final double[] b) {

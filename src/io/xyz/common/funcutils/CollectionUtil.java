@@ -6,6 +6,7 @@ import static io.xyz.common.funcutils.RangeUtil.rangeMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
 import java.util.function.LongConsumer;
 import java.util.function.UnaryOperator;
+
+import io.xyz.common.rangedescriptor.BaseRangeDescriptor;
 
 /**
  *
@@ -65,6 +68,14 @@ public final class CollectionUtil {
 
 	public static int len(final double[][] xs) {
 		return xs.length;
+	}
+
+	public static int len(final BitSet xs) {
+		return xs.length();
+	}
+
+	public static int len(final BaseRangeDescriptor xs) {
+		return xs.rangeBound();
 	}
 
 	public static <T> List<T> asList(final Collection<T> c) {

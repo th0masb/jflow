@@ -16,14 +16,17 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
-import java.util.function.IntToDoubleFunction;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import io.xyz.common.geometry.BitArray;
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author t
@@ -73,26 +76,16 @@ public final class MapUtil {
 		return result;
 	}
 
-	public static double[] mapIP(final DoubleUnaryOperator f, final double[] xs) {
-		for (int i = 0; i < len(xs); i++) {
-			xs[i] = f.applyAsDouble(xs[i]);
-		}
-		return xs;
+	public static IntRangeDescriptor map(final IntUnaryOperator f, final IntRangeDescriptor xs) {
+		return xs.map(f);
 	}
 
-	public static int[] mapIP(final IntUnaryOperator f, final int[] xs) {
-		for (int i = 0; i < len(xs); i++) {
-			xs[i] = f.applyAsInt(xs[i]);
-		}
-		return xs;
+	public static DoubleRangeDescriptor map(final DoubleUnaryOperator f, final DoubleRangeDescriptor xs) {
+		return xs.map(f);
 	}
 
-	public static double[] mapToDoubleIP(final IntToDoubleFunction f, final int[] xs) {
-		final double[] result = new double[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
-			result[i] = f.applyAsDouble(xs[i]);
-		}
-		return result;
+	public static <T> RangeDescriptor<T> map(final UnaryOperator<T> f, final RangeDescriptor<T> xs) {
+		return xs.map(f);
 	}
 
 	@SafeVarargs

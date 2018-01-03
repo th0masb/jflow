@@ -12,6 +12,12 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
+
 /**
  * @author t
  *
@@ -36,6 +42,18 @@ public final class StreamUtil {
 		return xs.collect(Collectors.toList());
 	}
 
+	public static int[] collect(final IntRangeDescriptor xs) {
+		return xs.toArray();
+	}
+
+	public static double[] collect(final DoubleRangeDescriptor xs) {
+		return xs.toArray();
+	}
+
+	public static <T> List<T> collect(final RangeDescriptor<T> xs) {
+		return xs.toList();
+	}
+
 	public static IntStream stream(final int... xs) {
 		return Arrays.stream(xs);
 	}
@@ -56,15 +74,26 @@ public final class StreamUtil {
 		return xs.stream();
 	}
 
+	public static IntRangeDescriptor descriptor(final int[] xs) {
+		return ImmutableIntRangeDescriptor.from(xs);
+	}
+
+	public static DoubleRangeDescriptor descriptor(final double[] xs) {
+		return ImmutableDoubleRangeDescriptor.from(xs);
+	}
+
+	@SafeVarargs
+	public static <T> RangeDescriptor<T> descriptor(final T... xs) {
+		return ImmutableIntRangeDescriptor.from(xs);
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(final String[] args) {
 
 		@SuppressWarnings("unused")
-		final int[] ys = collect(
-				stream(10).map(
-						x -> x * x * x).distinct());
+		final int[] ys = collect(stream(10).map(x -> x * x * x).distinct());
 
 	}
 

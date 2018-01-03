@@ -3,13 +3,11 @@
  */
 package io.xyz.common.rangedescriptor;
 
-import java.util.function.IntSupplier;
-
 /**
  * @author t
  *
  */
-public abstract class AbstractRangeDescriptor implements IntSupplier {
+public abstract class AbstractRangeDescriptor implements BaseRangeDescriptor {
 
 	private final int rangeBound;
 
@@ -17,15 +15,12 @@ public abstract class AbstractRangeDescriptor implements IntSupplier {
 	 *
 	 */
 	public AbstractRangeDescriptor(final int rangeBound) {
+		assert rangeBound > -1;
 		this.rangeBound = rangeBound;
 	}
 
-	public int rangeBound() {
-		return rangeBound;
-	}
-
 	@Override
-	public int getAsInt() {
+	public int rangeBound() {
 		return rangeBound;
 	}
 
