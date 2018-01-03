@@ -7,6 +7,7 @@ import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CompositionUtil.compose;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
@@ -65,6 +66,11 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 
 	@Override
 	public RangeDescriptor<T> filter(final Predicate<T> p) {
+		throw new RuntimeException("NYI");
+	}
+
+	@Override
+	public <R> RangeDescriptor<R> map(final Function<T, R> f) {
 		throw new RuntimeException("NYI");
 	}
 
