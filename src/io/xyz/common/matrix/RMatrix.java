@@ -11,15 +11,21 @@ import static io.xyz.common.funcutils.PrimitiveUtil.max;
 import static io.xyz.common.funcutils.PrimitiveUtil.min;
 import static io.xyz.common.funcutils.RangeUtil.range;
 
+import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
+import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
+import java.util.function.IntToDoubleFunction;
 
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author ThomasB
  * @since 4 Jan 2018
  */
-public interface RMatrix extends PointTransform///, DoubleRangeDescriptor
+public interface RMatrix extends PointTransform, DoubleRangeDescriptor
 {
 	double at(int rowIndex, int colIndex);
 
@@ -32,6 +38,10 @@ public interface RMatrix extends PointTransform///, DoubleRangeDescriptor
 	int colDim();
 
 	RMatrix apply(DoubleUnaryOperator f);
+
+	/*
+	 * TODO - add vcombine - i.e. vectorised combine.
+	 */
 
 	RMatrix toDescriptorMatrix();
 
@@ -99,6 +109,45 @@ public interface RMatrix extends PointTransform///, DoubleRangeDescriptor
 	@Override
 	default int targetDim() {
 		return rowDim();
+	}
+
+	//============>
+	//	Allows us to easily take advantage of our static utility methods
+
+	@Override
+	default RMatrix mapToSameDescriptor(final DoubleUnaryOperator f)
+	{
+		return apply(f);
+	}
+
+	@Override
+	default IntToDoubleFunction getDescriptor() {
+		return this::flatAt;
+	}
+
+	@Override
+	default int rangeBound() {
+		return rowDim()*colDim();
+	}
+
+	@Override
+	default double get(final int index) {
+		return flatAt(index);
+	}
+
+	@Override
+	default IntRangeDescriptor mapToIntDescriptor(final DoubleToIntFunction f) {
+		throw new RuntimeException("NYI");
+	}
+
+	@Override
+	default <T> RangeDescriptor<T> mapToObjDescriptor(final DoubleFunction<T> f) {
+		throw new RuntimeException("NYI");
+	}
+
+	@Override
+	default DoubleRangeDescriptor filter(final DoublePredicate p) {
+		throw new RuntimeException("NYI");
 	}
 }
 

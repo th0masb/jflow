@@ -91,7 +91,7 @@ public final class CombineUtil {
 	 *        Right delimiter
 	 * @param xs
 	 *        Strings to combine
-	 * 
+	 *
 	 * @return The String ld + xs[0] + cd + xs[1] + ... + rd
 	 */
 	public static String concat(final String ld, final String cd, final String rd, final String[] xs) {
@@ -128,7 +128,7 @@ public final class CombineUtil {
 	 *        Right delimiter
 	 * @param xs
 	 *        Strings to combine
-	 * 
+	 *
 	 * @return The String ld + xs[0] + cd + xs[1] + ... + rd
 	 */
 	public static String concat(final String ld, final String cd, final String rd, final List<String> xs) {
@@ -174,6 +174,11 @@ public final class CombineUtil {
 		final int size = min(len(a), len(b));
 		return new ImmutableDoubleRangeDescriptor(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
 	}
+
+	//	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final RMatrix a, final RMatrix b) {
+	//		assert a.rowDim() == b.rowDim() && a.colDim() == b.colDim();
+	//		return a.;
+	//	}
 
 	public static IntRangeDescriptor combine(final IntBinaryOperator f, final IntRangeDescriptor a, final IntRangeDescriptor b) {
 		final int size = min(len(a), len(b));

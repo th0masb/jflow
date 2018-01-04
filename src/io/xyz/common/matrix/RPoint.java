@@ -37,6 +37,7 @@ public interface RPoint extends RMatrix
 
 	//	RPoint cross(RPoint other);
 
+	@Override
 	default double get(final int index) {
 		assert flatInRange(index);
 		return flatAt(index);
@@ -137,6 +138,12 @@ public interface RPoint extends RMatrix
 	@Override
 	default int targetDim() {
 		return rowDim();
+	}
+
+	@Override
+	default RPoint mapToSameDescriptor(final DoubleUnaryOperator f)
+	{
+		return apply(f);
 	}
 
 	static boolean dimensionsAgree(final RPoint... ps) {

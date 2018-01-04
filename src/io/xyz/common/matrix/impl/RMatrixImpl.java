@@ -5,6 +5,7 @@ package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.len;
+import static io.xyz.common.funcutils.MapUtil.map;
 import static io.xyz.common.funcutils.MapUtil.mapToDouble;
 import static io.xyz.common.funcutils.RangeUtil.range;
 import static io.xyz.common.funcutils.StreamUtil.collect;
