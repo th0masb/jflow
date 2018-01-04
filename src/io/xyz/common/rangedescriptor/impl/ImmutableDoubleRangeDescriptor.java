@@ -51,7 +51,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 	 * DoubleUnaryOperator)
 	 */
 	@Override
-	public DoubleRangeDescriptor map(final DoubleUnaryOperator f) {
+	public DoubleRangeDescriptor mapToSameDescriptor(final DoubleUnaryOperator f) {
 		return new ImmutableDoubleRangeDescriptor(rangeBound(), compose(f, descriptor));
 	}
 
@@ -76,12 +76,12 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 	}
 
 	@Override
-	public IntRangeDescriptor mapToInt(final DoubleToIntFunction f) {
+	public IntRangeDescriptor mapToIntDescriptor(final DoubleToIntFunction f) {
 		return new ImmutableIntRangeDescriptor(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
-	public <T> RangeDescriptor<T> mapToObj(final DoubleFunction<T> f) {
+	public <T> RangeDescriptor<T> mapToObjDescriptor(final DoubleFunction<T> f) {
 		return new ImmutableRangeDescriptor<>(rangeBound(), compose(f, descriptor));
 	}
 

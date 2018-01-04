@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Set;
 
 import io.xyz.common.geometry.Curve;
-import io.xyz.common.geometry.PointTransform;
-import io.xyz.common.matrix.impl.RPoint;
+import io.xyz.common.matrix.PointTransform;
+import io.xyz.common.matrix.impl.RPointImpl;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -36,7 +36,7 @@ public class Spline implements ISpline {
 	}
 
 	@Override
-	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPoint perturbation) {
+	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPointImpl perturbation) {
 		for (final ISplineSegment segment : segments) {
 			segment.draw(gc, clipT, perturbation);
 		}
@@ -54,7 +54,7 @@ public class Spline implements ISpline {
 	}
 
 	@Override
-	public Set<RPoint> getPointApproximation(final double maximalSpacing) {
+	public Set<RPointImpl> getPointApproximation(final double maximalSpacing) {
 		final Curve c = parameterise();
 		final double clength = getLengthApproximation();
 
@@ -68,7 +68,7 @@ public class Spline implements ISpline {
 	}
 
 	@Override
-	public ISpline peturb(final RPoint peturbation) {
+	public ISpline peturb(final RPointImpl peturbation) {
 		// TODO Auto-generated method stub
 		return null;
 	}

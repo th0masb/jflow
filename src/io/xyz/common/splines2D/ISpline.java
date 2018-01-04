@@ -9,8 +9,8 @@ package io.xyz.common.splines2D;
 import java.util.Set;
 
 import io.xyz.common.geometry.Curve;
-import io.xyz.common.geometry.PointTransform;
-import io.xyz.common.matrix.impl.RPoint;
+import io.xyz.common.matrix.PointTransform;
+import io.xyz.common.matrix.impl.RPointImpl;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -24,17 +24,17 @@ import javafx.scene.canvas.GraphicsContext;
  *        parameterisation mechanisms
  */
 public interface ISpline {
-	void draw(GraphicsContext gc, PointTransform coordinateMap, RPoint perturbation);
+	void draw(GraphicsContext gc, PointTransform coordinateMap, RPointImpl perturbation);
 
 	void draw(final GraphicsContext gc, final PointTransform coordinateMap);
 
 	Curve parameterise();
 
-	Set<RPoint> getPointApproximation(double maximalSpacing);
+	Set<RPointImpl> getPointApproximation(double maximalSpacing);
 
 	double getLengthApproximation();
 
-	ISpline peturb(RPoint peturbation);
+	ISpline peturb(RPointImpl peturbation);
 
 	int dim();
 }

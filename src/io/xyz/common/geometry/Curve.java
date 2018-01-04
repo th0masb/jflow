@@ -18,7 +18,7 @@ import static io.xyz.common.geometry.Constants.EPSILON;
 import java.util.Arrays;
 import java.util.List;
 
-import io.xyz.common.matrix.impl.RPoint;
+import io.xyz.common.matrix.impl.RPointImpl;
 
 /**
  * @author t
@@ -27,7 +27,7 @@ import io.xyz.common.matrix.impl.RPoint;
 public interface Curve {
 	int LENGTH_APPROX_STEPS = 10;
 
-	RPoint map(double t);
+	RPointImpl map(double t);
 
 	default int dim() {
 		return map(0).dim();
@@ -61,14 +61,14 @@ public interface Curve {
 		};
 	}
 
-	static Curve straightLine(final RPoint p1, final RPoint p2) {
+	static Curve straightLine(final RPointImpl p1, final RPointImpl p2) {
 		/*
 		 * We could write nicer but we make faster. E.g
 		 *
 		 * t -> p1.scale(1-t).add(p2.scale(t));
 		 */
-		assert RPoint.dimensionsAgree(p1, p2);
-		return t -> new RPoint(combine((x, y) -> (1 - t) * x + t * y, p1.coords(), p2.coords()));
+		assert RPointImpl.dimensionsAgree(p1, p2);
+		return t -> new RPointImpl(combine((x, y) -> (1 - t) * x + t * y, p1.coords(), p2.coords()));
 
 		// final int n = p1.dim();
 		// return t -> {
@@ -80,8 +80,8 @@ public interface Curve {
 		// };
 	}
 
-	static Curve quadLine(final RPoint p1, final RPoint c, final RPoint p2) {
-		assert RPoint.dimensionsAgree(p1, c, p2);
+	static Curve quadLine(final RPointImpl p1, final RPointImpl c, final RPointImpl p2) {
+		assert RPointImpl.dimensionsAgree(p1, c, p2);
 		final int n = p1.dim();
 
 		return t -> {
@@ -90,12 +90,12 @@ public interface Curve {
 			for (int i = 0; i < n; i++) {
 				newCoords[i] = s * s * p1.get(i) + 2 * t * s * c.get(i) + t * t * p2.get(i);
 			}
-			return new RPoint(newCoords);
+			return new RPointImpl(newCoords);
 		};
 	}
 
-	static Curve cubicLine(final RPoint p1, final RPoint c1, final RPoint c2, final RPoint p2) {
-		assert RPoint.dimensionsAgree(p1, c1, c2, p2);
+	static Curve cubicLine(final RPointImpl p1, final RPointImpl c1, final RPointImpl c2, final RPointImpl p2) {
+		assert RPointImpl.dimensionsAgree(p1, c1, c2, p2);
 		final int n = p1.dim();
 
 		return t -> {
@@ -105,7 +105,7 @@ public interface Curve {
 			for (int i = 0; i < n; i++) {
 				newCoords[i] = a * p1.get(i) + b * c1.get(i) + c * c2.get(i) + d * p2.get(i);
 			}
-			return new RPoint(newCoords);
+			return new RPointImpl(newCoords);
 		};
 	}
 }

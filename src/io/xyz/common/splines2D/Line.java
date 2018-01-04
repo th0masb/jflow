@@ -4,9 +4,9 @@
 package io.xyz.common.splines2D;
 
 import io.xyz.common.geometry.Curve;
-import io.xyz.common.geometry.PointMap;
-import io.xyz.common.geometry.PointTransform;
-import io.xyz.common.matrix.impl.RPoint;
+import io.xyz.common.matrix.PointMap;
+import io.xyz.common.matrix.PointTransform;
+import io.xyz.common.matrix.impl.RPointImpl;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -15,14 +15,14 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Line extends AbstractSplineSegment {
 
-	public Line(final RPoint to, final RPoint from) {
+	public Line(final RPointImpl to, final RPointImpl from) {
 		super(to, from);
 	}
 
 	@Override
-	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPoint p) {
+	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPointImpl p) {
 		final PointMap map = clipT.getMapping();
-		final RPoint p1 = map.map(from().add(p)), p2 = map.map(to().add(p));
+		final RPointImpl p1 = map.map(from().add(p)), p2 = map.map(to().add(p));
 		gc.beginPath();
 		gc.moveTo(p1.x(), p1.y());
 		gc.lineTo(p2.x(), p2.y());
@@ -36,16 +36,16 @@ public class Line extends AbstractSplineSegment {
 	}
 
 	@Override
-	public Line peturb(final RPoint peturbation) {
+	public Line peturb(final RPointImpl peturbation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public RPoint from() {
+	public RPointImpl from() {
 		return constituents[0];
 	}
 
-	public RPoint to() {
+	public RPointImpl to() {
 		return constituents[1];
 	}
 
@@ -54,7 +54,7 @@ public class Line extends AbstractSplineSegment {
 	// return this.di
 	// }
 
-	public RPoint direction() {
+	public RPointImpl direction() {
 		return to().subtract(from()).normalise();
 	}
 
@@ -63,7 +63,7 @@ public class Line extends AbstractSplineSegment {
 	}
 
 	public double signedAngleWith(final Line other) {
-		final RPoint first = direction().normalise(), second = other.direction().normalise();
+		final RPointImpl first = direction().normalise(), second = other.direction().normalise();
 		final double angle = Math.acos(direction().dot(other.direction()));
 
 	}

@@ -1,9 +1,7 @@
 /**
  *
  */
-package io.xyz.common.geometry;
-
-import io.xyz.common.matrix.impl.RPoint;
+package io.xyz.common.matrix;
 
 /**
  * @author t
@@ -11,5 +9,4 @@ import io.xyz.common.matrix.impl.RPoint;
  */
 public interface PointMap {
 	RPoint map(RPoint p);
-
 }

@@ -80,26 +80,26 @@ public final class MapUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param f
 	 * @param xs
 	 * @return
 	 */
 
 	public static IntRangeDescriptor map(final IntUnaryOperator f, final IntRangeDescriptor xs) {
-		return xs.map(f);
+		return xs.mapToSameDescriptor(f);
 	}
 
-	public static IntRangeDescriptor map(final IntUnaryOperator f, final int... xs) {
-		return ImmutableIntRangeDescriptor.from(xs).map(f);
+	public static IntRangeDescriptor map(final IntUnaryOperator f, final int[] xs) {
+		return ImmutableIntRangeDescriptor.from(xs).mapToSameDescriptor(f);
 	}
 
 	public static DoubleRangeDescriptor map(final DoubleUnaryOperator f, final DoubleRangeDescriptor xs) {
-		return xs.map(f);
+		return xs.mapToSameDescriptor(f);
 	}
 
-	public static DoubleRangeDescriptor map(final DoubleUnaryOperator f, final double... xs) {
-		return ImmutableDoubleRangeDescriptor.from(xs).map(f);
+	public static DoubleRangeDescriptor map(final DoubleUnaryOperator f, final double[] xs) {
+		return ImmutableDoubleRangeDescriptor.from(xs).mapToSameDescriptor(f);
 	}
 
 	// public static <T> RangeDescriptor<T> map(final UnaryOperator<T> f, final
@@ -121,7 +121,7 @@ public final class MapUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param f
 	 * @param xs
 	 * @return
@@ -135,16 +135,16 @@ public final class MapUtil {
 		return xs.mapToDouble(f);
 	}
 
-	public static DoubleRangeDescriptor mapToDouble(final IntToDoubleFunction f, final int... xs) {
-		return ImmutableIntRangeDescriptor.from(xs).mapToDouble(f);
+	public static DoubleRangeDescriptor mapToDouble(final IntToDoubleFunction f, final int[] xs) {
+		return ImmutableIntRangeDescriptor.from(xs).mapToDoubleDescriptor(f);
 	}
 
 	public static DoubleRangeDescriptor mapToDouble(final IntToDoubleFunction f, final IntRangeDescriptor xs) {
-		return xs.mapToDouble(f);
+		return xs.mapToDoubleDescriptor(f);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param f
 	 * @param xs
 	 * @return
@@ -158,16 +158,16 @@ public final class MapUtil {
 		return xs.mapToInt(f);
 	}
 
-	public static IntRangeDescriptor mapToInt(final DoubleToIntFunction f, final double... xs) {
-		return ImmutableDoubleRangeDescriptor.from(xs).mapToInt(f);
+	public static IntRangeDescriptor mapToInt(final DoubleToIntFunction f, final double[] xs) {
+		return ImmutableDoubleRangeDescriptor.from(xs).mapToIntDescriptor(f);
 	}
 
 	public static IntRangeDescriptor mapToInt(final DoubleToIntFunction f, final DoubleRangeDescriptor xs) {
-		return xs.mapToInt(f);
+		return xs.mapToIntDescriptor(f);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param f
 	 * @param xs
 	 * @return
@@ -198,26 +198,26 @@ public final class MapUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param f
 	 * @param xs
 	 * @return
 	 */
 
 	public static <T> RangeDescriptor<T> mapToObj(final IntFunction<T> f, final int[] xs) {
-		return ImmutableIntRangeDescriptor.from(xs).mapToObj(f);
+		return ImmutableIntRangeDescriptor.from(xs).mapToObjDescriptor(f);
 	}
 
 	public static <T> RangeDescriptor<T> mapToObj(final IntFunction<T> f, final IntRangeDescriptor xs) {
-		return xs.mapToObj(f);
+		return xs.mapToObjDescriptor(f);
 	}
 
 	public static <T> RangeDescriptor<T> mapToObj(final DoubleFunction<T> f, final double[] xs) {
-		return ImmutableDoubleRangeDescriptor.from(xs).mapToObj(f);
+		return ImmutableDoubleRangeDescriptor.from(xs).mapToObjDescriptor(f);
 	}
 
 	public static <T> RangeDescriptor<T> mapToObj(final DoubleFunction<T> f, final DoubleRangeDescriptor xs) {
-		return xs.mapToObj(f);
+		return xs.mapToObjDescriptor(f);
 	}
 
 	// public static <T> Stream<T> mapToObjStream(final IntFunction<T> f, final

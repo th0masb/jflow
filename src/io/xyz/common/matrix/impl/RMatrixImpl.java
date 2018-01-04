@@ -5,21 +5,15 @@ package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.len;
-import static io.xyz.common.funcutils.MapUtil.map;
 import static io.xyz.common.funcutils.MapUtil.mapToDouble;
-import static io.xyz.common.funcutils.PrimitiveUtil.max;
-import static io.xyz.common.funcutils.PrimitiveUtil.min;
 import static io.xyz.common.funcutils.RangeUtil.range;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
-import java.util.Arrays;
 import java.util.function.DoubleUnaryOperator;
 
-import io.xyz.common.funcutils.PrimitiveUtil;
-import io.xyz.common.geometry.PointMap;
-import io.xyz.common.geometry.PointTransform;
 import io.xyz.common.matrix.MatrixBiOperator;
 import io.xyz.common.matrix.MatrixConstructor;
+import io.xyz.common.matrix.RMatrix;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
 
@@ -29,7 +23,7 @@ import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
  *	Functional style immutable dense real matrix. Clean, powerful, flexible and thread-safe
  *	what more could one want?
  */
-public class RMatrix implements PointTransform {
+public class RMatrixImpl implements RMatrix {
 
 	//	private static final int STRING_FORMAT_PRECISION = 2;
 	//	/** this separator cannot have special meaning in regex */
@@ -39,15 +33,19 @@ public class RMatrix implements PointTransform {
 	private final double[] contents;
 	private final short colDim;
 
-	public RMatrix(final MatrixConstructor f, final int nrows, final int ncols) {
+	public RMatrixImpl(final MatrixConstructor f, final int nrows, final int ncols) {
 		this(ncols, mapToDouble(i -> f.map(i/ncols, i%ncols), range(nrows*ncols)));
 	}
 
-	protected RMatrix(final int ncols, final double[] contents) {
+	protected RMatrixImpl(final int ncols, final double[] contents) {
 		this(ncols, asDescriptor(contents));
 	}
 
-	protected RMatrix(final int ncols, final DoubleRangeDescriptor contentDescriptor) {
+	/**
+	 * @param ncols - column count of the matrix
+	 * @param contentDescriptor - the values contained in the matrix
+	 */
+	RMatrixImpl(final int ncols, final DoubleRangeDescriptor contentDescriptor) {
 		/* Check row and column numbers match and that dimension is not too high */
 		assert ncols > 0 && len(contentDescriptor) % ncols == 0;
 		assert (short) ncols == ncols;
@@ -55,78 +53,69 @@ public class RMatrix implements PointTransform {
 		this.colDim = (short) ncols;
 	}
 
+	@Override
 	public double at(final int i, final int j) {
 		assert inRange(i, j);
 		return contents[i*colDim + j];
 	}
 
+	@Override
 	public DoubleRangeDescriptor row(final int index) {
 		assert inRange(index, 0);
 		return new ImmutableDoubleRangeDescriptor(colDim(), i -> contents[index*colDim() + i]);
 	}
 
+	@Override
 	public DoubleRangeDescriptor col(final int index) {
 		assert inRange(0, index);
 		return new ImmutableDoubleRangeDescriptor(rowDim(), i -> contents[i*colDim() + index]);
 	}
 
-	private boolean inRange(final int i, final int j) {
-		return 0 <= i && i < rowDim() && 0 <= j && j <= colDim();
+	@Override
+	public RMatrix apply(final DoubleUnaryOperator f)
+	{
+		return new RMatrixImpl(colDim, map(f, contents));
 	}
 
-	public MatrixConstructor functionDescriptor() {
-		return this::at;
-	}
-
+	@Override
 	public int rowDim() {
 		return len(contents)/colDim;
 	}
 
+	@Override
 	public int colDim() {
 		return colDim;
 	}
 
-	public double minEntry() {
-		return min(contents).getAsDouble();
-	}
-
-	public double maxEntry() {
-		return max(contents).getAsDouble();
-	}
-
-	public RMatrix apply(final DoubleUnaryOperator f) {
-		return new RMatrix(colDim, map(f, contents));
-	}
-
-	public RMatrix scale(final double scaleFactor) {
-		return apply(x -> scaleFactor * x);
-	}
-
-	public RMatrix abs() {
-		return apply(x -> PrimitiveUtil.abs(x));
-	}
-
-	public RMatrix operateL(final MatrixBiOperator f, final RMatrix other) {
-		return f.apply(this, other);
-	}
-
-	public RMatrix operateR(final MatrixBiOperator f, final RMatrix other) {
-		return f.apply(other, this);
+	@Override
+	public double flatAt(final int index)
+	{
+		assert flatInRange(index);
+		return contents[index];
 	}
 
 	@Override
-	public PointMap getMapping() {
-		throw new RuntimeException();
+	public RMatrix toDescriptorMatrix()
+	{
+		return new RMatrixDescriptor(this::at, (short) rowDim(), colDim);
 	}
 
 	@Override
-	public int domainDim() {
-		return colDim();
+	public RMatrix toCachedMatrix()
+	{
+		return this;
 	}
 
 	@Override
-	public int targetDim() {
-		return rowDim();
+	public RMatrix composeL(final RMatrix other)
+	{
+		return operateL(MatrixBiOperator.COMPOSE, other);
+	}
+
+	@Override
+	public RMatrix add(final RMatrix other)
+	{
+		return operateL(MatrixBiOperator.SUM, other);
 	}
 
 	//	@Override
@@ -169,32 +158,32 @@ public class RMatrix implements PointTransform {
 
 
 
-	@Override
-	public int hashCode()
-	{
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + colDim;
-		result = prime * result + Arrays.hashCode(contents);
-		return result;
-	}
-
-	@Override
-	public boolean equals(final Object obj)
-	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final RMatrix other = (RMatrix) obj;
-		if (colDim != other.colDim)
-			return false;
-		if (!Arrays.equals(contents, other.contents))
-			return false;
-		return true;
-	}
+	//	@Override
+	//	public int hashCode()
+	//	{
+	//		final int prime = 31;
+	//		int result = 1;
+	//		result = prime * result + colDim;
+	//		result = prime * result + Arrays.hashCode(contents);
+	//		return result;
+	//	}
+	//
+	//	@Override
+	//	public boolean equals(final Object obj)
+	//	{
+	//		if (this == obj)
+	//			return true;
+	//		if (obj == null)
+	//			return false;
+	//		if (getClass() != obj.getClass())
+	//			return false;
+	//		final RMatrixImpl other = (RMatrixImpl) obj;
+	//		if (colDim != other.colDim)
+	//			return false;
+	//		if (!Arrays.equals(contents, other.contents))
+	//			return false;
+	//		return true;
+	//	}
 
 	public static void main(final String[] args) {
 		//		final RMatrix A = new RMatrix(MatrixDescriptor.rand(5), 2, 2);

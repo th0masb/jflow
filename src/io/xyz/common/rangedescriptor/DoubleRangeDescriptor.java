@@ -21,11 +21,11 @@ public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
 
 	IntToDoubleFunction getDescriptor();
 
-	DoubleRangeDescriptor map(DoubleUnaryOperator f);
+	DoubleRangeDescriptor mapToSameDescriptor(DoubleUnaryOperator f);
 
-	IntRangeDescriptor mapToInt(DoubleToIntFunction f);
+	IntRangeDescriptor mapToIntDescriptor(DoubleToIntFunction f);
 
-	<T> RangeDescriptor<T> mapToObj(DoubleFunction<T> f);
+	<T> RangeDescriptor<T> mapToObjDescriptor(DoubleFunction<T> f);
 
 	DoubleRangeDescriptor filter(DoublePredicate p);
 
