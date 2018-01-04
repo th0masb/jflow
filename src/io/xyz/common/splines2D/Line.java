@@ -6,7 +6,7 @@ package io.xyz.common.splines2D;
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.geometry.PointMap;
 import io.xyz.common.geometry.PointTransform;
-import io.xyz.common.geometry.RPoint;
+import io.xyz.common.matrix.impl.RPoint;
 import javafx.scene.canvas.GraphicsContext;
 
 /**

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package io.xyz.common.rangedescriptor.impl;
 
@@ -12,7 +12,6 @@ import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
-import java.util.function.UnaryOperator;
 
 import io.xyz.common.rangedescriptor.AbstractRangeDescriptor;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
@@ -33,7 +32,7 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 	}
 
 	@Override
-	public RangeDescriptor<T> map(final UnaryOperator<T> f) {
+	public <R> RangeDescriptor<R> map(final Function<T, R> f) {
 		return new ImmutableRangeDescriptor<>(rangeBound(), compose(f, descriptor));
 	}
 
@@ -59,6 +58,11 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 		return new ImmutableRangeDescriptor<>(len(xs), i -> xs.get(i));
 	}
 
+	@SafeVarargs
+	public static <T> RangeDescriptor<T> from(final T... xs) {
+		return new ImmutableRangeDescriptor<>(len(xs), i -> xs[i]);
+	}
+
 	@Override
 	public IntFunction<T> getDescriptor() {
 		return descriptor;
@@ -66,11 +70,6 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 
 	@Override
 	public RangeDescriptor<T> filter(final Predicate<T> p) {
-		throw new RuntimeException("NYI");
-	}
-
-	@Override
-	public <R> RangeDescriptor<R> map(final Function<T, R> f) {
 		throw new RuntimeException("NYI");
 	}
 

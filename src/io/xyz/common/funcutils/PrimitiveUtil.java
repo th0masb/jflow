@@ -28,6 +28,14 @@ public final class PrimitiveUtil {
 		return Math.abs(x) < EPSILON;
 	}
 
+	public static boolean bool(final double x) {
+		return x != 0;
+	}
+
+	public static boolean bool(final long x) {
+		return x != 0;
+	}
+
 	public static int digitLength(int n) {
 		int dlen = 1;
 		n /= 10;

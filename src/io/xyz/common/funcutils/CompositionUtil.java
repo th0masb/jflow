@@ -1,17 +1,17 @@
 /**
- * 
+ *
  */
 package io.xyz.common.funcutils;
 
 import java.util.function.DoubleFunction;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntUnaryOperator;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
-import java.util.function.UnaryOperator;
 
 /**
  * @author t
@@ -50,8 +50,12 @@ public final class CompositionUtil {
 		return i -> f.applyAsDouble(g.apply(i));
 	}
 
-	public static <T> IntFunction<T> compose(final UnaryOperator<T> f, final IntFunction<T> g) {
+	public static <T, R> IntFunction<R> compose(final Function<T, R> f, final IntFunction<T> g) {
 		return i -> f.apply(g.apply(i));
+	}
+
+	public static <T, S, R> Function<T, R> compose(final Function<S, R> f, final Function<T, S> g){
+		return t -> g.andThen(f).apply(t);
 	}
 
 	/**

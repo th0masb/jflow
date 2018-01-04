@@ -18,6 +18,8 @@ import static io.xyz.common.geometry.Constants.EPSILON;
 import java.util.Arrays;
 import java.util.List;
 
+import io.xyz.common.matrix.impl.RPoint;
+
 /**
  * @author t
  *

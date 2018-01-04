@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package io.xyz.common.rangedescriptor;
 
@@ -10,7 +10,6 @@ import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
-import java.util.function.UnaryOperator;
 
 /**
  * @author t
@@ -19,8 +18,6 @@ import java.util.function.UnaryOperator;
 public interface RangeDescriptor<T> extends BaseRangeDescriptor {
 
 	IntFunction<T> getDescriptor();
-
-	RangeDescriptor<T> map(UnaryOperator<T> f);
 
 	<R> RangeDescriptor<R> map(Function<T, R> f);
 
@@ -44,5 +41,4 @@ public interface RangeDescriptor<T> extends BaseRangeDescriptor {
 		}
 		return result;
 	}
-
 }

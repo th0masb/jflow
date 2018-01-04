@@ -2,7 +2,6 @@ package io.xyz.common.funcutils;
 
 import static io.xyz.common.funcutils.MapUtil.mapCollect;
 import static io.xyz.common.funcutils.MapUtil.mapToObj;
-import static io.xyz.common.funcutils.PrimitiveUtil.abs;
 import static io.xyz.common.funcutils.RangeUtil.range;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
@@ -39,16 +38,6 @@ public final class CollectionUtil {
 	/*
 	 * Need to add sort function
 	 */
-
-	public static int len(int n) {
-		short len = 1;
-		n = abs(n) / 10;
-		while (n > 0) {
-			len++;
-			n /= 10;
-		}
-		return len;
-	}
 
 	public static int len(final String s) {
 		return s.length();

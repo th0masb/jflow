@@ -1,11 +1,11 @@
 /**
  *
  */
-package io.xyz.common.function;
+package io.xyz.common.matrix;
 
 import java.util.function.UnaryOperator;
 
-import io.xyz.common.geometry.RMatrix;
+import io.xyz.common.matrix.impl.RMatrix;
 
 /**
  * @author t
