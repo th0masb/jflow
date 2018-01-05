@@ -1,29 +1,26 @@
 /**
  * Copyright © 2018 Lhasa Limited
- * File created: 4 Jan 2018 by ThomasB
+ * File created: 5 Jan 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
  */
-package io.xyz.common.matrix;
+package io.xyz.common.funcutils.interfaces;
 
-import static io.xyz.common.funcutils.CombineUtil.combine;
+import java.util.function.IntFunction;
+import java.util.function.IntToDoubleFunction;
+import java.util.function.IntUnaryOperator;
 
-import java.util.function.BinaryOperator;
-
-import io.xyz.common.matrix.impl.RPointImpl;
-
+import io.xyz.common.function.F;
+import io.xyz.common.function.F1;
+import io.xyz.common.function.F2;
 
 /**
  * @author ThomasB
- * @since 4 Jan 2018
+ * @since 5 Jan 2018
  */
-public interface PointBiOperator extends BinaryOperator<RPoint>
+public interface IntRangeMappable<IntRange, T, TRange, DoubleRange> extends F<IntUnaryOperator, IntRange>, F1<IntFunction<T>, TRange>, F2<IntToDoubleFunction, DoubleRange>
 {
-	PointBiOperator SUM = PointBiOperator::sum;
 
-	public static RPoint sum(final RPoint p1, final RPoint p2) {
-		return new RPointImpl(combine((a, b) -> a + b, p1.coords(), p2.coords()));
-	}
 }
 
 /* ---------------------------------------------------------------------*

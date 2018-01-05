@@ -24,7 +24,7 @@ import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
  * @author ThomasB
  * @since 4 Jan 2018
  */
-public interface RPoint extends RMatrix
+public interface RPoint extends PointTransform, DoubleRangeDescriptor<RPoint>
 {
 	@Override
 	RPoint apply(DoubleUnaryOperator f);

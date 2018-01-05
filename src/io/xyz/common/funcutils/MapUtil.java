@@ -24,7 +24,6 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 
 import io.xyz.common.geometry.BitArray;
-import io.xyz.common.matrix.RMatrix;
 import io.xyz.common.matrix.RPoint;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
@@ -104,8 +103,14 @@ public final class MapUtil {
 		return ImmutableDoubleRangeDescriptor.from(xs).mapToSameDescriptor(f);
 	}
 
-	public static RMatrix map(final DoubleUnaryOperator f, final RMatrix M) {
-		return (RMatrix) map(f, (DoubleRangeDescriptor) M);
+	public static <T extends Function<DoubleUnaryOperator, T>> T mapH(final DoubleUnaryOperator f, final T src)
+	{
+		return src.apply(f);
+	}
+
+	public static <S, T extends Function<Function<T, S>, S>> S mapH(final Function<T, S> f, final T src)
+	{
+		return src.apply(f);
 	}
 
 	public static RPoint map(final DoubleUnaryOperator f, final RPoint M) {

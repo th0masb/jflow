@@ -72,7 +72,7 @@ public final class PredicateUtil {
 
 	//---
 
-	public static boolean all(final List<DoublePredicate> ps, final DoubleRangeDescriptor xs) {
+	public static boolean all(final List<DoublePredicate> ps, final DoubleRangeDescriptor<?> xs) {
 		for (int i = 0; i < len(xs); i++) {
 			for (final DoublePredicate p : ps) {
 				if (!p.test(xs.get(i))) {

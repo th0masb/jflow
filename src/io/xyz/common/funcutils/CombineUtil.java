@@ -175,9 +175,9 @@ public final class CombineUtil {
 		return new ImmutableDoubleRangeDescriptor(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
 	}
 
-	//	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final RMatrix a, final RMatrix b) {
-	//		assert a.rowDim() == b.rowDim() && a.colDim() == b.colDim();
-	//		return a.;
+	//	public static <T extends DoubleRangeDescriptor> T combine(final DoubleBinaryOperator f, final T a, final T b) {
+	////		assert a.rowDim() == b.rowDim() && a.colDim() == b.colDim();
+	//		return (T) null;
 	//	}
 
 	public static IntRangeDescriptor combine(final IntBinaryOperator f, final IntRangeDescriptor a, final IntRangeDescriptor b) {

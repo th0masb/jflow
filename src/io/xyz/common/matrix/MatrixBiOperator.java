@@ -53,7 +53,7 @@ public interface MatrixBiOperator extends BinaryOperator<RMatrix> {
 
 	//	static MatrixBiOperator POINT_COMPOSITION = MatrixBiOperator::pointComposition;
 
-	static RPoint pointComposition(final RMatrix A, final RPoint P) {
+	static RPointImpl pointComposition(final RMatrix A, final RPoint P) {
 		assert A.colDim() == P.dim();
 		return new RPointImpl(mapToDouble(i -> dotProduct(A.row(i), P.coords()), range(P.dim())));
 	}

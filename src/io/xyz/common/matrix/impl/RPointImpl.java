@@ -77,19 +77,19 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 	//	}
 
 	@Override
-	public RPoint apply(final DoubleUnaryOperator f)
+	public RPointImpl apply(final DoubleUnaryOperator f)
 	{
 		return new RPointImpl(map(f, coords()));
 	}
 
 	@Override
-	public RPoint toDescriptorPoint()
+	public RPointImpl toDescriptorPoint()
 	{
 		return null;
 	}
 
 	@Override
-	public RPoint toCachedPoint()
+	public RPointImpl toCachedPoint()
 	{
 		return this;
 	}

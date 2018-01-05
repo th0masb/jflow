@@ -1,10 +1,9 @@
 /**
- * 
+ *
  */
 package io.xyz.common.rangedescriptor.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.len;
-import static io.xyz.common.funcutils.CompositionUtil.compose;
 
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
@@ -21,7 +20,7 @@ import io.xyz.common.rangedescriptor.RangeDescriptor;
  * @author t
  *
  */
-public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescriptor implements DoubleRangeDescriptor {
+public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescriptor implements DoubleRangeDescriptor<ImmutableDoubleRangeDescriptor> {
 
 	private final IntToDoubleFunction descriptor;
 
@@ -35,7 +34,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see io.xyz.common.rangedescriptor.DoubleRangeDescriptor#getDescriptor()
 	 */
 	@Override
@@ -45,7 +44,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * io.xyz.common.rangedescriptor.DoubleRangeDescriptor#map(java.util.function.
 	 * DoubleUnaryOperator)
@@ -57,7 +56,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * io.xyz.common.rangedescriptor.DoubleRangeDescriptor#filter(java.util.function
 	 * .DoublePredicate)

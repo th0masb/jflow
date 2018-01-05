@@ -1,29 +1,18 @@
 /**
  * Copyright © 2018 Lhasa Limited
- * File created: 4 Jan 2018 by ThomasB
+ * File created: 5 Jan 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
  */
-package io.xyz.common.matrix;
-
-import static io.xyz.common.funcutils.CombineUtil.combine;
-
-import java.util.function.BinaryOperator;
-
-import io.xyz.common.matrix.impl.RPointImpl;
-
+package io.xyz.common.function;
 
 /**
  * @author ThomasB
- * @since 4 Jan 2018
+ * @since 5 Jan 2018
  */
-public interface PointBiOperator extends BinaryOperator<RPoint>
+public interface F1<T, R>
 {
-	PointBiOperator SUM = PointBiOperator::sum;
-
-	public static RPoint sum(final RPoint p1, final RPoint p2) {
-		return new RPointImpl(combine((a, b) -> a + b, p1.coords(), p2.coords()));
-	}
+	R apply1(T t);
 }
 
 /* ---------------------------------------------------------------------*

@@ -7,7 +7,7 @@ import java.util.List;
 
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.matrix.PointTransform;
-import io.xyz.common.matrix.impl.RPointImpl;
+import io.xyz.common.matrix.RPoint;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -22,32 +22,32 @@ public abstract class AbstractSplineSegment implements ISplineSegment {
 	 * The constituent points which form this spline segment. In general the curve
 	 * does not travel through each of these points.
 	 */
-	final RPointImpl[] constituents;
+	final RPoint[] constituents;
 
 	/**
-	*
-	*/
-	public AbstractSplineSegment(final RPointImpl... ps) {
+	 *
+	 */
+	public AbstractSplineSegment(final RPoint... ps) {
 		assert ps.length > 1 && all(p -> p.dim() == 2, ps);
 		constituents = Arrays.copyOf(ps, ps.length);
 	}
 
 	/**
-	*
-	*/
-	public AbstractSplineSegment(final List<RPointImpl> ps) {
+	 *
+	 */
+	public AbstractSplineSegment(final List<RPoint> ps) {
 		assert ps.size() > 1 && all(p -> p.dim() == DIMENSION, ps);
-		constituents = ps.toArray(new RPointImpl[ps.size()]);
+		constituents = ps.toArray(new RPoint[ps.size()]);
 	}
 
 	@Override
 	public void draw(final GraphicsContext gc, final PointTransform clipT) {
 		assert clipT.domainDim() == DIMENSION && clipT.targetDim() == DIMENSION;
-		draw(gc, clipT, RPointImpl.origin(dim()));
+		draw(gc, clipT, RPoint.origin(dim()));
 	}
 
 	@Override
-	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPointImpl p) {
+	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPoint p) {
 		assert clipT.domainDim() == DIMENSION && clipT.targetDim() == DIMENSION;
 		throw new RuntimeException("Not yet impl");
 	}

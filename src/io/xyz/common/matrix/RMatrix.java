@@ -20,28 +20,28 @@ import java.util.function.IntToDoubleFunction;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
 
 /**
  * @author ThomasB
  * @since 4 Jan 2018
  */
-public interface RMatrix extends PointTransform, DoubleRangeDescriptor
+public interface RMatrix extends PointTransform, DoubleRangeDescriptor<RMatrix>
 {
 	double at(int rowIndex, int colIndex);
 
-	DoubleRangeDescriptor row(int index);
+	DoubleRangeDescriptor<ImmutableDoubleRangeDescriptor> row(int index);
 
-	DoubleRangeDescriptor col(int index);
+	DoubleRangeDescriptor<ImmutableDoubleRangeDescriptor> col(int index);
 
 	int rowDim();
 
 	int colDim();
 
+	@Override
 	RMatrix apply(DoubleUnaryOperator f);
 
-	/*
-	 * TODO - add vcombine - i.e. vectorised combine.
-	 */
+	//	RMatrix vcombine(DoubleBinaryOperator f, RMatrix other);
 
 	RMatrix toDescriptorMatrix();
 
@@ -146,7 +146,7 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor
 	}
 
 	@Override
-	default DoubleRangeDescriptor filter(final DoublePredicate p) {
+	default DoubleRangeDescriptor<RMatrix> filter(final DoublePredicate p) {
 		throw new RuntimeException("NYI");
 	}
 }
