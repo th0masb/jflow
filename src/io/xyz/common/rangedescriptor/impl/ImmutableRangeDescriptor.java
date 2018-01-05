@@ -32,17 +32,17 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 	}
 
 	@Override
-	public <R> RangeDescriptor<R> map(final Function<T, R> f) {
+	public <R> RangeDescriptor<R> asObjRange(final Function<T, R> f) {
 		return new ImmutableRangeDescriptor<>(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
-	public IntRangeDescriptor mapToInt(final ToIntFunction<T> f) {
+	public IntRangeDescriptor asIntRange(final ToIntFunction<T> f) {
 		return new ImmutableIntRangeDescriptor(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
-	public DoubleRangeDescriptor mapToDouble(final ToDoubleFunction<T> f) {
+	public DoubleRangeDescriptor asDoubleRange(final ToDoubleFunction<T> f) {
 		return new ImmutableDoubleRangeDescriptor(rangeBound(), compose(f, descriptor));
 	}
 

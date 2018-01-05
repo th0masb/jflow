@@ -6,17 +6,20 @@
  */
 package io.xyz.common.matrix;
 
-import static io.xyz.common.funcutils.MapUtil.mapToDouble;
+import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import static io.xyz.common.funcutils.PrimitiveUtil.max;
 import static io.xyz.common.funcutils.PrimitiveUtil.min;
 import static io.xyz.common.funcutils.RangeUtil.range;
 
+import java.util.function.BiFunction;
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntToDoubleFunction;
 
+import io.xyz.common.geometry.PointMap;
+import io.xyz.common.geometry.PointTransform;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
@@ -49,9 +52,15 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor
 
 	RMatrix composeL(RMatrix other);
 
+	RPoint composeL(RPoint other);
+
 	RMatrix add(RMatrix other);
 
 	default RMatrix operateL(final MatrixBiOperator f, final RMatrix other) {
+		return f.apply(this, other);
+	}
+
+	default RPoint operateL(final BiFunction<RMatrix, RPoint, RPoint> f, final RPoint other) {
 		return f.apply(this, other);
 	}
 
@@ -73,11 +82,11 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor
 	}
 
 	default double minEntry() {
-		return min(mapToDouble(this::flatAt, range(colDim()*rowDim()))).getAsDouble();
+		return min(doubleRange(this::flatAt, range(colDim()*rowDim()))).getAsDouble();
 	}
 
 	default double maxEntry() {
-		return max(mapToDouble(this::flatAt, range(colDim()*rowDim()))).getAsDouble();
+		return max(doubleRange(this::flatAt, range(colDim()*rowDim()))).getAsDouble();
 	}
 
 	default double flatAt(final int index) {
@@ -98,7 +107,7 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor
 	 */
 	@Override
 	default PointMap getMapping() {
-		return p -> MatrixBiOperator.pointComposition(this, p);
+		return p -> composeL(p);
 	}
 
 	@Override
@@ -115,7 +124,7 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor
 	//	Allows us to easily take advantage of our static utility methods
 
 	@Override
-	default RMatrix mapToSameDescriptor(final DoubleUnaryOperator f)
+	default RMatrix asDoubleRange(final DoubleUnaryOperator f)
 	{
 		return apply(f);
 	}
@@ -136,18 +145,18 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor
 	}
 
 	@Override
-	default IntRangeDescriptor mapToIntDescriptor(final DoubleToIntFunction f) {
+	default IntRangeDescriptor asIntRange(final DoubleToIntFunction f) {
 		throw new RuntimeException("NYI");
 	}
 
 	@Override
-	default <T> RangeDescriptor<T> mapToObjDescriptor(final DoubleFunction<T> f) {
+	default <T> RangeDescriptor<T> asObjRange(final DoubleFunction<T> f) {
 		throw new RuntimeException("NYI");
 	}
 
 	@Override
 	default DoubleRangeDescriptor filter(final DoublePredicate p) {
-		throw new RuntimeException("NYI");
+		throw new RuntimeException("Can't filter a matrix!");
 	}
 }
 

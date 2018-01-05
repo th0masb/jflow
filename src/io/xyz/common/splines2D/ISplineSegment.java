@@ -7,8 +7,8 @@
 package io.xyz.common.splines2D;
 
 import io.xyz.common.geometry.Curve;
-import io.xyz.common.matrix.PointTransform;
-import io.xyz.common.matrix.impl.RPointImpl;
+import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.matrix.RPoint;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -22,13 +22,13 @@ public interface ISplineSegment {
 
 	void draw(final GraphicsContext gc, final PointTransform clipTransform);
 
-	void draw(final GraphicsContext gc, final PointTransform clipTTransform, RPointImpl perturbation);
+	void draw(final GraphicsContext gc, final PointTransform clipTTransform, RPoint perturbation);
 
 	Curve parameterise();
 
 	double approximateLength();
 
-	ISplineSegment peturb(RPointImpl peturbation);
+	ISplineSegment peturb(RPoint peturbation);
 
 	int dim();
 }

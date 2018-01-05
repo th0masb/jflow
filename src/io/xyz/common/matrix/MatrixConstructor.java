@@ -36,6 +36,6 @@ public interface MatrixConstructor extends BiIntToDoubleFunction {
 
 	static MatrixConstructor rotate2D(final double radians) {
 		final double[] flattened = { cos(radians), -sin(radians), sin(radians), cos(radians) };
-		return (i, j) -> flattened[i + 2 * j];
+		return (i, j) -> flattened[2*i + j];
 	}
 }

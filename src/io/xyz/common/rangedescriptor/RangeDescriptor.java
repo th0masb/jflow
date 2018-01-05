@@ -19,11 +19,11 @@ public interface RangeDescriptor<T> extends BaseRangeDescriptor {
 
 	IntFunction<T> getDescriptor();
 
-	<R> RangeDescriptor<R> map(Function<T, R> f);
+	<R> RangeDescriptor<R> asObjRange(Function<T, R> f);
 
-	IntRangeDescriptor mapToInt(ToIntFunction<T> f);
+	IntRangeDescriptor asIntRange(ToIntFunction<T> f);
 
-	DoubleRangeDescriptor mapToDouble(ToDoubleFunction<T> f);
+	DoubleRangeDescriptor asDoubleRange(ToDoubleFunction<T> f);
 
 	RangeDescriptor<T> filter(Predicate<T> p);
 

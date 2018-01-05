@@ -4,12 +4,14 @@
 package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.len;
-import static io.xyz.common.funcutils.MapUtil.map;
-import static io.xyz.common.funcutils.MapUtil.mapToObj;
+import static io.xyz.common.funcutils.CombineUtil.concat;
+import static io.xyz.common.funcutils.MapUtil.doubleRange;
+import static io.xyz.common.funcutils.MapUtil.objRange;
+import static io.xyz.common.funcutils.PrimitiveUtil.digitLength;
+import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
 import static io.xyz.common.funcutils.RangeUtil.range;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 
@@ -25,7 +27,7 @@ import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
  */
 public final class RPointImpl extends RMatrixImpl implements RPoint {
 
-	private static final List<RPointImpl> ORIGIN = collect(mapToObj(RPointImpl::emptyInit, range(1, 15)));
+	private static final List<RPoint> ORIGIN = collect(objRange(RPointImpl::emptyInit, range(1, 15)));
 
 	public RPointImpl(final double... ds) {
 		this(ImmutableDoubleRangeDescriptor.from(ds));
@@ -35,19 +37,11 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 		super(len(xs), xs);
 	}
 
-	public static RPointImpl of(final double... ds) {
-		return new RPointImpl(Arrays.copyOf(ds, ds.length));
-	}
-
-	public static RPointImpl copy(final RPointImpl src) {
-		return new RPointImpl(src.coords());
-	}
-
-	public static RPointImpl origin(final int dim) {
+	public static RPoint origin(final int dim) {
 		return ORIGIN.get(dim);
 	}
 
-	private static RPointImpl emptyInit(final int dim) {
+	private static RPoint emptyInit(final int dim) {
 		assert dim > 0;
 		return new RPointImpl(new double[dim]);
 	}
@@ -79,13 +73,13 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 	@Override
 	public RPoint apply(final DoubleUnaryOperator f)
 	{
-		return new RPointImpl(map(f, coords()));
+		return new RPointImpl(doubleRange(f, coords()));
 	}
 
 	@Override
 	public RPoint toDescriptorPoint()
 	{
-		return null;
+		return new RPointDescriptor(this);
 	}
 
 	@Override
@@ -100,10 +94,12 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 		return operateL(PointBiOperator.SUM, other);
 	}
 
-	//	@Override
-	//	public RPoint cross(final RPoint other)
-	//	{
-	//		// TODO Auto-generated method stub
-	//		return null;
-	//	}
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("(");
+		final double[] rounded = doubleRange(d -> isZero(d)? 0 : d, this).toArray();
+		sb.append(concat(" ", objRange(d -> Double.toString(d).substring(0, digitLength(2, d)), rounded)));
+		sb.append(")");
+		return sb.toString();
+	}
 }

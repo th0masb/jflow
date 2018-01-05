@@ -18,6 +18,8 @@ import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 
 import java.util.function.DoubleUnaryOperator;
 
+import io.xyz.common.geometry.PointMap;
+import io.xyz.common.matrix.impl.RPointImpl;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 
 /**
@@ -56,7 +58,7 @@ public interface RPoint extends RMatrix
 	}
 
 	default DoubleRangeDescriptor coords() {
-		return row(0);
+		return col(0);
 	}
 
 	default boolean isOrigin() {
@@ -141,13 +143,25 @@ public interface RPoint extends RMatrix
 	}
 
 	@Override
-	default RPoint mapToSameDescriptor(final DoubleUnaryOperator f)
+	default RPoint asDoubleRange(final DoubleUnaryOperator f)
 	{
 		return apply(f);
 	}
 
 	static boolean dimensionsAgree(final RPoint... ps) {
 		return allEqual(mapCollect(p -> p.dim(), ps));
+	}
+
+	static RPoint origin(final int dimension) {
+		return RPointImpl.origin(dimension);
+	}
+
+	static RPoint of(final double... ds) {
+		return new RPointImpl(ds);
+	}
+
+	static RPoint copy(final RPoint src) {
+		return new RPointImpl(src);
 	}
 }
 

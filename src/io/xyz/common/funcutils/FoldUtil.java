@@ -125,28 +125,36 @@ public final class FoldUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param f
 	 * @param start
 	 * @param xs
 	 * @return
 	 */
 
-	public static double accumulate(final DoubleBinaryOperator f, final double start, final double[] xs) {
-		final int n = xs.length;
+	public static double accumulate(final DoubleBinaryOperator f, final double start, final DoubleRangeDescriptor xs) {
+		final int loopUpperBound = len(xs) - 1;
 		double accumulation = start;
-		for (int i = 0; i < n - 1; i++) {
-			accumulation += f.applyAsDouble(xs[i], xs[i + 1]);
+		for (int i = 0; i < loopUpperBound; i++) {
+			accumulation += f.applyAsDouble(xs.get(i), xs.get(i + 1));
+		}
+		return accumulation;
+	}
+
+	public static double accumulate(final DoubleBinaryOperator f, final double start, final double[] xs) {
+		return accumulate(f, start, ImmutableDoubleRangeDescriptor.from(xs));
+	}
+
+	public static int accumulate(final IntBinaryOperator f, final int start, final IntRangeDescriptor xs) {
+		final int loopUpperBound = len(xs) - 1;
+		int accumulation = start;
+		for (int i = 0; i < loopUpperBound; i++) {
+			accumulation += f.applyAsInt(xs.get(i), xs.get(i + 1));
 		}
 		return accumulation;
 	}
 
 	public static int accumulate(final IntBinaryOperator f, final int start, final int[] xs) {
-		final int n = xs.length;
-		int accumulation = start;
-		for (int i = 0; i < n - 1; i++) {
-			accumulation += f.applyAsInt(xs[i], xs[i + 1]);
-		}
-		return accumulation;
+		return accumulate(f, start, ImmutableIntRangeDescriptor.from(xs));
 	}
 }

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import io.xyz.common.geometry.Curve;
-import io.xyz.common.matrix.PointTransform;
+import io.xyz.common.geometry.PointTransform;
 import io.xyz.common.matrix.impl.RPointImpl;
 import javafx.scene.canvas.GraphicsContext;
 

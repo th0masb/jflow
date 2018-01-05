@@ -1,7 +1,7 @@
 package io.xyz.common.funcutils;
 
 import static io.xyz.common.funcutils.MapUtil.mapCollect;
-import static io.xyz.common.funcutils.MapUtil.mapToObj;
+import static io.xyz.common.funcutils.MapUtil.objRange;
 import static io.xyz.common.funcutils.RangeUtil.range;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
@@ -121,7 +121,7 @@ public final class CollectionUtil {
 
 	public static <T> List<T> take(final int n, final T[] xs) {
 		assert 0 <= n && n <= xs.length;
-		return collect(mapToObj(i -> xs[i], range(n)));
+		return collect(objRange(i -> xs[i], range(n)));
 	}
 
 	public static <T> List<T> take(final int n, final List<T> xs) {
@@ -147,7 +147,7 @@ public final class CollectionUtil {
 
 	public static <T> List<T> drop(final int n, final T[] xs) {
 		assert 0 <= n && n <= xs.length;
-		return collect(mapToObj(i -> xs[i], range(n, len(xs))));
+		return collect(objRange(i -> xs[i], range(n, len(xs))));
 	}
 
 	public static <T> List<T> drop(final int n, final List<T> xs) {

@@ -6,7 +6,7 @@ package io.xyz.common.funcutils;
 import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.CollectionUtil.len;
-import static io.xyz.common.funcutils.MapUtil.mapToInt;
+import static io.xyz.common.funcutils.MapUtil.intRange;
 import static io.xyz.common.funcutils.PrimitiveUtil.min;
 import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 
@@ -18,6 +18,7 @@ import java.util.function.IntBinaryOperator;
 
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
 
@@ -29,7 +30,7 @@ public final class CombineUtil {
 	}
 
 	public static double[] concat(final double[]... xs) {
-		final OptionalInt n = sum(mapToInt(x -> len(x), asList(xs)));
+		final OptionalInt n = sum(intRange(x -> len(x), asList(xs)));
 		if (!n.isPresent()) {
 			return new double[] {};
 		}
@@ -68,7 +69,7 @@ public final class CombineUtil {
 	// }
 
 	public static int[] concat(final int[]... xs) {
-		final OptionalInt n = sum(mapToInt(x -> len(x), asList(xs)));
+		final OptionalInt n = sum(intRange(x -> len(x), asList(xs)));
 		if (!n.isPresent()) {
 			return new int[] {};
 		}
@@ -83,77 +84,45 @@ public final class CombineUtil {
 	}
 
 	/**
-	 * @param ld
-	 *        Left delimiter
-	 * @param cd
-	 *        Central delimiter
-	 * @param rd
-	 *        Right delimiter
-	 * @param xs
-	 *        Strings to combine
-	 *
-	 * @return The String ld + xs[0] + cd + xs[1] + ... + rd
+	 * @return The String xs[0] + delimiter + xs[1] + ... + delimiter + xs[n-1]
 	 */
-	public static String concat(final String ld, final String cd, final String rd, final String[] xs) {
-		final StringBuilder sb = new StringBuilder(ld);
+	public static String concat(final String delimiter, final List<String> xs) {
+		final StringBuilder sb = new StringBuilder();
 		final int length = len(xs);
 		for (int i = 0; i < length; i++) {
-			sb.append(xs[i]);
+			sb.append(xs.get(i));
 			if (i < length - 1) {
-				sb.append(cd);
+				sb.append(delimiter);
 			}
-		}
-		sb.append(rd);
-		return sb.toString();
-	}
-
-	public static String concat(final String od, final String cd, final String[] xs) {
-		return concat(od, cd, od, xs);
-	}
-
-	public static String concat(final String... xs) {
-		final StringBuilder sb = new StringBuilder();
-		for (final String x : xs) {
-			sb.append(x);
 		}
 		return sb.toString();
 	}
 
 	/**
-	 * @param ld
-	 *        Left delimiter
-	 * @param cd
-	 *        Central delimiter
-	 * @param rd
-	 *        Right delimiter
-	 * @param xs
-	 *        Strings to combine
-	 *
-	 * @return The String ld + xs[0] + cd + xs[1] + ... + rd
+	 * @return The String xs[0] + delimiter + xs[1] + ... + delimiter + xs[n-1]
 	 */
-	public static String concat(final String ld, final String cd, final String rd, final List<String> xs) {
-		final StringBuilder sb = new StringBuilder(ld);
+	public static String concat(final String delimiter, final RangeDescriptor<String> xs) {
+		final StringBuilder sb = new StringBuilder();
 		final int length = len(xs);
 		for (int i = 0; i < length; i++) {
 			sb.append(xs.get(i));
 			if (i < length - 1) {
-				sb.append(cd);
+				sb.append(delimiter);
 			}
 		}
-		sb.append(rd);
 		return sb.toString();
-	}
-
-	public static String concat(final String od, final String cd, final List<String> xs) {
-		return concat(od, cd, od, xs);
 	}
 
 	public static String concat(final List<String> xs) {
-		final StringBuilder sb = new StringBuilder();
-		for (final String x : xs) {
-			sb.append(x);
-		}
-		return sb.toString();
+		return concat("", xs);
+	}
+
+	public static String concat(final String delimiter, final String[] xs) {
+		return concat(delimiter, asList(xs));
+	}
+
+	public static String concat(final String... xs) {
+		return concat(asList(xs));
 	}
 
 	@SafeVarargs
@@ -174,11 +143,6 @@ public final class CombineUtil {
 		final int size = min(len(a), len(b));
 		return new ImmutableDoubleRangeDescriptor(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
 	}
-
-	//	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final RMatrix a, final RMatrix b) {
-	//		assert a.rowDim() == b.rowDim() && a.colDim() == b.colDim();
-	//		return a.;
-	//	}
 
 	public static IntRangeDescriptor combine(final IntBinaryOperator f, final IntRangeDescriptor a, final IntRangeDescriptor b) {
 		final int size = min(len(a), len(b));

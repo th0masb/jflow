@@ -43,7 +43,7 @@ public final class ImmutableIntRangeDescriptor extends AbstractRangeDescriptor i
 	}
 
 	@Override
-	public IntRangeDescriptor mapToSameDescriptor(final IntUnaryOperator f) {
+	public IntRangeDescriptor asIntRange(final IntUnaryOperator f) {
 		return new ImmutableIntRangeDescriptor(rangeBound(), f);
 	}
 
@@ -53,12 +53,12 @@ public final class ImmutableIntRangeDescriptor extends AbstractRangeDescriptor i
 	}
 
 	@Override
-	public DoubleRangeDescriptor mapToDoubleDescriptor(final IntToDoubleFunction f) {
+	public DoubleRangeDescriptor asDoubleRange(final IntToDoubleFunction f) {
 		return new ImmutableDoubleRangeDescriptor(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
-	public <T> RangeDescriptor<T> mapToObjDescriptor(final IntFunction<T> f) {
+	public <T> RangeDescriptor<T> asObjRange(final IntFunction<T> f) {
 		return new ImmutableRangeDescriptor<>(rangeBound(), compose(f, descriptor));
 	}
 }

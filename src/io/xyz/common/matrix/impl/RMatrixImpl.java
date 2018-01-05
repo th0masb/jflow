@@ -5,16 +5,16 @@ package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.len;
-import static io.xyz.common.funcutils.MapUtil.map;
-import static io.xyz.common.funcutils.MapUtil.mapToDouble;
+import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import static io.xyz.common.funcutils.RangeUtil.range;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
 import java.util.function.DoubleUnaryOperator;
 
-import io.xyz.common.matrix.MatrixBiOperator;
+import io.xyz.common.funcutils.MapUtil;
 import io.xyz.common.matrix.MatrixConstructor;
 import io.xyz.common.matrix.RMatrix;
+import io.xyz.common.matrix.RPoint;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
 
@@ -35,7 +35,7 @@ public class RMatrixImpl implements RMatrix {
 	private final short colDim;
 
 	public RMatrixImpl(final MatrixConstructor f, final int nrows, final int ncols) {
-		this(ncols, mapToDouble(i -> f.map(i/ncols, i%ncols), range(nrows*ncols)));
+		this(ncols, doubleRange(i -> f.map(i/ncols, i%ncols), range(nrows*ncols)));
 	}
 
 	protected RMatrixImpl(final int ncols, final double[] contents) {
@@ -75,7 +75,7 @@ public class RMatrixImpl implements RMatrix {
 	@Override
 	public RMatrix apply(final DoubleUnaryOperator f)
 	{
-		return new RMatrixImpl(colDim, map(f, contents));
+		return new RMatrixImpl(colDim, MapUtil.doubleRange(f, contents));
 	}
 
 	@Override
@@ -110,13 +110,13 @@ public class RMatrixImpl implements RMatrix {
 	@Override
 	public RMatrix composeL(final RMatrix other)
 	{
-		return operateL(MatrixBiOperator.COMPOSE, other);
+		return operateL(Matrices.COMPOSE, other);
 	}
 
 	@Override
 	public RMatrix add(final RMatrix other)
 	{
-		return operateL(MatrixBiOperator.SUM, other);
+		return operateL(Matrices.SUM, other);
 	}
 
 	//	@Override
@@ -218,5 +218,11 @@ public class RMatrixImpl implements RMatrix {
 		//		B.print();
 		//		System.out.println();
 		//		f.apply(A, B).print();
+	}
+
+	@Override
+	public RPoint composeL(final RPoint other)
+	{
+		return operateL(Matrices.POINT_COMPOSITION, other);
 	}
 }

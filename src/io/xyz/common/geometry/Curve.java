@@ -8,9 +8,7 @@ import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CombineUtil.combine;
 import static io.xyz.common.funcutils.FilterUtil.filter;
 import static io.xyz.common.funcutils.FoldUtil.accumulate;
-import static io.xyz.common.funcutils.MapUtil.mapIP;
-import static io.xyz.common.funcutils.MapUtil.mapToDouble;
-import static io.xyz.common.funcutils.PrimitiveUtil.sum;
+import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import static io.xyz.common.funcutils.RangeUtil.drange;
 import static io.xyz.common.funcutils.RangeUtil.range;
 import static io.xyz.common.geometry.Constants.EPSILON;
@@ -18,7 +16,9 @@ import static io.xyz.common.geometry.Constants.EPSILON;
 import java.util.Arrays;
 import java.util.List;
 
+import io.xyz.common.matrix.RPoint;
 import io.xyz.common.matrix.impl.RPointImpl;
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 
 /**
  * @author t
@@ -27,10 +27,10 @@ import io.xyz.common.matrix.impl.RPointImpl;
 public interface Curve {
 	int LENGTH_APPROX_STEPS = 10;
 
-	RPointImpl map(double t);
+	RPoint transform(double t);
 
 	default int dim() {
-		return map(0).dim();
+		return transform(0).dim();
 	}
 
 	static double length(final Curve c) {
@@ -38,8 +38,8 @@ public interface Curve {
 	}
 
 	static double length(final Curve c, final int steps) {
-		final double[] ts = drange(0, 1 + EPSILON, 1.0 / steps);
-		return accumulate((t1, t2) -> c.map(t1).distFrom(c.map(t2)), 0, ts);
+		final DoubleRangeDescriptor ts = drange(0, 1 + EPSILON, 1.0 / steps);
+		return accumulate((t1, t2) -> c.transform(t1).distL2(c.transform(t2)), 0, ts);
 	}
 
 	static Curve fuse(final Curve... cs) {
@@ -48,26 +48,28 @@ public interface Curve {
 
 	static Curve fuse(final List<Curve> cs) {
 		final int n = len(cs);
-		final double[] ls = mapToDouble(Curve::length, cs);
-		final double sumLen = sum(ls);
-		mapIP(x -> x / sumLen, ls);
-		Arrays.parallelPrefix(ls, (a, b) -> a + b);
+		assert len(cs) > 0;
+
+		final DoubleRangeDescriptor ls = doubleRange(Curve::length, cs);
+		final double sumLen = accumulate((a, b) -> a + b, 0, ls);
+		final double[] lenRatios = doubleRange(x -> x / sumLen, ls).toArray();
+		Arrays.parallelPrefix(lenRatios, (a, b) -> a + b);
 		return t -> {
-			final int[] notPassed = filter(m -> ls[m] <= t, range(n));
-			final int first = notPassed.length == 0? n - 1 : notPassed[0];
-			final double prevRatio = first == 0? 0 : ls[first - 1];
-			final double t0 = (t - prevRatio) / (ls[first] - prevRatio);
-			return cs.get(first).map(t0);
+			final int[] notPassed = filter(m -> lenRatios[m] <= t, range(n)).toArray();
+			final int first = len(notPassed) == 0? n - 1 : notPassed[0];
+			final double prevRatio = first == 0? 0 : lenRatios[first - 1];
+			final double t0 = (t - prevRatio) / (lenRatios[first] - prevRatio);
+			return cs.get(first).transform(t0);
 		};
 	}
 
-	static Curve straightLine(final RPointImpl p1, final RPointImpl p2) {
+	static Curve straightLine(final RPoint p1, final RPoint p2) {
 		/*
 		 * We could write nicer but we make faster. E.g
 		 *
 		 * t -> p1.scale(1-t).add(p2.scale(t));
 		 */
-		assert RPointImpl.dimensionsAgree(p1, p2);
+		assert RPoint.dimensionsAgree(p1, p2);
 		return t -> new RPointImpl(combine((x, y) -> (1 - t) * x + t * y, p1.coords(), p2.coords()));
 
 		// final int n = p1.dim();
@@ -80,8 +82,8 @@ public interface Curve {
 		// };
 	}
 
-	static Curve quadLine(final RPointImpl p1, final RPointImpl c, final RPointImpl p2) {
-		assert RPointImpl.dimensionsAgree(p1, c, p2);
+	static Curve quadLine(final RPoint p1, final RPoint c, final RPoint p2) {
+		assert RPoint.dimensionsAgree(p1, c, p2);
 		final int n = p1.dim();
 
 		return t -> {
@@ -94,8 +96,8 @@ public interface Curve {
 		};
 	}
 
-	static Curve cubicLine(final RPointImpl p1, final RPointImpl c1, final RPointImpl c2, final RPointImpl p2) {
-		assert RPointImpl.dimensionsAgree(p1, c1, c2, p2);
+	static Curve cubicLine(final RPoint p1, final RPoint c1, final RPoint c2, final RPoint p2) {
+		assert RPoint.dimensionsAgree(p1, c1, c2, p2);
 		final int n = p1.dim();
 
 		return t -> {

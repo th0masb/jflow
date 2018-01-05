@@ -1,7 +1,9 @@
 /**
- * 
+ *
  */
 package io.xyz.common.rangedescriptor;
+
+import static io.xyz.common.funcutils.CollectionUtil.len;
 
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
@@ -21,11 +23,11 @@ public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
 
 	IntToDoubleFunction getDescriptor();
 
-	DoubleRangeDescriptor mapToSameDescriptor(DoubleUnaryOperator f);
+	DoubleRangeDescriptor asDoubleRange(DoubleUnaryOperator f);
 
-	IntRangeDescriptor mapToIntDescriptor(DoubleToIntFunction f);
+	IntRangeDescriptor asIntRange(DoubleToIntFunction f);
 
-	<T> RangeDescriptor<T> mapToObjDescriptor(DoubleFunction<T> f);
+	<T> RangeDescriptor<T> asObjRange(DoubleFunction<T> f);
 
 	DoubleRangeDescriptor filter(DoublePredicate p);
 
@@ -35,7 +37,7 @@ public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
 	}
 
 	default double[] toArray() {
-		final int upper = rangeBound();
+		final int upper = len(this);
 		final IntToDoubleFunction descriptor = getDescriptor();
 		final double[] result = new double[upper];
 		for (int i = 0; i < upper; i++) {

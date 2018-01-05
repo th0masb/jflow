@@ -24,8 +24,6 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 
 import io.xyz.common.geometry.BitArray;
-import io.xyz.common.matrix.RMatrix;
-import io.xyz.common.matrix.RPoint;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
@@ -88,46 +86,28 @@ public final class MapUtil {
 	 * @return
 	 */
 
-	public static IntRangeDescriptor map(final IntUnaryOperator f, final IntRangeDescriptor xs) {
-		return xs.mapToSameDescriptor(f);
+	public static DoubleRangeDescriptor doubleRange(final DoubleUnaryOperator f, final DoubleRangeDescriptor xs) {
+		return xs.asDoubleRange(f);
 	}
 
-	public static IntRangeDescriptor map(final IntUnaryOperator f, final int[] xs) {
-		return ImmutableIntRangeDescriptor.from(xs).mapToSameDescriptor(f);
+	public static DoubleRangeDescriptor doubleRange(final DoubleUnaryOperator f, final double[] xs) {
+		return ImmutableDoubleRangeDescriptor.from(xs).asDoubleRange(f);
 	}
 
-	public static DoubleRangeDescriptor map(final DoubleUnaryOperator f, final DoubleRangeDescriptor xs) {
-		return xs.mapToSameDescriptor(f);
+	public static <T> DoubleRangeDescriptor doubleRange(final ToDoubleFunction<T> f, final List<T> xs) {
+		return ImmutableRangeDescriptor.from(xs).asDoubleRange(f);
 	}
 
-	public static DoubleRangeDescriptor map(final DoubleUnaryOperator f, final double[] xs) {
-		return ImmutableDoubleRangeDescriptor.from(xs).mapToSameDescriptor(f);
+	public static <T> DoubleRangeDescriptor doubleRange(final ToDoubleFunction<T> f, final RangeDescriptor<T> xs) {
+		return xs.asDoubleRange(f);
 	}
 
-	public static RMatrix map(final DoubleUnaryOperator f, final RMatrix M) {
-		return (RMatrix) map(f, (DoubleRangeDescriptor) M);
+	public static DoubleRangeDescriptor doubleRange(final IntToDoubleFunction f, final int[] xs) {
+		return ImmutableIntRangeDescriptor.from(xs).asDoubleRange(f);
 	}
 
-	public static RPoint map(final DoubleUnaryOperator f, final RPoint M) {
-		return (RPoint) map(f, (DoubleRangeDescriptor) M);
-	}
-
-	// public static <T> RangeDescriptor<T> map(final UnaryOperator<T> f, final
-	// RangeDescriptor<T> xs) {
-	// return xs.map(f);
-	// }
-
-	public static <T, R> RangeDescriptor<R> map(final Function<T, R> f, final RangeDescriptor<T> xs) {
-		return xs.map(f);
-	}
-
-	// public static <T> RangeDescriptor<T> map(final UnaryOperator<T> f, final
-	// List<T> xs) {
-	// return ImmutableRangeDescriptor.from(xs).map(f);
-	// }
-
-	public static <T, R> RangeDescriptor<R> map(final Function<T, R> f, final List<T> xs) {
-		return asDescriptor(xs).map(f);
+	public static DoubleRangeDescriptor doubleRange(final IntToDoubleFunction f, final IntRangeDescriptor xs) {
+		return xs.asDoubleRange(f);
 	}
 
 	/**
@@ -137,43 +117,28 @@ public final class MapUtil {
 	 * @return
 	 */
 
-	public static <T> DoubleRangeDescriptor mapToDouble(final ToDoubleFunction<T> f, final List<T> xs) {
-		return ImmutableRangeDescriptor.from(xs).mapToDouble(f);
+	public static IntRangeDescriptor intRange(final IntUnaryOperator f, final IntRangeDescriptor xs) {
+		return xs.asIntRange(f);
 	}
 
-	public static <T> DoubleRangeDescriptor mapToDouble(final ToDoubleFunction<T> f, final RangeDescriptor<T> xs) {
-		return xs.mapToDouble(f);
+	public static IntRangeDescriptor intRange(final IntUnaryOperator f, final int[] xs) {
+		return ImmutableIntRangeDescriptor.from(xs).asIntRange(f);
 	}
 
-	public static DoubleRangeDescriptor mapToDouble(final IntToDoubleFunction f, final int[] xs) {
-		return ImmutableIntRangeDescriptor.from(xs).mapToDoubleDescriptor(f);
+	public static <T> IntRangeDescriptor intRange(final ToIntFunction<T> f, final List<T> xs) {
+		return ImmutableRangeDescriptor.from(xs).asIntRange(f);
 	}
 
-	public static DoubleRangeDescriptor mapToDouble(final IntToDoubleFunction f, final IntRangeDescriptor xs) {
-		return xs.mapToDoubleDescriptor(f);
+	public static <T> IntRangeDescriptor intRange(final ToIntFunction<T> f, final RangeDescriptor<T> xs) {
+		return xs.asIntRange(f);
 	}
 
-	/**
-	 *
-	 * @param f
-	 * @param xs
-	 * @return
-	 */
-
-	public static <T> IntRangeDescriptor mapToInt(final ToIntFunction<T> f, final List<T> xs) {
-		return ImmutableRangeDescriptor.from(xs).mapToInt(f);
+	public static IntRangeDescriptor intRange(final DoubleToIntFunction f, final double[] xs) {
+		return ImmutableDoubleRangeDescriptor.from(xs).asIntRange(f);
 	}
 
-	public static <T> IntRangeDescriptor mapToInt(final ToIntFunction<T> f, final RangeDescriptor<T> xs) {
-		return xs.mapToInt(f);
-	}
-
-	public static IntRangeDescriptor mapToInt(final DoubleToIntFunction f, final double[] xs) {
-		return ImmutableDoubleRangeDescriptor.from(xs).mapToIntDescriptor(f);
-	}
-
-	public static IntRangeDescriptor mapToInt(final DoubleToIntFunction f, final DoubleRangeDescriptor xs) {
-		return xs.mapToIntDescriptor(f);
+	public static IntRangeDescriptor intRange(final DoubleToIntFunction f, final DoubleRangeDescriptor xs) {
+		return xs.asIntRange(f);
 	}
 
 	/**
@@ -183,27 +148,27 @@ public final class MapUtil {
 	 * @return
 	 */
 
-	public static BitArray mapToBool(final DoublePredicate f, final double[] xs) {
+	public static BitArray boolRange(final DoublePredicate f, final double[] xs) {
 		return new BitArray(i -> f.test(xs[i]), len(xs));
 	}
 
-	public static BitArray mapToBool(final DoublePredicate f, final DoubleRangeDescriptor xs) {
+	public static BitArray boolRange(final DoublePredicate f, final DoubleRangeDescriptor xs) {
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
 
-	public static BitArray mapToBool(final IntPredicate f, final int[] xs) {
+	public static BitArray boolRange(final IntPredicate f, final int[] xs) {
 		return new BitArray(i -> f.test(xs[i]), len(xs));
 	}
 
-	public static BitArray mapToBool(final IntPredicate f, final IntRangeDescriptor xs) {
+	public static BitArray boolRange(final IntPredicate f, final IntRangeDescriptor xs) {
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
 
-	public static <T> BitArray mapToBool(final Predicate<T> f, final List<T> xs) {
+	public static <T> BitArray boolRange(final Predicate<T> f, final List<T> xs) {
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
 
-	public static <T> BitArray mapToBool(final Predicate<T> f, final RangeDescriptor<T> xs) {
+	public static <T> BitArray boolRange(final Predicate<T> f, final RangeDescriptor<T> xs) {
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
 
@@ -214,20 +179,28 @@ public final class MapUtil {
 	 * @return
 	 */
 
-	public static <T> RangeDescriptor<T> mapToObj(final IntFunction<T> f, final int[] xs) {
-		return ImmutableIntRangeDescriptor.from(xs).mapToObjDescriptor(f);
+	public static <T, R> RangeDescriptor<R> objRange(final Function<T, R> f, final RangeDescriptor<T> xs) {
+		return xs.asObjRange(f);
 	}
 
-	public static <T> RangeDescriptor<T> mapToObj(final IntFunction<T> f, final IntRangeDescriptor xs) {
-		return xs.mapToObjDescriptor(f);
+	public static <T, R> RangeDescriptor<R> objRange(final Function<T, R> f, final List<T> xs) {
+		return asDescriptor(xs).asObjRange(f);
 	}
 
-	public static <T> RangeDescriptor<T> mapToObj(final DoubleFunction<T> f, final double[] xs) {
-		return ImmutableDoubleRangeDescriptor.from(xs).mapToObjDescriptor(f);
+	public static <T> RangeDescriptor<T> objRange(final IntFunction<T> f, final int[] xs) {
+		return ImmutableIntRangeDescriptor.from(xs).asObjRange(f);
 	}
 
-	public static <T> RangeDescriptor<T> mapToObj(final DoubleFunction<T> f, final DoubleRangeDescriptor xs) {
-		return xs.mapToObjDescriptor(f);
+	public static <T> RangeDescriptor<T> objRange(final IntFunction<T> f, final IntRangeDescriptor xs) {
+		return xs.asObjRange(f);
+	}
+
+	public static <T> RangeDescriptor<T> objRange(final DoubleFunction<T> f, final double[] xs) {
+		return ImmutableDoubleRangeDescriptor.from(xs).asObjRange(f);
+	}
+
+	public static <T> RangeDescriptor<T> objRange(final DoubleFunction<T> f, final DoubleRangeDescriptor xs) {
+		return xs.asObjRange(f);
 	}
 
 	// public static <T> Stream<T> mapToObjStream(final IntFunction<T> f, final

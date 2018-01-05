@@ -1,17 +1,19 @@
 /**
- * 
+ *
  */
 package io.xyz.common.rangedescriptor.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CompositionUtil.compose;
 
+import java.util.Arrays;
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntToDoubleFunction;
 
+import io.xyz.common.funcutils.FilterUtil;
 import io.xyz.common.rangedescriptor.AbstractRangeDescriptor;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
@@ -35,7 +37,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see io.xyz.common.rangedescriptor.DoubleRangeDescriptor#getDescriptor()
 	 */
 	@Override
@@ -45,43 +47,52 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * io.xyz.common.rangedescriptor.DoubleRangeDescriptor#map(java.util.function.
 	 * DoubleUnaryOperator)
 	 */
 	@Override
-	public DoubleRangeDescriptor mapToSameDescriptor(final DoubleUnaryOperator f) {
+	public DoubleRangeDescriptor asDoubleRange(final DoubleUnaryOperator f) {
 		return new ImmutableDoubleRangeDescriptor(rangeBound(), compose(f, descriptor));
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * io.xyz.common.rangedescriptor.DoubleRangeDescriptor#filter(java.util.function
 	 * .DoublePredicate)
 	 */
 	@Override
 	public DoubleRangeDescriptor filter(final DoublePredicate p) {
-		throw new RuntimeException("NYI");
+		/*
+		 * We don't lazily filter with this construction. Since we need a notion of length
+		 * we must perform all calculations and it makes sense to keep them.
+		 */
+		return ImmutableDoubleRangeDescriptor.from(FilterUtil.filter(p, toArray()));
+	}
+
+	@Override
+	public String toString() {
+		return Arrays.toString(toArray());
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(final String[] args) {
-		// TODO Auto-generated method stub
-
+		final DoubleRangeDescriptor drd = ImmutableDoubleRangeDescriptor.from(new double[] {1, 2, 3});
+		System.out.println(Arrays.toString(drd.toArray()));
 	}
 
 	@Override
-	public IntRangeDescriptor mapToIntDescriptor(final DoubleToIntFunction f) {
+	public IntRangeDescriptor asIntRange(final DoubleToIntFunction f) {
 		return new ImmutableIntRangeDescriptor(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
-	public <T> RangeDescriptor<T> mapToObjDescriptor(final DoubleFunction<T> f) {
+	public <T> RangeDescriptor<T> asObjRange(final DoubleFunction<T> f) {
 		return new ImmutableRangeDescriptor<>(rangeBound(), compose(f, descriptor));
 	}
 
