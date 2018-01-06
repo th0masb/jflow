@@ -98,13 +98,13 @@ public final class Matrices {
 	 */
 	public static void main(final String[] args)
 	{
-		final RMatrix M = rotate2D(Math.PI / 2).toDescriptorMatrix();
+		final RMatrix M = rotate2D(Math.PI / 2).toDescriptorForm();
 		System.out.println(M.row(0));
 		System.out.println(M.row(1));
 		//
 		// System.out.println(len(M.row(0)));
 
-		final RPoint p = RPoint.of(new double[] { 0, 1 }).toDescriptorPoint();
+		final RPoint p = RPoint.of(new double[] { 0, 1 }).toDescriptorForm();
 		System.out.println(p);
 		final RPoint q = M.transform(RPoint.of(0, 1));
 		System.out.println(q);

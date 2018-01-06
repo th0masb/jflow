@@ -90,13 +90,13 @@ public class RMatrixDescriptor implements RMatrix {
 	}
 
 	@Override
-	public RMatrix toDescriptorMatrix()
+	public RMatrix toDescriptorForm()
 	{
 		return this;
 	}
 
 	@Override
-	public RMatrix toCachedMatrix()
+	public RMatrix toCachedForm()
 	{
 		return new RMatrixImpl(colDim, contentDescriptor);
 	}
@@ -105,6 +105,30 @@ public class RMatrixDescriptor implements RMatrix {
 	public RPoint composeL(final RPoint other)
 	{
 		return operateL(Matrices.DESCRIPTOR_POINT_COMPOSITION, other);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final RMatrix cached = toCachedForm();
+		System.out.println("!!!!!!!!!" + cached);
+		return toCachedForm().hashCode();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(final Object obj)
+	{
+		return toCachedForm().equals(obj);
 	}
 }
 

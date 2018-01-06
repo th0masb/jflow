@@ -83,13 +83,13 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 	}
 
 	@Override
-	public RPoint toDescriptorPoint()
+	public RPoint toDescriptorForm()
 	{
 		return new RPointDescriptor(this);
 	}
 
 	@Override
-	public RPoint toCachedPoint()
+	public RPoint toCachedForm()
 	{
 		return this;
 	}
@@ -105,8 +105,9 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 	{
 		final StringBuilder sb = new StringBuilder("(");
 		final double[] rounded = doubleRange(d -> isZero(d)? 0 : d, this).toArray();
-		sb.append(concat(" ", objRange(d -> Double.toString(d).substring(0, digitLength(2, d)), rounded)));
+		sb.append(concat(" ", objRange(d -> Double.toString(d).substring(0, digitLength(4, d)), rounded)));
 		sb.append(")");
 		return sb.toString();
 	}
+
 }

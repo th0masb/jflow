@@ -92,6 +92,26 @@ public final class MapUtil {
 	 * @return
 	 */
 
+	public static DoubleRangeDescriptor doubleRange(final double lower, final double upper, final double step)
+	{
+		assert abs(step) >= EPSILON : "Cannot have 0 step";
+		final double boundDiff = upper - lower, stepSign = signum(step);
+
+		if (abs(upper - lower) < EPSILON) {
+			return DoubleRangeDescriptor.EMPTY;
+		} else if (signum(boundDiff) != stepSign) {
+			return new ImmutableDoubleRangeDescriptor(1, i -> lower);
+		} else {
+			final int n = max((int) Math.ceil(boundDiff / step), 1);
+			return new ImmutableDoubleRangeDescriptor(n, i -> lower + i * step);
+		}
+	}
+
+	public static DoubleRangeDescriptor doubleRange(final int upper)
+	{
+		return doubleRange(0, upper, 1);
+	}
+
 	public static DoubleRangeDescriptor doubleRange(final DoubleUnaryOperator f, final DoubleRangeDescriptor xs)
 	{
 		return xs.asDoubleRange(f);
@@ -287,26 +307,6 @@ public final class MapUtil {
 	 * @param step
 	 * @return
 	 */
-
-	public static DoubleRangeDescriptor drange(final double lower, final double upper, final double step)
-	{
-		assert abs(step) >= EPSILON : "Cannot have 0 step";
-		final double boundDiff = upper - lower, stepSign = signum(step);
-
-		if (abs(upper - lower) < EPSILON) {
-			return DoubleRangeDescriptor.EMPTY;
-		} else if (signum(boundDiff) != stepSign) {
-			return new ImmutableDoubleRangeDescriptor(1, i -> lower);
-		} else {
-			final int n = max((int) Math.ceil(boundDiff / step), 1);
-			return new ImmutableDoubleRangeDescriptor(n, i -> lower + i * step);
-		}
-	}
-
-	public static DoubleRangeDescriptor drange(final int upper)
-	{
-		return drange(0, upper, 1);
-	}
 
 	// public static <T> Stream<T> mapToObjStream(final IntFunction<T> f, final
 	// int[] xs) {

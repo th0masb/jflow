@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Lhasa Limited
+ * Copyright ï¿½ 2018 Lhasa Limited
  * File created: 5 Jan 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -18,11 +18,11 @@ import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
  * @author ThomasB
  * @since 5 Jan 2018
  */
-public class RPointDescriptor extends RMatrixDescriptor implements RPoint
-{
+public class RPointDescriptor extends RMatrixDescriptor implements RPoint {
 
-	public RPointDescriptor(final double[] xs) {
-		this (ImmutableDoubleRangeDescriptor.from(xs));
+	public RPointDescriptor(final double[] xs)
+	{
+		this(ImmutableDoubleRangeDescriptor.from(xs));
 	}
 
 	public RPointDescriptor(final DoubleRangeDescriptor xs)
@@ -31,22 +31,24 @@ public class RPointDescriptor extends RMatrixDescriptor implements RPoint
 	}
 
 	/*
-	 * We store a point in a row vector but it is a column vector.
-	 * We therefore override the following three methods to reflect
-	 * this change.
+	 * We store a point in a row vector but it is a column vector. We therefore
+	 * override the following three methods to reflect this change.
 	 */
 	@Override
-	public double at(final int i, final int j) {
+	public double at(final int i, final int j)
+	{
 		return super.at(j, i);
 	}
 
 	@Override
-	public int colDim() {
+	public int colDim()
+	{
 		return super.rowDim();
 	}
 
 	@Override
-	public int rowDim() {
+	public int rowDim()
+	{
 		return super.colDim();
 	}
 
@@ -64,25 +66,24 @@ public class RPointDescriptor extends RMatrixDescriptor implements RPoint
 	}
 
 	@Override
-	public RPoint toDescriptorPoint()
+	public RPoint toDescriptorForm()
 	{
 		return this;
 	}
 
 	@Override
-	public RPoint toCachedPoint()
+	public RPoint toCachedForm()
 	{
-		return null;
+		return new RPointImpl(contentDescriptor);
 	}
 }
 
-/* ---------------------------------------------------------------------*
- * This software is the confidential and proprietary
- * information of Lhasa Limited
- * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS
- * ---
- * No part of this confidential information shall be disclosed
- * and it shall be used only in accordance with the terms of a
- * written license agreement entered into by holder of the information
- * with LHASA Ltd.
- * --------------------------------------------------------------------- */
+/*
+ * ---------------------------------------------------------------------* This
+ * software is the confidential and proprietary information of Lhasa Limited
+ * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS --- No part of this
+ * confidential information shall be disclosed and it shall be used only in
+ * accordance with the terms of a written license agreement entered into by
+ * holder of the information with LHASA Ltd.
+ * ---------------------------------------------------------------------
+ */

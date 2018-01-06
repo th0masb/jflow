@@ -16,34 +16,36 @@ import static io.xyz.common.funcutils.PrimitiveUtil.pow;
 import static io.xyz.common.funcutils.PrimitiveUtil.sqrt;
 import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 
+import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
+import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
+import java.util.function.IntToDoubleFunction;
 
 import io.xyz.common.geometry.PointMap;
 import io.xyz.common.matrix.impl.RPointImpl;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author ThomasB
  * @since 4 Jan 2018
  */
-public interface RPoint extends RMatrix {
+public interface RPoint extends RMatrix, DoubleRangeDescriptor {
+
 	@Override
 	RPoint apply(DoubleUnaryOperator f);
 
 	RPoint add(final RPoint other);
 
-	RPoint toDescriptorPoint();
-
-	RPoint toCachedPoint();
-
-	// RPoint cross(RPoint other);
+	@Override
+	RPoint toDescriptorForm();
 
 	@Override
-	default double get(final int index)
-	{
-		assert flatInRange(index);
-		return flatAt(index);
-	}
+	RPoint toCachedForm();
+
+	// RPoint cross(RPoint other);
 
 	default double x()
 	{
@@ -136,7 +138,7 @@ public interface RPoint extends RMatrix {
 	default RPoint subtract(final RPoint other)
 	{
 		assert dimensionsAgree(this, other);
-		return add(scale(-1));
+		return add(other.scale(-1));
 	}
 
 	/**
@@ -160,12 +162,6 @@ public interface RPoint extends RMatrix {
 		return rowDim();
 	}
 
-	@Override
-	default RPoint asDoubleRange(final DoubleUnaryOperator f)
-	{
-		return apply(f);
-	}
-
 	static boolean dimensionsAgree(final RPoint... ps)
 	{
 		return allEqual(intRange(p -> p.dim(), ps));
@@ -184,6 +180,54 @@ public interface RPoint extends RMatrix {
 	static RPoint copy(final RPoint src)
 	{
 		return new RPointImpl(src);
+	}
+
+	@Override
+	default RPoint asDoubleRange(final DoubleUnaryOperator f)
+	{
+		return apply(f);
+	}
+
+	@Override
+	default IntToDoubleFunction getDescriptor()
+	{
+		return this::flatAt;
+	}
+
+	@Override
+	default int rangeBound()
+	{
+		return rowDim() * colDim();
+	}
+
+	@Override
+	default double get(final int index)
+	{
+		assert flatInRange(index);
+		return flatAt(index);
+	}
+
+	@Override
+	default IntRangeDescriptor asIntRange(final DoubleToIntFunction f)
+	{
+		throw new RuntimeException("NYI");
+	}
+
+	@Override
+	default <T> RangeDescriptor<T> asObjRange(final DoubleFunction<T> f)
+	{
+		throw new RuntimeException("NYI");
+	}
+
+	@Override
+	default DoubleRangeDescriptor filter(final DoublePredicate p)
+	{
+		throw new RuntimeException("Can't filter a matrix!");
+	}
+
+	public static void main(final String[] args)
+	{
+		System.out.println(of(1.0000004, 2, 4.5).equals(of(1, 2, 4.5000003)));
 	}
 }
 

@@ -12,23 +12,17 @@ import static io.xyz.common.funcutils.PrimitiveUtil.max;
 import static io.xyz.common.funcutils.PrimitiveUtil.min;
 
 import java.util.function.BiFunction;
-import java.util.function.DoubleFunction;
-import java.util.function.DoublePredicate;
-import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
-import java.util.function.IntToDoubleFunction;
 
 import io.xyz.common.geometry.PointMap;
 import io.xyz.common.geometry.PointTransform;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author ThomasB
  * @since 4 Jan 2018
  */
-public interface RMatrix extends PointTransform, DoubleRangeDescriptor {
+public interface RMatrix extends PointTransform { // , DoubleRangeDescriptor {
 	double at(int rowIndex, int colIndex);
 
 	DoubleRangeDescriptor row(int index);
@@ -45,9 +39,9 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor {
 	 * TODO - add vcombine - i.e. vectorised combine.
 	 */
 
-	RMatrix toDescriptorMatrix();
+	RMatrix toDescriptorForm();
 
-	RMatrix toCachedMatrix();
+	RMatrix toCachedForm();
 
 	RMatrix composeL(RMatrix other);
 
@@ -55,15 +49,18 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor {
 
 	RMatrix add(RMatrix other);
 
-	default RMatrix operateL(final MatrixBiOperator f, final RMatrix other) {
+	default RMatrix operateL(final MatrixBiOperator f, final RMatrix other)
+	{
 		return f.apply(this, other);
 	}
 
-	default RPoint operateL(final BiFunction<RMatrix, RPoint, RPoint> f, final RPoint other) {
+	default RPoint operateL(final BiFunction<RMatrix, RPoint, RPoint> f, final RPoint other)
+	{
 		return f.apply(this, other);
 	}
 
-	default RMatrix scale(final double scaleFactor) {
+	default RMatrix scale(final double scaleFactor)
+	{
 		return apply(x -> x * scaleFactor);
 	}
 
@@ -73,90 +70,68 @@ public interface RMatrix extends PointTransform, DoubleRangeDescriptor {
 	 * @param other
 	 * @return
 	 */
-	default RMatrix subtract(final RMatrix other) {
+	default RMatrix subtract(final RMatrix other)
+	{
 		return add(scale(-1));
 	}
 
-	default RMatrix abs() {
+	default RMatrix abs()
+	{
 		return apply(x -> Math.abs(x));
 	}
 
-	default double minEntry() {
-		return min(doubleRange(this::flatAt, range(colDim() * rowDim()))).getAsDouble();
+	default double minEntry()
+	{
+		return min(flatContents()).getAsDouble();
 	}
 
-	default double maxEntry() {
-		return max(doubleRange(this::flatAt, range(colDim() * rowDim()))).getAsDouble();
+	default double maxEntry()
+	{
+		return max(flatContents()).getAsDouble();
 	}
 
-	default double flatAt(final int index) {
+	default double flatAt(final int index)
+	{
 		assert flatInRange(index);
 		return at(index / colDim(), index % colDim());
 	}
 
-	default boolean flatInRange(final int index) {
+	default boolean flatInRange(final int index)
+	{
 		return 0 <= index && index < rowDim() * colDim();
 	}
 
-	default boolean inRange(final int rowIndex, final int colIndex) {
+	default boolean inRange(final int rowIndex, final int colIndex)
+	{
 		return flatInRange(rowIndex * colDim() + colIndex);
+	}
+
+	default DoubleRangeDescriptor flatContents()
+	{
+		return doubleRange(this::flatAt, range(colDim() * rowDim()));
 	}
 
 	/**
 	 * Default mapping is composition/multiplication
 	 */
 	@Override
-	default PointMap getMapping() {
+	default PointMap getMapping()
+	{
 		return p -> composeL(p);
 	}
 
 	@Override
-	default int domainDim() {
+	default int domainDim()
+	{
 		return colDim();
 	}
 
 	@Override
-	default int targetDim() {
+	default int targetDim()
+	{
 		return rowDim();
 	}
 
-	// ============>
-	// Allows us to easily take advantage of our static utility methods
-
-	@Override
-	default RMatrix asDoubleRange(final DoubleUnaryOperator f) {
-		return apply(f);
-	}
-
-	@Override
-	default IntToDoubleFunction getDescriptor() {
-		return this::flatAt;
-	}
-
-	@Override
-	default int rangeBound() {
-		return rowDim() * colDim();
-	}
-
-	@Override
-	default double get(final int index) {
-		return flatAt(index);
-	}
-
-	@Override
-	default IntRangeDescriptor asIntRange(final DoubleToIntFunction f) {
-		throw new RuntimeException("NYI");
-	}
-
-	@Override
-	default <T> RangeDescriptor<T> asObjRange(final DoubleFunction<T> f) {
-		throw new RuntimeException("NYI");
-	}
-
-	@Override
-	default DoubleRangeDescriptor filter(final DoublePredicate p) {
-		throw new RuntimeException("Can't filter a matrix!");
-	}
 }
 
 /*

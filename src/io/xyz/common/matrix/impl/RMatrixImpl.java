@@ -5,9 +5,13 @@ package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.len;
+import static io.xyz.common.funcutils.CombineUtil.combine;
 import static io.xyz.common.funcutils.MapUtil.doubleRange;
+import static io.xyz.common.funcutils.PredicateUtil.all;
+import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
+import java.util.Arrays;
 import java.util.function.DoubleUnaryOperator;
 
 import io.xyz.common.funcutils.MapUtil;
@@ -105,13 +109,13 @@ public class RMatrixImpl implements RMatrix {
 	}
 
 	@Override
-	public RMatrix toDescriptorMatrix()
+	public RMatrix toDescriptorForm()
 	{
 		return new RMatrixDescriptor(this::at, (short) rowDim(), colDim);
 	}
 
 	@Override
-	public RMatrix toCachedMatrix()
+	public RMatrix toCachedForm()
 	{
 		return this;
 	}
@@ -126,6 +130,60 @@ public class RMatrixImpl implements RMatrix {
 	public RMatrix add(final RMatrix other)
 	{
 		return operateL(Matrices.SUM, other);
+	}
+
+	@Override
+	public RPoint composeL(final RPoint other)
+	{
+		return operateL(Matrices.POINT_COMPOSITION, other);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + colDim;
+		result = prime * result + Arrays.hashCode(contents);
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(final Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof RMatrix))
+			return false;
+		if ((this instanceof RPoint) && !(obj instanceof RPoint))
+			return false;
+		final RMatrix other = ((RMatrix) obj).toCachedForm();
+		final int otherColDim = (other instanceof RPoint)? other.rowDim() : other.colDim();
+		if (colDim != otherColDim)
+			return false;
+		if (!arraysEqual(contents, collect(other.flatContents())))
+			return false;
+		return true;
+	}
+
+	private static boolean arraysEqual(final double[] a, final double[] b)
+	{
+		if (len(a) != len(b)) {
+			return false;
+		}
+		return all(d -> isZero(d), combine((x, y) -> x - y, a, b));
 	}
 
 	// @Override
@@ -233,11 +291,5 @@ public class RMatrixImpl implements RMatrix {
 		// B.print();
 		// System.out.println();
 		// f.apply(A, B).print();
-	}
-
-	@Override
-	public RPoint composeL(final RPoint other)
-	{
-		return operateL(Matrices.POINT_COMPOSITION, other);
 	}
 }
