@@ -31,12 +31,14 @@ public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
 
 	DoubleRangeDescriptor filter(DoublePredicate p);
 
-	default double get(final int index) {
+	default double get(final int index)
+	{
 		assert 0 <= index && index < rangeBound();
 		return getDescriptor().applyAsDouble(index);
 	}
 
-	default double[] toArray() {
+	default double[] toArray()
+	{
 		final int upper = len(this);
 		final IntToDoubleFunction descriptor = getDescriptor();
 		final double[] result = new double[upper];

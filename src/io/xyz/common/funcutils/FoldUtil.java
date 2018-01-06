@@ -24,10 +24,12 @@ import io.xyz.common.rangedescriptor.impl.ImmutableRangeDescriptor;
  */
 public final class FoldUtil {
 
-	public FoldUtil() {
+	public FoldUtil()
+	{
 	}
 
-	public static OptionalInt foldr(final IntBinaryOperator f, final int id, final IntRangeDescriptor xs) {
+	public static OptionalInt foldr(final IntBinaryOperator f, final int id, final IntRangeDescriptor xs)
+	{
 		if (len(xs) == 0) {
 			return OptionalInt.empty();
 		}
@@ -38,11 +40,13 @@ public final class FoldUtil {
 		return OptionalInt.of(cumulativeFold);
 	}
 
-	public static OptionalInt foldr(final IntBinaryOperator f, final int id, final int[] xs) {
+	public static OptionalInt foldr(final IntBinaryOperator f, final int id, final int[] xs)
+	{
 		return foldr(f, id, ImmutableIntRangeDescriptor.from(xs));
 	}
 
-	public static OptionalDouble foldr(final DoubleBinaryOperator f, final double id, final DoubleRangeDescriptor xs) {
+	public static OptionalDouble foldr(final DoubleBinaryOperator f, final double id, final DoubleRangeDescriptor xs)
+	{
 		if (len(xs) == 0) {
 			return OptionalDouble.empty();
 		}
@@ -53,11 +57,13 @@ public final class FoldUtil {
 		return OptionalDouble.of(cumulativeFold);
 	}
 
-	public static OptionalDouble foldr(final DoubleBinaryOperator f, final double id, final double... xs) {
+	public static OptionalDouble foldr(final DoubleBinaryOperator f, final double id, final double... xs)
+	{
 		return foldr(f, id, ImmutableDoubleRangeDescriptor.from(xs));
 	}
 
-	public static <T> Optional<T> foldr(final BinaryOperator<T> f, final T id, final RangeDescriptor<T> xs) {
+	public static <T> Optional<T> foldr(final BinaryOperator<T> f, final T id, final RangeDescriptor<? extends T> xs)
+	{
 		if (len(xs) == 0) {
 			return Optional.empty();
 		}
@@ -68,7 +74,8 @@ public final class FoldUtil {
 		return Optional.of(cumulativeFold);
 	}
 
-	public static <T> Optional<T> foldr(final BinaryOperator<T> f, final T id, final List<T> xs) {
+	public static <T> Optional<T> foldr(final BinaryOperator<T> f, final T id, final List<? extends T> xs)
+	{
 		return foldr(f, id, ImmutableRangeDescriptor.from(xs));
 	}
 
@@ -79,7 +86,8 @@ public final class FoldUtil {
 	 * @return
 	 */
 
-	public static OptionalInt foldl(final IntBinaryOperator f, final int id, final IntRangeDescriptor xs) {
+	public static OptionalInt foldl(final IntBinaryOperator f, final int id, final IntRangeDescriptor xs)
+	{
 		if (len(xs) == 0) {
 			return OptionalInt.empty();
 		}
@@ -90,11 +98,13 @@ public final class FoldUtil {
 		return OptionalInt.of(cumulativeFold);
 	}
 
-	public static OptionalInt foldl(final IntBinaryOperator f, final int id, final int[] xs) {
+	public static OptionalInt foldl(final IntBinaryOperator f, final int id, final int[] xs)
+	{
 		return foldl(f, id, ImmutableIntRangeDescriptor.from(xs));
 	}
 
-	public static OptionalDouble foldl(final DoubleBinaryOperator f, final double id, final DoubleRangeDescriptor xs) {
+	public static OptionalDouble foldl(final DoubleBinaryOperator f, final double id, final DoubleRangeDescriptor xs)
+	{
 		if (len(xs) == 0) {
 			return OptionalDouble.empty();
 		}
@@ -105,11 +115,13 @@ public final class FoldUtil {
 		return OptionalDouble.of(cumulativeFold);
 	}
 
-	public static OptionalDouble foldl(final DoubleBinaryOperator f, final double id, final double... xs) {
+	public static OptionalDouble foldl(final DoubleBinaryOperator f, final double id, final double... xs)
+	{
 		return foldl(f, id, ImmutableDoubleRangeDescriptor.from(xs));
 	}
 
-	public static <T> Optional<T> foldl(final BinaryOperator<T> f, final T id, final RangeDescriptor<T> xs) {
+	public static <T> Optional<T> foldl(final BinaryOperator<T> f, final T id, final RangeDescriptor<? extends T> xs)
+	{
 		if (len(xs) == 0) {
 			return Optional.empty();
 		}
@@ -120,7 +132,8 @@ public final class FoldUtil {
 		return Optional.of(cumulativeFold);
 	}
 
-	public static <T> Optional<T> foldl(final BinaryOperator<T> f, final T id, final List<T> xs) {
+	public static <T> Optional<T> foldl(final BinaryOperator<T> f, final T id, final List<? extends T> xs)
+	{
 		return foldl(f, id, ImmutableRangeDescriptor.from(xs));
 	}
 
@@ -132,7 +145,8 @@ public final class FoldUtil {
 	 * @return
 	 */
 
-	public static double accumulate(final DoubleBinaryOperator f, final double start, final DoubleRangeDescriptor xs) {
+	public static double accumulate(final DoubleBinaryOperator f, final double start, final DoubleRangeDescriptor xs)
+	{
 		final int loopUpperBound = len(xs) - 1;
 		double accumulation = start;
 		for (int i = 0; i < loopUpperBound; i++) {
@@ -141,11 +155,13 @@ public final class FoldUtil {
 		return accumulation;
 	}
 
-	public static double accumulate(final DoubleBinaryOperator f, final double start, final double[] xs) {
+	public static double accumulate(final DoubleBinaryOperator f, final double start, final double[] xs)
+	{
 		return accumulate(f, start, ImmutableDoubleRangeDescriptor.from(xs));
 	}
 
-	public static int accumulate(final IntBinaryOperator f, final int start, final IntRangeDescriptor xs) {
+	public static int accumulate(final IntBinaryOperator f, final int start, final IntRangeDescriptor xs)
+	{
 		final int loopUpperBound = len(xs) - 1;
 		int accumulation = start;
 		for (int i = 0; i < loopUpperBound; i++) {
@@ -154,7 +170,8 @@ public final class FoldUtil {
 		return accumulation;
 	}
 
-	public static int accumulate(final IntBinaryOperator f, final int start, final int[] xs) {
+	public static int accumulate(final IntBinaryOperator f, final int start, final int[] xs)
+	{
 		return accumulate(f, start, ImmutableIntRangeDescriptor.from(xs));
 	}
 }

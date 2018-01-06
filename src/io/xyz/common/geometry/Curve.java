@@ -9,8 +9,8 @@ import static io.xyz.common.funcutils.CombineUtil.combine;
 import static io.xyz.common.funcutils.FilterUtil.filter;
 import static io.xyz.common.funcutils.FoldUtil.accumulate;
 import static io.xyz.common.funcutils.MapUtil.doubleRange;
-import static io.xyz.common.funcutils.RangeUtil.drange;
-import static io.xyz.common.funcutils.RangeUtil.range;
+import static io.xyz.common.funcutils.MapUtil.drange;
+import static io.xyz.common.funcutils.MapUtil.range;
 import static io.xyz.common.geometry.Constants.EPSILON;
 
 import java.util.Arrays;
@@ -70,16 +70,7 @@ public interface Curve {
 		 * t -> p1.scale(1-t).add(p2.scale(t));
 		 */
 		assert RPoint.dimensionsAgree(p1, p2);
-		return t -> new RPointImpl(combine((x, y) -> (1 - t) * x + t * y, p1.coords(), p2.coords()));
-
-		// final int n = p1.dim();
-		// return t -> {
-		// final double[] newCoords = new double[n];
-		// for (int i = 0; i < n; i++) {
-		// newCoords[i] = (1 - t) * p1.get(i) + t * p2.get(i);
-		// }
-		// return new RPoint(newCoords);
-		// };
+		return t -> new RPointImpl(combine((x, y) -> (1 - t) * x + t * y, p1, p2));
 	}
 
 	static Curve quadLine(final RPoint p1, final RPoint c, final RPoint p2) {

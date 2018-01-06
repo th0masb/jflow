@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Lhasa Limited
+ * Copyright ï¿½ 2018 Lhasa Limited
  * File created: 4 Jan 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -8,10 +8,10 @@ package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.MapUtil.doubleRange;
-import static io.xyz.common.funcutils.RangeUtil.range;
 
 import java.util.function.DoubleUnaryOperator;
 
+import io.xyz.common.funcutils.MapUtil;
 import io.xyz.common.matrix.MatrixConstructor;
 import io.xyz.common.matrix.RMatrix;
 import io.xyz.common.matrix.RPoint;
@@ -26,8 +26,9 @@ public class RMatrixDescriptor implements RMatrix {
 	protected final DoubleRangeDescriptor contentDescriptor;
 	protected final short colDim;
 
-	public RMatrixDescriptor(final MatrixConstructor f, final int nrows, final int ncols) {
-		this (ncols, doubleRange(i -> f.map(i/ncols, i%ncols), range(nrows*ncols)));
+	public RMatrixDescriptor(final MatrixConstructor f, final int nrows, final int ncols)
+	{
+		this(ncols, doubleRange(i -> f.map(i / ncols, i % ncols), MapUtil.range(nrows * ncols)));
 	}
 
 	RMatrixDescriptor(final int ncols, final DoubleRangeDescriptor contentDescriptor)
@@ -40,9 +41,10 @@ public class RMatrixDescriptor implements RMatrix {
 	}
 
 	@Override
-	public double at(final int i, final int j) {
+	public double at(final int i, final int j)
+	{
 		assert inRange(i, j);
-		return contentDescriptor.get(i*colDim() + j);
+		return contentDescriptor.get(i * colDim() + j);
 	}
 
 	@Override
@@ -66,19 +68,19 @@ public class RMatrixDescriptor implements RMatrix {
 	@Override
 	public DoubleRangeDescriptor row(final int index)
 	{
-		return doubleRange(j -> at(index, j), range(colDim()));
+		return doubleRange(j -> at(index, j), MapUtil.range(colDim()));
 	}
 
 	@Override
 	public DoubleRangeDescriptor col(final int index)
 	{
-		return doubleRange(i -> at(i, index), range(rowDim()));
+		return doubleRange(i -> at(i, index), MapUtil.range(rowDim()));
 	}
 
 	@Override
 	public int rowDim()
 	{
-		return len(contentDescriptor)/colDim;
+		return len(contentDescriptor) / colDim;
 	}
 
 	@Override
@@ -106,13 +108,12 @@ public class RMatrixDescriptor implements RMatrix {
 	}
 }
 
-/* ---------------------------------------------------------------------*
- * This software is the confidential and proprietary
- * information of Lhasa Limited
- * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS
- * ---
- * No part of this confidential information shall be disclosed
- * and it shall be used only in accordance with the terms of a
- * written license agreement entered into by holder of the information
- * with LHASA Ltd.
- * --------------------------------------------------------------------- */
+/*
+ * ---------------------------------------------------------------------* This
+ * software is the confidential and proprietary information of Lhasa Limited
+ * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS --- No part of this
+ * confidential information shall be disclosed and it shall be used only in
+ * accordance with the terms of a written license agreement entered into by
+ * holder of the information with LHASA Ltd.
+ * ---------------------------------------------------------------------
+ */
