@@ -7,6 +7,7 @@
 package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.len;
+import static io.xyz.common.funcutils.CombineUtil.combine;
 
 import java.util.function.DoubleUnaryOperator;
 
@@ -61,8 +62,7 @@ public class RPointDescriptor extends RMatrixDescriptor implements RPoint {
 	@Override
 	public RPoint add(final RPoint other)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new RPointDescriptor(combine((a, b) -> a + b, this, other));
 	}
 
 	@Override
@@ -75,6 +75,12 @@ public class RPointDescriptor extends RMatrixDescriptor implements RPoint {
 	public RPoint toCachedForm()
 	{
 		return new RPointImpl(contentDescriptor);
+	}
+
+	@Override
+	public String toString()
+	{
+		return toCachedForm().toString();
 	}
 }
 

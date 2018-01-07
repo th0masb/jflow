@@ -16,7 +16,7 @@ import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
  */
 public interface IntRangeDescriptor extends BaseRangeDescriptor {
 
-	static IntRangeDescriptor EMPTY = new ImmutableIntRangeDescriptor(0, i -> i);
+	static IntRangeDescriptor EMPTY = ImmutableIntRangeDescriptor.of(0, i -> i);
 
 	IntUnaryOperator getDescriptor();
 
@@ -28,12 +28,14 @@ public interface IntRangeDescriptor extends BaseRangeDescriptor {
 
 	IntRangeDescriptor filter(IntPredicate p);
 
-	default int get(final int index) {
-		assert 0 <= index && index < rangeBound();
+	default int get(final int index)
+	{
+		assert indexIsInRange(index);
 		return getDescriptor().applyAsInt(index);
 	}
 
-	default int[] toArray() {
+	default int[] toArray()
+	{
 		final int upper = rangeBound();
 		final IntUnaryOperator descriptor = getDescriptor();
 		final int[] result = new int[upper];
@@ -52,7 +54,8 @@ public interface IntRangeDescriptor extends BaseRangeDescriptor {
 	// return bitArr;
 	// }
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args)
+	{
 		// final IntUnaryOperator f = i -> i;
 	}
 }

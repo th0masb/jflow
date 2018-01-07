@@ -115,8 +115,6 @@ public class RMatrixDescriptor implements RMatrix {
 	@Override
 	public int hashCode()
 	{
-		final RMatrix cached = toCachedForm();
-		System.out.println("!!!!!!!!!" + cached);
 		return toCachedForm().hashCode();
 	}
 

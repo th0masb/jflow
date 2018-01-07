@@ -57,42 +57,42 @@ public class Line extends AbstractSplineSegment {
 		return constituents[1];
 	}
 
-	// public boolean isParallelTo(Line other)
-	// {
-	// return this.di
-	// }
+	public boolean isParallelTo(final Line other)
+	{
+		final RPoint thisDir = direction().normalise(), otherDir = other.direction().normalise();
+		return thisDir.equals(otherDir) || thisDir.equals(otherDir.scale(-1));
+	}
 
 	public RPoint direction()
 	{
 		return to().subtract(from()).normalise();
 	}
 
-	// public double angleWith(final Line other)
-	// {
-	// final RPoint otherDir = other.direction().normalise();
-	// final RPoint thisDir = from().subtract(to()).normalise();
-	//
-	// return Math.acos(thisDir.dot(otherDir));
-	// }
-
+	/**
+	 * Given this line L1 and another line L2...
+	 * 
+	 * @param other
+	 *        - the other line
+	 * @return
+	 */
 	public double signedAngleWith(final Line other)
 	{
 		final RPoint first = from().subtract(to()).normalise(), second = other.direction().normalise();
+
+		if (first.equals(second)) {
+			return Math.PI;
+		} else if (first.equals(second.scale(-1))) {
+			return 0;
+		}
+
 		final double angle = Math.acos(first.dot(second));
 		final RMatrix antiRotation = Matrices.rotate2D(angle);
-
-		System.out.println(second.toCachedForm());
-
-		System.out.println(angle);
-		System.out.println(first);
-		System.out.println(antiRotation.transform(second));
-
 		return (antiRotation.transform(second).equals(first)? 1 : -1) * (Math.PI - angle);
 	}
 
 	public static void main(final String[] args)
 	{
-		final RPoint a = RPoint.of(1, 1), b = RPoint.of(2, 3), c = RPoint.of(1, 4);
+		final RPoint a = RPoint.of(1, 1), b = RPoint.of(2, 3), c = RPoint.of(1.2, 1);
 
 		// System.out.println(a.scale(-1));
 

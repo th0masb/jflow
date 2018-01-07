@@ -100,10 +100,10 @@ public final class MapUtil {
 		if (abs(upper - lower) < EPSILON) {
 			return DoubleRangeDescriptor.EMPTY;
 		} else if (signum(boundDiff) != stepSign) {
-			return new ImmutableDoubleRangeDescriptor(1, i -> lower);
+			return ImmutableDoubleRangeDescriptor.of(1, i -> lower);
 		} else {
 			final int n = max((int) Math.ceil(boundDiff / step), 1);
-			return new ImmutableDoubleRangeDescriptor(n, i -> lower + i * step);
+			return ImmutableDoubleRangeDescriptor.of(n, i -> lower + i * step);
 		}
 	}
 
@@ -274,10 +274,10 @@ public final class MapUtil {
 		if (startBound == endBound) {
 			return IntRangeDescriptor.EMPTY;
 		} else if (signum(boundDiff) != stepSign) {
-			return new ImmutableIntRangeDescriptor(1, i -> startBound);
+			return ImmutableIntRangeDescriptor.of(1, i -> startBound);
 		} else {
 			final int n = (int) max(Math.ceil(((double) boundDiff) / step), 1);
-			return new ImmutableIntRangeDescriptor(n, i -> startBound + i * step);
+			return ImmutableIntRangeDescriptor.of(n, i -> startBound + i * step);
 		}
 	}
 

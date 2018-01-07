@@ -3,7 +3,7 @@
  */
 package io.xyz.common.geometry;
 
-import static io.xyz.common.funcutils.CollectionUtil.asList;
+import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CombineUtil.combine;
 import static io.xyz.common.funcutils.FilterUtil.filter;
@@ -18,6 +18,7 @@ import java.util.List;
 import io.xyz.common.matrix.RPoint;
 import io.xyz.common.matrix.impl.RPointImpl;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author t
@@ -46,10 +47,15 @@ public interface Curve {
 
 	static Curve fuse(final Curve... cs)
 	{
-		return fuse(asList(cs));
+		return fuse(asDescriptor(cs));
 	}
 
 	static Curve fuse(final List<Curve> cs)
+	{
+		return fuse(asDescriptor(cs));
+	}
+
+	static Curve fuse(final RangeDescriptor<Curve> cs)
 	{
 		final int n = len(cs);
 		assert len(cs) > 0;

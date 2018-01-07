@@ -1,19 +1,20 @@
 package io.xyz.common.funcutils;
 
 import static io.xyz.common.funcutils.CompositionUtil.compose;
+import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
 import java.util.function.LongConsumer;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import io.xyz.common.rangedescriptor.BaseRangeDescriptor;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
@@ -116,32 +117,28 @@ public final class CollectionUtil {
 
 	// ---------------------------------------------------------------
 
-	public static <T> List<T> asList(final Collection<T> c)
+	public static <T> ImmutableList<T> asList(final Collection<T> c)
 	{
-		return new ArrayList<>(c);
+		return ImmutableList.copyOf(c);
 	}
 
 	@SafeVarargs
-	public static <T> List<T> asList(final T... xs)
+	public static <T> ImmutableList<T> asList(final T... xs)
 	{
-		return Arrays.asList(xs);
+		return ImmutableList.copyOf(xs);
 	}
 
 	// ---------------------------------------------------------------
 
-	public static <T> Set<T> asSet(final Collection<T> c)
+	public static <T> ImmutableSet<T> asSet(final Collection<T> c)
 	{
-		return new HashSet<>(c);
+		return ImmutableSet.copyOf(c);
 	}
 
 	@SafeVarargs
-	public static <T> Set<T> asSet(final T... xs)
+	public static <T> ImmutableSet<T> asSet(final T... xs)
 	{
-		final Set<T> newSet = new HashSet<>();
-		for (final T x : xs) {
-			newSet.add(x);
-		}
-		return newSet;
+		return ImmutableSet.copyOf(xs);
 	}
 
 	// ---------------------------------------------------------------
@@ -177,7 +174,7 @@ public final class CollectionUtil {
 	public static IntRangeDescriptor take(final int n, final IntRangeDescriptor xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return new ImmutableIntRangeDescriptor(n, xs.getDescriptor());
+		return ImmutableIntRangeDescriptor.of(n, xs.getDescriptor());
 	}
 
 	public static DoubleRangeDescriptor take(final int n, final double[] xs)
@@ -188,14 +185,14 @@ public final class CollectionUtil {
 	public static DoubleRangeDescriptor take(final int n, final DoubleRangeDescriptor xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return new ImmutableDoubleRangeDescriptor(n, xs.getDescriptor());
+		return ImmutableDoubleRangeDescriptor.of(n, xs.getDescriptor());
 	}
 
-	public static <T> RangeDescriptor<T> take(final int n, final T[] xs)
-	{
-		assert 0 <= n && n <= len(xs);
-		return take(n, asDescriptor(xs));
-	}
+	// public static <T> RangeDescriptor<T> take(final int n, final T[] xs)
+	// {
+	// assert 0 <= n && n <= len(xs);
+	// return take(n, asDescriptor(xs));
+	// }
 
 	public static <T> RangeDescriptor<T> take(final int n, final List<T> xs)
 	{
@@ -214,7 +211,7 @@ public final class CollectionUtil {
 	public static IntRangeDescriptor drop(final int n, final IntRangeDescriptor xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return new ImmutableIntRangeDescriptor(len(xs) - n, xs.getDescriptor().compose(i -> i + n));
+		return ImmutableIntRangeDescriptor.of(len(xs) - n, xs.getDescriptor().compose(i -> i + n));
 	}
 
 	public static IntRangeDescriptor drop(final int n, final int[] xs)
@@ -225,7 +222,7 @@ public final class CollectionUtil {
 	public static DoubleRangeDescriptor drop(final int n, final DoubleRangeDescriptor xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return new ImmutableDoubleRangeDescriptor(len(xs) - n, compose(xs.getDescriptor(), i -> i + n));
+		return ImmutableDoubleRangeDescriptor.of(len(xs) - n, compose(xs.getDescriptor(), i -> i + n));
 	}
 
 	public static DoubleRangeDescriptor drop(final int n, final double[] xs)
@@ -273,7 +270,7 @@ public final class CollectionUtil {
 	{
 		final int upper = len(xs) - 1;
 		for (int i = 0; i < upper; i++) {
-			if (xs.get(i) != xs.get(i + 1)) {
+			if (!isZero(xs.get(i) - xs.get(i + 1))) {
 				return false;
 			}
 		}
@@ -363,11 +360,11 @@ public final class CollectionUtil {
 		System.out.println(asString(y));
 
 		final int[] z = collect(take(2, originalInt));
-		final List<String> w = collect(take(4, originalT));
+		// final List<String> w = collect(take(4, originalT));
 
 		System.out.println(asString());
 		System.out.println(asString(z));
-		System.out.println(asString(w));
+		// System.out.println(asString(w));
 
 		// final IntUnaryOperator f = i -> x[i];
 		// System.out.println(f.applyAsInt(0));

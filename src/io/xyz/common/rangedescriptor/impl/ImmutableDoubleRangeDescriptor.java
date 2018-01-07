@@ -29,7 +29,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 	/**
 	 * @param rangeBound
 	 */
-	public ImmutableDoubleRangeDescriptor(final int rangeBound, final IntToDoubleFunction f)
+	private ImmutableDoubleRangeDescriptor(final int rangeBound, final IntToDoubleFunction f)
 	{
 		super(rangeBound);
 		descriptor = f;
@@ -110,7 +110,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 	@Override
 	public IntRangeDescriptor asIntRange(final DoubleToIntFunction f)
 	{
-		return new ImmutableIntRangeDescriptor(rangeBound(), compose(f, descriptor));
+		return ImmutableIntRangeDescriptor.of(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
@@ -119,8 +119,13 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 		return new ImmutableRangeDescriptor<>(rangeBound(), compose(f, descriptor));
 	}
 
-	public static DoubleRangeDescriptor from(final double[] xs)
+	public static DoubleRangeDescriptor from(final double... xs)
 	{
 		return new ImmutableDoubleRangeDescriptor(len(xs), i -> xs[i]);
+	}
+
+	public static DoubleRangeDescriptor of(final int length, final IntToDoubleFunction descriptor)
+	{
+		return new ImmutableDoubleRangeDescriptor(length, descriptor);
 	}
 }

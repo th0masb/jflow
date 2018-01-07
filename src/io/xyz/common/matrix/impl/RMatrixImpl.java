@@ -73,14 +73,14 @@ public class RMatrixImpl implements RMatrix {
 	public DoubleRangeDescriptor row(final int index)
 	{
 		assert inRange(index, 0);
-		return new ImmutableDoubleRangeDescriptor(colDim(), i -> contents[index * colDim() + i]);
+		return ImmutableDoubleRangeDescriptor.of(colDim(), i -> contents[index * colDim() + i]);
 	}
 
 	@Override
 	public DoubleRangeDescriptor col(final int index)
 	{
 		assert inRange(0, index);
-		return new ImmutableDoubleRangeDescriptor(rowDim(), i -> contents[i * colDim() + index]);
+		return ImmutableDoubleRangeDescriptor.of(rowDim(), i -> contents[i * colDim() + index]);
 	}
 
 	@Override

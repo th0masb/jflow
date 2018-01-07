@@ -4,6 +4,8 @@
 package io.xyz.common.rangedescriptor;
 
 import static io.xyz.common.funcutils.CollectionUtil.len;
+import static io.xyz.common.funcutils.MapUtil.range;
+import static io.xyz.common.funcutils.PredicateUtil.all;
 
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
@@ -19,7 +21,7 @@ import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
  */
 public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
 
-	static DoubleRangeDescriptor EMPTY = new ImmutableDoubleRangeDescriptor(0, i -> i);
+	static DoubleRangeDescriptor EMPTY = ImmutableDoubleRangeDescriptor.of(0, i -> i);
 
 	IntToDoubleFunction getDescriptor();
 
@@ -30,6 +32,11 @@ public interface DoubleRangeDescriptor extends BaseRangeDescriptor {
 	<T> RangeDescriptor<T> asObjRange(DoubleFunction<T> f);
 
 	DoubleRangeDescriptor filter(DoublePredicate p);
+
+	default boolean isSorted()
+	{
+		return all(i -> get(i) < get(i + 1), range(rangeBound() - 1));
+	}
 
 	default double get(final int index)
 	{

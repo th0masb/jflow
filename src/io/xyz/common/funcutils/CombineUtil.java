@@ -98,13 +98,13 @@ public final class CombineUtil {
 	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final DoubleRangeDescriptor a, final DoubleRangeDescriptor b)
 	{
 		final int size = min(len(a), len(b));
-		return new ImmutableDoubleRangeDescriptor(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
+		return ImmutableDoubleRangeDescriptor.of(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
 	}
 
 	public static IntRangeDescriptor combine(final IntBinaryOperator f, final IntRangeDescriptor a, final IntRangeDescriptor b)
 	{
 		final int size = min(len(a), len(b));
-		return new ImmutableIntRangeDescriptor(size, i -> f.applyAsInt(a.get(i), b.get(i)));
+		return ImmutableIntRangeDescriptor.of(size, i -> f.applyAsInt(a.get(i), b.get(i)));
 	}
 
 	public static IntRangeDescriptor combine(final IntBinaryOperator f, final int[] a, final int[] b)

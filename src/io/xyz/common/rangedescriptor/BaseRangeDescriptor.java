@@ -14,5 +14,8 @@ public interface BaseRangeDescriptor {
 
 	int rangeBound();
 
-	// BitArray activeIndices();
+	default boolean indexIsInRange(final int index)
+	{
+		return 0 <= index && index <= rangeBound();
+	}
 }

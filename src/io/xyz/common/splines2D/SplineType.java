@@ -6,14 +6,48 @@
  */
 package io.xyz.common.splines2D;
 
+import static io.xyz.common.funcutils.CollectionUtil.allEqual;
+import static io.xyz.common.funcutils.FoldUtil.pairFold;
+import static io.xyz.common.funcutils.FoldUtil.pairFoldToDouble;
+import static io.xyz.common.funcutils.MapUtil.doubleRange;
+import static io.xyz.common.funcutils.StreamUtil.collect;
+
+import java.util.List;
+
+import io.xyz.common.funcutils.PrimitiveUtil;
+import io.xyz.common.matrix.RPoint;
+import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+
 /**
  * TODO - A spline should also be ableto generate its own parameterisation
  *
  * @author ThomasB
  * @since 3 Nov 2017
  */
-public enum SplineType// implements ISplineConstructor
-{
+public enum SplineType implements SplineConstructor {
+
+	C1_CURVE {
+		@Override
+		public ISpline constructFrom(final List<RPoint> knots)
+		{
+			/*
+			 * First first we must remov
+			 */
+
+			/*
+			 * First find the points at which the bend direction changes.
+			 */
+			final List<Line> lines = collect(pairFold(Line::new, knots));
+			final DoubleRangeDescriptor angles = pairFoldToDouble((a, b) -> a.signedAngleWith(b), lines);
+			final DoubleRangeDescriptor angleSigns = doubleRange(PrimitiveUtil::signum, angles);
+			assert allEqual(angleSigns);
+
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	};
+
 	// /**
 	// * The most basic of spline types, we simply have a sequance of straight lines
 	// * connecting the constituent knot points.

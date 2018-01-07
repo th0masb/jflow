@@ -42,13 +42,13 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 	@Override
 	public IntRangeDescriptor asIntRange(final ToIntFunction<T> f)
 	{
-		return new ImmutableIntRangeDescriptor(rangeBound(), compose(f, descriptor));
+		return ImmutableIntRangeDescriptor.of(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
 	public DoubleRangeDescriptor asDoubleRange(final ToDoubleFunction<T> f)
 	{
-		return new ImmutableDoubleRangeDescriptor(rangeBound(), compose(f, descriptor));
+		return ImmutableDoubleRangeDescriptor.of(rangeBound(), compose(f, descriptor));
 	}
 
 	@SuppressWarnings("unchecked")

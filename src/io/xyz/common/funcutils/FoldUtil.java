@@ -7,13 +7,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
+import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
+import java.util.function.IntFunction;
+import java.util.function.IntToDoubleFunction;
+import java.util.function.IntUnaryOperator;
 
+import io.xyz.common.function.BiToDoubleFunction;
+import io.xyz.common.function.BiToIntFunction;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
+import io.xyz.common.rangedescriptor.impl.ImmutableRangeDescriptor;
 
 /**
  *
@@ -191,5 +200,31 @@ public final class FoldUtil {
 	public static <T> T accumulate(final BinaryOperator<T> f, final T start, final List<T> xs)
 	{
 		return accumulate(f, start, asDescriptor(xs));
+	}
+
+	// // TODO - pair reduce??
+	//
+	public static <T> IntRangeDescriptor pairFoldToInt(final BiToIntFunction<T, T> f, final RangeDescriptor<T> xs)
+	{
+		final IntUnaryOperator g = i -> f.apply(xs.get(i), xs.get(i + 1));
+		return ImmutableIntRangeDescriptor.of(len(xs) - 1, g);
+	}
+
+	public static <T> DoubleRangeDescriptor pairFoldToDouble(final BiToDoubleFunction<T, T> f, final RangeDescriptor<T> xs)
+	{
+		final IntToDoubleFunction g = i -> f.apply(xs.get(i), xs.get(i + 1));
+		return ImmutableDoubleRangeDescriptor.of(len(xs) - 1, g);
+	}
+
+	public static <T, S> RangeDescriptor<S> pairFold(final BiFunction<T, T, S> f, final RangeDescriptor<T> xs)
+	{
+		final IntFunction<S> g = i -> f.apply(xs.get(i), xs.get(i + 1));
+		return new ImmutableRangeDescriptor<>(len(xs) - 1, g);
+	}
+
+	public static <T, S> RangeDescriptor<S> pairFold(final BiFunction<T, T, S> f, final List<T> xs)
+	{
+		final IntFunction<S> g = i -> f.apply(xs.get(i), xs.get(i + 1));
+		return new ImmutableRangeDescriptor<>(len(xs) - 1, g);
 	}
 }

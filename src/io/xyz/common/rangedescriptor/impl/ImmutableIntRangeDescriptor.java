@@ -25,10 +25,15 @@ public final class ImmutableIntRangeDescriptor extends AbstractRangeDescriptor i
 
 	private final IntUnaryOperator descriptor;
 
-	public ImmutableIntRangeDescriptor(final int rangeBound, final IntUnaryOperator f)
+	private ImmutableIntRangeDescriptor(final int rangeBound, final IntUnaryOperator f)
 	{
 		super(rangeBound);
 		this.descriptor = f;
+	}
+
+	public static ImmutableIntRangeDescriptor of(final int length, final IntUnaryOperator descriptor)
+	{
+		return new ImmutableIntRangeDescriptor(length, descriptor);
 	}
 
 	public static ImmutableIntRangeDescriptor from(final int... xs)
@@ -74,7 +79,7 @@ public final class ImmutableIntRangeDescriptor extends AbstractRangeDescriptor i
 	@Override
 	public DoubleRangeDescriptor asDoubleRange(final IntToDoubleFunction f)
 	{
-		return new ImmutableDoubleRangeDescriptor(rangeBound(), compose(f, descriptor));
+		return ImmutableDoubleRangeDescriptor.of(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
