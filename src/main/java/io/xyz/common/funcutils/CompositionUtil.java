@@ -48,22 +48,22 @@ public final class CompositionUtil {
 		return i -> f.apply(g.applyAsInt(i));
 	}
 
-	public static <T> IntUnaryOperator compose(final ToIntFunction<T> f, final IntFunction<T> g)
+	public static <T> IntUnaryOperator compose(final ToIntFunction<T> f, final IntFunction<? extends T> g)
 	{
 		return i -> f.applyAsInt(g.apply(i));
 	}
 
-	public static <T> IntToDoubleFunction compose(final ToDoubleFunction<T> f, final IntFunction<T> g)
+	public static <T> IntToDoubleFunction compose(final ToDoubleFunction<T> f, final IntFunction<? extends T> g)
 	{
 		return i -> f.applyAsDouble(g.apply(i));
 	}
 
-	public static <T, R> IntFunction<R> compose(final Function<T, R> f, final IntFunction<T> g)
+	public static <T, R> IntFunction<R> compose(final Function<T, R> f, final IntFunction<? extends T> g)
 	{
 		return i -> f.apply(g.apply(i));
 	}
 
-	public static <T, S, R> Function<T, R> compose(final Function<S, R> f, final Function<T, S> g)
+	public static <T, S, R> Function<T, R> compose(final Function<S, R> f, final Function<T, ? extends S> g)
 	{
 		return t -> g.andThen(f).apply(t);
 	}

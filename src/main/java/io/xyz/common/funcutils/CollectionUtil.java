@@ -117,26 +117,26 @@ public final class CollectionUtil {
 
 	// ---------------------------------------------------------------
 
-	public static <T> ImmutableList<T> asList(final Collection<T> c)
+	public static <T> ImmutableList<T> asList(final Collection<? extends T> c)
 	{
 		return ImmutableList.copyOf(c);
 	}
 
 	@SafeVarargs
-	public static <T> ImmutableList<T> asList(final T... xs)
+	public static <T, E extends T> ImmutableList<T> asList(final E... xs)
 	{
 		return ImmutableList.copyOf(xs);
 	}
 
 	// ---------------------------------------------------------------
 
-	public static <T> ImmutableSet<T> asSet(final Collection<T> c)
+	public static <T> ImmutableSet<T> asSet(final Collection<? extends T> c)
 	{
 		return ImmutableSet.copyOf(c);
 	}
 
 	@SafeVarargs
-	public static <T> ImmutableSet<T> asSet(final T... xs)
+	public static <T, E extends T> ImmutableSet<T> asSet(final E... xs)
 	{
 		return ImmutableSet.copyOf(xs);
 	}
@@ -153,13 +153,13 @@ public final class CollectionUtil {
 		return ImmutableDoubleRangeDescriptor.from(xs);
 	}
 
-	public static <T> RangeDescriptor<T> asDescriptor(final List<T> xs)
+	public static <T> RangeDescriptor<T> asDescriptor(final List<? extends T> xs)
 	{
 		return ImmutableRangeDescriptor.from(xs);
 	}
 
 	@SafeVarargs
-	public static <T> RangeDescriptor<T> asDescriptor(final T... xs)
+	public static <T, E extends T> RangeDescriptor<T> asDescriptor(final E... xs)
 	{
 		return ImmutableRangeDescriptor.from(xs);
 	}
@@ -238,14 +238,92 @@ public final class CollectionUtil {
 
 	public static <T> RangeDescriptor<T> drop(final int n, final T[] xs)
 	{
-		assert 0 <= n && n <= len(xs);
 		return drop(n, asDescriptor(xs));
 	}
 
 	public static <T> RangeDescriptor<T> drop(final int n, final List<T> xs)
 	{
-		assert 0 <= n && n <= len(xs);
 		return drop(n, asDescriptor(xs));
+	}
+
+	// ---------------------------------------------------------------
+
+	public static int head(final IntRangeDescriptor xs)
+	{
+		assert len(xs) > 0;
+		return xs.get(0);
+	}
+
+	public static int head(final int[] xs)
+	{
+		return head(asDescriptor(xs));
+	}
+
+	public static double head(final DoubleRangeDescriptor xs)
+	{
+		assert len(xs) > 0;
+		return xs.get(0);
+	}
+
+	public static double head(final double[] xs)
+	{
+		return head(asDescriptor(xs));
+	}
+
+	public static <T> T head(final RangeDescriptor<T> xs)
+	{
+		assert len(xs) > 0;
+		return xs.get(0);
+	}
+
+	public static <T> T head(final T[] xs)
+	{
+		return head(asDescriptor(xs));
+	}
+
+	public static <T> T head(final List<T> xs)
+	{
+		return head(asDescriptor(xs));
+	}
+
+	// ---------------------------------------------------------------
+
+	public static int tail(final IntRangeDescriptor xs)
+	{
+		assert len(xs) > 0;
+		return xs.get(len(xs) - 1);
+	}
+
+	public static int tail(final int[] xs)
+	{
+		return tail(asDescriptor(xs));
+	}
+
+	public static double tail(final DoubleRangeDescriptor xs)
+	{
+		assert len(xs) > 0;
+		return xs.get(len(xs) - 1);
+	}
+
+	public static double tail(final double[] xs)
+	{
+		return tail(asDescriptor(xs));
+	}
+
+	public static <T> T tail(final RangeDescriptor<T> xs)
+	{
+		assert len(xs) > 0;
+		return xs.get(len(xs) - 1);
+	}
+
+	public static <T> T tail(final T[] xs)
+	{
+		return tail(asDescriptor(xs));
+	}
+
+	public static <T> T tail(final List<T> xs)
+	{
+		return tail(asDescriptor(xs));
 	}
 
 	// ---------------------------------------------------------------
@@ -286,7 +364,7 @@ public final class CollectionUtil {
 	{
 		final int upper = len(xs) - 1;
 		for (int i = 0; i < upper; i++) {
-			if (xs.get(i) != xs.get(i + 1)) {
+			if (!xs.get(i).equals(xs.get(i + 1))) {
 				return false;
 			}
 		}

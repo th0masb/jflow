@@ -125,6 +125,16 @@ public final class CombineUtil {
 
 	// -------------------------------------------------------------------
 
+	//	public static DoubleRangeDescriptor multiCombine(final DoubleCompressor f, final DoubleRangeDescriptor... xs)
+	//	{
+	//		assert len(xs) > 1;
+	//		final int size = min(intRange(x -> len(x), xs)).getAsInt();
+	//		final IntFunction<DoubleRangeDescriptor> rowMapper = i -> doubleRange(x -> x.get(i), asDescriptor(xs));
+	//		return doubleRange(i -> f.compress(rowMapper.apply(i)), size);
+	//	}
+
+	// -------------------------------------------------------------------
+
 	public static double dotProduct(final DoubleRangeDescriptor a, final DoubleRangeDescriptor b)
 	{
 		assert len(a) > 0 && len(a) == len(b);

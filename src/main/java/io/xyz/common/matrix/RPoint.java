@@ -9,6 +9,7 @@ package io.xyz.common.matrix;
 import static io.xyz.common.funcutils.CollectionUtil.allEqual;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CombineUtil.combine;
+import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import static io.xyz.common.funcutils.MapUtil.intRange;
 import static io.xyz.common.funcutils.PredicateUtil.all;
 import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
@@ -16,12 +17,15 @@ import static io.xyz.common.funcutils.PrimitiveUtil.pow;
 import static io.xyz.common.funcutils.PrimitiveUtil.sqrt;
 import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 
+import java.util.List;
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
+import java.util.function.IntFunction;
 import java.util.function.IntToDoubleFunction;
 
+import io.xyz.common.function.DoubleCompressor;
 import io.xyz.common.geometry.PointMap;
 import io.xyz.common.matrix.impl.RPointImpl;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
@@ -131,7 +135,7 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor {
 
 	/**
 	 * Could override for performance
-	 * 
+	 *
 	 * @param other
 	 * @return
 	 */
@@ -177,10 +181,15 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor {
 		return new RPointImpl(ds);
 	}
 
-	static RPoint copy(final RPoint src)
+	static RPoint of(final DoubleRangeDescriptor ds)
 	{
-		return new RPointImpl(src);
+		return new RPointImpl(ds);
 	}
+
+	//	static RPoint copy(final RPoint src)
+	//	{
+	//		return new RPointImpl(src);
+	//	}
 
 	@Override
 	default RPoint asDoubleRange(final DoubleUnaryOperator f)
@@ -223,6 +232,14 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor {
 	default DoubleRangeDescriptor filter(final DoublePredicate p)
 	{
 		throw new RuntimeException("Can't filter a matrix!");
+	}
+
+	static RPoint compress(final DoubleCompressor f, final List<RPoint> ps)
+	{
+		assert len(ps) > 1 && allEqual(intRange(p -> p.dim(), ps));
+		final int dimension = ps.get(0).dim();
+		final IntFunction<DoubleRangeDescriptor> rowMapper = i -> doubleRange(x -> x.get(i), ps);
+		return new RPointImpl(doubleRange(i -> f.compress(rowMapper.apply(i)), dimension));
 	}
 
 	public static void main(final String[] args)

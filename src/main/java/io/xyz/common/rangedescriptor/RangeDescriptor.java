@@ -11,13 +11,15 @@ import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  * @author t
  *
  */
 public interface RangeDescriptor<T> extends BaseRangeDescriptor {
 
-	IntFunction<T> getDescriptor();
+	IntFunction<? extends T> getDescriptor();
 
 	<R> RangeDescriptor<R> asObjRange(Function<T, R> f);
 
@@ -34,11 +36,11 @@ public interface RangeDescriptor<T> extends BaseRangeDescriptor {
 
 	default List<T> toList() {
 		final int upper = rangeBound();
-		final IntFunction<T> descriptor = getDescriptor();
+		final IntFunction<? extends T> descriptor = getDescriptor();
 		final List<T> result = new ArrayList<>(upper);
 		for (int i = 0; i < upper; i++) {
 			result.add(descriptor.apply(i));
 		}
-		return result;
+		return ImmutableList.copyOf(result);
 	}
 }

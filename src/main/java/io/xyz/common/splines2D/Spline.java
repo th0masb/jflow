@@ -6,8 +6,10 @@
  */
 package io.xyz.common.splines2D;
 
-import static io.xyz.common.funcutils.CollectionUtil.asList;
+import static io.xyz.common.funcutils.CollectionUtil.allEqual;
+import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.len;
+import static io.xyz.common.funcutils.MapUtil.intRange;
 import static io.xyz.common.funcutils.MapUtil.objRange;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
@@ -16,7 +18,9 @@ import java.util.Set;
 
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.matrix.RPoint;
 import io.xyz.common.matrix.impl.RPointImpl;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
@@ -30,10 +34,15 @@ public class Spline implements ISpline {
 	/** Cached parameterisation of this spline */
 	private final Curve parameterisation;
 
-	public Spline(final List<ISplineSegment> segments)
+	public Spline(final List<? extends ISplineSegment> segments)
 	{
-		assert len(segments) > 0;
-		this.segments = asList(segments);
+		this(asDescriptor(segments));
+	}
+
+	public Spline(final RangeDescriptor<? extends ISplineSegment> segments)
+	{
+		assert len(segments) > 0 && allEqual(intRange(x -> x.dim(), segments));
+		this.segments = collect(objRange(x -> (ISplineSegment) x, segments));
 		parameterisation = Curve.fuse(collect(objRange(s -> s.parameterise(), segments)));
 	}
 
@@ -41,7 +50,7 @@ public class Spline implements ISpline {
 	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPointImpl perturbation)
 	{
 		for (final ISplineSegment segment : segments) {
-			segment.draw(gc, clipT, perturbation);
+			segment.draw2D(gc, clipT, perturbation);
 		}
 	}
 
@@ -59,7 +68,7 @@ public class Spline implements ISpline {
 	}
 
 	@Override
-	public Set<RPointImpl> getPointApproximation(final double maximalSpacing)
+	public Set<RPoint> getPointApproximation(final double maximalSpacing)
 	{
 		final Curve c = parameterise();
 		final double clength = getLengthApproximation();
@@ -75,7 +84,7 @@ public class Spline implements ISpline {
 	}
 
 	@Override
-	public ISpline peturb(final RPointImpl peturbation)
+	public ISpline peturb(final RPoint peturbation)
 	{
 		// TODO Auto-generated method stub
 		return null;

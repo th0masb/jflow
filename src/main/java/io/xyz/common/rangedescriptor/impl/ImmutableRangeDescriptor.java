@@ -14,6 +14,8 @@ import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 
+import javax.annotation.Nonnegative;
+
 import io.xyz.common.rangedescriptor.AbstractRangeDescriptor;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
@@ -25,9 +27,9 @@ import io.xyz.common.rangedescriptor.RangeDescriptor;
  */
 public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor implements RangeDescriptor<T> {
 
-	private final IntFunction<T> descriptor;
+	private final IntFunction<? extends T> descriptor;
 
-	public ImmutableRangeDescriptor(final int rangeBound, final IntFunction<T> f)
+	public ImmutableRangeDescriptor(final int rangeBound, final IntFunction<? extends T> f)
 	{
 		super(rangeBound);
 		descriptor = f;
@@ -72,19 +74,24 @@ public final class ImmutableRangeDescriptor<T> extends AbstractRangeDescriptor i
 		return new ImmutableRangeDescriptor<>(counter, i -> (T) resizedFiltered[i]);
 	}
 
-	public static <T> RangeDescriptor<T> from(final List<T> xs)
+	public static <T> RangeDescriptor<T> from(final List<? extends T> xs)
 	{
 		return new ImmutableRangeDescriptor<>(len(xs), i -> xs.get(i));
 	}
 
 	@SafeVarargs
-	public static <T> RangeDescriptor<T> from(final T... xs)
+	public static <T, E extends T> RangeDescriptor<T> from(final E... xs)
 	{
 		return new ImmutableRangeDescriptor<>(len(xs), i -> xs[i]);
 	}
 
+	public static <T> RangeDescriptor<T> of(@Nonnegative final int size, final IntFunction<? extends T> f)
+	{
+		return new ImmutableRangeDescriptor<>(size, f);
+	}
+
 	@Override
-	public IntFunction<T> getDescriptor()
+	public IntFunction<? extends T> getDescriptor()
 	{
 		return descriptor;
 	}

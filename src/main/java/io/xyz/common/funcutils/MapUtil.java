@@ -24,6 +24,8 @@ import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 
+import javax.annotation.Nonnegative;
+
 import io.xyz.common.geometry.BitArray;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
@@ -112,6 +114,12 @@ public final class MapUtil {
 		return doubleRange(0, upper, 1);
 	}
 
+	public static DoubleRangeDescriptor doubleRange(final IntToDoubleFunction f, @Nonnegative final int size)
+	{
+		assert size > -1;
+		return ImmutableDoubleRangeDescriptor.of(size, f);
+	}
+
 	public static DoubleRangeDescriptor doubleRange(final DoubleUnaryOperator f, final DoubleRangeDescriptor xs)
 	{
 		return xs.asDoubleRange(f);
@@ -148,6 +156,12 @@ public final class MapUtil {
 	 * @param xs
 	 * @return
 	 */
+
+	public static IntRangeDescriptor intRange(final IntUnaryOperator f, @Nonnegative final int size)
+	{
+		assert size > -1;
+		return ImmutableIntRangeDescriptor.of(size, f);
+	}
 
 	public static IntRangeDescriptor intRange(final IntUnaryOperator f, final IntRangeDescriptor xs)
 	{
@@ -227,6 +241,12 @@ public final class MapUtil {
 	 * @param xs
 	 * @return
 	 */
+
+	public static <T> RangeDescriptor<T> objRange(final IntFunction<T> f, @Nonnegative final int size)
+	{
+		assert size > -1;
+		return ImmutableRangeDescriptor.of(size, f);
+	}
 
 	public static <T, R> RangeDescriptor<R> objRange(final Function<T, R> f, final RangeDescriptor<T> xs)
 	{

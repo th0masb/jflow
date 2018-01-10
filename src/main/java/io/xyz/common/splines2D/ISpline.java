@@ -6,29 +6,37 @@
  */
 package io.xyz.common.splines2D;
 
+import java.util.Set;
+
+import io.xyz.common.fxutils.FXContextBinding;
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.geometry.PointTransform;
 import io.xyz.common.matrix.RPoint;
-import javafx.scene.canvas.GraphicsContext;
+import io.xyz.common.matrix.impl.RPointImpl;
 
 /**
  * @author ThomasB
  * @since 3 Nov 2017
  *
- *        Interface representing a portion of some line in space which is
- *        responsible for handling the implementation of drawing itself.
+ *        TODO - Maybe splines should be set onto edges? <--- Yes I think this
+ *        is how it should be.
+ *
+ *        A spline wraps an instance of {@link IPolyEdge} providing drawing and
+ *        parameterisation mechanisms
  */
-public interface ISplineSegment {
+public interface ISpline
+{
+	void draw(FXContextBinding gc, PointTransform coordinateMap, RPointImpl perturbation);
 
-	void draw(final GraphicsContext gc, final PointTransform clipTransform);
-
-	void draw(final GraphicsContext gc, final PointTransform clipTTransform, RPoint perturbation);
+	void draw(final FXContextBinding gc, final PointTransform coordinateMap);
 
 	Curve parameterise();
 
-	double approximateLength();
+	Set<RPoint> getPointApproximation(double maximalSpacing);
 
-	ISplineSegment peturb(RPoint peturbation);
+	double getLengthApproximation();
+
+	ISpline peturb(RPoint peturbation);
 
 	int dim();
 }

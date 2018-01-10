@@ -3,12 +3,14 @@
  */
 package io.xyz.common.matrix.impl;
 
+import static io.xyz.common.funcutils.CollectionUtil.asString;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CombineUtil.concat;
 import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import static io.xyz.common.funcutils.MapUtil.objRange;
 import static io.xyz.common.funcutils.PrimitiveUtil.digitLength;
 import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
+import static io.xyz.common.funcutils.PrimitiveUtil.min;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
 import java.util.List;
@@ -105,7 +107,9 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 	{
 		final StringBuilder sb = new StringBuilder("(");
 		final double[] rounded = doubleRange(d -> isZero(d)? 0 : d, this).toArray();
-		sb.append(concat(" ", objRange(d -> Double.toString(d).substring(0, digitLength(4, d)), rounded)));
+		sb.append(concat(" ", objRange(d -> {
+			return asString(d).substring(0, min(len(asString(d)), digitLength(4, d)));
+		}, rounded)));
 		sb.append(")");
 		return sb.toString();
 	}

@@ -7,16 +7,23 @@
 package io.xyz.common.splines2D;
 
 import static io.xyz.common.funcutils.CollectionUtil.allEqual;
+import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
+import static io.xyz.common.funcutils.CollectionUtil.head;
+import static io.xyz.common.funcutils.CollectionUtil.len;
+import static io.xyz.common.funcutils.CollectionUtil.tail;
 import static io.xyz.common.funcutils.FoldUtil.pairFold;
 import static io.xyz.common.funcutils.FoldUtil.pairFoldToDouble;
 import static io.xyz.common.funcutils.MapUtil.doubleRange;
+import static io.xyz.common.funcutils.MapUtil.objRange;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.xyz.common.funcutils.PrimitiveUtil;
 import io.xyz.common.matrix.RPoint;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * TODO - A spline should also be ableto generate its own parameterisation
@@ -30,22 +37,35 @@ public enum SplineType implements SplineConstructor {
 		@Override
 		public ISpline constructFrom(final List<RPoint> knots)
 		{
-			/*
-			 * First first we must remov
-			 */
+			assert len(knots) > 1;
+			final int n = len(knots);
+			if (n == 2) {
+				return null;//Line.between(knots.get(0), knots.get(1));
+			}
 
-			/*
-			 * First find the points at which the bend direction changes.
-			 */
 			final List<Line> lines = collect(pairFold(Line::new, knots));
-			final DoubleRangeDescriptor angles = pairFoldToDouble((a, b) -> a.signedAngleWith(b), lines);
+			final DoubleRangeDescriptor angles = pairFoldToDouble((a, b) -> a.pathAngleWith(b), asDescriptor(lines));
 			final DoubleRangeDescriptor angleSigns = doubleRange(PrimitiveUtil::signum, angles);
 			assert allEqual(angleSigns);
 
+			final RangeDescriptor<Line> traceLines = objRange(i -> Line.between(knots.get(i), knots.get(i + 2)), n - 2);
+			final List<Line> controlLines = collect(objRange(i -> traceLines.get(i).peturbToNewCentre(knots.get(i + 1)), len(traceLines)));
+			final RangeDescriptor<RPoint> innerControlPoints = pairFold((a, b) -> Line.crossingPoint2D(a, b), controlLines);
+
+			//			Line firstControl = controlLines.get(0), lastControl = con
+			final RPoint firstControl = Line.midPoint(knots.get(1), head(controlLines).perpendicularIntersection(head(knots)));
+			final RPoint lastControl = Line.midPoint(knots.get(n - 2), tail(controlLines).perpendicularIntersection(tail(knots)));
+
+			final List<RPoint> controls = new ArrayList<>(len(innerControlPoints) + 2);
+			controls.add(firstControl);
+			controls.addAll(collect(innerControlPoints));
+			controls.add(lastControl);
+
+			final RangeDescriptor<QuadraticBezier> segments = objRange(i -> new QuadraticBezier(knots.get(i), controls.get(i), knots.get(i + 1)), n - 1);
+			//			RPoint firstControl =
 			// TODO Auto-generated method stub
 			return null;
 		}
-
 	};
 
 	// /**
