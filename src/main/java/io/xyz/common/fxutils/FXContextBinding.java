@@ -74,6 +74,30 @@ public final class FXContextBinding
 		gc.setFill(currentFill);
 	}
 
+	public void clearCanvas()
+	{
+		clearCanvas(gc.getCanvas().getBoundsInLocal());
+	}
+
+	public void clearCanvas(final Bounds b)
+	{
+		gc.clearRect(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
+	}
+
+	public void fillCanvas(final Paint paint)
+	{
+		final Paint currentFill = gc.getFill();
+		fillCanvas(paint);;
+	}
+
+	public void fillCanvas(final Bounds b, final Paint paint)
+	{
+		final Paint currentFill = gc.getFill();
+		gc.setFill(paint);
+		gc.fillRect(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
+		gc.setFill(currentFill);
+	}
+
 	private boolean twoDimensional(final RPoint... ps)
 	{
 		assert len(ps) > 0;

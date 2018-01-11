@@ -223,22 +223,36 @@ public class Line extends AbstractSplineSegment {
 
 	public static void main(final String[] args)
 	{
-		//		final RPoint a = RPoint.of(1, 1), b = RPoint.of(2, 3), c = RPoint.of(1.2, 1);
-		//
-		//		// System.out.println(a.scale(-1));
-		//
-		//		final Line first = new Line(a, b), second = new Line(b, c);
-		//
-		//		// System.out.println(first.from().add(first.to()));
-		//
+		final RPoint a = RPoint.of(1, 1), b = RPoint.of(2, 3), c = RPoint.of(1, 3);
+
+		// System.out.println(a.scale(-1));
+
+		final Line first = new Line(a, b), second = new Line(b, c);
+
+		// System.out.println(first.from().add(first.to()));
+
 		//		System.out.println(Math.toDegrees(first.pathAngleWith(second)));
 		//		System.out.println(Line.crossingPoint2D(first, second));
 
+		final RPoint p1 = first.from(), p2 = first.to(), p3 = second.to();
 
-		final Line third = Line.between(RPoint.of(0, 2000), RPoint.of(2, 0));
-		final RPoint p = RPoint.of(4, 4);
-		System.out.println(third.perpendicularIntersection(p));
-		//		System.out.println(crossingPoint2D(-1, 2, 1, 0));
+		System.out.println(getSign(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y()));
+
+		//
+		//		final Line third = Line.between(RPoint.of(0, 2000), RPoint.of(2, 0));
+		//		final RPoint p = RPoint.of(4, 4);
+		//		System.out.println(third.perpendicularIntersection(p));
+		//		//		System.out.println(crossingPoint2D(-1, 2, 1, 0));
+	}
+
+	public static int getSign(final double x1, final double y1, final double x2, final double y2, final double x3, final double y3)
+	{
+		final double crossProduct = (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1);
+		return (crossProduct < 0.0)
+				? -1
+						: (crossProduct > 0.0)
+						? 1
+								: 0;
 	}
 
 	@Override
