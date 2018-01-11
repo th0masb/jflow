@@ -14,6 +14,7 @@ import java.util.List;
 import io.xyz.common.fxutils.FXContextBinding;
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.geometry.RealSpaceMember;
 import io.xyz.common.matrix.RPoint;
 
 /**
@@ -23,7 +24,7 @@ import io.xyz.common.matrix.RPoint;
  *        Interface representing a portion of some line in space which is
  *        responsible for handling the implementation of drawing itself.
  */
-public interface ISplineSegment {
+public interface ISplineSegment extends RealSpaceMember {
 
 	void trace2D(final FXContextBinding gc, final PointTransform clipTTransform, RPoint perturbation);
 
@@ -61,6 +62,7 @@ public interface ISplineSegment {
 
 	List<RPoint> getControlPoints();
 
+	@Override
 	default int dim()
 	{
 		return from().dim();
@@ -76,10 +78,6 @@ public interface ISplineSegment {
 		return tail(getControlPoints());
 	}
 
-	default boolean correctDimensionsToDraw2D(final PointTransform transform)
-	{
-		return transform.domainDim() == dim() && transform.targetDim() == 2;
-	}
 }
 
 /*

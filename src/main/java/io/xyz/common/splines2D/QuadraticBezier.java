@@ -30,6 +30,7 @@ public final class QuadraticBezier extends AbstractSplineSegment
 	public Curve parameterise()
 	{
 		return t -> {
+			assert 0 <= t && t <= 1 : t;
 			final DoubleCompressor compressor = xs -> pow(1 - t, 2)*xs.get(0) + 2*t*(1 - t)*xs.get(1) + pow(t, 2)*xs.get(2);
 			return RPoint.compress(compressor, getControlPoints());
 		};

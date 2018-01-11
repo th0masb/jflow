@@ -10,7 +10,9 @@ import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.PredicateUtil.all;
 
 import io.xyz.common.matrix.RPoint;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
 
 /**
  * @author ThomasB
@@ -51,6 +53,7 @@ public final class FXContextBinding
 	public void cubicTo(final RPoint control1, final RPoint control2, final RPoint end)
 	{
 		assert twoDimensional(control1, control2, end);
+		gc.bezierCurveTo(control1.x(), control1.y(), control2.x(), control2.y(), end.x(), end.y());
 	}
 
 	public void stroke()
@@ -61,6 +64,14 @@ public final class FXContextBinding
 	public void closePath()
 	{
 		gc.closePath();
+	}
+
+	public void fillOval(final Bounds b, final Paint color)
+	{
+		final Paint currentFill = gc.getFill();
+		gc.setFill(color);
+		gc.fillOval(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
+		gc.setFill(currentFill);
 	}
 
 	private boolean twoDimensional(final RPoint... ps)

@@ -34,7 +34,7 @@ public interface RangeDescriptor<T> extends BaseRangeDescriptor {
 		return getDescriptor().apply(index);
 	}
 
-	default List<T> toList() {
+	default ImmutableList<T> toList() {
 		final int upper = rangeBound();
 		final IntFunction<? extends T> descriptor = getDescriptor();
 		final List<T> result = new ArrayList<>(upper);

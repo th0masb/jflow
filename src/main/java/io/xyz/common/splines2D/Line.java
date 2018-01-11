@@ -62,6 +62,12 @@ public class Line extends AbstractSplineSegment {
 		return getControlPoints().get(1);
 	}
 
+	@Override
+	public double length()
+	{
+		return to().distL2(from());
+	}
+
 	public boolean isParallelTo(final Line other)
 	{
 		final RPoint thisDir = direction().normalise(), otherDir = other.direction().normalise();
@@ -102,8 +108,6 @@ public class Line extends AbstractSplineSegment {
 
 	public double grad2D()
 	{
-		//		System.out.println(to().y() - from().y());
-		//		System.out.println(to().x() - from().x());
 		return (to().y() - from().y()) / (to().x() - from().x());
 	}
 

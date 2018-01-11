@@ -27,6 +27,7 @@ import java.util.function.IntToDoubleFunction;
 
 import io.xyz.common.function.DoubleCompressor;
 import io.xyz.common.geometry.PointMap;
+import io.xyz.common.geometry.RealSpaceMember;
 import io.xyz.common.matrix.impl.RPointImpl;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
@@ -36,7 +37,7 @@ import io.xyz.common.rangedescriptor.RangeDescriptor;
  * @author ThomasB
  * @since 4 Jan 2018
  */
-public interface RPoint extends RMatrix, DoubleRangeDescriptor {
+public interface RPoint extends RMatrix, DoubleRangeDescriptor, RealSpaceMember {
 
 	@Override
 	RPoint apply(DoubleUnaryOperator f);
@@ -79,12 +80,12 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor {
 	default double dot(final RPoint other)
 	{
 		assert dimensionsAgree(this, other);
-		return sum(combine((a, b) -> a * b, this, other)).getAsDouble();
+		return sum(combine((a, b) -> a * b, this, other)).getAsDouble()/(magnitude()*other.magnitude());
 	}
 
 	default double magnitude()
 	{
-		return sqrt(dot(this));
+		return sqrt(sum(doubleRange(x -> x*x, this)).getAsDouble());
 	}
 
 	default double distL1(final RPoint other)
@@ -111,6 +112,7 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor {
 		return scale(1 / magnitude());
 	}
 
+	@Override
 	default int dim()
 	{
 		return len(coords());
@@ -239,12 +241,18 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor {
 		assert len(ps) > 1 && allEqual(intRange(p -> p.dim(), ps));
 		final int dimension = ps.get(0).dim();
 		final IntFunction<DoubleRangeDescriptor> rowMapper = i -> doubleRange(x -> x.get(i), ps);
+
 		return new RPointImpl(doubleRange(i -> f.compress(rowMapper.apply(i)), dimension));
 	}
 
 	public static void main(final String[] args)
 	{
-		System.out.println(of(1.0000004, 2, 4.5).equals(of(1, 2, 4.5000003)));
+		//		final List<RPoint> ps = ImmutableList.of(RPoint.of)
+		//
+		//				final Curve c = t -> {
+		//					final DoubleCompressor compressor = xs -> pow(1 - t, 2)*xs.get(0) + 2*t*(1 - t)*xs.get(1) + pow(t, 2)*xs.get(2);
+		//					return RPoint.compress(compressor, getControlPoints());
+		//				};
 	}
 }
 

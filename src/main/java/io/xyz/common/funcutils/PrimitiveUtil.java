@@ -176,5 +176,7 @@ public final class PrimitiveUtil {
 		System.out.println(digitLength(2));// , 134423.3245523));
 
 		System.out.println(max(2, 4, -2, 6, 7));
+
+		System.out.println(Math.signum(0.000001));
 	}
 }

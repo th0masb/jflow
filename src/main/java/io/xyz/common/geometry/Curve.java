@@ -7,9 +7,10 @@ import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CombineUtil.combine;
 import static io.xyz.common.funcutils.FilterUtil.filter;
-import static io.xyz.common.funcutils.FoldUtil.accumulate;
+import static io.xyz.common.funcutils.FoldUtil.pairFold;
 import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import static io.xyz.common.funcutils.MapUtil.range;
+import static io.xyz.common.funcutils.PrimitiveUtil.sum;
 import static io.xyz.common.geometry.Constants.EPSILON;
 
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public interface Curve {
 	static double length(final Curve c, final int steps)
 	{
 		final DoubleRangeDescriptor ts = doubleRange(0, 1 + EPSILON, 1.0 / steps);
-		return accumulate((t1, t2) -> c.transform(t1).distL2(c.transform(t2)), 0, ts);
+		return sum(pairFold((t1, t2) -> c.transform(t1).distL2(c.transform(t2)), ts)).getAsDouble();
 	}
 
 	static Curve fuse(final Curve... cs)
@@ -61,7 +62,7 @@ public interface Curve {
 		assert len(cs) > 0;
 
 		final DoubleRangeDescriptor ls = doubleRange(Curve::length, cs);
-		final double sumLen = accumulate((a, b) -> a + b, 0, ls);
+		final double sumLen = sum(ls).getAsDouble();
 		final double[] lenRatios = doubleRange(x -> x / sumLen, ls).toArray();
 		Arrays.parallelPrefix(lenRatios, (a, b) -> a + b); // TODO - implement a cumulative static method
 		return t -> {
@@ -69,6 +70,7 @@ public interface Curve {
 			final int first = len(notPassed) == 0? n - 1 : notPassed[0];
 			final double prevRatio = first == 0? 0 : lenRatios[first - 1];
 			final double t0 = (t - prevRatio) / (lenRatios[first] - prevRatio);
+			assert 0 <= t0 && t0 <= 1 : t0;
 			return cs.get(first).transform(t0);
 		};
 	}

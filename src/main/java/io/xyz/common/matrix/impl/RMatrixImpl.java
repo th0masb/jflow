@@ -4,6 +4,7 @@
 package io.xyz.common.matrix.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
+import static io.xyz.common.funcutils.CollectionUtil.asString;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CombineUtil.combine;
 import static io.xyz.common.funcutils.MapUtil.boolRange;
@@ -57,9 +58,11 @@ public class RMatrixImpl implements RMatrix {
 	RMatrixImpl(final int ncols, final DoubleRangeDescriptor contentDescriptor)
 	{
 		/* Check row and column numbers match and that dimension is not too high */
-		assert all(boolRange(x -> Double.isFinite(x) && !Double.isNaN(x), contentDescriptor));
+		assert all(boolRange(x -> Double.isFinite(x), contentDescriptor)) : asString(contentDescriptor.toArray());
+		assert all(boolRange(x -> !Double.isNaN(x), contentDescriptor)) : asString(contentDescriptor.toArray());
 		assert ncols > 0 && len(contentDescriptor) % ncols == 0;
 		assert (short) ncols == ncols;
+
 		this.contents = collect(contentDescriptor);
 		this.colDim = (short) ncols;
 	}

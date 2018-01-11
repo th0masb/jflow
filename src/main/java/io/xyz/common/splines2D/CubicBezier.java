@@ -6,11 +6,54 @@
  */
 package io.xyz.common.splines2D;
 
+import io.xyz.common.fxutils.FXContextBinding;
+import io.xyz.common.geometry.Curve;
+import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.matrix.RPoint;
+
 /**
  * @author ThomasB
  * @since 3 Nov 2017
  */
-public final class CubicBezier {/// extends AbstractSplineSegment {
+public final class CubicBezier extends AbstractSplineSegment {
+
+	public CubicBezier(final RPoint from, final RPoint ctrl1, final RPoint ctrl2, final RPoint to)
+	{
+		super(from, ctrl1, ctrl2, to);
+	}
+
+	@Override
+	public void trace2D(final FXContextBinding gc, final PointTransform clipTransform, final RPoint perturbation)
+	{
+		gc.cubicTo(
+				clipTransform.transform(control1().add(perturbation)),
+				clipTransform.transform(control2().add(perturbation)),
+				clipTransform.transform(to().add(perturbation))
+				);
+	}
+
+	@Override
+	public Curve parameterise()
+	{
+		return Curve.cubicLine(from(), control1(), control2(), to());
+	}
+
+	public RPoint control1()
+	{
+		return getControlPoints().get(1);
+	}
+
+	public RPoint control2()
+	{
+		return getControlPoints().get(2);
+	}
+
+	@Override
+	public ISplineSegment peturb(final RPoint peturbation)
+	{
+		throw new RuntimeException();
+	}
+
 	// public CubicBezier(final Point3D start, final Point3D ctrl1, final Point3D
 	// ctrl2, final Point3D end)
 	// {

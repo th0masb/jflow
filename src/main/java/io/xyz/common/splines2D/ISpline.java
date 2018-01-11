@@ -6,13 +6,17 @@
  */
 package io.xyz.common.splines2D;
 
+import static io.xyz.common.funcutils.CollectionUtil.forEach;
+import static io.xyz.common.funcutils.CollectionUtil.head;
+
+import java.util.List;
 import java.util.Set;
 
 import io.xyz.common.fxutils.FXContextBinding;
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.geometry.PointTransform;
+import io.xyz.common.geometry.RealSpaceMember;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.matrix.impl.RPointImpl;
 
 /**
  * @author ThomasB
@@ -24,11 +28,35 @@ import io.xyz.common.matrix.impl.RPointImpl;
  *        A spline wraps an instance of {@link IPolyEdge} providing drawing and
  *        parameterisation mechanisms
  */
-public interface ISpline
+public interface ISpline extends RealSpaceMember
 {
-	void draw(FXContextBinding gc, PointTransform coordinateMap, RPointImpl perturbation);
+	default void draw2D(final FXContextBinding gc, final PointTransform coordinateMap, final RPoint perturbation)
+	{
+		assert correctDimensionsToDraw2D(coordinateMap);
+		gc.beginPath();
+		gc.moveTo(coordinateMap.transform(head(getConstituentSegments()).from().add(perturbation)));
+		trace2D(gc, coordinateMap, perturbation);
+		gc.stroke();
+		gc.closePath();
+	}
 
-	void draw(final FXContextBinding gc, final PointTransform coordinateMap);
+	default void draw2D(final FXContextBinding gc, final PointTransform coordinateMap)
+	{
+		draw2D(gc, coordinateMap, RPoint.origin(2));
+	}
+
+	default void trace2D(final FXContextBinding gc, final PointTransform coordinateMap, final RPoint perturbation)
+	{
+		assert correctDimensionsToDraw2D(coordinateMap);
+		forEach(s -> s.trace2D(gc, coordinateMap, perturbation), getConstituentSegments());
+	}
+
+	default void trace(final FXContextBinding gc, final PointTransform coordinateMap)
+	{
+		trace2D(gc, coordinateMap, RPoint.origin(2));
+	}
+
+	List<ISplineSegment> getConstituentSegments();
 
 	Curve parameterise();
 
@@ -38,7 +66,7 @@ public interface ISpline
 
 	ISpline peturb(RPoint peturbation);
 
-	int dim();
+	//	int dim();
 }
 
 /*

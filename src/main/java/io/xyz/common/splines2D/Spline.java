@@ -16,12 +16,11 @@ import static io.xyz.common.funcutils.StreamUtil.collect;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableList;
+
 import io.xyz.common.geometry.Curve;
-import io.xyz.common.geometry.PointTransform;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.matrix.impl.RPointImpl;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
-import javafx.scene.canvas.GraphicsContext;
 
 /**
  * @author ThomasB
@@ -29,7 +28,7 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Spline implements ISpline {
 	/** The constituent segments of this spline. */
-	private final List<ISplineSegment> segments;
+	private final ImmutableList<ISplineSegment> segments;
 
 	/** Cached parameterisation of this spline */
 	private final Curve parameterisation;
@@ -43,22 +42,7 @@ public class Spline implements ISpline {
 	{
 		assert len(segments) > 0 && allEqual(intRange(x -> x.dim(), segments));
 		this.segments = collect(objRange(x -> (ISplineSegment) x, segments));
-		parameterisation = Curve.fuse(collect(objRange(s -> s.parameterise(), segments)));
-	}
-
-	@Override
-	public void draw(final GraphicsContext gc, final PointTransform clipT, final RPointImpl perturbation)
-	{
-		for (final ISplineSegment segment : segments) {
-			segment.draw2D(gc, clipT, perturbation);
-		}
-	}
-
-	@Override
-	public void draw(final GraphicsContext gc, final PointTransform coordinateMap)
-	{
-		// TODO Auto-generated method stub
-
+		parameterisation = Curve.fuse(objRange(s -> s.parameterise(), this.segments));
 	}
 
 	@Override
@@ -70,10 +54,11 @@ public class Spline implements ISpline {
 	@Override
 	public Set<RPoint> getPointApproximation(final double maximalSpacing)
 	{
-		final Curve c = parameterise();
-		final double clength = getLengthApproximation();
-
-		return null;
+		throw new RuntimeException();
+		//		final Curve c = parameterise();
+		//		final double clength = getLengthApproximation();
+		//
+		//		return null;
 	}
 
 	@Override
@@ -86,8 +71,7 @@ public class Spline implements ISpline {
 	@Override
 	public ISpline peturb(final RPoint peturbation)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Spline(objRange(x -> x.peturb(peturbation), segments));
 	}
 
 	@Override
@@ -96,6 +80,11 @@ public class Spline implements ISpline {
 		return segments.get(0).dim();
 	}
 
+	@Override
+	public List<ISplineSegment> getConstituentSegments()
+	{
+		return segments;
+	}
 }
 
 /*

@@ -12,6 +12,8 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
+import com.google.common.collect.ImmutableList;
+
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.IntRangeDescriptor;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
@@ -48,7 +50,7 @@ public final class StreamUtil {
 		return xs.toArray();
 	}
 
-	public static <T> List<T> collect(final RangeDescriptor<T> xs) {
+	public static <T> ImmutableList<T> collect(final RangeDescriptor<T> xs) {
 		return xs.toList();
 	}
 

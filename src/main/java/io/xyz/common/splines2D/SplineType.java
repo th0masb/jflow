@@ -8,19 +8,26 @@ package io.xyz.common.splines2D;
 
 import static io.xyz.common.funcutils.CollectionUtil.allEqual;
 import static io.xyz.common.funcutils.CollectionUtil.asDescriptor;
+import static io.xyz.common.funcutils.CollectionUtil.asList;
 import static io.xyz.common.funcutils.CollectionUtil.head;
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CollectionUtil.tail;
+import static io.xyz.common.funcutils.FoldUtil.foldl;
 import static io.xyz.common.funcutils.FoldUtil.pairFold;
 import static io.xyz.common.funcutils.FoldUtil.pairFoldToDouble;
+import static io.xyz.common.funcutils.MapUtil.boolRange;
 import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import static io.xyz.common.funcutils.MapUtil.objRange;
+import static io.xyz.common.funcutils.PrimitiveUtil.isZero;
 import static io.xyz.common.funcutils.StreamUtil.collect;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.BinaryOperator;
 
 import io.xyz.common.funcutils.PrimitiveUtil;
+import io.xyz.common.geometry.BitArray;
 import io.xyz.common.matrix.RPoint;
 import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 import io.xyz.common.rangedescriptor.RangeDescriptor;
@@ -40,8 +47,65 @@ public enum SplineType implements SplineConstructor {
 			assert len(knots) > 1;
 			final int n = len(knots);
 			if (n == 2) {
-				return null;//Line.between(knots.get(0), knots.get(1));
+				return new Spline(asDescriptor(Line.between(knots.get(0), knots.get(1))));
+			} else if (n == 3) {
+				return new Spline(constructSameDirectionSpline(asDescriptor(knots)));
 			}
+
+			final List<Line> lines = collect(pairFold(Line::new, knots));
+			final DoubleRangeDescriptor angles = pairFoldToDouble((a, b) -> a.pathAngleWith(b), asDescriptor(lines));
+			final DoubleRangeDescriptor angleSigns = doubleRange(PrimitiveUtil::signum, angles);
+
+			final DoubleRangeDescriptor directionSwitches = pairFold((a,  b) -> b - a, angleSigns);
+			final BitArray innerLinesToSplit = boolRange(x -> !isZero(x), directionSwitches);
+
+			final List<List<RPoint>> components = new ArrayList<>();
+			List<RPoint> currentComponent = new ArrayList<>(asList(head(knots)));
+
+			for (int i = 0; i < n - 3; i++) {
+				final Line toAllocate = lines.get(i + 1);
+				currentComponent.add(toAllocate.from());
+				if (innerLinesToSplit.get(i)) {
+					final RPoint mid = toAllocate.midPoint();
+					currentComponent.add(mid);
+					components.add(currentComponent);
+					currentComponent = new ArrayList<>();
+					currentComponent.add(mid);
+				}
+			}
+
+			final Line last = tail(lines);
+			currentComponent.add(last.from());
+			currentComponent.add(last.to());
+			components.add(currentComponent);
+
+			final List<List<ISplineSegment>> beziers = collect(objRange(xs -> constructSameDirectionSpline(asDescriptor(xs)), components));
+
+			final BinaryOperator<List<ISplineSegment>> connector = (a, b) ->
+			{
+				if (len(a) == 0) {
+					return b;
+				}
+				final List<ISplineSegment> combined = new ArrayList<>(len(a) + len(b) -1);
+				combined.addAll(a.subList(0, len(a) - 1));
+				combined.add(connect((QuadraticBezier) tail(a), (QuadraticBezier) head(b)));
+				combined.addAll(b.subList(1, len(b)));
+				return combined;
+			};
+
+			return new Spline(foldl(connector, Collections.emptyList(), beziers).get());
+		}
+
+		private CubicBezier connect(final QuadraticBezier a, final QuadraticBezier b)
+		{
+			return new CubicBezier(a.from(), a.control(), b.control(), b.to());
+		}
+
+		private List<ISplineSegment> constructSameDirectionSpline(final RangeDescriptor<RPoint> knots)
+		{
+			assert len(knots) > 2;
+
+			final int n = len(knots);
 
 			final List<Line> lines = collect(pairFold(Line::new, knots));
 			final DoubleRangeDescriptor angles = pairFoldToDouble((a, b) -> a.pathAngleWith(b), asDescriptor(lines));
@@ -52,19 +116,31 @@ public enum SplineType implements SplineConstructor {
 			final List<Line> controlLines = collect(objRange(i -> traceLines.get(i).peturbToNewCentre(knots.get(i + 1)), len(traceLines)));
 			final RangeDescriptor<RPoint> innerControlPoints = pairFold((a, b) -> Line.crossingPoint2D(a, b), controlLines);
 
-			//			Line firstControl = controlLines.get(0), lastControl = con
-			final RPoint firstControl = Line.midPoint(knots.get(1), head(controlLines).perpendicularIntersection(head(knots)));
-			final RPoint lastControl = Line.midPoint(knots.get(n - 2), tail(controlLines).perpendicularIntersection(tail(knots)));
+			/*
+			 * Now calculate the outer control points heuristically... TODO - explain.
+			 */
+			final RPoint firstKnot = head(knots), secondKnot = knots.get(1);
+			final RPoint penultimateKnot = knots.get(n - 2), lastKnot = tail(knots);
+
+			final Line firstControlLine = head(controlLines), lastControlLine = tail(controlLines);
+
+			final Line v1 = Line.between(firstKnot, secondKnot), v2 = Line.between(penultimateKnot, lastKnot);
+			final double theta1 = v1.minimalAngleWith(firstControlLine), theta2 = v2.minimalAngleWith(lastControlLine);
+			final double scaleFactor = 2 / Math.PI;
+			final double x1 = scaleFactor*theta1*v1.length(), x2 = scaleFactor*theta2*v2.length();
+
+			final RPoint firstControl = firstControlLine.travel(0.5*firstControlLine.length() - x1);
+			final RPoint lastControl = lastControlLine.travel(0.5*lastControlLine.length() + x2);
+
+			//			final RPoint firstControl = head(controlLines).perpendicularIntersection(head(knots));//Line.midPoint(knots.get(1), head(controlLines).perpendicularIntersection(head(knots)));
+			//			final RPoint lastControl = tail(controlLines).perpendicularIntersection(tail(knots));//Line.midPoint(knots.get(n - 2), tail(controlLines).perpendicularIntersection(tail(knots)));
 
 			final List<RPoint> controls = new ArrayList<>(len(innerControlPoints) + 2);
 			controls.add(firstControl);
 			controls.addAll(collect(innerControlPoints));
 			controls.add(lastControl);
 
-			final RangeDescriptor<QuadraticBezier> segments = objRange(i -> new QuadraticBezier(knots.get(i), controls.get(i), knots.get(i + 1)), n - 1);
-			//			RPoint firstControl =
-			// TODO Auto-generated method stub
-			return null;
+			return collect(objRange(i -> new QuadraticBezier(knots.get(i), controls.get(i), knots.get(i + 1)), n - 1));
 		}
 	};
 
