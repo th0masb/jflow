@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Lhasa Limited
+ * Copyright ï¿½ 2018 Lhasa Limited
  * File created: 10 Jan 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -10,6 +10,7 @@ import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.PredicateUtil.all;
 
 import io.xyz.common.matrix.RPoint;
+import io.xyz.common.splines2D.Line;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
@@ -18,8 +19,7 @@ import javafx.scene.paint.Paint;
  * @author ThomasB
  * @since 10 Jan 2018
  */
-public final class FXContextBinding
-{
+public final class FXContextBinding {
 	private final GraphicsContext gc;
 
 	public GraphicsContext getBoundContext()
@@ -42,6 +42,21 @@ public final class FXContextBinding
 	{
 		assert twoDimensional(p);
 		gc.lineTo(p.x(), p.y());
+	}
+
+	public void strokeLine(final Line line, final Paint p, final double width)
+	{
+		final Paint currentStroke = gc.getStroke();
+		final double currentWidth = gc.getLineWidth();
+		gc.setStroke(p);
+		gc.setLineWidth(width);
+		beginPath();
+		moveTo(line.from());
+		lineTo(line.to());
+		stroke();
+		closePath();
+		gc.setStroke(currentStroke);
+		gc.setLineWidth(currentWidth);
 	}
 
 	public void quadraticTo(final RPoint control, final RPoint end)
@@ -87,7 +102,8 @@ public final class FXContextBinding
 	public void fillCanvas(final Paint paint)
 	{
 		final Paint currentFill = gc.getFill();
-		fillCanvas(paint);;
+		fillCanvas(paint);
+		;
 	}
 
 	public void fillCanvas(final Bounds b, final Paint paint)
@@ -112,13 +128,12 @@ public final class FXContextBinding
 		this.gc = gc;
 	}
 }
-/* ---------------------------------------------------------------------*
- * This software is the confidential and proprietary
- * information of Lhasa Limited
- * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS
- * ---
- * No part of this confidential information shall be disclosed
- * and it shall be used only in accordance with the terms of a
- * written license agreement entered into by holder of the information
- * with LHASA Ltd.
- * --------------------------------------------------------------------- */
+/*
+ * ---------------------------------------------------------------------* This
+ * software is the confidential and proprietary information of Lhasa Limited
+ * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS --- No part of this
+ * confidential information shall be disclosed and it shall be used only in
+ * accordance with the terms of a written license agreement entered into by
+ * holder of the information with LHASA Ltd.
+ * ---------------------------------------------------------------------
+ */
