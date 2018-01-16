@@ -17,12 +17,12 @@ import java.util.function.IntUnaryOperator;
 
 import io.xyz.common.function.BiToDoubleFunction;
 import io.xyz.common.function.BiToIntFunction;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableRangeDescriptor;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
+import io.xyz.common.generators.impl.ImmutableDoubleGenerator;
+import io.xyz.common.generators.impl.ImmutableIntGenerator;
+import io.xyz.common.generators.impl.ImmutableGenerator;
+import io.xyz.common.generators.Generator;
 
 /**
  *
@@ -35,7 +35,7 @@ public final class FoldUtil {
 	{
 	}
 
-	public static OptionalInt foldr(final IntBinaryOperator f, final int id, final IntRangeDescriptor xs)
+	public static OptionalInt foldr(final IntBinaryOperator f, final int id, final IntGenerator xs)
 	{
 		if (len(xs) == 0) {
 			return OptionalInt.empty();
@@ -52,7 +52,7 @@ public final class FoldUtil {
 		return foldr(f, id, asDescriptor(xs));
 	}
 
-	public static OptionalDouble foldr(final DoubleBinaryOperator f, final double id, final DoubleRangeDescriptor xs)
+	public static OptionalDouble foldr(final DoubleBinaryOperator f, final double id, final DoubleGenerator xs)
 	{
 		if (len(xs) == 0) {
 			return OptionalDouble.empty();
@@ -69,7 +69,7 @@ public final class FoldUtil {
 		return foldr(f, id, asDescriptor(xs));
 	}
 
-	public static <T> Optional<T> foldr(final BinaryOperator<T> f, final T id, final RangeDescriptor<? extends T> xs)
+	public static <T> Optional<T> foldr(final BinaryOperator<T> f, final T id, final Generator<? extends T> xs)
 	{
 		if (len(xs) == 0) {
 			return Optional.empty();
@@ -93,7 +93,7 @@ public final class FoldUtil {
 	 * @return
 	 */
 
-	public static OptionalInt foldl(final IntBinaryOperator f, final int id, final IntRangeDescriptor xs)
+	public static OptionalInt foldl(final IntBinaryOperator f, final int id, final IntGenerator xs)
 	{
 		if (len(xs) == 0) {
 			return OptionalInt.empty();
@@ -110,7 +110,7 @@ public final class FoldUtil {
 		return foldl(f, id, asDescriptor(xs));
 	}
 
-	public static OptionalDouble foldl(final DoubleBinaryOperator f, final double id, final DoubleRangeDescriptor xs)
+	public static OptionalDouble foldl(final DoubleBinaryOperator f, final double id, final DoubleGenerator xs)
 	{
 		if (len(xs) == 0) {
 			return OptionalDouble.empty();
@@ -127,7 +127,7 @@ public final class FoldUtil {
 		return foldl(f, id, asDescriptor(xs));
 	}
 
-	public static <T> Optional<T> foldl(final BinaryOperator<T> f, final T id, final RangeDescriptor<? extends T> xs)
+	public static <T> Optional<T> foldl(final BinaryOperator<T> f, final T id, final Generator<? extends T> xs)
 	{
 		if (len(xs) == 0) {
 			return Optional.empty();
@@ -204,33 +204,33 @@ public final class FoldUtil {
 
 	// // TODO - pair reduce??
 	//
-	public static <T> IntRangeDescriptor pairFoldToInt(final BiToIntFunction<T, T> f, final RangeDescriptor<T> xs)
+	public static <T> IntGenerator pairFoldToInt(final BiToIntFunction<T, T> f, final Generator<T> xs)
 	{
 		final IntUnaryOperator g = i -> f.apply(xs.get(i), xs.get(i + 1));
-		return ImmutableIntRangeDescriptor.of(len(xs) - 1, g);
+		return ImmutableIntGenerator.of(len(xs) - 1, g);
 	}
 
-	public static <T> DoubleRangeDescriptor pairFoldToDouble(final BiToDoubleFunction<T, T> f, final RangeDescriptor<T> xs)
+	public static <T> DoubleGenerator pairFoldToDouble(final BiToDoubleFunction<T, T> f, final Generator<T> xs)
 	{
 		final IntToDoubleFunction g = i -> f.apply(xs.get(i), xs.get(i + 1));
-		return ImmutableDoubleRangeDescriptor.of(len(xs) - 1, g);
+		return ImmutableDoubleGenerator.of(len(xs) - 1, g);
 	}
 
-	public static <T, S> RangeDescriptor<S> pairFold(final BiFunction<T, T, S> f, final RangeDescriptor<T> xs)
+	public static <T, S> Generator<S> pairFold(final BiFunction<T, T, S> f, final Generator<T> xs)
 	{
 		final IntFunction<S> g = i -> f.apply(xs.get(i), xs.get(i + 1));
-		return new ImmutableRangeDescriptor<>(len(xs) - 1, g);
+		return new ImmutableGenerator<>(len(xs) - 1, g);
 	}
 
-	public static DoubleRangeDescriptor pairFold(final DoubleBinaryOperator f, final DoubleRangeDescriptor xs)
+	public static DoubleGenerator pairFold(final DoubleBinaryOperator f, final DoubleGenerator xs)
 	{
 		final IntToDoubleFunction g = i -> f.applyAsDouble(xs.get(i), xs.get(i + 1));
-		return ImmutableDoubleRangeDescriptor.of(len(xs) - 1, g);
+		return ImmutableDoubleGenerator.of(len(xs) - 1, g);
 	}
 
-	public static <T, S> RangeDescriptor<S> pairFold(final BiFunction<T, T, S> f, final List<T> xs)
+	public static <T, S> Generator<S> pairFold(final BiFunction<T, T, S> f, final List<T> xs)
 	{
 		final IntFunction<S> g = i -> f.apply(xs.get(i), xs.get(i + 1));
-		return new ImmutableRangeDescriptor<>(len(xs) - 1, g);
+		return new ImmutableGenerator<>(len(xs) - 1, g);
 	}
 }

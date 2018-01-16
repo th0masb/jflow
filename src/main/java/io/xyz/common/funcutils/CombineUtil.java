@@ -15,12 +15,12 @@ import java.util.function.BinaryOperator;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
 
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableRangeDescriptor;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
+import io.xyz.common.generators.impl.ImmutableDoubleGenerator;
+import io.xyz.common.generators.impl.ImmutableIntGenerator;
+import io.xyz.common.generators.impl.ImmutableGenerator;
+import io.xyz.common.generators.Generator;
 
 /**
  * @author t
@@ -49,7 +49,7 @@ public final class CombineUtil {
 	/**
 	 * @return The String xs[0] + delimiter + xs[1] + ... + delimiter + xs[n-1]
 	 */
-	public static String concat(final String delimiter, final RangeDescriptor<String> xs)
+	public static String concat(final String delimiter, final Generator<String> xs)
 	{
 		final StringBuilder sb = new StringBuilder();
 		final int length = len(xs);
@@ -90,35 +90,35 @@ public final class CombineUtil {
 
 	// -------------------------------------------------------------------
 
-	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final double[] a, final double[] b)
+	public static DoubleGenerator combine(final DoubleBinaryOperator f, final double[] a, final double[] b)
 	{
 		return combine(f, asDescriptor(a), asDescriptor(b));
 	}
 
-	public static DoubleRangeDescriptor combine(final DoubleBinaryOperator f, final DoubleRangeDescriptor a, final DoubleRangeDescriptor b)
+	public static DoubleGenerator combine(final DoubleBinaryOperator f, final DoubleGenerator a, final DoubleGenerator b)
 	{
 		final int size = min(len(a), len(b));
-		return ImmutableDoubleRangeDescriptor.of(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
+		return ImmutableDoubleGenerator.of(size, i -> f.applyAsDouble(a.get(i), b.get(i)));
 	}
 
-	public static IntRangeDescriptor combine(final IntBinaryOperator f, final IntRangeDescriptor a, final IntRangeDescriptor b)
+	public static IntGenerator combine(final IntBinaryOperator f, final IntGenerator a, final IntGenerator b)
 	{
 		final int size = min(len(a), len(b));
-		return ImmutableIntRangeDescriptor.of(size, i -> f.applyAsInt(a.get(i), b.get(i)));
+		return ImmutableIntGenerator.of(size, i -> f.applyAsInt(a.get(i), b.get(i)));
 	}
 
-	public static IntRangeDescriptor combine(final IntBinaryOperator f, final int[] a, final int[] b)
+	public static IntGenerator combine(final IntBinaryOperator f, final int[] a, final int[] b)
 	{
 		return combine(f, asDescriptor(a), asDescriptor(b));
 	}
 
-	public static <T> RangeDescriptor<T> combine(final BinaryOperator<T> f, final RangeDescriptor<? extends T> a, final RangeDescriptor<? extends T> b)
+	public static <T> Generator<T> combine(final BinaryOperator<T> f, final Generator<? extends T> a, final Generator<? extends T> b)
 	{
 		final int size = min(len(a), len(b));
-		return new ImmutableRangeDescriptor<>(size, i -> f.apply(a.get(i), b.get(i)));
+		return new ImmutableGenerator<>(size, i -> f.apply(a.get(i), b.get(i)));
 	}
 
-	public static <T> RangeDescriptor<T> combine(final BinaryOperator<T> f, final List<? extends T> a, final List<? extends T> b)
+	public static <T> Generator<T> combine(final BinaryOperator<T> f, final List<? extends T> a, final List<? extends T> b)
 	{
 		return combine(f, asDescriptor(a), asDescriptor(b));
 	}
@@ -135,7 +135,7 @@ public final class CombineUtil {
 
 	// -------------------------------------------------------------------
 
-	public static double dotProduct(final DoubleRangeDescriptor a, final DoubleRangeDescriptor b)
+	public static double dotProduct(final DoubleGenerator a, final DoubleGenerator b)
 	{
 		assert len(a) > 0 && len(a) == len(b);
 		return sum(combine((x, y) -> x * y, a, b)).getAsDouble();
@@ -146,7 +146,7 @@ public final class CombineUtil {
 		return dotProduct(asDescriptor(a), asDescriptor(b));
 	}
 
-	public static double dotProduct(final IntRangeDescriptor a, final IntRangeDescriptor b)
+	public static double dotProduct(final IntGenerator a, final IntGenerator b)
 	{
 		assert len(a) > 0 && len(a) == len(b);
 		return sum(combine((x, y) -> x * y, a, b)).getAsInt();

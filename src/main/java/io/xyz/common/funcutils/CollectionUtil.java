@@ -16,13 +16,13 @@ import java.util.function.LongConsumer;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import io.xyz.common.rangedescriptor.BaseRangeDescriptor;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableRangeDescriptor;
+import io.xyz.common.generators.BaseGenerator;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
+import io.xyz.common.generators.impl.ImmutableDoubleGenerator;
+import io.xyz.common.generators.impl.ImmutableIntGenerator;
+import io.xyz.common.generators.impl.ImmutableGenerator;
+import io.xyz.common.generators.Generator;
 
 /**
  *
@@ -78,7 +78,7 @@ public final class CollectionUtil {
 		return xs.length();
 	}
 
-	public static int len(final BaseRangeDescriptor xs)
+	public static int len(final BaseGenerator xs)
 	{
 		return xs.rangeBound();
 	}
@@ -143,49 +143,49 @@ public final class CollectionUtil {
 
 	// ---------------------------------------------------------------
 
-	public static IntRangeDescriptor asDescriptor(final int... xs)
+	public static IntGenerator asDescriptor(final int... xs)
 	{
-		return ImmutableIntRangeDescriptor.from(xs);
+		return ImmutableIntGenerator.from(xs);
 	}
 
-	public static DoubleRangeDescriptor asDescriptor(final double... xs)
+	public static DoubleGenerator asDescriptor(final double... xs)
 	{
-		return ImmutableDoubleRangeDescriptor.from(xs);
+		return ImmutableDoubleGenerator.from(xs);
 	}
 
-	public static <T> RangeDescriptor<T> asDescriptor(final List<? extends T> xs)
+	public static <T> Generator<T> asDescriptor(final List<? extends T> xs)
 	{
-		return ImmutableRangeDescriptor.from(xs);
+		return ImmutableGenerator.from(xs);
 	}
 
 	@SafeVarargs
-	public static <T, E extends T> RangeDescriptor<T> asDescriptor(final E... xs)
+	public static <T, E extends T> Generator<T> asDescriptor(final E... xs)
 	{
-		return ImmutableRangeDescriptor.from(xs);
+		return ImmutableGenerator.from(xs);
 	}
 
 	// ---------------------------------------------------------------
 
-	public static IntRangeDescriptor take(final int n, final int[] xs)
+	public static IntGenerator take(final int n, final int[] xs)
 	{
 		return take(n, asDescriptor(xs));
 	}
 
-	public static IntRangeDescriptor take(final int n, final IntRangeDescriptor xs)
+	public static IntGenerator take(final int n, final IntGenerator xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return ImmutableIntRangeDescriptor.of(n, xs.getDescriptor());
+		return ImmutableIntGenerator.of(n, xs.getDescriptor());
 	}
 
-	public static DoubleRangeDescriptor take(final int n, final double[] xs)
+	public static DoubleGenerator take(final int n, final double[] xs)
 	{
 		return take(n, asDescriptor(xs));
 	}
 
-	public static DoubleRangeDescriptor take(final int n, final DoubleRangeDescriptor xs)
+	public static DoubleGenerator take(final int n, final DoubleGenerator xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return ImmutableDoubleRangeDescriptor.of(n, xs.getDescriptor());
+		return ImmutableDoubleGenerator.of(n, xs.getDescriptor());
 	}
 
 	// public static <T> RangeDescriptor<T> take(final int n, final T[] xs)
@@ -194,61 +194,61 @@ public final class CollectionUtil {
 	// return take(n, asDescriptor(xs));
 	// }
 
-	public static <T> RangeDescriptor<T> take(final int n, final List<T> xs)
+	public static <T> Generator<T> take(final int n, final List<T> xs)
 	{
 		assert 0 <= n && n <= len(xs);
 		return take(n, asDescriptor(xs));
 	}
 
-	public static <T> RangeDescriptor<T> take(final int n, final RangeDescriptor<T> xs)
+	public static <T> Generator<T> take(final int n, final Generator<T> xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return new ImmutableRangeDescriptor<>(n, xs.getDescriptor());
+		return new ImmutableGenerator<>(n, xs.getDescriptor());
 	}
 
 	// ---------------------------------------------------------------
 
-	public static IntRangeDescriptor drop(final int n, final IntRangeDescriptor xs)
+	public static IntGenerator drop(final int n, final IntGenerator xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return ImmutableIntRangeDescriptor.of(len(xs) - n, xs.getDescriptor().compose(i -> i + n));
+		return ImmutableIntGenerator.of(len(xs) - n, xs.getDescriptor().compose(i -> i + n));
 	}
 
-	public static IntRangeDescriptor drop(final int n, final int[] xs)
+	public static IntGenerator drop(final int n, final int[] xs)
 	{
 		return drop(n, asDescriptor(xs));
 	}
 
-	public static DoubleRangeDescriptor drop(final int n, final DoubleRangeDescriptor xs)
+	public static DoubleGenerator drop(final int n, final DoubleGenerator xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return ImmutableDoubleRangeDescriptor.of(len(xs) - n, compose(xs.getDescriptor(), i -> i + n));
+		return ImmutableDoubleGenerator.of(len(xs) - n, compose(xs.getDescriptor(), i -> i + n));
 	}
 
-	public static DoubleRangeDescriptor drop(final int n, final double[] xs)
+	public static DoubleGenerator drop(final int n, final double[] xs)
 	{
 		return drop(n, asDescriptor(xs));
 	}
 
-	public static <T> RangeDescriptor<T> drop(final int n, final RangeDescriptor<T> xs)
+	public static <T> Generator<T> drop(final int n, final Generator<T> xs)
 	{
 		assert 0 <= n && n <= len(xs);
-		return new ImmutableRangeDescriptor<>(len(xs) - n, compose(xs.getDescriptor(), i -> i + n));
+		return new ImmutableGenerator<>(len(xs) - n, compose(xs.getDescriptor(), i -> i + n));
 	}
 
-	public static <T> RangeDescriptor<T> drop(final int n, final T[] xs)
+	public static <T> Generator<T> drop(final int n, final T[] xs)
 	{
 		return drop(n, asDescriptor(xs));
 	}
 
-	public static <T> RangeDescriptor<T> drop(final int n, final List<T> xs)
+	public static <T> Generator<T> drop(final int n, final List<T> xs)
 	{
 		return drop(n, asDescriptor(xs));
 	}
 
 	// ---------------------------------------------------------------
 
-	public static int head(final IntRangeDescriptor xs)
+	public static int head(final IntGenerator xs)
 	{
 		assert len(xs) > 0;
 		return xs.get(0);
@@ -259,7 +259,7 @@ public final class CollectionUtil {
 		return head(asDescriptor(xs));
 	}
 
-	public static double head(final DoubleRangeDescriptor xs)
+	public static double head(final DoubleGenerator xs)
 	{
 		assert len(xs) > 0;
 		return xs.get(0);
@@ -270,7 +270,7 @@ public final class CollectionUtil {
 		return head(asDescriptor(xs));
 	}
 
-	public static <T> T head(final RangeDescriptor<T> xs)
+	public static <T> T head(final Generator<T> xs)
 	{
 		assert len(xs) > 0;
 		return xs.get(0);
@@ -288,7 +288,7 @@ public final class CollectionUtil {
 
 	// ---------------------------------------------------------------
 
-	public static int tail(final IntRangeDescriptor xs)
+	public static int tail(final IntGenerator xs)
 	{
 		assert len(xs) > 0;
 		return xs.get(len(xs) - 1);
@@ -299,7 +299,7 @@ public final class CollectionUtil {
 		return tail(asDescriptor(xs));
 	}
 
-	public static double tail(final DoubleRangeDescriptor xs)
+	public static double tail(final DoubleGenerator xs)
 	{
 		assert len(xs) > 0;
 		return xs.get(len(xs) - 1);
@@ -310,7 +310,7 @@ public final class CollectionUtil {
 		return tail(asDescriptor(xs));
 	}
 
-	public static <T> T tail(final RangeDescriptor<T> xs)
+	public static <T> T tail(final Generator<T> xs)
 	{
 		assert len(xs) > 0;
 		return xs.get(len(xs) - 1);
@@ -328,7 +328,7 @@ public final class CollectionUtil {
 
 	// ---------------------------------------------------------------
 
-	public static boolean allEqual(final IntRangeDescriptor xs)
+	public static boolean allEqual(final IntGenerator xs)
 	{
 		final int upper = len(xs) - 1;
 		for (int i = 0; i < upper; i++) {
@@ -344,7 +344,7 @@ public final class CollectionUtil {
 		return allEqual(asDescriptor(xs));
 	}
 
-	public static boolean allEqual(final DoubleRangeDescriptor xs)
+	public static boolean allEqual(final DoubleGenerator xs)
 	{
 		final int upper = len(xs) - 1;
 		for (int i = 0; i < upper; i++) {
@@ -360,7 +360,7 @@ public final class CollectionUtil {
 		return allEqual(asDescriptor(xs));
 	}
 
-	public static <T> boolean allEqual(final RangeDescriptor<T> xs)
+	public static <T> boolean allEqual(final Generator<T> xs)
 	{
 		final int upper = len(xs) - 1;
 		for (int i = 0; i < upper; i++) {

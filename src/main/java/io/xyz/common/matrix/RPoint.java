@@ -26,18 +26,18 @@ import java.util.function.IntFunction;
 import java.util.function.IntToDoubleFunction;
 
 import io.xyz.common.function.DoubleCompressor;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
+import io.xyz.common.generators.Generator;
 import io.xyz.common.geometry.PointMap;
 import io.xyz.common.geometry.RealSpaceMember;
 import io.xyz.common.matrix.impl.RPointImpl;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author ThomasB
  * @since 4 Jan 2018
  */
-public interface RPoint extends RMatrix, DoubleRangeDescriptor, RealSpaceMember {
+public interface RPoint extends RMatrix, DoubleGenerator, RealSpaceMember {
 
 	@Override
 	RPoint apply(DoubleUnaryOperator f);
@@ -67,7 +67,7 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor, RealSpaceMember 
 		return get(2);
 	}
 
-	default DoubleRangeDescriptor coords()
+	default DoubleGenerator coords()
 	{
 		return col(0);
 	}
@@ -183,7 +183,7 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor, RealSpaceMember 
 		return new RPointImpl(ds);
 	}
 
-	static RPoint of(final DoubleRangeDescriptor ds)
+	static RPoint of(final DoubleGenerator ds)
 	{
 		return new RPointImpl(ds);
 	}
@@ -219,19 +219,19 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor, RealSpaceMember 
 	}
 
 	@Override
-	default IntRangeDescriptor asIntRange(final DoubleToIntFunction f)
+	default IntGenerator asIntRange(final DoubleToIntFunction f)
 	{
 		throw new RuntimeException("NYI");
 	}
 
 	@Override
-	default <T> RangeDescriptor<T> asObjRange(final DoubleFunction<T> f)
+	default <T> Generator<T> asObjRange(final DoubleFunction<T> f)
 	{
 		throw new RuntimeException("NYI");
 	}
 
 	@Override
-	default DoubleRangeDescriptor filter(final DoublePredicate p)
+	default DoubleGenerator filter(final DoublePredicate p)
 	{
 		throw new RuntimeException("Can't filter a matrix!");
 	}
@@ -240,7 +240,7 @@ public interface RPoint extends RMatrix, DoubleRangeDescriptor, RealSpaceMember 
 	{
 		assert len(ps) > 1 && allEqual(intRange(p -> p.dim(), ps));
 		final int dimension = ps.get(0).dim();
-		final IntFunction<DoubleRangeDescriptor> rowMapper = i -> doubleRange(x -> x.get(i), ps);
+		final IntFunction<DoubleGenerator> rowMapper = i -> doubleRange(x -> x.get(i), ps);
 
 		return new RPointImpl(doubleRange(i -> f.compress(rowMapper.apply(i)), dimension));
 	}

@@ -14,9 +14,9 @@ import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableList;
 
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
+import io.xyz.common.generators.Generator;
 
 /**
  * @author t
@@ -42,15 +42,15 @@ public final class StreamUtil {
 		return xs.collect(Collectors.toList());
 	}
 
-	public static int[] collect(final IntRangeDescriptor xs) {
+	public static int[] collect(final IntGenerator xs) {
 		return xs.toArray();
 	}
 
-	public static double[] collect(final DoubleRangeDescriptor xs) {
+	public static double[] collect(final DoubleGenerator xs) {
 		return xs.toArray();
 	}
 
-	public static <T> ImmutableList<T> collect(final RangeDescriptor<T> xs) {
+	public static <T> ImmutableList<T> collect(final Generator<T> xs) {
 		return xs.toList();
 	}
 

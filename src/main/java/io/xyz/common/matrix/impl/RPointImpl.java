@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 
 import io.xyz.common.funcutils.MapUtil;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.impl.ImmutableDoubleGenerator;
 import io.xyz.common.matrix.PointBiOperator;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
 
 /**
  * @author t
@@ -33,10 +33,10 @@ public final class RPointImpl extends RMatrixImpl implements RPoint {
 
 	public RPointImpl(final double... ds)
 	{
-		this(ImmutableDoubleRangeDescriptor.from(ds));
+		this(ImmutableDoubleGenerator.from(ds));
 	}
 
-	public RPointImpl(final DoubleRangeDescriptor xs)
+	public RPointImpl(final DoubleGenerator xs)
 	{
 		super(len(xs), xs);
 	}

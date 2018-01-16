@@ -12,10 +12,10 @@ import static io.xyz.common.funcutils.MapUtil.doubleRange;
 import java.util.function.DoubleUnaryOperator;
 
 import io.xyz.common.funcutils.MapUtil;
+import io.xyz.common.generators.DoubleGenerator;
 import io.xyz.common.matrix.MatrixConstructor;
 import io.xyz.common.matrix.RMatrix;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 
 /**
  * @author ThomasB
@@ -23,7 +23,7 @@ import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
  */
 public class RMatrixDescriptor implements RMatrix {
 
-	protected final DoubleRangeDescriptor contentDescriptor;
+	protected final DoubleGenerator contentDescriptor;
 	protected final short colDim;
 
 	public RMatrixDescriptor(final MatrixConstructor f, final int nrows, final int ncols)
@@ -31,7 +31,7 @@ public class RMatrixDescriptor implements RMatrix {
 		this(ncols, doubleRange(i -> f.map(i / ncols, i % ncols), MapUtil.range(nrows * ncols)));
 	}
 
-	RMatrixDescriptor(final int ncols, final DoubleRangeDescriptor contentDescriptor)
+	RMatrixDescriptor(final int ncols, final DoubleGenerator contentDescriptor)
 	{
 		/* Check row and column numbers match and that dimension is not too high */
 		assert ncols > 0 && len(contentDescriptor) % ncols == 0;
@@ -66,13 +66,13 @@ public class RMatrixDescriptor implements RMatrix {
 	}
 
 	@Override
-	public DoubleRangeDescriptor row(final int index)
+	public DoubleGenerator row(final int index)
 	{
 		return doubleRange(j -> at(index, j), MapUtil.range(colDim()));
 	}
 
 	@Override
-	public DoubleRangeDescriptor col(final int index)
+	public DoubleGenerator col(final int index)
 	{
 		return doubleRange(i -> at(i, index), MapUtil.range(rowDim()));
 	}

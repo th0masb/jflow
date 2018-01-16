@@ -11,9 +11,9 @@ import static io.xyz.common.funcutils.CombineUtil.combine;
 
 import java.util.function.DoubleUnaryOperator;
 
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.impl.ImmutableDoubleGenerator;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
 
 /**
  * @author ThomasB
@@ -23,10 +23,10 @@ public class RPointDescriptor extends RMatrixDescriptor implements RPoint {
 
 	public RPointDescriptor(final double[] xs)
 	{
-		this(ImmutableDoubleRangeDescriptor.from(xs));
+		this(ImmutableDoubleGenerator.from(xs));
 	}
 
-	public RPointDescriptor(final DoubleRangeDescriptor xs)
+	public RPointDescriptor(final DoubleGenerator xs)
 	{
 		super(len(xs), xs);
 	}

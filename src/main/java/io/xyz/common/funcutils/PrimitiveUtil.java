@@ -9,8 +9,8 @@ import static io.xyz.common.geometry.Constants.EPSILON;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
 
 /**
  * @author t
@@ -64,7 +64,7 @@ public final class PrimitiveUtil {
 		return foldr((a, b) -> a + b, 0, xs);
 	}
 
-	public static OptionalDouble sum(final DoubleRangeDescriptor xs) {
+	public static OptionalDouble sum(final DoubleGenerator xs) {
 		return foldr((a, b) -> a + b, 0, xs);
 	}
 
@@ -72,7 +72,7 @@ public final class PrimitiveUtil {
 		return foldr((a, b) -> a + b, 0, xs);
 	}
 
-	public static OptionalInt sum(final IntRangeDescriptor xs) {
+	public static OptionalInt sum(final IntGenerator xs) {
 		return foldr((a, b) -> a + b, 0, xs);
 	}
 
@@ -80,7 +80,7 @@ public final class PrimitiveUtil {
 		return foldr((a, b) -> a * b, 1, xs);
 	}
 
-	public static OptionalDouble product(final DoubleRangeDescriptor xs) {
+	public static OptionalDouble product(final DoubleGenerator xs) {
 		return foldr((a, b) -> a * b, 1, xs);
 	}
 
@@ -88,7 +88,7 @@ public final class PrimitiveUtil {
 		return foldr((a, b) -> a * b, 1, xs);
 	}
 
-	public static OptionalInt product(final IntRangeDescriptor xs) {
+	public static OptionalInt product(final IntGenerator xs) {
 		return foldr((a, b) -> a * b, 1, xs);
 	}
 
@@ -100,7 +100,7 @@ public final class PrimitiveUtil {
 		return foldr(PrimitiveUtil::min, Integer.MAX_VALUE, xs);
 	}
 
-	public static OptionalInt min(final IntRangeDescriptor xs) {
+	public static OptionalInt min(final IntGenerator xs) {
 		return foldr(PrimitiveUtil::min, Integer.MAX_VALUE, xs);
 	}
 
@@ -112,7 +112,7 @@ public final class PrimitiveUtil {
 		return foldr(PrimitiveUtil::min, Double.MAX_VALUE, xs);
 	}
 
-	public static OptionalDouble min(final DoubleRangeDescriptor xs) {
+	public static OptionalDouble min(final DoubleGenerator xs) {
 		return foldr(PrimitiveUtil::min, Double.MAX_VALUE, xs);
 	}
 
@@ -124,7 +124,7 @@ public final class PrimitiveUtil {
 		return foldr(PrimitiveUtil::max, Integer.MIN_VALUE, xs);
 	}
 
-	public static OptionalInt max(final IntRangeDescriptor xs) {
+	public static OptionalInt max(final IntGenerator xs) {
 		return foldr(PrimitiveUtil::max, Integer.MAX_VALUE, xs);
 	}
 
@@ -136,7 +136,7 @@ public final class PrimitiveUtil {
 		return foldr(PrimitiveUtil::max, Double.MIN_VALUE, xs);
 	}
 
-	public static OptionalDouble max(final DoubleRangeDescriptor xs) {
+	public static OptionalDouble max(final DoubleGenerator xs) {
 		return foldr(PrimitiveUtil::max, Double.MAX_VALUE, xs);
 	}
 

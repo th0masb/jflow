@@ -26,13 +26,13 @@ import java.util.function.ToIntFunction;
 
 import javax.annotation.Nonnegative;
 
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
+import io.xyz.common.generators.impl.ImmutableDoubleGenerator;
+import io.xyz.common.generators.impl.ImmutableIntGenerator;
+import io.xyz.common.generators.impl.ImmutableGenerator;
+import io.xyz.common.generators.Generator;
 import io.xyz.common.geometry.BitArray;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableIntRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableRangeDescriptor;
 
 /**
  * @author t
@@ -94,58 +94,58 @@ public final class MapUtil {
 	 * @return
 	 */
 
-	public static DoubleRangeDescriptor doubleRange(final double lower, final double upper, final double step)
+	public static DoubleGenerator doubleRange(final double lower, final double upper, final double step)
 	{
 		assert abs(step) >= EPSILON : "Cannot have 0 step";
 		final double boundDiff = upper - lower, stepSign = signum(step);
 
 		if (abs(upper - lower) < EPSILON) {
-			return DoubleRangeDescriptor.EMPTY;
+			return DoubleGenerator.EMPTY;
 		} else if (signum(boundDiff) != stepSign) {
-			return ImmutableDoubleRangeDescriptor.of(1, i -> lower);
+			return ImmutableDoubleGenerator.of(1, i -> lower);
 		} else {
 			final int n = max((int) Math.ceil(boundDiff / step), 1);
-			return ImmutableDoubleRangeDescriptor.of(n, i -> lower + i * step);
+			return ImmutableDoubleGenerator.of(n, i -> lower + i * step);
 		}
 	}
 
-	public static DoubleRangeDescriptor doubleRange(final int upper)
+	public static DoubleGenerator doubleRange(final int upper)
 	{
 		return doubleRange(0, upper, 1);
 	}
 
-	public static DoubleRangeDescriptor doubleRange(final IntToDoubleFunction f, @Nonnegative final int size)
+	public static DoubleGenerator doubleRange(final IntToDoubleFunction f, @Nonnegative final int size)
 	{
 		assert size > -1;
-		return ImmutableDoubleRangeDescriptor.of(size, f);
+		return ImmutableDoubleGenerator.of(size, f);
 	}
 
-	public static DoubleRangeDescriptor doubleRange(final DoubleUnaryOperator f, final DoubleRangeDescriptor xs)
+	public static DoubleGenerator doubleRange(final DoubleUnaryOperator f, final DoubleGenerator xs)
 	{
 		return xs.asDoubleRange(f);
 	}
 
-	public static DoubleRangeDescriptor doubleRange(final DoubleUnaryOperator f, final double[] xs)
+	public static DoubleGenerator doubleRange(final DoubleUnaryOperator f, final double[] xs)
 	{
-		return ImmutableDoubleRangeDescriptor.from(xs).asDoubleRange(f);
+		return ImmutableDoubleGenerator.from(xs).asDoubleRange(f);
 	}
 
-	public static <T> DoubleRangeDescriptor doubleRange(final ToDoubleFunction<T> f, final List<T> xs)
+	public static <T> DoubleGenerator doubleRange(final ToDoubleFunction<T> f, final List<T> xs)
 	{
-		return ImmutableRangeDescriptor.from(xs).asDoubleRange(f);
+		return ImmutableGenerator.from(xs).asDoubleRange(f);
 	}
 
-	public static <T> DoubleRangeDescriptor doubleRange(final ToDoubleFunction<T> f, final RangeDescriptor<T> xs)
+	public static <T> DoubleGenerator doubleRange(final ToDoubleFunction<T> f, final Generator<T> xs)
 	{
 		return xs.asDoubleRange(f);
 	}
 
-	public static DoubleRangeDescriptor doubleRange(final IntToDoubleFunction f, final int[] xs)
+	public static DoubleGenerator doubleRange(final IntToDoubleFunction f, final int[] xs)
 	{
-		return ImmutableIntRangeDescriptor.from(xs).asDoubleRange(f);
+		return ImmutableIntGenerator.from(xs).asDoubleRange(f);
 	}
 
-	public static DoubleRangeDescriptor doubleRange(final IntToDoubleFunction f, final IntRangeDescriptor xs)
+	public static DoubleGenerator doubleRange(final IntToDoubleFunction f, final IntGenerator xs)
 	{
 		return xs.asDoubleRange(f);
 	}
@@ -157,43 +157,43 @@ public final class MapUtil {
 	 * @return
 	 */
 
-	public static IntRangeDescriptor intRange(final IntUnaryOperator f, @Nonnegative final int size)
+	public static IntGenerator intRange(final IntUnaryOperator f, @Nonnegative final int size)
 	{
 		assert size > -1;
-		return ImmutableIntRangeDescriptor.of(size, f);
+		return ImmutableIntGenerator.of(size, f);
 	}
 
-	public static IntRangeDescriptor intRange(final IntUnaryOperator f, final IntRangeDescriptor xs)
+	public static IntGenerator intRange(final IntUnaryOperator f, final IntGenerator xs)
 	{
 		return xs.asIntRange(f);
 	}
 
-	public static IntRangeDescriptor intRange(final IntUnaryOperator f, final int[] xs)
+	public static IntGenerator intRange(final IntUnaryOperator f, final int[] xs)
 	{
-		return ImmutableIntRangeDescriptor.from(xs).asIntRange(f);
+		return ImmutableIntGenerator.from(xs).asIntRange(f);
 	}
 
-	public static <T> IntRangeDescriptor intRange(final ToIntFunction<T> f, final List<T> xs)
+	public static <T> IntGenerator intRange(final ToIntFunction<T> f, final List<T> xs)
 	{
-		return ImmutableRangeDescriptor.from(xs).asIntRange(f);
+		return ImmutableGenerator.from(xs).asIntRange(f);
 	}
 
-	public static <T> IntRangeDescriptor intRange(final ToIntFunction<T> f, final T[] xs)
+	public static <T> IntGenerator intRange(final ToIntFunction<T> f, final T[] xs)
 	{
-		return ImmutableRangeDescriptor.from(xs).asIntRange(f);
+		return ImmutableGenerator.from(xs).asIntRange(f);
 	}
 
-	public static <T> IntRangeDescriptor intRange(final ToIntFunction<T> f, final RangeDescriptor<T> xs)
+	public static <T> IntGenerator intRange(final ToIntFunction<T> f, final Generator<T> xs)
 	{
 		return xs.asIntRange(f);
 	}
 
-	public static IntRangeDescriptor intRange(final DoubleToIntFunction f, final double[] xs)
+	public static IntGenerator intRange(final DoubleToIntFunction f, final double[] xs)
 	{
-		return ImmutableDoubleRangeDescriptor.from(xs).asIntRange(f);
+		return ImmutableDoubleGenerator.from(xs).asIntRange(f);
 	}
 
-	public static IntRangeDescriptor intRange(final DoubleToIntFunction f, final DoubleRangeDescriptor xs)
+	public static IntGenerator intRange(final DoubleToIntFunction f, final DoubleGenerator xs)
 	{
 		return xs.asIntRange(f);
 	}
@@ -210,7 +210,7 @@ public final class MapUtil {
 		return new BitArray(i -> f.test(xs[i]), len(xs));
 	}
 
-	public static BitArray boolRange(final DoublePredicate f, final DoubleRangeDescriptor xs)
+	public static BitArray boolRange(final DoublePredicate f, final DoubleGenerator xs)
 	{
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
@@ -220,7 +220,7 @@ public final class MapUtil {
 		return new BitArray(i -> f.test(xs[i]), len(xs));
 	}
 
-	public static BitArray boolRange(final IntPredicate f, final IntRangeDescriptor xs)
+	public static BitArray boolRange(final IntPredicate f, final IntGenerator xs)
 	{
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
@@ -230,7 +230,7 @@ public final class MapUtil {
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
 
-	public static <T> BitArray boolRange(final Predicate<T> f, final RangeDescriptor<T> xs)
+	public static <T> BitArray boolRange(final Predicate<T> f, final Generator<T> xs)
 	{
 		return new BitArray(i -> f.test(xs.get(i)), len(xs));
 	}
@@ -242,38 +242,38 @@ public final class MapUtil {
 	 * @return
 	 */
 
-	public static <T> RangeDescriptor<T> objRange(final IntFunction<T> f, @Nonnegative final int size)
+	public static <T> Generator<T> objRange(final IntFunction<T> f, @Nonnegative final int size)
 	{
 		assert size > -1;
-		return ImmutableRangeDescriptor.of(size, f);
+		return ImmutableGenerator.of(size, f);
 	}
 
-	public static <T, R> RangeDescriptor<R> objRange(final Function<T, R> f, final RangeDescriptor<T> xs)
+	public static <T, R> Generator<R> objRange(final Function<T, R> f, final Generator<T> xs)
 	{
 		return xs.asObjRange(f);
 	}
 
-	public static <T, R> RangeDescriptor<R> objRange(final Function<T, R> f, final List<T> xs)
+	public static <T, R> Generator<R> objRange(final Function<T, R> f, final List<T> xs)
 	{
 		return asDescriptor(xs).asObjRange(f);
 	}
 
-	public static <T> RangeDescriptor<T> objRange(final IntFunction<T> f, final int[] xs)
+	public static <T> Generator<T> objRange(final IntFunction<T> f, final int[] xs)
 	{
-		return ImmutableIntRangeDescriptor.from(xs).asObjRange(f);
+		return ImmutableIntGenerator.from(xs).asObjRange(f);
 	}
 
-	public static <T> RangeDescriptor<T> objRange(final IntFunction<T> f, final IntRangeDescriptor xs)
+	public static <T> Generator<T> objRange(final IntFunction<T> f, final IntGenerator xs)
 	{
 		return xs.asObjRange(f);
 	}
 
-	public static <T> RangeDescriptor<T> objRange(final DoubleFunction<T> f, final double[] xs)
+	public static <T> Generator<T> objRange(final DoubleFunction<T> f, final double[] xs)
 	{
-		return ImmutableDoubleRangeDescriptor.from(xs).asObjRange(f);
+		return ImmutableDoubleGenerator.from(xs).asObjRange(f);
 	}
 
-	public static <T> RangeDescriptor<T> objRange(final DoubleFunction<T> f, final DoubleRangeDescriptor xs)
+	public static <T> Generator<T> objRange(final DoubleFunction<T> f, final DoubleGenerator xs)
 	{
 		return xs.asObjRange(f);
 	}
@@ -286,37 +286,37 @@ public final class MapUtil {
 	 * @param step
 	 * @return
 	 */
-	public static IntRangeDescriptor range(final int startBound, final int endBound, final int step)
+	public static IntGenerator range(final int startBound, final int endBound, final int step)
 	{
 		assert step != 0 : "Cannot have 0 step";
 		final int boundDiff = endBound - startBound, stepSign = signum(step);
 
 		if (startBound == endBound) {
-			return IntRangeDescriptor.EMPTY;
+			return IntGenerator.EMPTY;
 		} else if (signum(boundDiff) != stepSign) {
-			return ImmutableIntRangeDescriptor.of(1, i -> startBound);
+			return ImmutableIntGenerator.of(1, i -> startBound);
 		} else {
 			final int n = (int) max(Math.ceil(((double) boundDiff) / step), 1);
-			return ImmutableIntRangeDescriptor.of(n, i -> startBound + i * step);
+			return ImmutableIntGenerator.of(n, i -> startBound + i * step);
 		}
 	}
 
-	public static IntRangeDescriptor rangei(final int startBound, final int endBound)
+	public static IntGenerator rangei(final int startBound, final int endBound)
 	{
 		return range(startBound, endBound + (startBound < endBound? 1 : -1), 1);
 	}
 
-	public static IntRangeDescriptor range(final int startBound, final int endBound)
+	public static IntGenerator range(final int startBound, final int endBound)
 	{
 		return range(startBound, endBound, 1);
 	}
 
-	public static IntRangeDescriptor rangei(final int upperBound)
+	public static IntGenerator rangei(final int upperBound)
 	{
 		return MapUtil.range(upperBound + (upperBound > 0? 1 : -1));
 	}
 
-	public static IntRangeDescriptor range(final int endBound)
+	public static IntGenerator range(final int endBound)
 	{
 		return range(0, endBound);
 	}

@@ -1,7 +1,7 @@
 /**
  *
  */
-package io.xyz.common.rangedescriptor.impl;
+package io.xyz.common.generators.impl;
 
 import static io.xyz.common.funcutils.CollectionUtil.len;
 import static io.xyz.common.funcutils.CompositionUtil.compose;
@@ -13,23 +13,23 @@ import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntToDoubleFunction;
 
-import io.xyz.common.rangedescriptor.AbstractRangeDescriptor;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.IntRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
+import io.xyz.common.generators.AbstractGenerator;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.IntGenerator;
+import io.xyz.common.generators.Generator;
 
 /**
  * @author t
  *
  */
-public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescriptor implements DoubleRangeDescriptor {
+public final class ImmutableDoubleGenerator extends AbstractGenerator implements DoubleGenerator {
 
 	private final IntToDoubleFunction descriptor;
 
 	/**
 	 * @param rangeBound
 	 */
-	private ImmutableDoubleRangeDescriptor(final int rangeBound, final IntToDoubleFunction f)
+	private ImmutableDoubleGenerator(final int rangeBound, final IntToDoubleFunction f)
 	{
 		super(rangeBound);
 		descriptor = f;
@@ -54,9 +54,9 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 	 * DoubleUnaryOperator)
 	 */
 	@Override
-	public DoubleRangeDescriptor asDoubleRange(final DoubleUnaryOperator f)
+	public DoubleGenerator asDoubleRange(final DoubleUnaryOperator f)
 	{
-		return new ImmutableDoubleRangeDescriptor(rangeBound(), compose(f, descriptor));
+		return new ImmutableDoubleGenerator(rangeBound(), compose(f, descriptor));
 	}
 
 	/*
@@ -67,7 +67,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 	 * .DoublePredicate)
 	 */
 	@Override
-	public DoubleRangeDescriptor filter(final DoublePredicate p)
+	public DoubleGenerator filter(final DoublePredicate p)
 	{
 		/*
 		 * We don't lazily filter with this construction. Since we need a notion of
@@ -82,7 +82,7 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 			}
 		}
 		final double[] resizedFiltered = Arrays.copyOf(filtered, counter);
-		return new ImmutableDoubleRangeDescriptor(counter, i -> resizedFiltered[i]);
+		return new ImmutableDoubleGenerator(counter, i -> resizedFiltered[i]);
 	}
 	//
 	// @Override
@@ -103,29 +103,29 @@ public final class ImmutableDoubleRangeDescriptor extends AbstractRangeDescripto
 	 */
 	public static void main(final String[] args)
 	{
-		final DoubleRangeDescriptor drd = ImmutableDoubleRangeDescriptor.from(new double[] { 1, 2, 3 });
+		final DoubleGenerator drd = ImmutableDoubleGenerator.from(new double[] { 1, 2, 3 });
 		System.out.println(Arrays.toString(drd.toArray()));
 	}
 
 	@Override
-	public IntRangeDescriptor asIntRange(final DoubleToIntFunction f)
+	public IntGenerator asIntRange(final DoubleToIntFunction f)
 	{
-		return ImmutableIntRangeDescriptor.of(rangeBound(), compose(f, descriptor));
+		return ImmutableIntGenerator.of(rangeBound(), compose(f, descriptor));
 	}
 
 	@Override
-	public <T> RangeDescriptor<T> asObjRange(final DoubleFunction<T> f)
+	public <T> Generator<T> asObjRange(final DoubleFunction<T> f)
 	{
-		return new ImmutableRangeDescriptor<>(rangeBound(), compose(f, descriptor));
+		return new ImmutableGenerator<>(rangeBound(), compose(f, descriptor));
 	}
 
-	public static DoubleRangeDescriptor from(final double... xs)
+	public static DoubleGenerator from(final double... xs)
 	{
-		return new ImmutableDoubleRangeDescriptor(len(xs), i -> xs[i]);
+		return new ImmutableDoubleGenerator(len(xs), i -> xs[i]);
 	}
 
-	public static DoubleRangeDescriptor of(final int length, final IntToDoubleFunction descriptor)
+	public static DoubleGenerator of(final int length, final IntToDoubleFunction descriptor)
 	{
-		return new ImmutableDoubleRangeDescriptor(length, descriptor);
+		return new ImmutableDoubleGenerator(length, descriptor);
 	}
 }

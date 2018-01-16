@@ -12,9 +12,7 @@ import java.util.function.DoubleUnaryOperator;
 import io.xyz.common.fxutils.FXContextBinding;
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.geometry.PointTransform;
-import io.xyz.common.matrix.RMatrix;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.matrix.impl.Matrices;
 
 /**
  * @author t
@@ -134,17 +132,24 @@ public class Line extends AbstractSplineSegment {
 	{
 		assert dim() == 2: "Not done for general case yet.";
 
-		final RPoint first = from().subtract(to()).normalise(), second = other.direction().normalise();
+		/*
+		 * First normalise the path to the unit circle, centred at the origin
+		 * whilst preserving the angles
+		 */
+		final RPoint thisNormed = from().subtract(to()).normalise(), otherNormed = other.direction().normalise();
 
-		if (first.equals(second)) {
+		if (thisNormed.equals(otherNormed)) {
 			return Math.PI;
-		} else if (first.equals(second.scale(-1))) {
+		} else if (thisNormed.equals(otherNormed.scale(-1))) {
 			return 0;
 		}
 
-		final double angle = Math.acos(first.dot(second));
-		final RMatrix antiRotation = Matrices.rotate2D(angle);
-		return (antiRotation.transform(second).equals(first)? 1 : -1) * (Math.PI - angle);
+		final RPoint p1 = RPoint.origin(2), p2 = thisNormed, p3 = otherNormed;
+		return getSign(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+
+		//		final double angle = Math.acos(thisNormed.dot(otherNormed));
+		//		final RMatrix antiRotation = Matrices.rotate2D(angle);
+		//		return (antiRotation.transform(otherNormed).equals(thisNormed)? 1 : -1) * (Math.PI - angle);
 	}
 
 	public RPoint perpendicularIntersection(final RPoint p)
@@ -245,6 +250,25 @@ public class Line extends AbstractSplineSegment {
 		//		//		System.out.println(crossingPoint2D(-1, 2, 1, 0));
 	}
 
+
+	/**
+	 * Returns 0, 1 or -1 according to whether the three specified points, <i>p1</i> = (<i>x1</i>,
+	 * <i>y1</i>), <i>p2</i> = (<i>x2</i>, <i>y2</i>) and <i>p3</i> = (<i>x3</i>, <i>y3</i>), are collinear
+	 * or the angle of rotation from <i>p2</i> to <i>p3</i> about <i>p1</i> is positive or negative.
+	 * @param  x1  the <i>x</i> coordinate of point <i>p1</i>.
+	 * @param  y1  the <i>y</i> coordinate of point <i>p1</i>.
+	 * @param  x2  the <i>x</i> coordinate of point <i>p2</i>.
+	 * @param  y2  the <i>y</i> coordinate of point <i>p2</i>.
+	 * @param  x3  the <i>x</i> coordinate of point <i>p3</i>.
+	 * @param  y3  the <i>y</i> coordinate of point <i>p3</i>.
+	 * @return <ul>
+	 *           <li>0 if the three points are collinear, or</li>
+	 *           <li>1 if the angle of rotation from ({@code x2}, {@code y2}) to ({@code x3}, {@code y3})
+	 *               about ({@code x1}, {@code y1}) is positive, or</li>
+	 *           <li>-1 if the angle of rotation from ({@code x2}, {@code y2}) to ({@code x3}, {@code y3})
+	 *               about ({@code x1}, {@code y1}) is negative.</li>
+	 *         </ul>
+	 */
 	public static int getSign(final double x1, final double y1, final double x2, final double y2, final double x3, final double y3)
 	{
 		final double crossProduct = (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1);

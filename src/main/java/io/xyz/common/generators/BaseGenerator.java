@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.xyz.common.rangedescriptor;
+package io.xyz.common.generators;
 
 /**
  * @author t
@@ -10,7 +10,7 @@ package io.xyz.common.rangedescriptor;
  *         descriptor is a functional representation of a finite, ordered
  *         collection of elements.
  */
-public interface BaseRangeDescriptor {
+public interface BaseGenerator {
 
 	int rangeBound();
 

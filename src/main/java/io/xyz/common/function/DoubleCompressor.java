@@ -6,7 +6,7 @@
  */
 package io.xyz.common.function;
 
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
+import io.xyz.common.generators.DoubleGenerator;
 
 /**
  * @author ThomasB
@@ -14,7 +14,7 @@ import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
  */
 public interface DoubleCompressor
 {
-	double compress(DoubleRangeDescriptor xs);
+	double compress(DoubleGenerator xs);
 }
 
 /* ---------------------------------------------------------------------*

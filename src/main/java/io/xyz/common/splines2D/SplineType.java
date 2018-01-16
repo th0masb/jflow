@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.function.BinaryOperator;
 
 import io.xyz.common.funcutils.PrimitiveUtil;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.Generator;
 import io.xyz.common.geometry.BitArray;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * TODO - A spline should also be ableto generate its own parameterisation
@@ -53,10 +53,10 @@ public enum SplineType implements SplineConstructor {
 			}
 
 			final List<Line> lines = collect(pairFold(Line::new, knots));
-			final DoubleRangeDescriptor angles = pairFoldToDouble((a, b) -> a.pathAngleWith(b), asDescriptor(lines));
-			final DoubleRangeDescriptor angleSigns = doubleRange(PrimitiveUtil::signum, angles);
+			final DoubleGenerator angles = pairFoldToDouble((a, b) -> a.pathAngleWith(b), asDescriptor(lines));
+			final DoubleGenerator angleSigns = doubleRange(PrimitiveUtil::signum, angles);
 
-			final DoubleRangeDescriptor directionSwitches = pairFold((a,  b) -> b - a, angleSigns);
+			final DoubleGenerator directionSwitches = pairFold((a,  b) -> b - a, angleSigns);
 			final BitArray innerLinesToSplit = boolRange(x -> !isZero(x), directionSwitches);
 
 			final List<List<RPoint>> components = new ArrayList<>();
@@ -101,20 +101,20 @@ public enum SplineType implements SplineConstructor {
 			return new CubicBezier(a.from(), a.control(), b.control(), b.to());
 		}
 
-		private List<ISplineSegment> constructSameDirectionSpline(final RangeDescriptor<RPoint> knots)
+		private List<ISplineSegment> constructSameDirectionSpline(final Generator<RPoint> knots)
 		{
 			assert len(knots) > 2;
 
 			final int n = len(knots);
 
 			final List<Line> lines = collect(pairFold(Line::new, knots));
-			final DoubleRangeDescriptor angles = pairFoldToDouble((a, b) -> a.pathAngleWith(b), asDescriptor(lines));
-			final DoubleRangeDescriptor angleSigns = doubleRange(PrimitiveUtil::signum, angles);
+			final DoubleGenerator angles = pairFoldToDouble((a, b) -> a.pathAngleWith(b), asDescriptor(lines));
+			final DoubleGenerator angleSigns = doubleRange(PrimitiveUtil::signum, angles);
 			assert allEqual(angleSigns);
 
-			final RangeDescriptor<Line> traceLines = objRange(i -> Line.between(knots.get(i), knots.get(i + 2)), n - 2);
+			final Generator<Line> traceLines = objRange(i -> Line.between(knots.get(i), knots.get(i + 2)), n - 2);
 			final List<Line> controlLines = collect(objRange(i -> traceLines.get(i).peturbToNewCentre(knots.get(i + 1)), len(traceLines)));
-			final RangeDescriptor<RPoint> innerControlPoints = pairFold((a, b) -> Line.crossingPoint2D(a, b), controlLines);
+			final Generator<RPoint> innerControlPoints = pairFold((a, b) -> Line.crossingPoint2D(a, b), controlLines);
 
 			/*
 			 * Now calculate the outer control points heuristically... TODO - explain.

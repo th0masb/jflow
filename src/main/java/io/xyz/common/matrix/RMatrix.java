@@ -14,9 +14,9 @@ import static io.xyz.common.funcutils.PrimitiveUtil.min;
 import java.util.function.BiFunction;
 import java.util.function.DoubleUnaryOperator;
 
+import io.xyz.common.generators.DoubleGenerator;
 import io.xyz.common.geometry.PointMap;
 import io.xyz.common.geometry.PointTransform;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 
 /**
  * @author ThomasB
@@ -25,9 +25,9 @@ import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
 public interface RMatrix extends PointTransform { // , DoubleRangeDescriptor {
 	double at(int rowIndex, int colIndex);
 
-	DoubleRangeDescriptor row(int index);
+	DoubleGenerator row(int index);
 
-	DoubleRangeDescriptor col(int index);
+	DoubleGenerator col(int index);
 
 	int rowDim();
 
@@ -106,7 +106,7 @@ public interface RMatrix extends PointTransform { // , DoubleRangeDescriptor {
 		return flatInRange(rowIndex * colDim() + colIndex);
 	}
 
-	default DoubleRangeDescriptor flatContents()
+	default DoubleGenerator flatContents()
 	{
 		return doubleRange(this::flatAt, range(colDim() * rowDim()));
 	}

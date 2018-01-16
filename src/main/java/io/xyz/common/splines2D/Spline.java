@@ -18,9 +18,9 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableList;
 
+import io.xyz.common.generators.Generator;
 import io.xyz.common.geometry.Curve;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author ThomasB
@@ -38,7 +38,7 @@ public class Spline implements ISpline {
 		this(asDescriptor(segments));
 	}
 
-	public Spline(final RangeDescriptor<? extends ISplineSegment> segments)
+	public Spline(final Generator<? extends ISplineSegment> segments)
 	{
 		assert len(segments) > 0 && allEqual(intRange(x -> x.dim(), segments));
 		this.segments = collect(objRange(x -> (ISplineSegment) x, segments));

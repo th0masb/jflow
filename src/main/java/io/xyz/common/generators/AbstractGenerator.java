@@ -1,20 +1,20 @@
 /**
  *
  */
-package io.xyz.common.rangedescriptor;
+package io.xyz.common.generators;
 
 /**
  * @author t
  *
  */
-public abstract class AbstractRangeDescriptor implements BaseRangeDescriptor {
+public abstract class AbstractGenerator implements BaseGenerator {
 
 	private final int rangeBound;
 
 	/**
 	 *
 	 */
-	public AbstractRangeDescriptor(final int rangeBound) {
+	public AbstractGenerator(final int rangeBound) {
 		assert rangeBound > -1;
 		this.rangeBound = rangeBound;
 	}

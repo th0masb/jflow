@@ -17,11 +17,11 @@ import java.util.Arrays;
 import java.util.function.DoubleUnaryOperator;
 
 import io.xyz.common.funcutils.MapUtil;
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.impl.ImmutableDoubleGenerator;
 import io.xyz.common.matrix.MatrixConstructor;
 import io.xyz.common.matrix.RMatrix;
 import io.xyz.common.matrix.RPoint;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.impl.ImmutableDoubleRangeDescriptor;
 
 /**
  * @author t
@@ -55,7 +55,7 @@ public class RMatrixImpl implements RMatrix {
 	 * @param contentDescriptor
 	 *        - the values contained in the matrix
 	 */
-	RMatrixImpl(final int ncols, final DoubleRangeDescriptor contentDescriptor)
+	RMatrixImpl(final int ncols, final DoubleGenerator contentDescriptor)
 	{
 		/* Check row and column numbers match and that dimension is not too high */
 		assert all(boolRange(x -> Double.isFinite(x), contentDescriptor)) : asString(contentDescriptor.toArray());
@@ -75,17 +75,17 @@ public class RMatrixImpl implements RMatrix {
 	}
 
 	@Override
-	public DoubleRangeDescriptor row(final int index)
+	public DoubleGenerator row(final int index)
 	{
 		assert inRange(index, 0);
-		return ImmutableDoubleRangeDescriptor.of(colDim(), i -> contents[index * colDim() + i]);
+		return ImmutableDoubleGenerator.of(colDim(), i -> contents[index * colDim() + i]);
 	}
 
 	@Override
-	public DoubleRangeDescriptor col(final int index)
+	public DoubleGenerator col(final int index)
 	{
 		assert inRange(0, index);
-		return ImmutableDoubleRangeDescriptor.of(rowDim(), i -> contents[i * colDim() + index]);
+		return ImmutableDoubleGenerator.of(rowDim(), i -> contents[i * colDim() + index]);
 	}
 
 	@Override

@@ -16,10 +16,10 @@ import static io.xyz.common.geometry.Constants.EPSILON;
 import java.util.Arrays;
 import java.util.List;
 
+import io.xyz.common.generators.DoubleGenerator;
+import io.xyz.common.generators.Generator;
 import io.xyz.common.matrix.RPoint;
 import io.xyz.common.matrix.impl.RPointImpl;
-import io.xyz.common.rangedescriptor.DoubleRangeDescriptor;
-import io.xyz.common.rangedescriptor.RangeDescriptor;
 
 /**
  * @author t
@@ -42,7 +42,7 @@ public interface Curve {
 
 	static double length(final Curve c, final int steps)
 	{
-		final DoubleRangeDescriptor ts = doubleRange(0, 1 + EPSILON, 1.0 / steps);
+		final DoubleGenerator ts = doubleRange(0, 1 + EPSILON, 1.0 / steps);
 		return sum(pairFold((t1, t2) -> c.transform(t1).distL2(c.transform(t2)), ts)).getAsDouble();
 	}
 
@@ -56,12 +56,12 @@ public interface Curve {
 		return fuse(asDescriptor(cs));
 	}
 
-	static Curve fuse(final RangeDescriptor<Curve> cs)
+	static Curve fuse(final Generator<Curve> cs)
 	{
 		final int n = len(cs);
 		assert len(cs) > 0;
 
-		final DoubleRangeDescriptor ls = doubleRange(Curve::length, cs);
+		final DoubleGenerator ls = doubleRange(Curve::length, cs);
 		final double sumLen = sum(ls).getAsDouble();
 		final double[] lenRatios = doubleRange(x -> x / sumLen, ls).toArray();
 		Arrays.parallelPrefix(lenRatios, (a, b) -> a + b); // TODO - implement a cumulative static method
