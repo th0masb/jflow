@@ -28,8 +28,7 @@ import io.xyz.common.matrix.RPoint;
  *        A spline wraps an instance of {@link IPolyEdge} providing drawing and
  *        parameterisation mechanisms
  */
-public interface ISpline extends RealSpaceMember
-{
+public interface ISpline extends RealSpaceMember {
 	default void draw2D(final FXContextBinding gc, final PointTransform coordinateMap, final RPoint perturbation)
 	{
 		assert correctDimensionsToDraw2D(coordinateMap);
@@ -43,6 +42,11 @@ public interface ISpline extends RealSpaceMember
 	default void draw2D(final FXContextBinding gc, final PointTransform coordinateMap)
 	{
 		draw2D(gc, coordinateMap, RPoint.origin(2));
+	}
+
+	default void draw2D(final FXContextBinding gc)
+	{
+		draw2D(gc, PointTransform.identity(2));
 	}
 
 	default void trace2D(final FXContextBinding gc, final PointTransform coordinateMap, final RPoint perturbation)
@@ -66,7 +70,7 @@ public interface ISpline extends RealSpaceMember
 
 	ISpline peturb(RPoint peturbation);
 
-	//	int dim();
+	// int dim();
 }
 
 /*
