@@ -8,8 +8,9 @@ import java.util.BitSet;
 import java.util.function.IntPredicate;
 
 /**
- * @author t
+ * TODO - This still needs work
  *
+ * @author t
  */
 public class BitArray extends BitSet {
 
@@ -50,10 +51,5 @@ public class BitArray extends BitSet {
 
 	public static BitArray nEmptyBits(final int nbits) {
 		return new BitArray(nbits);
-	}
-
-	public static void main(final String[] args) {
-		final BitArray arr = BitArray.nEmptyBits(10);
-//		System.out.println(len(arr));
 	}
 }
