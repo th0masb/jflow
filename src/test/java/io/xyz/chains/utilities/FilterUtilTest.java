@@ -1,9 +1,3 @@
-/**
- * Copyright © 2018 Lhasa Limited
- * File created: 14 Feb 2018 by ThomasB
- * Creator : ThomasB
- * Version : $Id$
- */
 package io.xyz.chains.utilities;
 
 import static io.xyz.chains.utilities.CollectionUtil.str;
@@ -41,14 +35,3 @@ public class FilterUtilTest extends TestDataProvider
 		assertTrue(str(filter(x -> x > TWO, XS_OBJ_GEN)), areEqual(expectedResult, filter(x -> x > TWO, XS_OBJ_GEN)));
 	}
 }
-
-/* ---------------------------------------------------------------------*
- * This software is the confidential and proprietary
- * information of Lhasa Limited
- * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS
- * ---
- * No part of this confidential information shall be disclosed
- * and it shall be used only in accordance with the terms of a
- * written license agreement entered into by holder of the information
- * with LHASA Ltd.
- * --------------------------------------------------------------------- */
