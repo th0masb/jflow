@@ -3,7 +3,6 @@
  */
 package io.xyz.chains;
 
-
 import static io.xyz.chains.utilities.CollectionUtil.len;
 import static io.xyz.chains.utilities.CompositionUtil.compose;
 import static io.xyz.chains.utilities.PredicateUtil.all;
@@ -66,9 +65,9 @@ public interface DoubleChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain Chain}
 	 */
-	default <T> Chain<T> toObjChain(final DoubleFunction<T> f)
+	default <T> Chain<T> mapToObj(final DoubleFunction<T> f)
 	{
-		return RangedFunction.of(compose(f, getDescriptor()), length());
+		return RangedFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -77,9 +76,9 @@ public interface DoubleChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain IntChain}
 	 */
-	default IntChain toIntChain(final DoubleToIntFunction f)
+	default IntChain mapToInt(final DoubleToIntFunction f)
 	{
-		return RangedIntFunction.of(compose(f, getDescriptor()), length());
+		return RangedIntFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -88,9 +87,9 @@ public interface DoubleChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain DoubleChain}
 	 */
-	default DoubleChain toDoubleChain(final DoubleUnaryOperator f)
+	default DoubleChain map(final DoubleUnaryOperator f)
 	{
-		return RangedDoubleFunction.of(compose(f, getDescriptor()), length());
+		return RangedDoubleFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -99,9 +98,9 @@ public interface DoubleChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain LongChain}
 	 */
-	default LongChain toLongChain(final DoubleToLongFunction f)
+	default LongChain mapToLong(final DoubleToLongFunction f)
 	{
-		return RangedLongFunction.of(compose(f, getDescriptor()), length());
+		return RangedLongFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**

@@ -3,7 +3,6 @@
  */
 package io.xyz.chains;
 
-
 import static io.xyz.chains.utilities.CollectionUtil.len;
 import static io.xyz.chains.utilities.CompositionUtil.compose;
 import static io.xyz.chains.utilities.PredicateUtil.all;
@@ -33,7 +32,6 @@ import io.xyz.chains.rangedfunction.RangedLongFunction;
  */
 public interface IntChain extends BaseChain
 {
-
 	/**
 	 * Element retrieval method.
 	 *
@@ -60,9 +58,9 @@ public interface IntChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain Chain}
 	 */
-	default <T> Chain<T> toObjChain(final IntFunction<T> f)
+	default <T> Chain<T> mapToObj(final IntFunction<T> f)
 	{
-		return RangedFunction.of(compose(f, getDescriptor()), length());
+		return RangedFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -71,9 +69,9 @@ public interface IntChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain IntChain}
 	 */
-	default IntChain toIntChain(final IntUnaryOperator f)
+	default IntChain map(final IntUnaryOperator f)
 	{
-		return RangedIntFunction.of(f.compose(getDescriptor()), length());
+		return RangedIntFunction.of(f.compose(getDescriptor()), linkCount());
 	}
 
 	/**
@@ -82,9 +80,9 @@ public interface IntChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain DoubleChain}
 	 */
-	default DoubleChain toDoubleChain(final IntToDoubleFunction f)
+	default DoubleChain mapToDouble(final IntToDoubleFunction f)
 	{
-		return RangedDoubleFunction.of(compose(f, getDescriptor()), length());
+		return RangedDoubleFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -93,9 +91,9 @@ public interface IntChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain LongChain}
 	 */
-	default LongChain toLongChain(final IntToLongFunction f)
+	default LongChain mapToLong(final IntToLongFunction f)
 	{
-		return RangedLongFunction.of(compose(f, getDescriptor()), length());
+		return RangedLongFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**

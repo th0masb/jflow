@@ -3,18 +3,17 @@
  */
 package io.xyz.chains;
 
-
 import static io.xyz.chains.utilities.CollectionUtil.len;
 import static io.xyz.chains.utilities.CompositionUtil.compose;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -35,7 +34,6 @@ import io.xyz.chains.rangedfunction.RangedLongFunction;
  */
 public interface Chain<T> extends BaseChain, Iterable<T>
 {
-
 	/**
 	 * Element retrieval method.
 	 *
@@ -57,14 +55,16 @@ public interface Chain<T> extends BaseChain, Iterable<T>
 	}
 
 	/**
+	 * TODO - am I happy with the wilcard types here?
+	 *
 	 * Converts this chain to a new {@link Chain} via function composition.
 	 *
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain Chain}
 	 */
-	default <R> Chain<R> toObjChain(final Function<? super T, R> f)
+	default Chain<T> map(final UnaryOperator<T> f)
 	{
-		return RangedFunction.of(compose(f, getDescriptor()), length());
+		return RangedFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -73,9 +73,9 @@ public interface Chain<T> extends BaseChain, Iterable<T>
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain IntChain}
 	 */
-	default IntChain toIntChain(final ToIntFunction<? super T> f)
+	default IntChain mapToInt(final ToIntFunction<T> f)
 	{
-		return RangedIntFunction.of(compose(f, getDescriptor()), length());
+		return RangedIntFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -84,9 +84,9 @@ public interface Chain<T> extends BaseChain, Iterable<T>
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain DoubleChain}
 	 */
-	default DoubleChain toDoubleChain(final ToDoubleFunction<? super T> f)
+	default DoubleChain mapToDouble(final ToDoubleFunction<T> f)
 	{
-		return RangedDoubleFunction.of(compose(f, getDescriptor()), length());
+		return RangedDoubleFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -95,9 +95,9 @@ public interface Chain<T> extends BaseChain, Iterable<T>
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain LongChain}
 	 */
-	default LongChain toLongChain(final ToLongFunction<? super T> f)
+	default LongChain mapToLong(final ToLongFunction<T> f)
 	{
-		return RangedLongFunction.of(compose(f, getDescriptor()), length());
+		return RangedLongFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**

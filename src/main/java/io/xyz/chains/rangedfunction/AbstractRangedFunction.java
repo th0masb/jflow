@@ -22,7 +22,7 @@ abstract class AbstractRangedFunction implements BaseChain
 	}
 
 	@Override
-	public int length()
+	public int linkCount()
 	{
 		return chainLength;
 	}

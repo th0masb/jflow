@@ -18,7 +18,7 @@ public interface BaseChain
 	/**
 	 * @return the length (number of value links) in this chain.
 	 */
-	int length();
+	int linkCount();
 
 	/**
 	 * @param index - a query index
@@ -26,6 +26,6 @@ public interface BaseChain
 	 */
 	default boolean indexIsInRange(final int index)
 	{
-		return 0 <= index && index <= length();
+		return 0 <= index && index <= linkCount();
 	}
 }

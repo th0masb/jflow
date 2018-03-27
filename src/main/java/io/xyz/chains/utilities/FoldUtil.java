@@ -10,13 +10,9 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
-import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
-import java.util.function.IntFunction;
-import java.util.function.IntToDoubleFunction;
-import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
 
 import com.google.common.collect.ImmutableList;
@@ -28,11 +24,6 @@ import io.xyz.chains.Chain;
 import io.xyz.chains.DoubleChain;
 import io.xyz.chains.IntChain;
 import io.xyz.chains.LongChain;
-import io.xyz.chains.misc.BiToDoubleFunction;
-import io.xyz.chains.misc.BiToIntFunction;
-import io.xyz.chains.rangedfunction.RangedDoubleFunction;
-import io.xyz.chains.rangedfunction.RangedFunction;
-import io.xyz.chains.rangedfunction.RangedIntFunction;
 
 /**
  * @author ThomasB
@@ -770,39 +761,5 @@ public final class FoldUtil
 			builder.add(prev);
 		}
 		return builder.build();
-	}
-
-	// // TODO - pair reduce??
-	//
-	/* TODO - Sort this out.
-	 * // */
-	public static <T> IntChain pairFoldToInt(final BiToIntFunction<T, T> f, final Chain<T> xs)
-	{
-		final IntUnaryOperator g = i -> f.apply(xs.elementAt(i), xs.elementAt(i + 1));
-		return RangedIntFunction.of(g, len(xs) - 1);
-	}
-
-	public static <T> DoubleChain pairFoldToDouble(final BiToDoubleFunction<T, T> f, final Chain<T> xs)
-	{
-		final IntToDoubleFunction g = i -> f.apply(xs.elementAt(i), xs.elementAt(i + 1));
-		return RangedDoubleFunction.of(g, len(xs) - 1);
-	}
-
-	public static <T, S> Chain<S> pairFold(final BiFunction<T, T, S> f, final Chain<T> xs)
-	{
-		final IntFunction<S> g = i -> f.apply(xs.elementAt(i), xs.elementAt(i + 1));
-		return RangedFunction.of(g, len(xs) - 1);
-	}
-
-	public static DoubleChain pairFold(final DoubleBinaryOperator f, final DoubleChain xs)
-	{
-		final IntToDoubleFunction g = i -> f.applyAsDouble(xs.elementAt(i), xs.elementAt(i + 1));
-		return RangedDoubleFunction.of(g, len(xs) - 1);
-	}
-
-	public static <T, S> Chain<S> pairFold(final BiFunction<T, T, S> f, final List<T> xs)
-	{
-		final IntFunction<S> g = i -> f.apply(xs.get(i), xs.get(i + 1));
-		return RangedFunction.of(g, len(xs) - 1);
 	}
 }

@@ -178,7 +178,7 @@ public final class CollectionUtil
 	 */
 	public static int len(final BaseChain xs)
 	{
-		return xs.length();
+		return xs.linkCount();
 	}
 
 	/* -----------------------------------------------------------------------------------------------

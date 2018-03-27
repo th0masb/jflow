@@ -1,5 +1,10 @@
+/**
+ * Copyright © 2018 Lhasa Limited
+ * File created: 18 Jan 2018 by ThomasB
+ * Creator : ThomasB
+ * Version : $Id$
+ */
 package io.xyz.chains;
-
 
 import static io.xyz.chains.utilities.CollectionUtil.len;
 import static io.xyz.chains.utilities.CompositionUtil.compose;
@@ -64,9 +69,9 @@ public interface LongChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain Chain}
 	 */
-	default <T> Chain<T> toObjChain(final LongFunction<T> f)
+	default <T> Chain<T> mapToObj(final LongFunction<T> f)
 	{
-		return RangedFunction.of(compose(f, getDescriptor()), length());
+		return RangedFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -75,9 +80,9 @@ public interface LongChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain IntChain}
 	 */
-	default IntChain toIntChain(final LongToIntFunction f)
+	default IntChain mapToInt(final LongToIntFunction f)
 	{
-		return RangedIntFunction.of(compose(f, getDescriptor()), length());
+		return RangedIntFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -86,9 +91,9 @@ public interface LongChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain DoubleChain}
 	 */
-	default DoubleChain toDoubleChain(final LongToDoubleFunction f)
+	default DoubleChain mapToDouble(final LongToDoubleFunction f)
 	{
-		return RangedDoubleFunction.of(compose(f, getDescriptor()), length());
+		return RangedDoubleFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -97,9 +102,9 @@ public interface LongChain extends BaseChain
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain LongChain}
 	 */
-	default LongChain toLongChain(final LongUnaryOperator f)
+	default LongChain map(final LongUnaryOperator f)
 	{
-		return RangedLongFunction.of(compose(f, getDescriptor()), length());
+		return RangedLongFunction.of(compose(f, getDescriptor()), linkCount());
 	}
 
 	/**
@@ -107,7 +112,7 @@ public interface LongChain extends BaseChain
 	 */
 	default boolean isSorted()
 	{
-		return all(i -> elementAt(i) < elementAt(i + 1), range(length() - 1));
+		return all(i -> elementAt(i) < elementAt(i + 1), range(linkCount() - 1));
 	}
 
 	/**
@@ -146,3 +151,13 @@ public interface LongChain extends BaseChain
 		return StreamSupport.longStream(spliterator(), false);
 	}
 }
+/* ---------------------------------------------------------------------*
+ * This software is the confidential and proprietary
+ * information of Lhasa Limited
+ * Granary Wharf House, 2 Canal Wharf, Leeds, LS11 5PS
+ * ---
+ * No part of this confidential information shall be disclosed
+ * and it shall be used only in accordance with the terms of a
+ * written license agreement entered into by holder of the information
+ * with LHASA Ltd.
+ * --------------------------------------------------------------------- */
