@@ -1,12 +1,11 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
-version = '1.0'
+version = '0.1'
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Java Common',
+        attributes 'Implementation-Title': 'JChain',
                    'Implementation-Version': version
     }
 }
