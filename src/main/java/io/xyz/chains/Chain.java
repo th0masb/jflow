@@ -9,6 +9,7 @@ import static io.xyz.chains.utilities.CompositionUtil.compose;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
@@ -62,7 +63,7 @@ public interface Chain<T> extends BaseChain, Iterable<T>
 	 * @param f - The function to apply after this instance's descriptor.
 	 * @return the new {@linkplain Chain}
 	 */
-	default Chain<T> map(final UnaryOperator<T> f)
+	default <R> Chain<R> map(final Function<T, R> f)
 	{
 		return RangedFunction.of(compose(f, getDescriptor()), linkCount());
 	}
