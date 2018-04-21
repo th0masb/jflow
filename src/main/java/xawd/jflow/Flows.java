@@ -7,15 +7,17 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import xawd.jflow.iterators.SkippableIterator;
+
 /**
  * @author t
  *
  */
 public final class Flows 
 {
-	public static <T> Flow<T> from(final Iterable<T> src)
+	public static <T> ObjectFlow<T> from(final Iterable<T> src)
 	{
-		return new AbstractFlow<T>() {
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return skipifyIterator(src.iterator());
@@ -41,7 +43,7 @@ public final class Flows
 		};
 	}
 	
-	private static <T> Flow<IntWith<T>> enumerate(final Iterable<T> src)
+	private static <T> ObjectFlow<IntWith<T>> enumerate(final Iterable<T> src)
 	{
 		return from(src).enumerate();
 	}

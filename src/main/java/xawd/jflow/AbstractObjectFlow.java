@@ -11,24 +11,27 @@ import java.util.PrimitiveIterator.OfDouble;
 import java.util.PrimitiveIterator.OfInt;
 import java.util.PrimitiveIterator.OfLong;
 import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.iterators.SkippableIterator;
+
 /**
  * @author t
  *
  */
-public abstract class AbstractFlow<T> implements Flow<T> 
+public abstract class AbstractObjectFlow<T> implements ObjectFlow<T> 
 {
 	@Override
-	public <R> Flow<R> map(final Function<? super T, R> f) 
+	public <R> ObjectFlow<R> map(final Function<? super T, R> f) 
 	{
-		final AbstractFlow<T> src = this;
+		final AbstractObjectFlow<T> src = this;
 
-		return new AbstractFlow<R>() {
+		return new AbstractObjectFlow<R>() {
 			@Override
 			public SkippableIterator<R> iterator() {
 				return new SkippableIterator<R>() {
@@ -69,11 +72,11 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public <R> Flow<Pair<T, R>> zipWith(final Iterable<R> other) 
+	public <R> ObjectFlow<Pair<T, R>> zipWith(final Iterable<R> other) 
 	{
-		final AbstractFlow<T> src = this;
+		final AbstractObjectFlow<T> src = this;
 
-		return new AbstractFlow<Pair<T, R>>() {
+		return new AbstractObjectFlow<Pair<T, R>>() {
 			@Override
 			public SkippableIterator<Pair<T, R>> iterator() {
 				return new SkippableIterator<Pair<T,R>>() {
@@ -103,29 +106,29 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<IntWith<T>> zipWith(final OfInt other) 
+	public ObjectFlow<IntWith<T>> zipWith(final OfInt other) 
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public Flow<DoubleWith<T>> zipWith(final OfDouble other) 
+	public ObjectFlow<DoubleWith<T>> zipWith(final OfDouble other) 
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public Flow<LongWith<T>> zipWith(final OfLong other) 
+	public ObjectFlow<LongWith<T>> zipWith(final OfLong other) 
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public <U, R> Flow<R> combineWith(final Iterable<U> other, final BiFunction<T, U, R> f)
+	public <U, R> ObjectFlow<R> combineWith(final Iterable<U> other, final BiFunction<T, U, R> f)
 	{
-		final AbstractFlow<T> src = this;
+		final AbstractObjectFlow<T> src = this;
 
-		return new AbstractFlow<R>() {
+		return new AbstractObjectFlow<R>() {
 			@Override
 			public SkippableIterator<R> iterator() {
 				return new SkippableIterator<R>() {
@@ -155,11 +158,11 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<IntWith<T>> enumerate() 
+	public ObjectFlow<IntWith<T>> enumerate() 
 	{
-		final Flow<T> src = this;
+		final ObjectFlow<T> src = this;
 
-		return new AbstractFlow<IntWith<T>>() {
+		return new AbstractObjectFlow<IntWith<T>>() {
 			@Override
 			public SkippableIterator<IntWith<T>> iterator() {
 				return new SkippableIterator<IntWith<T>>() {
@@ -184,11 +187,11 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> cycle() 
+	public ObjectFlow<T> cycle() 
 	{
-		final AbstractFlow<T> src = this;
+		final AbstractObjectFlow<T> src = this;
 
-		return new AbstractFlow<T>() {
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return new SkippableIterator<T>() {
@@ -223,14 +226,14 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> take(final int n) 
+	public ObjectFlow<T> take(final int n) 
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
 
-		final Flow<T> src = this;
-		return new AbstractFlow<T>() {
+		final ObjectFlow<T> src = this;
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return new SkippableIterator<T>() {
@@ -256,11 +259,11 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> takeWhile(final Predicate<? super T> p) 
+	public ObjectFlow<T> takeWhile(final Predicate<? super T> p) 
 	{
-		final AbstractFlow<T> src = this;
+		final AbstractObjectFlow<T> src = this;
 		
-		return new AbstractFlow<T>() {
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return new SkippableIterator<T>() {
@@ -338,14 +341,14 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> drop(final int n) 
+	public ObjectFlow<T> drop(final int n) 
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
 
-		final Flow<T> src = this;
-		return new AbstractFlow<T>() {
+		final ObjectFlow<T> src = this;
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				
@@ -376,11 +379,11 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> dropWhile(final Predicate<? super T> p) 
+	public ObjectFlow<T> dropWhile(final Predicate<? super T> p) 
 	{
-		final AbstractFlow<T> src = this;
+		final AbstractObjectFlow<T> src = this;
 		
-		return new AbstractFlow<T>() {
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return new SkippableIterator<T>() {
@@ -415,7 +418,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Pair<Flow<T>, Flow<T>> split(final int leftSize) 
+	public Pair<ObjectFlow<T>, ObjectFlow<T>> split(final int leftSize) 
 	{
 		if (leftSize < 0) {
 			throw new IllegalArgumentException();
@@ -424,18 +427,18 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Pair<Flow<T>, Flow<T>> splitByPredicate(final Predicate<? super T> p)
+	public Pair<ObjectFlow<T>, ObjectFlow<T>> splitByPredicate(final Predicate<? super T> p)
 	{
 		return Pair.of(takeWhile(p), dropWhile(p));
 	}
 
 
 	@Override
-	public Flow<T> filter(final Predicate<? super T> p) 
+	public ObjectFlow<T> filter(final Predicate<? super T> p) 
 	{
-		final AbstractFlow<T> src = this;
+		final AbstractObjectFlow<T> src = this;
 		
-		return new AbstractFlow<T>() {
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return new SkippableIterator<T>() 
@@ -483,10 +486,10 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> append(final Iterable<? extends T> other) 
+	public ObjectFlow<T> append(final Iterable<? extends T> other) 
 	{
-		final AbstractFlow<T> src = this;
-		return new AbstractFlow<T>() {
+		final AbstractObjectFlow<T> src = this;
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return new SkippableIterator<T>() {
@@ -521,15 +524,15 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> append(final T t) 
+	public ObjectFlow<T> append(final T t) 
 	{
 		return append(Arrays.asList(t));
 	}
 
 	@Override
-	public Flow<T> insert(final Iterable<? extends T> other) {
-		final AbstractFlow<T> src = this;
-		return new AbstractFlow<T>() {
+	public ObjectFlow<T> insert(final Iterable<? extends T> other) {
+		final AbstractObjectFlow<T> src = this;
+		return new AbstractObjectFlow<T>() {
 			@Override
 			public SkippableIterator<T> iterator() {
 				return new SkippableIterator<T>() {
@@ -566,7 +569,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> insert(final T t) 
+	public ObjectFlow<T> insert(final T t) 
 	{
 		return insert(Arrays.asList(t));
 	}
@@ -644,5 +647,41 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	public boolean noneMatch(final Predicate<? super T> predicate)
 	{
 		return allMatch(predicate.negate());
+	}
+	
+	@Override
+	public int count() 
+	{
+		int count = 0;
+		for (@SuppressWarnings("unused") final T t : this) {
+			count++;
+		}
+		return count;
+	}
+	
+	@Override
+	public T reduce(final T id, final BinaryOperator<? super T> reducer) {
+		throw new RuntimeException();
+	}
+	
+	@Override
+	public Optional<T> reduce(final BinaryOperator<? super T> reducer)
+	{
+		throw new RuntimeException();
+
+	}
+	
+	@Override
+	public ObjectFlow<T> accumulate(final BinaryOperator<? super T> accumulator)
+	{
+		throw new RuntimeException();
+
+	}
+	
+	@Override
+	public <R> ObjectFlow<R> accumulate(final R id, final BiFunction<R, T, R> accumulator)
+	{
+		throw new RuntimeException();
+
 	}
 }
