@@ -26,6 +26,9 @@ import java.util.stream.StreamSupport;
  */
 public interface Flow<T> extends Iterable<T>
 {
+	@Override
+	SkippableIterator<T> iterator();
+	
 	<R> Flow<R> map(final Function<? super T, R> f);
 
 	IntFlow mapToInt(ToIntFunction<? extends T> f);
@@ -48,8 +51,6 @@ public interface Flow<T> extends Iterable<T>
 
 	Flow<T> cycle();
 
-	Flow<T> reverse();
-
 	Flow<T> take(final int n);
 
 	Flow<T> takeWhile(final Predicate<? super T> p);
@@ -58,17 +59,19 @@ public interface Flow<T> extends Iterable<T>
 
 	Flow<T> dropWhile(final Predicate<? super T> p);
 
-	Pair<Flow<T>, Flow<T>> splitAt(int index);
+	Pair<Flow<T>, Flow<T>> split(int leftSize);
 
-	Pair<Flow<T>, Flow<T>> span(final Predicate<? super T> p);
-
-	Pair<Flow<T>, Flow<T>> rSpan(final Predicate<? super T> p);
+	Pair<Flow<T>, Flow<T>> splitByPredicate(final Predicate<? super T> p);
 
 	Flow<T> filter(final Predicate<? super T> p);
 
 	Flow<T> append(Iterable<? extends T> other);
+	
+	Flow<T> append(T t);
 
 	Flow<T> insert(Iterable<? extends T> other);
+	
+	Flow<T> insert(T t);
 
 	Optional<T> minByKey(final ToDoubleFunction<? super T> key);
 
@@ -77,31 +80,36 @@ public interface Flow<T> extends Iterable<T>
 	Optional<T> maxByKey(final ToDoubleFunction<T> key);
 
 	<C extends Comparable<C>> Optional<T> maxByObjectKey(final Function<? super T, C> key);
+	
+	boolean allMatch(final Predicate<? super T> predicate);
 
-	Stream<T> sortByKey(final ToDoubleFunction<? super T> key);
+	boolean anyMatch(final Predicate<? super T> predicate);
 
-	<C extends Comparable<C>> Stream<T> sortByObjectKey(final Function<? super T, C> key);
+	boolean noneMatch(final Predicate<? super T> predicate);
 
 	//-------------------------------
-
+	
+	default <E extends T> Flow<E> filterClassInstances(final Class<E> klass)
+	{
+		return filter(klass::isInstance).map(klass::cast);
+	}
+	
 	default Stream<T> stream()
 	{
 		return StreamSupport.stream(spliterator(), false);
 	}
-
-	default boolean allMatch(final Predicate<? super T> predicate)
+	
+	default Stream<T> sortByKey(final ToLongFunction<? super T> key)
 	{
-		return stream().allMatch(predicate);
+		return stream().sorted((a, b) -> {
+			final long aMap = key.applyAsLong(a), bMap = key.applyAsLong(b);
+			return aMap < bMap ? -1 : a == b? 0 : 1 ;
+		});
 	}
 
-	default boolean anyMatch(final Predicate<? super T> predicate)
+	default <C extends Comparable<C>> Stream<T> sortByObjectKey(final Function<? super T, C> key)
 	{
-		return stream().anyMatch(predicate);
-	}
-
-	default boolean noneMatch(final Predicate<? super T> predicate)
-	{
-		return stream().noneMatch(predicate);
+		return stream().sorted((a, b) -> key.apply(a).compareTo(key.apply(b)));
 	}
 
 	default <C extends Collection<T>> C toCollection(final Supplier<C> collectionFactory)
