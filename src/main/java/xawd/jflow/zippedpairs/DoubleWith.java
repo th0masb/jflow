@@ -1,4 +1,4 @@
-package xawd.jflow;
+package xawd.jflow.zippedpairs;
 
 /**
  * @author ThomasB

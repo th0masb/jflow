@@ -1,31 +1,25 @@
 package xawd.jflow;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
+import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
-import java.util.function.Supplier;
-import java.util.function.ToDoubleFunction;
-import java.util.function.ToLongFunction;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import xawd.jflow.iterators.SkippableIntIterator;
+import xawd.jflow.primitiveiterables.IterableDoubles;
 import xawd.jflow.primitiveiterables.IterableInts;
+import xawd.jflow.primitiveiterables.IterableLongs;
+import xawd.jflow.zippedpairs.IntPair;
+import xawd.jflow.zippedpairs.IntWith;
+import xawd.jflow.zippedpairs.IntWithDouble;
+import xawd.jflow.zippedpairs.IntWithLong;
 
 /**
  * @author ThomasB
@@ -46,17 +40,17 @@ public interface IntFlow extends IterableInts
 
 	<T> ObjectFlow<IntWith<T>> zipWith(final Iterable<T> other);
 
-//	ObjectFlow zipWith(final PrimitiveIterator.OfInt other);
-//
-//	ObjectFlow zipWith(final PrimitiveIterator.OfDouble other);
-//
-//	ObjectFlow zipWith(final PrimitiveIterator.OfLong other);
+	ObjectFlow<IntPair> zipWith(final IterableInts other);
 
-//	<U, R> ObjectFlow combineWith(final Iterable other, final BiFunction<T, U, R> f);
+	ObjectFlow<IntWithDouble> zipWith(final IterableDoubles other);
+
+	ObjectFlow<IntWithLong> zipWith(final IterableLongs other);
 
 	ObjectFlow<IntPair> enumerate();
 
 	IntFlow cycle();
+	
+	IntFlow repeat(int ntimes);
 
 	IntFlow take(final int n);
 
@@ -65,10 +59,6 @@ public interface IntFlow extends IterableInts
 	IntFlow drop(final int n);
 
 	IntFlow dropWhile(final IntPredicate p);
-
-	Pair<IntFlow, IntFlow> split(int leftSize);
-
-	Pair<IntFlow, IntFlow> splitByPredicate(final IntPredicate p);
 
 	IntFlow filter(final IntPredicate p);
 
@@ -79,14 +69,18 @@ public interface IntFlow extends IterableInts
 	IntFlow insert(IterableInts other);
 	
 	IntFlow insert(int x);
+	
+	int minByKey(int defaultValue, final IntToDoubleFunction key);
 
 	OptionalInt minByKey(final IntToDoubleFunction key);
 
-	 Optional minByObjectKey(final Function<? super T, C> key);
+	<C extends Comparable<C>> OptionalInt minByObjectKey(final IntFunction<C> key);
 
-	Optional maxByKey(final ToDoubleFunction key);
+	int maxByKey(int defaultValue, final IntToDoubleFunction key);
 
-	 Optional maxByObjectKey(final Function<? super T, C> key);
+	OptionalInt maxByKey(final IntToDoubleFunction key);
+
+	<C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key);
 	
 	boolean allMatch(final IntPredicate predicate);
 
@@ -96,65 +90,71 @@ public interface IntFlow extends IterableInts
 	
 	int count();
 	
-	T reduce(T id, BinaryOperator<? super T> reducer);
+	int reduce(int id, IntBinaryOperator reducer);
 	
-	Optional reduce(BinaryOperator<? super T> reducer);
+	OptionalInt reduce(IntBinaryOperator reducer);
 	
-	ObjectFlow accumulate(BinaryOperator<? super T> accumulator);
+	IntFlow accumulate(IntBinaryOperator accumulator);
 	
-	 ObjectFlow accumulate(R id, BiFunction<R, T, R> accumulator);
-	//-------------------------------
+	IntFlow accumulate(int id, IntBinaryOperator accumulator);
+	
+	default int[] toArray()
+	{
+		final SkippableIntIterator iterator = iterator();
+		final ArrayAccumulators.OfInt accumulater = ArrayAccumulators.intAccumulator();
+		while (iterator.hasNext()) {
+			accumulater.add(iterator.nextInt());
+		}
+		return accumulater.compress();
+	}
+	
+	default <K, V> Map<K, V> toMap(final IntFunction<K> keyMapper, final IntFunction<V> valueMapper)
+	{
+		final Map<K, V> collected = new HashMap<>();
+		for (final SkippableIntIterator itr = iterator(); itr.hasNext();) {
+			final int next = itr.nextInt();
+			final K key = keyMapper.apply(next);
+			if (collected.containsKey(key)) {
+				throw new IllegalStateException();
+			}
+			else {
+				collected.put(key, valueMapper.apply(next));
+			}
+		}
+		return collected;
+	}
+
+	default <K> Map<K, int[]> groupBy(final IntFunction<K> classifier)
+	{
+		final Map<K, ArrayAccumulators.OfInt> accumulationMap = new HashMap<>();
+		while (hasNext()) {
+			final int next = next();
+			final K key = classifier.apply(next);
+			accumulationMap.putIfAbsent(key, ArrayAccumulators.intAccumulator());
+			accumulationMap.get(key).add(next);
+		}
+		final Map<K, int[]> grouped = new HashMap<>(accumulationMap.size());
+		for (final K key : accumulationMap.keySet()) {
+			grouped.put(key, accumulationMap.get(key).compress());
+		}
+		return grouped;
+	}
 	
 	default IntStream stream()
 	{
 		return StreamSupport.intStream(spliterator(), false) ;
 	}
 	
-	default Stream sortByKey(final ToLongFunction<? super T> key)
-	{
-		return stream().sorted((a, b) -> {
-			final long aMap = key.applyAsLong(a), bMap = key.applyAsLong(b);
-			return aMap < bMap ? -1 : a == b? 0 : 1 ;
-		});
-	}
-
-	default  Stream sortByObjectKey(final Function<? super T, C> key)
-	{
-		return stream().sorted((a, b) -> key.apply(a).compareTo(key.apply(b)));
-	}
-
-	default  C toCollection(final Supplier collectionFactory)
-	{
-		return stream().collect(Collectors.toCollection(collectionFactory));
-	}
-
-	default List toList()
-	{
-		return Collections.unmodifiableList(toArrayList());
-	}
-
-	default List toArrayList()
-	{
-		return toCollection(ArrayList::new);
-	}
-
-	default Set toSet()
-	{
-		return Collections.unmodifiableSet(toHashSet());
-	}
-
-	default Set toHashSet()
-	{
-		return toCollection(HashSet::new);
-	}
-
-	default <K, V> Map<K, V> toMap(final Function<? super T, K> keyMapper, final Function<? super T, V> valueMapper)
-	{
-		return stream().collect(Collectors.toMap(keyMapper, valueMapper));
-	}
-
-	default  Map<K, List> groupBy(final Function<? super T, K> classifier)
-	{
-		return stream().collect(Collectors.groupingBy(classifier));
-	}
+//	default Stream sortByKey(final ToLongFunction<? super T> key)
+//	{
+//		return stream().sorted((a, b) -> {
+//			final long aMap = key.applyAsLong(a), bMap = key.applyAsLong(b);
+//			return aMap < bMap ? -1 : a == b? 0 : 1 ;
+//		});
+//	}
+//
+//	default  Stream sortByObjectKey(final Function<? super T, C> key)
+//	{
+//		return stream().sorted((a, b) -> key.apply(a).compareTo(key.apply(b)));
+//	}
 }

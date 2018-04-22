@@ -1,30 +1,28 @@
 /**
  * 
  */
-package xawd.jflow;
+package xawd.jflow.zippedpairs;
 
 /**
  * @author t
  *
  */
-public final class IntWithDouble 
+public final class DoubleWithLong 
 {
-	private final int intVal;
 	private final double doubleVal;
+	private final long longVal;
 	
-	public IntWithDouble(final int intVal, final double doubleVal) 
-	{
-		this.intVal = intVal;
+	public DoubleWithLong(final double doubleVal, final long longVal) {
 		this.doubleVal = doubleVal;
+		this.longVal = longVal;
 	}
-	
-	public int getIntVal() 
-	{
-		return intVal;
-	}
-	public double getDoubleVal() 
-	{
+
+	public double getDoubleVal() {
 		return doubleVal;
+	}
+
+	public long getLongVal() {
+		return longVal;
 	}
 
 	@Override
@@ -34,7 +32,7 @@ public final class IntWithDouble
 		long temp;
 		temp = Double.doubleToLongBits(doubleVal);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + intVal;
+		result = prime * result + (int) (longVal ^ (longVal >>> 32));
 		return result;
 	}
 
@@ -46,10 +44,10 @@ public final class IntWithDouble
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		final IntWithDouble other = (IntWithDouble) obj;
+		final DoubleWithLong other = (DoubleWithLong) obj;
 		if (Double.doubleToLongBits(doubleVal) != Double.doubleToLongBits(other.doubleVal))
 			return false;
-		if (intVal != other.intVal)
+		if (longVal != other.longVal)
 			return false;
 		return true;
 	}

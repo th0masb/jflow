@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import xawd.jflow.zippedpairs.IntWith;
+import xawd.jflow.zippedpairs.Pair;
+
 /**
  * @author ThomasB
  * @since 20 Apr 2018

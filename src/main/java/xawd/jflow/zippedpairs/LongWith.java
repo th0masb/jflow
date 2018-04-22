@@ -1,29 +1,30 @@
-package xawd.jflow;
+package xawd.jflow.zippedpairs;
 
 /**
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public final class IntWith<T>
+public final class LongWith<T>
 {
-	private final int intVal;
+	private final long longVal;
 	private final T element;
 
-	private IntWith(final int integer, final T element)
+	public LongWith(final long longVal, final T element)
 	{
-		this.intVal = integer;
+		this.longVal = longVal;
 		this.element = element;
 	}
-
-	public static <T> IntWith<T> of(final int index, final T element)
+	
+	public static <T> LongWith<T> of(final long longVal, final T element)
 	{
-		return new IntWith<>(index, element);
+		return new LongWith<>(longVal, element);
 	}
 
-	public int getInt()
+	public long getLongVal()
 	{
-		return intVal;
+		return longVal;
 	}
+
 
 	public T getElement()
 	{
@@ -34,7 +35,7 @@ public final class IntWith<T>
 	public String toString()
 	{
 		return new StringBuilder("(")
-				.append(intVal)
+				.append(longVal)
 				.append(", ")
 				.append(element.toString())
 				.append(")")
@@ -47,7 +48,7 @@ public final class IntWith<T>
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((element == null) ? 0 : element.hashCode());
-		result = prime * result + intVal;
+		result = prime * result + (int) (longVal ^ (longVal >>> 32));
 		return result;
 	}
 
@@ -61,14 +62,15 @@ public final class IntWith<T>
 		if (getClass() != obj.getClass())
 			return false;
 		@SuppressWarnings("rawtypes")
-		final IntWith other = (IntWith) obj;
+		final
+		LongWith other = (LongWith) obj;
 		if (element == null) {
 			if (other.element != null)
 				return false;
 		}
 		else if (!element.equals(other.element))
 			return false;
-		if (intVal != other.intVal)
+		if (longVal != other.longVal)
 			return false;
 		return true;
 	}
