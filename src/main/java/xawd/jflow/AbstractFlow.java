@@ -18,6 +18,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.impl.SlicedFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.utilities.Iter;
 import xawd.jflow.zippedpairs.DoubleWith;
@@ -33,102 +34,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	
 	@Override
 	public Flow<T> slice(final IntUnaryOperator f) {
-		final AbstractFlow<T> src = this;
-		
-		return new AbstractFlow<T>() {
-			int indexCount = 0;
-			int checkpoint = -1;
-			int iteratorCount = 0;
-			T cached = null;
-			boolean srcExhausted = false;
-			
-			{
-				checkpoint = f.applyAsInt(0);
-				while (iteratorCount < checkpoint) {
-					if (src.hasNext()) {
-						src.skip();
-						iteratorCount++;
-					}
-					else {
-						srcExhausted = true;
-						break;
-					}
-				}
-				if (!srcExhausted) {
-					if (src.hasNext()) {
-						cached = src.next();
-						iteratorCount++;
-						checkpoint = f.applyAsInt(++indexCount);
-					}
-					else {
-						srcExhausted = true;
-					}
-				}
-				else {
-					
-				}
-			}
-			
-			@Override
-			public boolean hasNext() {
-				if (cached == null) {
-					while (iteratorCount < checkpoint) {
-						if (src.hasNext()) {
-							src.skip();
-							iteratorCount++;
-						}
-						else {
-							return false;
-						}
-					}
-					if (src.hasNext()) {
-						cached = src.next();
-						checkpoint = f.applyAsInt(++indexCount);
-						return true;
-					}
-					else {
-						return false;
-					}
-				}
-				else {
-					return true;
-				}
-			}
-			
-			@Override
-			public T next() {
-				if (cached == null) {
-					if (hasNext()) {
-						final T tmp = cached;
-						cached = null;
-						return tmp;
-					}
-					else {
-						throw new NoSuchElementException();
-					}
-				}
-				else {
-					final T tmp = cached;
-					cached = null;
-					return tmp;
-				}
-			}
-			
-			@Override
-			public void skip() {
-				if (cached == null) {
-					if (hasNext()) {
-						src.skip();
-					}
-					else {
-						throw new NoSuchElementException();
-					}
-				}
-				else {
-					cached = null;
-				}
-			}
-		};
+		return new SlicedFlow<>(this, f);
 	}
 
 	@Override

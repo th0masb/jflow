@@ -42,13 +42,24 @@ public abstract class AbstractLongFlow implements LongFlow
 		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#mapToObjeIntToIntFunctionct(java.util.function.LongFunction)
-	 */
 	@Override
 	public <T> Flow<T> mapToObject(final LongFunction<T> f) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractLongFlow src = this;
+		return new AbstractFlow<T>() {
+
+			@Override
+			public boolean hasNext() {
+				return src.hasNext();
+			}
+			@Override
+			public T next() {
+				return f.apply(src.nextLong());
+			}
+			@Override
+			public void skip() {
+				src.nextLong();
+			}
+		};
 	}
 
 	/* (non-Javadoc)

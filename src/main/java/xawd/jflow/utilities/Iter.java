@@ -113,18 +113,27 @@ public final class Iter
 	
 	public static IntFlow of(final int... xs)
 	{
-		System.out.println("b");
-		return null;
+		throw new RuntimeException();
 	}
 	
 	public static void main(final String[] args)
 	{
-		final IntFlow x = of(new int[] {1, 2, 3});
-		final List<String> strings = Arrays.asList("a", "b", "c", "d", "e");
+//		final IntFlow x = of(new int[] {1, 2, 3});
+		final List<String> strings = Arrays.asList("a", "b", "c", "d", "e", "f");
 		System.out.println(Iter.of(strings).reduce("", String::concat));
 		
 		System.out.println(Iter.of(strings).accumulate("empty", String::concat).toList());
 		
-		System.out.println(Iter.of(strings).slice(i -> 2*i).toList());
+		System.out.println(Iter.of(strings).slice(i -> 2*i + 1).toList());
+		
+		System.out.println(Itertools.product(strings, strings).toList());
+		
+		
+//		Iter.longsFrom(i -> i)
+//		.mapToObject(i -> str(i))
+//		.slice(i -> 2*i*i + 3*i)
+//		.take(10)
+//		.enumerate()
+//		.toList();
 	}
 }
