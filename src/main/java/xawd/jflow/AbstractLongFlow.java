@@ -43,10 +43,10 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#mapToObject(java.util.function.LongFunction)
+	 * @see xawd.jflow.LongFlow#mapToObjeIntToIntFunctionct(java.util.function.LongFunction)
 	 */
 	@Override
-	public <T> ObjectFlow<T> mapToObject(final LongFunction<T> f) {
+	public <T> Flow<T> mapToObject(final LongFunction<T> f) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -73,7 +73,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	 * @see xawd.jflow.LongFlow#zipWith(java.util.Iterator)
 	 */
 	@Override
-	public <T> ObjectFlow<LongWith<T>> zipWith(final Iterator<T> other) {
+	public <T> Flow<LongWith<T>> zipWith(final Iterator<T> other) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -82,7 +82,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	 * @see xawd.jflow.LongFlow#zipWith(java.util.PrimitiveIterator.OfLong)
 	 */
 	@Override
-	public ObjectFlow<LongPair> zipWith(final OfLong other) {
+	public Flow<LongPair> zipWith(final OfLong other) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -91,7 +91,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	 * @see xawd.jflow.LongFlow#zipWith(java.util.PrimitiveIterator.OfDouble)
 	 */
 	@Override
-	public ObjectFlow<DoubleWithLong> zipWith(final OfDouble other) {
+	public Flow<DoubleWithLong> zipWith(final OfDouble other) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -100,7 +100,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	 * @see xawd.jflow.LongFlow#zipWith(java.util.PrimitiveIterator.OfInt)
 	 */
 	@Override
-	public ObjectFlow<IntWithLong> zipWith(final OfInt other) {
+	public Flow<IntWithLong> zipWith(final OfInt other) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -109,7 +109,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	 * @see xawd.jflow.LongFlow#enumerate()
 	 */
 	@Override
-	public ObjectFlow<IntWithLong> enumerate() {
+	public Flow<IntWithLong> enumerate() {
 		// TODO Auto-generated method stub
 		return null;
 	}

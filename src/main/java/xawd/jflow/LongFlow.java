@@ -29,37 +29,37 @@ public interface LongFlow extends SkippableLongIterator
 {
 	LongFlow map(final LongUnaryOperator f);
 
-	<T> ObjectFlow<T> mapToObject(LongFunction<T> f);
+	<T> Flow<T> mapToObject(LongFunction<T> f);
 
 	DoubleFlow mapToDouble(LongToDoubleFunction f);
 
 	LongFlow mapToInt(LongToIntFunction f);
 	
-	<T> ObjectFlow<LongWith<T>> zipWith(final Iterator<T> other);
+	<T> Flow<LongWith<T>> zipWith(final Iterator<T> other);
 
-	default <T> ObjectFlow<LongWith<T>> zipWith(final Iterable<T> other) {
+	default <T> Flow<LongWith<T>> zipWith(final Iterable<T> other) {
 		return zipWith(other.iterator());
 	}
 
-	ObjectFlow<LongPair> zipWith(final PrimitiveIterator.OfLong other);
+	Flow<LongPair> zipWith(final PrimitiveIterator.OfLong other);
 	
-	default ObjectFlow<LongPair> zipWith(final IterableLongs other) {
+	default Flow<LongPair> zipWith(final IterableLongs other) {
 		return zipWith(other.iterator());
 	}
 
-	ObjectFlow<DoubleWithLong> zipWith(final PrimitiveIterator.OfDouble other);
+	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfDouble other);
 	
-	default ObjectFlow<DoubleWithLong> zipWith(final IterableDoubles other) {
+	default Flow<DoubleWithLong> zipWith(final IterableDoubles other) {
 		return zipWith(other.iterator());
 	}
 
-	ObjectFlow<IntWithLong> zipWith(final PrimitiveIterator.OfInt other);
+	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfInt other);
 	
-	default ObjectFlow<IntWithLong> zipWith(final IterableInts other) {
+	default Flow<IntWithLong> zipWith(final IterableInts other) {
 		return zipWith(other.iterator());
 	}
 
-	ObjectFlow<IntWithLong> enumerate();
+	Flow<IntWithLong> enumerate();
 
 	LongFlow take(final int n);
 
