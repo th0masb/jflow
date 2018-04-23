@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.zippedpairs;
 
@@ -7,14 +7,18 @@ package xawd.jflow.zippedpairs;
  * @author t
  *
  */
-public final class IntWithLong 
+public final class IntWithLong
 {
-	private final int intVal;	
+	private final int intVal;
 	private final long longVal;
-	
+
 	public IntWithLong(final int intVal, final long longVal) {
 		this.intVal = intVal;
 		this.longVal = longVal;
+	}
+
+	public static IntWithLong of(final int intVal, final long longVal) {
+		return new IntWithLong(intVal, longVal);
 	}
 
 	public int getIntVal() {

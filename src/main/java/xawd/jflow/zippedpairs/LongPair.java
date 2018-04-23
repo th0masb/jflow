@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.zippedpairs;
 
@@ -7,13 +7,17 @@ package xawd.jflow.zippedpairs;
  * @author t
  *
  */
-public final class LongPair 
+public final class LongPair
 {
 	private final long first, second;
 
 	public LongPair(final long first, final long second) {
 		this.first = first;
 		this.second = second;
+	}
+
+	public static LongPair of(final long first, final long second) {
+		return new LongPair(first, second);
 	}
 
 	public long getFirst() {

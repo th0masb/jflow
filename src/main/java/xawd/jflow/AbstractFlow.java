@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow;
 
@@ -31,7 +31,7 @@ import xawd.jflow.zippedpairs.Pair;
  *
  */
 public abstract class AbstractFlow<T> implements Flow<T> {
-	
+
 	@Override
 	public Flow<T> slice(final IntUnaryOperator f) {
 		return new SlicedFlow<>(this, f);
@@ -40,7 +40,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public <R> Flow<R> map(final Function<? super T, R> f) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<R>() {
 			@Override
 			public boolean hasNext() {
@@ -78,7 +78,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public LongFlow mapToLong(final ToLongFunction<? super T> f) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractLongFlow() {
 			@Override
 			public boolean hasNext() {
@@ -98,7 +98,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public <R> Flow<Pair<T, R>> zipWith(final Iterator<R> other) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<Pair<T,R>>() {
 			@Override
 			public boolean hasNext() {
@@ -142,7 +142,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<LongWith<T>> zipWith(final OfLong other) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<LongWith<T>>() {
 			@Override
 			public boolean hasNext() {
@@ -168,7 +168,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public <U, R> Flow<R> combineWith(final Iterator<U> other, final BiFunction<T, U, R> f) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<R>() {
 			@Override
 			public boolean hasNext() {
@@ -191,13 +191,10 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.ObjectFlow#enumerate()
-	 */
 	@Override
-	public Flow<IntWith<T>> enumerate() {
-		// TODO Auto-generated method stub
-		return null;
+	public Flow<IntWith<T>> enumerate()
+	{
+		return zipWith(Iter.naturalNumbers());
 	}
 
 	@Override
@@ -206,7 +203,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 			throw new IllegalArgumentException();
 		}
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<T>() {
 			int count = 0;
 			@Override
@@ -237,7 +234,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<T> takeWhile(final Predicate<? super T> p) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<T>() {
 			T cached = null;
 			boolean nextReady = false;
@@ -310,7 +307,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 			throw new IllegalArgumentException();
 		}
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<T>() {
 			{
 				for (int i = 0; i < n && src.hasNext(); i++) {
@@ -335,7 +332,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<T> dropWhile(final Predicate<? super T> p) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<T>() {
 			T firstFailure = null;
 			{
@@ -378,7 +375,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<T> filter(final Predicate<? super T> p) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<T>() {
 			T cached = null;
 			@Override
@@ -418,7 +415,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<T> append(final Iterator<? extends T> other) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<T>() {
 			@Override
 			public boolean hasNext() {
@@ -548,7 +545,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean anyMatch(final Predicate<? super T> predicate) {
 		while (hasNext()) {
@@ -605,7 +602,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<T> accumulate(final BinaryOperator<T> accumulator) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<T>() {
 			T accumulationValue = null;
 			@Override
@@ -629,7 +626,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public <R> Flow<R> accumulate(final R id, final BiFunction<R, T, R> accumulator) {
 		final AbstractFlow<T> src = this;
-		
+
 		return new AbstractFlow<R>() {
 			R accumulationValue = id;
 			@Override

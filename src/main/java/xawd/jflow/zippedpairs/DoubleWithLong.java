@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.zippedpairs;
 
@@ -7,14 +7,18 @@ package xawd.jflow.zippedpairs;
  * @author t
  *
  */
-public final class DoubleWithLong 
+public final class DoubleWithLong
 {
 	private final double doubleVal;
 	private final long longVal;
-	
+
 	public DoubleWithLong(final double doubleVal, final long longVal) {
 		this.doubleVal = doubleVal;
 		this.longVal = longVal;
+	}
+
+	public static DoubleWithLong of(final double doubleVal, final long longVal) {
+		return new DoubleWithLong(doubleVal, longVal);
 	}
 
 	public double getDoubleVal() {

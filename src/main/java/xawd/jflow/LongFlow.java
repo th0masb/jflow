@@ -33,8 +33,8 @@ public interface LongFlow extends SkippableLongIterator
 
 	DoubleFlow mapToDouble(LongToDoubleFunction f);
 
-	LongFlow mapToInt(LongToIntFunction f);
-	
+	IntFlow mapToInt(LongToIntFunction f);
+
 	<T> Flow<LongWith<T>> zipWith(final Iterator<T> other);
 
 	default <T> Flow<LongWith<T>> zipWith(final Iterable<T> other) {
@@ -42,19 +42,19 @@ public interface LongFlow extends SkippableLongIterator
 	}
 
 	Flow<LongPair> zipWith(final PrimitiveIterator.OfLong other);
-	
+
 	default Flow<LongPair> zipWith(final IterableLongs other) {
 		return zipWith(other.iterator());
 	}
 
 	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfDouble other);
-	
+
 	default Flow<DoubleWithLong> zipWith(final IterableDoubles other) {
 		return zipWith(other.iterator());
 	}
 
 	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfInt other);
-	
+
 	default Flow<IntWithLong> zipWith(final IterableInts other) {
 		return zipWith(other.iterator());
 	}
@@ -70,35 +70,35 @@ public interface LongFlow extends SkippableLongIterator
 	LongFlow dropWhile(final LongPredicate p);
 
 	LongFlow filter(final LongPredicate p);
-	
+
 	LongFlow append(long x);
 
 	LongFlow append(PrimitiveIterator.OfLong other);
-	
+
 	default LongFlow append(final IterableLongs other) {
 		return append(other.iterator());
 	}
-	
+
 	LongFlow insert(PrimitiveIterator.OfLong other);
-	
+
 	default LongFlow insert(final IterableLongs other) {
 		return insert(other.iterator());
 	}
-	
+
 	LongFlow insert(long x);
-	
+
 	OptionalLong min();
-	
+
 	long min(long defaultValue);
-	
+
 	long minByKey(long defaultValue, final LongToDoubleFunction key);
 
 	OptionalLong minByKey(final LongToDoubleFunction key);
 
 	<C extends Comparable<C>> OptionalLong minByObjectKey(final LongFunction<C> key);
-	
+
 	OptionalLong max();
-	
+
 	long max(long defaultValue);
 
 	long maxByKey(long defaultValue, final LongToDoubleFunction key);
@@ -106,23 +106,23 @@ public interface LongFlow extends SkippableLongIterator
 	OptionalLong maxByKey(final LongToDoubleFunction key);
 
 	<C extends Comparable<C>> OptionalLong maxByObjectKey(final LongFunction<C> key);
-	
+
 	boolean allMatch(final LongPredicate predicate);
 
 	boolean anyMatch(final LongPredicate predicate);
 
 	boolean noneMatch(final LongPredicate predicate);
-	
+
 	int count();
-	
+
 	long reduce(long id, LongBinaryOperator reducer);
-	
+
 	OptionalLong reduce(LongBinaryOperator reducer);
-	
+
 	LongFlow accumulate(LongBinaryOperator accumulator);
-	
+
 	LongFlow accumulate(long id, LongBinaryOperator accumulator);
-	
+
 	default long[] toArray()
 	{
 		final ArrayAccumulators.OfLong accumulater = ArrayAccumulators.longAccumulator();
@@ -131,7 +131,7 @@ public interface LongFlow extends SkippableLongIterator
 		}
 		return accumulater.compress();
 	}
-	
+
 	default <K, V> Map<K, V> toMap(final LongFunction<K> keyMapper, final LongFunction<V> valueMapper)
 	{
 		final Map<K, V> collected = new HashMap<>();

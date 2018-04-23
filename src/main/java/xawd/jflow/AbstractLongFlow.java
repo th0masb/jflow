@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package xawd.jflow;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.OptionalLong;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongFunction;
@@ -12,6 +13,8 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
+import xawd.jflow.iterators.Skippable;
+import xawd.jflow.utilities.Iter;
 import xawd.jflow.zippedpairs.DoubleWithLong;
 import xawd.jflow.zippedpairs.IntWithLong;
 import xawd.jflow.zippedpairs.LongPair;
@@ -21,7 +24,7 @@ import xawd.jflow.zippedpairs.LongWith;
  * @author t
  *
  */
-public abstract class AbstractLongFlow implements LongFlow 
+public abstract class AbstractLongFlow implements LongFlow
 {
 	@Override
 	public LongFlow map(final LongUnaryOperator f) {
@@ -62,76 +65,199 @@ public abstract class AbstractLongFlow implements LongFlow
 		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#mapToDouble(java.util.function.LongToDoubleFunction)
-	 */
 	@Override
-	public DoubleFlow mapToDouble(final LongToDoubleFunction f) {
-		// TODO Auto-generated method stub
-		return null;
+	public DoubleFlow mapToDouble(final LongToDoubleFunction f)
+	{
+		final AbstractLongFlow src = this;
+
+		return new AbstractDoubleFlow() {
+			@Override
+			public boolean hasNext()
+			{
+				return src.hasNext();
+			}
+			@Override
+			public double nextDouble()
+			{
+				return f.applyAsDouble(src.nextLong());
+			}
+			@Override
+			public void skip()
+			{
+				src.skip();
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#mapToInt(java.util.function.LongToIntFunction)
-	 */
 	@Override
-	public LongFlow mapToInt(final LongToIntFunction f) {
-		// TODO Auto-generated method stub
-		return null;
+	public IntFlow mapToInt(final LongToIntFunction f)
+	{
+		final AbstractLongFlow src = this;
+
+		return new AbstractIntFlow() {
+			@Override
+			public boolean hasNext()
+			{
+				return src.hasNext();
+			}
+			@Override
+			public int nextInt()
+			{
+				return f.applyAsInt(src.nextLong());
+			}
+			@Override
+			public void skip()
+			{
+				src.skip();
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#zipWith(java.util.Iterator)
-	 */
 	@Override
 	public <T> Flow<LongWith<T>> zipWith(final Iterator<T> other) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractLongFlow src = this;
+
+		return new AbstractFlow<LongWith<T>>() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext() && other.hasNext();
+			}
+			@Override
+			public LongWith<T> next() {
+				return LongWith.of(src.nextLong(), other.next());
+			}
+			@Override
+			public void skip() {
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.next();
+				}
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#zipWith(java.util.PrimitiveIterator.OfLong)
-	 */
 	@Override
-	public Flow<LongPair> zipWith(final OfLong other) {
-		// TODO Auto-generated method stub
-		return null;
+	public Flow<LongPair> zipWith(final OfLong other)
+	{
+		final AbstractLongFlow src = this;
+
+		return new AbstractFlow<LongPair>() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext() && other.hasNext();
+			}
+			@Override
+			public LongPair next() {
+				return LongPair.of(src.nextLong(), other.nextLong());
+			}
+			@Override
+			public void skip() {
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.nextLong();
+				}
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#zipWith(java.util.PrimitiveIterator.OfDouble)
-	 */
 	@Override
-	public Flow<DoubleWithLong> zipWith(final OfDouble other) {
-		// TODO Auto-generated method stub
-		return null;
+	public Flow<DoubleWithLong> zipWith(final OfDouble other)
+	{
+		final AbstractLongFlow src = this;
+
+		return new AbstractFlow<DoubleWithLong>() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext() && other.hasNext();
+			}
+			@Override
+			public DoubleWithLong next() {
+				return DoubleWithLong.of(other.nextDouble(), src.nextLong());
+			}
+			@Override
+			public void skip() {
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.nextDouble();
+				}
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#zipWith(java.util.PrimitiveIterator.OfInt)
-	 */
 	@Override
-	public Flow<IntWithLong> zipWith(final OfInt other) {
-		// TODO Auto-generated method stub
-		return null;
+	public Flow<IntWithLong> zipWith(final OfInt other)
+	{
+		final AbstractLongFlow src = this;
+
+		return new AbstractFlow<IntWithLong>() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext() && other.hasNext();
+			}
+			@Override
+			public IntWithLong next() {
+				return IntWithLong.of(other.nextInt(), src.nextLong());
+			}
+			@Override
+			public void skip() {
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.nextInt();
+				}
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#enumerate()
-	 */
 	@Override
 	public Flow<IntWithLong> enumerate() {
-		// TODO Auto-generated method stub
-		return null;
+		return zipWith(Iter.naturalNumbers());
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#take(int)
-	 */
 	@Override
-	public LongFlow take(final int n) {
-		// TODO Auto-generated method stub
-		return null;
+	public LongFlow take(final int n)
+	{
+		if (n < 0) {
+			throw new IllegalArgumentException();
+		}
+		final AbstractLongFlow src = this;
+
+		return new AbstractLongFlow() {
+			int count = 0;
+			@Override
+			public boolean hasNext() {
+				return count < n && src.hasNext();
+			}
+			@Override
+			public long nextLong() {
+				if (count++ >= n) {
+					throw new NoSuchElementException();
+				}
+				else {
+					return src.nextLong();
+				}
+			}
+			@Override
+			public void skip() {
+				if (count++ >= n) {
+					throw new NoSuchElementException();
+				}
+				else {
+					src.skip();
+				}
+			}
+		};
 	}
 
 	/* (non-Javadoc)
