@@ -57,22 +57,47 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.ObjectFlow#mapToInt(java.util.function.ToIntFunction)
-	 */
 	@Override
 	public IntFlow mapToInt(final ToIntFunction<? super T> f) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractFlow<T> src = this;
+
+		return new AbstractIntFlow() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext();
+			}
+			@Override
+			public int nextInt() {
+				return f.applyAsInt(src.next());
+			}
+			@Override
+			public void skip() {
+				src.skip();
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.ObjectFlow#mapToDouble(java.util.function.ToDoubleFunction)
-	 */
 	@Override
 	public DoubleFlow mapToDouble(final ToDoubleFunction<? super T> f) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractFlow<T> src = this;
+
+		return new AbstractDoubleFlow() {
+			@Override
+			public boolean hasNext()
+			{
+				return src.hasNext();
+			}
+			@Override
+			public double nextDouble()
+			{
+				return f.applyAsDouble(src.next());
+			}
+			@Override
+			public void skip()
+			{
+				src.skip();
+			}
+		};
 	}
 
 	@Override
@@ -121,22 +146,56 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.ObjectFlow#zipWith(java.util.PrimitiveIterator.OfInt)
-	 */
 	@Override
 	public Flow<IntWith<T>> zipWith(final OfInt other) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractFlow<T> src = this;
+
+		return new AbstractFlow<IntWith<T>>() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext() && other.hasNext();
+			}
+			@Override
+			public IntWith<T> next() {
+				return IntWith.of(other.nextInt(), src.next());
+			}
+			@Override
+			public void skip() {
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.nextInt();
+				}
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.ObjectFlow#zipWith(java.util.PrimitiveIterator.OfDouble)
-	 */
 	@Override
 	public Flow<DoubleWith<T>> zipWith(final OfDouble other) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractFlow<T> src = this;
+
+		return new AbstractFlow<DoubleWith<T>>() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext() && other.hasNext();
+			}
+			@Override
+			public DoubleWith<T> next() {
+				return DoubleWith.of(other.nextDouble(), src.next());
+			}
+			@Override
+			public void skip() {
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.nextDouble();
+				}
+			}
+		};
 	}
 
 	@Override

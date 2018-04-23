@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.impl;
 
@@ -14,26 +14,25 @@ import xawd.jflow.Flow;
  *
  */
 public final class SlicedFlow<T> extends AbstractFlow<T> {
-	
+
 	private final Flow<T> src;
 	private final IntUnaryOperator indexMapping;
-	
+
 	private int indexCount = 0;
 	private int checkpoint = -1;
 	private int iteratorCount = 0;
 	private T cached = null;
 	boolean srcExhausted = false;
-	
-	
+
 	public SlicedFlow(final Flow<T> src, final IntUnaryOperator indexMapping)
 	{
 		this.src = src;
 		this.indexMapping = indexMapping;
-		
+
 		updateCheckpoint(indexMapping.applyAsInt(indexCount));
 		cacheNextElement();
 	}
-	
+
 	private void updateCheckpoint(final int newCheckpoint)
 	{
 		if (newCheckpoint < checkpoint) {
@@ -54,7 +53,7 @@ public final class SlicedFlow<T> extends AbstractFlow<T> {
 			return true;
 		}
 	}
-	
+
 	private boolean cacheNextElement()
 	{
 		assert !srcExhausted && cached == null;
@@ -68,7 +67,7 @@ public final class SlicedFlow<T> extends AbstractFlow<T> {
 				return false;
 			}
 		}
-		
+
 		if (src.hasNext()) {
 			cached = src.next();
 			iteratorCount++;
@@ -98,7 +97,7 @@ public final class SlicedFlow<T> extends AbstractFlow<T> {
 			return returnCacheAndErase();
 		}
 	}
-	
+
 	@Override
 	public void skip() {
 		if (srcExhausted) {
@@ -116,7 +115,7 @@ public final class SlicedFlow<T> extends AbstractFlow<T> {
 			returnCacheAndErase();
 		}
 	}
-	
+
 	private T returnCacheAndErase()
 	{
 		assert cached != null;

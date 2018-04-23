@@ -226,8 +226,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow take(final int n)
-	{
+	public LongFlow take(final int n) {
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
@@ -260,22 +259,40 @@ public abstract class AbstractLongFlow implements LongFlow
 		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#takeWhile(java.util.function.LongPredicate)
-	 */
 	@Override
-	public LongFlow takeWhile(final LongPredicate p) {
+	public LongFlow takeWhile(final LongPredicate p)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#drop(int)
-	 */
 	@Override
 	public LongFlow drop(final int n) {
-		// TODO Auto-generated method stub
-		return null;
+		if (n < 0) {
+			throw new IllegalArgumentException();
+		}
+		final AbstractLongFlow src = this;
+
+		return new AbstractLongFlow() {
+			{
+				final int count = 0;
+				while (count < n && src.hasNext()) {
+					src.skip();
+				}
+			}
+			@Override
+			public boolean hasNext() {
+				return src.hasNext();
+			}
+			@Override
+			public long nextLong() {
+				return src.nextLong();
+			}
+			@Override
+			public void skip() {
+				src.skip();
+			}
+		};
 	}
 
 	/* (non-Javadoc)
