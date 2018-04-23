@@ -71,7 +71,7 @@ public interface LongFlow extends SkippableLongIterator
 
 	LongFlow filter(final LongPredicate p);
 
-	LongFlow append(long x);
+	LongFlow append(long... xs);
 
 	LongFlow append(PrimitiveIterator.OfLong other);
 
@@ -85,7 +85,7 @@ public interface LongFlow extends SkippableLongIterator
 		return insert(other.iterator());
 	}
 
-	LongFlow insert(long x);
+	LongFlow insert(long... xs);
 
 	OptionalLong min();
 

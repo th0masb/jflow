@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Lhasa Limited
+ * Copyright ï¿½ 2018 Lhasa Limited
  * File created: 23 Apr 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -124,7 +124,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow append(final int x)
+	public IntFlow append(final int... xs)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -145,7 +145,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow insert(final int x)
+	public IntFlow insert(final int... xs)
 	{
 		// TODO Auto-generated method stub
 		return null;

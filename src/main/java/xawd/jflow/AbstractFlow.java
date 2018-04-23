@@ -3,6 +3,7 @@
  */
 package xawd.jflow;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.SlicedFlow;
 import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
@@ -369,43 +371,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> filter(final Predicate<? super T> p) {
-		final AbstractFlow<T> src = this;
-
-		return new AbstractFlow<T>() {
-			T cached = null;
-			@Override
-			public boolean hasNext() {
-				while (cached == null && src.hasNext()) {
-					final T next = src.next();
-					if (p.test(next)) {
-						cached = next;
-					}
-				}
-				return cached != null;
-			}
-			@Override
-			public T next() {
-				if (hasNext()) {
-					final T tmp = cached;
-					cached = null;
-					return tmp;
-				}
-				else {
-					throw new NoSuchElementException();
-				}
-			}
-			@Override
-			public void skip() {
-				if (hasNext()) {
-					cached = null;
-					src.skip();
-				}
-				else {
-					throw new NoSuchElementException();
-				}
-			}
-		};
+	public Flow<T> filter(final Predicate<? super T> predicate) {
+		return new FilteredFlow<>(this, predicate);
 	}
 
 	@Override
@@ -440,8 +407,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> append(final T t) {
-		return append(Iter.of(t));
+	public Flow<T> append(@SuppressWarnings("unchecked") final T... ts) {
+		return append(Iter.of(Arrays.asList(ts)));
 	}
 
 	@Override
@@ -476,8 +443,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> insert(final T t) {
-		return insert(Iter.of(t));
+	public Flow<T> insert(@SuppressWarnings("unchecked") final T... ts) {
+		return insert(Iter.of(Arrays.asList(ts)));
 	}
 
 	@Override

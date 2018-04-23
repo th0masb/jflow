@@ -67,14 +67,14 @@ public interface Flow<T> extends SkippableIterator<T>
 
 	Flow<T> append(Iterator<? extends T> other);
 	
-	Flow<T> append(T t);
+	Flow<T> append(@SuppressWarnings("unchecked") T... ts);
 
 	Flow<T> insert(Iterator<? extends T> other);
 	
-	Flow<T> insert(T t);
+	Flow<T> insert(@SuppressWarnings("unchecked") T... ts);
 
 	Optional<T> minByKey(final ToDoubleFunction<? super T> key);
-
+ 
 	<C extends Comparable<C>> Optional<T> minByObjectKey(final Function<? super T, C> key);
 
 	Optional<T> maxByKey(final ToDoubleFunction<T> key);

@@ -29,6 +29,7 @@ public final class SlicedFlow<T> extends AbstractFlow<T> {
 		this.src = src;
 		this.indexMapping = indexMapping;
 
+		// Wrong!, this is not lazy
 		updateCheckpoint(indexMapping.applyAsInt(indexCount));
 		cacheNextElement();
 	}

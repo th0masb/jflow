@@ -13,6 +13,8 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
+import xawd.jflow.impl.PrimitiveDropWhileFlow;
+import xawd.jflow.impl.PrimitiveFilteredFlow;
 import xawd.jflow.impl.PrimitiveTakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.utilities.Iter;
@@ -265,11 +267,13 @@ public abstract class AbstractLongFlow implements LongFlow
 		return new PrimitiveTakeWhileFlow.OfLong(this, predicate);
 	}
 
+	// TODO this isn't lazy
 	@Override
 	public LongFlow drop(final int n) {
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
+		
 		final AbstractLongFlow src = this;
 
 		return new AbstractLongFlow() {
@@ -294,221 +298,375 @@ public abstract class AbstractLongFlow implements LongFlow
 		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#dropWhile(java.util.function.LongPredicate)
-	 */
 	@Override
-	public LongFlow dropWhile(final LongPredicate p) 
+	public LongFlow dropWhile(final LongPredicate predicate) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new PrimitiveDropWhileFlow.OfLong(this, predicate);
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#filter(java.util.function.LongPredicate)
-	 */
 	@Override
-	public LongFlow filter(final LongPredicate p) {
-		// TODO Auto-generated method stub
-		return null;
+	public LongFlow filter(final LongPredicate predicate) 
+	{
+		return new PrimitiveFilteredFlow.OfLong(this, predicate);
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#append(long)
-	 */
-	@Override
-	public LongFlow append(final long x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#append(java.util.PrimitiveIterator.OfLong)
-	 */
 	@Override
 	public LongFlow append(final OfLong other) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractLongFlow src = this;
+
+		return new AbstractLongFlow() {
+			@Override
+			public boolean hasNext() {
+				return src.hasNext() || other.hasNext();
+			}
+			@Override
+			public long nextLong() {
+				return src.hasNext() ? src.nextLong() : other.nextLong();
+			}
+			@Override
+			public void skip() {
+				if (src.hasNext()) {
+					src.skip();
+				}
+				else {
+					if (other instanceof Skippable) {
+						((Skippable) other).skip();
+					}
+					else {
+						other.nextLong();
+					}
+				}
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#insert(java.util.PrimitiveIterator.OfLong)
-	 */
+	@Override
+	public LongFlow append(final long... xs) 
+	{
+		return append(Iter.of(xs));
+	}
+
 	@Override
 	public LongFlow insert(final OfLong other) {
-		// TODO Auto-generated method stub
-		return null;
+		final AbstractLongFlow src = this;
+
+		return new AbstractLongFlow() {
+			@Override
+			public boolean hasNext() {
+				return other.hasNext() || src.hasNext();
+			}
+			@Override
+			public long nextLong() {
+				return other.hasNext() ? other.nextLong() : src.nextLong();
+			}
+			@Override
+			public void skip() {
+				if (other.hasNext()) {
+					if (other instanceof Skippable) {
+						((Skippable) other).skip();
+					}
+					else {
+						other.nextLong();
+					}
+				}
+				else {
+					src.skip();
+				}
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#insert(long)
-	 */
 	@Override
-	public LongFlow insert(final long x) {
-		// TODO Auto-generated method stub
-		return null;
+	public LongFlow insert(final long... xs) 
+	{
+		return insert(Iter.of(xs));
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#min()
-	 */
 	@Override
 	public OptionalLong min() {
-		// TODO Auto-generated method stub
-		return null;
+		boolean found = false;
+		long min = Long.MAX_VALUE;
+		while (hasNext()) {
+			final long next = nextLong();
+			if (next < min) {
+				min = next;
+				found = true;
+			}
+		}
+		return found? OptionalLong.of(min) : OptionalLong.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#min(long)
-	 */
 	@Override
-	public long min(final long defaultValue) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long min(final long defaultValue) 
+	{
+		boolean found = false;
+		long min = Long.MAX_VALUE;
+		while (hasNext()) {
+			final long next = nextLong();
+			if (next < min) {
+				min = next;
+				found = true;
+			}
+		}
+		return found? min : defaultValue;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#minByKey(long, java.util.function.LongToDoubleFunction)
-	 */
 	@Override
-	public long minByKey(final long defaultValue, final LongToDoubleFunction key) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long minByKey(final long defaultValue, final LongToDoubleFunction key) 
+	{
+		boolean found = false;
+		long minKey = -1;
+		double minVal = Double.MAX_VALUE;
+		while (hasNext()) {
+			final long nextKey = nextLong();
+			final double nextVal = key.applyAsDouble(nextKey);
+			if (nextVal < minVal) {
+				minVal = nextVal;
+				minKey = nextKey;
+				found = true;
+			}
+		}
+		return found? minKey : defaultValue;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#minByKey(java.util.function.LongToDoubleFunction)
-	 */
 	@Override
-	public OptionalLong minByKey(final LongToDoubleFunction key) {
-		// TODO Auto-generated method stub
-		return null;
+	public OptionalLong minByKey(final LongToDoubleFunction key) 
+	{
+		boolean found = false;
+		long minKey = -1;
+		double minVal = Double.POSITIVE_INFINITY;
+		while (hasNext()) {
+			final long nextKey = nextLong();
+			final double nextVal = key.applyAsDouble(nextKey);
+			if (nextVal < minVal) {
+				minVal = nextVal;
+				minKey = nextKey;
+				found = true;
+			}
+		}
+		return found? OptionalLong.of(minKey) : OptionalLong.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#minByObjectKey(java.util.function.LongFunction)
-	 */
 	@Override
-	public <C extends Comparable<C>> OptionalLong minByObjectKey(final LongFunction<C> key) {
-		// TODO Auto-generated method stub
-		return null;
+	public <C extends Comparable<C>> OptionalLong minByObjectKey(final LongFunction<C> key) 
+	{
+		boolean found = false;
+		long minKey = -1;
+		C minVal = null;
+		while (hasNext()) {
+			final long nextKey = nextLong();
+			final C nextVal = key.apply(nextKey);
+			if (minVal == null || nextVal.compareTo(minVal) < 0) {
+				minVal = nextVal;
+				minKey = nextKey;
+				found = true;
+			}
+		}
+		return found? OptionalLong.of(minKey) : OptionalLong.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#max()
-	 */
 	@Override
 	public OptionalLong max() {
-		// TODO Auto-generated method stub
-		return null;
+		boolean found = false;
+		long max = Long.MIN_VALUE;
+		while (hasNext()) {
+			final long next = nextLong();
+			if (next > max) {
+				max = next;
+				found = true;
+			}
+		}
+		return found? OptionalLong.of(max) : OptionalLong.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#max(long)
-	 */
 	@Override
-	public long max(final long defaultValue) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long max(final long defaultValue) 
+	{
+		boolean found = false;
+		long max = Long.MIN_VALUE;
+		while (hasNext()) {
+			final long next = nextLong();
+			if (next > max) {
+				max = next;
+				found = true;
+			}
+		}
+		return found? max : defaultValue;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#maxByKey(long, java.util.function.LongToDoubleFunction)
-	 */
 	@Override
-	public long maxByKey(final long defaultValue, final LongToDoubleFunction key) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long maxByKey(final long defaultValue, final LongToDoubleFunction key) 
+	{
+		boolean found = false;
+		long maxKey = -1;
+		double maxVal = Double.NEGATIVE_INFINITY;
+		while (hasNext()) {
+			final long nextKey = nextLong();
+			final double nextVal = key.applyAsDouble(nextKey);
+			if (nextVal > maxVal) {
+				maxVal = nextVal;
+				maxKey = nextKey;
+				found = true;
+			}
+		}
+		return found? maxKey : defaultValue;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#maxByKey(java.util.function.LongToDoubleFunction)
-	 */
 	@Override
-	public OptionalLong maxByKey(final LongToDoubleFunction key) {
-		// TODO Auto-generated method stub
-		return null;
+	public OptionalLong maxByKey(final LongToDoubleFunction key) 
+	{
+		boolean found = false;
+		long maxKey = -1;
+		double maxVal = Double.NEGATIVE_INFINITY;
+		while (hasNext()) {
+			final long nextKey = nextLong();
+			final double nextVal = key.applyAsDouble(nextKey);
+			if (nextVal > maxVal) {
+				maxVal = nextVal;
+				maxKey = nextKey;
+				found = true;
+			}
+		}
+		return found? OptionalLong.of(maxKey) : OptionalLong.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#maxByObjectKey(java.util.function.LongFunction)
-	 */
 	@Override
-	public <C extends Comparable<C>> OptionalLong maxByObjectKey(final LongFunction<C> key) {
-		// TODO Auto-generated method stub
-		return null;
+	public <C extends Comparable<C>> OptionalLong maxByObjectKey(final LongFunction<C> key)
+	{
+		boolean found = false;
+		long maxKey = -1;
+		C maxVal = null;
+		while (hasNext()) {
+			final long nextKey = nextLong();
+			final C nextVal = key.apply(nextKey);
+			if (maxVal == null || nextVal.compareTo(maxVal) > 0) {
+				maxVal = nextVal;
+				maxKey = nextKey;
+				found = true;
+			}
+		}
+		return found? OptionalLong.of(maxKey) : OptionalLong.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#allMatch(java.util.function.LongPredicate)
-	 */
 	@Override
-	public boolean allMatch(final LongPredicate predicate) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean allMatch(final LongPredicate predicate)
+	{
+		while (hasNext()) {
+			if (!predicate.test(next())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#anyMatch(java.util.function.LongPredicate)
-	 */
 	@Override
 	public boolean anyMatch(final LongPredicate predicate) {
-		// TODO Auto-generated method stub
+		while (hasNext()) {
+			if (predicate.test(next())) {
+				return true;
+			}
+		}
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#noneMatch(java.util.function.LongPredicate)
-	 */
 	@Override
 	public boolean noneMatch(final LongPredicate predicate) {
-		// TODO Auto-generated method stub
-		return false;
+		while (hasNext()) {
+			if (predicate.test(next())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#count()
-	 */
 	@Override
 	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = 0;
+		while (hasNext()) {
+			skip();
+			count++;
+		}
+		return count;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#reduce(long, java.util.function.LongBinaryOperator)
-	 */
 	@Override
-	public long reduce(final long id, final LongBinaryOperator reducer) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long reduce(final long id, final LongBinaryOperator reducer) 
+	{
+		long reduction = id;
+		while (hasNext()) {
+			reduction = reducer.applyAsLong(reduction, nextLong());
+		}
+		return reduction;
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#reduce(java.util.function.LongBinaryOperator)
-	 */
 	@Override
-	public OptionalLong reduce(final LongBinaryOperator reducer) {
-		// TODO Auto-generated method stub
-		return null;
+	public OptionalLong reduce(final LongBinaryOperator reducer) 
+	{
+		boolean unIntialized = true;
+		long reduction = -1L;
+		while (hasNext()) {
+			if (unIntialized) {
+				unIntialized = false;
+				reduction = nextLong();
+			}
+			else {
+				reduction = reducer.applyAsLong(reduction, nextLong());
+			}
+		}
+		return unIntialized ? OptionalLong.empty() : OptionalLong.of(reduction);
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#accumulate(java.util.function.LongBinaryOperator)
-	 */
 	@Override
-	public LongFlow accumulate(final LongBinaryOperator accumulator) {
-		// TODO Auto-generated method stub
-		return null;
+	public LongFlow accumulate(final LongBinaryOperator accumulator) 
+	{
+		final AbstractLongFlow src = this;
+		
+		return new AbstractLongFlow() {
+			boolean unInitialized = true;
+			long accumulationValue = -1;
+			@Override
+			public boolean hasNext() {
+				return src.hasNext();
+			}
+			@Override
+			public long nextLong() {
+				if (unInitialized) {
+					unInitialized = false;
+					accumulationValue = src.nextLong();
+					return accumulationValue;
+				}
+				else {
+					accumulationValue = accumulator.applyAsLong(accumulationValue, src.nextLong());
+					return accumulationValue;
+				}
+			}
+			@Override
+			public void skip() {
+				next();
+			}
+		};
 	}
 
-	/* (non-Javadoc)
-	 * @see xawd.jflow.LongFlow#accumulate(long, java.util.function.LongBinaryOperator)
-	 */
 	@Override
 	public LongFlow accumulate(final long id, final LongBinaryOperator accumulator) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		final AbstractLongFlow src = this;
 
+		return new AbstractLongFlow() {
+			long accumulationValue = id;
+			@Override
+			public boolean hasNext() {
+				return src.hasNext();
+			}
+			@Override
+			public long nextLong() {
+				accumulationValue = accumulator.applyAsLong(accumulationValue, src.nextLong());
+				return accumulationValue;
+			}
+
+			@Override
+			public void skip() {
+				next();
+			}
+		};
+	}
 }

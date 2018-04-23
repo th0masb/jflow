@@ -70,7 +70,7 @@ public interface IntFlow extends SkippableIntIterator
 
 	IntFlow filter(final IntPredicate p);
 	
-	IntFlow append(int x);
+	IntFlow append(int... xs);
 
 	IntFlow append(PrimitiveIterator.OfInt other);
 	
@@ -84,7 +84,7 @@ public interface IntFlow extends SkippableIntIterator
 		return insert(other.iterator());
 	}
 	
-	IntFlow insert(int x);
+	IntFlow insert(int... xs);
 	
 	OptionalInt min();
 	

@@ -71,7 +71,7 @@ public interface DoubleFlow extends SkippableDoubleIterator
 
 	DoubleFlow filter(final DoublePredicate p);
 	
-	DoubleFlow append(double x);
+	DoubleFlow append(double... xs);
 
 	DoubleFlow append(PrimitiveIterator.OfDouble other);
 	
@@ -85,7 +85,7 @@ public interface DoubleFlow extends SkippableDoubleIterator
 		return insert(other.iterator());
 	}
 	
-	DoubleFlow insert(double x);
+	DoubleFlow insert(double... xs);
 	
 	OptionalDouble min();
 	

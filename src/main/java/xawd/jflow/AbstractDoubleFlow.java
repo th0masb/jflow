@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Lhasa Limited
+ * Copyright ï¿½ 2018 Lhasa Limited
  * File created: 23 Apr 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -125,7 +125,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public DoubleFlow append(final double x)
+	public DoubleFlow append(final double... xs)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -146,7 +146,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public DoubleFlow insert(final double x)
+	public DoubleFlow insert(final double... xs)
 	{
 		// TODO Auto-generated method stub
 		return null;

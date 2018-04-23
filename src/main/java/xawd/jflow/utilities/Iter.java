@@ -1,15 +1,20 @@
 package xawd.jflow.utilities;
 
+import static io.xyz.chains.utilities.CollectionUtil.len;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.IntFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
+import xawd.jflow.AbstractDoubleFlow;
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.AbstractIntFlow;
 import xawd.jflow.AbstractLongFlow;
+import xawd.jflow.DoubleFlow;
 import xawd.jflow.Flow;
 import xawd.jflow.IntFlow;
 import xawd.jflow.LongFlow;
@@ -139,7 +144,104 @@ public final class Iter
 
 	public static IntFlow of(final int... xs)
 	{
-		throw new RuntimeException();
+		return new AbstractIntFlow() {
+			int count = 0;
+			@Override
+			public boolean hasNext() {
+				return count < len(xs);
+			}
+			@Override
+			public int nextInt() {
+				if (count < len(xs)) {
+					return xs[count++];
+				}
+				else {
+					throw new NoSuchElementException();
+				}
+			}
+			@Override
+			public void skip() {
+				if (count < len(xs)) {
+					count++;
+				}
+				else {
+					throw new NoSuchElementException();
+				}
+			}
+		};
+	}
+	
+	public static IntFlow of(final int x)
+	{
+		return of(new int[] {x});
+	}
+	
+	public static LongFlow of(final long... xs)
+	{
+		return new AbstractLongFlow() {
+			int count = 0;
+			@Override
+			public boolean hasNext() {
+				return count < len(xs);
+			}
+			@Override
+			public long nextLong() {
+				if (count < len(xs)) {
+					return xs[count++];
+				}
+				else {
+					throw new NoSuchElementException();
+				}
+			}
+			@Override
+			public void skip() {
+				if (count < len(xs)) {
+					count++;
+				}
+				else {
+					throw new NoSuchElementException();
+				}
+			}
+		};
+	}
+	
+	public static LongFlow of(final long x)
+	{
+		return of(new long[] {x});
+	}
+	
+	public static DoubleFlow of(final double... xs)
+	{
+		return new AbstractDoubleFlow() {
+			int count = 0;
+			@Override
+			public boolean hasNext() {
+				return count < len(xs);
+			}
+			@Override
+			public double nextDouble() {
+				if (count < len(xs)) {
+					return xs[count++];
+				}
+				else {
+					throw new NoSuchElementException();
+				}
+			}
+			@Override
+			public void skip() {
+				if (count < len(xs)) {
+					count++;
+				}
+				else {
+					throw new NoSuchElementException();
+				}
+			}
+		};
+	}
+	
+	public static DoubleFlow of(final double x)
+	{
+		return of(new double[] {x});
 	}
 
 	public static void main(final String[] args)
@@ -150,7 +252,7 @@ public final class Iter
 
 		System.out.println(Iter.of(strings).accumulate("empty", String::concat).toList());
 
-		System.out.println(Iter.of(strings).slice(i -> 2*i + 1).toList());
+		System.out.println(Iter.of(strings).slice(i -> 2*i + 1).insert("x", "y").toList());
 
 		System.out.println(Itertools.product(strings, strings).toList());
 
