@@ -19,6 +19,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import xawd.jflow.impl.SlicedFlow;
+import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.utilities.Iter;
 import xawd.jflow.zippedpairs.DoubleWith;
@@ -291,73 +292,9 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> takeWhile(final Predicate<? super T> p) {
-		final AbstractFlow<T> src = this;
-
-		return new AbstractFlow<T>() {
-			T cached = null;
-			boolean nextReady = false;
-			boolean iteratorExhausted = false;
-			@Override
-			public boolean hasNext() {
-				if (nextReady) {
-					return true;
-				}
-				if (src.hasNext()) {
-					cached = src.next();
-					if (p.test(cached)) {
-						nextReady = true;
-						return true;
-					}
-					else {
-						iteratorExhausted = true;
-						return false;
-					}
-				}
-				else {
-					iteratorExhausted = true;
-					return false;
-				}
-			}
-			@Override
-			public T next() {
-				if (iteratorExhausted) {
-					throw new NoSuchElementException();
-				}
-				else if (nextReady) {
-					nextReady = false;
-					return cached;
-				}
-				else { // hasnext wasn't called
-					if (hasNext()) {
-						nextReady = false;
-						return cached;
-					}
-					else {
-						throw new NoSuchElementException();
-					}
-				}
-			}
-			@Override
-			public void skip() {
-				if (iteratorExhausted) {
-					throw new NoSuchElementException();
-				}
-				else if (nextReady) {
-					nextReady = false;
-					src.skip();
-				}
-				else { // hasnext wasn't called
-					if (hasNext()) {
-						nextReady = false;
-						src.skip();
-					}
-					else {
-						throw new NoSuchElementException();
-					}
-				}
-			}
-		};
+	public Flow<T> takeWhile(final Predicate<? super T> predicate) 
+	{
+		return new TakeWhileFlow<>(this, predicate);
 	}
 
 	@Override

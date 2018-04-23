@@ -8,6 +8,8 @@ import xawd.jflow.AbstractFlow;
  */
 public class FilteredFlow<T> extends AbstractFlow<T>
 {
+	
+//	public FilteredFlow
 
 	@Override
 	public boolean hasNext()

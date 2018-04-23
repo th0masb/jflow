@@ -13,6 +13,7 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
+import xawd.jflow.impl.PrimitiveTakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.utilities.Iter;
 import xawd.jflow.zippedpairs.DoubleWithLong;
@@ -22,7 +23,6 @@ import xawd.jflow.zippedpairs.LongWith;
 
 /**
  * @author t
- *
  */
 public abstract class AbstractLongFlow implements LongFlow
 {
@@ -260,10 +260,9 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow takeWhile(final LongPredicate p)
+	public LongFlow takeWhile(final LongPredicate predicate)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new PrimitiveTakeWhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
@@ -299,7 +298,8 @@ public abstract class AbstractLongFlow implements LongFlow
 	 * @see xawd.jflow.LongFlow#dropWhile(java.util.function.LongPredicate)
 	 */
 	@Override
-	public LongFlow dropWhile(final LongPredicate p) {
+	public LongFlow dropWhile(final LongPredicate p) 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
