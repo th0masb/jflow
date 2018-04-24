@@ -20,12 +20,13 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.construction.Iter;
+import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.DropWhileFlow;
 import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.SlicedFlow;
 import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
-import xawd.jflow.utilities.Iter;
 import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;
@@ -258,7 +259,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<IntWith<T>> enumerate()
 	{
-		return zipWith(Iter.naturalNumbers());
+		return zipWith(Numbers.natural());
 	}
 
 	@Override
@@ -298,7 +299,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	@Override
 	public Flow<T> takeWhile(final Predicate<? super T> predicate)
 	{
-		return new TakeWhileFlow<>(this, predicate);
+		return new TakeWhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
@@ -338,12 +339,12 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 
 	@Override
 	public Flow<T> dropWhile(final Predicate<? super T> predicate) {
-		return new DropWhileFlow<>(this, predicate);
+		return new DropWhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
 	public Flow<T> filter(final Predicate<? super T> predicate) {
-		return new FilteredFlow<>(this, predicate);
+		return new FilteredFlow.OfObject<>(this, predicate);
 	}
 
 	@Override

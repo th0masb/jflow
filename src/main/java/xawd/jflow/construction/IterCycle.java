@@ -1,7 +1,7 @@
 /**
  * 
  */
-package xawd.jflow.utilities;
+package xawd.jflow.construction;
 
 /**
  * @author t

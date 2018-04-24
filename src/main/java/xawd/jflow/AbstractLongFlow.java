@@ -13,11 +13,12 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import xawd.jflow.impl.PrimitiveDropWhileFlow;
-import xawd.jflow.impl.PrimitiveFilteredFlow;
-import xawd.jflow.impl.PrimitiveTakeWhileFlow;
+import xawd.jflow.construction.Iter;
+import xawd.jflow.construction.Numbers;
+import xawd.jflow.impl.DropWhileFlow;
+import xawd.jflow.impl.FilteredFlow;
+import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
-import xawd.jflow.utilities.Iter;
 import xawd.jflow.zippedpairs.DoubleWithLong;
 import xawd.jflow.zippedpairs.IntWithLong;
 import xawd.jflow.zippedpairs.LongPair;
@@ -224,7 +225,7 @@ public abstract class AbstractLongFlow implements LongFlow
 
 	@Override
 	public Flow<IntWithLong> enumerate() {
-		return zipWith(Iter.naturalNumbers());
+		return zipWith(Numbers.natural());
 	}
 
 	@Override
@@ -264,7 +265,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public LongFlow takeWhile(final LongPredicate predicate)
 	{
-		return new PrimitiveTakeWhileFlow.OfLong(this, predicate);
+		return new TakeWhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
@@ -308,13 +309,13 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public LongFlow dropWhile(final LongPredicate predicate)
 	{
-		return new PrimitiveDropWhileFlow.OfLong(this, predicate);
+		return new DropWhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
 	public LongFlow filter(final LongPredicate predicate)
 	{
-		return new PrimitiveFilteredFlow.OfLong(this, predicate);
+		return new FilteredFlow.OfLong(this, predicate);
 	}
 
 	@Override

@@ -10,11 +10,12 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import xawd.jflow.impl.PrimitiveDropWhileFlow;
-import xawd.jflow.impl.PrimitiveFilteredFlow;
-import xawd.jflow.impl.PrimitiveTakeWhileFlow;
+import xawd.jflow.construction.Iter;
+import xawd.jflow.construction.Numbers;
+import xawd.jflow.impl.DropWhileFlow;
+import xawd.jflow.impl.FilteredFlow;
+import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
-import xawd.jflow.utilities.Iter;
 import xawd.jflow.zippedpairs.IntPair;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.IntWithDouble;
@@ -222,7 +223,7 @@ public abstract class AbstractIntFlow implements IntFlow
 
 	@Override
 	public Flow<IntPair> enumerate() {
-		return zipWith(Iter.naturalNumbers());
+		return zipWith(Numbers.natural());
 	}
 
 	@Override
@@ -262,7 +263,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public IntFlow takeWhile(final IntPredicate predicate)
 	{
-		return new PrimitiveTakeWhileFlow.OfInt(this, predicate);
+		return new TakeWhileFlow.OfInt(this, predicate);
 	}
 
 	@Override
@@ -306,13 +307,13 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public IntFlow dropWhile(final IntPredicate predicate)
 	{
-		return new PrimitiveDropWhileFlow.OfInt(this, predicate);
+		return new DropWhileFlow.OfInt(this, predicate);
 	}
 
 	@Override
 	public IntFlow filter(final IntPredicate predicate)
 	{
-		return new PrimitiveFilteredFlow.OfInt(this, predicate);
+		return new FilteredFlow.OfInt(this, predicate);
 	}
 
 	@Override

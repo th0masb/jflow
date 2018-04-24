@@ -1,4 +1,4 @@
-package xawd.jflow.utilities;
+package xawd.jflow.construction;
 
 import static io.xyz.chains.utilities.PrimitiveUtil.abs;
 import static io.xyz.chains.utilities.PrimitiveUtil.signum;
@@ -23,8 +23,8 @@ public final class Range
 	public static IntFlow stepBetween(final int low, final int high, final int step)
 	{
 		final int length = high - low;
-		final int elementCount = (int) Math.ceil(((double) abs(length)) / abs(step));
-		return signum(step) == signum(high - low) ? Iter.intsFrom(i -> low + i*step, elementCount) : Iter.emptyInts();
+		final int elementCount = (int) Math.ceil(abs((double)length / step));
+		return signum(step) == signum(length) ? Iter.intsFrom(i -> low + i*step, elementCount) : Iter.emptyInts();
 	}
 
 	public static DoubleFlow partition(final double low, final double high, final int nSubIntervals)

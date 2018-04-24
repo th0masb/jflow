@@ -1,9 +1,11 @@
-package xawd.jflow.utilities;
+package xawd.jflow.construction;
 
 import static io.xyz.chains.utilities.CollectionUtil.str;
 
 import xawd.jflow.AbstractIntFlow;
+import xawd.jflow.AbstractLongFlow;
 import xawd.jflow.IntFlow;
+import xawd.jflow.LongFlow;
 
 public final class Numbers
 {
@@ -12,15 +14,15 @@ public final class Numbers
 		return Iter.intsFrom(i -> i);
 	}
 
-	public static IntFlow fibonacci()
+	public static LongFlow fibonacci()
 	{
 		return fibonacci(1, 1);
 	}
 
-	public static IntFlow fibonacci(final int lowStart, final int highStart)
+	public static LongFlow fibonacci(final int lowStart, final int highStart)
 	{
-		return new AbstractIntFlow() {
-			int x1 = lowStart, x2 = highStart;
+		return new AbstractLongFlow() {
+			long x1 = lowStart, x2 = highStart;
 			int count = 0;
 			@Override
 			public void skip() {
@@ -32,14 +34,14 @@ public final class Numbers
 				return true;
 			}
 			@Override
-			public int nextInt()
+			public long nextLong()
 			{
 				if (count < 2) {
 					count++;
 					return count == 1? lowStart : highStart;
 				}
 				else {
-					final int nextFib = x1 + x2;
+					final long nextFib = x1 + x2;
 					x1 = x2;
 					x2 = nextFib;
 					return nextFib;
@@ -77,7 +79,7 @@ public final class Numbers
 
 	public static void main(final String[] args)
 	{
-		System.out.println(str(fibonacci().take(30).toArray()));
+		System.out.println(str(fibonacci().take(60).toArray()));
 	}
 }
 

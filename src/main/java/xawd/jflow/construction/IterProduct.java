@@ -1,7 +1,7 @@
 /**
  * 
  */
-package xawd.jflow.utilities;
+package xawd.jflow.construction;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

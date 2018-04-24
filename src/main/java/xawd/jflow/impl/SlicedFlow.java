@@ -6,7 +6,10 @@ package xawd.jflow.impl;
 import java.util.NoSuchElementException;
 import java.util.function.IntUnaryOperator;
 
+import xawd.jflow.AbstractDoubleFlow;
 import xawd.jflow.AbstractFlow;
+import xawd.jflow.AbstractIntFlow;
+import xawd.jflow.AbstractLongFlow;
 import xawd.jflow.Flow;
 
 /**
@@ -123,5 +126,76 @@ public final class SlicedFlow<T> extends AbstractFlow<T> {
 		final T tmp = cached;
 		cached = null;
 		return tmp;
+	}
+	
+	public static class OfInt extends AbstractIntFlow
+	{
+		@Override
+		public int nextInt()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void skip()
+		{
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	public static class OfDouble extends AbstractDoubleFlow
+	{
+		@Override
+		public double nextDouble()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void skip()
+		{
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	public static class OfLong extends AbstractLongFlow
+	{
+		@Override
+		public void skip()
+		{
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public long nextLong()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			// TODO Auto-generated method stub
+			return false;
+		}
 	}
 }
