@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.IntFunction;
+import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
@@ -40,6 +41,14 @@ public final class Iter
 		};
 	}
 
+	public static <T> Flow<T> from(final IntFunction<T> f, final int elementCount)
+	{
+		if (elementCount < 0) {
+			throw new IllegalArgumentException();
+		}
+		return from(f).take(elementCount);
+	}
+
 	public static LongFlow longsFrom(final IntToLongFunction f)
 	{
 		return new AbstractLongFlow() {
@@ -59,6 +68,14 @@ public final class Iter
 		};
 	}
 
+	public static LongFlow longsFrom(final IntToLongFunction f, final int elementCount)
+	{
+		if (elementCount < 0) {
+			throw new IllegalArgumentException();
+		}
+		return longsFrom(f).take(elementCount);
+	}
+
 	public static IntFlow intsFrom(final IntUnaryOperator f)
 	{
 		return new AbstractIntFlow() {
@@ -76,6 +93,41 @@ public final class Iter
 				nextInt();
 			}
 		};
+	}
+
+	public static IntFlow intsFrom(final IntUnaryOperator f, final int elementCount)
+	{
+		if (elementCount < 0) {
+			throw new IllegalArgumentException();
+		}
+		return intsFrom(f).take(elementCount);
+	}
+
+	public static DoubleFlow doublesFrom(final IntToDoubleFunction f)
+	{
+		return new AbstractDoubleFlow() {
+			int count = 0;
+			@Override
+			public boolean hasNext() {
+				return true;
+			}
+			@Override
+			public double nextDouble() {
+				return f.applyAsDouble(count++);
+			}
+			@Override
+			public void skip() {
+				nextDouble();
+			}
+		};
+	}
+
+	public static DoubleFlow doublesFrom(final IntToDoubleFunction f, final int elementCount)
+	{
+		if (elementCount < 0) {
+			throw new IllegalArgumentException();
+		}
+		return doublesFrom(f).take(elementCount);
 	}
 
 	public static IntFlow naturalNumbers()
@@ -170,12 +222,12 @@ public final class Iter
 			}
 		};
 	}
-	
+
 	public static IntFlow of(final int x)
 	{
 		return of(new int[] {x});
 	}
-	
+
 	public static LongFlow of(final long... xs)
 	{
 		return new AbstractLongFlow() {
@@ -204,12 +256,12 @@ public final class Iter
 			}
 		};
 	}
-	
+
 	public static LongFlow of(final long x)
 	{
 		return of(new long[] {x});
 	}
-	
+
 	public static DoubleFlow of(final double... xs)
 	{
 		return new AbstractDoubleFlow() {
@@ -238,10 +290,85 @@ public final class Iter
 			}
 		};
 	}
-	
+
 	public static DoubleFlow of(final double x)
 	{
 		return of(new double[] {x});
+	}
+
+	public static <T> Flow<T> empty()
+	{
+		return new AbstractFlow<T>() {
+			@Override
+			public boolean hasNext() {
+				return false;
+			}
+			@Override
+			public T next() {
+				throw new NoSuchElementException();
+			}
+			@Override
+			public void skip() {
+				throw new NoSuchElementException();
+			}
+		};
+	}
+
+	public static IntFlow emptyInts()
+	{
+		return new AbstractIntFlow() {
+			@Override
+			public void skip() {
+				throw new NoSuchElementException();
+			}
+			@Override
+			public boolean hasNext() {
+				return false;
+			}
+
+			@Override
+			public int nextInt() {
+				throw new NoSuchElementException();
+			}
+		};
+	}
+
+	public static LongFlow emptyLongs()
+	{
+		return new AbstractLongFlow() {
+			@Override
+			public void skip() {
+				throw new NoSuchElementException();
+			}
+			@Override
+			public boolean hasNext() {
+				return false;
+			}
+
+			@Override
+			public long nextLong() {
+				throw new NoSuchElementException();
+			}
+		};
+	}
+
+	public static DoubleFlow emptyDoubles()
+	{
+		return new AbstractDoubleFlow() {
+			@Override
+			public void skip() {
+				throw new NoSuchElementException();
+			}
+			@Override
+			public boolean hasNext() {
+				return false;
+			}
+
+			@Override
+			public double nextDouble() {
+				throw new NoSuchElementException();
+			}
+		};
 	}
 
 	public static void main(final String[] args)
@@ -254,9 +381,10 @@ public final class Iter
 
 		System.out.println(Iter.of(strings).slice(i -> 2*i + 1).insert("x", "y").toList());
 
-		System.out.println(Itertools.product(strings, strings).toList());
+		System.out.println(IterProduct.of(strings, strings).toList());
 
-
+		Range.to(10);
+		Range.between(2, 11).mapToObject(i -> "a").toList();
 //		Iter.longsFrom(i -> i)
 //		.mapToObject(i -> str(i))
 //		.slice(i -> 2*i*i + 3*i)

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.zippedpairs;
 
@@ -7,13 +7,18 @@ package xawd.jflow.zippedpairs;
  * @author t
  *
  */
-public final class DoublePair 
+public final class DoublePair
 {
 	private final double first, second;
-	
+
 	public DoublePair(final double first, final double second) {
 		this.first = first;
 		this.second = second;
+	}
+
+	public static DoublePair of(final double first, final double second)
+	{
+		return new DoublePair(first, second);
 	}
 
 	public double getFirst() {

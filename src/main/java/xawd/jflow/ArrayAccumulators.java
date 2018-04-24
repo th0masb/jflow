@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow;
 
@@ -12,44 +12,44 @@ import java.util.List;
  * @author t
  *
  */
-final class ArrayAccumulators 
+final class ArrayAccumulators
 {
 	static final int DEFAULT_ARRAY_SIZE = 20;
-	
+
 	static OfInt intAccumulator()
 	{
 		return new OfInt();
 	}
-	
+
 	static OfDouble doubleAccumulator()
 	{
 		return new OfDouble();
 	}
-	
+
 	static OfLong longAccumulator()
 	{
 		return new OfLong();
 	}
-	
-	static class OfInt 
+
+	static class OfInt
 	{
 		private final List<int[]> arrays = new ArrayList<>();
 		private int count = 0;
-		
+
 		public OfInt()
 		{
 			arrays.add(new int[DEFAULT_ARRAY_SIZE]);
 		}
-		
+
 		void add(final int i)
 		{
 			final int[] currentStore = tail(arrays);
-			currentStore[count++] = i;
+			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
 			if (count % DEFAULT_ARRAY_SIZE == 0) {
 				arrays.add(new int[DEFAULT_ARRAY_SIZE]);
 			}
 		}
-		
+
 		int[] compress()
 		{
 			final int[] compressed = new int[count];
@@ -62,26 +62,26 @@ final class ArrayAccumulators
 			return compressed;
 		}
 	}
-	
-	static class OfDouble 
+
+	static class OfDouble
 	{
 		private final List<double[]> arrays = new ArrayList<>();
 		private int count = 0;
-		
+
 		public OfDouble()
 		{
 			arrays.add(new double[DEFAULT_ARRAY_SIZE]);
 		}
-		
+
 		void add(final double i)
 		{
 			final double[] currentStore = tail(arrays);
-			currentStore[count++] = i;
+			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
 			if (count % DEFAULT_ARRAY_SIZE == 0) {
 				arrays.add(new double[DEFAULT_ARRAY_SIZE]);
 			}
 		}
-		
+
 		double[] compress()
 		{
 			final double[] compressed = new double[count];
@@ -94,26 +94,26 @@ final class ArrayAccumulators
 			return compressed;
 		}
 	}
-	
-	static class OfLong 
+
+	static class OfLong
 	{
 		private final List<long[]> arrays = new ArrayList<>();
 		private int count = 0;
-		
+
 		public OfLong()
 		{
 			arrays.add(new long[DEFAULT_ARRAY_SIZE]);
 		}
-		
+
 		void add(final long i)
 		{
 			final long[] currentStore = tail(arrays);
-			currentStore[count++] = i;
+			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
 			if (count % DEFAULT_ARRAY_SIZE == 0) {
 				arrays.add(new long[DEFAULT_ARRAY_SIZE]);
 			}
 		}
-		
+
 		long[] compress()
 		{
 			final long[] compressed = new long[count];

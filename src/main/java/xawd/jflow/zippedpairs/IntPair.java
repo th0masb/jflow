@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.zippedpairs;
 
@@ -7,13 +7,18 @@ package xawd.jflow.zippedpairs;
  * @author t
  *
  */
-public final class IntPair 
+public final class IntPair
 {
 	private final int first, second;
 
 	public IntPair(final int first, final int second) {
 		this.first = first;
 		this.second = second;
+	}
+
+	public static IntPair of(final int first, final int second)
+	{
+		return new IntPair(first, second);
 	}
 
 	public int getFirst() {

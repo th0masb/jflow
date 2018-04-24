@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.zippedpairs;
 
@@ -7,22 +7,27 @@ package xawd.jflow.zippedpairs;
  * @author t
  *
  */
-public final class IntWithDouble 
+public final class IntWithDouble
 {
 	private final int intVal;
 	private final double doubleVal;
-	
-	public IntWithDouble(final int intVal, final double doubleVal) 
+
+	public IntWithDouble(final int intVal, final double doubleVal)
 	{
 		this.intVal = intVal;
 		this.doubleVal = doubleVal;
 	}
-	
-	public int getIntVal() 
+
+	public static IntWithDouble of(final int intVal, final double doubleVal)
+	{
+		return new IntWithDouble(intVal, doubleVal);
+	}
+
+	public int getIntVal()
 	{
 		return intVal;
 	}
-	public double getDoubleVal() 
+	public double getDoubleVal()
 	{
 		return doubleVal;
 	}

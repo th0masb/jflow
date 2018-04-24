@@ -267,45 +267,52 @@ public abstract class AbstractLongFlow implements LongFlow
 		return new PrimitiveTakeWhileFlow.OfLong(this, predicate);
 	}
 
-	// TODO this isn't lazy
 	@Override
 	public LongFlow drop(final int n) {
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		
 		final AbstractLongFlow src = this;
 
-		return new AbstractLongFlow() {
-			{
-				final int count = 0;
-				while (count < n && src.hasNext()) {
-					src.skip();
-				}
-			}
+		return new AbstractLongFlow()
+		{
+			boolean initialized = false;
+
 			@Override
 			public boolean hasNext() {
+				initialiseIfRequired();
 				return src.hasNext();
 			}
 			@Override
 			public long nextLong() {
+				initialiseIfRequired();
 				return src.nextLong();
 			}
 			@Override
 			public void skip() {
+				initialiseIfRequired();
 				src.skip();
+			}
+
+			private void initialiseIfRequired() {
+				if (!initialized) {
+					for (int count = 0; count < n && src.hasNext(); count++) {
+						src.skip();
+					}
+					initialized = true;
+				}
 			}
 		};
 	}
 
 	@Override
-	public LongFlow dropWhile(final LongPredicate predicate) 
+	public LongFlow dropWhile(final LongPredicate predicate)
 	{
 		return new PrimitiveDropWhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
-	public LongFlow filter(final LongPredicate predicate) 
+	public LongFlow filter(final LongPredicate predicate)
 	{
 		return new PrimitiveFilteredFlow.OfLong(this, predicate);
 	}
@@ -341,7 +348,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow append(final long... xs) 
+	public LongFlow append(final long... xs)
 	{
 		return append(Iter.of(xs));
 	}
@@ -377,7 +384,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow insert(final long... xs) 
+	public LongFlow insert(final long... xs)
 	{
 		return insert(Iter.of(xs));
 	}
@@ -397,7 +404,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long min(final long defaultValue) 
+	public long min(final long defaultValue)
 	{
 		boolean found = false;
 		long min = Long.MAX_VALUE;
@@ -412,7 +419,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long minByKey(final long defaultValue, final LongToDoubleFunction key) 
+	public long minByKey(final long defaultValue, final LongToDoubleFunction key)
 	{
 		boolean found = false;
 		long minKey = -1;
@@ -430,7 +437,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public OptionalLong minByKey(final LongToDoubleFunction key) 
+	public OptionalLong minByKey(final LongToDoubleFunction key)
 	{
 		boolean found = false;
 		long minKey = -1;
@@ -448,7 +455,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public <C extends Comparable<C>> OptionalLong minByObjectKey(final LongFunction<C> key) 
+	public <C extends Comparable<C>> OptionalLong minByObjectKey(final LongFunction<C> key)
 	{
 		boolean found = false;
 		long minKey = -1;
@@ -480,7 +487,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long max(final long defaultValue) 
+	public long max(final long defaultValue)
 	{
 		boolean found = false;
 		long max = Long.MIN_VALUE;
@@ -495,7 +502,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long maxByKey(final long defaultValue, final LongToDoubleFunction key) 
+	public long maxByKey(final long defaultValue, final LongToDoubleFunction key)
 	{
 		boolean found = false;
 		long maxKey = -1;
@@ -513,7 +520,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public OptionalLong maxByKey(final LongToDoubleFunction key) 
+	public OptionalLong maxByKey(final LongToDoubleFunction key)
 	{
 		boolean found = false;
 		long maxKey = -1;
@@ -590,7 +597,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long reduce(final long id, final LongBinaryOperator reducer) 
+	public long reduce(final long id, final LongBinaryOperator reducer)
 	{
 		long reduction = id;
 		while (hasNext()) {
@@ -600,7 +607,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public OptionalLong reduce(final LongBinaryOperator reducer) 
+	public OptionalLong reduce(final LongBinaryOperator reducer)
 	{
 		boolean unIntialized = true;
 		long reduction = -1L;
@@ -617,10 +624,10 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow accumulate(final LongBinaryOperator accumulator) 
+	public LongFlow accumulate(final LongBinaryOperator accumulator)
 	{
 		final AbstractLongFlow src = this;
-		
+
 		return new AbstractLongFlow() {
 			boolean unInitialized = true;
 			long accumulationValue = -1;

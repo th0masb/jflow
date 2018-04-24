@@ -12,6 +12,7 @@ import java.util.PrimitiveIterator.OfInt;
 import java.util.PrimitiveIterator.OfLong;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
@@ -19,6 +20,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.impl.DropWhileFlow;
 import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.SlicedFlow;
 import xawd.jflow.impl.TakeWhileFlow;
@@ -294,7 +296,7 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> takeWhile(final Predicate<? super T> predicate) 
+	public Flow<T> takeWhile(final Predicate<? super T> predicate)
 	{
 		return new TakeWhileFlow<>(this, predicate);
 	}
@@ -307,67 +309,36 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 		final AbstractFlow<T> src = this;
 
 		return new AbstractFlow<T>() {
-			{
-				for (int i = 0; i < n && src.hasNext(); i++) {
-					src.skip();
-				}
-			}
+			boolean initialized = false;
 			@Override
 			public boolean hasNext() {
+				initialiseIfRequired();
 				return src.hasNext();
 			}
 			@Override
 			public T next() {
+				initialiseIfRequired();
 				return src.next();
 			}
 			@Override
 			public void skip() {
+				initialiseIfRequired();
 				src.skip();
+			}
+			private void initialiseIfRequired() {
+				if (!initialized) {
+					for (int count = 0; count < n && src.hasNext(); count++) {
+						src.skip();
+					}
+					initialized = true;
+				}
 			}
 		};
 	}
 
 	@Override
-	public Flow<T> dropWhile(final Predicate<? super T> p) {
-		final AbstractFlow<T> src = this;
-
-		return new AbstractFlow<T>() {
-			T firstFailure = null;
-			{
-				while (src.hasNext() && firstFailure == null)
-				{
-					final T next = src.next();
-					if (!p.test(next)) {
-						firstFailure = next;
-					}
-				}
-			}
-			@Override
-			public boolean hasNext() {
-				return src.hasNext() || firstFailure != null;
-			}
-
-			@Override
-			public T next() {
-				if (firstFailure != null) {
-					final T tmp = firstFailure;
-					firstFailure = null;
-					return tmp;
-				}
-				else {
-					return src.next();
-				}
-			}
-			@Override
-			public void skip() {
-				if (firstFailure != null) {
-					firstFailure = null;
-				}
-				else {
-					src.skip();
-				}
-			}
-		};
+	public Flow<T> dropWhile(final Predicate<? super T> predicate) {
+		return new DropWhileFlow<>(this, predicate);
 	}
 
 	@Override
@@ -608,5 +579,13 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 				next();
 			}
 		};
+	}
+
+	@Override
+	public void forEach(final Consumer<T> action)
+	{
+		while (hasNext()) {
+			action.accept(next());
+		}
 	}
 }

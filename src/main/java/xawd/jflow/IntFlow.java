@@ -9,6 +9,7 @@ import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
+import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import xawd.jflow.iterators.SkippableIntIterator;
@@ -32,8 +33,8 @@ public interface IntFlow extends SkippableIntIterator
 
 	DoubleFlow mapToDouble(IntToDoubleFunction f);
 
-	IntFlow mapToInt(IntUnaryOperator f);
-	
+	LongFlow mapToLong(IntToLongFunction f);
+
 	<T> Flow<IntWith<T>> zipWith(final Iterator<T> other);
 
 	default <T> Flow<IntWith<T>> zipWith(final Iterable<T> other) {
@@ -41,19 +42,19 @@ public interface IntFlow extends SkippableIntIterator
 	}
 
 	Flow<IntPair> zipWith(final PrimitiveIterator.OfInt other);
-	
+
 	default Flow<IntPair> zipWith(final IterableInts other) {
 		return zipWith(other.iterator());
 	}
 
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfDouble other);
-	
+
 	default Flow<IntWithDouble> zipWith(final IterableDoubles other) {
 		return zipWith(other.iterator());
 	}
 
 	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfLong other);
-	
+
 	default Flow<IntWithLong> zipWith(final IterableLongs other) {
 		return zipWith(other.iterator());
 	}
@@ -69,35 +70,35 @@ public interface IntFlow extends SkippableIntIterator
 	IntFlow dropWhile(final IntPredicate p);
 
 	IntFlow filter(final IntPredicate p);
-	
+
 	IntFlow append(int... xs);
 
 	IntFlow append(PrimitiveIterator.OfInt other);
-	
+
 	default IntFlow append(final IterableInts other) {
 		return append(other.iterator());
 	}
-	
+
 	IntFlow insert(PrimitiveIterator.OfInt other);
-	
+
 	default IntFlow insert(final IterableInts other) {
 		return insert(other.iterator());
 	}
-	
+
 	IntFlow insert(int... xs);
-	
+
 	OptionalInt min();
-	
+
 	int min(int defaultValue);
-	
+
 	int minByKey(int defaultValue, final IntToDoubleFunction key);
 
 	OptionalInt minByKey(final IntToDoubleFunction key);
 
 	<C extends Comparable<C>> OptionalInt minByObjectKey(final IntFunction<C> key);
-	
+
 	OptionalInt max();
-	
+
 	int max(int defaultValue);
 
 	int maxByKey(int defaultValue, final IntToDoubleFunction key);
@@ -105,23 +106,23 @@ public interface IntFlow extends SkippableIntIterator
 	OptionalInt maxByKey(final IntToDoubleFunction key);
 
 	<C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key);
-	
+
 	boolean allMatch(final IntPredicate predicate);
 
 	boolean anyMatch(final IntPredicate predicate);
 
 	boolean noneMatch(final IntPredicate predicate);
-	
+
 	int count();
-	
+
 	int reduce(int id, IntBinaryOperator reducer);
-	
+
 	OptionalInt reduce(IntBinaryOperator reducer);
-	
+
 	IntFlow accumulate(IntBinaryOperator accumulator);
-	
+
 	IntFlow accumulate(int id, IntBinaryOperator accumulator);
-	
+
 	default int[] toArray()
 	{
 		final ArrayAccumulators.OfInt accumulater = ArrayAccumulators.intAccumulator();
@@ -130,7 +131,7 @@ public interface IntFlow extends SkippableIntIterator
 		}
 		return accumulater.compress();
 	}
-	
+
 	default <K, V> Map<K, V> toMap(final IntFunction<K> keyMapper, final IntFunction<V> valueMapper)
 	{
 		final Map<K, V> collected = new HashMap<>();

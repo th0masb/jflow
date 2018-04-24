@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.impl;
 
@@ -14,20 +14,20 @@ import xawd.jflow.Flow;
  *
  */
 public class DropWhileFlow<T> extends AbstractFlow<T> {
-	
+
 	private final Flow<T> src;
-	private final Predicate<T> predicate;
-	
+	private final Predicate<? super T> predicate;
+
 	private boolean firstFailureConsumed = false;
 	private T firstFailure = null;
-	
-	public DropWhileFlow(final Flow<T> src, final Predicate<T> predicate) {
+
+	public DropWhileFlow(final Flow<T> src, final Predicate<? super T> predicate) {
 		this.src = src;
 		this.predicate = predicate;
 	}
 
 	@Override
-	public boolean hasNext() 
+	public boolean hasNext()
 	{
 		if (firstFailure == null) {
 			while (firstFailure == null && src.hasNext()) {

@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package xawd.jflow.iterators;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 /**
  * @author t
@@ -11,4 +12,10 @@ import java.util.Iterator;
  */
 public interface SkippableIterator<T> extends Iterator<T>, Skippable
 {
+	default void forEach(final Consumer<T> action)
+	{
+		while (hasNext()) {
+			action.accept(next());
+		}
+	}
 }

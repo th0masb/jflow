@@ -33,8 +33,8 @@ public interface DoubleFlow extends SkippableDoubleIterator
 
 	LongFlow mapToLong(DoubleToLongFunction f);
 
-	DoubleFlow mapToInt(DoubleToIntFunction f);
-	
+	IntFlow mapToInt(DoubleToIntFunction f);
+
 	<T> Flow<DoubleWith<T>> zipWith(final Iterator<T> other);
 
 	default <T> Flow<DoubleWith<T>> zipWith(final Iterable<T> other) {
@@ -42,19 +42,19 @@ public interface DoubleFlow extends SkippableDoubleIterator
 	}
 
 	Flow<DoublePair> zipWith(final PrimitiveIterator.OfDouble other);
-	
+
 	default Flow<DoublePair> zipWith(final IterableDoubles other) {
 		return zipWith(other.iterator());
 	}
 
 	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfLong other);
-	
+
 	default Flow<DoubleWithLong> zipWith(final IterableLongs other) {
 		return zipWith(other.iterator());
 	}
 
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfInt other);
-	
+
 	default Flow<IntWithDouble> zipWith(final IterableInts other) {
 		return zipWith(other.iterator());
 	}
@@ -70,35 +70,35 @@ public interface DoubleFlow extends SkippableDoubleIterator
 	DoubleFlow dropWhile(final DoublePredicate p);
 
 	DoubleFlow filter(final DoublePredicate p);
-	
+
 	DoubleFlow append(double... xs);
 
 	DoubleFlow append(PrimitiveIterator.OfDouble other);
-	
+
 	default DoubleFlow append(final IterableDoubles other) {
 		return append(other.iterator());
 	}
-	
+
 	DoubleFlow insert(PrimitiveIterator.OfDouble other);
-	
+
 	default DoubleFlow insert(final IterableDoubles other) {
 		return insert(other.iterator());
 	}
-	
+
 	DoubleFlow insert(double... xs);
-	
+
 	OptionalDouble min();
-	
+
 	double min(double defaultValue);
-	
+
 	double minByKey(double defaultValue, final DoubleUnaryOperator key);
 
 	OptionalDouble minByKey(final DoubleUnaryOperator key);
 
 	<C extends Comparable<C>> OptionalDouble minByObjectKey(final DoubleFunction<C> key);
-	
+
 	OptionalDouble max();
-	
+
 	double max(double defaultValue);
 
 	double maxByKey(double defaultValue, final DoubleUnaryOperator key);
@@ -106,23 +106,23 @@ public interface DoubleFlow extends SkippableDoubleIterator
 	OptionalDouble maxByKey(final DoubleUnaryOperator key);
 
 	<C extends Comparable<C>> OptionalDouble maxByObjectKey(final DoubleFunction<C> key);
-	
+
 	boolean allMatch(final DoublePredicate predicate);
 
 	boolean anyMatch(final DoublePredicate predicate);
 
 	boolean noneMatch(final DoublePredicate predicate);
-	
+
 	int count();
-	
+
 	double reduce(double id, DoubleBinaryOperator reducer);
-	
+
 	OptionalDouble reduce(DoubleBinaryOperator reducer);
-	
+
 	DoubleFlow accumulate(DoubleBinaryOperator accumulator);
-	
+
 	DoubleFlow accumulate(double id, DoubleBinaryOperator accumulator);
-	
+
 	default double[] toArray()
 	{
 		final ArrayAccumulators.OfDouble accumulater = ArrayAccumulators.doubleAccumulator();
@@ -131,7 +131,7 @@ public interface DoubleFlow extends SkippableDoubleIterator
 		}
 		return accumulater.compress();
 	}
-	
+
 	default <K, V> Map<K, V> toMap(final DoubleFunction<K> keyMapper, final DoubleFunction<V> valueMapper)
 	{
 		final Map<K, V> collected = new HashMap<>();

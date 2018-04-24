@@ -14,9 +14,9 @@ import xawd.jflow.zippedpairs.Pair;
  * @author t
  *
  */
-public class Itertools 
+public class IterProduct 
 {
-	public static <X, Y> Flow<Pair<X, Y>> product(final Iterable<X> xs, final Iterable<Y> ys)
+	public static <X, Y> Flow<Pair<X, Y>> of(final Iterable<X> xs, final Iterable<Y> ys)
 	{
 		return new AbstractFlow<Pair<X,Y>>() {
 			Iterator<X> iterX = xs.iterator();
