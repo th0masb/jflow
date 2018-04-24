@@ -1,2 +1,6 @@
-# A package of low-level utilities for manipulating sequences
-Includes e.g mapping, combining, folding utilities which are built on top of the guava library
+# A Java Iterator package
+
+Provides support a multitude of sequence manipulation features for both objects and primitives using sequential 
+lazy evaluating iterator objects inspired by python generators and functional programming techniques.
+
+I intend to add some combinatoric features too.
