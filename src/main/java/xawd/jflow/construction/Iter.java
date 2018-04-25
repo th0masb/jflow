@@ -1,5 +1,7 @@
 package xawd.jflow.construction;
 
+import static java.util.Arrays.asList;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -180,5 +182,8 @@ public final class Iter
 //		.take(10)
 //		.enumerate()
 //		.toList();
+		
+		Iter.of(asList("a", "b"), asList("c", "d")).flatten(Iter::of).toList();
+		Iter.of(new int[] {1, 2}, new int[] {3, 4}).flattenToInts(Iter::of).toArray();
 	}
 }

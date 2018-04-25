@@ -40,6 +40,18 @@ import xawd.jflow.zippedpairs.Pair;
 public abstract class AbstractFlow<T> implements Flow<T>
 {
 	@Override
+	public <R> Flow<R> flatten(final Function<? super T, ? extends Flow<? extends R>> mapping)
+	{
+		throw new RuntimeException();
+	}
+	
+	@Override
+	public IntFlow flattenToInts(final Function<? super T, ? extends IntFlow> mapping)
+	{
+		throw new RuntimeException();
+	}
+	
+	@Override
 	public Flow<T> slice(final IntUnaryOperator f)
 	{
 		return new SlicedFlow<>(this, f);

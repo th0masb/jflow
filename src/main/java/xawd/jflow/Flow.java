@@ -99,6 +99,10 @@ public interface Flow<T> extends SkippableIterator<T>
 	Flow<T> accumulate(BinaryOperator<T> accumulator);
 
 	<R> Flow<R> accumulate(R id, BiFunction<R, T, R> accumulator);
+	
+	<R> Flow<R> flatten(Function<? super T, ? extends Flow<? extends R>> mapping);
+	
+	IntFlow flattenToInts(Function<? super T, ? extends IntFlow> mapping);
 
 	default <C extends Collection<T>> C toCollection(final Supplier<C> collectionFactory)
 	{

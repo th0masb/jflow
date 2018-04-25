@@ -100,7 +100,7 @@ public interface IntFlow extends SkippableIntIterator
 	IntFlow accumulate(IntBinaryOperator accumulator);
 
 	IntFlow accumulate(int id, IntBinaryOperator accumulator);
-
+	
 	default int[] toArray()
 	{
 		final ArrayAccumulators.OfInt accumulater = ArrayAccumulators.intAccumulator();
