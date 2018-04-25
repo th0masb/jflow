@@ -1,8 +1,8 @@
 package xawd.jflow;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.OptionalInt;
+import java.util.PrimitiveIterator;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
@@ -12,8 +12,11 @@ import java.util.function.IntUnaryOperator;
 
 import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
+import xawd.jflow.impl.AccumulationFlow;
+import xawd.jflow.impl.DropFlow;
 import xawd.jflow.impl.DropWhileFlow;
 import xawd.jflow.impl.FilteredFlow;
+import xawd.jflow.impl.TakeFlow;
 import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.zippedpairs.IntPair;
@@ -28,39 +31,50 @@ import xawd.jflow.zippedpairs.IntWithLong;
 public abstract class AbstractIntFlow implements IntFlow
 {
 	@Override
-	public IntFlow map(final IntUnaryOperator f) {
+	public IntFlow map(final IntUnaryOperator f)
+	{
 		final AbstractIntFlow src = this;
-		return new AbstractIntFlow() {
+
+		return new AbstractIntFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext();
 			}
 			@Override
-			public int nextInt() {
+			public int nextInt()
+			{
 				return f.applyAsInt(src.nextInt());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 			}
 		};
 	}
 
 	@Override
-	public <T> Flow<T> mapToObject(final IntFunction<T> f) {
+	public <T> Flow<T> mapToObject(final IntFunction<T> f)
+	{
 		final AbstractIntFlow src = this;
-		return new AbstractFlow<T>() {
 
+		return new AbstractFlow<T>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext();
 			}
 			@Override
-			public T next() {
+			public T next()
+			{
 				return f.apply(src.nextInt());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.nextInt();
 			}
 		};
@@ -71,7 +85,8 @@ public abstract class AbstractIntFlow implements IntFlow
 	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractDoubleFlow() {
+		return new AbstractDoubleFlow()
+		{
 			@Override
 			public boolean hasNext()
 			{
@@ -95,7 +110,8 @@ public abstract class AbstractIntFlow implements IntFlow
 	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractLongFlow() {
+		return new AbstractLongFlow()
+		{
 			@Override
 			public boolean hasNext()
 			{
@@ -115,20 +131,25 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public <T> Flow<IntWith<T>> zipWith(final Iterator<T> other) {
+	public <T> Flow<IntWith<T>> zipWith(final Iterator<T> other)
+	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractFlow<IntWith<T>>() {
+		return new AbstractFlow<IntWith<T>>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public IntWith<T> next() {
+			public IntWith<T> next()
+			{
 				return IntWith.of(src.nextInt(), other.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -145,17 +166,21 @@ public abstract class AbstractIntFlow implements IntFlow
 	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractFlow<IntPair>() {
+		return new AbstractFlow<IntPair>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public IntPair next() {
+			public IntPair next()
+			{
 				return IntPair.of(src.nextInt(), other.nextInt());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -172,17 +197,21 @@ public abstract class AbstractIntFlow implements IntFlow
 	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractFlow<IntWithDouble>() {
+		return new AbstractFlow<IntWithDouble>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public IntWithDouble next() {
+			public IntWithDouble next()
+			{
 				return IntWithDouble.of(src.nextInt(), other.nextDouble());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -199,17 +228,21 @@ public abstract class AbstractIntFlow implements IntFlow
 	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractFlow<IntWithLong>() {
+		return new AbstractFlow<IntWithLong>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public IntWithLong next() {
+			public IntWithLong next()
+			{
 				return IntWithLong.of(src.nextInt(), other.nextLong());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -222,42 +255,48 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public Flow<IntPair> enumerate() {
+	public IntFlow combineWith(final PrimitiveIterator.OfInt other, final IntBinaryOperator combiner)
+	{
+		final AbstractIntFlow src = this;
+
+		return new AbstractIntFlow()
+		{
+			@Override
+			public boolean hasNext()
+			{
+				return src.hasNext() && other.hasNext();
+			}
+
+			@Override
+			public int nextInt()
+			{
+				return combiner.applyAsInt(src.nextInt(), other.nextInt());
+			}
+
+			@Override
+			public void skip()
+			{
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.nextInt();
+				}
+			}
+		};
+	}
+
+	@Override
+	public Flow<IntPair> enumerate()
+	{
 		return zipWith(Numbers.natural());
 	}
 
 	@Override
-	public IntFlow take(final int n) {
-		if (n < 0) {
-			throw new IllegalArgumentException();
-		}
-		final AbstractIntFlow src = this;
-
-		return new AbstractIntFlow() {
-			int count = 0;
-			@Override
-			public boolean hasNext() {
-				return count < n && src.hasNext();
-			}
-			@Override
-			public int nextInt() {
-				if (count++ >= n) {
-					throw new NoSuchElementException();
-				}
-				else {
-					return src.nextInt();
-				}
-			}
-			@Override
-			public void skip() {
-				if (count++ >= n) {
-					throw new NoSuchElementException();
-				}
-				else {
-					src.skip();
-				}
-			}
-		};
+	public IntFlow take(final int n)
+	{
+		return new TakeFlow.OfInt(this, n);
 	}
 
 	@Override
@@ -267,41 +306,9 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow drop(final int n) {
-		if (n < 0) {
-			throw new IllegalArgumentException();
-		}
-		final AbstractIntFlow src = this;
-
-		return new AbstractIntFlow()
-		{
-			boolean initialized = false;
-
-			@Override
-			public boolean hasNext() {
-				initialiseIfRequired();
-				return src.hasNext();
-			}
-			@Override
-			public int nextInt() {
-				initialiseIfRequired();
-				return src.nextInt();
-			}
-			@Override
-			public void skip() {
-				initialiseIfRequired();
-				src.skip();
-			}
-
-			private void initialiseIfRequired() {
-				if (!initialized) {
-					for (int count = 0; count < n && src.hasNext(); count++) {
-						src.skip();
-					}
-					initialized = true;
-				}
-			}
-		};
+	public IntFlow drop(final int n)
+	{
+		return new DropFlow.OfInt(this, n);
 	}
 
 	@Override
@@ -317,20 +324,25 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow append(final OfInt other) {
+	public IntFlow append(final OfInt other)
+	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractIntFlow() {
+		return new AbstractIntFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() || other.hasNext();
 			}
 			@Override
-			public int nextInt() {
+			public int nextInt()
+			{
 				return src.hasNext() ? src.nextInt() : other.nextInt();
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				if (src.hasNext()) {
 					src.skip();
 				}
@@ -353,20 +365,25 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow insert(final OfInt other) {
+	public IntFlow insert(final OfInt other)
+	{
 		final AbstractIntFlow src = this;
 
-		return new AbstractIntFlow() {
+		return new AbstractIntFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return other.hasNext() || src.hasNext();
 			}
 			@Override
-			public int nextInt() {
+			public int nextInt()
+			{
 				return other.hasNext() ? other.nextInt() : src.nextInt();
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				if (other.hasNext()) {
 					if (other instanceof Skippable) {
 						((Skippable) other).skip();
@@ -389,7 +406,8 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public OptionalInt min() {
+	public OptionalInt min()
+	{
 		boolean found = false;
 		int min = Integer.MAX_VALUE;
 		while (hasNext()) {
@@ -566,7 +584,8 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public boolean anyMatch(final IntPredicate predicate) {
+	public boolean anyMatch(final IntPredicate predicate)
+	{
 		while (hasNext()) {
 			if (predicate.test(next())) {
 				return true;
@@ -576,7 +595,8 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public boolean noneMatch(final IntPredicate predicate) {
+	public boolean noneMatch(final IntPredicate predicate)
+	{
 		while (hasNext()) {
 			if (predicate.test(next())) {
 				return false;
@@ -586,7 +606,8 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public int count() {
+	public int count()
+	{
 		int count = 0;
 		while (hasNext()) {
 			skip();
@@ -625,54 +646,12 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public IntFlow accumulate(final IntBinaryOperator accumulator)
 	{
-		final AbstractIntFlow src = this;
-
-		return new AbstractIntFlow() {
-			boolean unInitialized = true;
-			int accumulationValue = -1;
-			@Override
-			public boolean hasNext() {
-				return src.hasNext();
-			}
-			@Override
-			public int nextInt() {
-				if (unInitialized) {
-					unInitialized = false;
-					accumulationValue = src.nextInt();
-					return accumulationValue;
-				}
-				else {
-					accumulationValue = accumulator.applyAsInt(accumulationValue, src.nextInt());
-					return accumulationValue;
-				}
-			}
-			@Override
-			public void skip() {
-				next();
-			}
-		};
+		return new AccumulationFlow.OfInt(this, accumulator);
 	}
 
 	@Override
-	public IntFlow accumulate(final int id, final IntBinaryOperator accumulator) {
-		final AbstractIntFlow src = this;
-
-		return new AbstractIntFlow() {
-			int accumulationValue = id;
-			@Override
-			public boolean hasNext() {
-				return src.hasNext();
-			}
-			@Override
-			public int nextInt() {
-				accumulationValue = accumulator.applyAsInt(accumulationValue, src.nextInt());
-				return accumulationValue;
-			}
-
-			@Override
-			public void skip() {
-				next();
-			}
-		};
+	public IntFlow accumulate(final int id, final IntBinaryOperator accumulator)
+	{
+		return new AccumulationFlow.OfInt(this, id, accumulator);
 	}
 }

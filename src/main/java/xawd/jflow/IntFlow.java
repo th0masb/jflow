@@ -37,27 +37,13 @@ public interface IntFlow extends SkippableIntIterator
 
 	<T> Flow<IntWith<T>> zipWith(final Iterator<T> other);
 
-	default <T> Flow<IntWith<T>> zipWith(final Iterable<T> other) {
-		return zipWith(other.iterator());
-	}
-
 	Flow<IntPair> zipWith(final PrimitiveIterator.OfInt other);
-
-	default Flow<IntPair> zipWith(final IterableInts other) {
-		return zipWith(other.iterator());
-	}
 
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfDouble other);
 
-	default Flow<IntWithDouble> zipWith(final IterableDoubles other) {
-		return zipWith(other.iterator());
-	}
-
 	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfLong other);
 
-	default Flow<IntWithLong> zipWith(final IterableLongs other) {
-		return zipWith(other.iterator());
-	}
+	IntFlow combineWith(PrimitiveIterator.OfInt other, IntBinaryOperator combiner);
 
 	Flow<IntPair> enumerate();
 
@@ -75,15 +61,7 @@ public interface IntFlow extends SkippableIntIterator
 
 	IntFlow append(PrimitiveIterator.OfInt other);
 
-	default IntFlow append(final IterableInts other) {
-		return append(other.iterator());
-	}
-
 	IntFlow insert(PrimitiveIterator.OfInt other);
-
-	default IntFlow insert(final IterableInts other) {
-		return insert(other.iterator());
-	}
 
 	IntFlow insert(int... xs);
 
@@ -162,5 +140,40 @@ public interface IntFlow extends SkippableIntIterator
 			grouped.put(key, accumulationMap.get(key).compress());
 		}
 		return grouped;
+	}
+
+	default <T> Flow<IntWith<T>> zipWith(final Iterable<T> other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<IntPair> zipWith(final IterableInts other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<IntWithDouble> zipWith(final IterableDoubles other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<IntWithLong> zipWith(final IterableLongs other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default IntFlow combineWith(final IterableInts other, final IntBinaryOperator combiner)
+	{
+		return combineWith(other.iterator(), combiner);
+	}
+
+	default IntFlow append(final IterableInts other)
+	{
+		return append(other.iterator());
+	}
+
+	default IntFlow insert(final IterableInts other)
+	{
+		return insert(other.iterator());
 	}
 }

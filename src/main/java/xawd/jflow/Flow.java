@@ -22,6 +22,9 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import xawd.jflow.iterators.SkippableIterator;
+import xawd.jflow.primitiveiterables.IterableDoubles;
+import xawd.jflow.primitiveiterables.IterableInts;
+import xawd.jflow.primitiveiterables.IterableLongs;
 import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;
@@ -34,7 +37,7 @@ import xawd.jflow.zippedpairs.Pair;
 public interface Flow<T> extends SkippableIterator<T>
 {
 	Flow<T> slice(final IntUnaryOperator f);
-	
+
 	<R> Flow<R> map(final Function<? super T, R> f);
 
 	IntFlow mapToInt(ToIntFunction<? super T> f);
@@ -66,37 +69,37 @@ public interface Flow<T> extends SkippableIterator<T>
 	Flow<T> filter(final Predicate<? super T> p);
 
 	Flow<T> append(Iterator<? extends T> other);
-	
+
 	Flow<T> append(@SuppressWarnings("unchecked") T... ts);
 
 	Flow<T> insert(Iterator<? extends T> other);
-	
+
 	Flow<T> insert(@SuppressWarnings("unchecked") T... ts);
 
 	Optional<T> minByKey(final ToDoubleFunction<? super T> key);
- 
+
 	<C extends Comparable<C>> Optional<T> minByObjectKey(final Function<? super T, C> key);
 
 	Optional<T> maxByKey(final ToDoubleFunction<T> key);
 
 	<C extends Comparable<C>> Optional<T> maxByObjectKey(final Function<? super T, C> key);
-	
+
 	boolean allMatch(final Predicate<? super T> predicate);
 
 	boolean anyMatch(final Predicate<? super T> predicate);
 
 	boolean noneMatch(final Predicate<? super T> predicate);
-	
+
 	int count();
-	
+
 	T reduce(T id, BinaryOperator<T> reducer);
-	
+
 	Optional<T> reduce(BinaryOperator<T> reducer);
-	
+
 	Flow<T> accumulate(BinaryOperator<T> accumulator);
-	
+
 	<R> Flow<R> accumulate(R id, BiFunction<R, T, R> accumulator);
-	
+
 	default <C extends Collection<T>> C toCollection(final Supplier<C> collectionFactory)
 	{
 		final C container = collectionFactory.get();
@@ -158,5 +161,40 @@ public interface Flow<T> extends SkippableIterator<T>
 			}
 		}
 		return collected;
+	}
+
+	default <R> Flow<Pair<T, R>> zipWith(final Iterable<R> other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<IntWith<T>> zipWith(final IterableInts other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<DoubleWith<T>> zipWith(final IterableDoubles other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<LongWith<T>> zipWith(final IterableLongs other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default <U, R> Flow<R> combineWith(final Iterable<U> other, final BiFunction<T, U, R> f)
+	{
+		return combineWith(other.iterator(), f);
+	}
+
+	default Flow<T> append(final Iterable<? extends T> other)
+	{
+		return append(other.iterator());
+	}
+
+	default Flow<T> insert(final Iterable<? extends T> other)
+	{
+		return insert(other.iterator());
 	}
 }

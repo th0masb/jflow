@@ -37,27 +37,13 @@ public interface LongFlow extends SkippableLongIterator
 
 	<T> Flow<LongWith<T>> zipWith(final Iterator<T> other);
 
-	default <T> Flow<LongWith<T>> zipWith(final Iterable<T> other) {
-		return zipWith(other.iterator());
-	}
-
 	Flow<LongPair> zipWith(final PrimitiveIterator.OfLong other);
-
-	default Flow<LongPair> zipWith(final IterableLongs other) {
-		return zipWith(other.iterator());
-	}
 
 	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfDouble other);
 
-	default Flow<DoubleWithLong> zipWith(final IterableDoubles other) {
-		return zipWith(other.iterator());
-	}
-
 	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfInt other);
 
-	default Flow<IntWithLong> zipWith(final IterableInts other) {
-		return zipWith(other.iterator());
-	}
+	LongFlow combineWith(PrimitiveIterator.OfLong other, LongBinaryOperator combiner);
 
 	Flow<IntWithLong> enumerate();
 
@@ -75,15 +61,7 @@ public interface LongFlow extends SkippableLongIterator
 
 	LongFlow append(PrimitiveIterator.OfLong other);
 
-	default LongFlow append(final IterableLongs other) {
-		return append(other.iterator());
-	}
-
 	LongFlow insert(PrimitiveIterator.OfLong other);
-
-	default LongFlow insert(final IterableLongs other) {
-		return insert(other.iterator());
-	}
 
 	LongFlow insert(long... xs);
 
@@ -162,5 +140,40 @@ public interface LongFlow extends SkippableLongIterator
 			grouped.put(key, accumulationMap.get(key).compress());
 		}
 		return grouped;
+	}
+
+	default <T> Flow<LongWith<T>> zipWith(final Iterable<T> other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<LongPair> zipWith(final IterableLongs other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<DoubleWithLong> zipWith(final IterableDoubles other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<IntWithLong> zipWith(final IterableInts other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default LongFlow combineWith(final IterableLongs other, final LongBinaryOperator combiner)
+	{
+		return combineWith(other.iterator(), combiner);
+	}
+
+	default LongFlow append(final IterableLongs other)
+	{
+		return append(other.iterator());
+	}
+
+	default LongFlow insert(final IterableLongs other)
+	{
+		return insert(other.iterator());
 	}
 }

@@ -37,27 +37,13 @@ public interface DoubleFlow extends SkippableDoubleIterator
 
 	<T> Flow<DoubleWith<T>> zipWith(final Iterator<T> other);
 
-	default <T> Flow<DoubleWith<T>> zipWith(final Iterable<T> other) {
-		return zipWith(other.iterator());
-	}
-
 	Flow<DoublePair> zipWith(final PrimitiveIterator.OfDouble other);
-
-	default Flow<DoublePair> zipWith(final IterableDoubles other) {
-		return zipWith(other.iterator());
-	}
 
 	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfLong other);
 
-	default Flow<DoubleWithLong> zipWith(final IterableLongs other) {
-		return zipWith(other.iterator());
-	}
-
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfInt other);
 
-	default Flow<IntWithDouble> zipWith(final IterableInts other) {
-		return zipWith(other.iterator());
-	}
+	DoubleFlow combineWith(final OfDouble other, final DoubleBinaryOperator combiner);
 
 	Flow<IntWithDouble> enumerate();
 
@@ -75,15 +61,7 @@ public interface DoubleFlow extends SkippableDoubleIterator
 
 	DoubleFlow append(PrimitiveIterator.OfDouble other);
 
-	default DoubleFlow append(final IterableDoubles other) {
-		return append(other.iterator());
-	}
-
 	DoubleFlow insert(PrimitiveIterator.OfDouble other);
-
-	default DoubleFlow insert(final IterableDoubles other) {
-		return insert(other.iterator());
-	}
 
 	DoubleFlow insert(double... xs);
 
@@ -162,5 +140,40 @@ public interface DoubleFlow extends SkippableDoubleIterator
 			grouped.put(key, accumulationMap.get(key).compress());
 		}
 		return grouped;
+	}
+
+	default <T> Flow<DoubleWith<T>> zipWith(final Iterable<T> other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<DoublePair> zipWith(final IterableDoubles other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<DoubleWithLong> zipWith(final IterableLongs other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default Flow<IntWithDouble> zipWith(final IterableInts other)
+	{
+		return zipWith(other.iterator());
+	}
+
+	default DoubleFlow combineWith(final IterableDoubles other, final DoubleBinaryOperator combiner)
+	{
+		return combineWith(other.iterator(), combiner);
+	}
+
+	default DoubleFlow append(final IterableDoubles other)
+	{
+		return append(other.iterator());
+	}
+
+	default DoubleFlow insert(final IterableDoubles other)
+	{
+		return insert(other.iterator());
 	}
 }

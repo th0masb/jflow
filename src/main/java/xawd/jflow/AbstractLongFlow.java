@@ -4,7 +4,6 @@
 package xawd.jflow;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.OptionalLong;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongFunction;
@@ -15,8 +14,11 @@ import java.util.function.LongUnaryOperator;
 
 import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
+import xawd.jflow.impl.AccumulationFlow;
+import xawd.jflow.impl.DropFlow;
 import xawd.jflow.impl.DropWhileFlow;
 import xawd.jflow.impl.FilteredFlow;
+import xawd.jflow.impl.TakeFlow;
 import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.zippedpairs.DoubleWithLong;
@@ -30,39 +32,50 @@ import xawd.jflow.zippedpairs.LongWith;
 public abstract class AbstractLongFlow implements LongFlow
 {
 	@Override
-	public LongFlow map(final LongUnaryOperator f) {
+	public LongFlow map(final LongUnaryOperator f)
+	{
 		final AbstractLongFlow src = this;
-		return new AbstractLongFlow() {
+
+		return new AbstractLongFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext();
 			}
 			@Override
-			public long nextLong() {
+			public long nextLong()
+			{
 				return f.applyAsLong(src.nextLong());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 			}
 		};
 	}
 
 	@Override
-	public <T> Flow<T> mapToObject(final LongFunction<T> f) {
+	public <T> Flow<T> mapToObject(final LongFunction<T> f)
+	{
 		final AbstractLongFlow src = this;
-		return new AbstractFlow<T>() {
 
+		return new AbstractFlow<T>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext();
 			}
 			@Override
-			public T next() {
+			public T next()
+			{
 				return f.apply(src.nextLong());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.nextLong();
 			}
 		};
@@ -73,7 +86,8 @@ public abstract class AbstractLongFlow implements LongFlow
 	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractDoubleFlow() {
+		return new AbstractDoubleFlow()
+		{
 			@Override
 			public boolean hasNext()
 			{
@@ -97,7 +111,8 @@ public abstract class AbstractLongFlow implements LongFlow
 	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractIntFlow() {
+		return new AbstractIntFlow()
+		{
 			@Override
 			public boolean hasNext()
 			{
@@ -117,20 +132,25 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public <T> Flow<LongWith<T>> zipWith(final Iterator<T> other) {
+	public <T> Flow<LongWith<T>> zipWith(final Iterator<T> other)
+	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractFlow<LongWith<T>>() {
+		return new AbstractFlow<LongWith<T>>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public LongWith<T> next() {
+			public LongWith<T> next()
+			{
 				return LongWith.of(src.nextLong(), other.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -147,17 +167,21 @@ public abstract class AbstractLongFlow implements LongFlow
 	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractFlow<LongPair>() {
+		return new AbstractFlow<LongPair>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public LongPair next() {
+			public LongPair next()
+			{
 				return LongPair.of(src.nextLong(), other.nextLong());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -174,17 +198,21 @@ public abstract class AbstractLongFlow implements LongFlow
 	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractFlow<DoubleWithLong>() {
+		return new AbstractFlow<DoubleWithLong>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public DoubleWithLong next() {
+			public DoubleWithLong next()
+			{
 				return DoubleWithLong.of(other.nextDouble(), src.nextLong());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -201,17 +229,21 @@ public abstract class AbstractLongFlow implements LongFlow
 	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractFlow<IntWithLong>() {
+		return new AbstractFlow<IntWithLong>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public IntWithLong next() {
+			public IntWithLong next()
+			{
 				return IntWithLong.of(other.nextInt(), src.nextLong());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -224,42 +256,48 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public Flow<IntWithLong> enumerate() {
+	public LongFlow combineWith(final OfLong other, final LongBinaryOperator combiner)
+	{
+		final AbstractLongFlow src = this;
+
+		return new AbstractLongFlow()
+		{
+			@Override
+			public boolean hasNext()
+			{
+				return src.hasNext() && other.hasNext();
+			}
+
+			@Override
+			public long nextLong()
+			{
+				return combiner.applyAsLong(src.nextLong(), other.nextLong());
+			}
+
+			@Override
+			public void skip()
+			{
+				src.skip();
+				if (other instanceof Skippable) {
+					((Skippable) other).skip();
+				}
+				else {
+					other.nextLong();
+				}
+			}
+		};
+	}
+
+	@Override
+	public Flow<IntWithLong> enumerate()
+	{
 		return zipWith(Numbers.natural());
 	}
 
 	@Override
-	public LongFlow take(final int n) {
-		if (n < 0) {
-			throw new IllegalArgumentException();
-		}
-		final AbstractLongFlow src = this;
-
-		return new AbstractLongFlow() {
-			int count = 0;
-			@Override
-			public boolean hasNext() {
-				return count < n && src.hasNext();
-			}
-			@Override
-			public long nextLong() {
-				if (count++ >= n) {
-					throw new NoSuchElementException();
-				}
-				else {
-					return src.nextLong();
-				}
-			}
-			@Override
-			public void skip() {
-				if (count++ >= n) {
-					throw new NoSuchElementException();
-				}
-				else {
-					src.skip();
-				}
-			}
-		};
+	public LongFlow take(final int n)
+	{
+		return new TakeFlow.OfLong(this, n);
 	}
 
 	@Override
@@ -269,41 +307,9 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow drop(final int n) {
-		if (n < 0) {
-			throw new IllegalArgumentException();
-		}
-		final AbstractLongFlow src = this;
-
-		return new AbstractLongFlow()
-		{
-			boolean initialized = false;
-
-			@Override
-			public boolean hasNext() {
-				initialiseIfRequired();
-				return src.hasNext();
-			}
-			@Override
-			public long nextLong() {
-				initialiseIfRequired();
-				return src.nextLong();
-			}
-			@Override
-			public void skip() {
-				initialiseIfRequired();
-				src.skip();
-			}
-
-			private void initialiseIfRequired() {
-				if (!initialized) {
-					for (int count = 0; count < n && src.hasNext(); count++) {
-						src.skip();
-					}
-					initialized = true;
-				}
-			}
-		};
+	public LongFlow drop(final int n)
+	{
+		return new DropFlow.OfLong(this, n);
 	}
 
 	@Override
@@ -319,20 +325,25 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow append(final OfLong other) {
+	public LongFlow append(final OfLong other)
+	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractLongFlow() {
+		return new AbstractLongFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() || other.hasNext();
 			}
 			@Override
-			public long nextLong() {
+			public long nextLong()
+			{
 				return src.hasNext() ? src.nextLong() : other.nextLong();
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				if (src.hasNext()) {
 					src.skip();
 				}
@@ -355,20 +366,25 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow insert(final OfLong other) {
+	public LongFlow insert(final OfLong other)
+	{
 		final AbstractLongFlow src = this;
 
-		return new AbstractLongFlow() {
+		return new AbstractLongFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return other.hasNext() || src.hasNext();
 			}
 			@Override
-			public long nextLong() {
+			public long nextLong()
+			{
 				return other.hasNext() ? other.nextLong() : src.nextLong();
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				if (other.hasNext()) {
 					if (other instanceof Skippable) {
 						((Skippable) other).skip();
@@ -391,7 +407,8 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public OptionalLong min() {
+	public OptionalLong min()
+	{
 		boolean found = false;
 		long min = Long.MAX_VALUE;
 		while (hasNext()) {
@@ -568,7 +585,8 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public boolean anyMatch(final LongPredicate predicate) {
+	public boolean anyMatch(final LongPredicate predicate)
+	{
 		while (hasNext()) {
 			if (predicate.test(next())) {
 				return true;
@@ -578,7 +596,8 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public boolean noneMatch(final LongPredicate predicate) {
+	public boolean noneMatch(final LongPredicate predicate)
+	{
 		while (hasNext()) {
 			if (predicate.test(next())) {
 				return false;
@@ -588,7 +607,8 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public int count() {
+	public int count()
+	{
 		int count = 0;
 		while (hasNext()) {
 			skip();
@@ -627,54 +647,12 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public LongFlow accumulate(final LongBinaryOperator accumulator)
 	{
-		final AbstractLongFlow src = this;
-
-		return new AbstractLongFlow() {
-			boolean unInitialized = true;
-			long accumulationValue = -1;
-			@Override
-			public boolean hasNext() {
-				return src.hasNext();
-			}
-			@Override
-			public long nextLong() {
-				if (unInitialized) {
-					unInitialized = false;
-					accumulationValue = src.nextLong();
-					return accumulationValue;
-				}
-				else {
-					accumulationValue = accumulator.applyAsLong(accumulationValue, src.nextLong());
-					return accumulationValue;
-				}
-			}
-			@Override
-			public void skip() {
-				next();
-			}
-		};
+		return new AccumulationFlow.OfLong(this, accumulator);
 	}
 
 	@Override
-	public LongFlow accumulate(final long id, final LongBinaryOperator accumulator) {
-		final AbstractLongFlow src = this;
-
-		return new AbstractLongFlow() {
-			long accumulationValue = id;
-			@Override
-			public boolean hasNext() {
-				return src.hasNext();
-			}
-			@Override
-			public long nextLong() {
-				accumulationValue = accumulator.applyAsLong(accumulationValue, src.nextLong());
-				return accumulationValue;
-			}
-
-			@Override
-			public void skip() {
-				next();
-			}
-		};
+	public LongFlow accumulate(final long id, final LongBinaryOperator accumulator)
+	{
+		return new AccumulationFlow.OfLong(this, id, accumulator);
 	}
 }

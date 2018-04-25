@@ -6,6 +6,8 @@ import java.util.List;
 import xawd.jflow.AbstractIntFlow;
 
 /**
+ * Not implemented yet
+ *
  * @author ThomasB
  * @since 24 Apr 2018
  */

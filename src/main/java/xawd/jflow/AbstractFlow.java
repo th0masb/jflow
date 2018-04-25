@@ -5,14 +5,12 @@ package xawd.jflow;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.PrimitiveIterator.OfInt;
 import java.util.PrimitiveIterator.OfLong;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
@@ -22,9 +20,12 @@ import java.util.function.ToLongFunction;
 
 import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
+import xawd.jflow.impl.AccumulationFlow;
+import xawd.jflow.impl.DropFlow;
 import xawd.jflow.impl.DropWhileFlow;
 import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.SlicedFlow;
+import xawd.jflow.impl.TakeFlow;
 import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.zippedpairs.DoubleWith;
@@ -36,58 +37,71 @@ import xawd.jflow.zippedpairs.Pair;
  * @author t
  *
  */
-public abstract class AbstractFlow<T> implements Flow<T> {
-
+public abstract class AbstractFlow<T> implements Flow<T>
+{
 	@Override
-	public Flow<T> slice(final IntUnaryOperator f) {
+	public Flow<T> slice(final IntUnaryOperator f)
+	{
 		return new SlicedFlow<>(this, f);
 	}
 
 	@Override
-	public <R> Flow<R> map(final Function<? super T, R> f) {
+	public <R> Flow<R> map(final Function<? super T, R> f)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<R>() {
+		return new AbstractFlow<R>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext();
 			}
 			@Override
-			public R next() {
+			public R next()
+			{
 				return f.apply(src.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 			}
 		};
 	}
 
 	@Override
-	public IntFlow mapToInt(final ToIntFunction<? super T> f) {
+	public IntFlow mapToInt(final ToIntFunction<? super T> f)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractIntFlow() {
+		return new AbstractIntFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext();
 			}
 			@Override
-			public int nextInt() {
+			public int nextInt()
+			{
 				return f.applyAsInt(src.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 			}
 		};
 	}
 
 	@Override
-	public DoubleFlow mapToDouble(final ToDoubleFunction<? super T> f) {
+	public DoubleFlow mapToDouble(final ToDoubleFunction<? super T> f)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractDoubleFlow() {
+		return new AbstractDoubleFlow()
+		{
 			@Override
 			public boolean hasNext()
 			{
@@ -107,40 +121,50 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public LongFlow mapToLong(final ToLongFunction<? super T> f) {
+	public LongFlow mapToLong(final ToLongFunction<? super T> f)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractLongFlow() {
+		return new AbstractLongFlow()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext();
 			}
 			@Override
-			public long nextLong() {
+			public long nextLong()
+			{
 				return f.applyAsLong(src.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 			}
 		};
 	}
 
 	@Override
-	public <R> Flow<Pair<T, R>> zipWith(final Iterator<R> other) {
+	public <R> Flow<Pair<T, R>> zipWith(final Iterator<R> other)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<Pair<T,R>>() {
+		return new AbstractFlow<Pair<T,R>>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public Pair<T, R> next() {
+			public Pair<T, R> next()
+			{
 				return Pair.of(src.next(), other.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -153,20 +177,25 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<IntWith<T>> zipWith(final OfInt other) {
+	public Flow<IntWith<T>> zipWith(final OfInt other)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<IntWith<T>>() {
+		return new AbstractFlow<IntWith<T>>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public IntWith<T> next() {
+			public IntWith<T> next()
+			{
 				return IntWith.of(other.nextInt(), src.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -179,20 +208,25 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<DoubleWith<T>> zipWith(final OfDouble other) {
+	public Flow<DoubleWith<T>> zipWith(final OfDouble other)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<DoubleWith<T>>() {
+		return new AbstractFlow<DoubleWith<T>>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public DoubleWith<T> next() {
+			public DoubleWith<T> next()
+			{
 				return DoubleWith.of(other.nextDouble(), src.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -205,20 +239,25 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<LongWith<T>> zipWith(final OfLong other) {
+	public Flow<LongWith<T>> zipWith(final OfLong other)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<LongWith<T>>() {
+		return new AbstractFlow<LongWith<T>>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public LongWith<T> next() {
+			public LongWith<T> next()
+			{
 				return LongWith.of(other.nextLong(), src.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -231,20 +270,25 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public <U, R> Flow<R> combineWith(final Iterator<U> other, final BiFunction<T, U, R> f) {
+	public <U, R> Flow<R> combineWith(final Iterator<U> other, final BiFunction<T, U, R> f)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<R>() {
+		return new AbstractFlow<R>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() && other.hasNext();
 			}
 			@Override
-			public R next() {
+			public R next()
+			{
 				return f.apply(src.next(), other.next());
 			}
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				src.skip();
 				if (other instanceof Skippable) {
 					((Skippable) other).skip();
@@ -263,37 +307,9 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> take(final int n) {
-		if (n < 0) {
-			throw new IllegalArgumentException();
-		}
-		final AbstractFlow<T> src = this;
-
-		return new AbstractFlow<T>() {
-			int count = 0;
-			@Override
-			public boolean hasNext() {
-				return count < n && src.hasNext();
-			}
-			@Override
-			public T next() {
-				if (count++ >= n) {
-					throw new NoSuchElementException();
-				}
-				else {
-					return src.next();
-				}
-			}
-			@Override
-			public void skip() {
-				if (count++ >= n) {
-					throw new NoSuchElementException();
-				}
-				else {
-					src.skip();
-				}
-			}
-		};
+	public Flow<T> take(final int n)
+	{
+		return new TakeFlow.OfObject<>(this, n);
 	}
 
 	@Override
@@ -303,66 +319,43 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> drop(final int n) {
-		if (n < 0) {
-			throw new IllegalArgumentException();
-		}
-		final AbstractFlow<T> src = this;
-
-		return new AbstractFlow<T>() {
-			boolean initialized = false;
-			@Override
-			public boolean hasNext() {
-				initialiseIfRequired();
-				return src.hasNext();
-			}
-			@Override
-			public T next() {
-				initialiseIfRequired();
-				return src.next();
-			}
-			@Override
-			public void skip() {
-				initialiseIfRequired();
-				src.skip();
-			}
-			private void initialiseIfRequired() {
-				if (!initialized) {
-					for (int count = 0; count < n && src.hasNext(); count++) {
-						src.skip();
-					}
-					initialized = true;
-				}
-			}
-		};
+	public Flow<T> drop(final int n)
+	{
+		return new DropFlow.OfObject<>(this, n);
 	}
 
 	@Override
-	public Flow<T> dropWhile(final Predicate<? super T> predicate) {
+	public Flow<T> dropWhile(final Predicate<? super T> predicate)
+	{
 		return new DropWhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public Flow<T> filter(final Predicate<? super T> predicate) {
+	public Flow<T> filter(final Predicate<? super T> predicate)
+	{
 		return new FilteredFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public Flow<T> append(final Iterator<? extends T> other) {
+	public Flow<T> append(final Iterator<? extends T> other)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<T>() {
+		return new AbstractFlow<T>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return src.hasNext() || other.hasNext();
 			}
 			@Override
-			public T next() {
+			public T next()
+			{
 				return src.hasNext()? src.next() : other.next();
 			}
-
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				if (src.hasNext()) {
 					src.skip();
 				}
@@ -384,21 +377,26 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> insert(final Iterator<? extends T> other) {
+	public Flow<T> insert(final Iterator<? extends T> other)
+	{
 		final AbstractFlow<T> src = this;
 
-		return new AbstractFlow<T>() {
+		return new AbstractFlow<T>()
+		{
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return other.hasNext() || src.hasNext();
 			}
 			@Override
-			public T next() {
+			public T next()
+			{
 				return other.hasNext()? other.next() : src.next();
 			}
 
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				if (other.hasNext()) {
 					if (other instanceof Skippable) {
 						((Skippable) other).skip();
@@ -420,7 +418,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Optional<T> minByKey(final ToDoubleFunction<? super T> key) {
+	public Optional<T> minByKey(final ToDoubleFunction<? super T> key)
+	{
 		T min = null;
 		double minVal = -1;
 		while (hasNext()) {
@@ -433,7 +432,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public <C extends Comparable<C>> Optional<T> minByObjectKey(final Function<? super T, C> key) {
+	public <C extends Comparable<C>> Optional<T> minByObjectKey(final Function<? super T, C> key)
+	{
 		T min = null;
 		C minVal = null;
 		while (hasNext()) {
@@ -446,7 +446,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Optional<T> maxByKey(final ToDoubleFunction<T> key) {
+	public Optional<T> maxByKey(final ToDoubleFunction<T> key)
+	{
 		T max = null;
 		double maxVal = -1;
 		while (hasNext()) {
@@ -459,7 +460,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public <C extends Comparable<C>> Optional<T> maxByObjectKey(final Function<? super T, C> key) {
+	public <C extends Comparable<C>> Optional<T> maxByObjectKey(final Function<? super T, C> key)
+	{
 		T max = null;
 		C maxVal = null;
 		while (hasNext()) {
@@ -472,7 +474,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public boolean allMatch(final Predicate<? super T> predicate) {
+	public boolean allMatch(final Predicate<? super T> predicate)
+	{
 		while (hasNext()) {
 			if (!predicate.test(next())) {
 				return false;
@@ -482,7 +485,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public boolean anyMatch(final Predicate<? super T> predicate) {
+	public boolean anyMatch(final Predicate<? super T> predicate)
+	{
 		while (hasNext()) {
 			if (predicate.test(next())) {
 				return true;
@@ -492,7 +496,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public boolean noneMatch(final Predicate<? super T> predicate) {
+	public boolean noneMatch(final Predicate<? super T> predicate)
+	{
 		while (hasNext()) {
 			if (predicate.test(next())) {
 				return false;
@@ -502,7 +507,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public int count() {
+	public int count()
+	{
 		int count = 0;
 		while (hasNext()) {
 			skip();
@@ -512,7 +518,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public T reduce(final T id, final BinaryOperator<T> reducer) {
+	public T reduce(final T id, final BinaryOperator<T> reducer)
+	{
 		T reduction = id;
 		while (hasNext()) {
 			reduction = reducer.apply(reduction, next());
@@ -521,7 +528,8 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Optional<T> reduce(final BinaryOperator<T> reducer) {
+	public Optional<T> reduce(final BinaryOperator<T> reducer)
+	{
 		T reduction = null;
 		while (hasNext()) {
 			if (reduction == null) {
@@ -535,58 +543,14 @@ public abstract class AbstractFlow<T> implements Flow<T> {
 	}
 
 	@Override
-	public Flow<T> accumulate(final BinaryOperator<T> accumulator) {
-		final AbstractFlow<T> src = this;
-
-		return new AbstractFlow<T>() {
-			T accumulationValue = null;
-			@Override
-			public boolean hasNext() {
-				return src.hasNext();
-			}
-			@Override
-			public T next() {
-				final T accVal = accumulationValue, next = src.next();
-				accumulationValue = accVal == null ? next : accumulator.apply(accVal, next);
-				return accumulationValue;
-			}
-			@Override
-			public void skip() {
-				// Can't skip here
-				next();
-			}
-		};
-	}
-
-	@Override
-	public <R> Flow<R> accumulate(final R id, final BiFunction<R, T, R> accumulator) {
-		final AbstractFlow<T> src = this;
-
-		return new AbstractFlow<R>() {
-			R accumulationValue = id;
-			@Override
-			public boolean hasNext() {
-				return src.hasNext();
-			}
-			@Override
-			public R next() {
-				accumulationValue = accumulator.apply(accumulationValue, src.next());
-				return accumulationValue;
-			}
-
-			@Override
-			public void skip() {
-				// Can't skip here
-				next();
-			}
-		};
-	}
-
-	@Override
-	public void forEach(final Consumer<T> action)
+	public Flow<T> accumulate(final BinaryOperator<T> accumulator)
 	{
-		while (hasNext()) {
-			action.accept(next());
-		}
+		return new AccumulationFlow.OfObject<>(this, accumulator);
+	}
+
+	@Override
+	public <R> Flow<R> accumulate(final R id, final BiFunction<R, T, R> accumulator)
+	{
+		return new AccumulationFlow.OfObjectWithMixedTypes<>(this, id, accumulator);
 	}
 }
