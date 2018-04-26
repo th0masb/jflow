@@ -155,14 +155,8 @@ public interface Flow<T> extends SkippableIterator<T>
 		while (hasNext()) {
 			final T next = next();
 			final K key = classifier.apply(next);
-			if (collected.containsKey(key)) {
-				collected.get(key).add(next);
-			}
-			else {
-				final List<T> newClassification = new ArrayList<>();
-				newClassification.add(next);
-				collected.put(key, newClassification);
-			}
+			collected.putIfAbsent(key, new ArrayList<>());
+			collected.get(key).add(next);
 		}
 		return collected;
 	}
