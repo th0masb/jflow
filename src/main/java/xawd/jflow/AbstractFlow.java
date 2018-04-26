@@ -36,6 +36,7 @@ import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;
 import xawd.jflow.zippedpairs.Pair;
+import xawd.jflow.zippedpairs.PredicatePartition;
 
 /**
  * @author t
@@ -55,12 +56,20 @@ public abstract class AbstractFlow<T> implements Flow<T>
 		throw new RuntimeException();
 	}
 
+	@Override
 	public LongFlow flattenToLongs(final Function<? super T, ? extends LongFlow> mapping)
 	{
 		throw new RuntimeException();
 	}
 
+	@Override
 	public DoubleFlow flattenToDoubles(final Function<? super T, ? extends DoubleFlow> mapping)
+	{
+		throw new RuntimeException();
+	}
+
+	@Override
+	public PredicatePartition<T> partition(final Predicate<? super T> predicate)
 	{
 		throw new RuntimeException();
 	}
@@ -448,7 +457,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public <C extends Comparable<C>> Optional<T> minByObjectKey(final Function<? super T, C> key)
+	public <C extends Comparable<C>> Optional<T> minByObject(final Function<? super T, C> key)
 	{
 		T min = null;
 		C minVal = null;
@@ -476,7 +485,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public <C extends Comparable<C>> Optional<T> maxByObjectKey(final Function<? super T, C> key)
+	public <C extends Comparable<C>> Optional<T> maxByObject(final Function<? super T, C> key)
 	{
 		T max = null;
 		C maxVal = null;

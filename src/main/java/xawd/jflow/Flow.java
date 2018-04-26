@@ -29,6 +29,7 @@ import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;
 import xawd.jflow.zippedpairs.Pair;
+import xawd.jflow.zippedpairs.PredicatePartition;
 
 /**
  * @author ThomasB
@@ -86,11 +87,11 @@ public interface Flow<T> extends SkippableIterator<T>
 
 	Optional<T> min(final ToDoubleFunction<? super T> key);
 
-	<C extends Comparable<C>> Optional<T> minByObjectKey(final Function<? super T, C> key);
+	<C extends Comparable<C>> Optional<T> minByObject(final Function<? super T, C> key);
 
 	Optional<T> max(final ToDoubleFunction<T> key);
 
-	<C extends Comparable<C>> Optional<T> maxByObjectKey(final Function<? super T, C> key);
+	<C extends Comparable<C>> Optional<T> maxByObject(final Function<? super T, C> key);
 
 	T reduce(T id, BinaryOperator<T> reducer);
 
@@ -103,6 +104,8 @@ public interface Flow<T> extends SkippableIterator<T>
 	boolean noneMatch(final Predicate<? super T> predicate);
 
 	int count();
+
+	PredicatePartition<T> partition(Predicate<? super T> predicate);
 
 	<C extends Collection<T>> C toCollection(final Supplier<C> collectionFactory);
 
