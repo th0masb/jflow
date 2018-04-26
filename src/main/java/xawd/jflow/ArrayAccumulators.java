@@ -3,7 +3,7 @@
  */
 package xawd.jflow;
 
-import static io.xyz.chains.utilities.CollectionUtil.tail;
+import static xawd.jchain.chains.utilities.CollectionUtil.tail;
 
 import java.util.ArrayList;
 import java.util.List;

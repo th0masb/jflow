@@ -1,7 +1,7 @@
 package xawd.jflow.construction;
 
-import static io.xyz.chains.utilities.PrimitiveUtil.abs;
-import static io.xyz.chains.utilities.PrimitiveUtil.signum;
+import static xawd.jchain.chains.utilities.PrimitiveUtil.abs;
+import static xawd.jchain.chains.utilities.PrimitiveUtil.signum;
 
 import xawd.jflow.DoubleFlow;
 import xawd.jflow.IntFlow;
