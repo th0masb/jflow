@@ -174,15 +174,15 @@ public final class Iter
 				.enumerate()
 				.map(p -> p.getElement() + p.getInt())
 				.toCollection(HashSet::new);
-		
-		Range.between(2, 11).mapToObject(i -> "a").toList();
+
+		IterRange.between(2, 11).mapToObject(i -> "a").toList();
 //		Iter.longsFrom(i -> i)
 //		.mapToObject(i -> str(i))
 //		.slice(i -> 2*i*i + 3*i)
 //		.take(10)
 //		.enumerate()
 //		.toList();
-		
+
 		Iter.of(asList("a", "b"), asList("c", "d")).flatten(Iter::of).toList();
 		Iter.of(new int[] {1, 2}, new int[] {3, 4}).flattenToInts(Iter::of).toArray();
 	}

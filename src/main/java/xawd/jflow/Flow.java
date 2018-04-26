@@ -1,9 +1,9 @@
 package xawd.jflow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -36,8 +36,6 @@ import xawd.jflow.zippedpairs.Pair;
  */
 public interface Flow<T> extends SkippableIterator<T>
 {
-	Flow<T> slice(final IntUnaryOperator f);
-
 	<R> Flow<R> map(final Function<? super T, R> f);
 
 	IntFlow mapToInt(ToIntFunction<? super T> f);
@@ -58,31 +56,45 @@ public interface Flow<T> extends SkippableIterator<T>
 
 	Flow<IntWith<T>> enumerate();
 
+	Flow<T> slice(final IntUnaryOperator f);
+
 	Flow<T> take(final int n);
 
 	Flow<T> takeWhile(final Predicate<? super T> p);
 
-	Flow<T> drop(final int n);
+	Flow<T> skip(final int n);
 
-	Flow<T> dropWhile(final Predicate<? super T> p);
+	Flow<T> skipWhile(final Predicate<? super T> p);
 
 	Flow<T> filter(final Predicate<? super T> p);
 
 	Flow<T> append(Iterator<? extends T> other);
 
-	Flow<T> append(@SuppressWarnings("unchecked") T... ts);
-
 	Flow<T> insert(Iterator<? extends T> other);
 
-	Flow<T> insert(@SuppressWarnings("unchecked") T... ts);
+	Flow<T> accumulate(BinaryOperator<T> accumulator);
 
-	Optional<T> minByKey(final ToDoubleFunction<? super T> key);
+	<R> Flow<R> accumulate(R id, BiFunction<R, T, R> accumulator);
+
+	<R> Flow<R> flatten(Function<? super T, ? extends Flow<? extends R>> mapping);
+
+	IntFlow flattenToInts(Function<? super T, ? extends IntFlow> mapping);
+
+	LongFlow flattenToLongs(Function<? super T, ? extends LongFlow> mapping);
+
+	DoubleFlow flattenToDoubles(Function<? super T, ? extends DoubleFlow> mapping);
+
+	Optional<T> min(final ToDoubleFunction<? super T> key);
 
 	<C extends Comparable<C>> Optional<T> minByObjectKey(final Function<? super T, C> key);
 
-	Optional<T> maxByKey(final ToDoubleFunction<T> key);
+	Optional<T> max(final ToDoubleFunction<T> key);
 
 	<C extends Comparable<C>> Optional<T> maxByObjectKey(final Function<? super T, C> key);
+
+	T reduce(T id, BinaryOperator<T> reducer);
+
+	Optional<T> reduce(BinaryOperator<T> reducer);
 
 	boolean allMatch(final Predicate<? super T> predicate);
 
@@ -92,25 +104,23 @@ public interface Flow<T> extends SkippableIterator<T>
 
 	int count();
 
-	T reduce(T id, BinaryOperator<T> reducer);
+	<C extends Collection<T>> C toCollection(final Supplier<C> collectionFactory);
 
-	Optional<T> reduce(BinaryOperator<T> reducer);
+	<K, V> Map<K, V> toMap(final Function<? super T, K> keyMapper, final Function<? super T, V> valueMapper);
 
-	Flow<T> accumulate(BinaryOperator<T> accumulator);
+	<K> Map<K, List<T>> groupBy(final Function<? super T, K> classifier);
 
-	<R> Flow<R> accumulate(R id, BiFunction<R, T, R> accumulator);
-	
-	<R> Flow<R> flatten(Function<? super T, ? extends Flow<? extends R>> mapping);
-	
-	IntFlow flattenToInts(Function<? super T, ? extends IntFlow> mapping);
 
-	default <C extends Collection<T>> C toCollection(final Supplier<C> collectionFactory)
+	//********** DEFAULT METHODS ***********//
+
+	default Flow<T> append(@SuppressWarnings("unchecked") final T... ts)
 	{
-		final C container = collectionFactory.get();
-		while (hasNext()) {
-			container.add(next());
-		}
-		return container;
+		return append(Arrays.asList(ts));
+	}
+
+	default Flow<T> insert(@SuppressWarnings("unchecked") final T... ts)
+	{
+		return append(Arrays.asList(ts));
 	}
 
 	default List<T> toImmutableList()
@@ -131,34 +141,6 @@ public interface Flow<T> extends SkippableIterator<T>
 	default Set<T> toSet()
 	{
 		return toCollection(HashSet::new);
-	}
-
-	default <K, V> Map<K, V> toMap(final Function<? super T, K> keyMapper, final Function<? super T, V> valueMapper)
-	{
-		final Map<K, V> collected = new HashMap<>();
-		while (hasNext()) {
-			final T next = next();
-			final K key = keyMapper.apply(next);
-			if (collected.containsKey(key)) {
-				throw new IllegalStateException();
-			}
-			else {
-				collected.put(key, valueMapper.apply(next));
-			}
-		}
-		return collected;
-	}
-
-	default <K> Map<K, List<T>> groupBy(final Function<? super T, K> classifier)
-	{
-		final Map<K, List<T>> collected = new HashMap<>();
-		while (hasNext()) {
-			final T next = next();
-			final K key = classifier.apply(next);
-			collected.putIfAbsent(key, new ArrayList<>());
-			collected.get(key).add(next);
-		}
-		return collected;
 	}
 
 	default <R> Flow<Pair<T, R>> zipWith(final Iterable<R> other)

@@ -6,9 +6,9 @@ import static io.xyz.chains.utilities.PrimitiveUtil.signum;
 import xawd.jflow.DoubleFlow;
 import xawd.jflow.IntFlow;
 
-public final class Range
+public final class IterRange
 {
-	private Range() {}
+	private IterRange() {}
 
 	public static IntFlow to(final int upperBound)
 	{
@@ -20,7 +20,7 @@ public final class Range
 		return high > low ? Iter.intsFrom(i -> i + low, high - low) : Iter.emptyInts();
 	}
 
-	public static IntFlow stepBetween(final int low, final int high, final int step)
+	public static IntFlow between(final int low, final int high, final int step)
 	{
 		final int length = high - low;
 		final int elementCount = (int) Math.ceil(abs((double)length / step));
@@ -33,7 +33,13 @@ public final class Range
 	}
 
 	public static void main(final String[] args) {
-		between(0, 11).forEach(System.out::println);
+//		List<String> someStrings = Arrays.asList(a)
+//
+//		IterRange.to(10).toMap(i -> "a" + i, i -> "b" + i);
+
+
+		IterRange.between(0, 11).forEach(System.out::println);
+		Iter.of("a", "b").toMap(string -> string.charAt(0), string -> string.length());
 //		stepBetween(0, 11, 2).forEach(System.out::println);
 	}
 }

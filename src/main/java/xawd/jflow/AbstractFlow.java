@@ -3,8 +3,12 @@
  */
 package xawd.jflow;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.PrimitiveIterator.OfInt;
@@ -14,11 +18,11 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
 import xawd.jflow.impl.DropFlow;
@@ -44,13 +48,23 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	{
 		throw new RuntimeException();
 	}
-	
+
 	@Override
 	public IntFlow flattenToInts(final Function<? super T, ? extends IntFlow> mapping)
 	{
 		throw new RuntimeException();
 	}
-	
+
+	public LongFlow flattenToLongs(final Function<? super T, ? extends LongFlow> mapping)
+	{
+		throw new RuntimeException();
+	}
+
+	public DoubleFlow flattenToDoubles(final Function<? super T, ? extends DoubleFlow> mapping)
+	{
+		throw new RuntimeException();
+	}
+
 	@Override
 	public Flow<T> slice(final IntUnaryOperator f)
 	{
@@ -331,13 +345,13 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> drop(final int n)
+	public Flow<T> skip(final int n)
 	{
 		return new DropFlow.OfObject<>(this, n);
 	}
 
 	@Override
-	public Flow<T> dropWhile(final Predicate<? super T> predicate)
+	public Flow<T> skipWhile(final Predicate<? super T> predicate)
 	{
 		return new DropWhileFlow.OfObject<>(this, predicate);
 	}
@@ -384,11 +398,6 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> append(@SuppressWarnings("unchecked") final T... ts) {
-		return append(Iter.of(Arrays.asList(ts)));
-	}
-
-	@Override
 	public Flow<T> insert(final Iterator<? extends T> other)
 	{
 		final AbstractFlow<T> src = this;
@@ -425,12 +434,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> insert(@SuppressWarnings("unchecked") final T... ts) {
-		return insert(Iter.of(Arrays.asList(ts)));
-	}
-
-	@Override
-	public Optional<T> minByKey(final ToDoubleFunction<? super T> key)
+	public Optional<T> min(final ToDoubleFunction<? super T> key)
 	{
 		T min = null;
 		double minVal = -1;
@@ -458,7 +462,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Optional<T> maxByKey(final ToDoubleFunction<T> key)
+	public Optional<T> max(final ToDoubleFunction<T> key)
 	{
 		T max = null;
 		double maxVal = -1;
@@ -564,5 +568,45 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	public <R> Flow<R> accumulate(final R id, final BiFunction<R, T, R> accumulator)
 	{
 		return new AccumulationFlow.OfObjectWithMixedTypes<>(this, id, accumulator);
+	}
+
+	@Override
+	public <C extends Collection<T>> C toCollection(final Supplier<C> collectionFactory)
+	{
+		final C container = collectionFactory.get();
+		while (hasNext()) {
+			container.add(next());
+		}
+		return container;
+	}
+
+	@Override
+	public <K, V> Map<K, V> toMap(final Function<? super T, K> keyMapper, final Function<? super T, V> valueMapper)
+	{
+		final Map<K, V> collected = new HashMap<>();
+		while (hasNext()) {
+			final T next = next();
+			final K key = keyMapper.apply(next);
+			if (collected.containsKey(key)) {
+				throw new IllegalStateException();
+			}
+			else {
+				collected.put(key, valueMapper.apply(next));
+			}
+		}
+		return collected;
+	}
+
+	@Override
+	public <K> Map<K, List<T>> groupBy(final Function<? super T, K> classifier)
+	{
+		final Map<K, List<T>> collected = new HashMap<>();
+		while (hasNext()) {
+			final T next = next();
+			final K key = classifier.apply(next);
+			collected.putIfAbsent(key, new ArrayList<>());
+			collected.get(key).add(next);
+		}
+		return collected;
 	}
 }
