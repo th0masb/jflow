@@ -3,10 +3,17 @@
  */
 package xawd.jflow.testutilities;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import org.junit.jupiter.api.function.Executable;
 
 import xawd.jflow.DoubleFlow;
 import xawd.jflow.Flow;
@@ -14,29 +21,62 @@ import xawd.jflow.IntFlow;
 import xawd.jflow.LongFlow;
 
 /**
- * @author t
+ * Alternate between calling next and skip to test both
+ * 
+ * need to test next(), hasNext() -> next(), hasNext() -> skip(), skip()
  *
  */
 public interface IteratorComparisonTest
 {
 	default <T> void assertIteratorAsExpected(final List<T> expected, final Flow<T> actual)
 	{
+		final int expectedElementCount = expected.size();
+
+		assertTrue(expectedElementCount > 4, "Need an iterator with more elements to test behaviour properly.");
+		final List<T> expectedElements = new ArrayList<>(), collectedElements = new ArrayList<>();
 		int count = 0;
-		while (actual.hasNext()) {
-			final T next = actual.next();
-			if (count >= expected.size()) {
-				fail("iterator longer than expected element list");
-			}
-			else {
-				assertEquals(expected.get(count), next);
-			}
+
+		// Test calling next() without a prior hasNext() call
+		try {
+			collectedElements.add(actual.next());
+			expectedElements.add(expected.get(count++));
+		}
+		catch (final NoSuchElementException ex) {
+			fail("exception thrown by calling next() without prior hasNext() call");
+		}
+
+		// Test calling skip
+		try {
+			assertTrue(actual.hasNext());
+			actual.skip();
 			count++;
 		}
-		if (count != expected.size()) {
-			fail("iterator shorter than expected element list");
+		catch (final NoSuchElementException ex) {
+			fail("exception thrown by calling skip() with prior hasNext() call");
 		}
+
+		try {
+			actual.skip();
+			count++;
+		}
+		catch (final NoSuchElementException ex) {
+			fail("exception thrown by calling skip() without prior hasNext() call");
+		}
+
+		for (; count < expected.size(); count++) {
+			assertTrue(actual.hasNext());
+			collectedElements.add(actual.next());
+			expectedElements.add(expected.get(count));
+		}
+
+		assertFalse(actual.hasNext());
+		final Executable attemptedNext = actual::next, attemptedSkip = actual::skip;
+		assertThrows(NoSuchElementException.class, attemptedNext);
+		assertThrows(NoSuchElementException.class, attemptedSkip);
+
+		assertEquals(expectedElements, collectedElements);
 	}
-	
+
 	default void assertIteratorAsExpected(final long[] expected, final LongFlow actual)
 	{
 		int count = 0;
@@ -54,7 +94,7 @@ public interface IteratorComparisonTest
 			fail("iterator shorter than expected element list");
 		}
 	}
-	
+
 	default void assertIteratorAsExpected(final double[] expected, final DoubleFlow actual)
 	{
 		int count = 0;
@@ -72,7 +112,7 @@ public interface IteratorComparisonTest
 			fail("iterator shorter than expected element list");
 		}
 	}
-	
+
 	default void assertIteratorAsExpected(final int[] expected, final IntFlow actual)
 	{
 		int count = 0;
