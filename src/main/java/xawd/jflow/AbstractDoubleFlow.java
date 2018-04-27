@@ -30,7 +30,7 @@ import xawd.jflow.zippedpairs.IntWithDouble;
 public abstract class AbstractDoubleFlow implements DoubleFlow
 {
 	@Override
-	public DoubleFlow map(final DoubleUnaryOperator f)
+	public AbstractDoubleFlow map(final DoubleUnaryOperator f)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -55,7 +55,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public <T> Flow<T> mapToObject(final DoubleFunction<T> f)
+	public <T> AbstractFlow<T> mapToObject(final DoubleFunction<T> f)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -80,7 +80,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public LongFlow mapToLong(final DoubleToLongFunction f)
+	public AbstractLongFlow mapToLong(final DoubleToLongFunction f)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -105,7 +105,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public IntFlow mapToInt(final DoubleToIntFunction f)
+	public AbstractIntFlow mapToInt(final DoubleToIntFunction f)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -130,7 +130,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public <T> Flow<DoubleWith<T>> zipWith(final Iterator<T> other)
+	public <T> AbstractFlow<DoubleWith<T>> zipWith(final Iterator<T> other)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -161,7 +161,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public Flow<DoublePair> zipWith(final OfDouble other)
+	public AbstractFlow<DoublePair> zipWith(final OfDouble other)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -192,7 +192,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public Flow<DoubleWithLong> zipWith(final OfLong other)
+	public AbstractFlow<DoubleWithLong> zipWith(final OfLong other)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -223,7 +223,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public Flow<IntWithDouble> zipWith(final OfInt other)
+	public AbstractFlow<IntWithDouble> zipWith(final OfInt other)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -254,7 +254,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public DoubleFlow combineWith(final OfDouble other, final DoubleBinaryOperator combiner)
+	public AbstractDoubleFlow combineWith(final OfDouble other, final DoubleBinaryOperator combiner)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -287,43 +287,43 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public Flow<IntWithDouble> enumerate()
+	public AbstractFlow<IntWithDouble> enumerate()
 	{
 		return zipWith(Numbers.natural());
 	}
 
 	@Override
-	public DoubleFlow take(final int n)
+	public AbstractDoubleFlow take(final int n)
 	{
 		return new TakeFlow.OfDouble(this, n);
 	}
 
 	@Override
-	public DoubleFlow takeWhile(final DoublePredicate predicate)
+	public AbstractDoubleFlow takeWhile(final DoublePredicate predicate)
 	{
 		return new TakeWhileFlow.OfDouble(this, predicate);
 	}
 
 	@Override
-	public DoubleFlow drop(final int n)
+	public AbstractDoubleFlow drop(final int n)
 	{
 		return new DropFlow.OfDouble(this, n);
 	}
 
 	@Override
-	public DoubleFlow dropWhile(final DoublePredicate predicate)
+	public AbstractDoubleFlow dropWhile(final DoublePredicate predicate)
 	{
 		return new DropWhileFlow.OfDouble(this, predicate);
 	}
 
 	@Override
-	public DoubleFlow filter(final DoublePredicate predicate)
+	public AbstractDoubleFlow filter(final DoublePredicate predicate)
 	{
 		return new FilteredFlow.OfDouble(this, predicate);
 	}
 
 	@Override
-	public DoubleFlow append(final OfDouble other)
+	public AbstractDoubleFlow append(final OfDouble other)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -358,13 +358,13 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public DoubleFlow append(final double... xs)
+	public AbstractDoubleFlow append(final double... xs)
 	{
 		return append(Iter.of(xs));
 	}
 
 	@Override
-	public DoubleFlow insert(final OfDouble other)
+	public AbstractDoubleFlow insert(final OfDouble other)
 	{
 		final AbstractDoubleFlow src = this;
 
@@ -399,7 +399,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public DoubleFlow insert(final double... xs)
+	public AbstractDoubleFlow insert(final double... xs)
 	{
 		return insert(Iter.of(xs));
 	}
@@ -644,13 +644,13 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public DoubleFlow accumulate(final DoubleBinaryOperator accumulator)
+	public AbstractDoubleFlow accumulate(final DoubleBinaryOperator accumulator)
 	{
 		return new AccumulationFlow.OfDouble(this, accumulator);
 	}
 
 	@Override
-	public DoubleFlow accumulate(final double id, final DoubleBinaryOperator accumulator)
+	public AbstractDoubleFlow accumulate(final double id, final DoubleBinaryOperator accumulator)
 	{
 		return new AccumulationFlow.OfDouble(this, id, accumulator);
 	}

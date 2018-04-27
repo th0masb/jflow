@@ -12,10 +12,10 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
+import xawd.jflow.iterables.IterableDoubles;
+import xawd.jflow.iterables.IterableInts;
+import xawd.jflow.iterables.IterableLongs;
 import xawd.jflow.iterators.SkippableIntIterator;
-import xawd.jflow.primitiveiterables.IterableDoubles;
-import xawd.jflow.primitiveiterables.IterableInts;
-import xawd.jflow.primitiveiterables.IterableLongs;
 import xawd.jflow.zippedpairs.IntPair;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.IntWithDouble;

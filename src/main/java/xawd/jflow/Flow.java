@@ -21,10 +21,10 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.iterables.IterableDoubles;
+import xawd.jflow.iterables.IterableInts;
+import xawd.jflow.iterables.IterableLongs;
 import xawd.jflow.iterators.SkippableIterator;
-import xawd.jflow.primitiveiterables.IterableDoubles;
-import xawd.jflow.primitiveiterables.IterableInts;
-import xawd.jflow.primitiveiterables.IterableLongs;
 import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;

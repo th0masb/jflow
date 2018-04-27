@@ -9,10 +9,10 @@ import org.junit.Test;
 import xawd.jflow.AbstractDoubleFlow;
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.AbstractIntFlow;
-import xawd.jflow.testutilities.IteratorComparisonTest;
+import xawd.jflow.testutilities.IteratorTest;
 import xawd.jflow.testutilities.IteratorExampleProvider;
 
-public class MapToLongTest extends IteratorExampleProvider implements IteratorComparisonTest
+public class MapToLongTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	public void testAbstractFlowMapToLong() 

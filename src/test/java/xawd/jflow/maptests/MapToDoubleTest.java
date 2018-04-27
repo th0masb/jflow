@@ -12,14 +12,14 @@ import org.junit.Test;
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.AbstractIntFlow;
 import xawd.jflow.AbstractLongFlow;
-import xawd.jflow.testutilities.IteratorComparisonTest;
+import xawd.jflow.testutilities.IteratorTest;
 import xawd.jflow.testutilities.IteratorExampleProvider;
 
 /**
  * @author t
  *
  */
-public class MapToDoubleTest extends IteratorExampleProvider implements IteratorComparisonTest
+public class MapToDoubleTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	public void testAbstractFlowMapToDouble() 

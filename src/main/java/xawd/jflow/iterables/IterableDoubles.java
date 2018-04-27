@@ -1,50 +1,52 @@
 /**
- * 
+ *
  */
-package xawd.jflow.primitiveiterables;
+package xawd.jflow.iterables;
 
 import java.util.PrimitiveIterator;
 import java.util.Spliterator;
 import java.util.function.DoubleConsumer;
 
+import xawd.jflow.DoubleFlow;
+
 /**
  * @author t
  *
  */
-public interface IterableDoubles 
+public interface IterableDoubles
 {
-	PrimitiveIterator.OfDouble iterator();
+	DoubleFlow iterator();
 
 	default void forEach(final DoubleConsumer action)
 	{
-		iterator().forEachRemaining(action);
+		iterator().forEach(action);
 	}
 
 	/**
-	 * Default behaviour is late-binding without any structural checks on the 
+	 * Default behaviour is late-binding without any structural checks on the
 	 * source.
 	 */
 	default Spliterator.OfDouble spliterator()
 	{
 		final IterableDoubles src = this;
-		return new Spliterator.OfDouble() 
+		return new Spliterator.OfDouble()
 		{
 			PrimitiveIterator.OfDouble srcDoubles = null;
 
 			@Override
-			public long estimateSize() 
+			public long estimateSize()
 			{
 				return Long.MAX_VALUE;
 			}
 
 			@Override
-			public int characteristics() 
+			public int characteristics()
 			{
 				return 0;
 			}
 
 			@Override
-			public OfDouble trySplit() 
+			public OfDouble trySplit()
 			{
 				if (srcDoubles == null) {
 					srcDoubles = src.iterator();
@@ -53,7 +55,7 @@ public interface IterableDoubles
 			}
 
 			@Override
-			public boolean tryAdvance(final DoubleConsumer action) 
+			public boolean tryAdvance(final DoubleConsumer action)
 			{
 				initialise();
 				if (srcDoubles.hasNext()) {
@@ -66,7 +68,7 @@ public interface IterableDoubles
 			}
 
 			@Override
-			public void forEachRemaining(final DoubleConsumer action) 
+			public void forEachRemaining(final DoubleConsumer action)
 			{
 				initialise();
 				srcDoubles.forEachRemaining(action);

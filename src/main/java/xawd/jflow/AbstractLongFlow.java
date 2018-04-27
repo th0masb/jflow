@@ -32,7 +32,7 @@ import xawd.jflow.zippedpairs.LongWith;
 public abstract class AbstractLongFlow implements LongFlow
 {
 	@Override
-	public LongFlow map(final LongUnaryOperator f)
+	public AbstractLongFlow map(final LongUnaryOperator f)
 	{
 		final AbstractLongFlow src = this;
 
@@ -57,7 +57,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public <T> Flow<T> mapToObject(final LongFunction<T> f)
+	public <T> AbstractFlow<T> mapToObject(final LongFunction<T> f)
 	{
 		final AbstractLongFlow src = this;
 
@@ -82,7 +82,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public DoubleFlow mapToDouble(final LongToDoubleFunction f)
+	public AbstractDoubleFlow mapToDouble(final LongToDoubleFunction f)
 	{
 		final AbstractLongFlow src = this;
 
@@ -107,7 +107,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public IntFlow mapToInt(final LongToIntFunction f)
+	public AbstractIntFlow mapToInt(final LongToIntFunction f)
 	{
 		final AbstractLongFlow src = this;
 
@@ -132,7 +132,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public <T> Flow<LongWith<T>> zipWith(final Iterator<T> other)
+	public <T> AbstractFlow<LongWith<T>> zipWith(final Iterator<T> other)
 	{
 		final AbstractLongFlow src = this;
 
@@ -163,7 +163,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public Flow<LongPair> zipWith(final OfLong other)
+	public AbstractFlow<LongPair> zipWith(final OfLong other)
 	{
 		final AbstractLongFlow src = this;
 
@@ -194,7 +194,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public Flow<DoubleWithLong> zipWith(final OfDouble other)
+	public AbstractFlow<DoubleWithLong> zipWith(final OfDouble other)
 	{
 		final AbstractLongFlow src = this;
 
@@ -225,7 +225,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public Flow<IntWithLong> zipWith(final OfInt other)
+	public AbstractFlow<IntWithLong> zipWith(final OfInt other)
 	{
 		final AbstractLongFlow src = this;
 
@@ -256,7 +256,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow combineWith(final OfLong other, final LongBinaryOperator combiner)
+	public AbstractLongFlow combineWith(final OfLong other, final LongBinaryOperator combiner)
 	{
 		final AbstractLongFlow src = this;
 
@@ -289,43 +289,43 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public Flow<IntWithLong> enumerate()
+	public AbstractFlow<IntWithLong> enumerate()
 	{
 		return zipWith(Numbers.natural());
 	}
 
 	@Override
-	public LongFlow take(final int n)
+	public AbstractLongFlow take(final int n)
 	{
 		return new TakeFlow.OfLong(this, n);
 	}
 
 	@Override
-	public LongFlow takeWhile(final LongPredicate predicate)
+	public AbstractLongFlow takeWhile(final LongPredicate predicate)
 	{
 		return new TakeWhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
-	public LongFlow drop(final int n)
+	public AbstractLongFlow drop(final int n)
 	{
 		return new DropFlow.OfLong(this, n);
 	}
 
 	@Override
-	public LongFlow dropWhile(final LongPredicate predicate)
+	public AbstractLongFlow dropWhile(final LongPredicate predicate)
 	{
 		return new DropWhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
-	public LongFlow filter(final LongPredicate predicate)
+	public AbstractLongFlow filter(final LongPredicate predicate)
 	{
 		return new FilteredFlow.OfLong(this, predicate);
 	}
 
 	@Override
-	public LongFlow append(final OfLong other)
+	public AbstractLongFlow append(final OfLong other)
 	{
 		final AbstractLongFlow src = this;
 
@@ -360,13 +360,13 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow append(final long... xs)
+	public AbstractLongFlow append(final long... xs)
 	{
 		return append(Iter.of(xs));
 	}
 
 	@Override
-	public LongFlow insert(final OfLong other)
+	public AbstractLongFlow insert(final OfLong other)
 	{
 		final AbstractLongFlow src = this;
 
@@ -401,7 +401,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow insert(final long... xs)
+	public AbstractLongFlow insert(final long... xs)
 	{
 		return insert(Iter.of(xs));
 	}
@@ -645,13 +645,13 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public LongFlow accumulate(final LongBinaryOperator accumulator)
+	public AbstractLongFlow accumulate(final LongBinaryOperator accumulator)
 	{
 		return new AccumulationFlow.OfLong(this, accumulator);
 	}
 
 	@Override
-	public LongFlow accumulate(final long id, final LongBinaryOperator accumulator)
+	public AbstractLongFlow accumulate(final long id, final LongBinaryOperator accumulator)
 	{
 		return new AccumulationFlow.OfLong(this, id, accumulator);
 	}

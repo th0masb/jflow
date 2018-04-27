@@ -31,7 +31,7 @@ import xawd.jflow.zippedpairs.IntWithLong;
 public abstract class AbstractIntFlow implements IntFlow
 {
 	@Override
-	public IntFlow map(final IntUnaryOperator f)
+	public AbstractIntFlow map(final IntUnaryOperator f)
 	{
 		final AbstractIntFlow src = this;
 
@@ -56,7 +56,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public <T> Flow<T> mapToObject(final IntFunction<T> f)
+	public <T> AbstractFlow<T> mapToObject(final IntFunction<T> f)
 	{
 		final AbstractIntFlow src = this;
 
@@ -81,7 +81,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public DoubleFlow mapToDouble(final IntToDoubleFunction f)
+	public AbstractDoubleFlow mapToDouble(final IntToDoubleFunction f)
 	{
 		final AbstractIntFlow src = this;
 
@@ -106,7 +106,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public LongFlow mapToLong(final IntToLongFunction f)
+	public AbstractLongFlow mapToLong(final IntToLongFunction f)
 	{
 		final AbstractIntFlow src = this;
 
@@ -131,7 +131,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public <T> Flow<IntWith<T>> zipWith(final Iterator<T> other)
+	public <T> AbstractFlow<IntWith<T>> zipWith(final Iterator<T> other)
 	{
 		final AbstractIntFlow src = this;
 
@@ -162,7 +162,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public Flow<IntPair> zipWith(final OfInt other)
+	public AbstractFlow<IntPair> zipWith(final OfInt other)
 	{
 		final AbstractIntFlow src = this;
 
@@ -193,7 +193,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public Flow<IntWithDouble> zipWith(final OfDouble other)
+	public AbstractFlow<IntWithDouble> zipWith(final OfDouble other)
 	{
 		final AbstractIntFlow src = this;
 
@@ -224,7 +224,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public Flow<IntWithLong> zipWith(final OfLong other)
+	public AbstractFlow<IntWithLong> zipWith(final OfLong other)
 	{
 		final AbstractIntFlow src = this;
 
@@ -255,7 +255,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow combineWith(final PrimitiveIterator.OfInt other, final IntBinaryOperator combiner)
+	public AbstractIntFlow combineWith(final PrimitiveIterator.OfInt other, final IntBinaryOperator combiner)
 	{
 		final AbstractIntFlow src = this;
 
@@ -288,43 +288,43 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public Flow<IntPair> enumerate()
+	public AbstractFlow<IntPair> enumerate()
 	{
 		return zipWith(Numbers.natural());
 	}
 
 	@Override
-	public IntFlow take(final int n)
+	public AbstractIntFlow take(final int n)
 	{
 		return new TakeFlow.OfInt(this, n);
 	}
 
 	@Override
-	public IntFlow takeWhile(final IntPredicate predicate)
+	public AbstractIntFlow takeWhile(final IntPredicate predicate)
 	{
 		return new TakeWhileFlow.OfInt(this, predicate);
 	}
 
 	@Override
-	public IntFlow drop(final int n)
+	public AbstractIntFlow drop(final int n)
 	{
 		return new DropFlow.OfInt(this, n);
 	}
 
 	@Override
-	public IntFlow dropWhile(final IntPredicate predicate)
+	public AbstractIntFlow dropWhile(final IntPredicate predicate)
 	{
 		return new DropWhileFlow.OfInt(this, predicate);
 	}
 
 	@Override
-	public IntFlow filter(final IntPredicate predicate)
+	public AbstractIntFlow filter(final IntPredicate predicate)
 	{
 		return new FilteredFlow.OfInt(this, predicate);
 	}
 
 	@Override
-	public IntFlow append(final OfInt other)
+	public AbstractIntFlow append(final OfInt other)
 	{
 		final AbstractIntFlow src = this;
 
@@ -359,13 +359,13 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow append(final int... xs)
+	public AbstractIntFlow append(final int... xs)
 	{
 		return append(Iter.of(xs));
 	}
 
 	@Override
-	public IntFlow insert(final OfInt other)
+	public AbstractIntFlow insert(final OfInt other)
 	{
 		final AbstractIntFlow src = this;
 
@@ -400,7 +400,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow insert(final int... xs)
+	public AbstractIntFlow insert(final int... xs)
 	{
 		return insert(Iter.of(xs));
 	}
@@ -644,13 +644,13 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public IntFlow accumulate(final IntBinaryOperator accumulator)
+	public AbstractIntFlow accumulate(final IntBinaryOperator accumulator)
 	{
 		return new AccumulationFlow.OfInt(this, accumulator);
 	}
 
 	@Override
-	public IntFlow accumulate(final int id, final IntBinaryOperator accumulator)
+	public AbstractIntFlow accumulate(final int id, final IntBinaryOperator accumulator)
 	{
 		return new AccumulationFlow.OfInt(this, id, accumulator);
 	}

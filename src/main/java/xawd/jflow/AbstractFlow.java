@@ -45,25 +45,25 @@ import xawd.jflow.zippedpairs.PredicatePartition;
 public abstract class AbstractFlow<T> implements Flow<T>
 {
 	@Override
-	public <R> Flow<R> flatten(final Function<? super T, ? extends Flow<? extends R>> mapping)
+	public <R> AbstractFlow<R> flatten(final Function<? super T, ? extends Flow<? extends R>> mapping)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public IntFlow flattenToInts(final Function<? super T, ? extends IntFlow> mapping)
+	public AbstractIntFlow flattenToInts(final Function<? super T, ? extends IntFlow> mapping)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public LongFlow flattenToLongs(final Function<? super T, ? extends LongFlow> mapping)
+	public AbstractLongFlow flattenToLongs(final Function<? super T, ? extends LongFlow> mapping)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public DoubleFlow flattenToDoubles(final Function<? super T, ? extends DoubleFlow> mapping)
+	public AbstractDoubleFlow flattenToDoubles(final Function<? super T, ? extends DoubleFlow> mapping)
 	{
 		throw new RuntimeException();
 	}
@@ -75,13 +75,13 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> slice(final IntUnaryOperator f)
+	public AbstractFlow<T> slice(final IntUnaryOperator f)
 	{
 		return new SlicedFlow<>(this, f);
 	}
 
 	@Override
-	public <R> Flow<R> map(final Function<? super T, R> f)
+	public <R> AbstractFlow<R> map(final Function<? super T, R> f)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -106,7 +106,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public IntFlow mapToInt(final ToIntFunction<? super T> f)
+	public AbstractIntFlow mapToInt(final ToIntFunction<? super T> f)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -131,7 +131,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public DoubleFlow mapToDouble(final ToDoubleFunction<? super T> f)
+	public AbstractDoubleFlow mapToDouble(final ToDoubleFunction<? super T> f)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -156,7 +156,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public LongFlow mapToLong(final ToLongFunction<? super T> f)
+	public AbstractLongFlow mapToLong(final ToLongFunction<? super T> f)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -181,7 +181,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public <R> Flow<Pair<T, R>> zipWith(final Iterator<R> other)
+	public <R> AbstractFlow<Pair<T, R>> zipWith(final Iterator<R> other)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -212,7 +212,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<IntWith<T>> zipWith(final OfInt other)
+	public AbstractFlow<IntWith<T>> zipWith(final OfInt other)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -243,7 +243,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<DoubleWith<T>> zipWith(final OfDouble other)
+	public AbstractFlow<DoubleWith<T>> zipWith(final OfDouble other)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -274,7 +274,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<LongWith<T>> zipWith(final OfLong other)
+	public AbstractFlow<LongWith<T>> zipWith(final OfLong other)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -305,7 +305,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public <U, R> Flow<R> combineWith(final Iterator<U> other, final BiFunction<T, U, R> f)
+	public <U, R> AbstractFlow<R> combineWith(final Iterator<U> other, final BiFunction<T, U, R> f)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -336,43 +336,43 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<IntWith<T>> enumerate()
+	public AbstractFlow<IntWith<T>> enumerate()
 	{
 		return zipWith(Numbers.natural());
 	}
 
 	@Override
-	public Flow<T> take(final int n)
+	public AbstractFlow<T> take(final int n)
 	{
 		return new TakeFlow.OfObject<>(this, n);
 	}
 
 	@Override
-	public Flow<T> takeWhile(final Predicate<? super T> predicate)
+	public AbstractFlow<T> takeWhile(final Predicate<? super T> predicate)
 	{
 		return new TakeWhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public Flow<T> skip(final int n)
+	public AbstractFlow<T> skip(final int n)
 	{
 		return new DropFlow.OfObject<>(this, n);
 	}
 
 	@Override
-	public Flow<T> skipWhile(final Predicate<? super T> predicate)
+	public AbstractFlow<T> skipWhile(final Predicate<? super T> predicate)
 	{
 		return new DropWhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public Flow<T> filter(final Predicate<? super T> predicate)
+	public AbstractFlow<T> filter(final Predicate<? super T> predicate)
 	{
 		return new FilteredFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public Flow<T> append(final Iterator<? extends T> other)
+	public AbstractFlow<T> append(final Iterator<? extends T> other)
 	{
 		final AbstractFlow<T> src = this;
 
@@ -407,7 +407,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	}
 
 	@Override
-	public Flow<T> insert(final Iterator<? extends T> other)
+	public AbstractFlow<T> insert(final Iterator<? extends T> other)
 	{
 		final AbstractFlow<T> src = this;
 
