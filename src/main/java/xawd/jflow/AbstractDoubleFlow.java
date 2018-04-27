@@ -576,7 +576,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	public boolean allMatch(final DoublePredicate predicate)
 	{
 		while (hasNext()) {
-			if (!predicate.test(next())) {
+			if (!predicate.test(nextDouble())) {
 				return false;
 			}
 		}
@@ -587,7 +587,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	public boolean anyMatch(final DoublePredicate predicate)
 	{
 		while (hasNext()) {
-			if (predicate.test(next())) {
+			if (predicate.test(nextDouble())) {
 				return true;
 			}
 		}
@@ -598,7 +598,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	public boolean noneMatch(final DoublePredicate predicate)
 	{
 		while (hasNext()) {
-			if (predicate.test(next())) {
+			if (predicate.test(nextDouble())) {
 				return false;
 			}
 		}

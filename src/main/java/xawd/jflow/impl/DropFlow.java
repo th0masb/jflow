@@ -99,7 +99,7 @@ public final class DropFlow
 			if (!dropped) {
 				dropElements();
 			}
-			return src.next();
+			return src.nextLong();
 		}
 
 		@Override
@@ -150,7 +150,7 @@ public final class DropFlow
 			if (!dropped) {
 				dropElements();
 			}
-			return src.next();
+			return src.nextInt();
 		}
 
 		@Override
@@ -201,7 +201,7 @@ public final class DropFlow
 			if (!dropped) {
 				dropElements();
 			}
-			return src.next();
+			return src.nextDouble();
 		}
 
 		@Override

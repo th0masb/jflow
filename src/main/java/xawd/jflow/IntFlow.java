@@ -130,7 +130,7 @@ public interface IntFlow extends SkippableIntIterator
 	{
 		final Map<K, ArrayAccumulators.OfInt> accumulationMap = new HashMap<>();
 		while (hasNext()) {
-			final int next = next();
+			final int next = nextInt();
 			final K key = classifier.apply(next);
 			accumulationMap.putIfAbsent(key, ArrayAccumulators.intAccumulator());
 			accumulationMap.get(key).add(next);

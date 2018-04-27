@@ -130,7 +130,7 @@ public interface DoubleFlow extends SkippableDoubleIterator
 	{
 		final Map<K, ArrayAccumulators.OfDouble> accumulationMap = new HashMap<>();
 		while (hasNext()) {
-			final double next = next();
+			final double next = nextDouble();
 			final K key = classifier.apply(next);
 			accumulationMap.putIfAbsent(key, ArrayAccumulators.doubleAccumulator());
 			accumulationMap.get(key).add(next);

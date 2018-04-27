@@ -102,7 +102,7 @@ public final class FlowFromFunction
 
 		@Override
 		public void skip() {
-			next();
+			nextLong();
 		}
 	}
 	
@@ -144,7 +144,7 @@ public final class FlowFromFunction
 
 		@Override
 		public void skip() {
-			next();
+			nextInt();
 		}
 	}
 	
@@ -186,7 +186,7 @@ public final class FlowFromFunction
 
 		@Override
 		public void skip() {
-			next();
+			nextDouble();
 		}
 	}
 }

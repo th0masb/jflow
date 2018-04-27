@@ -577,7 +577,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	public boolean allMatch(final LongPredicate predicate)
 	{
 		while (hasNext()) {
-			if (!predicate.test(next())) {
+			if (!predicate.test(nextLong())) {
 				return false;
 			}
 		}
@@ -588,7 +588,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	public boolean anyMatch(final LongPredicate predicate)
 	{
 		while (hasNext()) {
-			if (predicate.test(next())) {
+			if (predicate.test(nextLong())) {
 				return true;
 			}
 		}
@@ -599,7 +599,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	public boolean noneMatch(final LongPredicate predicate)
 	{
 		while (hasNext()) {
-			if (predicate.test(next())) {
+			if (predicate.test(nextLong())) {
 				return false;
 			}
 		}

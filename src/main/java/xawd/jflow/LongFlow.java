@@ -130,7 +130,7 @@ public interface LongFlow extends SkippableLongIterator
 	{
 		final Map<K, ArrayAccumulators.OfLong> accumulationMap = new HashMap<>();
 		while (hasNext()) {
-			final long next = next();
+			final long next = nextLong();
 			final K key = classifier.apply(next);
 			accumulationMap.putIfAbsent(key, ArrayAccumulators.longAccumulator());
 			accumulationMap.get(key).add(next);

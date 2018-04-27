@@ -576,7 +576,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	public boolean allMatch(final IntPredicate predicate)
 	{
 		while (hasNext()) {
-			if (!predicate.test(next())) {
+			if (!predicate.test(nextInt())) {
 				return false;
 			}
 		}
@@ -587,7 +587,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	public boolean anyMatch(final IntPredicate predicate)
 	{
 		while (hasNext()) {
-			if (predicate.test(next())) {
+			if (predicate.test(nextInt())) {
 				return true;
 			}
 		}
@@ -598,7 +598,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	public boolean noneMatch(final IntPredicate predicate)
 	{
 		while (hasNext()) {
-			if (predicate.test(next())) {
+			if (predicate.test(nextInt())) {
 				return false;
 			}
 		}
