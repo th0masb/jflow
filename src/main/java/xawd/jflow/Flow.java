@@ -25,11 +25,11 @@ import xawd.jflow.iterables.IterableDoubles;
 import xawd.jflow.iterables.IterableInts;
 import xawd.jflow.iterables.IterableLongs;
 import xawd.jflow.iterators.SkippableIterator;
+import xawd.jflow.misc.PredicatePartition;
 import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;
 import xawd.jflow.zippedpairs.Pair;
-import xawd.jflow.zippedpairs.PredicatePartition;
 
 /**
  * @author ThomasB

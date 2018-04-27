@@ -1,4 +1,4 @@
-package xawd.jflow.zippedpairs;
+package xawd.jflow.misc;
 
 import java.util.List;
 

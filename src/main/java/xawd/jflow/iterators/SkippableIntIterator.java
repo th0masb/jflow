@@ -18,4 +18,10 @@ public interface SkippableIntIterator extends PrimitiveIterator.OfInt, Skippable
 			action.accept(nextInt());
 		}
 	}
+	
+	@Deprecated
+	default Integer next()
+	{
+		throw new UnsupportedOperationException("No boxing!");
+	}
 }

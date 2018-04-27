@@ -4,11 +4,13 @@ import java.util.function.DoubleToLongFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.ToLongFunction;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import xawd.jflow.AbstractDoubleFlow;
-import xawd.jflow.AbstractFlow;
-import xawd.jflow.AbstractIntFlow;
+import xawd.jflow.AbstractLongFlow;
+import xawd.jflow.iterables.AbstractFlowIterable;
+import xawd.jflow.iterables.AbstractIterableDoubles;
+import xawd.jflow.iterables.AbstractIterableInts;
+import xawd.jflow.iterables.AbstractIterableLongs;
 import xawd.jflow.testutilities.IteratorTest;
 import xawd.jflow.testutilities.IteratorExampleProvider;
 
@@ -17,33 +19,63 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	@Test
 	public void testAbstractFlowMapToLong() 
 	{
-		final AbstractFlow<String> populated = getPopulatedObjectTestIterator();
-		final AbstractFlow<String> empty = getEmptyObjectTestIterator();
+		final AbstractFlowIterable<String> populated = getPopulatedObjectTestIteratorProvider();
+		final AbstractFlowIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		final ToLongFunction<String> mapper = Long::parseLong;
 		
-		assertIteratorAsExpected(new long[] {0, 1, 2, 3, 4}, populated.mapToLong(mapper));
-		assertIteratorAsExpected(new long[] {}, empty.mapToLong(mapper));
+		assertLongIteratorAsExpected(new long[] {0, 1, 2, 3, 4}, createMapToLongIteratorProviderFrom(populated, mapper));
+		assertLongIteratorAsExpected(new long[] {}, createMapToLongIteratorProviderFrom(empty, mapper));
+	}
+	
+	private <T> AbstractIterableLongs createMapToLongIteratorProviderFrom(final AbstractFlowIterable<T> src, final ToLongFunction<T> mapper)
+	{
+		return new AbstractIterableLongs() {
+			@Override
+			public AbstractLongFlow iterator() {
+				return src.iterator().mapToLong(mapper);
+			}
+		};
+	}
+
+	@Test
+	public void testAbstractIntFlowMapToLong()
+	{
+		final AbstractIterableInts populated = getPopulatedIntTestIteratorProvider();
+		AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
+		final IntToLongFunction mapper = x -> (long) x + 1;
+		
+		assertLongIteratorAsExpected(new long[] {1, 2, 3, 4, 5}, createIntMapToLongIteratorProviderFrom(populated, mapper));
+		assertLongIteratorAsExpected(new long[] {}, createIntMapToLongIteratorProviderFrom(empty, mapper));
+	}
+	
+	private AbstractIterableLongs createIntMapToLongIteratorProviderFrom(AbstractIterableInts src, IntToLongFunction mapper)
+	{
+		return new AbstractIterableLongs() {
+			@Override
+			public AbstractLongFlow iterator() {
+				return src.iterator().mapToLong(mapper);
+			}
+		};
 	}
 	
 	@Test
 	public void testAbstractDoubleFlowMapToLong()
 	{
-		final AbstractDoubleFlow populated = getPopulatedDoubleTestIterator();
-		final AbstractDoubleFlow empty = getEmptyDoubleTestIterator();
-		final DoubleToLongFunction mapper = x -> 0L;
+		final AbstractIterableDoubles populated = getPopulatedDoubleTestIteratorProvider();
+		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
+		final DoubleToLongFunction mapper = x -> (long) (x + 1.6);
 		
-		assertIteratorAsExpected(new long[] {0, 0, 0, 0, 0}, populated.mapToLong(mapper));
-		assertIteratorAsExpected(new long[] {}, empty.mapToLong(mapper));
+		assertLongIteratorAsExpected(new long[] {1, 2, 3, 4, 5}, createDoubleMapToLongIteratorProviderFrom(populated, mapper));
+		assertLongIteratorAsExpected(new long[] {}, createDoubleMapToLongIteratorProviderFrom(empty, mapper));
 	}
 	
-	@Test
-	public void testAbstractIntFlowMapToLong()
+	private AbstractIterableLongs createDoubleMapToLongIteratorProviderFrom(AbstractIterableDoubles src, DoubleToLongFunction mapper)
 	{
-		final AbstractIntFlow populated = getPopulatedIntTestIterator();
-		final AbstractIntFlow empty = getEmptyIntTestIterator();
-		final IntToLongFunction mapper = x -> 0L;
-		
-		assertIteratorAsExpected(new long[] {0, 0, 0, 0, 0}, populated.mapToLong(mapper));
-		assertIteratorAsExpected(new long[] {}, empty.mapToLong(mapper));
+		return new AbstractIterableLongs() {
+			@Override
+			public AbstractLongFlow iterator() {
+				return src.iterator().mapToLong(mapper);
+			}
+		};
 	}
 }

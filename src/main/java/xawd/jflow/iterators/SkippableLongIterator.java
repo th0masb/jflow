@@ -18,4 +18,10 @@ public interface SkippableLongIterator extends Skippable, PrimitiveIterator.OfLo
 			action.accept(nextLong());
 		}
 	}
+	
+	@Deprecated
+	default Long next()
+	{
+		throw new UnsupportedOperationException("No boxing!");
+	}
 }

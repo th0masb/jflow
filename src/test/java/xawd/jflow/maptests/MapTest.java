@@ -26,15 +26,15 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	@Test
 	public void testAbstractObjectFlowMap()
 	{
-		final AbstractFlowIterable<String> populated = getPopulatedObjectTestIterator();
-		final AbstractFlowIterable<String> empty = getEmptyObjectTestIterator();
+		final AbstractFlowIterable<String> populated = getPopulatedObjectTestIteratorProvider();
+		final AbstractFlowIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		final Function<String, String> mapper = string -> string + string;
 
-		assertObjectIteratorAsExpected(asList("00", "11", "22", "33", "44"), mapIteratorProvider(populated, mapper));
-		assertObjectIteratorAsExpected(asList(), mapIteratorProvider(empty, mapper));
+		assertObjectIteratorAsExpected(asList("00", "11", "22", "33", "44"), createMapIteratorProviderFrom(populated, mapper));
+		assertObjectIteratorAsExpected(asList(), createMapIteratorProviderFrom(empty, mapper));
 	}
 
-	private <T, R> AbstractFlowIterable<R> mapIteratorProvider(final AbstractFlowIterable<T> src, final Function<T, R> mapper)
+	private <T, R> AbstractFlowIterable<R> createMapIteratorProviderFrom(final AbstractFlowIterable<T> src, final Function<T, R> mapper)
 	{
 		return new AbstractFlowIterable<R>()
 		{
@@ -49,15 +49,15 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	@Test
 	public void testAbstractLongFlowMap()
 	{
-		final AbstractIterableLongs populated = getPopulatedLongTestIterator();
-		final AbstractIterableLongs empty = getEmptyLongTestIterator();
+		final AbstractIterableLongs populated = getPopulatedLongTestIteratorProvider();
+		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 		final LongUnaryOperator mapper = x -> 2*x;
 
-		assertLongIteratorAsExpected(new long[] {0, 2, 4, 6, 8 }, mapLongIteratorProvider(populated, mapper));
-		assertLongIteratorAsExpected(new long[] {}, mapLongIteratorProvider(empty, mapper));
+		assertLongIteratorAsExpected(new long[] {0, 2, 4, 6, 8 }, createLongMapIteratorProviderFrom(populated, mapper));
+		assertLongIteratorAsExpected(new long[] {}, createLongMapIteratorProviderFrom(empty, mapper));
 	}
 
-	private AbstractIterableLongs mapLongIteratorProvider(final AbstractIterableLongs src, final LongUnaryOperator mapper)
+	private AbstractIterableLongs createLongMapIteratorProviderFrom(final AbstractIterableLongs src, final LongUnaryOperator mapper)
 	{
 		return new AbstractIterableLongs()
 		{
@@ -72,15 +72,15 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	@Test
 	public void testAbstractDoubleFlowMap()
 	{
-		final AbstractIterableDoubles populated = getPopulatedDoubleTestIterator();
-		final AbstractIterableDoubles empty = getEmptyDoubleTestIterator();
+		final AbstractIterableDoubles populated = getPopulatedDoubleTestIteratorProvider();
+		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
 		final DoubleUnaryOperator mapper = x -> 2*x;
 
-		assertDoubleIteratorAsExpected(new double[] {0, 2, 4, 6, 8 }, mapDoubleIteratorProvider(populated, mapper));
-		assertDoubleIteratorAsExpected(new double[] {}, mapDoubleIteratorProvider(empty, mapper));
+		assertDoubleIteratorAsExpected(new double[] {0, 2, 4, 6, 8 }, createDoubleMapIteratorProviderFrom(populated, mapper));
+		assertDoubleIteratorAsExpected(new double[] {}, createDoubleMapIteratorProviderFrom(empty, mapper));
 	}
 
-	private AbstractIterableDoubles mapDoubleIteratorProvider(final AbstractIterableDoubles src, final DoubleUnaryOperator mapper)
+	private AbstractIterableDoubles createDoubleMapIteratorProviderFrom(final AbstractIterableDoubles src, final DoubleUnaryOperator mapper)
 	{
 		return new AbstractIterableDoubles()
 		{
@@ -95,15 +95,15 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	@Test
 	public void testAbstractIntFlowMap()
 	{
-		final AbstractIterableInts populated = getPopulatedIntTestIterator();
-		final AbstractIterableInts empty = getEmptyIntTestIterator();
+		final AbstractIterableInts populated = getPopulatedIntTestIteratorProvider();
+		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
 		final IntUnaryOperator mapper = x -> 2*x;
 
-		assertIntIteratorAsExpected(new int[] {0, 2, 4, 6, 8 }, mapIntIteratorProvider(populated, mapper));
-		assertIntIteratorAsExpected(new int[] {}, mapIntIteratorProvider(empty, mapper));
+		assertIntIteratorAsExpected(new int[] {0, 2, 4, 6, 8 }, createIntMapIteratorProvider(populated, mapper));
+		assertIntIteratorAsExpected(new int[] {}, createIntMapIteratorProvider(empty, mapper));
 	}
 
-	private AbstractIterableInts mapIntIteratorProvider(final AbstractIterableInts src, final IntUnaryOperator mapper)
+	private AbstractIterableInts createIntMapIteratorProvider(final AbstractIterableInts src, final IntUnaryOperator mapper)
 	{
 		return new AbstractIterableInts()
 		{

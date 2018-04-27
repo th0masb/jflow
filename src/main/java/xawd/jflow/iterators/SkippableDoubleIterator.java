@@ -18,4 +18,10 @@ public interface SkippableDoubleIterator extends OfDouble, Skippable {
 			action.accept(nextDouble());
 		}
 	}
+	
+	@Deprecated
+	default Double next()
+	{
+		throw new UnsupportedOperationException("No boxing!");
+	}
 }

@@ -28,7 +28,7 @@ public class IteratorExampleProvider
 	private static final long[] LONG_EXAMPLE_SRC = {0, 1, 2, 3, 4};
 
 
-	public AbstractFlowIterable<String> getPopulatedObjectTestIterator()
+	public AbstractFlowIterable<String> getPopulatedObjectTestIteratorProvider()
 	{
 		return new AbstractFlowIterable<String>()
 		{
@@ -60,7 +60,7 @@ public class IteratorExampleProvider
 		};
 	}
 
-	public AbstractFlowIterable<String> getEmptyObjectTestIterator()
+	public AbstractFlowIterable<String> getEmptyObjectTestIteratorProvider()
 	{
 		return new AbstractFlowIterable<String>()
 		{
@@ -86,7 +86,7 @@ public class IteratorExampleProvider
 		};
 	}
 
-	public AbstractIterableLongs getPopulatedLongTestIterator()
+	public AbstractIterableLongs getPopulatedLongTestIteratorProvider()
 	{
 		return new AbstractIterableLongs()
 		{
@@ -111,14 +111,14 @@ public class IteratorExampleProvider
 					}
 					@Override
 					public void skip() {
-						next();
+						nextLong();
 					}
 				};
 			}
 		};
 	}
 
-	public AbstractIterableLongs getEmptyLongTestIterator()
+	public AbstractIterableLongs getEmptyLongTestIteratorProvider()
 	{
 		return new AbstractIterableLongs()
 		{
@@ -136,14 +136,14 @@ public class IteratorExampleProvider
 					}
 					@Override
 					public void skip() {
-						next();
+						nextLong();
 					}
 				};
 			}
 		};
 	}
 
-	public AbstractIterableInts getPopulatedIntTestIterator()
+	public AbstractIterableInts getPopulatedIntTestIteratorProvider()
 	{
 		return new AbstractIterableInts()
 		{
@@ -168,14 +168,14 @@ public class IteratorExampleProvider
 					}
 					@Override
 					public void skip() {
-						next();
+						nextInt();
 					}
 				};
 			}
 		};
 	}
 
-	public AbstractIterableInts getEmptyIntTestIterator()
+	public AbstractIterableInts getEmptyIntTestIteratorProvider()
 	{
 		return new AbstractIterableInts()
 		{
@@ -193,14 +193,14 @@ public class IteratorExampleProvider
 					}
 					@Override
 					public void skip() {
-						next();
+						nextInt();
 					}
 				};
 			}
 		};
 	}
 
-	public AbstractIterableDoubles getPopulatedDoubleTestIterator()
+	public AbstractIterableDoubles getPopulatedDoubleTestIteratorProvider()
 	{
 		return new AbstractIterableDoubles()
 		{
@@ -225,14 +225,14 @@ public class IteratorExampleProvider
 					}
 					@Override
 					public void skip() {
-						next();
+						nextDouble();
 					}
 				};
 			}
 		};
 	}
 
-	public AbstractIterableDoubles getEmptyDoubleTestIterator()
+	public AbstractIterableDoubles getEmptyDoubleTestIteratorProvider()
 	{
 		return new AbstractIterableDoubles()
 		{
@@ -250,7 +250,7 @@ public class IteratorExampleProvider
 					}
 					@Override
 					public void skip() {
-						next();
+						nextDouble();
 					}
 				};
 			}

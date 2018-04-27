@@ -5,7 +5,7 @@ version = '0.1'
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'JChain',
+        attributes 'Implementation-Title': 'JFlow',
                    'Implementation-Version': version
     }
 }
@@ -17,6 +17,7 @@ repositories {
 dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '23.0'
     
+	testCompile 'org.junit.platform:junit-platform-launcher:1.1.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 }
@@ -24,8 +25,6 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '4.6'

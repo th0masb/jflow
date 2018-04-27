@@ -1,5 +1,7 @@
 package xawd.jflow.impl;
 
+import java.util.NoSuchElementException;
+
 import xawd.jflow.AbstractDoubleFlow;
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.AbstractIntFlow;
@@ -42,15 +44,23 @@ public final class TakeFlow
 		@Override
 		public T next()
 		{
-			count++;
-			return src.next();
+			if (count++ < takeCount) {
+				return src.next();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 
 		@Override
 		public void skip()
 		{
-			count++;
-			src.skip();
+			if (count++ < takeCount) {
+				src.skip();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -79,15 +89,23 @@ public final class TakeFlow
 		@Override
 		public long nextLong()
 		{
-			count++;
-			return src.next();
+			if (count++ < takeCount) {
+				return src.nextLong();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 
 		@Override
 		public void skip()
 		{
-			count++;
-			src.skip();
+			if (count++ < takeCount) {
+				src.skip();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -116,15 +134,23 @@ public final class TakeFlow
 		@Override
 		public int nextInt()
 		{
-			count++;
-			return src.next();
+			if (count++ < takeCount) {
+				return src.nextInt();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 
 		@Override
 		public void skip()
 		{
-			count++;
-			src.skip();
+			if (count++ < takeCount) {
+				src.nextInt();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -153,15 +179,23 @@ public final class TakeFlow
 		@Override
 		public double nextDouble()
 		{
-			count++;
-			return src.next();
+			if (count++ < takeCount) {
+				return src.nextDouble();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 
 		@Override
 		public void skip()
 		{
-			count++;
-			src.skip();
+			if (count++ < takeCount) {
+				src.nextDouble();
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 }

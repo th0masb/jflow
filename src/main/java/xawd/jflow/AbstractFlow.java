@@ -32,11 +32,11 @@ import xawd.jflow.impl.SlicedFlow;
 import xawd.jflow.impl.TakeFlow;
 import xawd.jflow.impl.TakeWhileFlow;
 import xawd.jflow.iterators.Skippable;
+import xawd.jflow.misc.PredicatePartition;
 import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;
 import xawd.jflow.zippedpairs.Pair;
-import xawd.jflow.zippedpairs.PredicatePartition;
 
 /**
  * @author t

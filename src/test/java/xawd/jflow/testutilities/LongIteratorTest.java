@@ -1,5 +1,6 @@
 package xawd.jflow.testutilities;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,21 +49,21 @@ public interface LongIteratorTest
 	{
 		final List<Long> recoveredElements = new ArrayList<>();
 		while (iterator.hasNext()) {
-			recoveredElements.add(iterator.next());
+			recoveredElements.add(iterator.nextLong());
 		}
-		assertThrows(NoSuchElementException.class, iterator::next);
+		assertThrows(NoSuchElementException.class, iterator::nextLong);
 		assertThrows(NoSuchElementException.class, iterator::skip);
-		assertEquals(expectedElements, convertFromBoxed(recoveredElements));
+		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
 	}
 
 	static void assertUncheckedIterationAsExpected(final long[] expectedElements, final AbstractLongFlow iterator)
 	{
 		final List<Long> recoveredElements = new ArrayList<>();
-		IntStream.range(0, expectedElements.length).forEach(i -> recoveredElements.add(iterator.next()));
+		IntStream.range(0, expectedElements.length).forEach(i -> recoveredElements.add(iterator.nextLong()));
 
-		assertThrows(NoSuchElementException.class, iterator::next);
+		assertThrows(NoSuchElementException.class, iterator::nextLong);
 		assertThrows(NoSuchElementException.class, iterator::skip);
-		assertEquals(expectedElements, convertFromBoxed(recoveredElements));
+		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
 	}
 
 	static void assertAlternatingNextAndSkipCallsAsExpected(final long[] expectedElements, final AbstractLongFlow iterator)
@@ -72,7 +73,7 @@ public interface LongIteratorTest
 		IntStream.range(0, expectedElements.length).forEach(i ->
 		{
 			if (i % 2 == 0) {
-				recoveredElements.add(iterator.next());
+				recoveredElements.add(iterator.nextLong());
 				expectedOutcome.add(expectedElements[i]);
 			}
 			else {
@@ -81,7 +82,7 @@ public interface LongIteratorTest
 		});
 
 		assertFalse(iterator.hasNext());
-		assertThrows(NoSuchElementException.class, iterator::next);
+		assertThrows(NoSuchElementException.class, iterator::nextLong);
 		assertThrows(NoSuchElementException.class, iterator::skip);
 		assertEquals(expectedOutcome, recoveredElements);
 	}
