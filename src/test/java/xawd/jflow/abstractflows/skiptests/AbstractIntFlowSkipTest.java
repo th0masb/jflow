@@ -41,8 +41,8 @@ class AbstractIntFlowSkipTest extends IteratorExampleProvider implements Iterato
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i ->
 		{
-			assertThrows(IllegalArgumentException.class, () -> populated.iterator().skip(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iterator().skip(i));
+			assertThrows(IllegalArgumentException.class, () -> populated.iter().skip(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iter().skip(i));
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i ->
@@ -56,8 +56,8 @@ class AbstractIntFlowSkipTest extends IteratorExampleProvider implements Iterato
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iterator() {
-				return src.iterator().skip(skipCount);
+			public AbstractIntFlow iter() {
+				return src.iter().skip(skipCount);
 			}
 		};
 	}

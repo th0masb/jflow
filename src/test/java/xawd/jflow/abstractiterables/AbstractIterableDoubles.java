@@ -10,5 +10,5 @@ import xawd.jflow.iterables.IterableDoubles;
 public abstract class AbstractIterableDoubles implements IterableDoubles
 {
 	@Override
-	public abstract AbstractDoubleFlow iterator();
+	public abstract AbstractDoubleFlow iter();
 }

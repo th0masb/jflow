@@ -45,8 +45,8 @@ public class AbstractLongFlowTakeTest extends IteratorExampleProvider implements
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i ->
 		{
-			assertThrows(IllegalArgumentException.class, () -> populated.iterator().take(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iterator().take(i));
+			assertThrows(IllegalArgumentException.class, () -> populated.iter().take(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iter().take(i));
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i ->
@@ -60,8 +60,8 @@ public class AbstractLongFlowTakeTest extends IteratorExampleProvider implements
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iterator() {
-				return src.iterator().take(takeCount);
+			public AbstractLongFlow iter() {
+				return src.iter().take(takeCount);
 			}
 		};
 	}

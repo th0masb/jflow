@@ -43,8 +43,8 @@ public class AbstractFlowTakeTest extends IteratorExampleProvider implements Ite
 		
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i -> 
 		{
-			assertThrows(IllegalArgumentException.class, () -> populated.iterator().take(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iterator().take(i));
+			assertThrows(IllegalArgumentException.class, () -> populated.iter().take(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iter().take(i));
 		});
 		
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i -> 
@@ -58,8 +58,8 @@ public class AbstractFlowTakeTest extends IteratorExampleProvider implements Ite
 	{
 		return new AbstractFlowIterable<T>() {
 			@Override
-			public AbstractFlow<T> iterator() {
-				return src.iterator().take(takeCount);
+			public AbstractFlow<T> iter() {
+				return src.iter().take(takeCount);
 			}
 		};
 	}

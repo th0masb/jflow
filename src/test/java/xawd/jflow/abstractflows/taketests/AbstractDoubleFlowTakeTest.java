@@ -41,8 +41,8 @@ public class AbstractDoubleFlowTakeTest extends IteratorExampleProvider implemen
 		
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i -> 
 		{
-			assertThrows(IllegalArgumentException.class, () -> populated.iterator().take(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iterator().take(i));
+			assertThrows(IllegalArgumentException.class, () -> populated.iter().take(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iter().take(i));
 		});
 		
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i -> 
@@ -56,8 +56,8 @@ public class AbstractDoubleFlowTakeTest extends IteratorExampleProvider implemen
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iterator() {
-				return src.iterator().take(takeCount);
+			public AbstractDoubleFlow iter() {
+				return src.iter().take(takeCount);
 			}
 		};
 	}

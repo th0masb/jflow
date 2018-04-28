@@ -100,7 +100,7 @@ public interface IntFlow extends SkippableIntIterator
 	IntFlow accumulate(IntBinaryOperator accumulator);
 
 	IntFlow accumulate(int id, IntBinaryOperator accumulator);
-	
+
 	default int[] toArray()
 	{
 		final ArrayAccumulators.OfInt accumulater = ArrayAccumulators.intAccumulator();
@@ -149,31 +149,31 @@ public interface IntFlow extends SkippableIntIterator
 
 	default Flow<IntPair> zipWith(final IterableInts other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default Flow<IntWithDouble> zipWith(final IterableDoubles other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default Flow<IntWithLong> zipWith(final IterableLongs other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default IntFlow combineWith(final IterableInts other, final IntBinaryOperator combiner)
 	{
-		return combineWith(other.iterator(), combiner);
+		return combineWith(other.iter(), combiner);
 	}
 
 	default IntFlow append(final IterableInts other)
 	{
-		return append(other.iterator());
+		return append(other.iter());
 	}
 
 	default IntFlow insert(final IterableInts other)
 	{
-		return insert(other.iterator());
+		return insert(other.iter());
 	}
 }

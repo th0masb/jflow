@@ -157,7 +157,8 @@ public interface Chain<T> extends BaseChain, Iterable<T>
 	static class ChainIterator<T> implements Iterator<T>
 	{
 
-		private int upper, origin;
+		private final int upper;
+		private int origin;
 		private final IntFunction<? extends T> generatingFunction;
 
 		public ChainIterator(final Chain<T> chain)

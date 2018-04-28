@@ -149,31 +149,31 @@ public interface DoubleFlow extends SkippableDoubleIterator
 
 	default Flow<DoublePair> zipWith(final IterableDoubles other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default Flow<DoubleWithLong> zipWith(final IterableLongs other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default Flow<IntWithDouble> zipWith(final IterableInts other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default DoubleFlow combineWith(final IterableDoubles other, final DoubleBinaryOperator combiner)
 	{
-		return combineWith(other.iterator(), combiner);
+		return combineWith(other.iter(), combiner);
 	}
 
 	default DoubleFlow append(final IterableDoubles other)
 	{
-		return append(other.iterator());
+		return append(other.iter());
 	}
 
 	default DoubleFlow insert(final IterableDoubles other)
 	{
-		return insert(other.iterator());
+		return insert(other.iter());
 	}
 }

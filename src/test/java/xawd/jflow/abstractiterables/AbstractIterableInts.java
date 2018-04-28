@@ -10,5 +10,5 @@ import xawd.jflow.iterables.IterableInts;
 public abstract class AbstractIterableInts implements IterableInts
 {
 	@Override
-	public abstract AbstractIntFlow iterator();
+	public abstract AbstractIntFlow iter();
 }

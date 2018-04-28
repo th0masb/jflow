@@ -10,5 +10,5 @@ import xawd.jflow.iterables.IterableLongs;
 public abstract class AbstractIterableLongs implements IterableLongs
 {
 	@Override
-	public abstract AbstractLongFlow iterator();
+	public abstract AbstractLongFlow iter();
 }

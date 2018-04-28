@@ -42,9 +42,9 @@ class AbstractDoubleFlowSkipwhileTest extends IteratorExampleProvider implements
 		return new AbstractIterableDoubles()
 		{
 			@Override
-			public AbstractDoubleFlow iterator()
+			public AbstractDoubleFlow iter()
 			{
-				return src.iterator().skipWhile(predicate);
+				return src.iter().skipWhile(predicate);
 			}
 		};
 	}

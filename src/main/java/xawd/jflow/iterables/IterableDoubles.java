@@ -15,18 +15,18 @@ import xawd.jflow.DoubleFlow;
  */
 public interface IterableDoubles
 {
-	DoubleFlow iterator();
+	DoubleFlow iter();
 
 	default void forEach(final DoubleConsumer action)
 	{
-		iterator().forEach(action);
+		iter().forEach(action);
 	}
 
 	/**
 	 * Default behaviour is late-binding without any structural checks on the
 	 * source.
 	 */
-	default Spliterator.OfDouble spliterator()
+	default Spliterator.OfDouble primitiveSpliterator()
 	{
 		final IterableDoubles src = this;
 		return new Spliterator.OfDouble()
@@ -49,7 +49,7 @@ public interface IterableDoubles
 			public OfDouble trySplit()
 			{
 				if (srcDoubles == null) {
-					srcDoubles = src.iterator();
+					srcDoubles = src.iter();
 				}
 				return null;
 			}
@@ -77,7 +77,7 @@ public interface IterableDoubles
 			void initialise()
 			{
 				if (srcDoubles == null) {
-					srcDoubles = src.iterator();
+					srcDoubles = src.iter();
 				}
 			}
 		};

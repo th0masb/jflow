@@ -39,9 +39,9 @@ class AbstractIntFlowTakewhileTest extends IteratorExampleProvider implements It
 		return new AbstractIterableInts()
 		{
 			@Override
-			public AbstractIntFlow iterator()
+			public AbstractIntFlow iter()
 			{
-				return src.iterator().takeWhile(predicate);
+				return src.iter().takeWhile(predicate);
 			}
 		};
 	}

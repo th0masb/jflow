@@ -31,8 +31,8 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iterator() {
-				return src.iterator().mapToLong(mapper);
+			public AbstractLongFlow iter() {
+				return src.iter().mapToLong(mapper);
 			}
 		};
 	}
@@ -52,8 +52,8 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iterator() {
-				return src.iterator().mapToLong(mapper);
+			public AbstractLongFlow iter() {
+				return src.iter().mapToLong(mapper);
 			}
 		};
 	}
@@ -73,8 +73,8 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iterator() {
-				return src.iterator().mapToLong(mapper);
+			public AbstractLongFlow iter() {
+				return src.iter().mapToLong(mapper);
 			}
 		};
 	}

@@ -30,6 +30,8 @@ import xawd.jflow.zippedpairs.DoubleWith;
 import xawd.jflow.zippedpairs.IntWith;
 import xawd.jflow.zippedpairs.LongWith;
 import xawd.jflow.zippedpairs.Pair;
+import xawd.lists.listflow.ArrayListFlow;
+import xawd.lists.listflow.ListFlow;
 
 /**
  * @author ThomasB
@@ -126,14 +128,19 @@ public interface Flow<T> extends SkippableIterator<T>
 		return append(Arrays.asList(ts));
 	}
 
-	default List<T> toImmutableList()
-	{
-		return Collections.unmodifiableList(toList());
-	}
-
 	default List<T> toList()
 	{
 		return toCollection(ArrayList::new);
+	}
+
+	default ListFlow<T> toListFlow()
+	{
+		return toCollection(ArrayListFlow::new);
+	}
+
+	default List<T> toImmutableList()
+	{
+		return Collections.unmodifiableList(toList());
 	}
 
 	default Set<T> toImmutableSet()
@@ -153,17 +160,17 @@ public interface Flow<T> extends SkippableIterator<T>
 
 	default Flow<IntWith<T>> zipWith(final IterableInts other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default Flow<DoubleWith<T>> zipWith(final IterableDoubles other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default Flow<LongWith<T>> zipWith(final IterableLongs other)
 	{
-		return zipWith(other.iterator());
+		return zipWith(other.iter());
 	}
 
 	default <U, R> Flow<R> combineWith(final Iterable<U> other, final BiFunction<T, U, R> f)

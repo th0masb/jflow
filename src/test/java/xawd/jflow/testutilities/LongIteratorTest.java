@@ -22,11 +22,11 @@ public interface LongIteratorTest
 {
 	default void assertLongIteratorAsExpected(final long[] expectedElements, final AbstractIterableLongs iteratorProvider)
 	{
-		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
-		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
-		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
-		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
-		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
+		assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
+		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
+		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
+		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
+		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
 	}
 
 	static void assertSkippingAsExpected(final long[] expectedElements, final AbstractLongFlow iterator)

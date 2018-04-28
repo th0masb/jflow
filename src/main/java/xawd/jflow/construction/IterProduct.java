@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.construction;
 
@@ -14,7 +14,7 @@ import xawd.jflow.zippedpairs.Pair;
  * @author t
  *
  */
-public class IterProduct 
+public class IterProduct
 {
 	public static <X, Y> Flow<Pair<X, Y>> of(final Iterable<X> xs, final Iterable<Y> ys)
 	{

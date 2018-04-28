@@ -42,9 +42,9 @@ class AbstractDoubleFlowTakewhileTest extends IteratorExampleProvider implements
 		return new AbstractIterableDoubles()
 		{
 			@Override
-			public AbstractDoubleFlow iterator()
+			public AbstractDoubleFlow iter()
 			{
-				return src.iterator().takeWhile(predicate);
+				return src.iter().takeWhile(predicate);
 			}
 		};
 	}

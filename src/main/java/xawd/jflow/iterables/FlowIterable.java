@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Lhasa Limited
+ * Copyright ï¿½ 2018 Lhasa Limited
  * File created: 27 Apr 2018 by ThomasB
  * Creator : ThomasB
  * Version : $Id$
@@ -14,8 +14,14 @@ import xawd.jflow.Flow;
  */
 public interface FlowIterable<T> extends Iterable<T>
 {
+	Flow<T> iter();
+
+	@Deprecated
 	@Override
-	Flow<T> iterator();
+	default Flow<T> iterator()
+	{
+		return iter();
+	}
 }
 
 /* ---------------------------------------------------------------------*

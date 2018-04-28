@@ -41,8 +41,8 @@ public class AbstractDoubleFlowSkipTest extends IteratorExampleProvider implemen
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i ->
 		{
-			assertThrows(IllegalArgumentException.class, () -> populated.iterator().skip(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iterator().skip(i));
+			assertThrows(IllegalArgumentException.class, () -> populated.iter().skip(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iter().skip(i));
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i ->
@@ -56,8 +56,8 @@ public class AbstractDoubleFlowSkipTest extends IteratorExampleProvider implemen
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iterator() {
-				return src.iterator().skip(skipCount);
+			public AbstractDoubleFlow iter() {
+				return src.iter().skip(skipCount);
 			}
 		};
 	}

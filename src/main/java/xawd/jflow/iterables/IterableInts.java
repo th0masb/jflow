@@ -15,18 +15,18 @@ import xawd.jflow.IntFlow;
  */
 public interface IterableInts
 {
-	IntFlow iterator();
+	IntFlow iter();
 
 	default void forEach(final IntConsumer action)
 	{
-		iterator().forEachRemaining(action);
+		iter().forEachRemaining(action);
 	}
 
 	/**
 	 * Default behaviour is late-binding without any structural checks on the
 	 * source.
 	 */
-	default Spliterator.OfInt spliterator()
+	default Spliterator.OfInt primitiveSpliterator()
 	{
 		final IterableInts src = this;
 		return new Spliterator.OfInt()
@@ -49,7 +49,7 @@ public interface IterableInts
 			public OfInt trySplit()
 			{
 				if (srcInts == null) {
-					srcInts = src.iterator();
+					srcInts = src.iter();
 				}
 				return null;
 			}
@@ -77,7 +77,7 @@ public interface IterableInts
 			void initialise()
 			{
 				if (srcInts == null) {
-					srcInts = src.iterator();
+					srcInts = src.iter();
 				}
 			}
 		};
