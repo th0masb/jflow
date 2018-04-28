@@ -51,9 +51,9 @@ public interface DoubleFlow extends SkippableDoubleIterator
 
 	DoubleFlow takeWhile(final DoublePredicate p);
 
-	DoubleFlow drop(final int n);
+	DoubleFlow skip(final int n);
 
-	DoubleFlow dropWhile(final DoublePredicate p);
+	DoubleFlow skipWhile(final DoublePredicate p);
 
 	DoubleFlow filter(final DoublePredicate p);
 

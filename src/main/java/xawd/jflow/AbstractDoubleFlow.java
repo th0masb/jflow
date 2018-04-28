@@ -12,11 +12,11 @@ import java.util.function.DoubleUnaryOperator;
 import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
-import xawd.jflow.impl.DropFlow;
-import xawd.jflow.impl.DropWhileFlow;
+import xawd.jflow.impl.SkipFlow;
+import xawd.jflow.impl.SkipwhileFlow;
 import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.TakeFlow;
-import xawd.jflow.impl.TakeWhileFlow;
+import xawd.jflow.impl.TakewhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.zippedpairs.DoublePair;
 import xawd.jflow.zippedpairs.DoubleWith;
@@ -301,19 +301,19 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	@Override
 	public AbstractDoubleFlow takeWhile(final DoublePredicate predicate)
 	{
-		return new TakeWhileFlow.OfDouble(this, predicate);
+		return new TakewhileFlow.OfDouble(this, predicate);
 	}
 
 	@Override
-	public AbstractDoubleFlow drop(final int n)
+	public AbstractDoubleFlow skip(final int n)
 	{
-		return new DropFlow.OfDouble(this, n);
+		return new SkipFlow.OfDouble(this, n);
 	}
 
 	@Override
-	public AbstractDoubleFlow dropWhile(final DoublePredicate predicate)
+	public AbstractDoubleFlow skipWhile(final DoublePredicate predicate)
 	{
-		return new DropWhileFlow.OfDouble(this, predicate);
+		return new SkipwhileFlow.OfDouble(this, predicate);
 	}
 
 	@Override

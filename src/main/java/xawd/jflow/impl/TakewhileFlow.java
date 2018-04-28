@@ -19,9 +19,9 @@ import xawd.jflow.LongFlow;
  * @author ThomasB
  * @since 23 Apr 2018
  */
-public final class TakeWhileFlow
+public final class TakewhileFlow
 {
-	private TakeWhileFlow() {}
+	private TakewhileFlow() {}
 	
 	public static class OfObject<T> extends AbstractFlow<T>
 	{

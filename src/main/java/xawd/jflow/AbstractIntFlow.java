@@ -13,11 +13,11 @@ import java.util.function.IntUnaryOperator;
 import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
-import xawd.jflow.impl.DropFlow;
-import xawd.jflow.impl.DropWhileFlow;
+import xawd.jflow.impl.SkipFlow;
+import xawd.jflow.impl.SkipwhileFlow;
 import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.TakeFlow;
-import xawd.jflow.impl.TakeWhileFlow;
+import xawd.jflow.impl.TakewhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.zippedpairs.IntPair;
 import xawd.jflow.zippedpairs.IntWith;
@@ -302,19 +302,19 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public AbstractIntFlow takeWhile(final IntPredicate predicate)
 	{
-		return new TakeWhileFlow.OfInt(this, predicate);
+		return new TakewhileFlow.OfInt(this, predicate);
 	}
 
 	@Override
-	public AbstractIntFlow drop(final int n)
+	public AbstractIntFlow skip(final int n)
 	{
-		return new DropFlow.OfInt(this, n);
+		return new SkipFlow.OfInt(this, n);
 	}
 
 	@Override
-	public AbstractIntFlow dropWhile(final IntPredicate predicate)
+	public AbstractIntFlow skipWhile(final IntPredicate predicate)
 	{
-		return new DropWhileFlow.OfInt(this, predicate);
+		return new SkipwhileFlow.OfInt(this, predicate);
 	}
 
 	@Override

@@ -25,12 +25,12 @@ import java.util.function.ToLongFunction;
 
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
-import xawd.jflow.impl.DropFlow;
-import xawd.jflow.impl.DropWhileFlow;
+import xawd.jflow.impl.SkipFlow;
+import xawd.jflow.impl.SkipwhileFlow;
 import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.SlicedFlow;
 import xawd.jflow.impl.TakeFlow;
-import xawd.jflow.impl.TakeWhileFlow;
+import xawd.jflow.impl.TakewhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.misc.PredicatePartition;
 import xawd.jflow.zippedpairs.DoubleWith;
@@ -350,19 +350,19 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	@Override
 	public AbstractFlow<T> takeWhile(final Predicate<? super T> predicate)
 	{
-		return new TakeWhileFlow.OfObject<>(this, predicate);
+		return new TakewhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
 	public AbstractFlow<T> skip(final int n)
 	{
-		return new DropFlow.OfObject<>(this, n);
+		return new SkipFlow.OfObject<>(this, n);
 	}
 
 	@Override
 	public AbstractFlow<T> skipWhile(final Predicate<? super T> predicate)
 	{
-		return new DropWhileFlow.OfObject<>(this, predicate);
+		return new SkipwhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override

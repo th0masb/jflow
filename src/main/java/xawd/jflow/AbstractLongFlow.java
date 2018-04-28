@@ -15,11 +15,11 @@ import java.util.function.LongUnaryOperator;
 import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
-import xawd.jflow.impl.DropFlow;
-import xawd.jflow.impl.DropWhileFlow;
+import xawd.jflow.impl.SkipFlow;
+import xawd.jflow.impl.SkipwhileFlow;
 import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.TakeFlow;
-import xawd.jflow.impl.TakeWhileFlow;
+import xawd.jflow.impl.TakewhileFlow;
 import xawd.jflow.iterators.Skippable;
 import xawd.jflow.zippedpairs.DoubleWithLong;
 import xawd.jflow.zippedpairs.IntWithLong;
@@ -303,19 +303,19 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public AbstractLongFlow takeWhile(final LongPredicate predicate)
 	{
-		return new TakeWhileFlow.OfLong(this, predicate);
+		return new TakewhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
-	public AbstractLongFlow drop(final int n)
+	public AbstractLongFlow skip(final int n)
 	{
-		return new DropFlow.OfLong(this, n);
+		return new SkipFlow.OfLong(this, n);
 	}
 
 	@Override
-	public AbstractLongFlow dropWhile(final LongPredicate predicate)
+	public AbstractLongFlow skipWhile(final LongPredicate predicate)
 	{
-		return new DropWhileFlow.OfLong(this, predicate);
+		return new SkipwhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
