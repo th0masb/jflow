@@ -15,8 +15,9 @@
  */
 package org.joda.primitives.collection;
 
-import org.joda.primitives.iterable.LongIterable;
-import org.joda.primitives.iterator.LongIterator;
+import org.joda.primitives.PrimitiveCollectable;
+
+import xawd.jflow.iterables.LongFlowIterable;
 
 /**
  * Defines a collection of primitive <code>long</code> values.
@@ -31,20 +32,8 @@ import org.joda.primitives.iterator.LongIterator;
  * @version CODE GENERATED
  * @since 1.0
  */
-public interface LongCollection extends PrimitiveCollection<Long>, LongIterable {
+public interface LongCollection extends PrimitiveCollectable, LongFlowIterable {
 	// This file is CODE GENERATED. Do not change manually.
-
-	// Mandatory operations
-	//-----------------------------------------------------------------------
-	/**
-	 * Gets an iterator over this collection capable of accessing the primitive values.
-	 *
-	 * @return an iterator over this collection, not null
-	 */
-	@Override
-	LongIterator iterator();
-	// This method is specified here, despite being in {@code LongIterable},
-	// due to compiler bug 6487370.
 
 	/**
 	 * Checks whether this collection contains a specified primitive value.

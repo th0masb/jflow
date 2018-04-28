@@ -15,8 +15,7 @@
  */
 package org.joda.primitives.collection;
 
-import org.joda.primitives.iterable.DoubleIterable;
-import org.joda.primitives.iterator.DoubleIterator;
+import org.joda.primitives.PrimitiveCollectable;
 
 import xawd.jflow.iterables.DoubleFlowIterable;
 
@@ -33,23 +32,12 @@ import xawd.jflow.iterables.DoubleFlowIterable;
  * @version CODE GENERATED
  * @since 1.0
  */
-public interface DoubleCollection extends PrimitiveCollection<Double>, DoubleIterable, DoubleFlowIterable {
+public interface DoubleCollection extends PrimitiveCollectable, DoubleFlowIterable {
 	// This file is CODE GENERATED. Do not change manually.
 
 	// Mandatory operations
 	//-----------------------------------------------------------------------
 
-
-	/**
-	 * Gets an iterator over this collection capable of accessing the primitive values.
-	 *
-	 * @return an iterator over this collection, not null
-	 */
-	@Deprecated
-	@Override
-	DoubleIterator iterator();
-	// This method is specified here, despite being in {@code DoubleIterable},
-	// due to compiler bug 6487370.
 
 	/**
 	 * Checks whether this collection contains a specified primitive value.

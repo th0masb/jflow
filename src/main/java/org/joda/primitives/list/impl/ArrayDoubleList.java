@@ -37,7 +37,7 @@ import xawd.jflow.construction.Iter;
  * @version CODE GENERATED
  * @since 1.0
  */
-public class ArrayDoubleList extends AbstractDoubleList implements Cloneable {
+public class ArrayDoubleList extends AbstractDoubleList {
 	// This file is CODE GENERATED. Do not change manually.
 
 	/** The minimum size allowed when growth occurs */
@@ -318,18 +318,6 @@ public class ArrayDoubleList extends AbstractDoubleList implements Cloneable {
 	}
 
 	/**
-	 * Clone implementation that calls Object clone().
-	 *
-	 * @return the clone
-	 */
-	@Override
-	public Object clone() {
-		final ArrayDoubleList cloned = (ArrayDoubleList) super.clone();
-		cloned.data = data.clone();
-		return cloned;
-	}
-
-	/**
 	 * Copies data from this collection into the specified array.
 	 * This method is pre-validated.
 	 *
@@ -371,6 +359,12 @@ public class ArrayDoubleList extends AbstractDoubleList implements Cloneable {
 	public DoubleFlow iter()
 	{
 		return Iter.of(data);
+	}
+
+	@Override
+	public DoubleFlow rIter() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

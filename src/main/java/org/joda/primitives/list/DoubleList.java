@@ -16,8 +16,8 @@
 package org.joda.primitives.list;
 
 import org.joda.primitives.collection.DoubleCollection;
-import org.joda.primitives.iterator.DoubleIterator;
-import org.joda.primitives.listiterator.DoubleListIterator;
+
+import xawd.jflow.DoubleFlow;
 
 /**
  * Defines a list of primitive <code>double</code> values.
@@ -32,20 +32,13 @@ import org.joda.primitives.listiterator.DoubleListIterator;
  * @version CODE GENERATED
  * @since 1.0
  */
-public interface DoubleList extends PrimitiveList<Double>, DoubleCollection {
+public interface DoubleList extends DoubleCollection {
 	// This file is CODE GENERATED. Do not change manually.
 
 	// Mandatory operations
 	//-----------------------------------------------------------------------
-	/**
-	 * Gets an iterator over this list capable of accessing the primitive values.
-	 *
-	 * @return an iterator over this list, not null
-	 */
-	@Override
-	DoubleIterator iterator();
-	// This method is specified here, despite being in {@code DoubleCollection},
-	// due to compiler bug 6487370.
+
+	DoubleFlow rIter();
 
 	/**
 	 * Gets the primitive value at the specified index.
@@ -72,23 +65,6 @@ public interface DoubleList extends PrimitiveList<Double>, DoubleCollection {
 	 */
 	double lastDouble();
 
-	/**
-	 * Gets a list iterator over this list capable of accessing the primitive values.
-	 *
-	 * @return an iterator over this list, not null
-	 */
-	@Override
-	DoubleListIterator listIterator();
-
-	/**
-	 * Gets a list iterator over this list from a start index capable of accessing the primitive values.
-	 *
-	 * @param index  the index to start from
-	 * @return an iterator over this list, not null
-	 * @throws IndexOutOfBoundsException if the index is invalid
-	 */
-	@Override
-	DoubleListIterator listIterator(int index);
 
 	/**
 	 * Gets the first index of the specified primitive value.
@@ -153,7 +129,6 @@ public interface DoubleList extends PrimitiveList<Double>, DoubleCollection {
 	 * @return a new DoubleList for the subList, not null
 	 * @throws IndexOutOfBoundsException if either index is invalid
 	 */
-	@Override
 	DoubleList subList(int fromIndexInclusive, int toIndexExclusive);
 
 	// Optional operations
@@ -188,26 +163,6 @@ public interface DoubleList extends PrimitiveList<Double>, DoubleCollection {
 	 */
 	boolean addAll(int index, double[] values);
 
-	/**
-	 * Removes a primitive value by index from the list (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This method is deprecated to serve as a warning to developers.
-	 * Using it can be confusing as it removes by index rather than by primitive.
-	 * The method will still function correctly as the method is defined in the List interface.
-	 * Use {@link #removeDoubleAt} instead.
-	 *
-	 * @deprecated use double removeDoubleAt(int)
-	 * @param index  the index to remove from
-	 * @return the primitive value previously at this index
-	 * @throws IndexOutOfBoundsException if the index is invalid
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	@Deprecated
-	Double remove(int index);
 
 	/**
 	 * Removes a primitive value by index from the list (optional operation).

@@ -15,13 +15,12 @@
  */
 package org.joda.primitives.collection.impl;
 
-import java.lang.reflect.Array;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.joda.primitives.DoubleUtils;
 import org.joda.primitives.collection.DoubleCollection;
-import org.joda.primitives.iterator.DoubleIterator;
+
+import xawd.jflow.DoubleFlow;
 
 /**
  * Abstract base class for collections of primitive <code>double</code> elements.
@@ -39,9 +38,7 @@ import org.joda.primitives.iterator.DoubleIterator;
  * @version CODE GENERATED
  * @since 1.0
  */
-public abstract class AbstractDoubleCollection
-extends AbstractPrimitiveCollectable<Double>
-implements DoubleCollection {
+public abstract class AbstractDoubleCollection implements DoubleCollection {
 	// This file is CODE GENERATED. Do not change manually.
 
 	/**
@@ -63,7 +60,7 @@ implements DoubleCollection {
 	 */
 	@Override
 	public boolean contains(double value) {
-		for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+		for (final DoubleFlow it = iter(); it.hasNext(); ) {
 			if (it.nextDouble() == value) {
 				return true;
 			}
@@ -104,7 +101,7 @@ implements DoubleCollection {
 	@Override
 	public boolean containsAll(DoubleCollection values) {
 		if (values != null) {
-			for (final DoubleIterator it = values.iterator(); it.hasNext(); ) {
+			for (final DoubleFlow it = values.iter(); it.hasNext(); ) {
 				if (contains(it.nextDouble()) == false) {
 					return false;
 				}
@@ -146,7 +143,7 @@ implements DoubleCollection {
 	@Override
 	public boolean containsAny(DoubleCollection values) {
 		if (values != null) {
-			for (final DoubleIterator it = values.iterator(); it.hasNext(); ) {
+			for (final DoubleFlow it = values.iter(); it.hasNext(); ) {
 				if (contains(it.nextDouble())) {
 					return true;
 				}
@@ -220,14 +217,14 @@ implements DoubleCollection {
 	 * This method is optional, throwing an UnsupportedOperationException if the
 	 * collection/map cannot be cleared.
 	 * <p>
-	 * This implementation uses <code>iterator()</code>.
+	 * This implementation uses <code>iter()</code>.
 	 *
 	 * @throws UnsupportedOperationException if method not supported by this collection
 	 */
 	@Override
 	public void clear() {
 		checkRemoveModifiable();
-		for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+		for (final DoubleFlow it = iter(); it.hasNext(); ) {
 			it.nextDouble();
 			it.remove();
 		}
@@ -285,7 +282,7 @@ implements DoubleCollection {
 		checkAddModifiable();
 		boolean changed = false;
 		if (values != null) {
-			for (final DoubleIterator it = values.iterator(); it.hasNext(); ) {
+			for (final DoubleFlow it = values.iter(); it.hasNext(); ) {
 				changed |= add(it.nextDouble());
 			}
 		}
@@ -295,7 +292,7 @@ implements DoubleCollection {
 	/**
 	 * Removes the first occurrence of the specified primitive value from this collection
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param value  the value to remove
 	 * @return <code>true</code> if this collection was modified by this method call
@@ -304,7 +301,7 @@ implements DoubleCollection {
 	@Override
 	public boolean removeFirst(double value) {
 		checkRemoveModifiable();
-		for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+		for (final DoubleFlow it = iter(); it.hasNext(); ) {
 			if (it.nextDouble() == value) {
 				it.remove();
 				return true;
@@ -316,7 +313,7 @@ implements DoubleCollection {
 	/**
 	 * Removes all occurrences of the specified primitive value from this collection.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param value  the value to remove
 	 * @return <code>true</code> if this collection was modified by this method call
@@ -326,7 +323,7 @@ implements DoubleCollection {
 	public boolean removeAll(double value) {
 		checkRemoveModifiable();
 		boolean changed = false;
-		for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+		for (final DoubleFlow it = iter(); it.hasNext(); ) {
 			if (it.nextDouble() == value) {
 				it.remove();
 				changed = true;
@@ -338,7 +335,7 @@ implements DoubleCollection {
 	/**
 	 * Removes all occurrences from this collection of each primitive in the specified array.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to remove from this collection, null treated as empty array
 	 * @return <code>true</code> if this list was modified by this method call
@@ -349,7 +346,7 @@ implements DoubleCollection {
 		checkRemoveModifiable();
 		boolean changed = false;
 		if (values != null) {
-			for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+			for (final DoubleFlow it = iter(); it.hasNext(); ) {
 				final double value = it.nextDouble();
 				for (int i = 0; i < values.length; i++) {
 					if (values[i] == value) {
@@ -365,7 +362,7 @@ implements DoubleCollection {
 	/**
 	 * Removes all occurrences from this collection of each primitive in the specified collection.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to remove from this collection, null treated as empty collection
 	 * @return <code>true</code> if this list was modified by this method call
@@ -376,7 +373,7 @@ implements DoubleCollection {
 		checkRemoveModifiable();
 		boolean changed = false;
 		if (values != null) {
-			for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+			for (final DoubleFlow it = iter(); it.hasNext(); ) {
 				if (values.contains(it.nextDouble())) {
 					it.remove();
 					changed = true;
@@ -390,7 +387,7 @@ implements DoubleCollection {
 	 * Retains each element of this collection that is present in the specified array
 	 * removing all other values.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to remove from this collection, null treated as empty array
 	 * @return <code>true</code> if this list was modified by this method call
@@ -404,7 +401,7 @@ implements DoubleCollection {
 			changed = !isEmpty();
 			clear();
 		} else {
-			for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+			for (final DoubleFlow it = iter(); it.hasNext(); ) {
 				final double next = it.nextDouble();
 				boolean match = false;
 				for (int i = 0; i < values.length; i++) {
@@ -426,7 +423,7 @@ implements DoubleCollection {
 	 * Retains each element of this collection that is present in the specified collection
 	 * removing all other values.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to retain in this collection, null treated as empty collection
 	 * @return <code>true</code> if this collection was modified by this method call
@@ -440,7 +437,7 @@ implements DoubleCollection {
 			changed = !isEmpty();
 			clear();
 		} else {
-			for (final DoubleIterator it = iterator(); it.hasNext(); ) {
+			for (final DoubleFlow it = iter(); it.hasNext(); ) {
 				if (values.contains(it.nextDouble()) == false) {
 					it.remove();
 					changed = true;
@@ -450,205 +447,6 @@ implements DoubleCollection {
 		return changed;
 	}
 
-	// Collection integration
-	//-----------------------------------------------------------------------
-	/**
-	 * Checks whether this collection contains a specified <code>Double</code> value.
-	 * <p>
-	 * This implementation uses <code>contains(double)</code>.
-	 *
-	 * @param value  the value to search for
-	 * @return <code>true</code> if the value is found
-	 */
-	@Override
-	public boolean contains(Object value) {
-		return contains(toPrimitive(value));
-	}
-
-	/**
-	 * Checks if the collection contains all of the primitive values.
-	 * <p>
-	 * This implementation uses <code>containsAll(double[])</code>.
-	 *
-	 * @param coll  the collection of values to search for
-	 * @return <code>true</code> if all the values are found
-	 */
-	@Override
-	public boolean containsAll(Collection<?> coll) {
-		if (coll == this || coll.size() == 0) {
-			return true;
-		}
-		if (size() == 0) {
-			return false;
-		}
-		return containsAll(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Checks if the collection contains any of the primitive values in the array.
-	 * If the specified collection is empty, <code>false</code> is returned.
-	 * <p>
-	 * This implementation uses <code>containsAny(double[])</code>.
-	 *
-	 * @param coll  the collection of values to search for
-	 * @return <code>true</code> if at least one of the values is found
-	 */
-	@Override
-	public boolean containsAny(Collection<?> coll) {
-		if (size() == 0 || coll.size() == 0) {
-			return false;
-		}
-		if (coll == this) {
-			return true;
-		}
-		return containsAny(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Gets the collection as an array of <code>Double</code>.
-	 *
-	 * @return an array of <code>Double</code>
-	 */
-	@Override
-	public Object[] toArray() {
-		final Object[] result = new Double[size()];
-		final DoubleIterator it = iterator();
-		for (int i = 0; it.hasNext(); i++) {
-			result[i] = it.next();
-		}
-		return result;
-	}
-
-	/**
-	 * Gets the collection as an array, using the array provided.
-	 *
-	 * @param <T>  the array type
-	 * @param array  the array to populate
-	 * @return an array of <code>Double</code>
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public <T> T[] toArray(T[] array) {
-		final int size = size();
-		if (array.length < size) {
-			array = (T[]) Array.newInstance(array.getClass().getComponentType(), size);
-		}
-
-		final Iterator<Double> it = iterator();
-		for (int i = 0; i < size; i++) {
-			array[i] = (T) it.next();
-		}
-
-		if (array.length > size) {
-			array[size] = null;
-		}
-
-		return array;
-	}
-
-	/**
-	 * Adds the <code>Double</code> value to this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>add(double)</code>.
-	 *
-	 * @param value  the value to add to this collection
-	 * @return <code>true</code> if this collection was modified by this method call
-	 * @throws IllegalArgumentException if value is rejected by this collection
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean add(Double value) {
-		checkAddModifiable();
-		return add(toPrimitive(value));
-	}
-
-	/**
-	 * Adds a collection of <code>Double</code> values to this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>addAll(double[])</code>.
-	 *
-	 * @param coll  the values to add to this collection
-	 * @return <code>true</code> if this list was modified by this method call
-	 * @throws IndexOutOfBoundsException if the index is invalid
-	 * @throws ClassCastException if any object is not <code>Double</code>
-	 * @throws IllegalArgumentException if value is rejected by this collection
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean addAll(Collection<? extends Double> coll) {
-		checkAddModifiable();
-		return addAll(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Removes the first occurrance of the specified <code>Double</code> value from
-	 * this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be removed from.
-	 * <p>
-	 * This implementation uses <code>removeFirst(double)</code>.
-	 *
-	 * @param value  the value to remove
-	 * @return <code>true</code> if this collection was modified by this method call
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean remove(Object value) {
-		checkRemoveModifiable();
-		return removeFirst(toPrimitive(value));
-	}
-
-	/**
-	 * Removes each of a collection of <code>Double</code> values from this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>removeAll(double[])</code>.
-	 *
-	 * @param coll  the values to remove from this collection
-	 * @return <code>true</code> if this list was modified by this method call
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean removeAll(Collection<?> coll) {
-		checkRemoveModifiable();
-		if (coll == this) {
-			final int size = size();
-			clear();
-			return (size() != size);
-		}
-		return removeAll(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Retains each of a collection of <code>Double</code> values, removing other
-	 * values (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>retainAll(double[])</code>.
-	 *
-	 * @param coll  the values to retain in this collection
-	 * @return <code>true</code> if this list was modified by this method call
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean retainAll(Collection<?> coll) {
-		checkRemoveModifiable();
-		if (coll == this) {
-			return false;
-		}
-		return retainAll(toPrimitiveArray(coll));
-	}
 
 	// Basics
 	//-----------------------------------------------------------------------
@@ -664,7 +462,7 @@ implements DoubleCollection {
 		final StringBuffer buf = new StringBuffer();
 		buf.append("[");
 
-		final DoubleIterator it = iterator();
+		final DoubleFlow it = iter();
 		boolean hasNext = it.hasNext();
 		while (hasNext) {
 			buf.append(it.nextDouble());
@@ -690,7 +488,7 @@ implements DoubleCollection {
 	 * @param size  the number of items to copy
 	 */
 	protected void arrayCopy(int fromIndex, double[] dest, int destIndex, int size) {
-		final DoubleIterator it = iterator();
+		final DoubleFlow it = iter();
 		for (int i = 0; it.hasNext() && i < size; i++) {
 			dest[destIndex + i] = it.nextDouble();
 		}
