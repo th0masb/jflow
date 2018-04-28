@@ -1,4 +1,4 @@
-package xawd.jflow.taketests;
+package xawd.jflow.abstractflows.taketests;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 import xawd.jflow.AbstractFlow;
-import xawd.jflow.iterables.AbstractFlowIterable;
+import xawd.jflow.abstractiterables.AbstractFlowIterable;
 import xawd.jflow.testutilities.IteratorExampleProvider;
 import xawd.jflow.testutilities.IteratorTest;
 

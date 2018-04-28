@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
 import xawd.jflow.AbstractDoubleFlow;
-import xawd.jflow.iterables.AbstractIterableDoubles;
+import xawd.jflow.abstractiterables.AbstractIterableDoubles;
 
 /**
  * @author ThomasB

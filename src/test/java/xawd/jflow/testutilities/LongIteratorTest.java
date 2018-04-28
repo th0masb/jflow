@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
 import xawd.jflow.AbstractLongFlow;
-import xawd.jflow.iterables.AbstractIterableLongs;
+import xawd.jflow.abstractiterables.AbstractIterableLongs;
 
 /**
  * @author ThomasB

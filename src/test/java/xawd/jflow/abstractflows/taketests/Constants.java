@@ -1,7 +1,7 @@
 /**
  * 
  */
-package xawd.jflow.taketests;
+package xawd.jflow.abstractflows.taketests;
 
 /**
  * @author ThomasB

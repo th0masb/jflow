@@ -1,4 +1,4 @@
-package xawd.jflow.maptests;
+package xawd.jflow.abstractflows.maptests;
 
 import java.util.function.DoubleToIntFunction;
 import java.util.function.LongToIntFunction;
@@ -7,10 +7,10 @@ import java.util.function.ToIntFunction;
 import org.junit.jupiter.api.Test;
 
 import xawd.jflow.AbstractIntFlow;
-import xawd.jflow.iterables.AbstractFlowIterable;
-import xawd.jflow.iterables.AbstractIterableDoubles;
-import xawd.jflow.iterables.AbstractIterableInts;
-import xawd.jflow.iterables.AbstractIterableLongs;
+import xawd.jflow.abstractiterables.AbstractFlowIterable;
+import xawd.jflow.abstractiterables.AbstractIterableDoubles;
+import xawd.jflow.abstractiterables.AbstractIterableInts;
+import xawd.jflow.abstractiterables.AbstractIterableLongs;
 import xawd.jflow.testutilities.IteratorTest;
 import xawd.jflow.testutilities.IteratorExampleProvider;
 

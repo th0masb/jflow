@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
 import xawd.jflow.AbstractFlow;
-import xawd.jflow.iterables.AbstractFlowIterable;
+import xawd.jflow.abstractiterables.AbstractFlowIterable;
 
 /**
  * @author ThomasB
