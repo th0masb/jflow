@@ -15,8 +15,6 @@
  */
 package org.joda.primitives.collection;
 
-import java.util.Collection;
-
 import org.joda.primitives.PrimitiveCollectable;
 
 /**
@@ -27,22 +25,12 @@ import org.joda.primitives.PrimitiveCollectable;
  * All Collection methods can be used, using the primitive wrapper class.
  * However, it will be <em>much</em> more efficient to use the direct primitive methods
  * in the subinterface.
- * 
+ *
  * @author Stephen Colebourne
  * @since 1.0
  * @param <E>  the primitive type
  */
-public interface PrimitiveCollection<E> extends PrimitiveCollectable<E>, Collection<E> {
+public interface PrimitiveCollection<E> extends PrimitiveCollectable {
 
-    // Mandatory operations
-    //-----------------------------------------------------------------------
-    /**
-     * Checks if this collection contains any of the values in the specified collection.
-     * If the specified collection is empty, <code>false</code> is returned.
-     *
-     * @param values  the values to search for, null treated as empty collection
-     * @return <code>true</code> if at least one of the values is found
-     */
-    boolean containsAny(Collection<?> values);
 
 }

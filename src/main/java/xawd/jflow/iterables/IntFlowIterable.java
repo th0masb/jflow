@@ -13,7 +13,7 @@ import xawd.jflow.IntFlow;
  * @author t
  *
  */
-public interface IterableInts
+public interface IntFlowIterable
 {
 	IntFlow iter();
 
@@ -28,7 +28,7 @@ public interface IterableInts
 	 */
 	default Spliterator.OfInt primitiveSpliterator()
 	{
-		final IterableInts src = this;
+		final IntFlowIterable src = this;
 		return new Spliterator.OfInt()
 		{
 			PrimitiveIterator.OfInt srcInts = null;

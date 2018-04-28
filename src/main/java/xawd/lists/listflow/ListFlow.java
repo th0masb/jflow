@@ -3,6 +3,7 @@
  */
 package xawd.lists.listflow;
 
+import java.util.Iterator;
 import java.util.List;
 
 import xawd.jflow.Flow;
@@ -21,7 +22,7 @@ public interface ListFlow<E> extends List<E>, FlowIterable<E>
 
 	@Deprecated
 	@Override
-	default Flow<E> iterator()
+	default Iterator<E> iterator()
 	{
 		return iter();
 	}

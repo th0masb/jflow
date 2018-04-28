@@ -20,27 +20,34 @@ public final class FlowFromValues
 
 	public static class OfObject<T> extends AbstractFlow<T>
 	{
-		private final Iterator<T> src;
+		private final Iterable<T> src;
+		private Iterator<T> iterator;
 
 		public OfObject(final Iterable<T> src)
 		{
-			this.src = src.iterator();
+			this.src = src;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return src.hasNext();
+			if (iterator == null) {
+				iterator = src.iterator();
+			}
+			return iterator.hasNext();
 		}
 		@Override
 		public T next()
 		{
-			return src.next();
+			if (iterator == null) {
+				iterator = src.iterator();
+			}
+			return iterator.next();
 		}
 		@Override
 		public void skip()
 		{
-			src.next();
+			iterator.next();
 		}
 	}
 

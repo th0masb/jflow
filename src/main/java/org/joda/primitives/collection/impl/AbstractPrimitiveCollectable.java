@@ -24,57 +24,61 @@ import org.joda.primitives.PrimitiveCollectable;
  * @since 1.0
  * @param <E>  the primitive type
  */
-public abstract class AbstractPrimitiveCollectable<E> implements PrimitiveCollectable<E> {
+public abstract class AbstractPrimitiveCollectable<E> implements PrimitiveCollectable {
 
-    /**
-     * Constructor.
-     */
-    protected AbstractPrimitiveCollectable() {
-        super();
-    }
+	/**
+	 * Constructor.
+	 */
+	protected AbstractPrimitiveCollectable() {
+		super();
+	}
 
-    // PrimitiveCollectable
-    //-----------------------------------------------------------------------
-    /**
-     * Optimizes the implementation after initialization.
-     * <p>
-     * This implementation does nothing.
-     */
-    public void optimize() {
-        // do nothing
-    }
+	// PrimitiveCollectable
+	//-----------------------------------------------------------------------
+	/**
+	 * Optimizes the implementation after initialization.
+	 * <p>
+	 * This implementation does nothing.
+	 */
+	@Override
+	public void optimize() {
+		// do nothing
+	}
 
-    /**
-     * Checks whether the object can currently be modified.
-     * <p>
-     * This implementation returns false.
-     *
-     * @return <code>false</code>
-     */
-    public boolean isModifiable() {
-        return false;
-    }
+	/**
+	 * Checks whether the object can currently be modified.
+	 * <p>
+	 * This implementation returns false.
+	 *
+	 * @return <code>false</code>
+	 */
+	@Override
+	public boolean isModifiable() {
+		return false;
+	}
 
-    /**
-     * Checks if the collection is empty.
-     *
-     * @return true if empty
-     */
-    public boolean isEmpty() {
-        return (size() == 0);
-    }
+	/**
+	 * Checks if the collection is empty.
+	 *
+	 * @return true if empty
+	 */
+	@Override
+	public boolean isEmpty() {
+		return (size() == 0);
+	}
 
-    /**
-     * Clone implementation that calls Object clone().
-     * 
-     * @return the clone
-     */
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (Exception ex) {
-            throw new UnsupportedOperationException("Clone not supported");
-        }
-    }
+	/**
+	 * Clone implementation that calls Object clone().
+	 *
+	 * @return the clone
+	 */
+	@Override
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (final Exception ex) {
+			throw new UnsupportedOperationException("Clone not supported");
+		}
+	}
 
 }

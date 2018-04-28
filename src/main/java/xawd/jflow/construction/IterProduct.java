@@ -19,44 +19,56 @@ public class IterProduct
 	public static <X, Y> Flow<Pair<X, Y>> of(final Iterable<X> xs, final Iterable<Y> ys)
 	{
 		return new AbstractFlow<Pair<X,Y>>() {
-			Iterator<X> iterX = xs.iterator();
-			X current = null;
-			{
-				if (iterX.hasNext()) {
-					current = iterX.next();
+			Iterator<X> xSource = xs.iterator();
+			boolean initialised = false;
+			X currentX;
+
+			Iterator<Y> ySource = ys.iterator();
+
+			void init() {
+				assert !initialised;
+				if (xSource.hasNext()) {
+					currentX = xSource.next();
+					initialised = true;
 				}
 			}
-
-			Iterator<Y> iterY = ys.iterator();
-
 			@Override
 			public boolean hasNext() {
-				return iterX.hasNext() && iterY.hasNext();
+				if (!initialised) {
+					init();
+				}
+				if (currentX == null) {
+					return false;
+				}
+				else{
+					return ySource.hasNext();
+				}
+
 			}
 
 			@Override
 			public Pair<X, Y> next() {
-				if (current == null) {
+				if (!initialised) {
+					init();
+				}
+
+				if (currentX == null) {
 					throw new NoSuchElementException();
 				}
-				final Pair<X, Y> retPair = Pair.of(current, iterY.next());
-				if (!iterY.hasNext()) {
-					iterY = ys.iterator();
-					current = iterX.hasNext()? iterX.next() : null;
+				else{
+					final Pair<X, Y> next = Pair.of(currentX, ySource.next());
+					if (!ySource.hasNext() && xSource.hasNext()) {
+						currentX = xSource.next();
+						ySource = ys.iterator();
+					}
+					return next;
 				}
-				return retPair;
+
 			}
 
 			@Override
 			public void skip() {
-				if (current == null) {
-					throw new NoSuchElementException();
-				}
-				iterY.next();
-				if (!iterY.hasNext()) {
-					iterY = ys.iterator();
-					current = iterX.hasNext()? iterX.next() : null;
-				}
+				next();
 			}
 		};
 	}

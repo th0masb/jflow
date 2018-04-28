@@ -12,9 +12,9 @@ import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
 
-import xawd.jflow.iterables.IterableDoubles;
-import xawd.jflow.iterables.IterableInts;
-import xawd.jflow.iterables.IterableLongs;
+import xawd.jflow.iterables.DoubleFlowIterable;
+import xawd.jflow.iterables.IntFlowIterable;
+import xawd.jflow.iterables.LongFlowIterable;
 import xawd.jflow.iterators.SkippableDoubleIterator;
 import xawd.jflow.zippedpairs.DoublePair;
 import xawd.jflow.zippedpairs.DoubleWith;
@@ -147,32 +147,32 @@ public interface DoubleFlow extends SkippableDoubleIterator
 		return zipWith(other.iterator());
 	}
 
-	default Flow<DoublePair> zipWith(final IterableDoubles other)
+	default Flow<DoublePair> zipWith(final DoubleFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default Flow<DoubleWithLong> zipWith(final IterableLongs other)
+	default Flow<DoubleWithLong> zipWith(final LongFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default Flow<IntWithDouble> zipWith(final IterableInts other)
+	default Flow<IntWithDouble> zipWith(final IntFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default DoubleFlow combineWith(final IterableDoubles other, final DoubleBinaryOperator combiner)
+	default DoubleFlow combineWith(final DoubleFlowIterable other, final DoubleBinaryOperator combiner)
 	{
 		return combineWith(other.iter(), combiner);
 	}
 
-	default DoubleFlow append(final IterableDoubles other)
+	default DoubleFlow append(final DoubleFlowIterable other)
 	{
 		return append(other.iter());
 	}
 
-	default DoubleFlow insert(final IterableDoubles other)
+	default DoubleFlow insert(final DoubleFlowIterable other)
 	{
 		return insert(other.iter());
 	}

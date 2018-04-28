@@ -11,6 +11,9 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
+import org.joda.primitives.list.IntListFlow;
+import org.joda.primitives.list.impl.ArrayIntList;
+
 import xawd.jflow.DoubleFlow;
 import xawd.jflow.Flow;
 import xawd.jflow.IntFlow;
@@ -18,6 +21,7 @@ import xawd.jflow.LongFlow;
 import xawd.jflow.impl.EmptyFlow;
 import xawd.jflow.impl.FlowFromFunction;
 import xawd.jflow.impl.FlowFromValues;
+import xawd.lists.listflow.ListFlow;
 
 public final class Iter
 {
@@ -108,7 +112,7 @@ public final class Iter
 		return new FlowFromValues.OfObject<>(Arrays.asList(t1, t2, t3, t4, t5, t6));
 	}
 
-	public static IntFlow of(final int... xs)
+	public static IntFlow of(final int[] xs)
 	{
 		return new FlowFromValues.OfInt(xs);
 	}
@@ -118,7 +122,7 @@ public final class Iter
 		return new FlowFromValues.OfInt(x);
 	}
 
-	public static LongFlow of(final long... xs)
+	public static LongFlow of(final long[] xs)
 	{
 		return new FlowFromValues.OfLong(xs);
 	}
@@ -128,7 +132,7 @@ public final class Iter
 		return new FlowFromValues.OfLong(x);
 	}
 
-	public static DoubleFlow of(final double... xs)
+	public static DoubleFlow of(final double[] xs)
 	{
 		return new FlowFromValues.OfDouble(xs);
 	}
@@ -160,8 +164,8 @@ public final class Iter
 
 	public static void main(final String[] args)
 	{
-//		final IntFlow x = of(new int[] {1, 2, 3});
-		final List<String> strings = Arrays.asList("a", "b", "c", "d", "e", "f");
+		//		final IntFlow x = of(new int[] {1, 2, 3});
+		final List<String> strings = Arrays.asList("a", "b", "c");
 		System.out.println(Iter.of(strings).reduce("", String::concat));
 
 		System.out.println(Iter.of(strings).accumulate("empty", String::concat).toList());
@@ -176,14 +180,21 @@ public final class Iter
 				.toCollection(HashSet::new);
 
 		IterRange.between(2, 11).mapToObject(i -> "a").toList();
-//		Iter.longsFrom(i -> i)
-//		.mapToObject(i -> str(i))
-//		.slice(i -> 2*i*i + 3*i)
-//		.take(10)
-//		.enumerate()
-//		.toList();
+		//		Iter.longsFrom(i -> i)
+		//		.mapToObject(i -> str(i))
+		//		.slice(i -> 2*i*i + 3*i)
+		//		.take(10)
+		//		.enumerate()
+		//		.toList();
 
 		Iter.of(asList("a", "b"), asList("c", "d")).flatten(Iter::of).toList();
 		Iter.of(new int[] {1, 2}, new int[] {3, 4}).flattenToInts(Iter::of).toArray();
+
+		final IntListFlow intListA = IterRange.to(20).build(ArrayIntList::new);
+		final IntListFlow intListB = IterRange.to(15).build(ArrayIntList::new);
+
+		final ListFlow<IntListFlow> nested = Iter.of(intListA, intListB).toListFlow();
+
+		nested.iter().flattenToInts(IntListFlow::iter);
 	}
 }

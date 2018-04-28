@@ -15,13 +15,10 @@
  */
 package org.joda.primitives.collection.impl;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.joda.primitives.IntUtils;
 import org.joda.primitives.collection.IntCollection;
-import org.joda.primitives.iterator.IntIterator;
+
+import xawd.jflow.IntFlow;
 
 /**
  * Abstract base class for collections of primitive <code>int</code> elements.
@@ -39,9 +36,7 @@ import org.joda.primitives.iterator.IntIterator;
  * @version CODE GENERATED
  * @since 1.0
  */
-public abstract class AbstractIntCollection
-extends AbstractPrimitiveCollectable<Integer>
-implements IntCollection {
+public abstract class AbstractIntCollection implements IntCollection {
 	// This file is CODE GENERATED. Do not change manually.
 
 	/**
@@ -63,7 +58,7 @@ implements IntCollection {
 	 */
 	@Override
 	public boolean contains(int value) {
-		for (final IntIterator it = iterator(); it.hasNext(); ) {
+		for (final IntFlow it = iter(); it.hasNext(); ) {
 			if (it.nextInt() == value) {
 				return true;
 			}
@@ -104,7 +99,7 @@ implements IntCollection {
 	@Override
 	public boolean containsAll(IntCollection values) {
 		if (values != null) {
-			for (final IntIterator it = values.iterator(); it.hasNext(); ) {
+			for (final IntFlow it = values.iter(); it.hasNext(); ) {
 				if (contains(it.nextInt()) == false) {
 					return false;
 				}
@@ -172,7 +167,7 @@ implements IntCollection {
 	@Override
 	public boolean containsAny(IntCollection values) {
 		if (values != null) {
-			for (final IntIterator it = values.iterator(); it.hasNext(); ) {
+			for (final IntFlow it = values.iter(); it.hasNext(); ) {
 				if (contains(it.nextInt())) {
 					return true;
 				}
@@ -272,14 +267,14 @@ implements IntCollection {
 	 * This method is optional, throwing an UnsupportedOperationException if the
 	 * collection/map cannot be cleared.
 	 * <p>
-	 * This implementation uses <code>iterator()</code>.
+	 * This implementation uses <code>iter()</code>.
 	 *
 	 * @throws UnsupportedOperationException if method not supported by this collection
 	 */
 	@Override
 	public void clear() {
 		checkRemoveModifiable();
-		for (final IntIterator it = iterator(); it.hasNext(); ) {
+		for (final IntFlow it = iter(); it.hasNext(); ) {
 			it.nextInt();
 			it.remove();
 		}
@@ -337,7 +332,7 @@ implements IntCollection {
 		checkAddModifiable();
 		boolean changed = false;
 		if (values != null) {
-			for (final IntIterator it = values.iterator(); it.hasNext(); ) {
+			for (final IntFlow it = values.iter(); it.hasNext(); ) {
 				changed |= add(it.nextInt());
 			}
 		}
@@ -374,7 +369,7 @@ implements IntCollection {
 	/**
 	 * Removes the first occurrence of the specified primitive value from this collection
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param value  the value to remove
 	 * @return <code>true</code> if this collection was modified by this method call
@@ -383,7 +378,7 @@ implements IntCollection {
 	@Override
 	public boolean removeFirst(int value) {
 		checkRemoveModifiable();
-		for (final IntIterator it = iterator(); it.hasNext(); ) {
+		for (final IntFlow it = iter(); it.hasNext(); ) {
 			if (it.nextInt() == value) {
 				it.remove();
 				return true;
@@ -395,7 +390,7 @@ implements IntCollection {
 	/**
 	 * Removes all occurrences of the specified primitive value from this collection.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param value  the value to remove
 	 * @return <code>true</code> if this collection was modified by this method call
@@ -405,7 +400,7 @@ implements IntCollection {
 	public boolean removeAll(int value) {
 		checkRemoveModifiable();
 		boolean changed = false;
-		for (final IntIterator it = iterator(); it.hasNext(); ) {
+		for (final IntFlow it = iter(); it.hasNext(); ) {
 			if (it.nextInt() == value) {
 				it.remove();
 				changed = true;
@@ -417,7 +412,7 @@ implements IntCollection {
 	/**
 	 * Removes all occurrences from this collection of each primitive in the specified array.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to remove from this collection, null treated as empty array
 	 * @return <code>true</code> if this list was modified by this method call
@@ -428,7 +423,7 @@ implements IntCollection {
 		checkRemoveModifiable();
 		boolean changed = false;
 		if (values != null) {
-			for (final IntIterator it = iterator(); it.hasNext(); ) {
+			for (final IntFlow it = iter(); it.hasNext(); ) {
 				final int value = it.nextInt();
 				for (int i = 0; i < values.length; i++) {
 					if (values[i] == value) {
@@ -444,7 +439,7 @@ implements IntCollection {
 	/**
 	 * Removes all occurrences from this collection of each primitive in the specified collection.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to remove from this collection, null treated as empty collection
 	 * @return <code>true</code> if this list was modified by this method call
@@ -455,7 +450,7 @@ implements IntCollection {
 		checkRemoveModifiable();
 		boolean changed = false;
 		if (values != null) {
-			for (final IntIterator it = iterator(); it.hasNext(); ) {
+			for (final IntFlow it = iter(); it.hasNext(); ) {
 				if (values.contains(it.nextInt())) {
 					it.remove();
 					changed = true;
@@ -476,7 +471,7 @@ implements IntCollection {
 	 * This method is optional, throwing an UnsupportedOperationException if the
 	 * set cannot be changed.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param startInclusive  the inclusive range start value
 	 * @param endInclusive  the inclusive range end value
@@ -490,7 +485,7 @@ implements IntCollection {
 			return false;
 		}
 		boolean changed = false;
-		for (final IntIterator it = iterator(); it.hasNext(); ) {
+		for (final IntFlow it = iter(); it.hasNext(); ) {
 			final int value = it.nextInt();
 			if (value >= startInclusive && value <= endInclusive) {
 				it.remove();
@@ -504,7 +499,7 @@ implements IntCollection {
 	 * Retains each element of this collection that is present in the specified array
 	 * removing all other values.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to remove from this collection, null treated as empty array
 	 * @return <code>true</code> if this list was modified by this method call
@@ -518,7 +513,7 @@ implements IntCollection {
 			changed = !isEmpty();
 			clear();
 		} else {
-			for (final IntIterator it = iterator(); it.hasNext(); ) {
+			for (final IntFlow it = iter(); it.hasNext(); ) {
 				final int next = it.nextInt();
 				boolean match = false;
 				for (int i = 0; i < values.length; i++) {
@@ -540,7 +535,7 @@ implements IntCollection {
 	 * Retains each element of this collection that is present in the specified collection
 	 * removing all other values.
 	 * <p>
-	 * This implementation uses <code>iterator().remove()</code>.
+	 * This implementation uses <code>iter().remove()</code>.
 	 *
 	 * @param values  the values to retain in this collection, null treated as empty collection
 	 * @return <code>true</code> if this collection was modified by this method call
@@ -554,7 +549,7 @@ implements IntCollection {
 			changed = !isEmpty();
 			clear();
 		} else {
-			for (final IntIterator it = iterator(); it.hasNext(); ) {
+			for (final IntFlow it = iter(); it.hasNext(); ) {
 				if (values.contains(it.nextInt()) == false) {
 					it.remove();
 					changed = true;
@@ -583,7 +578,7 @@ implements IntCollection {
 	public boolean retainAll(int startInclusive, int endInclusive) {
 		checkRemoveModifiable();
 		boolean changed = false;
-		for (final IntIterator it = iterator(); it.hasNext(); ) {
+		for (final IntFlow it = iter(); it.hasNext(); ) {
 			final int value = it.nextInt();
 			if (value < startInclusive || value > endInclusive) {
 				it.remove();
@@ -593,205 +588,6 @@ implements IntCollection {
 		return changed;
 	}
 
-	// Collection integration
-	//-----------------------------------------------------------------------
-	/**
-	 * Checks whether this collection contains a specified <code>Integer</code> value.
-	 * <p>
-	 * This implementation uses <code>contains(int)</code>.
-	 *
-	 * @param value  the value to search for
-	 * @return <code>true</code> if the value is found
-	 */
-	@Override
-	public boolean contains(Object value) {
-		return contains(toPrimitive(value));
-	}
-
-	/**
-	 * Checks if the collection contains all of the primitive values.
-	 * <p>
-	 * This implementation uses <code>containsAll(int[])</code>.
-	 *
-	 * @param coll  the collection of values to search for
-	 * @return <code>true</code> if all the values are found
-	 */
-	@Override
-	public boolean containsAll(Collection<?> coll) {
-		if (coll == this || coll.size() == 0) {
-			return true;
-		}
-		if (size() == 0) {
-			return false;
-		}
-		return containsAll(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Checks if the collection contains any of the primitive values in the array.
-	 * If the specified collection is empty, <code>false</code> is returned.
-	 * <p>
-	 * This implementation uses <code>containsAny(int[])</code>.
-	 *
-	 * @param coll  the collection of values to search for
-	 * @return <code>true</code> if at least one of the values is found
-	 */
-	@Override
-	public boolean containsAny(Collection<?> coll) {
-		if (size() == 0 || coll.size() == 0) {
-			return false;
-		}
-		if (coll == this) {
-			return true;
-		}
-		return containsAny(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Gets the collection as an array of <code>Integer</code>.
-	 *
-	 * @return an array of <code>Integer</code>
-	 */
-	@Override
-	public Object[] toArray() {
-		final Object[] result = new Integer[size()];
-		final IntIterator it = iterator();
-		for (int i = 0; it.hasNext(); i++) {
-			result[i] = it.next();
-		}
-		return result;
-	}
-
-	/**
-	 * Gets the collection as an array, using the array provided.
-	 *
-	 * @param <T>  the array type
-	 * @param array  the array to populate
-	 * @return an array of <code>Integer</code>
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public <T> T[] toArray(T[] array) {
-		final int size = size();
-		if (array.length < size) {
-			array = (T[]) Array.newInstance(array.getClass().getComponentType(), size);
-		}
-
-		final Iterator<Integer> it = iterator();
-		for (int i = 0; i < size; i++) {
-			array[i] = (T) it.next();
-		}
-
-		if (array.length > size) {
-			array[size] = null;
-		}
-
-		return array;
-	}
-
-	/**
-	 * Adds the <code>Integer</code> value to this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>add(int)</code>.
-	 *
-	 * @param value  the value to add to this collection
-	 * @return <code>true</code> if this collection was modified by this method call
-	 * @throws IllegalArgumentException if value is rejected by this collection
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean add(Integer value) {
-		checkAddModifiable();
-		return add(toPrimitive(value));
-	}
-
-	/**
-	 * Adds a collection of <code>Integer</code> values to this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>addAll(int[])</code>.
-	 *
-	 * @param coll  the values to add to this collection
-	 * @return <code>true</code> if this list was modified by this method call
-	 * @throws IndexOutOfBoundsException if the index is invalid
-	 * @throws ClassCastException if any object is not <code>Integer</code>
-	 * @throws IllegalArgumentException if value is rejected by this collection
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean addAll(Collection<? extends Integer> coll) {
-		checkAddModifiable();
-		return addAll(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Removes the first occurrance of the specified <code>Integer</code> value from
-	 * this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be removed from.
-	 * <p>
-	 * This implementation uses <code>removeFirst(int)</code>.
-	 *
-	 * @param value  the value to remove
-	 * @return <code>true</code> if this collection was modified by this method call
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean remove(Object value) {
-		checkRemoveModifiable();
-		return removeFirst(toPrimitive(value));
-	}
-
-	/**
-	 * Removes each of a collection of <code>Integer</code> values from this collection (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>removeAll(int[])</code>.
-	 *
-	 * @param coll  the values to remove from this collection
-	 * @return <code>true</code> if this list was modified by this method call
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean removeAll(Collection<?> coll) {
-		checkRemoveModifiable();
-		if (coll == this) {
-			final int size = size();
-			clear();
-			return (size() != size);
-		}
-		return removeAll(toPrimitiveArray(coll));
-	}
-
-	/**
-	 * Retains each of a collection of <code>Integer</code> values, removing other
-	 * values (optional operation).
-	 * <p>
-	 * This method is optional, throwing an UnsupportedOperationException if the
-	 * collection cannot be added to.
-	 * <p>
-	 * This implementation uses <code>retainAll(int[])</code>.
-	 *
-	 * @param coll  the values to retain in this collection
-	 * @return <code>true</code> if this list was modified by this method call
-	 * @throws UnsupportedOperationException if not supported by this collection
-	 */
-	@Override
-	public boolean retainAll(Collection<?> coll) {
-		checkRemoveModifiable();
-		if (coll == this) {
-			return false;
-		}
-		return retainAll(toPrimitiveArray(coll));
-	}
 
 	// Basics
 	//-----------------------------------------------------------------------
@@ -807,7 +603,7 @@ implements IntCollection {
 		final StringBuffer buf = new StringBuffer();
 		buf.append("[");
 
-		final IntIterator it = iterator();
+		final IntFlow it = iter();
 		boolean hasNext = it.hasNext();
 		while (hasNext) {
 			buf.append(it.nextInt());
@@ -833,7 +629,7 @@ implements IntCollection {
 	 * @param size  the number of items to copy
 	 */
 	protected void arrayCopy(int fromIndex, int[] dest, int destIndex, int size) {
-		final IntIterator it = iterator();
+		final IntFlow it = iter();
 		for (int i = 0; it.hasNext() && i < size; i++) {
 			dest[destIndex + i] = it.nextInt();
 		}
@@ -888,55 +684,4 @@ implements IntCollection {
 			throw new UnsupportedOperationException("Collection does not support remove");
 		}
 	}
-
-	/**
-	 * Wraps an <code>int</code> with an Object wrapper.
-	 *
-	 * @param value  the primitive value
-	 * @return the Object wrapper
-	 */
-	protected Integer toObject(int value) {
-		return IntUtils.toObject(value);
-	}
-
-	/**
-	 * Checks if the object can be converted to a primitive successfully.
-	 * <p>
-	 * This implementation only allows non-null Int objects.
-	 *
-	 * @param value  the Object wrapper
-	 * @return true if a primitive value can be successfully extracted
-	 */
-	protected boolean isToPrimitivePossible(Object value) {
-		return (value instanceof Integer);
-	}
-
-	/**
-	 * Unwraps the <code>Integer</code> to retrieve the primitive <code>int</code>.
-	 * <p>
-	 * This implementation only allows non-null Int objects.
-	 *
-	 * @param value  the Object to convert to a primitive
-	 * @return the primitive value
-	 * @throws NullPointerException if the value is null and this is unacceptable
-	 * @throws ClassCastException if the object is of an unsuitable type
-	 */
-	protected int toPrimitive(Object value) {
-		return IntUtils.toPrimitive(value);
-	}
-
-	/**
-	 * Unwraps a <code>Collection</code> to retrieve the primitive <code>int</code>.
-	 * <p>
-	 * This implementation only allows non-null Int objects.
-	 *
-	 * @param coll  the Collection to convert to primitives
-	 * @return the primitive value
-	 * @throws NullPointerException if the value is null and this is unacceptable
-	 * @throws ClassCastException if any object is of an unsuitable type
-	 */
-	protected int[] toPrimitiveArray(Collection<?> coll) {
-		return IntUtils.toPrimitiveArray(coll);
-	}
-
 }

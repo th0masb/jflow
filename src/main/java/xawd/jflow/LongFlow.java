@@ -12,9 +12,9 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import xawd.jflow.iterables.IterableDoubles;
-import xawd.jflow.iterables.IterableInts;
-import xawd.jflow.iterables.IterableLongs;
+import xawd.jflow.iterables.DoubleFlowIterable;
+import xawd.jflow.iterables.IntFlowIterable;
+import xawd.jflow.iterables.LongFlowIterable;
 import xawd.jflow.iterators.SkippableLongIterator;
 import xawd.jflow.zippedpairs.DoubleWithLong;
 import xawd.jflow.zippedpairs.IntWithLong;
@@ -147,32 +147,32 @@ public interface LongFlow extends SkippableLongIterator
 		return zipWith(other.iterator());
 	}
 
-	default Flow<LongPair> zipWith(final IterableLongs other)
+	default Flow<LongPair> zipWith(final LongFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default Flow<DoubleWithLong> zipWith(final IterableDoubles other)
+	default Flow<DoubleWithLong> zipWith(final DoubleFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default Flow<IntWithLong> zipWith(final IterableInts other)
+	default Flow<IntWithLong> zipWith(final IntFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default LongFlow combineWith(final IterableLongs other, final LongBinaryOperator combiner)
+	default LongFlow combineWith(final LongFlowIterable other, final LongBinaryOperator combiner)
 	{
 		return combineWith(other.iter(), combiner);
 	}
 
-	default LongFlow append(final IterableLongs other)
+	default LongFlow append(final LongFlowIterable other)
 	{
 		return append(other.iter());
 	}
 
-	default LongFlow insert(final IterableLongs other)
+	default LongFlow insert(final LongFlowIterable other)
 	{
 		return insert(other.iter());
 	}

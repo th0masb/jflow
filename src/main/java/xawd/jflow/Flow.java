@@ -21,9 +21,9 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import xawd.jflow.iterables.IterableDoubles;
-import xawd.jflow.iterables.IterableInts;
-import xawd.jflow.iterables.IterableLongs;
+import xawd.jflow.iterables.DoubleFlowIterable;
+import xawd.jflow.iterables.IntFlowIterable;
+import xawd.jflow.iterables.LongFlowIterable;
 import xawd.jflow.iterators.SkippableIterator;
 import xawd.jflow.misc.PredicatePartition;
 import xawd.jflow.zippedpairs.DoubleWith;
@@ -39,6 +39,11 @@ import xawd.lists.listflow.ListFlow;
  */
 public interface Flow<T> extends SkippableIterator<T>
 {
+	default <R> R build(Function<? super Flow<? super T>, R> builder)
+	{
+		return builder.apply(this);
+	}
+
 	<R> Flow<R> map(final Function<? super T, R> f);
 
 	IntFlow mapToInt(ToIntFunction<? super T> f);
@@ -158,17 +163,17 @@ public interface Flow<T> extends SkippableIterator<T>
 		return zipWith(other.iterator());
 	}
 
-	default Flow<IntWith<T>> zipWith(final IterableInts other)
+	default Flow<IntWith<T>> zipWith(final IntFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default Flow<DoubleWith<T>> zipWith(final IterableDoubles other)
+	default Flow<DoubleWith<T>> zipWith(final DoubleFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}
 
-	default Flow<LongWith<T>> zipWith(final IterableLongs other)
+	default Flow<LongWith<T>> zipWith(final LongFlowIterable other)
 	{
 		return zipWith(other.iter());
 	}

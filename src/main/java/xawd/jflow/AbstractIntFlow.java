@@ -3,6 +3,7 @@ package xawd.jflow;
 import java.util.Iterator;
 import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
+import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
@@ -13,9 +14,9 @@ import java.util.function.IntUnaryOperator;
 import xawd.jflow.construction.Iter;
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
+import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.SkipFlow;
 import xawd.jflow.impl.SkipwhileFlow;
-import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.TakeFlow;
 import xawd.jflow.impl.TakewhileFlow;
 import xawd.jflow.iterators.Skippable;
@@ -30,6 +31,11 @@ import xawd.jflow.zippedpairs.IntWithLong;
  */
 public abstract class AbstractIntFlow implements IntFlow
 {
+	public <C> C build(Function<? super IntFlow, C> builder)
+	{
+		return builder.apply(this);
+	}
+
 	@Override
 	public AbstractIntFlow map(final IntUnaryOperator f)
 	{

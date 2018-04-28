@@ -18,7 +18,7 @@ package org.joda.primitives.collection;
 import org.joda.primitives.iterable.DoubleIterable;
 import org.joda.primitives.iterator.DoubleIterator;
 
-import xawd.jflow.iterables.IterableDoubles;
+import xawd.jflow.iterables.DoubleFlowIterable;
 
 /**
  * Defines a collection of primitive <code>double</code> values.
@@ -33,7 +33,7 @@ import xawd.jflow.iterables.IterableDoubles;
  * @version CODE GENERATED
  * @since 1.0
  */
-public interface DoubleCollection extends PrimitiveCollection<Double>, DoubleIterable, IterableDoubles {
+public interface DoubleCollection extends PrimitiveCollection<Double>, DoubleIterable, DoubleFlowIterable {
 	// This file is CODE GENERATED. Do not change manually.
 
 	// Mandatory operations

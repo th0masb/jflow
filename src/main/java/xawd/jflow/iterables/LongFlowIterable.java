@@ -13,7 +13,7 @@ import xawd.jflow.LongFlow;
  * @author t
  *
  */
-public interface IterableLongs
+public interface LongFlowIterable
 {
 	LongFlow iter();
 
@@ -28,7 +28,7 @@ public interface IterableLongs
 	 */
 	default Spliterator.OfLong spliterator()
 	{
-		final IterableLongs src = this;
+		final LongFlowIterable src = this;
 		return new Spliterator.OfLong()
 		{
 			PrimitiveIterator.OfLong srcLongs = null;

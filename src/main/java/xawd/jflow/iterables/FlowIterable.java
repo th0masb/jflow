@@ -6,6 +6,8 @@
  */
 package xawd.jflow.iterables;
 
+import java.util.Iterator;
+
 import xawd.jflow.Flow;
 
 /**
@@ -18,7 +20,7 @@ public interface FlowIterable<T> extends Iterable<T>
 
 	@Deprecated
 	@Override
-	default Flow<T> iterator()
+	default Iterator<T> iterator()
 	{
 		return iter();
 	}

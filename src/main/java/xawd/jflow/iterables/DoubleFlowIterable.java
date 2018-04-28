@@ -13,7 +13,7 @@ import xawd.jflow.DoubleFlow;
  * @author t
  *
  */
-public interface IterableDoubles
+public interface DoubleFlowIterable
 {
 	DoubleFlow iter();
 
@@ -28,7 +28,7 @@ public interface IterableDoubles
 	 */
 	default Spliterator.OfDouble primitiveSpliterator()
 	{
-		final IterableDoubles src = this;
+		final DoubleFlowIterable src = this;
 		return new Spliterator.OfDouble()
 		{
 			PrimitiveIterator.OfDouble srcDoubles = null;
