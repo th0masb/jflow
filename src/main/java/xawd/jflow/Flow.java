@@ -45,7 +45,7 @@ public interface Flow<T> extends SkippableIterator<T>
 		return builder.apply(this);
 	}
 
-	default void process(Consumer<? super Flow<? extends T>> processor)
+	default void consumeUsing(Consumer<? super Flow<? extends T>> processor)
 	{
 		processor.accept(this);
 	}

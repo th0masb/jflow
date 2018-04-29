@@ -32,7 +32,7 @@ public class ConsolePlay {
 		final Polygon polygon = Iter.of(p1, p2, p3).build(PolygonImpl::fromPoints);
 		polygon.points().forEach(System.out::println);
 		System.out.println();
-		final PointMap translation = PointMap.translate(5, 5);
+		final PointMap translation = PointMap.translationOf(5, 5);
 		polygon.points().forEach(translation::mapInPlace);
 		System.out.println();
 		polygon.points().forEach(System.out::println);

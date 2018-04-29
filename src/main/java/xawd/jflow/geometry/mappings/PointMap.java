@@ -29,7 +29,7 @@ public interface PointMap extends Function<Point, Point>, Consumer<Point>
 		mapInPlace(p);
 	}
 
-	static PointMap translate(final double dx, final double dy)
+	static PointMap translationOf(final double dx, final double dy)
 	{
 		return new PointMap() {
 			DoubleBinaryOperator xMapping = (x, y) -> x + dx;
@@ -60,6 +60,8 @@ public interface PointMap extends Function<Point, Point>, Consumer<Point>
 
 	static PointMap rotate(Point centre, double theta)
 	{
+
+
 		throw new RuntimeException();
 		//		return new PointMap() {
 		//			double cosTheta = Math.cos(theta), sinTheta = Math.sin(theta);

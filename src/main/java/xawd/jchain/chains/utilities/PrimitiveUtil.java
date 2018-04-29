@@ -4,20 +4,11 @@
 package xawd.jchain.chains.utilities;
 
 
-import static xawd.jchain.chains.misc.Constants.EPSILON;
 import static xawd.jchain.chains.utilities.FoldUtil.foldr;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
-
-import com.google.common.primitives.ImmutableDoubleArray;
-import com.google.common.primitives.ImmutableIntArray;
-import com.google.common.primitives.ImmutableLongArray;
-
-import xawd.jchain.chains.DoubleChain;
-import xawd.jchain.chains.IntChain;
-import xawd.jchain.chains.LongChain;
 
 /**
  * @author ThomasB
@@ -36,7 +27,7 @@ public final class PrimitiveUtil
 
 	public static boolean isZero(final double x)
 	{
-		return Math.abs(x) < EPSILON;
+		return Math.abs(x) < 0.00001;
 	}
 
 	public static boolean bool(final double x)
@@ -47,30 +38,6 @@ public final class PrimitiveUtil
 	public static boolean bool(final long x)
 	{
 		return x != 0;
-	}
-
-	/**
-	 * Calculates the sum of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalDouble sum(final DoubleChain xs)
-	{
-		return foldr((a, b) -> a + b, 0, xs);
-	}
-
-	/**
-	 * Calculates the sum of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalDouble sum(final ImmutableDoubleArray xs)
-	{
-		return foldr((a, b) -> a + b, 0, xs);
 	}
 
 	/**
@@ -92,55 +59,7 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalInt sum(final IntChain xs)
-	{
-		return foldr(Math::addExact, 0, xs);
-	}
-
-	/**
-	 * Calculates the sum of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalInt sum(final ImmutableIntArray xs)
-	{
-		return foldr(Math::addExact, 0, xs);
-	}
-
-	/**
-	 * Calculates the sum of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
 	public static OptionalInt sum(final int... xs)
-	{
-		return foldr(Math::addExact, 0, xs);
-	}
-
-	/**
-	 * Calculates the sum of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalLong sum(final LongChain xs)
-	{
-		return foldr(Math::addExact, 0, xs);
-	}
-
-	/**
-	 * Calculates the sum of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow or long and longs
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalLong sum(final ImmutableLongArray xs)
 	{
 		return foldr(Math::addExact, 0, xs);
 	}
@@ -157,29 +76,6 @@ public final class PrimitiveUtil
 		return foldr(Math::addExact, 0, xs);
 	}
 
-	/**
-	 * Calculates the product of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalDouble product(final DoubleChain xs)
-	{
-		return foldr((a, b) -> a * b, 1, xs);
-	}
-
-	/**
-	 * Calculates the product of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalDouble product(final ImmutableDoubleArray xs)
-	{
-		return foldr((a, b) -> a * b, 1, xs);
-	}
 
 	/**
 	 * Calculates the product of all primitive elements in the parameter sequence. This function is fail-fast on numerical
@@ -200,55 +96,7 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalInt product(final IntChain xs)
-	{
-		return foldr(Math::multiplyExact, 1, xs);
-	}
-
-	/**
-	 * Calculates the product of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalInt product(final ImmutableIntArray xs)
-	{
-		return foldr(Math::multiplyExact, 1, xs);
-	}
-
-	/**
-	 * Calculates the product of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and ints
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
 	public static OptionalInt product(final int... xs)
-	{
-		return foldr(Math::multiplyExact, 1, xs);
-	}
-
-	/**
-	 * Calculates the product of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and longs
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalLong product(final LongChain xs)
-	{
-		return foldr(Math::multiplyExact, 1, xs);
-	}
-
-	/**
-	 * Calculates the product of all primitive elements in the parameter sequence. This function is fail-fast on numerical
-	 * overflow for longs and longs
-	 *
-	 * @param xs - the sequence to sum
-	 * @return the sum of all elements.
-	 */
-	public static OptionalLong product(final ImmutableLongArray xs)
 	{
 		return foldr(Math::multiplyExact, 1, xs);
 	}
@@ -277,27 +125,6 @@ public final class PrimitiveUtil
 		return a < b ? a : b;
 	}
 
-	/**
-	 * Calculates the minimum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the minimum value in the sequence
-	 */
-	public static OptionalInt min(final IntChain xs)
-	{
-		return foldr(PrimitiveUtil::min, Integer.MAX_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the minimum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the minimum value in the sequence
-	 */
-	public static OptionalInt min(final ImmutableIntArray xs)
-	{
-		return foldr(PrimitiveUtil::min, Integer.MAX_VALUE, xs);
-	}
 
 	/**
 	 * Calculates the minimum value out of the parameter sequence
@@ -320,28 +147,6 @@ public final class PrimitiveUtil
 	public static double min(final double a, final double b)
 	{
 		return a < b ? a : b;
-	}
-
-	/**
-	 * Calculates the minimum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the minimum value in the sequence
-	 */
-	public static OptionalDouble min(final DoubleChain xs)
-	{
-		return foldr(PrimitiveUtil::min, Double.MAX_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the minimum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the minimum value in the sequence
-	 */
-	public static OptionalDouble min(final ImmutableDoubleArray xs)
-	{
-		return foldr(PrimitiveUtil::min, Double.MAX_VALUE, xs);
 	}
 
 	/**
@@ -373,28 +178,6 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the minimum value in the sequence
 	 */
-	public static OptionalLong min(final LongChain xs)
-	{
-		return foldr(PrimitiveUtil::min, Long.MAX_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the minimum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the minimum value in the sequence
-	 */
-	public static OptionalLong min(final ImmutableLongArray xs)
-	{
-		return foldr(PrimitiveUtil::min, Long.MAX_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the minimum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the minimum value in the sequence
-	 */
 	public static OptionalLong min(final long... xs)
 	{
 		return foldr(PrimitiveUtil::min, Long.MAX_VALUE, xs);
@@ -410,28 +193,6 @@ public final class PrimitiveUtil
 	public static int max(final int a, final int b)
 	{
 		return a < b ? b : a;
-	}
-
-	/**
-	 * Calculates the maximum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the maximum value in the sequence
-	 */
-	public static OptionalInt max(final IntChain xs)
-	{
-		return foldr(PrimitiveUtil::max, Integer.MAX_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the maximum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the maximum value in the sequence
-	 */
-	public static OptionalInt max(final ImmutableIntArray xs)
-	{
-		return foldr(PrimitiveUtil::max, Integer.MIN_VALUE, xs);
 	}
 
 	/**
@@ -463,28 +224,6 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the maximum value in the sequence
 	 */
-	public static OptionalDouble max(final DoubleChain xs)
-	{
-		return foldr(PrimitiveUtil::max, Double.MAX_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the maximum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the maximum value in the sequence
-	 */
-	public static OptionalDouble max(final ImmutableDoubleArray xs)
-	{
-		return foldr(PrimitiveUtil::max, Double.MIN_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the maximum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the maximum value in the sequence
-	 */
 	public static OptionalDouble max(final double... xs)
 	{
 		return foldr(PrimitiveUtil::max, Double.MIN_VALUE, xs);
@@ -500,28 +239,6 @@ public final class PrimitiveUtil
 	public static long max(final long a, final long b)
 	{
 		return a < b ? b : a;
-	}
-
-	/**
-	 * Calculates the maximum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the maximum value in the sequence
-	 */
-	public static OptionalLong max(final LongChain xs)
-	{
-		return foldr(PrimitiveUtil::max, Long.MAX_VALUE, xs);
-	}
-
-	/**
-	 * Calculates the maximum value out of the parameter sequence
-	 *
-	 * @param xs - the parameter sequence
-	 * @return the maximum value in the sequence
-	 */
-	public static OptionalLong max(final ImmutableLongArray xs)
-	{
-		return foldr(PrimitiveUtil::max, Long.MIN_VALUE, xs);
 	}
 
 	/**
