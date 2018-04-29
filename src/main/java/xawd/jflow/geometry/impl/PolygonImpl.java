@@ -10,9 +10,9 @@ import java.util.NoSuchElementException;
 
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.Flow;
+import xawd.jflow.geometry.LineSegment;
 import xawd.jflow.geometry.Point;
 import xawd.jflow.geometry.Polygon;
-import xawd.jflow.geometry.LineSegment;
 import xawd.lists.listflow.ArrayListFlow;
 import xawd.lists.listflow.ListFlow;
 

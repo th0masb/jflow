@@ -20,7 +20,6 @@ import java.util.Arrays;
 import org.joda.primitives.IntUtils;
 
 import xawd.jflow.IntFlow;
-import xawd.jflow.construction.Iter;
 
 /**
  * Array based implementation of <code>IntList</code> for
@@ -343,14 +342,17 @@ public class ArrayIntList extends AbstractIntList implements Cloneable {
 		data = newArray;
 	}
 
+	// Won't want to iterate over whole of data array
 	@Override
 	public IntFlow iter() {
-		return Iter.of(data);
+		throw new RuntimeException();
+		//		return Iter.of(data);
 	}
 
 	@Override
 	public IntFlow rIter() {
 		throw new RuntimeException();
+		//		return new ReverseFlowFromValues.OfInt(data);
 	}
 
 	@Override
