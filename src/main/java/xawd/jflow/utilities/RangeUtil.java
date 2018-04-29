@@ -1,4 +1,4 @@
-package xawd.jchain.chains.utilities;
+package xawd.jflow.utilities;
 
 /**
  * @author ThomasB

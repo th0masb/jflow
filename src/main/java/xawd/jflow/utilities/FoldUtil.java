@@ -1,8 +1,8 @@
-package xawd.jchain.chains.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jchain.chains.utilities.CollectionUtil.head;
-import static xawd.jchain.chains.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.head;
+import static xawd.jflow.utilities.CollectionUtil.len;
 
 import java.util.Optional;
 import java.util.OptionalDouble;

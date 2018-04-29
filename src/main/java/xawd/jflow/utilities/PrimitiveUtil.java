@@ -1,10 +1,10 @@
 /**
  *
  */
-package xawd.jchain.chains.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jchain.chains.utilities.FoldUtil.foldr;
+import static xawd.jflow.utilities.FoldUtil.foldr;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;

@@ -1,6 +1,6 @@
 package xawd.jflow.construction;
 
-import static xawd.jchain.chains.utilities.CollectionUtil.str;
+import static xawd.jflow.utilities.CollectionUtil.str;
 
 import xawd.jflow.AbstractIntFlow;
 import xawd.jflow.AbstractLongFlow;

@@ -1,11 +1,11 @@
 /**
  *
  */
-package xawd.jchain.chains.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jchain.chains.utilities.CollectionUtil.len;
-import static xawd.jchain.chains.utilities.PrimitiveUtil.sum;
+import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.PrimitiveUtil.sum;
 
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;

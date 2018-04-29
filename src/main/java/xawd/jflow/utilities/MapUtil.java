@@ -1,10 +1,10 @@
 /**
  *
  */
-package xawd.jchain.chains.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jchain.chains.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.len;
 
 import java.util.List;
 import java.util.function.DoubleFunction;

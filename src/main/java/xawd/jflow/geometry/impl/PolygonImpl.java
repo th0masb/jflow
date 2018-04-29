@@ -3,8 +3,8 @@
  */
 package xawd.jflow.geometry.impl;
 
-import static xawd.jchain.chains.utilities.CollectionUtil.head;
-import static xawd.jchain.chains.utilities.CollectionUtil.tail;
+import static xawd.jflow.utilities.CollectionUtil.head;
+import static xawd.jflow.utilities.CollectionUtil.tail;
 
 import java.util.NoSuchElementException;
 

@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jchain.chains.utilities;
+package xawd.jflow.utilities;
 
 import java.util.function.DoubleFunction;
 import java.util.function.DoubleToIntFunction;
