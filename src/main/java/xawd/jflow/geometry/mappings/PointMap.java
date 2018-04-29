@@ -20,7 +20,19 @@ public interface PointMap extends Function<Point, Point>, Consumer<Point>
 
 	DoubleBinaryOperator getY();
 
-	void mapInPlace(Point p);
+	default void mapInPlace(Point p)
+	{
+		p.set(this);
+	}
+
+	@Override
+	default Point apply(Point p)
+	{
+		final DoubleBinaryOperator xMap = getX(), yMap = getY();
+		return new PointImpl(
+				xMap.applyAsDouble(p.x(), p.y()),
+				yMap.applyAsDouble(p.x(), p.y()));
+	}
 
 	@Deprecated
 	@Override
@@ -32,65 +44,41 @@ public interface PointMap extends Function<Point, Point>, Consumer<Point>
 	static PointMap translationOf(final double dx, final double dy)
 	{
 		return new PointMap() {
-			DoubleBinaryOperator xMapping = (x, y) -> x + dx;
-			DoubleBinaryOperator yMapping = (x, y) -> y + dy;
-
-			@Override
-			public Point apply(Point t) {
-				return new PointImpl(t.x() + dx, t.y() + dy);
-			}
-
-			@Override
-			public DoubleBinaryOperator getY() {
-				return xMapping;
-			}
-
 			@Override
 			public DoubleBinaryOperator getX() {
-				return yMapping;
+				return (x, y) -> x + dx;
 			}
-
 			@Override
-			public void mapInPlace(Point t) {
-				t.setX(t.x() + dx);
-				t.setY(t.y() + dy);
+			public DoubleBinaryOperator getY() {
+				return (x, y) -> y + dy;
 			}
 		};
 	}
 
-	static PointMap rotate(Point centre, double theta)
+	static PointMap rotationOf(double cosTheta, double sinTheta, Point centre)
 	{
+		final DoubleBinaryOperator xMap = (x, y) -> x*cosTheta
+				+ (1 - cosTheta)*centre.x()
+				+ (centre.y() - y)*sinTheta;
 
+		final DoubleBinaryOperator yMap = (x, y) -> (x - centre.x())*sinTheta
+				+ y*cosTheta
+				+ (1 - cosTheta)*centre.y();
 
-		throw new RuntimeException();
-		//		return new PointMap() {
-		//			double cosTheta = Math.cos(theta), sinTheta = Math.sin(theta);
-		//			DoubleBinaryOperator xMapping = (x, y) -> cosTheta*;
-		//			DoubleBinaryOperator yMapping = (x, y) -> y + dy;
-		//
-		//			@Override
-		//			public Point apply(Point t) {
-		//				// TODO Auto-generated method stub
-		//				return null;
-		//			}
-		//
-		//			@Override
-		//			public void mapInPlace(Point p) {
-		//				// TODO Auto-generated method stub
-		//
-		//			}
-		//
-		//			@Override
-		//			public DoubleBinaryOperator getY() {
-		//				// TODO Auto-generated method stub
-		//				return null;
-		//			}
-		//
-		//			@Override
-		//			public DoubleBinaryOperator getX() {
-		//				// TODO Auto-generated method stub
-		//				return null;
-		//			}
-		//		};
+		return new PointMap() {
+			@Override
+			public DoubleBinaryOperator getY() {
+				return yMap;
+			}
+			@Override
+			public DoubleBinaryOperator getX() {
+				return xMap;
+			}
+		};
+	}
+
+	static PointMap rotationOf(double theta, Point centre)
+	{
+		return rotationOf(Math.cos(theta), Math.sin(theta), centre);
 	}
 }

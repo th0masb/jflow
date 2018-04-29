@@ -26,7 +26,7 @@ public final class Numbers
 			int count = 0;
 			@Override
 			public void skip() {
-				next();
+				nextLong();
 			}
 			@Override
 			public boolean hasNext()

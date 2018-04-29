@@ -176,10 +176,11 @@ public final class Iter
 
 		System.out.println(IterProduct.of(strings, strings).toList());
 
+		@SuppressWarnings("unused")
 		final Set<String> xs = Iter.of(strings)
-				.enumerate()
-				.map(p -> p.getElement() + p.getInt())
-				.toCollection(HashSet::new);
+		.enumerate()
+		.map(p -> p.getElement() + p.getInt())
+		.toCollection(HashSet::new);
 
 		IterRange.between(2, 11).mapToObject(i -> "a").toList();
 		//		Iter.longsFrom(i -> i)

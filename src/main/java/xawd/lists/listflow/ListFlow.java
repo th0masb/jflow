@@ -15,9 +15,6 @@ import xawd.jflow.iterables.FlowIterable;
  */
 public interface ListFlow<E> extends List<E>, FlowIterable<E>
 {
-	@Override
-	Flow<E> iter();
-
 	Flow<E> rIter();
 
 	@Deprecated

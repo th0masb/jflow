@@ -25,9 +25,10 @@ import java.util.function.ToLongFunction;
 
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
+import xawd.jflow.impl.FilteredFlow;
+import xawd.jflow.impl.FlattenedFlow;
 import xawd.jflow.impl.SkipFlow;
 import xawd.jflow.impl.SkipwhileFlow;
-import xawd.jflow.impl.FilteredFlow;
 import xawd.jflow.impl.SlicedFlow;
 import xawd.jflow.impl.TakeFlow;
 import xawd.jflow.impl.TakewhileFlow;
@@ -47,7 +48,7 @@ public abstract class AbstractFlow<T> implements Flow<T>
 	@Override
 	public <R> AbstractFlow<R> flatten(final Function<? super T, ? extends Flow<? extends R>> mapping)
 	{
-		throw new RuntimeException();
+		return new FlattenedFlow.OfObject<>(this, mapping);
 	}
 
 	@Override

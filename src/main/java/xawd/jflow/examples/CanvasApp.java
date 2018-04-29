@@ -4,7 +4,7 @@
 package xawd.jflow.examples;
 
 import static java.util.Arrays.asList;
-import static xawd.jflow.geometry.impl.PolygonProcessors.createFillProcessor;
+import static xawd.jflow.geometry.impl.PointProcessors.createFillProcessor;
 
 import java.util.List;
 
@@ -47,14 +47,16 @@ public class CanvasApp extends Application {
 
 		Iter.of(ps).consumeUsing(redPolygonFill);
 
-		final PointMap translation = PointMap.translationOf(22, 50);
+		final PointMap translation = PointMap.translationOf(0, 50);
 		Iter.of(ps).map(translation).consumeUsing(bluePolygonFill);
 
 		final Polygon mapped = Iter.of(ps)
 				.map(translation)
 				.build(PolygonImpl::fromPoints);
 
-		mapped.points().forEach(translation::mapInPlace);
+		final PointMap rotation = PointMap.rotationOf(Math.PI/2, Point.of(250, 250));
+
+		mapped.points().forEach(rotation::mapInPlace);
 		mapped.points().consumeUsing(greenPolygonFill);
 
 		final Scene s = new Scene(new Group(canvas), 500, 500);

@@ -24,9 +24,9 @@ public class PolygonImpl implements Polygon
 {
 	private final ListFlow<LineSegment> lines;
 
-	public PolygonImpl(Flow<LineSegment> srcLines)
+	public PolygonImpl(Flow<? extends LineSegment> srcLines)
 	{
-		lines = srcLines.toListFlow();
+		lines = srcLines.map(LineSegment.class::cast).toListFlow();
 		if (lines.size() < 3) {
 			throw new IllegalArgumentException();
 		}
@@ -37,7 +37,7 @@ public class PolygonImpl implements Polygon
 		lines = new ArrayListFlow<>();
 	}
 
-	public static PolygonImpl fromLines(Flow<LineSegment> srcLines)
+	public static PolygonImpl fromLines(Flow<? extends LineSegment> srcLines)
 	{
 		return new PolygonImpl(srcLines);
 	}
@@ -48,13 +48,13 @@ public class PolygonImpl implements Polygon
 		try {
 			final ListFlow<LineSegment> lines = newInstance.lines;
 			Point from = srcPoints.next(), to = srcPoints.next();
-			lines.add(new StraightLineImpl(from, to));
+			lines.add(new LineSegmentImpl(from, to));
 			while (srcPoints.hasNext()) {
 				from = to;
 				to = srcPoints.next();
-				lines.add(new StraightLineImpl(from, to));
+				lines.add(new LineSegmentImpl(from, to));
 			}
-			lines.add(new StraightLineImpl(tail(lines).end(), head(lines).start()));
+			lines.add(new LineSegmentImpl(tail(lines).end(), head(lines).start()));
 
 		}
 		catch (final NoSuchElementException ex) {
