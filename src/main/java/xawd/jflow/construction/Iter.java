@@ -166,7 +166,9 @@ public final class Iter
 	{
 		//		final IntFlow x = of(new int[] {1, 2, 3});
 		final List<String> strings = Arrays.asList("a", "b", "c");
-		System.out.println(Iter.of(strings).reduce("", String::concat));
+		System.out.println(IterCycle.of(strings).take(10).reduce("", String::concat));
+
+		System.out.println(Arrays.toString(IterCycle.of(1, 2, 3, 4).take(20).toArray()));
 
 		System.out.println(Iter.of(strings).accumulate("empty", String::concat).toList());
 

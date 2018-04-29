@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  */
 public interface SkippableIterator<T> extends Iterator<T>, Skippable
 {
-	default void forEach(final Consumer<T> action)
+	default void forEach(final Consumer<? super T> action)
 	{
 		while (hasNext()) {
 			action.accept(next());

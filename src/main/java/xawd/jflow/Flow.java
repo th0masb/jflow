@@ -13,6 +13,7 @@ import java.util.PrimitiveIterator;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
@@ -39,9 +40,14 @@ import xawd.lists.listflow.ListFlow;
  */
 public interface Flow<T> extends SkippableIterator<T>
 {
-	default <R> R build(Function<? super Flow<? super T>, R> builder)
+	default <R> R build(Function<? super Flow<? extends T>, R> builder)
 	{
 		return builder.apply(this);
+	}
+
+	default void process(Consumer<? super Flow<? extends T>> processor)
+	{
+		processor.accept(this);
 	}
 
 	<R> Flow<R> map(final Function<? super T, R> f);
