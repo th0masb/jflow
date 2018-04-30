@@ -10,9 +10,7 @@ import xawd.jflow.geometry.splines.LineSegment;
  * @author t
  *
  */
-public interface Polygon
+public interface LineIterable
 {
-	Flow<Point> points();
-
-	Flow<LineSegment> lines();
+	Flow<LineSegment> iterateOverLines();
 }

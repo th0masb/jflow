@@ -22,15 +22,27 @@ public interface Point
 
 	void setY(double newY);
 
+	Point copy();
+
 	default Point translate(double dx, double dy)
 	{
 		return new PointImpl(x() + dx, y() + dy);
+	}
+
+	default Point translate(Point dp)
+	{
+		return translate(dp.x(), dp.y());
 	}
 
 	default void translateInPlace(double dx, double dy)
 	{
 		setX(x() + dx);
 		setY(y() + dy);
+	}
+
+	default void translateInPlace(Point dp)
+	{
+		translateInPlace(dp.x(), dp.y());
 	}
 
 	default void set(DoubleBinaryOperator xMap, DoubleBinaryOperator yMap)

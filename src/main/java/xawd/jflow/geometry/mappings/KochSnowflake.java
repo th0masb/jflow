@@ -8,11 +8,10 @@ import static java.lang.Math.sin;
 
 import xawd.jflow.Flow;
 import xawd.jflow.construction.Iter;
-import xawd.jflow.geometry.LineSegment;
 import xawd.jflow.geometry.Point;
 import xawd.jflow.geometry.Polygon;
-import xawd.jflow.geometry.impl.LineSegmentImpl;
 import xawd.jflow.geometry.impl.PolygonImpl;
+import xawd.jflow.geometry.splines.LineSegment;
 
 /**
  * @author t
@@ -37,10 +36,10 @@ public final class KochSnowflake
 		final Point twoThirdsUp = source.interpolate(2/3.0);
 		final Point rotated = PointMap.rotationOf(Math.PI/3, oneThirdUp).apply(twoThirdsUp);
 		return Iter.of(
-				new LineSegmentImpl(source.start(), oneThirdUp),
-				new LineSegmentImpl(oneThirdUp, rotated),
-				new LineSegmentImpl(rotated, twoThirdsUp),
-				new LineSegmentImpl(twoThirdsUp, source.end())
+				new LineSegment(source.start(), oneThirdUp),
+				new LineSegment(oneThirdUp, rotated),
+				new LineSegment(rotated, twoThirdsUp),
+				new LineSegment(twoThirdsUp, source.end())
 				);
 	}
 }

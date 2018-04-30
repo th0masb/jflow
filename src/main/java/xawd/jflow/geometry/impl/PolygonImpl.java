@@ -10,9 +10,9 @@ import java.util.NoSuchElementException;
 
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.Flow;
-import xawd.jflow.geometry.LineSegment;
 import xawd.jflow.geometry.Point;
 import xawd.jflow.geometry.Polygon;
+import xawd.jflow.geometry.splines.LineSegment;
 import xawd.lists.listflow.ArrayListFlow;
 import xawd.lists.listflow.ListFlow;
 
@@ -48,13 +48,13 @@ public class PolygonImpl implements Polygon
 		try {
 			final ListFlow<LineSegment> lines = newInstance.lines;
 			Point from = srcPoints.next(), to = srcPoints.next();
-			lines.add(new LineSegmentImpl(from, to));
+			lines.add(new LineSegment(from, to));
 			while (srcPoints.hasNext()) {
 				from = to;
 				to = srcPoints.next();
-				lines.add(new LineSegmentImpl(from, to));
+				lines.add(new LineSegment(from, to));
 			}
-			lines.add(new LineSegmentImpl(tail(lines).end(), head(lines).start()));
+			lines.add(new LineSegment(tail(lines).end(), head(lines).start()));
 
 		}
 		catch (final NoSuchElementException ex) {

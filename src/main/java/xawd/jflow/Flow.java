@@ -40,7 +40,7 @@ import xawd.lists.listflow.ListFlow;
  */
 public interface Flow<T> extends SkippableIterator<T>
 {
-	default <R> R build(Function<? super Flow<? extends T>, R> builder)
+	default <R> R build(Function<? super Flow<T>, R> builder)
 	{
 		return builder.apply(this);
 	}

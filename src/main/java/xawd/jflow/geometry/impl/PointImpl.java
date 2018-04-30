@@ -47,4 +47,9 @@ public class PointImpl implements Point {
 	{
 		return new StringBuilder("(").append(x).append(", ").append(y).append(")").toString();
 	}
+
+	@Override
+	public Point copy() {
+		return new PointImpl(x, y);
+	}
 }
