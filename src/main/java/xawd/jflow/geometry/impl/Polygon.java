@@ -19,15 +19,15 @@ import xawd.lists.listflow.ListFlow;
  * @author t
  *
  */
-public final class Polygon2 implements PointIterable, LineIterable {
+public final class Polygon implements PointIterable, LineIterable {
 
 	private final ListFlow<Point> points;
 
-	public Polygon2(Flow<Point> src) {
+	public Polygon(Flow<Point> src) {
 		points = src.toListFlow();
 	}
 
-	public Polygon2(List<Point> src) {
+	public Polygon(List<Point> src) {
 		points = new ArrayListFlow<>(src);
 	}
 

@@ -11,7 +11,6 @@ import java.util.NoSuchElementException;
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.Flow;
 import xawd.jflow.geometry.Point;
-import xawd.jflow.geometry.Polygon;
 import xawd.jflow.geometry.splines.LineSegment;
 import xawd.lists.listflow.ArrayListFlow;
 import xawd.lists.listflow.ListFlow;
@@ -20,7 +19,7 @@ import xawd.lists.listflow.ListFlow;
  * @author t
  *
  */
-public class PolygonImpl implements Polygon
+public class PolygonImpl //implements Polygon
 {
 	private final ListFlow<LineSegment> lines;
 
@@ -63,7 +62,6 @@ public class PolygonImpl implements Polygon
 		return newInstance;
 	}
 
-	@Override
 	public Flow<Point> points() {
 		final PolygonImpl src = this;
 
@@ -92,7 +90,6 @@ public class PolygonImpl implements Polygon
 		};
 	}
 
-	@Override
 	public Flow<LineSegment> lines() {
 		return lines.iter();
 	}

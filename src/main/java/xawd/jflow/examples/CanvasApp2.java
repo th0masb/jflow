@@ -17,7 +17,7 @@ import xawd.jflow.construction.Iter;
 import xawd.jflow.geometry.ContextBinding;
 import xawd.jflow.geometry.Point;
 import xawd.jflow.geometry.impl.PointImpl;
-import xawd.jflow.geometry.impl.Polygon2;
+import xawd.jflow.geometry.impl.Polygon;
 import xawd.jflow.geometry.impl.Splinegon;
 import xawd.jflow.geometry.splines.QuadraticCurve;
 import xawd.jflow.geometry.splines.Spline;
@@ -57,9 +57,9 @@ public class CanvasApp2 extends Application {
 				new QuadraticCurve(ps.get(3), cs.get(3), ps.get(0))
 				);
 
-		final Polygon2 pgon = Iter.of(curves)
+		final Polygon pgon = Iter.of(curves)
 				.flatten(spline -> spline.iterateOverPoints())
-				.build(Polygon2::new);
+				.build(Polygon::new);
 
 		final Splinegon sgon = Iter.of(curves).build(Splinegon::new);
 		gc.fillSplineSequence(sgon, Color.DODGERBLUE);

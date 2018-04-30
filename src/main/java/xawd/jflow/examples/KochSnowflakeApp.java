@@ -13,9 +13,10 @@ import xawd.jflow.Flow;
 import xawd.jflow.construction.Iter;
 import xawd.jflow.geometry.ContextBinding;
 import xawd.jflow.geometry.Point;
-import xawd.jflow.geometry.Polygon;
+import xawd.jflow.geometry.impl.Polygon;
 import xawd.jflow.geometry.mappings.KochSnowflake;
 import xawd.jflow.geometry.mappings.PointMap;
+import xawd.jflow.geometry.mappings.Rotation;
 import xawd.jflow.geometry.splines.LineSegment;
 
 /**
@@ -33,10 +34,10 @@ public class KochSnowflakeApp extends Application
 		final ContextBinding gc = new ContextBinding(canvas.getGraphicsContext2D());
 
 		final Polygon start = KochSnowflake.getEquilateralTriangle(600);
-		start.points().forEach(p -> p.translateInPlace(200, 350));
+		start.iterateOverPoints().forEach(p -> p.translateInPlace(200, 350));
 
-		final Flow<Point> kochSnowflake = iterateSnowflake(ITERATIONS, start.lines());
-		final PointMap rot60 = PointMap.rotationOf(Math.PI/2, Point.of(500, 500));
+		final Flow<Point> kochSnowflake = iterateSnowflake(ITERATIONS, start.iterateOverLines());
+		final PointMap rot60 = Rotation.of(Math.PI/2, Point.of(500, 500));
 
 		gc.fillPointSequence(kochSnowflake.map(rot60), Color.PURPLE);//.slice(n -> n*n*n + 3*n)
 

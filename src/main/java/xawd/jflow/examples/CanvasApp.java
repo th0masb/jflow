@@ -16,11 +16,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import xawd.jflow.construction.Iter;
 import xawd.jflow.geometry.Point;
-import xawd.jflow.geometry.Polygon;
 import xawd.jflow.geometry.impl.PointImpl;
 import xawd.jflow.geometry.impl.PointProcessor;
-import xawd.jflow.geometry.impl.PolygonImpl;
+import xawd.jflow.geometry.impl.Polygon;
 import xawd.jflow.geometry.mappings.PointMap;
+import xawd.jflow.geometry.mappings.Rotation;
+import xawd.jflow.geometry.mappings.Translate;
 
 /**
  * @author t
@@ -47,17 +48,17 @@ public class CanvasApp extends Application {
 
 		Iter.of(ps).consumeUsing(redPolygonFill);
 
-		final PointMap translation = PointMap.translationOf(0, 50);
+		final PointMap translation = Translate.by(0, 50);
 		Iter.of(ps).map(translation).consumeUsing(bluePolygonFill);
 
 		final Polygon mapped = Iter.of(ps)
 				.map(translation)
-				.build(PolygonImpl::fromPoints);
+				.build(Polygon::new);
 
-		final PointMap rotation = PointMap.rotationOf(Math.PI/2, Point.of(250, 250));
+		final PointMap rotation = Rotation.of(Math.PI/2, Point.of(250, 250));
 
-		mapped.points().forEach(rotation::mapInPlace);
-		mapped.points().consumeUsing(greenPolygonFill);
+		mapped.iterateOverPoints().forEach(rotation::mapInPlace);
+		mapped.iterateOverPoints().consumeUsing(greenPolygonFill);
 
 		final Scene s = new Scene(new Group(canvas), 500, 500);
 		primaryStage.setScene(s);

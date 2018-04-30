@@ -2,10 +2,7 @@ package xawd.lists.listflow;
 
 import xawd.jflow.construction.Iter;
 import xawd.jflow.geometry.Point;
-import xawd.jflow.geometry.Polygon;
 import xawd.jflow.geometry.impl.PointImpl;
-import xawd.jflow.geometry.impl.PolygonImpl;
-import xawd.jflow.geometry.mappings.PointMap;
 
 public class ConsolePlay {
 
@@ -29,15 +26,6 @@ public class ConsolePlay {
 		final Point p1 = new PointImpl(), p2 = new PointImpl(1, 1) , p3 = new PointImpl(2, 0);
 		Iter.of(p1, p2, p3).forEach(System.out::println);
 		System.out.println();
-		final Polygon polygon = Iter.of(p1, p2, p3).build(PolygonImpl::fromPoints);
-		polygon.points().forEach(System.out::println);
-		System.out.println();
-		final PointMap translation = PointMap.translationOf(5, 5);
-		polygon.points().forEach(translation::mapInPlace);
-		System.out.println();
-		polygon.points().forEach(System.out::println);
-
-		//		System.out.println(strings);
 		//
 		//		final ListFlow<String> mappedString = strings.iter().map(x -> x + x).toListFlow();
 		//		System.out.println(mappedString);
