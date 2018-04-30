@@ -13,9 +13,6 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import org.joda.primitives.list.IntListFlow;
-import org.joda.primitives.list.impl.ArrayIntList;
-
 import xawd.jflow.iterables.DoubleFlowIterable;
 import xawd.jflow.iterables.IntFlowIterable;
 import xawd.jflow.iterables.LongFlowIterable;
@@ -35,11 +32,6 @@ public interface IntFlow extends SkippableIntIterator
 	default <C> C build(Function<? super IntFlow, C> builder)
 	{
 		return builder.apply(this);
-	}
-
-	default IntListFlow toListFlow()
-	{
-		return build(ArrayIntList::new);
 	}
 
 	IntFlow map(final IntUnaryOperator f);

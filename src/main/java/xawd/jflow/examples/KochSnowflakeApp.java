@@ -27,7 +27,7 @@ import xawd.jflow.geometry.mappings.KochSnowflake;
  */
 public class KochSnowflakeApp extends Application
 {
-	private static final int ITERATIONS = 7;
+	private static final int ITERATIONS = 5;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception
@@ -50,6 +50,7 @@ public class KochSnowflakeApp extends Application
 
 		kochIterator
 		.apply(start.lines())
+//		.slice(n -> n*n*n + 3*n)
 		.consumeUsing(createFillProcessor(gc, Color.GREEN));
 
 		final Scene s = new Scene(new Group(canvas), 1000, 1000);

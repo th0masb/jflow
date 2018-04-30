@@ -11,9 +11,6 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import org.joda.primitives.list.IntListFlow;
-import org.joda.primitives.list.impl.ArrayIntList;
-
 import xawd.jflow.DoubleFlow;
 import xawd.jflow.Flow;
 import xawd.jflow.IntFlow;
@@ -21,7 +18,6 @@ import xawd.jflow.LongFlow;
 import xawd.jflow.impl.EmptyFlow;
 import xawd.jflow.impl.FlowFromFunction;
 import xawd.jflow.impl.FlowFromValues;
-import xawd.lists.listflow.ListFlow;
 
 public final class Iter
 {
@@ -193,11 +189,5 @@ public final class Iter
 		Iter.of(asList("a", "b"), asList("c", "d")).flatten(Iter::of).toList();
 		Iter.of(new int[] {1, 2}, new int[] {3, 4}).flattenToInts(Iter::of).toArray();
 
-		final IntListFlow intListA = IterRange.to(20).build(ArrayIntList::new);
-		final IntListFlow intListB = IterRange.to(15).build(ArrayIntList::new);
-
-		final ListFlow<IntListFlow> nested = Iter.of(intListA, intListB).toListFlow();
-
-		nested.iter().flattenToInts(IntListFlow::iter);
 	}
 }
