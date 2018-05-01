@@ -3,9 +3,12 @@
  */
 package xawd.jflow;
 
+import static java.util.Arrays.asList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +16,7 @@ import java.util.Optional;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.PrimitiveIterator.OfInt;
 import java.util.PrimitiveIterator.OfLong;
+import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -23,6 +27,8 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.construction.Iter;
+import xawd.jflow.construction.IterRange;
 import xawd.jflow.construction.Numbers;
 import xawd.jflow.impl.AccumulationFlow;
 import xawd.jflow.impl.FilteredFlow;
@@ -618,5 +624,66 @@ public abstract class AbstractFlow<T> implements Flow<T>
 			collected.get(key).add(next);
 		}
 		return collected;
+	}
+	
+	public static void main(String[] args)
+	{
+		//Mapping
+		Flow<String> stringFlow = Iter.of("a", "b", "c");
+		stringFlow.map(string -> string + string); //----->  aa bb cc
+		
+		IntFlow positiveIntegers = Numbers.natural(); // Infinite iterator is fine..
+		positiveIntegers.takeWhile(i -> i < 5); //-----> 0, 1, 2, 3, 4
+		
+		LongFlow fibonacci = Numbers.fibonacci();
+		fibonacci.skipWhile(i -> i < 10000); //-----> resulting iterator is still infinite!
+		
+		// Zipping
+		List<String> someStrings = asList("a", "b", "c"), otherStrings = asList("d", "e");
+		
+		Iter.of(someStrings).enumerate();           //-----> (0, "a"),  (1, "b"),  (2, "c")
+		
+		Iter.of(someStrings).zipWith(otherStrings); //-----> ("a", "d"),  ("b", "e")
+		
+		Iter.of(someStrings).combineWith(otherStrings, (s1, s2) -> s1 + s2); // --> "ad", "be"
+		
+		
+		// min/max
+		List<String> numberStrings = asList("10", "1", "34");
+		Iter.of(numberStrings).min(Integer::parseInt); // ---> "1"
+		
+		
+		// flatten 
+		List<String> first = asList("a", "b"), second = asList("c", "d"), third = asList("e", "f");
+		
+		Iter.of(first, second, third).flatten(stringList -> Iter.of(stringList)); //----> "a", "b", "c", "d", "e", "f"
+		
+		Iter.of(first, second, third).flatten(Iter::of); // is equivalent
+		
+		// slicing
+		IntFlow numbersToTen = IterRange.to(10); 
+		
+		numbersToTen.slice(i -> 2*i + 1); // ---> 1, 3, 5, 7, 9
+		
+		numbersToTen.slice(i -> 3*i); //---> 0, 3, 6, 9
+		
+		// Predicate matching
+		
+		IntFlow tenToTwenty = IterRange.between(10, 20);
+		
+		tenToTwenty.allMatch(i -> i > 9); // ---> true
+		
+		tenToTwenty.anyMatch(i -> i > 19); // ---> false
+		
+		// Terminal collection
+		List<String> list = Iter.of("a", "b", "c").toList();
+		
+		Set<String> set = Iter.of("a", "b", "c").toSet();
+		
+		HashSet<String> hashset = Iter.of("a", "b", "c").toCollection(HashSet::new);
+		
+		Map<String, String> map = Iter.of("a", "b", "c").toMap(string -> string, string -> string + string);
+		
+		// map = {"a": "aa", "b": "bb", "c": "cc"}
 	}
 }

@@ -28,6 +28,10 @@ import xawd.jflow.zippedpairs.IntWithLong;
  */
 public interface IntFlow extends SkippableIntIterator
 {
+	default IntFlow slice(IntUnaryOperator slicer)
+	{
+		throw new RuntimeException();
+	}
 
 	default <C> C build(Function<? super IntFlow, C> builder)
 	{
