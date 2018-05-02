@@ -40,12 +40,12 @@ import xawd.lists.listflow.ListFlow;
  */
 public interface Flow<T> extends SkippableIterator<T>
 {
-	default <R> R build(Function<? super Flow<T>, R> builder)
+	default <R> R build(final Function<? super Flow<T>, R> builder)
 	{
 		return builder.apply(this);
 	}
 
-	default void consumeUsing(Consumer<? super Flow<? extends T>> processor)
+	default void consumeUsing(final Consumer<? super Flow<? extends T>> processor)
 	{
 		processor.accept(this);
 	}
@@ -128,6 +128,11 @@ public interface Flow<T> extends SkippableIterator<T>
 
 
 	//********** DEFAULT METHODS ***********//
+
+	default <R> Flow<R> filterAndCastTo(final Class<R> klass)
+	{
+		return filter(klass::isInstance).map(klass::cast);
+	}
 
 	default Flow<T> append(@SuppressWarnings("unchecked") final T... ts)
 	{

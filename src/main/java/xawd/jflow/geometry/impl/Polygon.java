@@ -8,12 +8,12 @@ import java.util.NoSuchElementException;
 
 import xawd.jflow.AbstractFlow;
 import xawd.jflow.Flow;
+import xawd.jflow.construction.Iter;
 import xawd.jflow.geometry.LineIterable;
 import xawd.jflow.geometry.Point;
 import xawd.jflow.geometry.PointIterable;
 import xawd.jflow.geometry.splines.LineSegment;
 import xawd.lists.listflow.ArrayListFlow;
-import xawd.lists.listflow.ListFlow;
 
 /**
  * @author t
@@ -21,13 +21,13 @@ import xawd.lists.listflow.ListFlow;
  */
 public final class Polygon implements PointIterable, LineIterable {
 
-	private final ListFlow<Point> points;
+	private final List<Point> points;
 
-	public Polygon(Flow<Point> src) {
-		points = src.toListFlow();
+	public Polygon(final Flow<Point> src) {
+		points = src.map(Point::copy).toList();
 	}
 
-	public Polygon(List<Point> src) {
+	public Polygon(final List<Point> src) {
 		points = new ArrayListFlow<>(src);
 	}
 
@@ -73,6 +73,6 @@ public final class Polygon implements PointIterable, LineIterable {
 	 */
 	@Override
 	public Flow<Point> iterateOverPoints() {
-		return points.iter();
+		return Iter.of(points);
 	}
 }

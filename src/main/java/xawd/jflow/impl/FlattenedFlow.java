@@ -20,7 +20,7 @@ public final class FlattenedFlow
 
 		private Flow<? extends R> currentSubFlow;
 
-		public OfObject(Flow<T> src, Function<? super T, ? extends Flow<? extends R>> mapping) {
+		public OfObject(final Flow<T> src, final Function<? super T, ? extends Flow<? extends R>> mapping) {
 			this.src = src;
 			this.mapping = mapping;
 		}
@@ -51,7 +51,7 @@ public final class FlattenedFlow
 			}
 			else {
 				final R next = currentSubFlow.next();
-				if (!currentSubFlow.hasNext() && src.hasNext()) {
+				while (!currentSubFlow.hasNext() && src.hasNext()) {
 					currentSubFlow = mapping.apply(src.next());
 				}
 				return next;

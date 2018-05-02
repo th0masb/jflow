@@ -32,7 +32,7 @@ public class CanvasApp2 extends Application {
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
 	@Override
-	public void start(Stage primaryStage) throws Exception
+	public void start(final Stage primaryStage) throws Exception
 	{
 		final Canvas canvas = new Canvas(500, 500);
 		final ContextBinding gc = new ContextBinding(canvas.getGraphicsContext2D());
@@ -63,17 +63,18 @@ public class CanvasApp2 extends Application {
 
 		final Splinegon sgon = Iter.of(curves).build(Splinegon::new);
 		gc.fillSplineSequence(sgon, Color.DODGERBLUE);
-		gc.fillPointSequence(pgon, Color.GREEN);
-		gc.strokeSplineSequence(sgon, Color.INDIANRED, 5);
+//		gc.fillPointSequence(pgon, Color.GREEN);
+//		gc.strokeSplineSequence(sgon, Color.INDIANRED, 5);
 
-		gc.strokeSplineSequence(curves.subList(0, 2), Color.PURPLE, 10);
+//		gc.strokeSplineSequence(curves.subList(0, 2), Color.PURPLE, 10);
+		gc.strokeSplineSequence(curves, Color.PURPLE, 10);
 
 		final Scene s = new Scene(new Group(canvas), 500, 500);
 		primaryStage.setScene(s);
 		primaryStage.show();
 	}
 
-	public static void main(String[] args)
+	public static void main(final String[] args)
 	{
 		launch(args);
 	}

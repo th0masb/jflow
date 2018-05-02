@@ -25,10 +25,10 @@ import xawd.jflow.geometry.splines.LineSegment;
  */
 public class KochSnowflakeApp extends Application
 {
-	private static final int ITERATIONS = 6;
+	private static final int ITERATIONS = 7;
 
 	@Override
-	public void start(Stage primaryStage) throws Exception
+	public void start(final Stage primaryStage) throws Exception
 	{
 		final Canvas canvas = new Canvas(1000, 1000);
 		final ContextBinding gc = new ContextBinding(canvas.getGraphicsContext2D());
@@ -39,14 +39,14 @@ public class KochSnowflakeApp extends Application
 		final Flow<Point> kochSnowflake = iterateSnowflake(ITERATIONS, start.iterateOverLines());
 		final PointMap rot60 = Rotation.of(Math.PI/2, Point.of(500, 500));
 
-		gc.fillPointSequence(kochSnowflake.map(rot60), Color.PURPLE);//.slice(n -> n*n*n + 3*n)
+		gc.fillPointSequence(kochSnowflake.map(rot60), Color.PURPLE);
 
 		final Scene s = new Scene(new Group(canvas), 1000, 1000);
 		primaryStage.setScene(s);
 		primaryStage.show();
 	}
 
-	private Flow<Point> iterateSnowflake(int iterationCount, Flow<LineSegment> source)
+	private Flow<Point> iterateSnowflake(final int iterationCount, Flow<LineSegment> source)
 	{
 		for (int i = 0; i < iterationCount; i++) {
 			source = source.flatten(KochSnowflake::recurseRight);
@@ -54,7 +54,7 @@ public class KochSnowflakeApp extends Application
 		return source.flatten(line -> Iter.of(line.start(), line.end()));
 	}
 
-	public static void main(String[] args)
+	public static void main(final String[] args)
 	{
 		launch(args);
 	}

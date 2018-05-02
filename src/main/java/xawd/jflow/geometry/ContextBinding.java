@@ -19,21 +19,21 @@ public final class ContextBinding
 	/**
 	 *
 	 */
-	public ContextBinding(GraphicsContext gc) {
+	public ContextBinding(final GraphicsContext gc) {
 		this.gc = gc;
 	}
 
-	public void fillPointSequence(PointIterable pointProvider, Paint fill)
+	public void fillPointSequence(final PointIterable pointProvider, final Paint fill)
 	{
 		fillPointSequence(pointProvider.iterateOverPoints(), fill);
 	}
 
-	public void fillPointSequence(Iterable<Point> pointProvider, Paint fill)
+	public void fillPointSequence(final Iterable<Point> pointProvider, final Paint fill)
 	{
 		fillPointSequence(pointProvider.iterator(), fill);
 	}
 
-	public void fillPointSequence(Iterator<Point> points, Paint fill)
+	public void fillPointSequence(final Iterator<Point> points, final Paint fill)
 	{
 		final Paint oldFill = gc.getFill();
 		gc.setFill(fill);
@@ -49,17 +49,22 @@ public final class ContextBinding
 		gc.setFill(oldFill);
 	}
 
-	public void fillSplineSequence(SplineIterable curveProvider, Paint fill)
+	public void fillSplineSequence(final SplineIterable curveProvider, final Paint fill)
 	{
 		fillSplineSequence(curveProvider.iterateOverCurves(), fill);
 	}
 
-	public void fillSplineSequence(Iterable<Spline> curveProvider, Paint fill)
+	public void fillSplineSequence(final LineIterable curveProvider, final Paint fill)
+	{
+		fillSplineSequence(curveProvider.iterateOverLines(), fill);
+	}
+
+	public void fillSplineSequence(final Iterable<? extends Spline> curveProvider, final Paint fill)
 	{
 		fillSplineSequence(curveProvider.iterator(), fill);
 	}
 
-	public void fillSplineSequence(Iterator<Spline> curves, Paint fill)
+	public void fillSplineSequence(final Iterator<? extends Spline> curves, final Paint fill)
 	{
 		final Paint oldFill = gc.getFill();
 		gc.setFill(fill);
@@ -77,7 +82,7 @@ public final class ContextBinding
 		gc.setFill(oldFill);
 	}
 
-	public void strokeSplineSequence(Iterator<Spline> curves, Paint stroke, double lineWidth)
+	public void strokeSplineSequence(final Iterator<? extends Spline> curves, final Paint stroke, final double lineWidth)
 	{
 		final Paint oldStroke = gc.getStroke();
 		final double oldLineWidth = gc.getLineWidth();
@@ -98,12 +103,17 @@ public final class ContextBinding
 		gc.setStroke(oldStroke);
 	}
 
-	public void strokeSplineSequence(SplineIterable curves, Paint stroke, double lineWidth)
+	public void strokeSplineSequence(final SplineIterable curves, final Paint stroke, final double lineWidth)
 	{
 		strokeSplineSequence(curves.iterateOverCurves(), stroke, lineWidth);
 	}
 
-	public void strokeSplineSequence(Iterable<Spline> curves, Paint stroke, double lineWidth)
+	public void strokeSplineSequence(final LineIterable curves, final Paint stroke, final double lineWidth)
+	{
+		strokeSplineSequence(curves.iterateOverLines(), stroke, lineWidth);
+	}
+
+	public void strokeSplineSequence(final Iterable<? extends Spline> curves, final Paint stroke, final double lineWidth)
 	{
 		strokeSplineSequence(curves.iterator(), stroke, lineWidth);
 	}
