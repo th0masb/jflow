@@ -1,10 +1,10 @@
 /**
  *
  */
-package xawd.jflow.iterators.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.len;
 
 import java.util.Arrays;
 import java.util.function.DoublePredicate;

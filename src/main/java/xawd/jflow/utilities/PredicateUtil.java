@@ -1,10 +1,10 @@
 /**
  *
  */
-package xawd.jflow.iterators.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.len;
 
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
@@ -20,10 +20,6 @@ public final class PredicateUtil
 	public PredicateUtil()
 	{
 	}
-
-	/* all any
-	 *
-	 * takeWhile, takeUntil, dropWhile, dropUntil */
 
 	/**
 	 * Checks whether every element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
@@ -87,9 +83,9 @@ public final class PredicateUtil
 	 * @param xs - The given sequence of elements
 	 * @return whether every element in <b>xs</b> satisfies <b>p</b>
 	 */
-	public static <T> boolean all(final Predicate<? super T> p, final Iterable<T> xs)
+	public static <E> boolean all(final Predicate<? super E> p, final Iterable<? extends E> xs)
 	{
-		for (final T t : xs) {
+		for (final E t : xs) {
 			if (!p.test(t)) {
 				return false;
 			}
@@ -160,64 +156,13 @@ public final class PredicateUtil
 	 * @param xs - The given sequence of elements
 	 * @return whether an element in <b>xs</b> satisfies <b>p</b>
 	 */
-	public static <T> boolean any(final Predicate<? super T> p, final Iterable<T> xs)
+	public static <E> boolean any(final Predicate<? super E> p, final Iterable<? extends E> xs)
 	{
-		for (final T t : xs) {
+		for (final E t : xs) {
 			if (p.test(t)) {
 				return true;
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * This function checks whether all elements in a sequence are equal.
-	 *
-	 * @param xs - The input sequence
-	 * @return whether all elements in the sequence are semantically equal.
-	 */
-	public static boolean allEqual(final int[] xs)
-	{
-		throw new RuntimeException();
-	}
-
-	/**
-	 * This function checks whether all elements in a sequence are equal.
-	 *
-	 * @param xs - The input sequence
-	 * @return whether all elements in the sequence are semantically equal.
-	 */
-	public static boolean allEqual(final double[] xs)
-	{
-		throw new RuntimeException();
-	}
-
-	/**
-	 * This function checks whether all elements in a sequence are equal.
-	 *
-	 * @param xs - The input sequence
-	 * @return whether all elements in the sequence are semantically equal.
-	 */
-	public static boolean allEqual(final long[] xs)
-	{
-		throw new RuntimeException();
-	}
-
-	/**
-	 * This function checks whether all elements in a sequence are equal.
-	 *
-	 * @param xs - The input sequence
-	 * @return whether all elements in the sequence are semantically equal.
-	 */
-	public static <T> boolean allEqual(final Iterable<T> xs)
-	{
-		T last = null;
-		for (final T x : xs) {
-			if (last != null && !x.equals(last)) {
-				return false;
-			}
-			last = x;
-		}
-		return true;
 	}
 }

@@ -3,7 +3,7 @@
  */
 package xawd.jflow.iterators.misc;
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.tail;
+import static xawd.jflow.utilities.CollectionUtil.tail;
 
 import java.util.ArrayList;
 import java.util.List;

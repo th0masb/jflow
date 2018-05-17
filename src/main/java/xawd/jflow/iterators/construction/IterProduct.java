@@ -8,6 +8,9 @@ import java.util.NoSuchElementException;
 
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.Flow;
+import xawd.jflow.iterators.IntFlow;
+import xawd.jflow.iterators.iterables.IntFlowIterable;
+import xawd.jflow.iterators.misc.IntPair;
 import xawd.jflow.iterators.misc.Pair;
 
 /**
@@ -70,7 +73,74 @@ public class IterProduct
 					}
 					return next;
 				}
+			}
 
+			@Override
+			public void skip() {
+				next();
+			}
+		};
+	}
+
+	public static Flow<IntPair> of(final IntFlowIterable first, final IntFlowIterable second)
+	{
+		return new AbstractFlow<IntPair>() {
+
+			IntFlow xSource = first.iter();
+			boolean initialised = false;
+
+			boolean xExhausted = false;
+			int currentX;
+
+			IntFlow ySource = second.iter();
+
+			void init() {
+				assert !initialised;
+				initialised = true;
+				if (xSource.hasNext()) {
+					currentX = xSource.nextInt();
+				}
+				else {
+					xExhausted = true;
+				}
+			}
+			@Override
+			public boolean hasNext() {
+				if (!initialised) {
+					init();
+				}
+				if (xExhausted) {
+					return false;
+				}
+				else{
+					return ySource.hasNext();
+				}
+
+			}
+
+			@Override
+			public IntPair next() {
+				if (!initialised) {
+					init();
+				}
+
+				if (xExhausted) {
+					throw new NoSuchElementException();
+				}
+				else{
+					final IntPair next = IntPair.of(currentX, ySource.nextInt());
+
+					if (!ySource.hasNext()) {
+						if (xSource.hasNext()) {
+							currentX = xSource.nextInt();
+							ySource = second.iter();
+						}
+						else {
+							xExhausted = true;
+						}
+					}
+					return next;
+				}
 			}
 
 			@Override

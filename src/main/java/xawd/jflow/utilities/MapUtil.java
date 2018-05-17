@@ -1,10 +1,10 @@
 /**
  *
  */
-package xawd.jflow.iterators.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.len;
 
 import java.util.List;
 import java.util.function.DoubleFunction;
@@ -265,7 +265,7 @@ public final class MapUtil
 	 * @param xs - The sequence to map
 	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
 	 */
-	public static <T, R> List<R> objMap(final Function<T, R> f, final List<? extends T> xs)
+	public static <E, R> List<R> objMap(final Function<E, R> f, final List<? extends E> xs)
 	{
 		throw new RuntimeException();
 	}

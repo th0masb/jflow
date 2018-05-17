@@ -1,14 +1,11 @@
 /**
  *
  */
-package xawd.jflow.iterators.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jflow.iterators.utilities.FoldUtil.foldr;
-
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
-import java.util.OptionalLong;
+import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.FoldUtil.foldr;
 
 /**
  * @author ThomasB
@@ -16,28 +13,82 @@ import java.util.OptionalLong;
  */
 public final class PrimitiveUtil
 {
+	private static final double EPSILON = 0.00001;
+
 	private PrimitiveUtil()
 	{
 	}
 
+	/**
+	 * Checks if value is equal to zero
+	 */
 	public static boolean isZero(final int x)
 	{
 		return x == 0;
 	}
 
+	/**
+	 * Checks if value is equal to zero
+	 */
+	public static boolean isZero(final long x)
+	{
+		return x == 0;
+	}
+
+	/**
+	 * Checks if value is equal to zero
+	 */
 	public static boolean isZero(final double x)
 	{
-		return Math.abs(x) < 0.00001;
+		return Math.abs(x) < EPSILON;
 	}
 
+	/**
+	 * Converts value to boolean
+	 */
+	public static boolean bool(final int x)
+	{
+		return !isZero(x);
+	}
+
+	/**
+	 * Converts value to boolean
+	 */
 	public static boolean bool(final double x)
 	{
-		return x != 0;
+		return !isZero(x);
 	}
 
+	/**
+	 * Converts value to boolean
+	 */
 	public static boolean bool(final long x)
 	{
-		return x != 0;
+		return !isZero(x);
+	}
+
+	/**
+	 * Calculate signum of a numerical value
+	 */
+	public static int signum(final double x)
+	{
+		return isZero(x) ? 0 : x > 0 ? 1 : -1;
+	}
+
+	/**
+	 * Calculate signum of a numerical value
+	 */
+	public static int signum(final int x)
+	{
+		return isZero(x) ? 0 : x > 0 ? 1 : -1;
+	}
+
+	/**
+	 * Calculate signum of a numerical value
+	 */
+	public static int signum(final long x)
+	{
+		return isZero(x) ? 0 : x > 0 ? 1 : -1;
 	}
 
 	/**
@@ -47,8 +98,11 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalDouble sum(final double... xs)
+	public static double sum(final double... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr((a, b) -> a + b, 0, xs);
 	}
 
@@ -59,8 +113,11 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalInt sum(final int... xs)
+	public static int sum(final int... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(Math::addExact, 0, xs);
 	}
 
@@ -71,8 +128,11 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalLong sum(final long... xs)
+	public static long sum(final long... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(Math::addExact, 0, xs);
 	}
 
@@ -84,8 +144,11 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalDouble product(final double... xs)
+	public static double product(final double... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr((a, b) -> a * b, 1, xs);
 	}
 
@@ -96,8 +159,11 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalInt product(final int... xs)
+	public static int product(final int... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(Math::multiplyExact, 1, xs);
 	}
 
@@ -108,13 +174,16 @@ public final class PrimitiveUtil
 	 * @param xs - the sequence to sum
 	 * @return the sum of all elements.
 	 */
-	public static OptionalLong product(final long... xs)
+	public static long product(final long... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(Math::multiplyExact, 1, xs);
 	}
 
 	/**
-	 * Calculates the minimum value out of the parameter sequence
+	 * Calculates the minimum value out of two values
 	 *
 	 * @param a - The first value
 	 * @param b - The second value
@@ -132,13 +201,16 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the minimum value in the sequence
 	 */
-	public static OptionalInt min(final int... xs)
+	public static int min(final int... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(PrimitiveUtil::min, Integer.MAX_VALUE, xs);
 	}
 
 	/**
-	 * Calculates the minimum value out of the parameter sequence
+	 * Calculates the minimum value out of two values
 	 *
 	 * @param a - The first value
 	 * @param b - The second value
@@ -155,13 +227,16 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the minimum value in the sequence
 	 */
-	public static OptionalDouble min(final double... xs)
+	public static double min(final double... xs)
 	{
-		return foldr(PrimitiveUtil::min, Double.MAX_VALUE, xs);
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
+		return foldr(PrimitiveUtil::min, Double.POSITIVE_INFINITY, xs);
 	}
 
 	/**
-	 * Calculates the minimum value out of the parameter sequence
+	 * Calculates the minimum value out of two values
 	 *
 	 * @param a - The first value
 	 * @param b - The second value
@@ -178,13 +253,16 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the minimum value in the sequence
 	 */
-	public static OptionalLong min(final long... xs)
+	public static long min(final long... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(PrimitiveUtil::min, Long.MAX_VALUE, xs);
 	}
 
 	/**
-	 * Calculates the maximum value out of the parameter sequence
+	 * Calculates the maximum value out of two values
 	 *
 	 * @param a - The first value
 	 * @param b - The second value
@@ -201,13 +279,16 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the maximum value in the sequence
 	 */
-	public static OptionalInt max(final int... xs)
+	public static int max(final int... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(PrimitiveUtil::max, Integer.MIN_VALUE, xs);
 	}
 
 	/**
-	 * Calculates the maximum value out of the parameter sequence
+	 * Calculates the maximum value out of two values
 	 *
 	 * @param a - The first value
 	 * @param b - The second value
@@ -224,13 +305,16 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the maximum value in the sequence
 	 */
-	public static OptionalDouble max(final double... xs)
+	public static double max(final double... xs)
 	{
-		return foldr(PrimitiveUtil::max, Double.MIN_VALUE, xs);
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
+		return foldr(PrimitiveUtil::max, Double.NEGATIVE_INFINITY, xs);
 	}
 
 	/**
-	 * Calculates the maximum value out of the parameter sequence
+	 * Calculates the maximum value out of two values
 	 *
 	 * @param a - The first value
 	 * @param b - The second value
@@ -247,48 +331,11 @@ public final class PrimitiveUtil
 	 * @param xs - the parameter sequence
 	 * @return the maximum value in the sequence
 	 */
-	public static OptionalLong max(final long... xs)
+	public static long max(final long... xs)
 	{
+		if (len(xs) == 0) {
+			throw new IllegalArgumentException();
+		}
 		return foldr(PrimitiveUtil::max, Long.MIN_VALUE, xs);
-	}
-
-	public static double pow(final double x, final double power)
-	{
-		return Math.pow(x, power);
-	}
-
-	public static double sqrt(final double x)
-	{
-		return Math.sqrt(x);
-	}
-
-	public static double square(final double x)
-	{
-		return x * x;
-	}
-
-	public static int square(final int x)
-	{
-		return x * x;
-	}
-
-	public static double abs(final double x)
-	{
-		return Math.abs(x);
-	}
-
-	public static int abs(final int x)
-	{
-		return Math.abs(x);
-	}
-
-	public static double signum(final double x)
-	{
-		return Math.signum(x);
-	}
-
-	public static int signum(final int x)
-	{
-		return (int) Math.signum(x);
 	}
 }

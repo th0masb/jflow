@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
@@ -47,7 +48,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			iterator.next();
+			next();
 		}
 	}
 
@@ -69,12 +70,19 @@ public final class FlowFromValues
 		@Override
 		public long nextLong()
 		{
-			return cache[count++];
+			try {
+				return cache[count++];
+			}
+			catch (final IndexOutOfBoundsException ex) {
+				throw new NoSuchElementException();
+			}
 		}
 		@Override
 		public void skip()
 		{
-			count++;
+			if (count++ >= cache.length) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -96,12 +104,19 @@ public final class FlowFromValues
 		@Override
 		public double nextDouble()
 		{
-			return cache[count++];
+			try {
+				return cache[count++];
+			}
+			catch (final IndexOutOfBoundsException ex) {
+				throw new NoSuchElementException();
+			}
 		}
 		@Override
 		public void skip()
 		{
-			count++;
+			if (count++ >= cache.length) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -123,12 +138,19 @@ public final class FlowFromValues
 		@Override
 		public int nextInt()
 		{
-			return cache[count++];
+			try {
+				return cache[count++];
+			}
+			catch (final IndexOutOfBoundsException ex) {
+				throw new NoSuchElementException();
+			}
 		}
 		@Override
 		public void skip()
 		{
-			count++;
+			if (count++ >= cache.length) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package xawd.jflow.iterators.construction;
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.str;
+import static xawd.jflow.utilities.CollectionUtil.str;
 
 import xawd.jflow.iterators.AbstractLongFlow;
 import xawd.jflow.iterators.IntFlow;

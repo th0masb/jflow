@@ -30,6 +30,17 @@ public final class DoubleWithLong
 	}
 
 	@Override
+	public String toString()
+	{
+		return new StringBuilder("(")
+				.append(doubleVal)
+				.append(", ")
+				.append(longVal)
+				.append(")")
+				.toString();
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

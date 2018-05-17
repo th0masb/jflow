@@ -1,7 +1,7 @@
 package xawd.jflow.iterators.construction;
 
-import static xawd.jflow.iterators.utilities.PrimitiveUtil.abs;
-import static xawd.jflow.iterators.utilities.PrimitiveUtil.signum;
+import static java.lang.Math.abs;
+import static xawd.jflow.utilities.PrimitiveUtil.signum;
 
 import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.IntFlow;

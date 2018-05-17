@@ -1,4 +1,4 @@
-package xawd.jflow.iterators.utilities;
+package xawd.jflow.utilities;
 
 
 import java.util.ArrayList;
@@ -128,12 +128,12 @@ public final class CollectionUtil
 	/**
 	 * A unified String conversion function
 	 *
-	 * @param t - the object to convert
+	 * @param e - the object to convert
 	 * @return the string representation of <b>t</b>
 	 */
-	public static <T> String str(final T t)
+	public static <E> String str(final E e)
 	{
-		return t.toString();
+		return e.toString();
 	}
 
 	/**
@@ -276,7 +276,7 @@ public final class CollectionUtil
 	//	 * A unified take function a la Haskell |
 	//	 * -----------------------------------------------------------------------------------------------
 	//	 *
-	//	 * TODO - we could reduce amount of objects created here by implementing each individually */
+	//	 */
 	//
 	/**
 	 * Take the first n elements from the beginning of an array retaining their order.

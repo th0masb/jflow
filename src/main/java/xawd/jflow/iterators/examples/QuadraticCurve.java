@@ -3,8 +3,8 @@
  */
 package xawd.jflow.iterators.examples;
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.head;
-import static xawd.jflow.iterators.utilities.CollectionUtil.tail;
+import static xawd.jflow.utilities.CollectionUtil.head;
+import static xawd.jflow.utilities.CollectionUtil.tail;
 
 import javafx.scene.canvas.GraphicsContext;
 

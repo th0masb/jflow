@@ -1,14 +1,9 @@
-package xawd.jflow.iterators.utilities;
+package xawd.jflow.utilities;
 
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.head;
-import static xawd.jflow.iterators.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.head;
+import static xawd.jflow.utilities.CollectionUtil.len;
 
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
-import java.util.OptionalLong;
-import java.util.function.BinaryOperator;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
 import java.util.function.LongBinaryOperator;
@@ -34,16 +29,13 @@ public final class FoldUtil
 	 * @param xs - The sequence to fold
 	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
 	 */
-	public static OptionalInt foldr(final IntBinaryOperator f, final int id, final int[] xs)
+	public static int foldr(final IntBinaryOperator f, final int id, final int[] xs)
 	{
-		if (len(xs) == 0) {
-			return OptionalInt.empty();
-		}
 		int cumulativeFold = id;
 		for (int i = len(xs) - 1; i > -1; i--) {
 			cumulativeFold = f.applyAsInt(xs[i], cumulativeFold);
 		}
-		return OptionalInt.of(cumulativeFold);
+		return cumulativeFold;
 	}
 
 
@@ -58,9 +50,13 @@ public final class FoldUtil
 	 * @param xs - The sequence to fold
 	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
 	 */
-	public static OptionalDouble foldr(final DoubleBinaryOperator f, final double id, final double[] xs)
+	public static double foldr(final DoubleBinaryOperator f, final double id, final double[] xs)
 	{
-		throw new RuntimeException();
+		double cumulativeFold = id;
+		for (int i = len(xs) - 1; i > -1; i--) {
+			cumulativeFold = f.applyAsDouble(xs[i], cumulativeFold);
+		}
+		return cumulativeFold;
 	}
 
 
@@ -75,25 +71,13 @@ public final class FoldUtil
 	 * @param xs - The sequence to fold
 	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
 	 */
-	public static OptionalLong foldr(final LongBinaryOperator f, final long id, final long[] xs)
+	public static long foldr(final LongBinaryOperator f, final long id, final long[] xs)
 	{
-		throw new RuntimeException();
-	}
-
-	/**
-	 * The fold right (foldr) function collapses a sequence to a single value in a right associative manner. I.e. starting
-	 * at the tail of the sequence. If we denote the operator by {@code *} and the sequence by {@code (x_1,...,x_n)} then the result
-	 * is<br>
-	 * {@code x_1 * (x_2 * (... * (x_[n-1] * (x_n * id))...)}
-	 *
-	 * @param f - The binary operator describing how elements fold together
-	 * @param id - The initial value of the fold
-	 * @param xs - The sequence to fold
-	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
-	 */
-	public static <T, E extends T> Optional<T> foldr(final BinaryOperator<T> f, final E id, final Iterable<? extends T> xs)
-	{
-		throw new RuntimeException();
+		long cumulativeFold = id;
+		for (int i = len(xs) - 1; i > -1; i--) {
+			cumulativeFold = f.applyAsLong(xs[i], cumulativeFold);
+		}
+		return cumulativeFold;
 	}
 
 	/**
@@ -107,16 +91,14 @@ public final class FoldUtil
 	 * @param xs - The sequence to fold
 	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
 	 */
-	public static OptionalInt foldl(final IntBinaryOperator f, final int id, final int[] xs)
+	public static int foldl(final IntBinaryOperator f, final int id, final int[] xs)
 	{
-		if (len(xs) == 0) {
-			return OptionalInt.empty();
-		}
+		final int n = len(xs);
 		int cumulativeFold = id;
-		for (int i = 0; i < len(xs); i++) {
+		for (int i = 0; i < n; i++) {
 			cumulativeFold = f.applyAsInt(cumulativeFold, xs[i]);
 		}
-		return OptionalInt.of(cumulativeFold);
+		return cumulativeFold;
 	}
 
 	/**
@@ -130,9 +112,14 @@ public final class FoldUtil
 	 * @param xs - The sequence to fold
 	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
 	 */
-	public static OptionalDouble foldl(final DoubleBinaryOperator f, final double id, final double[] xs)
+	public static double foldl(final DoubleBinaryOperator f, final double id, final double[] xs)
 	{
-		throw new RuntimeException();
+		final int n = len(xs);
+		double cumulativeFold = id;
+		for (int i = 0; i < n; i++) {
+			cumulativeFold = f.applyAsDouble(cumulativeFold, xs[i]);
+		}
+		return cumulativeFold;
 	}
 
 	/**
@@ -146,25 +133,14 @@ public final class FoldUtil
 	 * @param xs - The sequence to fold
 	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
 	 */
-	public static OptionalLong foldl(final LongBinaryOperator f, final long id, final long[] xs)
+	public static long foldl(final LongBinaryOperator f, final long id, final long[] xs)
 	{
-		throw new RuntimeException();
-	}
-
-	/**
-	 * The fold left (foldl) function collapses a sequence to a single value in a left associative manner. I.e. starting
-	 * at the head of the sequence. If we denote the operator by {@code *} and the sequence by {@code (x_1,...,x_n)} then the result
-	 * is<br>
-	 * {@code (...(id * x_1) * x_2) *...) * x_[n-1]) * x_n}
-	 *
-	 * @param f - The binary operator describing how elements fold together
-	 * @param id - The initial value of the fold
-	 * @param xs - The sequence to fold
-	 * @return the result obtained by folding the whole sequence into one value or nothing if the sequence is empty.
-	 */
-	public static <T, E extends T> Optional<T> foldl(final BinaryOperator<T> f, final E id, final Iterable<? extends T> xs)
-	{
-		throw new RuntimeException();
+		final int n = len(xs);
+		long cumulativeFold = id;
+		for (int i = 0; i < n; i++) {
+			cumulativeFold = f.applyAsLong(cumulativeFold, xs[i]);
+		}
+		return cumulativeFold;
 	}
 
 	/**

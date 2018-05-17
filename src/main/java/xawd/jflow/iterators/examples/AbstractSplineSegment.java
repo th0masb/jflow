@@ -3,7 +3,7 @@
  */
 package xawd.jflow.iterators.examples;
 
-import static xawd.jflow.iterators.utilities.CollectionUtil.head;
+import static xawd.jflow.utilities.CollectionUtil.head;
 
 import java.util.Arrays;
 import java.util.List;

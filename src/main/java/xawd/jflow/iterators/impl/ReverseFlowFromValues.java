@@ -21,17 +21,17 @@ public final class ReverseFlowFromValues
 
 	public static class OfObject<E> extends AbstractFlow<E>
 	{
-		private final List<E> source;
-		private int count = Integer.MAX_VALUE;
+		private final List<? extends E> source;
+		private int count = Integer.MIN_VALUE;
 
-		public OfObject(List<E> source)
+		public OfObject(final List<? extends E> source)
 		{
 			this.source = source;
 		}
 
 		@Override
 		public boolean hasNext() {
-			if (count == Integer.MAX_VALUE) {
+			if (count == Integer.MIN_VALUE) {
 				count = source.size() - 1;
 			}
 			return count >= 0;
@@ -41,13 +41,13 @@ public final class ReverseFlowFromValues
 		public E next()
 		{
 			try {
-				if (count == Integer.MAX_VALUE) {
+				if (count == Integer.MIN_VALUE) {
 					count = source.size() - 1;
 				}
 				return source.get(count--);
 			}
 			catch (final IndexOutOfBoundsException ex) {
-				throw new NoSuchElementException();
+				throw new NoSuchElementException("The source was potentially mutated after binding occured.");
 			}
 		}
 
@@ -63,7 +63,7 @@ public final class ReverseFlowFromValues
 		private final long[] source;
 		private int count;
 
-		public OfLong(long[] source)
+		public OfLong(final long[] source)
 		{
 			this.source = source;
 			count = source.length - 1;
@@ -97,7 +97,7 @@ public final class ReverseFlowFromValues
 		private final double[] source;
 		private int count;
 
-		public OfDouble(double[] source)
+		public OfDouble(final double[] source)
 		{
 			this.source = source;
 			count = source.length - 1;
@@ -131,7 +131,7 @@ public final class ReverseFlowFromValues
 		private final int[] source;
 		private int count;
 
-		public OfInt(int[] source)
+		public OfInt(final int[] source)
 		{
 			this.source = source;
 			count = source.length - 1;

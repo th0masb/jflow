@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.utilities;
+package xawd.jflow.utilities;
 
 import java.util.function.DoubleFunction;
 import java.util.function.DoubleToIntFunction;
