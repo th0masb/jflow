@@ -3,28 +3,41 @@ package xawd.jflow.iterators.misc;
 import java.util.Collections;
 import java.util.List;
 
+import xawd.jflow.iterators.Flow;
+import xawd.jflow.iterators.construction.Iterate;
+
 /**
  * @author ThomasB
  * @since 26 Apr 2018
  */
-public final class PredicatePartition<T>
+public final class PredicatePartition<E>
 {
-	private final List<T> acceptedElements, rejectedElements;
+	private final List<E> acceptedElements, rejectedElements;
 
-	public PredicatePartition(final List<T> acceptedElements, final List<T> rejectedElements)
+	public PredicatePartition(final List<E> acceptedElements, final List<E> rejectedElements)
 	{
 		this.acceptedElements = Collections.unmodifiableList(acceptedElements);
 		this.rejectedElements = Collections.unmodifiableList(rejectedElements);
 	}
 
-	public List<T> getAcceptedElements()
+	public List<E> getAcceptedElements()
 	{
 		return acceptedElements;
 	}
 
-	public List<T> getRejectedElements()
+	public Flow<E> iterateAccepted()
+	{
+		return Iterate.over(acceptedElements);
+	}
+
+	public List<E> getRejectedElements()
 	{
 		return rejectedElements;
+	}
+
+	public Flow<E> iterateRejected()
+	{
+		return Iterate.over(rejectedElements);
 	}
 
 	@Override
