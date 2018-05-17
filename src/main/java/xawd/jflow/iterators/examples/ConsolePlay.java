@@ -12,6 +12,7 @@ import java.util.List;
 import xawd.jflow.iterators.construction.IterRange;
 import xawd.jflow.iterators.construction.Iterate;
 import xawd.jflow.iterators.construction.Numbers;
+import xawd.jflow.iterators.construction.ReverseIterate;
 import xawd.jflow.iterators.misc.Pair;
 
 /**
@@ -20,13 +21,11 @@ import xawd.jflow.iterators.misc.Pair;
  */
 public final class ConsolePlay {
 
-	@SuppressWarnings("unused")
 	public static void main(final String[] args)
 	{
 		/* Mapping */
 
-//		final Flow<String> strings = Iterate.over("a", "b", "c");
-//		strings.map(s -> s + s); //---> aa, bb cc
+		Iterate.over("a", "b", "c").map(s -> s + s); //---> aa, bb, cc
 
 		/* Skip/takeWhile  */
 
@@ -53,7 +52,13 @@ public final class ConsolePlay {
 		final List<Pair<Integer, Integer>> intPairs = asList(Pair.of(0, 5), Pair.of(5, 0));
 
 		Iterate.over(intPairs).maxByKey(Pair::first); // --> Pair.of(5, 0)
+
 		Iterate.over(intPairs).maxByKey(Pair::second); // --> Pair.of(0, 5)
+
+		ReverseIterate.over(intPairs).minByObjectKey(x -> x.first().toString()); // --> Pair.of(0, 5)
+
+//		ReverseIterate.over(intPairs).minByObjectKey(x -> x); // no error??
+//		ReverseIterate.over(intPairs).minByObjectKey(Function.identity()); // error as expected
 
 		/* Flattening */
 

@@ -17,8 +17,10 @@ import xawd.jflow.iterators.construction.Iterate;
  */
 public class KochSnowflakeApp extends Application
 {
+	@SuppressWarnings("unused")
 	private static final int ITERATIONS = 8;
 
+	@SuppressWarnings("unused")
 	@Override
 	public void start(final Stage primaryStage) throws Exception
 	{
@@ -37,6 +39,7 @@ public class KochSnowflakeApp extends Application
 		primaryStage.show();
 	}
 
+	@SuppressWarnings("unused")
 	private Flow<Point> iterateSnowflake(final int iterationCount, Flow<LineSegment> source)
 	{
 		for (int i = 0; i < iterationCount; i++) {
