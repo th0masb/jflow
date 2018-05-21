@@ -95,6 +95,17 @@ public final class CollectionUtil
 	 * @param xs - the Array to calculate the length of
 	 * @return the length of <b>xs</b>
 	 */
+	public static int len(final char[] xs)
+	{
+		return xs.length;
+	}
+
+	/**
+	 * A unified length/size function
+	 *
+	 * @param xs - the Array to calculate the length of
+	 * @return the length of <b>xs</b>
+	 */
 	public static int len(final int[][] xs)
 	{
 		return xs.length;
@@ -249,6 +260,22 @@ public final class CollectionUtil
 	{
 		final int n = len(xs);
 		final long[] reversed = new long[n];
+		for (int i = 0; i < n; i++) {
+			reversed[i] = xs[n - (i + 1)];
+		}
+		return reversed;
+	}
+
+	/**
+	 * Reverses the passed sequence
+	 *
+	 * @param xs - the passed sequence
+	 * @return a new sequence of the same type as passed containing the same values but with a reversed order.
+	 */
+	public static char[] reverse(final char[] xs)
+	{
+		final int n = len(xs);
+		final char[] reversed = new char[n];
 		for (int i = 0; i < n; i++) {
 			reversed[i] = xs[n - (i + 1)];
 		}
