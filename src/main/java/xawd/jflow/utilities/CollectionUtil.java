@@ -142,9 +142,9 @@ public final class CollectionUtil
 	 * @param e - the object to convert
 	 * @return the string representation of <b>t</b>
 	 */
-	public static <E> String str(final E e)
+	public static String str(final Object e)
 	{
-		return e.toString();
+		return e == null ? "null" : e.toString();
 	}
 
 	/**
