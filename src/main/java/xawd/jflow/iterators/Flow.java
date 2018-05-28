@@ -130,7 +130,7 @@ public interface Flow<E> extends SkippableIterator<E>
 		return filter(klass::isInstance).map(klass::cast);
 	}
 
-	default <R> R build(final Function<? super Flow<? extends E>, R> builder)
+	default <R> R build(final Function<? super Flow<E>, R> builder)
 	{
 		return builder.apply(this);
 	}
