@@ -13,7 +13,6 @@ import java.util.PrimitiveIterator;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
@@ -40,14 +39,48 @@ import xawd.jflow.iterators.skippable.SkippableIterator;
  */
 public interface Flow<E> extends SkippableIterator<E>
 {
+	/**
+	 * @param f - A mapping function.
+	 * @return a new {@linkplain Flow} instance whose
+	 * elements are obtained by applying the parameter mapping
+	 * function to each element of this {@linkplain Flow} instance
+	 * in turn.
+	 */
 	<R> Flow<R> map(final Function<? super E, R> f);
 
+	/**
+	 * @param f - A mapping function.
+	 * @return a new {@linkplain IntFlow} instance whose
+	 * elements are obtained by applying the parameter mapping
+	 * function to each element of this {@linkplain Flow} instance
+	 * in turn.
+	 */
 	IntFlow mapToInt(ToIntFunction<? super E> f);
 
+	/**
+	 * @param f - A mapping function.
+	 * @return a new {@linkplain DoubleFlow} instance whose
+	 * elements are obtained by applying the parameter mapping
+	 * function to each element of this {@linkplain Flow} instance
+	 * in turn.
+	 */
 	DoubleFlow mapToDouble(ToDoubleFunction<? super E> f);
 
+	/**
+	 * @param f - A mapping function.
+	 * @return a new {@linkplain LongFlow} instance whose
+	 * elements are obtained by applying the parameter mapping
+	 * function to each element of this {@linkplain Flow} instance
+	 * in turn.
+	 */
 	LongFlow mapToLong(ToLongFunction<? super E> f);
 
+	/**
+	 * This method performs a standard mapping operation with the
+	 * supplied mapping function to obtain a
+	 * @param mapping
+	 * @return
+	 */
 	<R> Flow<R> flatten(Function<? super E, ? extends Flow<R>> mapping);
 
 	IntFlow flattenToInts(Function<? super E, ? extends IntFlow> mapping);
@@ -133,11 +166,6 @@ public interface Flow<E> extends SkippableIterator<E>
 	default <R> R build(final Function<? super Flow<E>, R> builder)
 	{
 		return builder.apply(this);
-	}
-
-	default void consumeUsing(final Consumer<? super Flow<? extends E>> processor)
-	{
-		processor.accept(this);
 	}
 
 	default Flow<E> append(@SuppressWarnings("unchecked") final E... ts)
