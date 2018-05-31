@@ -110,6 +110,14 @@ public interface Flow<E> extends SkippableIterator<E>
 	 */
 	<R> Flow<Pair<E, R>> zipWith(final Iterator<? extends R> other);
 
+	/**
+	 * Zips this {@linkplain Flow} {@code F} with the parameter {@linkplain PrimitiveIterator.OfInt} {@code I}
+	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = (F[j], I[j])}
+	 * <br>{@code length(G) = min(length(F), length(I))}
+	 *
+	 * @param other - The {@linkplain Iterator} to zip with.
+	 * @return the result described above.
+	 */
 	Flow<IntWith<E>> zipWith(final PrimitiveIterator.OfInt other);
 
 	Flow<DoubleWith<E>> zipWith(final PrimitiveIterator.OfDouble other);
