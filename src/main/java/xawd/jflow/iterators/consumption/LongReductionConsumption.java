@@ -7,7 +7,7 @@ import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
 import java.util.function.LongBinaryOperator;
 
-import xawd.jflow.iterators.skippable.Skippable;
+import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB

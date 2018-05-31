@@ -20,7 +20,6 @@ import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
-import xawd.jflow.iterators.skippable.SkippableIntIterator;
 
 /**
  * @author ThomasB

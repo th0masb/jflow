@@ -1,8 +1,9 @@
 /**
  *
  */
-package xawd.jflow.iterators.skippable;
+package xawd.jflow.iterators;
 
+import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.IntConsumer;
 
@@ -12,13 +13,19 @@ import java.util.function.IntConsumer;
  */
 public interface SkippableIntIterator extends PrimitiveIterator.OfInt, Skippable
 {
+	default OptionalInt safeNextInt()
+	{
+		return hasNext()? OptionalInt.of(nextInt()) : OptionalInt.empty();
+	}
+
 	default void forEach(final IntConsumer action)
 	{
 		while (hasNext()) {
 			action.accept(nextInt());
 		}
 	}
-	
+
+	@Override
 	@Deprecated
 	default Integer next()
 	{

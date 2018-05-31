@@ -7,7 +7,7 @@ import java.util.OptionalDouble;
 import java.util.PrimitiveIterator;
 import java.util.function.DoubleBinaryOperator;
 
-import xawd.jflow.iterators.skippable.Skippable;
+import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB

@@ -1,8 +1,9 @@
 /**
  *
  */
-package xawd.jflow.iterators.skippable;
+package xawd.jflow.iterators;
 
+import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
 import java.util.function.LongConsumer;
 
@@ -12,13 +13,19 @@ import java.util.function.LongConsumer;
  */
 public interface SkippableLongIterator extends Skippable, PrimitiveIterator.OfLong
 {
+	default OptionalLong safeNextLong()
+	{
+		return hasNext()? OptionalLong.of(nextLong()) : OptionalLong.empty();
+	}
+
 	default void forEach(final LongConsumer action)
 	{
 		while (hasNext()) {
 			action.accept(nextLong());
 		}
 	}
-	
+
+	@Override
 	@Deprecated
 	default Long next()
 	{

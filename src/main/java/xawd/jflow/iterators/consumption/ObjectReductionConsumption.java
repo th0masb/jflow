@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
-import xawd.jflow.iterators.skippable.Skippable;
+import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB

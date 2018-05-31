@@ -20,7 +20,6 @@ import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
-import xawd.jflow.iterators.skippable.SkippableLongIterator;
 
 /**
  * @author ThomasB

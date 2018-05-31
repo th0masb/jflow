@@ -8,6 +8,7 @@ import java.util.PrimitiveIterator;
 
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.Flow;
+import xawd.jflow.iterators.Skippable;
 import xawd.jflow.iterators.misc.DoublePair;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
@@ -18,7 +19,6 @@ import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
-import xawd.jflow.iterators.skippable.Skippable;
 
 /**
  * @author ThomasB

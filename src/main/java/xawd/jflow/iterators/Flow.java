@@ -31,7 +31,6 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
-import xawd.jflow.iterators.skippable.SkippableIterator;
 
 /**
  * @author ThomasB

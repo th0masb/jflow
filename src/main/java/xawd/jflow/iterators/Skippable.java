@@ -1,7 +1,7 @@
 /**
  * 
  */
-package xawd.jflow.iterators.skippable;
+package xawd.jflow.iterators;
 
 /**
  * @author t

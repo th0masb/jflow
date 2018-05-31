@@ -14,7 +14,7 @@ import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.AbstractIntFlow;
 import xawd.jflow.iterators.AbstractLongFlow;
-import xawd.jflow.iterators.skippable.Skippable;
+import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB

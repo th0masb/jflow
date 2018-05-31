@@ -7,7 +7,7 @@ import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.IntBinaryOperator;
 
-import xawd.jflow.iterators.skippable.Skippable;
+import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB
