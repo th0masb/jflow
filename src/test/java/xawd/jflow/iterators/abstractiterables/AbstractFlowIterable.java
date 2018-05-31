@@ -10,5 +10,5 @@ import xawd.jflow.iterators.iterables.FlowIterable;
 public abstract class AbstractFlowIterable<T> implements FlowIterable<T>
 {
 	@Override
-	public abstract AbstractFlow<T> iter();
+	public abstract AbstractFlow<T> iterator();
 }

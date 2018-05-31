@@ -26,12 +26,12 @@ class AbstractFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("singleTypeReductionTestDataProvider")
 	void testSingleTypeReduction(final BinaryOperator<String> reducer, final String expectedPopulatedResult)
 	{
-		final AbstractFlow<String> populated = getObjectTestIteratorProvider().iter();
+		final AbstractFlow<String> populated = getObjectTestIteratorProvider().iterator();
 		final Optional<String> reduction = populated.reduce(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult, reduction.get());
 
-		final AbstractFlow<String> empty = getEmptyObjectTestIteratorProvider().iter();
+		final AbstractFlow<String> empty = getEmptyObjectTestIteratorProvider().iterator();
 		assertFalse(empty.reduce(reducer).isPresent());
 	}
 
@@ -46,11 +46,11 @@ class AbstractFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("twoTypeReductionTestDataProvider")
 	void testTwoTypeReduction(final Double id, final BiFunction<Double, String, Double> reducer, final Double expectedPopulatedResult)
 	{
-		final AbstractFlow<String> populated = getObjectTestIteratorProvider().iter();
+		final AbstractFlow<String> populated = getObjectTestIteratorProvider().iterator();
 		final Double reduction = populated.reduce(id, reducer);
 		assertEquals(expectedPopulatedResult, reduction);
 
-		final AbstractFlow<String> empty = getEmptyObjectTestIteratorProvider().iter();
+		final AbstractFlow<String> empty = getEmptyObjectTestIteratorProvider().iterator();
 		assertEquals(id, empty.reduce(id, reducer));
 	}
 
@@ -71,10 +71,10 @@ class AbstractFlowReductionConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> countReductionTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iter(), 5),
-				Arguments.of(getSmallObjectTestIteratorProvider().iter(), 2),
-				Arguments.of(getLargeObjectTestIteratorProvider().iter(), 6),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), 0)
+				Arguments.of(getObjectTestIteratorProvider().iterator(), 5),
+				Arguments.of(getSmallObjectTestIteratorProvider().iterator(), 2),
+				Arguments.of(getLargeObjectTestIteratorProvider().iterator(), 6),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), 0)
 				);
 	}
 }

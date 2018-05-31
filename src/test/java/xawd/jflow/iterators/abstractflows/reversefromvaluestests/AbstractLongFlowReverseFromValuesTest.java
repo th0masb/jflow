@@ -47,7 +47,7 @@ class AbstractLongFlowReverseFromValuesTest implements IteratorTest
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
+			public AbstractLongFlow iterator() {
 				return new ReverseFlowFromValues.OfLong(source);
 			}
 		};

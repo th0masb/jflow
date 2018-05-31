@@ -15,11 +15,11 @@ import xawd.jflow.iterators.IntFlow;
  */
 public interface IntFlowIterable
 {
-	IntFlow iter();
+	IntFlow iterator();
 
 	default void forEach(final IntConsumer action)
 	{
-		iter().forEachRemaining(action);
+		iterator().forEachRemaining(action);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public interface IntFlowIterable
 			public OfInt trySplit()
 			{
 				if (srcInts == null) {
-					srcInts = src.iter();
+					srcInts = src.iterator();
 				}
 				return null;
 			}
@@ -77,7 +77,7 @@ public interface IntFlowIterable
 			void initialise()
 			{
 				if (srcInts == null) {
-					srcInts = src.iter();
+					srcInts = src.iterator();
 				}
 			}
 		};

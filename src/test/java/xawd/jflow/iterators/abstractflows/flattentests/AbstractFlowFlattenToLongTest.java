@@ -61,8 +61,8 @@ class AbstractFlowFlattenToLongTest extends IteratorExampleProvider implements I
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
-				return source.iter().flattenToLongs(flattenMapping);
+			public AbstractLongFlow iterator() {
+				return source.iterator().flattenToLongs(flattenMapping);
 			}
 		};
 	}

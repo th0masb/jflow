@@ -25,7 +25,7 @@ public class CycledIteration
 
 	public static IntFlow of(final IntFlowIterable source)
 	{
-		return new CyclicFlow.OfInt(source::iter);
+		return new CyclicFlow.OfInt(source::iterator);
 	}
 
 	public static IntFlow of(final int... xs)
@@ -35,7 +35,7 @@ public class CycledIteration
 
 	public static DoubleFlow of(final DoubleFlowIterable source)
 	{
-		return new CyclicFlow.OfDouble(source::iter);
+		return new CyclicFlow.OfDouble(source::iterator);
 	}
 
 	public static DoubleFlow of(final double... xs)
@@ -45,7 +45,7 @@ public class CycledIteration
 
 	public static LongFlow of(final LongFlowIterable source)
 	{
-		return new CyclicFlow.OfLong(source::iter);
+		return new CyclicFlow.OfLong(source::iterator);
 	}
 
 	public static LongFlow of(final long... xs)

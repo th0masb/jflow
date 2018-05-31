@@ -27,12 +27,12 @@ class AbstractLongFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("reductionWithoutIdTestDataProvider")
 	void testReductionWithoutId(final LongBinaryOperator reducer, final Long expectedPopulatedResult)
 	{
-		final AbstractLongFlow populated = getLongTestIteratorProvider().iter();
+		final AbstractLongFlow populated = getLongTestIteratorProvider().iterator();
 		final OptionalLong reduction = populated.reduce(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult.longValue(), reduction.getAsLong());
 
-		final AbstractLongFlow empty = getEmptyLongTestIteratorProvider().iter();
+		final AbstractLongFlow empty = getEmptyLongTestIteratorProvider().iterator();
 		assertFalse(empty.reduce(reducer).isPresent());
 	}
 
@@ -47,11 +47,11 @@ class AbstractLongFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("reductionWithIdTestDataProvider")
 	void testReductionWithId(final Long id, final LongBinaryOperator reducer, final Long expectedPopulatedResult)
 	{
-		final AbstractLongFlow populated = getLongTestIteratorProvider().iter();
+		final AbstractLongFlow populated = getLongTestIteratorProvider().iterator();
 		final long reduction = populated.reduce(id.longValue(), reducer);
 		assertEquals(expectedPopulatedResult.longValue(), reduction);
 
-		final AbstractLongFlow empty = getEmptyLongTestIteratorProvider().iter();
+		final AbstractLongFlow empty = getEmptyLongTestIteratorProvider().iterator();
 		assertEquals(id.longValue(), empty.reduce(id.longValue(), reducer));
 	}
 
@@ -72,10 +72,10 @@ class AbstractLongFlowReductionConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> countReductionTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(), 5),
-				Arguments.of(getSmallLongTestIteratorProvider().iter(), 2),
-				Arguments.of(getLargeLongTestIteratorProvider().iter(), 6),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), 0)
+				Arguments.of(getLongTestIteratorProvider().iterator(), 5),
+				Arguments.of(getSmallLongTestIteratorProvider().iterator(), 2),
+				Arguments.of(getLargeLongTestIteratorProvider().iterator(), 6),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), 0)
 				);
 	}
 }

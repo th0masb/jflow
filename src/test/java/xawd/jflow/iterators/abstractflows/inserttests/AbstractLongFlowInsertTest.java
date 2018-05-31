@@ -33,8 +33,8 @@ class AbstractLongFlowInsertTest extends IteratorExampleProvider implements Iter
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
-				return source.iter().insert(toInsert.iter());
+			public AbstractLongFlow iterator() {
+				return source.iterator().insert(toInsert.iterator());
 			}
 		};
 	}

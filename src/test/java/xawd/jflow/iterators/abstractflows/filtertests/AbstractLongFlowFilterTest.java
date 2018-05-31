@@ -37,8 +37,8 @@ class AbstractLongFlowFilterTest extends IteratorExampleProvider implements Iter
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
-				return source.iter().filter(predicate);
+			public AbstractLongFlow iterator() {
+				return source.iterator().filter(predicate);
 			}
 		};
 	}

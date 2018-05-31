@@ -36,8 +36,8 @@ class AbstractDoubleFlowCollectionConsumptionTest extends IteratorExampleProvide
 	static Stream<Arguments> collectToArrayTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(), new double[] {0, 1, 2, 3, 4}),
-				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(), new double[0])
+				Arguments.of(getDoubleTestIteratorProvider().iterator(), new double[] {0, 1, 2, 3, 4}),
+				Arguments.of(getEmptyDoubleTestIteratorProvider().iterator(), new double[0])
 				);
 	}
 
@@ -56,14 +56,14 @@ class AbstractDoubleFlowCollectionConsumptionTest extends IteratorExampleProvide
 
 		return Stream.of(
 				Arguments.of(
-						getSmallDoubleTestIteratorProvider().iter(),
+						getSmallDoubleTestIteratorProvider().iterator(),
 						keyMapper,
 						valueMapper,
 						asList(Pair.of("10.0", 10.0), Pair.of("11.0", 11.0))
 						),
 
 				Arguments.of(
-						getEmptyDoubleTestIteratorProvider().iter(),
+						getEmptyDoubleTestIteratorProvider().iterator(),
 						keyMapper,
 						valueMapper,
 						asList()
@@ -86,8 +86,8 @@ class AbstractDoubleFlowCollectionConsumptionTest extends IteratorExampleProvide
 		final DoubleFunction<Integer> classifier = x -> ((int) x) % 2;
 
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(), classifier, asList(Pair.of(0, new double[] {0, 2, 4}), Pair.of(1, new double[] {1, 3}))),
-				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(), classifier, asList())
+				Arguments.of(getDoubleTestIteratorProvider().iterator(), classifier, asList(Pair.of(0, new double[] {0, 2, 4}), Pair.of(1, new double[] {1, 3}))),
+				Arguments.of(getEmptyDoubleTestIteratorProvider().iterator(), classifier, asList())
 				);
 	}
 }

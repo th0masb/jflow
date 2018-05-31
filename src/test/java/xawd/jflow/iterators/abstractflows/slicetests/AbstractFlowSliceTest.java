@@ -44,8 +44,8 @@ class AbstractFlowSliceTest extends IteratorExampleProvider implements IteratorT
 	{
 		return new AbstractFlowIterable<E>() {
 			@Override
-			public AbstractFlow<E> iter() {
-				return source.iter().slice(slicemap);
+			public AbstractFlow<E> iterator() {
+				return source.iterator().slice(slicemap);
 			}
 		};
 	}

@@ -63,8 +63,8 @@ class AbstractFlowFlattenTest extends IteratorExampleProvider implements Iterato
 	{
 		return new AbstractFlowIterable<R>() {
 			@Override
-			public AbstractFlow<R> iter() {
-				return source.iter().flatten(flattenMapping);
+			public AbstractFlow<R> iterator() {
+				return source.iterator().flatten(flattenMapping);
 			}
 		};
 	}

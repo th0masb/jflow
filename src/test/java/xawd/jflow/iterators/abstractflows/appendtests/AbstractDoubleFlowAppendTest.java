@@ -33,8 +33,8 @@ class AbstractDoubleFlowAppendTest extends IteratorExampleProvider implements It
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return source.iter().append(toAppend.iter());
+			public AbstractDoubleFlow iterator() {
+				return source.iterator().append(toAppend.iterator());
 			}
 		};
 	}

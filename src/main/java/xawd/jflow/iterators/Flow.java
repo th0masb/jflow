@@ -21,8 +21,6 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import xawd.jflow.iterators.examples.ArrayListFlow;
-import xawd.jflow.iterators.examples.ListFlow;
 import xawd.jflow.iterators.iterables.DoubleFlowIterable;
 import xawd.jflow.iterators.iterables.IntFlowIterable;
 import xawd.jflow.iterators.iterables.LongFlowIterable;
@@ -75,19 +73,41 @@ public interface Flow<E> extends SkippableIterator<E>
 	LongFlow mapToLong(ToLongFunction<? super E> f);
 
 	/**
-	 * This method performs a standard mapping operation with the
-	 * supplied mapping function to obtain a
-	 * @param mapping
-	 * @return
+	 * @param mapping - A function taking elements to instances of {@linkplain Flow}
+	 * @return a {@linkplain Flow} obtained by applying the mapping function to
+	 * each element in turn and sequentially concatenating the results.
 	 */
 	<R> Flow<R> flatten(Function<? super E, ? extends Flow<R>> mapping);
 
+	/**
+	 * @param mapping - A function taking elements to instances of {@linkplain IntFlow}
+	 * @return a {@linkplain IntFlow} obtained by applying the mapping function to
+	 * each element in turn and sequentially concatenating the results.
+	 */
 	IntFlow flattenToInts(Function<? super E, ? extends IntFlow> mapping);
 
+	/**
+	 * @param mapping - A function taking elements to instances of {@linkplain LongFlow}
+	 * @return a {@linkplain LongFlow} obtained by applying the mapping function to
+	 * each element in turn and sequentially concatenating the results.
+	 */
 	LongFlow flattenToLongs(Function<? super E, ? extends LongFlow> mapping);
 
+	/**
+	 * @param mapping - A function taking elements to instances of {@linkplain DoubleFlow}
+	 * @return a {@linkplain DoubleFlow} obtained by applying the mapping function to
+	 * each element in turn and sequentially concatenating the results.
+	 */
 	DoubleFlow flattenToDoubles(Function<? super E, ? extends DoubleFlow> mapping);
 
+	/**
+	 * Zips this {@linkplain Flow} {@code F} with the parameter {@linkplain Iterator} {@code I}
+	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = (F[j], I[j])}
+	 * <br>{@code length(G) = min(length(F), length(I))}
+	 *
+	 * @param other - The {@linkplain Iterator} to zip with.
+	 * @return the result described above.
+	 */
 	<R> Flow<Pair<E, R>> zipWith(final Iterator<? extends R> other);
 
 	Flow<IntWith<E>> zipWith(final PrimitiveIterator.OfInt other);
@@ -167,12 +187,12 @@ public interface Flow<E> extends SkippableIterator<E>
 		return builder.apply(this);
 	}
 
-	default Flow<E> append(@SuppressWarnings("unchecked") final E... ts)
+	default Flow<E> append(final E e)
 	{
-		return append(Arrays.asList(ts));
+		return append(Arrays.asList(e));
 	}
 
-	default Flow<E> insert(@SuppressWarnings("unchecked") final E... ts)
+	default Flow<E> insert(final E ts)
 	{
 		return append(Arrays.asList(ts));
 	}
@@ -180,11 +200,6 @@ public interface Flow<E> extends SkippableIterator<E>
 	default List<E> toList()
 	{
 		return toCollection(ArrayList::new);
-	}
-
-	default ListFlow<E> toListFlow()
-	{
-		return toCollection(ArrayListFlow::new);
 	}
 
 	default List<E> toImmutableList()
@@ -209,17 +224,17 @@ public interface Flow<E> extends SkippableIterator<E>
 
 	default Flow<IntWith<E>> zipWith(final IntFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default Flow<DoubleWith<E>> zipWith(final DoubleFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default Flow<LongWith<E>> zipWith(final LongFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default <U, R> Flow<R> combineWith(final Iterable<U> other, final BiFunction<E, U, R> f)

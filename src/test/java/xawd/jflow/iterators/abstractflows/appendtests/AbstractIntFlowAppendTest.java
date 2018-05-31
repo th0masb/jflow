@@ -33,8 +33,8 @@ class AbstractIntFlowAppendTest extends IteratorExampleProvider implements Itera
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return source.iter().append(toAppend.iter());
+			public AbstractIntFlow iterator() {
+				return source.iterator().append(toAppend.iterator());
 			}
 		};
 	}

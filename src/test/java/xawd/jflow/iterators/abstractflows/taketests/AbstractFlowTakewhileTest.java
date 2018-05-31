@@ -46,9 +46,9 @@ public class AbstractFlowTakewhileTest extends IteratorExampleProvider implement
 		return new AbstractFlowIterable<T>()
 		{
 			@Override
-			public AbstractFlow<T> iter()
+			public AbstractFlow<T> iterator()
 			{
-				return src.iter().takeWhile(predicate);
+				return src.iterator().takeWhile(predicate);
 			}
 		};
 	}

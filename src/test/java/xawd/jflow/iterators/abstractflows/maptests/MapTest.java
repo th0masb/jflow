@@ -39,9 +39,9 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 		return new AbstractFlowIterable<R>()
 		{
 			@Override
-			public AbstractFlow<R> iter()
+			public AbstractFlow<R> iterator()
 			{
-				return src.iter().map(mapper);
+				return src.iterator().map(mapper);
 			}
 		};
 	}
@@ -62,9 +62,9 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 		return new AbstractIterableLongs()
 		{
 			@Override
-			public AbstractLongFlow iter()
+			public AbstractLongFlow iterator()
 			{
-				return src.iter().map(mapper);
+				return src.iterator().map(mapper);
 			}
 		};
 	}
@@ -85,9 +85,9 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 		return new AbstractIterableDoubles()
 		{
 			@Override
-			public AbstractDoubleFlow iter()
+			public AbstractDoubleFlow iterator()
 			{
-				return src.iter().map(mapper);
+				return src.iterator().map(mapper);
 			}
 		};
 	}
@@ -108,9 +108,9 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 		return new AbstractIterableInts()
 		{
 			@Override
-			public AbstractIntFlow iter()
+			public AbstractIntFlow iterator()
 			{
-				return src.iter().map(mapper);
+				return src.iterator().map(mapper);
 			}
 		};
 	}

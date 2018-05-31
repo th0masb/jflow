@@ -135,31 +135,31 @@ public interface IntFlow extends SkippableIntIterator
 
 	default Flow<IntPair> zipWith(final IntFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default Flow<IntWithDouble> zipWith(final DoubleFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default Flow<IntWithLong> zipWith(final LongFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default IntFlow combineWith(final IntFlowIterable other, final IntBinaryOperator combiner)
 	{
-		return combineWith(other.iter(), combiner);
+		return combineWith(other.iterator(), combiner);
 	}
 
 	default IntFlow append(final IntFlowIterable other)
 	{
-		return append(other.iter());
+		return append(other.iterator());
 	}
 
 	default IntFlow insert(final IntFlowIterable other)
 	{
-		return insert(other.iter());
+		return insert(other.iterator());
 	}
 }

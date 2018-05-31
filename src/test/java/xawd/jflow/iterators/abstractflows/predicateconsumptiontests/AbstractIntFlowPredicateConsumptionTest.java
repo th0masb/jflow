@@ -33,8 +33,8 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	{
 		return Stream.of(
 				Arguments.of(getAllEqualFlow(), Boolean.TRUE),
-				Arguments.of(getIntTestIteratorProvider().iter(), Boolean.FALSE),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), Boolean.TRUE)
+				Arguments.of(getIntTestIteratorProvider().iterator(), Boolean.FALSE),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), Boolean.TRUE)
 				);
 	}
 
@@ -71,10 +71,10 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x > -1, Boolean.TRUE),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x < 3, Boolean.TRUE),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x > -1, Boolean.TRUE)
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < 3, Boolean.FALSE),
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > -1, Boolean.TRUE),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < 3, Boolean.TRUE),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > -1, Boolean.TRUE)
 				);
 	}
 
@@ -88,10 +88,10 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x < -1, Boolean.FALSE),
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x > 3, Boolean.TRUE),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x > -1, Boolean.FALSE)
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < -1, Boolean.FALSE),
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > 3, Boolean.TRUE),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < 3, Boolean.FALSE),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > -1, Boolean.FALSE)
 				);
 	}
 
@@ -105,10 +105,10 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x < -1, Boolean.TRUE),
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x > 3, Boolean.FALSE),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x < 3, Boolean.TRUE),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x > -1, Boolean.TRUE)
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < -1, Boolean.TRUE),
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > 3, Boolean.FALSE),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < 3, Boolean.TRUE),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > -1, Boolean.TRUE)
 				);
 	}
 
@@ -122,12 +122,12 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> predicatePartitioningTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x < -1, new IntPredicatePartition(new int[0], new int[] {0, 1, 2, 3, 4})),
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x > 2, new IntPredicatePartition(new int[] {3, 4}, new int[] {0, 1, 2})),
-				Arguments.of(getIntTestIteratorProvider().iter(), (IntPredicate) x -> x > -1, new IntPredicatePartition(new int[] {0, 1, 2, 3, 4}, new int[0])),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x < -1, new IntPredicatePartition(new int[0], new int[0])),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x > 3, new IntPredicatePartition(new int[0], new int[0])),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), (IntPredicate) x -> x > -1, new IntPredicatePartition(new int[0], new int[0]))
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < -1, new IntPredicatePartition(new int[0], new int[] {0, 1, 2, 3, 4})),
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > 2, new IntPredicatePartition(new int[] {3, 4}, new int[] {0, 1, 2})),
+				Arguments.of(getIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > -1, new IntPredicatePartition(new int[] {0, 1, 2, 3, 4}, new int[0])),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x < -1, new IntPredicatePartition(new int[0], new int[0])),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > 3, new IntPredicatePartition(new int[0], new int[0])),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), (IntPredicate) x -> x > -1, new IntPredicatePartition(new int[0], new int[0]))
 				);
 	}
 }

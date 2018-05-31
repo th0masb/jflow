@@ -27,12 +27,12 @@ class AbstractIntFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("reductionWithoutIdTestDataProvider")
 	void testReductionWithoutId(final IntBinaryOperator reducer, final Integer expectedPopulatedResult)
 	{
-		final AbstractIntFlow populated = getIntTestIteratorProvider().iter();
+		final AbstractIntFlow populated = getIntTestIteratorProvider().iterator();
 		final OptionalInt reduction = populated.reduce(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult.intValue(), reduction.getAsInt());
 
-		final AbstractIntFlow empty = getEmptyIntTestIteratorProvider().iter();
+		final AbstractIntFlow empty = getEmptyIntTestIteratorProvider().iterator();
 		assertFalse(empty.reduce(reducer).isPresent());
 	}
 
@@ -47,11 +47,11 @@ class AbstractIntFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("reductionWithIdTestDataProvider")
 	void testReductionWithId(final Integer id, final IntBinaryOperator reducer, final Integer expectedPopulatedResult)
 	{
-		final AbstractIntFlow populated = getIntTestIteratorProvider().iter();
+		final AbstractIntFlow populated = getIntTestIteratorProvider().iterator();
 		final int reduction = populated.reduce(id.intValue(), reducer);
 		assertEquals(expectedPopulatedResult.intValue(), reduction);
 
-		final AbstractIntFlow empty = getEmptyIntTestIteratorProvider().iter();
+		final AbstractIntFlow empty = getEmptyIntTestIteratorProvider().iterator();
 		assertEquals(id.intValue(), empty.reduce(id.intValue(), reducer));
 	}
 
@@ -73,10 +73,10 @@ class AbstractIntFlowReductionConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> countReductionTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getIntTestIteratorProvider().iter(), 5),
-				Arguments.of(getSmallIntTestIteratorProvider().iter(), 2),
-				Arguments.of(getLargeIntTestIteratorProvider().iter(), 6),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), 0)
+				Arguments.of(getIntTestIteratorProvider().iterator(), 5),
+				Arguments.of(getSmallIntTestIteratorProvider().iterator(), 2),
+				Arguments.of(getLargeIntTestIteratorProvider().iterator(), 6),
+				Arguments.of(getEmptyIntTestIteratorProvider().iterator(), 0)
 				);
 	}
 }

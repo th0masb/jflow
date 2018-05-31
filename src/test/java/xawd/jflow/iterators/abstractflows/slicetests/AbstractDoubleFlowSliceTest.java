@@ -41,8 +41,8 @@ class AbstractDoubleFlowSliceTest extends IteratorExampleProvider implements Ite
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return src.iter().slice(indexMapping);
+			public AbstractDoubleFlow iterator() {
+				return src.iterator().slice(indexMapping);
 			}
 		};
 	}

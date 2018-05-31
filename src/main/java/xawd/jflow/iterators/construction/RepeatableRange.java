@@ -21,7 +21,7 @@ public final class RepeatableRange
 		return new IntFlowIterable() {
 
 			@Override
-			public IntFlow iter() {
+			public IntFlow iterator() {
 				return IterRange.to(upperBound);
 			}
 		};
@@ -32,7 +32,7 @@ public final class RepeatableRange
 		return new IntFlowIterable() {
 
 			@Override
-			public IntFlow iter() {
+			public IntFlow iterator() {
 				return IterRange.between(lowerBound, upperBound);
 			}
 		};
@@ -43,7 +43,7 @@ public final class RepeatableRange
 		return new IntFlowIterable() {
 
 			@Override
-			public IntFlow iter() {
+			public IntFlow iterator() {
 				return IterRange.between(lowerBound, upperBound, step);
 			}
 		};

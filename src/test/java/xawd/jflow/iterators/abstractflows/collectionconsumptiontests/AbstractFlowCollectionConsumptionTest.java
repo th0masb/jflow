@@ -43,10 +43,10 @@ class AbstractFlowCollectionConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> collectToCollectionTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Supplier<Collection<String>>) ArrayList::new, asList("0", "1", "2", "3", "4")),
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Supplier<Collection<String>>) HashSet::new, new HashSet<>(asList("0", "1", "2", "3", "4"))),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Supplier<Collection<String>>) ArrayList::new, asList()),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Supplier<Collection<String>>) HashSet::new, new HashSet<>())
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Supplier<Collection<String>>) ArrayList::new, asList("0", "1", "2", "3", "4")),
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Supplier<Collection<String>>) HashSet::new, new HashSet<>(asList("0", "1", "2", "3", "4"))),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Supplier<Collection<String>>) ArrayList::new, asList()),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Supplier<Collection<String>>) HashSet::new, new HashSet<>())
 				);
 	}
 
@@ -62,13 +62,13 @@ class AbstractFlowCollectionConsumptionTest extends IteratorExampleProvider
 	{
 		return Stream.of(
 				Arguments.of(
-						getSmallObjectTestIteratorProvider().iter(),
+						getSmallObjectTestIteratorProvider().iterator(),
 						(UnaryOperator<String>) x -> x + x,
 						(Function<String, Integer>) Integer::parseInt,
 						asList(Pair.of("1010", 10), Pair.of("1111", 11))),
 
 				Arguments.of(
-						getEmptyObjectTestIteratorProvider().iter(),
+						getEmptyObjectTestIteratorProvider().iterator(),
 						(UnaryOperator<String>) x -> x + x,
 						(Function<String, Integer>) Integer::parseInt,
 						asList())
@@ -87,12 +87,12 @@ class AbstractFlowCollectionConsumptionTest extends IteratorExampleProvider
 	{
 		return Stream.of(
 				Arguments.of(
-						getObjectTestIteratorProvider().iter(),
+						getObjectTestIteratorProvider().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2,
 						asList(Pair.of(0, asList("0", "2", "4")), Pair.of(1, asList("1", "3")))),
 
 				Arguments.of(
-						getEmptyObjectTestIteratorProvider().iter(),
+						getEmptyObjectTestIteratorProvider().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2,
 						asList())
 				);

@@ -27,12 +27,12 @@ class AbstractDoubleFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("reductionWithoutIdTestDataProvider")
 	void testReductionWithoutId(final DoubleBinaryOperator reducer, final Double expectedPopulatedResult)
 	{
-		final AbstractDoubleFlow populated = getDoubleTestIteratorProvider().iter();
+		final AbstractDoubleFlow populated = getDoubleTestIteratorProvider().iterator();
 		final OptionalDouble reduction = populated.reduce(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult.doubleValue(), reduction.getAsDouble());
 
-		final AbstractDoubleFlow empty = getEmptyDoubleTestIteratorProvider().iter();
+		final AbstractDoubleFlow empty = getEmptyDoubleTestIteratorProvider().iterator();
 		assertFalse(empty.reduce(reducer).isPresent());
 	}
 
@@ -47,11 +47,11 @@ class AbstractDoubleFlowReductionConsumptionTest extends IteratorExampleProvider
 	@MethodSource("reductionWithIdTestDataProvider")
 	void testReductionWithId(final Double id, final DoubleBinaryOperator reducer, final Double expectedPopulatedResult)
 	{
-		final AbstractDoubleFlow populated = getDoubleTestIteratorProvider().iter();
+		final AbstractDoubleFlow populated = getDoubleTestIteratorProvider().iterator();
 		final double reduction = populated.reduce(id.doubleValue(), reducer);
 		assertEquals(expectedPopulatedResult.doubleValue(), reduction);
 
-		final AbstractDoubleFlow empty = getEmptyDoubleTestIteratorProvider().iter();
+		final AbstractDoubleFlow empty = getEmptyDoubleTestIteratorProvider().iterator();
 		assertEquals(id.doubleValue(), empty.reduce(id.doubleValue(), reducer));
 	}
 
@@ -73,10 +73,10 @@ class AbstractDoubleFlowReductionConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> countReductionTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(), 5),
-				Arguments.of(getSmallDoubleTestIteratorProvider().iter(), 2),
-				Arguments.of(getLargeDoubleTestIteratorProvider().iter(), 6),
-				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(), 0)
+				Arguments.of(getDoubleTestIteratorProvider().iterator(), 5),
+				Arguments.of(getSmallDoubleTestIteratorProvider().iterator(), 2),
+				Arguments.of(getLargeDoubleTestIteratorProvider().iterator(), 6),
+				Arguments.of(getEmptyDoubleTestIteratorProvider().iterator(), 0)
 				);
 	}
 }

@@ -36,8 +36,8 @@ class AbstractLongFlowCollectionConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> collectToArrayTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(), new long[] {0, 1, 2, 3, 4}),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), new long[0])
+				Arguments.of(getLongTestIteratorProvider().iterator(), new long[] {0, 1, 2, 3, 4}),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), new long[0])
 				);
 	}
 
@@ -56,14 +56,14 @@ class AbstractLongFlowCollectionConsumptionTest extends IteratorExampleProvider
 
 		return Stream.of(
 				Arguments.of(
-						getSmallLongTestIteratorProvider().iter(),
+						getSmallLongTestIteratorProvider().iterator(),
 						keyMapper,
 						valueMapper,
 						asList(Pair.of("10", 10L), Pair.of("11", 11L))
 						),
 
 				Arguments.of(
-						getEmptyLongTestIteratorProvider().iter(),
+						getEmptyLongTestIteratorProvider().iterator(),
 						keyMapper,
 						valueMapper,
 						asList()
@@ -86,8 +86,8 @@ class AbstractLongFlowCollectionConsumptionTest extends IteratorExampleProvider
 		final LongFunction<Integer> classifier = x -> ((int) x) % 2;
 
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(), classifier, asList(Pair.of(0, new long[] {0, 2, 4}), Pair.of(1, new long[] {1, 3}))),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), classifier, asList())
+				Arguments.of(getLongTestIteratorProvider().iterator(), classifier, asList(Pair.of(0, new long[] {0, 2, 4}), Pair.of(1, new long[] {1, 3}))),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), classifier, asList())
 				);
 	}
 }

@@ -34,8 +34,8 @@ public class MapToIntTest extends IteratorExampleProvider implements IteratorTes
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return src.iter().mapToInt(mapper);
+			public AbstractIntFlow iterator() {
+				return src.iterator().mapToInt(mapper);
 			}
 		};
 	}
@@ -55,8 +55,8 @@ public class MapToIntTest extends IteratorExampleProvider implements IteratorTes
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return src.iter().mapToInt(mapper);
+			public AbstractIntFlow iterator() {
+				return src.iterator().mapToInt(mapper);
 			}
 		};
 	}
@@ -76,8 +76,8 @@ public class MapToIntTest extends IteratorExampleProvider implements IteratorTes
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return src.iter().mapToInt(mapper);
+			public AbstractIntFlow iterator() {
+				return src.iterator().mapToInt(mapper);
 			}
 		};
 	}

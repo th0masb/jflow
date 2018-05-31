@@ -35,8 +35,8 @@ class AbstractLongFlowCombineTest extends IteratorExampleProvider implements Ite
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
-				return first.iter().combineWith(second.iter(), combiner);
+			public AbstractLongFlow iterator() {
+				return first.iterator().combineWith(second.iterator(), combiner);
 			}
 		};
 	}

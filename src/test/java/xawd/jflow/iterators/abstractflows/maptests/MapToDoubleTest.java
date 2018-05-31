@@ -37,8 +37,8 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return src.iter().mapToDouble(mapper);
+			public AbstractDoubleFlow iterator() {
+				return src.iterator().mapToDouble(mapper);
 			}
 		};
 	}
@@ -58,8 +58,8 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return src.iter().mapToDouble(mapper);
+			public AbstractDoubleFlow iterator() {
+				return src.iterator().mapToDouble(mapper);
 			}
 		};
 	}
@@ -79,8 +79,8 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return src.iter().mapToDouble(mapper);
+			public AbstractDoubleFlow iterator() {
+				return src.iterator().mapToDouble(mapper);
 			}
 		};
 	}

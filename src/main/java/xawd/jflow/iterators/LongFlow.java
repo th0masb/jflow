@@ -126,31 +126,31 @@ public interface LongFlow extends SkippableLongIterator
 
 	default Flow<LongPair> zipWith(final LongFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default Flow<DoubleWithLong> zipWith(final DoubleFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default Flow<IntWithLong> zipWith(final IntFlowIterable other)
 	{
-		return zipWith(other.iter());
+		return zipWith(other.iterator());
 	}
 
 	default LongFlow combineWith(final LongFlowIterable other, final LongBinaryOperator combiner)
 	{
-		return combineWith(other.iter(), combiner);
+		return combineWith(other.iterator(), combiner);
 	}
 
 	default LongFlow append(final LongFlowIterable other)
 	{
-		return append(other.iter());
+		return append(other.iterator());
 	}
 
 	default LongFlow insert(final LongFlowIterable other)
 	{
-		return insert(other.iter());
+		return insert(other.iterator());
 	}
 }

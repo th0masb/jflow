@@ -42,9 +42,9 @@ class AbstractFlowSkipwhileTest extends IteratorExampleProvider implements Itera
 		return new AbstractFlowIterable<T>()
 		{
 			@Override
-			public AbstractFlow<T> iter()
+			public AbstractFlow<T> iterator()
 			{
-				return src.iter().skipWhile(predicate);
+				return src.iterator().skipWhile(predicate);
 			}
 		};
 	}

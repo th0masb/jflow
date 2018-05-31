@@ -53,8 +53,8 @@ class AbstractIntFlowZipTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractFlowIterable<IntPair>() {
 			@Override
-			public AbstractFlow<IntPair> iter() {
-				return first.iter().zipWith(second.iter());
+			public AbstractFlow<IntPair> iterator() {
+				return first.iterator().zipWith(second.iterator());
 			}
 		};
 	}
@@ -90,8 +90,8 @@ class AbstractIntFlowZipTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractFlowIterable<IntWith<E>>() {
 			@Override
-			public AbstractFlow<IntWith<E>> iter() {
-				return first.iter().zipWith(second.iter());
+			public AbstractFlow<IntWith<E>> iterator() {
+				return first.iterator().zipWith(second.iterator());
 			}
 		};
 	}
@@ -127,8 +127,8 @@ class AbstractIntFlowZipTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractFlowIterable<IntWithLong>() {
 			@Override
-			public AbstractFlow<IntWithLong> iter() {
-				return first.iter().zipWith(second.iter());
+			public AbstractFlow<IntWithLong> iterator() {
+				return first.iterator().zipWith(second.iterator());
 			}
 		};
 	}
@@ -164,8 +164,8 @@ class AbstractIntFlowZipTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractFlowIterable<IntWithDouble>() {
 			@Override
-			public AbstractFlow<IntWithDouble> iter() {
-				return first.iter().zipWith(second.iter());
+			public AbstractFlow<IntWithDouble> iterator() {
+				return first.iterator().zipWith(second.iterator());
 			}
 		};
 	}

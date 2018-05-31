@@ -86,13 +86,13 @@ public class IterProduct
 	{
 		return new AbstractFlow<IntPair>() {
 
-			IntFlow xSource = first.iter();
+			IntFlow xSource = first.iterator();
 			boolean initialised = false;
 
 			boolean xExhausted = false;
 			int currentX;
 
-			IntFlow ySource = second.iter();
+			IntFlow ySource = second.iterator();
 
 			void init() {
 				assert !initialised;
@@ -133,7 +133,7 @@ public class IterProduct
 					if (!ySource.hasNext()) {
 						if (xSource.hasNext()) {
 							currentX = xSource.nextInt();
-							ySource = second.iter();
+							ySource = second.iterator();
 						}
 						else {
 							xExhausted = true;

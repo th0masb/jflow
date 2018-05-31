@@ -42,9 +42,9 @@ class AbstractLongFlowSkipwhileTest extends IteratorExampleProvider implements I
 		return new AbstractIterableLongs()
 		{
 			@Override
-			public AbstractLongFlow iter()
+			public AbstractLongFlow iterator()
 			{
-				return src.iter().skipWhile(predicate);
+				return src.iterator().skipWhile(predicate);
 			}
 		};
 	}

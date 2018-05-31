@@ -42,9 +42,9 @@ class AbstractLongFlowTakewhileTest extends IteratorExampleProvider implements I
 		return new AbstractIterableLongs()
 		{
 			@Override
-			public AbstractLongFlow iter()
+			public AbstractLongFlow iterator()
 			{
-				return src.iter().takeWhile(predicate);
+				return src.iterator().takeWhile(predicate);
 			}
 		};
 	}

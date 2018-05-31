@@ -41,8 +41,8 @@ class AbstractIntFlowSliceTest extends IteratorExampleProvider implements Iterat
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return src.iter().slice(indexMapping);
+			public AbstractIntFlow iterator() {
+				return src.iterator().slice(indexMapping);
 			}
 		};
 	}

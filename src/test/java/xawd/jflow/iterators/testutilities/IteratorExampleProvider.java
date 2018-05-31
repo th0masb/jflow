@@ -27,7 +27,7 @@ public class IteratorExampleProvider
 		return new AbstractFlowIterable<String>()
 		{
 			@Override
-			public AbstractFlow<String> iter()
+			public AbstractFlow<String> iterator()
 			{
 				return new AbstractFlow<String>()
 				{
@@ -59,7 +59,7 @@ public class IteratorExampleProvider
 		return new AbstractFlowIterable<String>()
 		{
 			@Override
-			public AbstractFlow<String> iter()
+			public AbstractFlow<String> iterator()
 			{
 				return new AbstractFlow<String>()
 				{
@@ -91,7 +91,7 @@ public class IteratorExampleProvider
 		return new AbstractFlowIterable<String>()
 		{
 			@Override
-			public AbstractFlow<String> iter()
+			public AbstractFlow<String> iterator()
 			{
 				return new AbstractFlow<String>()
 				{
@@ -123,7 +123,7 @@ public class IteratorExampleProvider
 		return new AbstractFlowIterable<String>()
 		{
 			@Override
-			public AbstractFlow<String> iter()
+			public AbstractFlow<String> iterator()
 			{
 				return new AbstractFlow<String>()
 				{
@@ -149,7 +149,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableLongs()
 		{
 			@Override
-			public AbstractLongFlow iter()
+			public AbstractLongFlow iterator()
 			{
 				return new AbstractLongFlow()
 				{
@@ -181,7 +181,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableLongs()
 		{
 			@Override
-			public AbstractLongFlow iter()
+			public AbstractLongFlow iterator()
 			{
 				return new AbstractLongFlow()
 				{
@@ -213,7 +213,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableLongs()
 		{
 			@Override
-			public AbstractLongFlow iter()
+			public AbstractLongFlow iterator()
 			{
 				return new AbstractLongFlow()
 				{
@@ -245,7 +245,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableLongs()
 		{
 			@Override
-			public AbstractLongFlow iter()
+			public AbstractLongFlow iterator()
 			{
 				return new AbstractLongFlow() {
 					@Override
@@ -270,7 +270,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableInts()
 		{
 			@Override
-			public AbstractIntFlow iter()
+			public AbstractIntFlow iterator()
 			{
 				return new AbstractIntFlow()
 				{
@@ -302,7 +302,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableInts()
 		{
 			@Override
-			public AbstractIntFlow iter()
+			public AbstractIntFlow iterator()
 			{
 				return new AbstractIntFlow()
 				{
@@ -334,7 +334,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableInts()
 		{
 			@Override
-			public AbstractIntFlow iter()
+			public AbstractIntFlow iterator()
 			{
 				return new AbstractIntFlow()
 				{
@@ -366,7 +366,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableInts()
 		{
 			@Override
-			public AbstractIntFlow iter()
+			public AbstractIntFlow iterator()
 			{
 				return new AbstractIntFlow() {
 					@Override
@@ -391,7 +391,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableDoubles()
 		{
 			@Override
-			public AbstractDoubleFlow iter()
+			public AbstractDoubleFlow iterator()
 			{
 				return new AbstractDoubleFlow()
 				{
@@ -423,7 +423,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableDoubles()
 		{
 			@Override
-			public AbstractDoubleFlow iter()
+			public AbstractDoubleFlow iterator()
 			{
 				return new AbstractDoubleFlow()
 				{
@@ -455,7 +455,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableDoubles()
 		{
 			@Override
-			public AbstractDoubleFlow iter()
+			public AbstractDoubleFlow iterator()
 			{
 				return new AbstractDoubleFlow()
 				{
@@ -487,7 +487,7 @@ public class IteratorExampleProvider
 		return new AbstractIterableDoubles()
 		{
 			@Override
-			public AbstractDoubleFlow iter()
+			public AbstractDoubleFlow iterator()
 			{
 				return new AbstractDoubleFlow() {
 					@Override

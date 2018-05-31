@@ -29,23 +29,23 @@ class AbstractDoubleFlowMinMaxTest extends IteratorExampleProvider
 	void testMin()
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final OptionalDouble minimum = populated.iter().min();
+		final OptionalDouble minimum = populated.iterator().min();
 		assertTrue(minimum.isPresent());
 		assertEquals(0, minimum.getAsDouble());
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertFalse(empty.iter().min().isPresent());
+		assertFalse(empty.iterator().min().isPresent());
 	}
 
 	@Test
 	void testMinWithDefaultValue()
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final double minimum = populated.iter().min(-1);
+		final double minimum = populated.iterator().min(-1);
 		assertEquals(0, minimum);
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertEquals(-1, empty.iter().min(-1));
+		assertEquals(-1, empty.iterator().min(-1));
 	}
 
 	@ParameterizedTest
@@ -53,12 +53,12 @@ class AbstractDoubleFlowMinMaxTest extends IteratorExampleProvider
 	void testMinWithKeyWithoutDefaultValue(final DoubleUnaryOperator key, final Double expectedPopulatedResult)
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final OptionalDouble minimum = populated.iter().minByKey(key);
+		final OptionalDouble minimum = populated.iterator().minByKey(key);
 		assertTrue(minimum.isPresent());
 		assertEquals(expectedPopulatedResult.doubleValue(), minimum.getAsDouble());
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertFalse(empty.iter().minByKey(key).isPresent());
+		assertFalse(empty.iterator().minByKey(key).isPresent());
 	}
 
 	static Stream<Arguments> minByKeyWithoutDefaultValueTestDataProvider()
@@ -76,11 +76,11 @@ class AbstractDoubleFlowMinMaxTest extends IteratorExampleProvider
 	void testMinWithKeyWithDefaultValue(final DoubleUnaryOperator key, final Double defaultVal, final Double expectedPopulatedResult)
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final double minimum = populated.iter().minByKey(defaultVal, key);
+		final double minimum = populated.iterator().minByKey(defaultVal, key);
 		assertEquals(expectedPopulatedResult.doubleValue(), minimum);
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertEquals(defaultVal.doubleValue(), empty.iter().minByKey(defaultVal, key));
+		assertEquals(defaultVal.doubleValue(), empty.iterator().minByKey(defaultVal, key));
 	}
 
 	static Stream<Arguments> minByKeyWithDefaultValueTestDataProvider()
@@ -97,23 +97,23 @@ class AbstractDoubleFlowMinMaxTest extends IteratorExampleProvider
 	void testMax()
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final OptionalDouble maximum = populated.iter().max();
+		final OptionalDouble maximum = populated.iterator().max();
 		assertTrue(maximum.isPresent());
 		assertEquals(4, maximum.getAsDouble());
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertFalse(empty.iter().max().isPresent());
+		assertFalse(empty.iterator().max().isPresent());
 	}
 
 	@Test
 	void testMaxWithDefaultValue()
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final double maximum = populated.iter().max(-1);
+		final double maximum = populated.iterator().max(-1);
 		assertEquals(4, maximum);
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertEquals(-1, empty.iter().max(-1));
+		assertEquals(-1, empty.iterator().max(-1));
 	}
 
 	@ParameterizedTest
@@ -121,12 +121,12 @@ class AbstractDoubleFlowMinMaxTest extends IteratorExampleProvider
 	void testMaxWithKeyWithoutDefaultValue(final DoubleUnaryOperator key, final Double expectedPopulatedResult)
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final OptionalDouble maximum = populated.iter().maxByKey(key);
+		final OptionalDouble maximum = populated.iterator().maxByKey(key);
 		assertTrue(maximum.isPresent());
 		assertEquals(expectedPopulatedResult.doubleValue(), maximum.getAsDouble());
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertFalse(empty.iter().maxByKey(key).isPresent());
+		assertFalse(empty.iterator().maxByKey(key).isPresent());
 	}
 
 	static Stream<Arguments> maxByKeyWithoutDefaultValueTestDataProvider()
@@ -144,11 +144,11 @@ class AbstractDoubleFlowMinMaxTest extends IteratorExampleProvider
 	void testMaxWithKeyWithDefaultValue(final DoubleUnaryOperator key, final Double defaultVal, final Double expectedPopulatedResult)
 	{
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final double maximum = populated.iter().maxByKey(defaultVal, key);
+		final double maximum = populated.iterator().maxByKey(defaultVal, key);
 		assertEquals(expectedPopulatedResult.doubleValue(), maximum);
 
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		assertEquals(defaultVal.doubleValue(), empty.iter().maxByKey(defaultVal, key));
+		assertEquals(defaultVal.doubleValue(), empty.iterator().maxByKey(defaultVal, key));
 	}
 
 	static Stream<Arguments> maxByKeyWithDefaultValueTestDataProvider()

@@ -31,8 +31,8 @@ class AbstractLongFlowAccumulationTest extends IteratorExampleProvider implement
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
-				return source.iter().accumulate(accumulator);
+			public AbstractLongFlow iterator() {
+				return source.iterator().accumulate(accumulator);
 			}
 		};
 	}
@@ -51,8 +51,8 @@ class AbstractLongFlowAccumulationTest extends IteratorExampleProvider implement
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
-				return source.iter().accumulate(id, accumulator);
+			public AbstractLongFlow iterator() {
+				return source.iterator().accumulate(id, accumulator);
 			}
 		};
 	}

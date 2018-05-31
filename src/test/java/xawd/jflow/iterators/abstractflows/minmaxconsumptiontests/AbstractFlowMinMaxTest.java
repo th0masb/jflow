@@ -32,12 +32,12 @@ class AbstractFlowMinMaxTest extends IteratorExampleProvider
 	void testMinByKey(final ToDoubleFunction<String> key, final String expectedPopulatedResult)
 	{
 		final AbstractFlowIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iter().minByKey(key);
+		final Optional<String> result = populated.iterator().minByKey(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
 		final AbstractFlowIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		assertFalse(empty.iter().minByKey(key).isPresent());
+		assertFalse(empty.iterator().minByKey(key).isPresent());
 	}
 
 	static Stream<Arguments> minByKeyTestDataProvider()
@@ -56,12 +56,12 @@ class AbstractFlowMinMaxTest extends IteratorExampleProvider
 		final UnaryOperator<String> key = x -> x;
 
 		final AbstractFlowIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iter().minByObjectKey(key);
+		final Optional<String> result = populated.iterator().minByObjectKey(key);
 		assertTrue(result.isPresent());
 		assertEquals("0", result.get());
 
 		final AbstractFlowIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		assertFalse(empty.iter().minByObjectKey(key).isPresent());
+		assertFalse(empty.iterator().minByObjectKey(key).isPresent());
 	}
 
 	@ParameterizedTest
@@ -69,12 +69,12 @@ class AbstractFlowMinMaxTest extends IteratorExampleProvider
 	void testMaxByKey(final ToDoubleFunction<String> key, final String expectedPopulatedResult)
 	{
 		final AbstractFlowIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iter().maxByKey(key);
+		final Optional<String> result = populated.iterator().maxByKey(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
 		final AbstractFlowIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		assertFalse(empty.iter().maxByKey(key).isPresent());
+		assertFalse(empty.iterator().maxByKey(key).isPresent());
 	}
 
 	static Stream<Arguments> maxByKeyTestDataProvider()
@@ -93,11 +93,11 @@ class AbstractFlowMinMaxTest extends IteratorExampleProvider
 		final UnaryOperator<String> key = x -> x;
 
 		final AbstractFlowIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iter().maxByObjectKey(key);
+		final Optional<String> result = populated.iterator().maxByObjectKey(key);
 		assertTrue(result.isPresent());
 		assertEquals("4", result.get());
 
 		final AbstractFlowIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		assertFalse(empty.iter().maxByObjectKey(key).isPresent());
+		assertFalse(empty.iterator().maxByObjectKey(key).isPresent());
 	}
 }

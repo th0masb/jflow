@@ -48,7 +48,7 @@ class AbstractFlowReverseFromValuesTest implements IteratorTest
 	{
 		return new AbstractFlowIterable<E>() {
 			@Override
-			public AbstractFlow<E> iter() {
+			public AbstractFlow<E> iterator() {
 				return new ReverseFlowFromValues.OfObject<>(source);
 			}
 		};

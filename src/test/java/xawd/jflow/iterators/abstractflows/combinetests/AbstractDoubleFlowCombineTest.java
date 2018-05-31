@@ -35,8 +35,8 @@ class AbstractDoubleFlowCombineTest extends IteratorExampleProvider implements I
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return first.iter().combineWith(second.iter(), combiner);
+			public AbstractDoubleFlow iterator() {
+				return first.iterator().combineWith(second.iterator(), combiner);
 			}
 		};
 	}

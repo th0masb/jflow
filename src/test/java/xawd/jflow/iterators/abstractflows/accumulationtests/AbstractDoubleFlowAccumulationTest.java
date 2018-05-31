@@ -31,8 +31,8 @@ class AbstractDoubleFlowAccumulationTest extends IteratorExampleProvider impleme
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return source.iter().accumulate(accumulator);
+			public AbstractDoubleFlow iterator() {
+				return source.iterator().accumulate(accumulator);
 			}
 		};
 	}
@@ -51,8 +51,8 @@ class AbstractDoubleFlowAccumulationTest extends IteratorExampleProvider impleme
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return source.iter().accumulate(id, accumulator);
+			public AbstractDoubleFlow iterator() {
+				return source.iterator().accumulate(id, accumulator);
 			}
 		};
 	}

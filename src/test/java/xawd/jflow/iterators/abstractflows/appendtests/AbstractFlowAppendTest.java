@@ -36,8 +36,8 @@ class AbstractFlowAppendTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractFlowIterable<E>() {
 			@Override
-			public AbstractFlow<E> iter() {
-				return source.iter().append(toAppend.iter());
+			public AbstractFlow<E> iterator() {
+				return source.iterator().append(toAppend.iterator());
 			}
 		};
 	}

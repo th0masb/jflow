@@ -35,8 +35,8 @@ class AbstractIntFlowCombineTest extends IteratorExampleProvider implements Iter
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return first.iter().combineWith(second.iter(), combiner);
+			public AbstractIntFlow iterator() {
+				return first.iterator().combineWith(second.iterator(), combiner);
 			}
 		};
 	}

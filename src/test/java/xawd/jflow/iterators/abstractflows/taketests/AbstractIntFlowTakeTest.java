@@ -44,8 +44,8 @@ class AbstractIntFlowTakeTest extends IteratorExampleProvider implements Iterato
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i ->
 		{
-			assertThrows(IllegalArgumentException.class, () -> populated.iter().take(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iter().take(i));
+			assertThrows(IllegalArgumentException.class, () -> populated.iterator().take(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iterator().take(i));
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i ->
@@ -59,8 +59,8 @@ class AbstractIntFlowTakeTest extends IteratorExampleProvider implements Iterato
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return src.iter().take(takeCount);
+			public AbstractIntFlow iterator() {
+				return src.iterator().take(takeCount);
 			}
 		};
 	}

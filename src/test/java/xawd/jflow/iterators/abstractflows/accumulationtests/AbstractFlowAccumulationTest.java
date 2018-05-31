@@ -35,8 +35,8 @@ class AbstractFlowAccumulationTest extends IteratorExampleProvider implements It
 	{
 		return new AbstractFlowIterable<E>() {
 			@Override
-			public AbstractFlow<E> iter() {
-				return source.iter().accumulate(accumulator);
+			public AbstractFlow<E> iterator() {
+				return source.iterator().accumulate(accumulator);
 			}
 		};
 	}
@@ -55,8 +55,8 @@ class AbstractFlowAccumulationTest extends IteratorExampleProvider implements It
 	{
 		return new AbstractFlowIterable<R>() {
 			@Override
-			public AbstractFlow<R> iter() {
-				return source.iter().accumulate(id, accumulator);
+			public AbstractFlow<R> iterator() {
+				return source.iterator().accumulate(id, accumulator);
 			}
 		};
 	}

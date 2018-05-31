@@ -38,7 +38,7 @@ class AbstractDoubleFlowFromValuesTest implements IteratorTest
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
+			public AbstractDoubleFlow iterator() {
 				return new FlowFromValues.OfDouble(source);
 			}
 		};

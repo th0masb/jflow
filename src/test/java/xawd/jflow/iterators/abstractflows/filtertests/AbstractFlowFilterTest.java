@@ -41,8 +41,8 @@ class AbstractFlowFilterTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractFlowIterable<E>() {
 			@Override
-			public AbstractFlow<E> iter() {
-				return source.iter().filter(predicate);
+			public AbstractFlow<E> iterator() {
+				return source.iterator().filter(predicate);
 			}
 		};
 	}

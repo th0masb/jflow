@@ -30,23 +30,23 @@ class AbstractIntFlowMinMaxTest extends IteratorExampleProvider
 	void testMin()
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt minimum = populated.iter().min();
+		final OptionalInt minimum = populated.iterator().min();
 		assertTrue(minimum.isPresent());
 		assertEquals(0, minimum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().min().isPresent());
+		assertFalse(empty.iterator().min().isPresent());
 	}
 
 	@Test
 	void testMinWithDefaultValue()
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final double minimum = populated.iter().min(-1);
+		final double minimum = populated.iterator().min(-1);
 		assertEquals(0, minimum);
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertEquals(-1, empty.iter().min(-1));
+		assertEquals(-1, empty.iterator().min(-1));
 	}
 
 	@ParameterizedTest
@@ -54,12 +54,12 @@ class AbstractIntFlowMinMaxTest extends IteratorExampleProvider
 	void testMinWithKeyWithoutDefaultValue(final IntToDoubleFunction key, final Integer expectedPopulatedResult)
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt minimum = populated.iter().minByKey(key);
+		final OptionalInt minimum = populated.iterator().minByKey(key);
 		assertTrue(minimum.isPresent());
 		assertEquals(expectedPopulatedResult.intValue(), minimum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().minByKey(key).isPresent());
+		assertFalse(empty.iterator().minByKey(key).isPresent());
 	}
 
 	static Stream<Arguments> minByKeyWithoutDefaultValueTestDataProvider()
@@ -77,11 +77,11 @@ class AbstractIntFlowMinMaxTest extends IteratorExampleProvider
 	void testMinWithKeyWithDefaultValue(final IntToDoubleFunction key, final Integer defaultVal, final Integer expectedPopulatedResult)
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final double minimum = populated.iter().minByKey(defaultVal, key);
+		final double minimum = populated.iterator().minByKey(defaultVal, key);
 		assertEquals(expectedPopulatedResult.intValue(), minimum);
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertEquals(defaultVal.intValue(), empty.iter().minByKey(defaultVal, key));
+		assertEquals(defaultVal.intValue(), empty.iterator().minByKey(defaultVal, key));
 	}
 
 	static Stream<Arguments> minByKeyWithDefaultValueTestDataProvider()
@@ -100,35 +100,35 @@ class AbstractIntFlowMinMaxTest extends IteratorExampleProvider
 		final IntFunction<String> key = Integer::toString;
 
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt minimum = populated.iter().minByObjectKey(key);
+		final OptionalInt minimum = populated.iterator().minByObjectKey(key);
 		assertTrue(minimum.isPresent());
 		assertEquals(0, minimum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().minByObjectKey(key).isPresent());
+		assertFalse(empty.iterator().minByObjectKey(key).isPresent());
 	}
 
 	@Test
 	void testMax()
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt maximum = populated.iter().max();
+		final OptionalInt maximum = populated.iterator().max();
 		assertTrue(maximum.isPresent());
 		assertEquals(4, maximum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().max().isPresent());
+		assertFalse(empty.iterator().max().isPresent());
 	}
 
 	@Test
 	void testMaxWithDefaultValue()
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final double maximum = populated.iter().max(-1);
+		final double maximum = populated.iterator().max(-1);
 		assertEquals(4, maximum);
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertEquals(-1, empty.iter().max(-1));
+		assertEquals(-1, empty.iterator().max(-1));
 	}
 
 	@ParameterizedTest
@@ -136,12 +136,12 @@ class AbstractIntFlowMinMaxTest extends IteratorExampleProvider
 	void testMaxWithKeyWithoutDefaultValue(final IntToDoubleFunction key, final Integer expectedPopulatedResult)
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt maximum = populated.iter().maxByKey(key);
+		final OptionalInt maximum = populated.iterator().maxByKey(key);
 		assertTrue(maximum.isPresent());
 		assertEquals(expectedPopulatedResult.intValue(), maximum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().maxByKey(key).isPresent());
+		assertFalse(empty.iterator().maxByKey(key).isPresent());
 	}
 
 	static Stream<Arguments> maxByKeyWithoutDefaultValueTestDataProvider()
@@ -159,11 +159,11 @@ class AbstractIntFlowMinMaxTest extends IteratorExampleProvider
 	void testMaxWithKeyWithDefaultValue(final IntToDoubleFunction key, final Integer defaultVal, final Integer expectedPopulatedResult)
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final double maximum = populated.iter().maxByKey(defaultVal, key);
+		final double maximum = populated.iterator().maxByKey(defaultVal, key);
 		assertEquals(expectedPopulatedResult.intValue(), maximum);
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertEquals(defaultVal.intValue(), empty.iter().maxByKey(defaultVal, key));
+		assertEquals(defaultVal.intValue(), empty.iterator().maxByKey(defaultVal, key));
 	}
 
 	static Stream<Arguments> maxByKeyWithDefaultValueTestDataProvider()
@@ -182,11 +182,11 @@ class AbstractIntFlowMinMaxTest extends IteratorExampleProvider
 		final IntFunction<String> key = Integer::toString;
 
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt maximum = populated.iter().maxByObjectKey(key);
+		final OptionalInt maximum = populated.iterator().maxByObjectKey(key);
 		assertTrue(maximum.isPresent());
 		assertEquals(4, maximum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().maxByObjectKey(key).isPresent());
+		assertFalse(empty.iterator().maxByObjectKey(key).isPresent());
 	}
 }

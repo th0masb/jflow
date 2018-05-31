@@ -33,8 +33,8 @@ class AbstractLongFlowPredicateConsumptionTest extends IteratorExampleProvider
 	{
 		return Stream.of(
 				Arguments.of(getAllEqualFlow(), Boolean.TRUE),
-				Arguments.of(getLongTestIteratorProvider().iter(), Boolean.FALSE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), Boolean.TRUE)
+				Arguments.of(getLongTestIteratorProvider().iterator(), Boolean.FALSE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), Boolean.TRUE)
 				);
 	}
 
@@ -71,10 +71,10 @@ class AbstractLongFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1, Boolean.TRUE)
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < 3, Boolean.FALSE),
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > -1, Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < 3, Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > -1, Boolean.TRUE)
 				);
 	}
 
@@ -88,10 +88,10 @@ class AbstractLongFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x < -1, Boolean.FALSE),
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > 3, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1, Boolean.FALSE)
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < -1, Boolean.FALSE),
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > 3, Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < 3, Boolean.FALSE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > -1, Boolean.FALSE)
 				);
 	}
 
@@ -105,10 +105,10 @@ class AbstractLongFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x < -1, Boolean.TRUE),
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > 3, Boolean.FALSE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1, Boolean.TRUE)
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < -1, Boolean.TRUE),
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > 3, Boolean.FALSE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < 3, Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > -1, Boolean.TRUE)
 				);
 	}
 
@@ -122,12 +122,12 @@ class AbstractLongFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> predicatePartitioningTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x < -1, new LongPredicatePartition(new long[0], new long[] {0, 1, 2, 3, 4})),
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > 2, new LongPredicatePartition(new long[] {3, 4}, new long[] {0, 1, 2})),
-				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1, new LongPredicatePartition(new long[] {0, 1, 2, 3, 4}, new long[0])),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x < -1, new LongPredicatePartition(new long[0], new long[0])),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > 3, new LongPredicatePartition(new long[0], new long[0])),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1, new LongPredicatePartition(new long[0], new long[0]))
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < -1, new LongPredicatePartition(new long[0], new long[] {0, 1, 2, 3, 4})),
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > 2, new LongPredicatePartition(new long[] {3, 4}, new long[] {0, 1, 2})),
+				Arguments.of(getLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > -1, new LongPredicatePartition(new long[] {0, 1, 2, 3, 4}, new long[0])),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x < -1, new LongPredicatePartition(new long[0], new long[0])),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > 3, new LongPredicatePartition(new long[0], new long[0])),
+				Arguments.of(getEmptyLongTestIteratorProvider().iterator(), (LongPredicate) x -> x > -1, new LongPredicatePartition(new long[0], new long[0]))
 				);
 	}
 }

@@ -41,8 +41,8 @@ class AbstractLongFlowSliceTest extends IteratorExampleProvider implements Itera
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractLongFlow iter() {
-				return src.iter().slice(indexMapping);
+			public AbstractLongFlow iterator() {
+				return src.iterator().slice(indexMapping);
 			}
 		};
 	}

@@ -41,8 +41,8 @@ class AbstractIntFlowFilterTest extends IteratorExampleProvider implements Itera
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return source.iter().filter(predicate);
+			public AbstractIntFlow iterator() {
+				return source.iterator().filter(predicate);
 			}
 		};
 	}

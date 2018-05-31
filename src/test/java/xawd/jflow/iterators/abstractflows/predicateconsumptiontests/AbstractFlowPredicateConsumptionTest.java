@@ -36,8 +36,8 @@ class AbstractFlowPredicateConsumptionTest extends IteratorExampleProvider
 	{
 		return Stream.of(
 				Arguments.of(getAllEqualFlow(), Boolean.TRUE),
-				Arguments.of(getObjectTestIteratorProvider().iter(), Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), Boolean.TRUE)
+				Arguments.of(getObjectTestIteratorProvider().iterator(), Boolean.FALSE),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), Boolean.TRUE)
 				);
 	}
 
@@ -74,10 +74,10 @@ class AbstractFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.FALSE),
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE)
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.FALSE),
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.TRUE),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE)
 				);
 	}
 
@@ -91,10 +91,10 @@ class AbstractFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < -1, Boolean.FALSE),
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > 3, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.FALSE)
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < -1, Boolean.FALSE),
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > 3, Boolean.TRUE),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.FALSE),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.FALSE)
 				);
 	}
 
@@ -108,10 +108,10 @@ class AbstractFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < -1, Boolean.TRUE),
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > 3, Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE)
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < -1, Boolean.TRUE),
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > 3, Boolean.FALSE),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < 3, Boolean.TRUE),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE)
 				);
 	}
 
@@ -126,12 +126,12 @@ class AbstractFlowPredicateConsumptionTest extends IteratorExampleProvider
 	static Stream<Arguments> predicatePartitioningTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < -1, new PredicatePartition<>(asList(), asList("0", "1", "2", "3", "4"))),
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > 2, new PredicatePartition<>(asList("3", "4"), asList("0", "1", "2"))),
-				Arguments.of(getObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > -1, new PredicatePartition<>(asList("0", "1", "2", "3", "4"), asList())),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) < -1, new PredicatePartition<>(asList(), asList())),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > 3, new PredicatePartition<>(asList(), asList())),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iter(), (Predicate<String>) s -> parseDouble(s) > -1, new PredicatePartition<>(asList(), asList()))
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < -1, new PredicatePartition<>(asList(), asList("0", "1", "2", "3", "4"))),
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > 2, new PredicatePartition<>(asList("3", "4"), asList("0", "1", "2"))),
+				Arguments.of(getObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > -1, new PredicatePartition<>(asList("0", "1", "2", "3", "4"), asList())),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) < -1, new PredicatePartition<>(asList(), asList())),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > 3, new PredicatePartition<>(asList(), asList())),
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), (Predicate<String>) s -> parseDouble(s) > -1, new PredicatePartition<>(asList(), asList()))
 				);
 	}
 }

@@ -15,11 +15,11 @@ import xawd.jflow.iterators.LongFlow;
  */
 public interface LongFlowIterable
 {
-	LongFlow iter();
+	LongFlow iterator();
 
 	default void forEach(final LongConsumer action)
 	{
-		iter().forEachRemaining(action);
+		iterator().forEachRemaining(action);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public interface LongFlowIterable
 			public OfLong trySplit()
 			{
 				if (srcLongs == null) {
-					srcLongs = src.iter();
+					srcLongs = src.iterator();
 				}
 				return null;
 			}
@@ -77,7 +77,7 @@ public interface LongFlowIterable
 			void initialise()
 			{
 				if (srcLongs == null) {
-					srcLongs = src.iter();
+					srcLongs = src.iterator();
 				}
 			}
 		};

@@ -40,8 +40,8 @@ class AbstractDoubleFlowFilterTest extends IteratorExampleProvider implements It
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractDoubleFlow iter() {
-				return source.iter().filter(predicate);
+			public AbstractDoubleFlow iterator() {
+				return source.iterator().filter(predicate);
 			}
 		};
 	}

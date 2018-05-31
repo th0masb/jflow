@@ -61,8 +61,8 @@ class AbstractFlowFlattenToIntTest extends IteratorExampleProvider implements It
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractIntFlow iter() {
-				return source.iter().flattenToInts(flattenMapping);
+			public AbstractIntFlow iterator() {
+				return source.iterator().flattenToInts(flattenMapping);
 			}
 		};
 	}

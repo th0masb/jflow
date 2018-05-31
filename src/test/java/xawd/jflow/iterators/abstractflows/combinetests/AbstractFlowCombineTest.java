@@ -38,8 +38,8 @@ class AbstractFlowCombineTest extends IteratorExampleProvider implements Iterato
 	{
 		return new AbstractFlowIterable<R>() {
 			@Override
-			public AbstractFlow<R> iter() {
-				return first.iter().combineWith(second.iter(), combiner);
+			public AbstractFlow<R> iterator() {
+				return first.iterator().combineWith(second.iterator(), combiner);
 			}
 		};
 	}
