@@ -106,7 +106,7 @@ public interface Flow<E> extends SkippableIterator<E>
 	 * <br>{@code length(G) = min(length(F), length(I))}
 	 *
 	 * @param other - The {@linkplain Iterator} to zip with.
-	 * @return the result described above.
+	 * @return the resulting {@linkplain Flow} described above.
 	 */
 	<R> Flow<Pair<E, R>> zipWith(final Iterator<? extends R> other);
 
@@ -115,13 +115,29 @@ public interface Flow<E> extends SkippableIterator<E>
 	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = (F[j], I[j])}
 	 * <br>{@code length(G) = min(length(F), length(I))}
 	 *
-	 * @param other - The {@linkplain Iterator} to zip with.
-	 * @return the result described above.
+	 * @param other - The {@linkplain PrimitiveIterator.OfInt} to zip with.
+	 * @return the resulting {@linkplain Flow} described above.
 	 */
 	Flow<IntWith<E>> zipWith(final PrimitiveIterator.OfInt other);
 
+	/**
+	 * Zips this {@linkplain Flow} {@code F} with the parameter {@linkplain PrimitiveIterator.OfDouble} {@code I}
+	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = (F[j], I[j])}
+	 * <br>{@code length(G) = min(length(F), length(I))}
+	 *
+	 * @param other - The {@linkplain PrimitiveIterator.OfDouble} to zip with.
+	 * @return the resulting {@linkplain Flow} described above.
+	 */
 	Flow<DoubleWith<E>> zipWith(final PrimitiveIterator.OfDouble other);
 
+	/**
+	 * Zips this {@linkplain Flow} {@code F} with the parameter {@linkplain PrimitiveIterator.OfLong} {@code I}
+	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = (F[j], I[j])}
+	 * <br>{@code length(G) = min(length(F), length(I))}
+	 *
+	 * @param other - The {@linkplain PrimitiveIterator.OfLong} to zip with.
+	 * @return the resulting {@linkplain Flow} described above.
+	 */
 	Flow<LongWith<E>> zipWith(final PrimitiveIterator.OfLong other);
 
 	<E2, R> Flow<R> combineWith(final Iterator<? extends E2> other, final BiFunction<? super E, ? super E2, R> f);
