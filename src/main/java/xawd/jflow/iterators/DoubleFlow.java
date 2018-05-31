@@ -116,6 +116,10 @@ public interface DoubleFlow extends SkippableDoubleIterator
 	<K> Map<K, double[]> groupBy(final DoubleFunction<K> classifier);
 
 
+	default Flow<Double> boxed()
+	{
+		return mapToObject(x -> x);
+	}
 
 	default <T> Flow<DoubleWith<T>> zipWith(final Iterable<T> other)
 	{

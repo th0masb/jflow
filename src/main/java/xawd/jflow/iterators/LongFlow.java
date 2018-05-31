@@ -115,6 +115,11 @@ public interface LongFlow extends SkippableLongIterator
 	<K> Map<K, long[]> groupBy(final LongFunction<K> classifier);
 
 
+	default Flow<Long> boxed()
+	{
+		return mapToObject(x -> x);
+	}
+
 	default <E> Flow<LongWith<E>> zipWith(final Iterable<E> other)
 	{
 		return zipWith(other.iterator());

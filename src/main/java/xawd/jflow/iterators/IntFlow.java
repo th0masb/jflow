@@ -124,6 +124,11 @@ public interface IntFlow extends SkippableIntIterator
 	<K> Map<K, int[]> groupBy(final IntFunction<K> classifier);
 
 
+	default Flow<Integer> boxed()
+	{
+		return mapToObject(x -> x);
+	}
+
 	default <E> Flow<IntWith<E>> zipWith(final Iterable<E> other)
 	{
 		return zipWith(other.iterator());
