@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
+import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongFunction;
@@ -27,6 +28,11 @@ import xawd.jflow.iterators.misc.LongWith;
  */
 public interface LongFlow extends SkippableLongIterator
 {
+	default <C> C build(final Function<? super LongFlow, C> builder)
+	{
+		return builder.apply(this);
+	}
+
 	LongFlow map(final LongUnaryOperator f);
 
 	<E> Flow<E> mapToObject(LongFunction<E> f);

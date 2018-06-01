@@ -10,6 +10,7 @@ import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
+import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 
 import xawd.jflow.iterators.iterables.DoubleFlowIterable;
@@ -27,6 +28,11 @@ import xawd.jflow.iterators.misc.IntWithDouble;
  */
 public interface DoubleFlow extends SkippableDoubleIterator
 {
+	default <C> C build(final Function<? super DoubleFlow, C> builder)
+	{
+		return builder.apply(this);
+	}
+
 	DoubleFlow map(final DoubleUnaryOperator f);
 
 	<T> Flow<T> mapToObject(DoubleFunction<T> f);

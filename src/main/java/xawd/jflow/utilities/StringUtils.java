@@ -15,19 +15,14 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 
-	/**
-	 *
-	 */
-	public StringUtils() {
-		// TODO Auto-generated constructor stub
-	}
+	private StringUtils() {}
 
-	public static List<String> getAllMatches(String source, String regex)
+	public static List<String> getAllMatches(final String source, final String regex)
 	{
 		return getAllMatches(source, Pattern.compile(regex));
 	}
 
-	public static List<String> getAllMatches(String source, Pattern pattern)
+	public static List<String> getAllMatches(final String source, final Pattern pattern)
 	{
 		final Matcher patternMatcher = pattern.matcher(source);
 		final List<String> matches = new ArrayList<>();
@@ -37,14 +32,19 @@ public class StringUtils {
 		return matches;
 	}
 
-	public static Optional<String> findFirstMatch(String source, Pattern pattern)
+	public static Optional<String> findFirstMatch(final String source, final Pattern pattern)
 	{
 		final Matcher patternMatcher = pattern.matcher(source);
 		return patternMatcher.find()? Optional.of(patternMatcher.group()) : Optional.empty();
 	}
 
-	public static Optional<String> findFirstMatch(String source, String regex)
+	public static Optional<String> findFirstMatch(final String source, final String regex)
 	{
 		return findFirstMatch(source, Pattern.compile(regex));
+	}
+
+	public static boolean matchesAnywhere(final String source, final String regex)
+	{
+		return findFirstMatch(source, regex).isPresent();
 	}
 }
