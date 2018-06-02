@@ -24,6 +24,8 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.iterators.construction.Iterate;
+
 /**
  * @author ThomasB
  * @since 26 Jan 2018
@@ -267,7 +269,7 @@ public final class MapUtil
 	 */
 	public static <E, R> List<R> objMap(final Function<E, R> f, final List<? extends E> xs)
 	{
-		throw new RuntimeException();
+		return Iterate.over(xs).map(f).toList();
 	}
 
 
@@ -282,7 +284,7 @@ public final class MapUtil
 	 */
 	public static <T> List<T> objMap(final IntFunction<T> f, final int[] xs)
 	{
-		throw new RuntimeException();
+		return Iterate.over(xs).mapToObject(f).toList();
 	}
 
 
@@ -297,7 +299,7 @@ public final class MapUtil
 	 */
 	public static <T> List<T> objMap(final DoubleFunction<T> f, final double[] xs)
 	{
-		throw new RuntimeException();
+		return Iterate.over(xs).mapToObject(f).toList();
 	}
 
 	/**
@@ -311,6 +313,6 @@ public final class MapUtil
 	 */
 	public static <T> List<T> objMap(final LongFunction<T> f, final long[] xs)
 	{
-		throw new RuntimeException();
+		return Iterate.over(xs).mapToObject(f).toList();
 	}
 }
