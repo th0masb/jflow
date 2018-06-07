@@ -45,8 +45,8 @@ class AbstractLongFlowSkipTest extends IteratorExampleProvider implements Iterat
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i ->
 		{
-			assertThrows(IllegalArgumentException.class, () -> populated.iterator().skip(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iterator().skip(i));
+			assertThrows(IllegalArgumentException.class, () -> populated.iterator().drop(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iterator().drop(i));
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i ->
@@ -61,7 +61,7 @@ class AbstractLongFlowSkipTest extends IteratorExampleProvider implements Iterat
 		return new AbstractIterableLongs() {
 			@Override
 			public AbstractLongFlow iterator() {
-				return src.iterator().skip(skipCount);
+				return src.iterator().drop(skipCount);
 			}
 		};
 	}

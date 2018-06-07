@@ -125,13 +125,13 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public AbstractLongFlow skip(final int n)
+	public AbstractLongFlow drop(final int n)
 	{
 		return new SkipFlow.OfLong(this, n);
 	}
 
 	@Override
-	public AbstractLongFlow skipWhile(final LongPredicate predicate)
+	public AbstractLongFlow dropWhile(final LongPredicate predicate)
 	{
 		return new SkipwhileFlow.OfLong(this, predicate);
 	}

@@ -44,7 +44,7 @@ class AbstractFlowSkipwhileTest extends IteratorExampleProvider implements Itera
 			@Override
 			public AbstractFlow<T> iterator()
 			{
-				return src.iterator().skipWhile(predicate);
+				return src.iterator().dropWhile(predicate);
 			}
 		};
 	}

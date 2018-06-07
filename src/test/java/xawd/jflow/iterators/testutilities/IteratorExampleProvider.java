@@ -118,6 +118,38 @@ public class IteratorExampleProvider
 		};
 	}
 
+	public static AbstractFlowIterable<String> getSingletonObjectTestIteratorProvider()
+	{
+		return new AbstractFlowIterable<String>()
+		{
+			@Override
+			public AbstractFlow<String> iterator()
+			{
+				return new AbstractFlow<String>()
+				{
+					int count = 0;
+					@Override
+					public boolean hasNext() {
+						return count == 0;
+					}
+					@Override
+					public String next() {
+						if (count++ == 0) {
+							return Constants.SINGLETON_OBJECT_EXAMPLE_SRC[0];
+						}
+						else {
+							throw new NoSuchElementException();
+						}
+					}
+					@Override
+					public void skip() {
+						next();
+					}
+				};
+			}
+		};
+	}
+
 	public static AbstractFlowIterable<String> getEmptyObjectTestIteratorProvider()
 	{
 		return new AbstractFlowIterable<String>()

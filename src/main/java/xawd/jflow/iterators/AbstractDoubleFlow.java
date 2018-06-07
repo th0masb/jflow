@@ -123,13 +123,13 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public AbstractDoubleFlow skip(final int n)
+	public AbstractDoubleFlow drop(final int n)
 	{
 		return new SkipFlow.OfDouble(this, n);
 	}
 
 	@Override
-	public AbstractDoubleFlow skipWhile(final DoublePredicate predicate)
+	public AbstractDoubleFlow dropWhile(final DoublePredicate predicate)
 	{
 		return new SkipwhileFlow.OfDouble(this, predicate);
 	}

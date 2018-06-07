@@ -57,9 +57,9 @@ public interface LongFlow extends SkippableLongIterator
 
 	LongFlow takeWhile(final LongPredicate p);
 
-	LongFlow skip(final int n);
+	LongFlow drop(final int n);
 
-	LongFlow skipWhile(final LongPredicate p);
+	LongFlow dropWhile(final LongPredicate p);
 
 	LongFlow filter(final LongPredicate p);
 

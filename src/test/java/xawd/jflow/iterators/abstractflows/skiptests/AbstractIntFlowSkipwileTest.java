@@ -44,7 +44,7 @@ class AbstractIntFlowSkipwileTest extends IteratorExampleProvider implements Ite
 			@Override
 			public AbstractIntFlow iterator()
 			{
-				return src.iterator().skipWhile(predicate);
+				return src.iterator().dropWhile(predicate);
 			}
 		};
 	}

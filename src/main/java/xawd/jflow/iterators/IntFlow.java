@@ -56,9 +56,9 @@ public interface IntFlow extends SkippableIntIterator
 
 	IntFlow takeWhile(final IntPredicate p);
 
-	IntFlow skip(final int n);
+	IntFlow drop(final int n);
 
-	IntFlow skipWhile(final IntPredicate p);
+	IntFlow dropWhile(final IntPredicate p);
 
 	IntFlow filter(final IntPredicate p);
 

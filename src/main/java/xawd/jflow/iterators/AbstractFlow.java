@@ -32,6 +32,7 @@ import xawd.jflow.iterators.impl.MapFlow;
 import xawd.jflow.iterators.impl.MapToDoubleFlow;
 import xawd.jflow.iterators.impl.MapToIntFlow;
 import xawd.jflow.iterators.impl.MapToLongFlow;
+import xawd.jflow.iterators.impl.PairFoldFlow;
 import xawd.jflow.iterators.impl.SkipFlow;
 import xawd.jflow.iterators.impl.SkipwhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
@@ -156,13 +157,13 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public AbstractFlow<E> skip(final int n)
+	public AbstractFlow<E> drop(final int n)
 	{
 		return new SkipFlow.OfObject<>(this, n);
 	}
 
 	@Override
-	public AbstractFlow<E> skipWhile(final Predicate<? super E> predicate)
+	public AbstractFlow<E> dropWhile(final Predicate<? super E> predicate)
 	{
 		return new SkipwhileFlow.OfObject<>(this, predicate);
 	}
@@ -195,6 +196,12 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	public <R> AbstractFlow<R> accumulate(final R id, final BiFunction<R, E, R> accumulator)
 	{
 		return new AccumulationFlow.OfObjectWithMixedTypes<>(this, id, accumulator);
+	}
+
+	@Override
+	public <R> AbstractFlow<R> pairFold(final BiFunction<? super E, ? super E, R> foldFunction)
+	{
+		return new PairFoldFlow.OfObject<>(this, foldFunction);
 	}
 
 	@Override

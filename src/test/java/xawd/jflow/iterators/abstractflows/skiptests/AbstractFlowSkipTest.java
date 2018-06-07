@@ -60,7 +60,7 @@ class AbstractFlowSkipTest extends IteratorExampleProvider implements IteratorTe
 		return new AbstractFlowIterable<T>() {
 			@Override
 			public AbstractFlow<T> iterator() {
-				return src.iterator().skip(skipCount);
+				return src.iterator().drop(skipCount);
 			}
 		};
 	}

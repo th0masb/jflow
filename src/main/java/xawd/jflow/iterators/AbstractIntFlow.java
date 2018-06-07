@@ -123,13 +123,13 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public AbstractIntFlow skip(final int n)
+	public AbstractIntFlow drop(final int n)
 	{
 		return new SkipFlow.OfInt(this, n);
 	}
 
 	@Override
-	public AbstractIntFlow skipWhile(final IntPredicate predicate)
+	public AbstractIntFlow dropWhile(final IntPredicate predicate)
 	{
 		return new SkipwhileFlow.OfInt(this, predicate);
 	}
