@@ -32,9 +32,23 @@ public interface IntFlow extends PrototypeIntFlow
 		return builder.apply(this);
 	}
 
+	/**
+	 * @param f
+	 *            - A mapping function.
+	 * @return a new {@link IntFlow} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link IntFlow} instance in turn.
+	 */
 	IntFlow map(final IntUnaryOperator f);
 
-	<T> Flow<T> mapToObject(IntFunction<T> f);
+	/**
+	 * @param f
+	 *            - A mapping function.
+	 * @return a new {@link Flow} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link Flow} instance in turn.
+	 */
+	<E> Flow<E> mapToObject(IntFunction<E> f);
 
 	DoubleFlow mapToDouble(IntToDoubleFunction f);
 
@@ -76,7 +90,6 @@ public interface IntFlow extends PrototypeIntFlow
 
 	IntFlow accumulate(int id, IntBinaryOperator accumulator);
 
-
 	OptionalInt min();
 
 	int min(int defaultValue);
@@ -97,7 +110,6 @@ public interface IntFlow extends PrototypeIntFlow
 
 	<C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key);
 
-
 	boolean areAllEqual();
 
 	boolean allMatch(final IntPredicate predicate);
@@ -108,20 +120,17 @@ public interface IntFlow extends PrototypeIntFlow
 
 	IntPredicatePartition partition(IntPredicate predicate);
 
-
 	long count();
 
 	int reduce(int id, IntBinaryOperator reducer);
 
 	OptionalInt reduce(IntBinaryOperator reducer);
 
-
 	int[] toArray();
 
 	<K, V> Map<K, V> toMap(final IntFunction<K> keyMapper, final IntFunction<V> valueMapper);
 
 	<K> Map<K, int[]> groupBy(final IntFunction<K> classifier);
-
 
 	default Flow<Integer> boxed()
 	{
