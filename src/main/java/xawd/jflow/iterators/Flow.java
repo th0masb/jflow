@@ -29,9 +29,9 @@ import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
 
 /**
- * A {@link Flow} instance is an {@link Iterator} with lots of extra functionality in the style
- * of the {@link Stream} interface. There are methods inspired by other languages too, namely
- * Python and Haskell.
+ * A {@link Flow} instance is an {@link Iterator} with lots of extra
+ * functionality in the style of the {@link Stream} interface. There are methods
+ * inspired by other languages too, namely Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -193,24 +193,24 @@ public interface Flow<E> extends PrototypeFlow<E>
 
 	/**
 	 *
-	 * @param f
+	 * @param indexMap
 	 *            - A strictly monotonically increasing function {@code f: N -> N}
-	 * @return Let {@code F} denote this source Flow and let {@code n = length(F)}.
-	 *         Then this method returns a Flow {@code G} whose i-th element is given
-	 *         by:
+	 * @return Let {@code F} denote this source {@link Flow}, let {@code n = length(F)} and
+	 *         denote the indexMap by {@code f}. Then this method returns a Flow
+	 *         {@code G} whose i-th element is given by:
 	 *
 	 *         <li>{@code G[i] = F(f(i))}
 	 *         <li>
 	 *         <code> length(G) = supremum {i | (i in N) and (f(i) < length(F))} </code>
 	 */
-	Flow<E> slice(final IntUnaryOperator f);
+	Flow<E> slice(final IntUnaryOperator indexMap);
 
 	/**
 	 * @param n
 	 *            - A non-negative integer.
 	 * @throws IllegalArgumentException
 	 *             If parameter is negative.
-	 * @return Let {@code F} denote the source Flow. We return a {@link Flow}
+	 * @return Let {@code F} denote the source {@link Flow}. We return a Flow
 	 *         consisting of the first {@code max(n, length(F))} elements of
 	 *         {@code F}.
 	 */
@@ -223,7 +223,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a Flow consisting of
 	 *         the first {@code n} elements of the source stream. If no element
-	 *         fails the predicate test then a copy of the Flow is returned.
+	 *         fails the predicate test then a copy of the source is returned.
 	 */
 	Flow<E> takeWhile(final Predicate<? super E> predicate);
 
@@ -232,7 +232,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            - A non-negative integer.
 	 * @throws IllegalArgumentException
 	 *             If parameter is negative.
-	 * @return Let {@code F} denote the source Flow. We return a {@link Flow}
+	 * @return Let {@code F} denote the source {@link Flow}. We return a Flow
 	 *         missing the first {@code min(n, length(F))} elements of {@code F}.
 	 */
 	Flow<E> drop(final int n);
@@ -244,7 +244,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a Flow missing
 	 *         {@code n} elements of the source stream. If no element fails the
-	 *         predicate test then a copy of the Flow is returned.
+	 *         predicate test then a copy of the source is returned.
 	 */
 	Flow<E> dropWhile(final Predicate<? super E> predicate);
 
@@ -548,8 +548,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @param e
 	 *            - the element to append
-	 * @return a Flow consisting of the elements of the source Flow followed
-	 *         by the parameter element
+	 * @return a Flow consisting of the elements of the source Flow followed by the
+	 *         parameter element
 	 */
 	default Flow<E> append(final E e)
 	{
@@ -562,8 +562,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @param e
 	 *            - the element to insert.
-	 * @return a Flow consisting of the parameter element followed by the
-	 *         elements of the source flow
+	 * @return a Flow consisting of the parameter element followed by the elements
+	 *         of the source flow
 	 */
 	default Flow<E> insert(final E e)
 	{
