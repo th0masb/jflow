@@ -197,7 +197,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            - A strictly monotonically increasing function {@code f: N -> N}
 	 * @return Let {@code F} denote this source {@link Flow}, let
 	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
-	 *         method returns a Flow {@code G} whose i-th element is given by:
+	 *         method returns a Flow {@code G} given by:
 	 *
 	 *         <li>{@code G[i] = F(f(i))}
 	 *         <li>
@@ -222,7 +222,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            {@link Flow}.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a Flow consisting of
-	 *         the first {@code n} elements of the source stream. If no element
+	 *         the first {@code n} elements of the source Flow. If no element
 	 *         fails the predicate test then a copy of the source is returned.
 	 */
 	Flow<E> takeWhile(final Predicate<? super E> predicate);

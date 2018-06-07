@@ -2,7 +2,6 @@ package xawd.jflow.iterators;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.Function;
@@ -43,8 +42,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @param f
 	 *            - A mapping function.
 	 * @return a new {@link Flow} instance whose elements are obtained by applying
-	 *         the parameter mapping function to each element of this Flow instance
-	 *         in turn.
+	 *         the parameter mapping function to each element of this
+	 *         {@link IntFlow} instance in turn.
 	 */
 	<E> Flow<E> mapToObject(IntFunction<E> f);
 
@@ -53,7 +52,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *            - A mapping function.
 	 * @return a new {@link DoubleFlow} instance whose elements are obtained by
 	 *         applying the parameter mapping function to each element of this
-	 *         DoubleFlow instance in turn.
+	 *         {@link IntFlow} instance in turn.
 	 */
 	DoubleFlow mapToDouble(IntToDoubleFunction f);
 
@@ -62,7 +61,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *            - A mapping function.
 	 * @return a new {@link LongFlow} instance whose elements are obtained by
 	 *         applying the parameter mapping function to each element of this
-	 *         LongFlow instance in turn.
+	 *         {@link IntFlow} instance in turn.
 	 */
 	LongFlow mapToLong(IntToLongFunction f);
 
@@ -127,7 +126,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @param other
 	 *            - The {@link PrimitiveIterator.OfInt} to combine the source
 	 *            {@link IntFlow} with.
-	 * @param f
+	 * @param combiner
 	 *            - The combining function.
 	 *
 	 * @return Denote the source IntFlow by {@code F} with the parameter
@@ -150,12 +149,11 @@ public interface IntFlow extends PrototypeIntFlow
 	Flow<IntPair> enumerate();
 
 	/**
-	 *
 	 * @param indexMap
 	 *            - A strictly monotonically increasing function {@code f: N -> N}
 	 * @return Let {@code F} denote this source {@link IntFlow}, let
 	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
-	 *         method returns an IntFlow {@code G} whose i-th element is given by:
+	 *         method returns an IntFlow {@code G} given by:
 	 *
 	 *         <li>{@code G[i] = F(f(i))}
 	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))}
@@ -178,7 +176,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *            - An {@link IntPredicate}.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns an {@link IntFlow}
-	 *         consisting of the first {@code n} elements of the source stream. If
+	 *         consisting of the first {@code n} elements of the source IntFlow. If
 	 *         no element fails the predicate test then a copy of the source is
 	 *         returned.
 	 */
@@ -199,7 +197,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *            - An {@link IntPredicate}.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a {@link IntFlow}
-	 *         missing {@code n} elements of the source stream. If no element fails
+	 *         missing {@code n} elements of the source IntFlow. If no element fails
 	 *         the predicate test then a copy of the source is returned.
 	 */
 	IntFlow dropWhile(final IntPredicate predicate);
@@ -244,7 +242,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return an {@link IntFlow} consisting of the elements in the parameter array
 	 *         followed by the elements of the source IntFlow.
 	 */
-	IntFlow insert(int... xs);
+	IntFlow insert(int... other);
 
 	/**
 	 * @param accumulator
@@ -270,7 +268,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link IntFlow}.
 	 *
-	 * @return an {@link Optional} wrapping the smallest element in this IntFlow or
+	 * @return an {@link OptionalInt} wrapping the smallest element in this IntFlow or
 	 *         nothing if the iteration is empty.
 	 */
 	OptionalInt min();
@@ -331,7 +329,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link IntFlow}.
 	 *
-	 * @return an {@link Optional} wrapping the largest element in this IntFlow or
+	 * @return an {@link OptionalInt} wrapping the largest element in this IntFlow or
 	 *         nothing if the iteration is empty.
 	 */
 	OptionalInt max();
