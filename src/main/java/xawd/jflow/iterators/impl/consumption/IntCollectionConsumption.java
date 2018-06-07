@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.consumption;
+package xawd.jflow.iterators.impl.consumption;
 
 import java.util.HashMap;
 import java.util.Map;

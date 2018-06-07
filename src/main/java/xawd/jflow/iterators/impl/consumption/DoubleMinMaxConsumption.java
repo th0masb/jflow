@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.consumption;
+package xawd.jflow.iterators.impl.consumption;
 
 import java.util.OptionalDouble;
 import java.util.function.DoubleUnaryOperator;

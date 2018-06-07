@@ -36,6 +36,11 @@ import xawd.jflow.iterators.misc.PredicatePartition;
  */
 public interface Flow<E> extends SkippableIterator<E>
 {
+	default <R> Flow<R> pairFold(final BiFunction<? super E, ? super E, R> foldFunction)
+	{
+		throw new RuntimeException();
+	}
+
 	/**
 	 * @param f - A mapping function.
 	 * @return a new {@linkplain Flow} instance whose
@@ -105,6 +110,7 @@ public interface Flow<E> extends SkippableIterator<E>
 	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = (F[j], I[j])}
 	 * <br>{@code length(G) = min(length(F), length(I))}
 	 *
+	 * @param <R> - The upper type bound on the iterator to zip this flow with.
 	 * @param other - The {@linkplain Iterator} to zip with.
 	 * @return the resulting {@linkplain Flow} described above.
 	 */
@@ -140,8 +146,22 @@ public interface Flow<E> extends SkippableIterator<E>
 	 */
 	Flow<LongWith<E>> zipWith(final PrimitiveIterator.OfLong other);
 
+	/**
+	 * Compines this {@linkplain Flow} {@code F} with the parameter {@linkplain PrimitiveIterator.OfLong} {@code I}
+	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = f(F[j], I[j])}
+	 * <br>{@code length(G) = min(length(F), length(I))}
+	 *
+	 * @param <E2> - The upper type bound on the iterator to combine this flow with.
+	 * @param <R> - The target type of the combiner function.
+	 * @param other - The {@linkplain PrimitiveIterator.OfLong} to zip with.
+	 * @param f - The combining function
+	 * @return the resulting {@linkplain Flow} described above.
+	 */
 	<E2, R> Flow<R> combineWith(final Iterator<? extends E2> other, final BiFunction<? super E, ? super E2, R> f);
 
+	/**
+	 * @return a new {@linkplain Flow} instance resulting from zipping this flow with the natural numbers.
+	 */
 	Flow<IntWith<E>> enumerate();
 
 	Flow<E> slice(final IntUnaryOperator f);

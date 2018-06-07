@@ -3,6 +3,8 @@
  */
 package xawd.jflow.iterators.construction;
 
+import java.util.Arrays;
+
 import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
@@ -18,9 +20,14 @@ import xawd.jflow.iterators.iterables.LongFlowIterable;
  */
 public class CycledIteration
 {
-	public static <T> Flow<T> of(final Iterable<? extends T> source)
+	public static <E> Flow<E> of(final Iterable<? extends E> source)
 	{
 		return new CyclicFlow.OfObject<>(source::iterator);
+	}
+
+	public static <E> Flow<E> of(final E element)
+	{
+		return of(Arrays.asList(element));
 	}
 
 	public static IntFlow of(final IntFlowIterable source)
@@ -28,9 +35,14 @@ public class CycledIteration
 		return new CyclicFlow.OfInt(source::iterator);
 	}
 
-	public static IntFlow of(final int... xs)
+	public static IntFlow of(final int[] xs)
 	{
 		return new CyclicFlow.OfInt(() -> Iterate.over(xs));
+	}
+
+	public static IntFlow of(final int x)
+	{
+		return of(new int[] {x});
 	}
 
 	public static DoubleFlow of(final DoubleFlowIterable source)
@@ -38,9 +50,14 @@ public class CycledIteration
 		return new CyclicFlow.OfDouble(source::iterator);
 	}
 
-	public static DoubleFlow of(final double... xs)
+	public static DoubleFlow of(final double[] xs)
 	{
 		return new CyclicFlow.OfDouble(() -> Iterate.over(xs));
+	}
+
+	public static DoubleFlow of(final double x)
+	{
+		return of(new double[] {x});
 	}
 
 	public static LongFlow of(final LongFlowIterable source)
@@ -48,8 +65,13 @@ public class CycledIteration
 		return new CyclicFlow.OfLong(source::iterator);
 	}
 
-	public static LongFlow of(final long... xs)
+	public static LongFlow of(final long[] xs)
 	{
 		return new CyclicFlow.OfLong(() -> Iterate.over(xs));
+	}
+
+	public static LongFlow of(final long x)
+	{
+		return of(new long[] {x});
 	}
 }
