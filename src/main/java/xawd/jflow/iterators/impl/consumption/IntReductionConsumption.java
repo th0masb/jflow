@@ -41,7 +41,7 @@ public final class IntReductionConsumption
 		return reduction;
 	}
 
-	public static int count(final PrimitiveIterator.OfInt source)
+	public static long count(final PrimitiveIterator.OfInt source)
 	{
 		final boolean sourceSkippable = source instanceof Skippable;
 		int count = 0;

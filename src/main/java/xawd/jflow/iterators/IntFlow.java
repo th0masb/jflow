@@ -109,7 +109,7 @@ public interface IntFlow extends SkippableIntIterator
 	IntPredicatePartition partition(IntPredicate predicate);
 
 
-	int count();
+	long count();
 
 	int reduce(int id, IntBinaryOperator reducer);
 

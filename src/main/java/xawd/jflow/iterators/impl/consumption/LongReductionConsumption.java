@@ -41,10 +41,10 @@ public final class LongReductionConsumption
 		return reduction;
 	}
 
-	public static int count(final PrimitiveIterator.OfLong source)
+	public static long count(final PrimitiveIterator.OfLong source)
 	{
 		final boolean sourceSkippable = source instanceof Skippable;
-		int count = 0;
+		long count = 0;
 		while (source.hasNext()) {
 			if (sourceSkippable) {
 				((Skippable) source).skip();

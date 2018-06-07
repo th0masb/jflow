@@ -255,7 +255,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public int count()
+	public long count()
 	{
 		return DoubleReductionConsumption.count(this);
 	}

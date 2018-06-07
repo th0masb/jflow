@@ -267,7 +267,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public int count()
+	public long count()
 	{
 		return IntReductionConsumption.count(this);
 	}

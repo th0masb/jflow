@@ -41,7 +41,7 @@ public final class DoubleReductionConsumption
 		return reduction;
 	}
 
-	public static int count(final PrimitiveIterator.OfDouble source)
+	public static long count(final PrimitiveIterator.OfDouble source)
 	{
 		final boolean sourceSkippable = source instanceof Skippable;
 		int count = 0;

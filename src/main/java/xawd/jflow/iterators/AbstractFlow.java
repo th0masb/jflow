@@ -252,7 +252,7 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public int count()
+	public long count()
 	{
 		return ObjectReductionConsumption.count(this);
 	}

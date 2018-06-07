@@ -257,7 +257,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public int count()
+	public long count()
 	{
 		return LongReductionConsumption.count(this);
 	}

@@ -40,10 +40,10 @@ public final class ObjectReductionConsumption
 		return reduction;
 	}
 
-	public static <E> int count(final Iterator<? extends E> source)
+	public static <E> long count(final Iterator<? extends E> source)
 	{
 		final boolean sourceSkippable = source instanceof Skippable;
-		int count = 0;
+		long count = 0;
 		while (source.hasNext()) {
 			if (sourceSkippable) {
 				((Skippable) source).skip();

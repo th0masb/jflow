@@ -107,7 +107,7 @@ public interface DoubleFlow extends SkippableDoubleIterator
 	DoublePredicatePartition partition(DoublePredicate predicate);
 
 
-	int count();
+	long count();
 
 	double reduce(double id, DoubleBinaryOperator reducer);
 

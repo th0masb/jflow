@@ -106,7 +106,7 @@ public interface LongFlow extends SkippableLongIterator
 	LongPredicatePartition partition(LongPredicate predicate);
 
 
-	int count();
+	long count();
 
 	long reduce(long id, LongBinaryOperator reducer);
 
