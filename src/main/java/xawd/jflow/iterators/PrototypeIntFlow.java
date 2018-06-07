@@ -8,16 +8,31 @@ import java.util.PrimitiveIterator;
 import java.util.function.IntConsumer;
 
 /**
- * @author t
+ * An interface implementing the requisite interfaces for {@link IntFlow} and adding
+ * some necessary but somewhat unrelated functionality.
  *
+ * @author t
  */
 public interface PrototypeIntFlow extends PrimitiveIterator.OfInt, Skippable
 {
+	/**
+	 * A safe alternative to directly calling
+	 * {@link PrimitiveIterator.OfInt#nextInt()} method.
+	 *
+	 * @return an {@link OptionalInt} wrapping the next element if there is one.
+	 */
 	default OptionalInt safeNextInt()
 	{
 		return hasNext()? OptionalInt.of(nextInt()) : OptionalInt.empty();
 	}
 
+	/**
+	 * Perform the supplied action for each element left in this iterator sequence,
+	 * in doing so the iterator is consumed.
+	 *
+	 * @param action
+	 *            - the action to perform.
+	 */
 	default void forEach(final IntConsumer action)
 	{
 		while (hasNext()) {
@@ -29,6 +44,6 @@ public interface PrototypeIntFlow extends PrimitiveIterator.OfInt, Skippable
 	@Deprecated
 	default Integer next()
 	{
-		throw new UnsupportedOperationException("No boxing!");
+		throw new UnsupportedOperationException("Boxing using this method is banned for Flows!!");
 	}
 }

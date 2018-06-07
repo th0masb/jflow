@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * An interface subclassing the requisite interfaces for {@link Flow} and adding
+ * An interface implementing the requisite interfaces for {@link Flow} and adding
  * some necessary but somewhat unrelated functionality.
  *
  * @author t
