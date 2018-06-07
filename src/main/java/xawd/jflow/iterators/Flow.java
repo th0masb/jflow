@@ -456,7 +456,8 @@ public interface Flow<E> extends SkippableIterator<E>
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li> an element of
 	 *         the source flow, say {@code e}, is associated to the key value pair
-	 *         {@code (k(e), v(e))}.<br><br>
+	 *         {@code (k(e), v(e))}.<br>
+	 *         <br>
 	 *         If two different elements of the source flow map to the same key then
 	 *         an {@linkplain IllegalStateException} will be thrown.
 	 */
@@ -465,30 +466,77 @@ public interface Flow<E> extends SkippableIterator<E>
 	/**
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
+	 * @param <K>
+	 *            - the type of the keys in the final grouping map.
 	 *
+	 * @param classifier
+	 *            - a function defining the different groups of elements.
+	 * @return a {@link Map} instance whose keys partition the elements of the
+	 *         source flow via the classification function. Elements in the source
+	 *         flow who have equal (under .equals() contract) images under the
+	 *         classification function are grouped together in a {@link List}
+	 *         accessed by their shared classification key.
 	 */
 	<K> Map<K, List<E>> groupBy(final Function<? super E, K> classifier);
 
-	// ********** DEFAULT METHODS ***********//
-
+	/**
+	 * A convenience method for safely casting elements in this Flow to an arbitrary
+	 * type.
+	 *
+	 * @param <R>
+	 *            - the target type
+	 * @param klass
+	 *            - a {@link Class} instance defining the target type
+	 * @return an instance of {@link Flow} with element type given by the supplied
+	 *         target type, containing only the elements of the source which are of
+	 *         the target type.
+	 */
 	default <R> Flow<R> filterAndCastTo(final Class<R> klass)
 	{
 		return filter(klass::isInstance).map(klass::cast);
 	}
 
+	/**
+	 * This method is potentially (depending on the supplied function) a 'consuming
+	 * method', i.e. it will iterate through this Flow.
+	 *
+	 * A convenience method for applying a global function onto this Flow.
+	 *
+	 * @param builder
+	 *            - a function whose input includes {@link Flow} instances of this
+	 *            element type.
+	 * @return the output of the supplied function applied to this flow.
+	 */
 	default <R> R build(final Function<? super Flow<E>, R> builder)
 	{
 		return builder.apply(this);
 	}
 
+	/**
+	 * Convenience method for appending a single element onto the end of this flow.
+	 *
+	 * @param e
+	 *            - the element to append
+	 * @return a {@link Flow} consisting of the elements of the source flow followed
+	 *         by the parameter element
+	 */
 	default Flow<E> append(final E e)
 	{
 		return append(Iterate.over(e));
 	}
 
-	default Flow<E> insert(final E ts)
+	/**
+	 * Convenience method for inserting a single element into the beginning of this
+	 * flow.
+	 *
+	 * @param e
+	 *            - the element to insert.
+	 * @return a {@link Flow} consisting of the parameter element followed by the
+	 *         elements of the source flow
+	 */
+	default Flow<E> insert(final E e)
 	{
-		return append(Iterate.over(ts));
+		return append(Iterate.over(e));
 	}
 
 	default List<E> toList()
