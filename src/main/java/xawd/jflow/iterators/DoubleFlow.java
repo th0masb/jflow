@@ -26,7 +26,7 @@ import xawd.jflow.iterators.misc.IntWithDouble;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface DoubleFlow extends SkippableDoubleIterator
+public interface DoubleFlow extends PrototypeDoubleFlow
 {
 	default <C> C build(final Function<? super DoubleFlow, C> builder)
 	{

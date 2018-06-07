@@ -26,7 +26,7 @@ import xawd.jflow.iterators.misc.LongWith;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface LongFlow extends SkippableLongIterator
+public interface LongFlow extends PrototypeLongFlow
 {
 	default <C> C build(final Function<? super LongFlow, C> builder)
 	{

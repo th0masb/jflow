@@ -25,7 +25,7 @@ import xawd.jflow.iterators.misc.IntWithLong;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface IntFlow extends SkippableIntIterator
+public interface IntFlow extends PrototypeIntFlow
 {
 	default <C> C build(final Function<? super IntFlow, C> builder)
 	{

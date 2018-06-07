@@ -11,7 +11,7 @@ import java.util.function.LongConsumer;
  * @author t
  *
  */
-public interface SkippableLongIterator extends Skippable, PrimitiveIterator.OfLong
+public interface PrototypeLongFlow extends Skippable, PrimitiveIterator.OfLong
 {
 	default OptionalLong safeNextLong()
 	{

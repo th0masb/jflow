@@ -31,7 +31,7 @@ import xawd.jflow.iterators.misc.PredicatePartition;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface Flow<E> extends SkippableIterator<E>
+public interface Flow<E> extends PrototypeFlow<E>
 {
 	/**
 	 * @param f

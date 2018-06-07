@@ -11,7 +11,7 @@ import java.util.function.DoubleConsumer;
  * @author t
  *
  */
-public interface SkippableDoubleIterator extends OfDouble, Skippable
+public interface PrototypeDoubleFlow extends OfDouble, Skippable
 {
 	default OptionalDouble safeNextDouble()
 	{

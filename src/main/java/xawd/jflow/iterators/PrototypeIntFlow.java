@@ -11,7 +11,7 @@ import java.util.function.IntConsumer;
  * @author t
  *
  */
-public interface SkippableIntIterator extends PrimitiveIterator.OfInt, Skippable
+public interface PrototypeIntFlow extends PrimitiveIterator.OfInt, Skippable
 {
 	default OptionalInt safeNextInt()
 	{
