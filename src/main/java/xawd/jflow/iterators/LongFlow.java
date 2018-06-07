@@ -132,7 +132,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *
 	 * @return Denote the source LongFlow by {@code F} with the parameter
 	 *         PrimitiveIterator.OfLong denoted by {@code I} and the combining
-	 *         function by {@code f}. We return a new {@link Flow} instance
+	 *         function by {@code f}. We return a new {@link LongFlow} instance
 	 *         {@code G} defined by:
 	 *
 	 *         <li>{@code G[j] = f(F[j], I[j])}
@@ -345,7 +345,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @param key
 	 *            - a function mapping the elements of this LongFlow into the real
 	 *            numbers.
-	 * @return the element of this IntFlow whose image under the key mapping is the
+	 * @return the element of this LongFlow whose image under the key mapping is the
 	 *         maximum among all images. The parameter default is returned if the
 	 *         source is empty. NaN images are ignored.
 	 */
@@ -472,17 +472,17 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @param <V>
 	 *            the type of the values in the created mapping.
 	 * @param keyMapper
-	 *            - a function mapping elements of this IntFlow to elements of the
+	 *            - a function mapping elements of this LongFlow to elements of the
 	 *            key type.
 	 * @param valueMapper
-	 *            - a function mapping elements of this IntFlow to elements of the
+	 *            - a function mapping elements of this LongFlow to elements of the
 	 *            value type.
 	 * @return a {@link Map} instance whose key-value pairs have a 1-to-1
 	 *         correspondence with the elements in the source LongFlow. More
 	 *         specifically if:
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li> an element of
-	 *         the source flow, say {@code e}, is associated to the key value pair
+	 *         the source LongFlow, say {@code e}, is associated to the key value pair
 	 *         {@code (k(e), v(e))}.<br>
 	 *         <br>
 	 *         If two different elements of the source LongFlow map to the same key

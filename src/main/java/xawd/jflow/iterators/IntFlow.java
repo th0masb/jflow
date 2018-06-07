@@ -131,7 +131,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *
 	 * @return Denote the source IntFlow by {@code F} with the parameter
 	 *         PrimitiveIterator.OfInt denoted by {@code I} and the combining
-	 *         function by {@code f}. We return a new {@link Flow} instance
+	 *         function by {@code f}. We return a new {@link IntFlow} instance
 	 *         {@code G} defined by:
 	 *
 	 *         <li>{@code G[j] = f(F[j], I[j])}
