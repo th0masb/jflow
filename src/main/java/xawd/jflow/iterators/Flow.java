@@ -195,9 +195,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @param indexMap
 	 *            - A strictly monotonically increasing function {@code f: N -> N}
-	 * @return Let {@code F} denote this source {@link Flow}, let {@code n = length(F)} and
-	 *         denote the indexMap by {@code f}. Then this method returns a Flow
-	 *         {@code G} whose i-th element is given by:
+	 * @return Let {@code F} denote this source {@link Flow}, let
+	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
+	 *         method returns a Flow {@code G} whose i-th element is given by:
 	 *
 	 *         <li>{@code G[i] = F(f(i))}
 	 *         <li>
@@ -239,7 +239,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 
 	/**
 	 * @param predicate
-	 *            - a {@link Predicate} applicable to the type of elements in this
+	 *            - A {@link Predicate} applicable to the type of elements in this
 	 *            {@link Flow}.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a Flow missing
@@ -250,7 +250,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 
 	/**
 	 * @param predicate
-	 *            - a {@link Predicate} applicable to the type of elements in this
+	 *            - A {@link Predicate} applicable to the type of elements in this
 	 *            {@link Flow}.
 	 * @return a Flow containing only those elements of the source Flow which pass
 	 *         the test defined by the parameter predicate. The relative ordering of
@@ -269,7 +269,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 
 	/**
 	 * @param other
-	 *            - an {@link Iterator} containing elements of the same type as this
+	 *            - An {@link Iterator} containing elements of the same type as this
 	 *            source {@link Flow}
 	 * @return a Flow consisting of the elements of the parameter Iterator followed
 	 *         by the elements of the source Flow.
@@ -374,7 +374,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * {@link Flow}.
 	 *
 	 * @param predicate
-	 *            - a predicate applicable to the type of elements in this Flow.
+	 *            - A predicate applicable to the type of elements in this Flow.
 	 * @return true if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
@@ -385,7 +385,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * {@link Flow}.
 	 *
 	 * @param predicate
-	 *            - a predicate applicable to the type of elements in this Flow.
+	 *            - A predicate applicable to the type of elements in this Flow.
 	 * @return true if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
@@ -396,7 +396,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * {@link Flow}.
 	 *
 	 * @param predicate
-	 *            - a predicate applicable to the type of elements in this Flow.
+	 *            - A predicate applicable to the type of elements in this Flow.
 	 * @return true if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
@@ -407,7 +407,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * {@link Flow}.
 	 *
 	 * @param predicate
-	 *            - a predicate applicable to the type of elements in this Flow.
+	 *            - A predicate applicable to the type of elements in this Flow.
 	 * @return a partition of the cached elements split into two lists on whether
 	 *         they passed or failed the parameter predicate.
 	 */
@@ -439,7 +439,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            - the reduction function.
 	 * @return Let us denote the source Flow by {@code F}, the length of {@code F}
 	 *         by {@code n} and the reduction function by {@code f}. If
-	 *         {@code n == 0} we return nothing else we return: <br>
+	 *         {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
@@ -481,7 +481,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            - a function mapping elements of this Flow to elements of the
 	 *            value type.
 	 * @return a {@link Map} instance whose key-value pairs have a 1-to-1
-	 *         correspondence with the elements in the source flow. More
+	 *         correspondence with the elements in the source Flow. More
 	 *         specifically if:
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li> an element of
@@ -528,14 +528,14 @@ public interface Flow<E> extends PrototypeFlow<E>
 
 	/**
 	 * This method is potentially (depending on the supplied function) a 'consuming
-	 * method', i.e. it will iterate through this Flow.
+	 * method', i.e. it will iterate through this {@link Flow}.
 	 *
 	 * A convenience method for applying a global function onto this Flow.
 	 *
 	 * @param builder
-	 *            - a function whose input includes {@link Flow} instances of this
+	 *            - a function whose input encompasses Flow instances of this
 	 *            element type.
-	 * @return the output of the supplied function applied to this flow.
+	 * @return the output of the supplied function applied to this Flow.
 	 */
 	default <R> R build(final Function<? super Flow<E>, R> builder)
 	{

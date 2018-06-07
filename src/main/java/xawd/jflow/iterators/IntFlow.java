@@ -2,6 +2,7 @@ package xawd.jflow.iterators;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.Function;
@@ -11,6 +12,7 @@ import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
+import java.util.stream.IntStream;
 
 import xawd.jflow.iterators.misc.IntPair;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
@@ -19,16 +21,15 @@ import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
 
 /**
+ * An {@link IntFlow} instance is an {@link PrimitiveIterator.OfInt} with lots
+ * of extra functionality in the style of the {@link IntStream} interface. There
+ * are methods inspired by other languages too, namely Python and Haskell.
+ *
  * @author ThomasB
  * @since 20 Apr 2018
  */
 public interface IntFlow extends PrototypeIntFlow
 {
-	default <C> C build(final Function<? super IntFlow, C> builder)
-	{
-		return builder.apply(this);
-	}
-
 	/**
 	 * @param f
 	 *            - A mapping function.
@@ -212,61 +213,344 @@ public interface IntFlow extends PrototypeIntFlow
 	 */
 	IntFlow filter(final IntPredicate predicate);
 
-
-	IntFlow append(int... xs);
-
+	/**
+	 * @param other
+	 *            - A {@link PrimitiveIterator.OfInt}.
+	 * @return an {@link IntFlow} consisting of the elements of the source IntFlow
+	 *         followed by the elements of the parameter PrimitiveIterator.OfInt.
+	 */
 	IntFlow append(PrimitiveIterator.OfInt other);
 
+	/**
+	 * @param other
+	 *            - A varargs int array
+	 * @return an {@link IntFlow} consisting of the elements of the source IntFlow
+	 *         followed by the elements in the parameter array.
+	 */
+	IntFlow append(int... other);
+
+	/**
+	 * @param other
+	 *            - A {@link PrimitiveIterator.OfInt}.
+	 * @return an {@link IntFlow} consisting of the elements of the parameter
+	 *         PrimitiveIterator.OfInt followed by the elements of the source
+	 *         IntFlow.
+	 */
 	IntFlow insert(PrimitiveIterator.OfInt other);
 
+	/**
+	 * @param other
+	 *            - A varargs int array
+	 * @return an {@link IntFlow} consisting of the elements in the parameter array
+	 *         followed by the elements of the source IntFlow.
+	 */
 	IntFlow insert(int... xs);
 
+	/**
+	 * @param accumulator
+	 *            - the accumulation function.
+	 * @return Let {@code F} denote the source {@link IntFlow} and {@code g} denote
+	 *         the accumulation function. Then the IntFlow returned is of the form:
+	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}
+	 */
 	IntFlow accumulate(IntBinaryOperator accumulator);
 
+	/**
+	 * @param id
+	 *            - the identity element in the accumulation.
+	 * @param accumulator
+	 *            - the accumulator function.
+	 * @return Let {@code F} denote the source {@link IntFlow} and {@code g} denote
+	 *         the accumulation function. Then the IntFlow returned is of the form:
+	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}
+	 */
 	IntFlow accumulate(int id, IntBinaryOperator accumulator);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @return an {@link Optional} wrapping the smallest element in this IntFlow or
+	 *         nothing if the iteration is empty.
+	 */
 	OptionalInt min();
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param defaultValue
+	 *            - The value which will be returned if the source is empty.
+	 *
+	 * @return the smallest element in this IntFlow or the default value if the
+	 *         iteration is empty.
+	 */
 	int min(int defaultValue);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param defaultValue
+	 *            - The value to be returned if the source is empty.
+	 * @param key
+	 *            - a function mapping the elements of this IntFlow into the real
+	 *            numbers.
+	 * @return the element of this IntFlow whose image under the key mapping is the
+	 *         minimum among all images. The parameter default is returned if the
+	 *         source is empty. NaN images are ignored.
+	 */
 	int minByKey(int defaultValue, final IntToDoubleFunction key);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param key
+	 *            - a function mapping the elements of this IntFlow into the real
+	 *            numbers.
+	 * @return the element of this IntFlow whose image under the key mapping is the
+	 *         minimum among all images. Nothing is returned if the source is empty.
+	 *         NaN images are ignored.
+	 */
 	OptionalInt minByKey(final IntToDoubleFunction key);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param key
+	 *            - a function mapping the elements of this IntFlow to some data
+	 *            type with an ordering.
+	 * @return the element of this IntFlow whose image under the key mapping is the
+	 *         minimum among all images. Nothing is returned if the source is empty.
+	 */
 	<C extends Comparable<C>> OptionalInt minByObjectKey(final IntFunction<C> key);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @return an {@link Optional} wrapping the largest element in this IntFlow or
+	 *         nothing if the iteration is empty.
+	 */
 	OptionalInt max();
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param defaultValue
+	 *            - The value which will be returned if the source is empty.
+	 *
+	 * @return the largest element in this IntFlow or the default value if the
+	 *         iteration is empty.
+	 */
 	int max(int defaultValue);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param defaultValue
+	 *            - The value to be returned if the source is empty.
+	 * @param key
+	 *            - a function mapping the elements of this IntFlow into the real
+	 *            numbers.
+	 * @return the element of this IntFlow whose image under the key mapping is the
+	 *         maximum among all images. The parameter default is returned if the
+	 *         source is empty. NaN images are ignored.
+	 */
 	int maxByKey(int defaultValue, final IntToDoubleFunction key);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param key
+	 *            - a function mapping the elements of this IntFlow into the real
+	 *            numbers.
+	 * @return the element of this IntFlow whose image under the key mapping is the
+	 *         maximum among all images. Nothing is returned if the source is empty.
+	 *         NaN images are ignored.
+	 */
 	OptionalInt maxByKey(final IntToDoubleFunction key);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param key
+	 *            - a function mapping the elements of this IntFlow to some data
+	 *            type with an ordering.
+	 * @return the element of this IntFlow whose image under the key mapping is the
+	 *         maximum among all images. Nothing is returned if the source is empty.
+	 */
 	<C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @return true is every element of this IntFlow is equal, false otherwise.
+	 */
 	boolean areAllEqual();
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param predicate
+	 *            - An {@link IntPredicate}.
+	 * @return true if every element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
 	boolean allMatch(final IntPredicate predicate);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param predicate
+	 *            - An {@link IntPredicate}.
+	 * @return true if any element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
 	boolean anyMatch(final IntPredicate predicate);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param predicate
+	 *            - An {@link IntPredicate}.
+	 * @return true if all elements fail the parameter predicate test, false
+	 *         otherwise.
+	 */
 	boolean noneMatch(final IntPredicate predicate);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param predicate
+	 *            - An {@link IntPredicate}.
+	 * @return a partition of the cached elements split into two arrays on whether
+	 *         they passed or failed the parameter predicate.
+	 */
 	IntPredicatePartition partition(IntPredicate predicate);
 
-	long count();
-
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param id
+	 *            - the identity of the reduction operation
+	 * @param reducer
+	 *            - the reduction function
+	 * @return If we denote the source IntFlow by {@code F}, the length of {@code F}
+	 *         by {@code n} and the reduction function by {@code f} then the result
+	 *         is equal to: <br>
+	 *         <br>
+	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
+	 */
 	int reduce(int id, IntBinaryOperator reducer);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param reducer
+	 *            - the reduction function.
+	 * @return Let us denote the source IntFlow by {@code F}, the length of
+	 *         {@code F} by {@code n} and the reduction function by {@code f}. If
+	 *         {@code n == 0} we return nothing, else we return: <br>
+	 *         <br>
+	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
+	 */
 	OptionalInt reduce(IntBinaryOperator reducer);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @return the number of elements in this IntFlow.
+	 */
+	long count();
+
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @return an int array containing all elements of this IntFlow with their
+	 *         ordering retained.
+	 */
 	int[] toArray();
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param <K>
+	 *            the type of the keys in the created mapping.
+	 * @param <V>
+	 *            the type of the values in the created mapping.
+	 * @param keyMapper
+	 *            - a function mapping elements of this IntFlow to elements of the
+	 *            key type.
+	 * @param valueMapper
+	 *            - a function mapping elements of this IntFlow to elements of the
+	 *            value type.
+	 * @return a {@link Map} instance whose key-value pairs have a 1-to-1
+	 *         correspondence with the elements in the source IntFlow. More
+	 *         specifically if:
+	 *         <li>{@code k} denotes the key mapping function</li>
+	 *         <li>{@code v} denotes the value mapping function</li> an element of
+	 *         the source flow, say {@code e}, is associated to the key value pair
+	 *         {@code (k(e), v(e))}.<br>
+	 *         <br>
+	 *         If two different elements of the source IntFlow map to the same key
+	 *         then an {@link IllegalStateException} will be thrown.
+	 */
 	<K, V> Map<K, V> toMap(final IntFunction<K> keyMapper, final IntFunction<V> valueMapper);
 
+	/**
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link IntFlow}.
+	 *
+	 * @param <K>
+	 *            - the type of the keys in the final grouping map.
+	 *
+	 * @param classifier
+	 *            - a function defining the different groups of elements.
+	 * @return a {@link Map} instance whose keys partition the elements of the
+	 *         source IntFlow via the classification function. Elements in the
+	 *         source IntFlow who have equal (under .equals() contract) images under
+	 *         the classification function are grouped together in an array accessed
+	 *         by their shared classification key.
+	 */
 	<K> Map<K, int[]> groupBy(final IntFunction<K> classifier);
 
+	/**
+	 * This method is potentially (depending on the supplied function) a 'consuming
+	 * method', i.e. it will iterate through this {@link IntFlow}.
+	 *
+	 * A convenience method for applying a global function onto this IntFlow.
+	 *
+	 * @param builder
+	 *            - a function whose input encompasses IntFlow instances of this
+	 *            element type.
+	 * @return the output of the supplied function applied to this IntFlow.
+	 */
+	default <C> C build(final Function<? super IntFlow, C> builder)
+	{
+		return builder.apply(this);
+	}
+
+	/**
+	 * @return a copy of this source {@link IntFlow} as a {@link Flow} of boxed
+	 *         {@link Integer} instances.
+	 */
 	default Flow<Integer> boxed()
 	{
 		return mapToObject(x -> x);
