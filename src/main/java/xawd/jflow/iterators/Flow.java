@@ -147,7 +147,7 @@ public interface Flow<E> extends SkippableIterator<E>
 	Flow<LongWith<E>> zipWith(final PrimitiveIterator.OfLong other);
 
 	/**
-	 * Compines this {@linkplain Flow} {@code F} with the parameter {@linkplain PrimitiveIterator.OfLong} {@code I}
+	 * Combines this {@linkplain Flow} {@code F} with the parameter {@linkplain PrimitiveIterator.OfLong} {@code I}
 	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = f(F[j], I[j])}
 	 * <br>{@code length(G) = min(length(F), length(I))}
 	 *
@@ -160,31 +160,96 @@ public interface Flow<E> extends SkippableIterator<E>
 	<E2, R> Flow<R> combineWith(final Iterator<? extends E2> other, final BiFunction<? super E, ? super E2, R> f);
 
 	/**
-	 * @return a new {@linkplain Flow} instance resulting from zipping this flow with the natural numbers.
+	 * Zips this {@linkplain Flow} {@code F} with the natural numbers
+	 * producing a new {@linkplain Flow} instance {@code G} given by:<br><br> {@code G[j] = (F[j], j)}
+	 * <br>{@code length(G) = length(F)}
+	 *
+	 * @param other - The {@linkplain PrimitiveIterator.OfLong} to zip with.
+	 * @return the resulting {@linkplain Flow} described above.
 	 */
 	Flow<IntWith<E>> enumerate();
 
+	/**
+	 * Let {@code F} denote this source flow and let {@code n = length(F)}. Then this
+	 * method returns a Flow {@code G} whose i-th element is given by {@code F(f(i))}
+	 * and whose length is equal to the last integer j such that {@code f(j) < n}.
+	 *
+	 * @param f - A strictly monotonically increasing function {@code f: N -> N}
+	 * @return the {@linkplain Flow} instance described above.
+	 */
 	Flow<E> slice(final IntUnaryOperator f);
 
+	/**
+	 * @param n - a non-negative integer.
+	 * @return a {@linkplain Flow} consisting of the first n elements of the source flow.
+	 */
 	Flow<E> take(final int n);
 
+	/**
+	 * @param p - a predicate which can test elements of this Flow.
+	 * @return Let {@code n} be the index of the first element that the parameter predicate fails for.
+	 * Then this method returns a Flow consisting of the first {@code n} elements of the source stream.
+	 * If no element fails the predicate test then a copy of the Flow is returned.
+	 */
 	Flow<E> takeWhile(final Predicate<? super E> p);
 
+	/**
+	 * @param n - a non-negative integer.
+	 * @return a {@linkplain Flow} missing the first n elements of the source flow.
+	 */
 	Flow<E> skip(final int n);
 
+	/**
+	 * @param p - a predicate which can test elements of this Flow.
+	 * @return Let {@code n} be the index of the first element that the parameter predicate fails for.
+	 * Then this method returns a Flow missing {@code n} elements of the source stream.
+	 * If no element fails the predicate test then a copy of the Flow is returned.
+	 */
 	Flow<E> skipWhile(final Predicate<? super E> p);
 
+	/**
+	 * @param p - a predicate which can test elements of this Flow.
+	 * @return a Flow containing only those elements of the source flow which pass the
+	 * test defined by the parameter predicate. The relative ordering of elements is
+	 * retained.
+	 */
 	Flow<E> filter(final Predicate<? super E> p);
 
+	/**
+	 * @param other - an Iterator containing elements of the same type as this source flow
+	 * @return a Flow consisting of the elements of the source Flow followed by the elements of
+	 * the parameter Iterator.
+	 */
 	Flow<E> append(Iterator<? extends E> other);
 
+	/**
+	 * @param other - an Iterator containing elements of the same type as this source flow
+	 * @return a Flow consisting of the elements of the parameter Iterator followed by the
+	 * elements of the source Flow.
+	 */
 	Flow<E> insert(Iterator<? extends E> other);
 
+	/**
+	 * @param accumulator - the accumulation function.
+	 * @return Let {@code F} denote the source flow and {@code g} denote the accumulation
+	 * function. Then the Flow returned is of the form: <br><br>
+	 * {@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}
+	 */
 	Flow<E> accumulate(BinaryOperator<E> accumulator);
 
+	/**
+	 * @param id - the identity element in the accumulation.
+	 * @param accumulator - the accumulator function.
+	 * @return Let {@code F} denote the source flow and {@code g} denote the accumulation
+	 * function. Then the Flow returned is of the form: <br><br>
+	 * {@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}
+	 */
 	<R> Flow<R> accumulate(R id, BiFunction<R, E, R> accumulator);
 
-
+	/**
+	 * @param key -
+	 * @return
+	 */
 	Optional<E> minByKey(final ToDoubleFunction<? super E> key);
 
 	<C extends Comparable<C>> Optional<E> minByObjectKey(final Function<? super E, C> key);
