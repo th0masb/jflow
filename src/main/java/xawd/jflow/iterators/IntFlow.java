@@ -20,9 +20,9 @@ import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
 
 /**
- * An {@link IntFlow} instance is an {@link PrimitiveIterator.OfInt} with lots
- * of extra functionality in the style of the {@link IntStream} interface. There
- * are methods inspired by other languages too, namely Python and Haskell.
+ * An IntFlow instance is an primitive iterator with lots of extra functionality
+ * in the style of the {@link IntStream} interface. There are methods inspired
+ * by other languages too, namely Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -30,8 +30,7 @@ import xawd.jflow.iterators.misc.IntWithLong;
 public interface IntFlow extends PrototypeIntFlow
 {
 	/**
-	 * Applies a function elementwise to this {@linkplain IntFlow} to make new
-	 * IntFlow.
+	 * Applies a function elementwise to this IntFlow to make new IntFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -42,8 +41,7 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow map(final IntUnaryOperator f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain IntFlow} to make new
-	 * {@linkplain Flow}.
+	 * Applies a function elementwise to this IntFlow to make new Flow.
 	 *
 	 * @param <E>
 	 *            The target type of the mapping function.
@@ -56,8 +54,7 @@ public interface IntFlow extends PrototypeIntFlow
 	<E> Flow<E> mapToObject(IntFunction<E> f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain IntFlow} to make a new
-	 * {@linkplain DoubleFlow}.
+	 * Applies a function elementwise to this IntFlow to make a new DoubleFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -68,8 +65,7 @@ public interface IntFlow extends PrototypeIntFlow
 	DoubleFlow mapToDouble(IntToDoubleFunction f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain IntFlow} to make new
-	 * {@linkplain LongFlow}.
+	 * Applies a function elementwise to this IntFlow to make new LongFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -80,16 +76,15 @@ public interface IntFlow extends PrototypeIntFlow
 	LongFlow mapToLong(IntToLongFunction f);
 
 	/**
-	 * Combines this {@linkplain IntFlow} with another {@linkplain Iterator} to
-	 * create a new {@linkplain Flow} consisting of pairs of elements with the same
-	 * index in their respective origins.
+	 * Combines this IntFlow with an iterator to create a new Flow consisting of
+	 * pairs of elements with the same index in their respective origins.
 	 *
 	 * @param <E>
-	 *            The upper type bound on the parameter Iterator.
+	 *            The upper type bound on the parameter iterator.
 	 * @param other
 	 *            The Iterator to zip this source IntFlow with.
 	 *
-	 * @return Denote this source IntFlow by {@code F} with the parameter Iterator
+	 * @return Denote this source IntFlow by {@code F} with the parameter iterator
 	 *         denoted by {@code I}. We return a new Flow instance {@code G} defined
 	 *         by:
 	 *         <ul>
@@ -100,17 +95,16 @@ public interface IntFlow extends PrototypeIntFlow
 	<E> Flow<IntWith<E>> zipWith(final Iterator<? extends E> other);
 
 	/**
-	 * Combines this {@linkplain IntFlow} with another
-	 * {@linkplain PrimitiveIterator.OfInt}} to create a new {@linkplain Flow}
+	 * Combines this IntFlow with another primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfInt to zip this source IntFlow with.
+	 *            The primitive iterator to zip this source IntFlow with.
 	 *
-	 * @return Denote this source IntFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new Flow
-	 *         instance {@code G} defined by:
+	 * @return Denote this source IntFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I}. We return a new Flow instance
+	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -119,17 +113,16 @@ public interface IntFlow extends PrototypeIntFlow
 	Flow<IntPair> zipWith(final PrimitiveIterator.OfInt other);
 
 	/**
-	 * Combines this {@linkplain IntFlow} with another
-	 * {@linkplain PrimitiveIterator.OfDouble}} to create a new {@linkplain Flow}
+	 * Combines this IntFlow with another primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfDouble to zip this source IntFlow with.
+	 *            The primitive iterator to zip this source IntFlow with.
 	 *
-	 * @return Denote this source IntFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new Flow
-	 *         instance {@code G} defined by:
+	 * @return Denote this source IntFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I}. We return a new Flow instance
+	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -138,17 +131,16 @@ public interface IntFlow extends PrototypeIntFlow
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Combines this {@linkplain IntFlow} with another
-	 * {@linkplain PrimitiveIterator.OfLong}} to create a new {@linkplain Flow}
+	 * Combines this IntFlow with another primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfLong to zip this source IntFlow with.
+	 *            The primitive iterator to zip this source IntFlow with.
 	 *
-	 * @return Denote this source IntFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new Flow
-	 *         instance {@code G} defined by:
+	 * @return Denote this source IntFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I}. We return a new Flow instance
+	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -157,20 +149,18 @@ public interface IntFlow extends PrototypeIntFlow
 	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfLong other);
 
 	/**
-	 * Combines this {@linkplain IntFlow} with another
-	 * {@linkplain PrimitiveIterator.OfInt} via a two argument function to create a
-	 * new {@linkplain Flow} consisting of the images of pairs of elements with the
-	 * same index in their origin.
+	 * Combines this IntFlow with another primitive iterator via a two argument
+	 * function to create a new Flow consisting of the images of pairs of elements
+	 * with the same index in their origin.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfInt to combine this source IntFlow with.
+	 *            The primitive iterator to combine this source IntFlow with.
 	 * @param combiner
 	 *            The combining function.
 	 *
-	 * @return Denote this source IntFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfInt denoted by {@code I} and the combining
-	 *         function by {@code f}. We return a new Flow instance {@code G}
-	 *         defined by:
+	 * @return Denote this source IntFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I} and the combining function by
+	 *         {@code f}. We return a new Flow instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = f(F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -179,9 +169,8 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow combineWith(PrimitiveIterator.OfInt other, IntBinaryOperator combiner);
 
 	/**
-	 * Creates a new {@linkplain Flow} by mapping each element in this source
-	 * {@linkplain IntFlow} to a pair consisting of the element and the index it
-	 * appears.
+	 * Creates a new Flow by mapping each element in this source IntFlow to a pair
+	 * consisting of the element and the index it appears.
 	 *
 	 * @return Denote this source IntFlow by {@code F}. We return a new Flow
 	 *         instance {@code G} defined by:
@@ -193,8 +182,8 @@ public interface IntFlow extends PrototypeIntFlow
 	Flow<IntPair> enumerate();
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by selecting elements
-	 * with indices defined by the parameter index mapping.
+	 * Creates a new IntFlow from this IntFlow by selecting elements with indices
+	 * defined by the parameter index mapping.
 	 *
 	 * @param indexMap
 	 *            A strictly monotonically increasing function {@code f: N -> N}
@@ -209,8 +198,7 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow slice(IntUnaryOperator indexMap);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by selecting the first n
-	 * elements.
+	 * Creates a new IntFlow from this IntFlow by selecting the first n elements.
 	 *
 	 * @param n
 	 *            A non-negative integer.
@@ -223,8 +211,8 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow take(final int n);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by selecting elements
-	 * until an element fails the supplied test, the first failure is not selected.
+	 * Creates a new IntFlow from this IntFlow by selecting elements until an
+	 * element fails the supplied test, the first failure is not selected.
 	 *
 	 * @param predicate
 	 *            A {@link IntPredicate}.
@@ -236,8 +224,7 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow takeWhile(final IntPredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by removing the first n
-	 * elements.
+	 * Creates a new IntFlow from this IntFlow by removing the first n elements.
 	 *
 	 * @param n
 	 *            A non-negative integer.
@@ -249,9 +236,9 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow drop(final int n);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by removing elements
-	 * until an element fails the supplied test, the first failure is the first
-	 * element of the result.
+	 * Creates a new IntFlow from this IntFlow by removing elements until an element
+	 * fails the supplied test, the first failure is the first element of the
+	 * result.
 	 *
 	 * @param predicate
 	 *            An {@link IntPredicate}.
@@ -263,8 +250,8 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow dropWhile(final IntPredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by removing any element
-	 * which fails the supplied predicate test.
+	 * Creates a new IntFlow from this IntFlow by removing any element which fails
+	 * the supplied predicate test.
 	 *
 	 * @param predicate
 	 *            A {@link IntPredicate}.
@@ -275,19 +262,19 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow filter(final IntPredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by adding each element
-	 * of the supplied {@linkplain PrimitiveIterator.OfInt} to its end in order.
+	 * Creates a new IntFlow from this IntFlow by adding each element of the
+	 * supplied {@linkplain primitive iterator} to its end in order.
 	 *
 	 * @param other
-	 *            A PrimitiveIterator.OfInt.
+	 *            A primitive iterator.
 	 * @return An IntFlow consisting of the elements of this source IntFlow followed
-	 *         by the elements of the parameter PrimitiveIterator.OfInt.
+	 *         by the elements of the parameter primitive iterator.
 	 */
 	IntFlow append(PrimitiveIterator.OfInt other);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this IntFlow by adding each element
-	 * of the supplied varargs array to its end in order.
+	 * Creates a new IntFlow from this IntFlow by adding each element of the
+	 * supplied varargs array to its end in order.
 	 *
 	 * @param other
 	 *            - A varargs int array
@@ -297,20 +284,19 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow append(int... other);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this Flow by adding each element to
-	 * the end of the supplied {@linkplain PrimitiveIterator.OfInt} in order.
+	 * Creates a new IntFlow from this Flow by adding each element to the end of the
+	 * supplied {@linkplain primitive iterator} in order.
 	 *
 	 * @param other
-	 *            A PrimitiveIterator.OfInt.
-	 * @return a IntFlow consisting of the elements of the parameter
-	 *         PrimitiveIterator.OfInt followed by the elements of this source
-	 *         IntFlow.
+	 *            A primitive iterator.
+	 * @return a IntFlow consisting of the elements of the parameter primitive
+	 *         iterator followed by the elements of this source IntFlow.
 	 */
 	IntFlow insert(PrimitiveIterator.OfInt other);
 
 	/**
-	 * Creates a new {@linkplain IntFlow} from this Flow by adding each element to
-	 * the end of the supplied varargs array in order.
+	 * Creates a new IntFlow from this Flow by adding each element to the end of the
+	 * supplied varargs array in order.
 	 *
 	 * @param other
 	 *            - A varargs int array
@@ -320,8 +306,7 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow insert(int... other);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain IntFlow} to produce a
-	 * new IntFlow.
+	 * Applies an accumulation operation to this IntFlow to produce a new IntFlow.
 	 *
 	 * @param accumulator
 	 *            The accumulation function.
@@ -334,8 +319,7 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow accumulate(IntBinaryOperator accumulator);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain IntFlow} to produce a
-	 * new IntFlow.
+	 * Applies an accumulation operation to this IntFlow to produce a new IntFlow.
 	 *
 	 * @param id
 	 *            The identity element in the accumulation.
@@ -350,7 +334,7 @@ public interface IntFlow extends PrototypeIntFlow
 	IntFlow accumulate(int id, IntBinaryOperator accumulator);
 
 	/**
-	 * Calculates the minimum value in this {@linkplain IntFlow}.
+	 * Calculates the minimum value in this IntFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -361,7 +345,7 @@ public interface IntFlow extends PrototypeIntFlow
 	OptionalInt min();
 
 	/**
-	 * Calculates the minimum value in this {@linkplain IntFlow}.
+	 * Calculates the minimum value in this IntFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -375,8 +359,8 @@ public interface IntFlow extends PrototypeIntFlow
 	int min(int defaultValue);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain IntFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the minimum element in this IntFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -394,8 +378,8 @@ public interface IntFlow extends PrototypeIntFlow
 	int minByKey(int defaultValue, final IntToDoubleFunction key);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain IntFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the minimum element in this IntFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -410,8 +394,8 @@ public interface IntFlow extends PrototypeIntFlow
 	OptionalInt minByKey(final IntToDoubleFunction key);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain IntFlow} by a mapping to a
-	 * type equipped with a natural ordering.
+	 * Calculates the minimum element in this IntFlow by a mapping to a type
+	 * equipped with a natural ordering.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -428,7 +412,7 @@ public interface IntFlow extends PrototypeIntFlow
 	<C extends Comparable<C>> OptionalInt minByObjectKey(final IntFunction<C> key);
 
 	/**
-	 * Calculates the maximum value in this {@linkplain IntFlow}.
+	 * Calculates the maximum value in this IntFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -439,7 +423,7 @@ public interface IntFlow extends PrototypeIntFlow
 	OptionalInt max();
 
 	/**
-	 * Calculates the maximum value in this {@linkplain IntFlow}.
+	 * Calculates the maximum value in this IntFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -453,8 +437,8 @@ public interface IntFlow extends PrototypeIntFlow
 	int max(int defaultValue);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain IntFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the maximum element in this IntFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -472,8 +456,8 @@ public interface IntFlow extends PrototypeIntFlow
 	int maxByKey(int defaultValue, final IntToDoubleFunction key);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain IntFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the maximum element in this IntFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -488,8 +472,8 @@ public interface IntFlow extends PrototypeIntFlow
 	OptionalInt maxByKey(final IntToDoubleFunction key);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain IntFlow} by a mapping to a
-	 * type equipped with a natural ordering.
+	 * Calculates the maximum element in this IntFlow by a mapping to a type
+	 * equipped with a natural ordering.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -506,7 +490,7 @@ public interface IntFlow extends PrototypeIntFlow
 	<C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key);
 
 	/**
-	 * Checks whether every element in this {@linkplain IntFlow} is the same.
+	 * Checks whether every element in this IntFlow is the same.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -516,7 +500,7 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@linkplain IntFlow} passes the supplied
+	 * Checks whether every element in this IntFlow passes the supplied
 	 * {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -530,7 +514,7 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean allMatch(final IntPredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@linkplain IntFlow} passes the supplied
+	 * Checks whether any element in this IntFlow passes the supplied
 	 * {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -544,7 +528,7 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean anyMatch(final IntPredicate predicate);
 
 	/**
-	 * Checks whether every element in this {@linkplain IntFlow} fails the supplied
+	 * Checks whether every element in this IntFlow fails the supplied
 	 * {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -558,8 +542,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean noneMatch(final IntPredicate predicate);
 
 	/**
-	 * Partitions the elements of this {@linkplain IntFlow} on whether they pass the
-	 * supplied {@linkplain IntPredicate} test.
+	 * Partitions the elements of this IntFlow on whether they pass the supplied
+	 * {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -572,8 +556,7 @@ public interface IntFlow extends PrototypeIntFlow
 	IntPredicatePartition partition(IntPredicate predicate);
 
 	/**
-	 * Reduces this {@linkplain IntFlow} to a single value via some reduction
-	 * function.
+	 * Reduces this IntFlow to a single value via some reduction function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -591,8 +574,7 @@ public interface IntFlow extends PrototypeIntFlow
 	int reduce(int id, IntBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@linkplain IntFlow} to a single value via some reduction
-	 * function.
+	 * Reduces this IntFlow to a single value via some reduction function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -608,7 +590,7 @@ public interface IntFlow extends PrototypeIntFlow
 	OptionalInt reduce(IntBinaryOperator reducer);
 
 	/**
-	 * Counts the number of elements in this {@linkplain IntFlow}.
+	 * Counts the number of elements in this IntFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -618,10 +600,10 @@ public interface IntFlow extends PrototypeIntFlow
 	long count();
 
 	/**
-	 * Caches the values in this {@linkplain IntFlow} to an array.
+	 * Caches the values in this IntFlow to an array.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link IntFlow}.
+	 * IntFlow.
 	 *
 	 * @return A long array containing all elements of this IntFlow with their
 	 *         ordering retained.
@@ -629,8 +611,8 @@ public interface IntFlow extends PrototypeIntFlow
 	int[] toArray();
 
 	/**
-	 * Builds a {@linkplain Map} using the elements in this {@linkplain IntFlow} via
-	 * two supplied functions.
+	 * Builds a {@linkplain Map} using the elements in this IntFlow via two supplied
+	 * functions.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -659,8 +641,8 @@ public interface IntFlow extends PrototypeIntFlow
 	<K, V> Map<K, V> toMap(final IntFunction<K> keyMapper, final IntFunction<V> valueMapper);
 
 	/**
-	 * Groups elements in this {@linkplain IntFlow} via their image under some
-	 * supplied classification function.
+	 * Groups elements in this IntFlow via their image under some supplied
+	 * classification function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -679,8 +661,7 @@ public interface IntFlow extends PrototypeIntFlow
 	<K> Map<K, int[]> groupBy(final IntFunction<K> classifier);
 
 	/**
-	 * A convenience method for applying a global function onto this
-	 * {@linkplain IntFlow}.
+	 * A convenience method for applying a global function onto this IntFlow.
 	 *
 	 * This method is potentially (depending on the supplied function) a 'consuming
 	 * method', i.e. it will iterate through this IntFlow.
@@ -700,10 +681,10 @@ public interface IntFlow extends PrototypeIntFlow
 	}
 
 	/**
-	 * Boxes the primitive long values in this {@linkplain IntFlow}.
+	 * Boxes the primitive long values in this IntFlow.
 	 *
-	 * @return a copy of this source IntFlow as a {@linkplain Flow} of boxed
-	 *         {@linkplain Integer} instances.
+	 * @return a copy of this source IntFlow as a Flow of boxed {@linkplain Integer}
+	 *         instances.
 	 */
 	default Flow<Integer> boxed()
 	{
