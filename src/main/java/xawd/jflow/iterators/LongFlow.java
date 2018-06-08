@@ -12,7 +12,6 @@ import java.util.function.LongPredicate;
 import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
-import java.util.stream.IntStream;
 
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithLong;
@@ -21,9 +20,9 @@ import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
 
 /**
- * An LongFlow instance is an primitive iterator with lots of extra
- * functionality in the style of the {@link IntStream} interface. There are
- * methods inspired by other languages too, namely Python and Haskell.
+ * A LongFlow is an primitive functional iterator with lots of functionality in
+ * the style of the Java LongStream interface. There are methods inspired by
+ * other languages too, namely Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -265,7 +264,7 @@ public interface LongFlow extends PrototypeLongFlow
 
 	/**
 	 * Creates a new LongFlow from this LongFlow by adding each element of the
-	 * supplied {@linkplain primitive iterator} to its end in order.
+	 * supplied primitive iterator to its end in order.
 	 *
 	 * @param other
 	 *            A primitive iterator.
@@ -287,7 +286,7 @@ public interface LongFlow extends PrototypeLongFlow
 
 	/**
 	 * Creates a new LongFlow from this Flow by adding each element to the end of
-	 * the supplied {@linkplain primitive iterator} in order.
+	 * the supplied primitive iterator in order.
 	 *
 	 * @param other
 	 *            A primitive iterator.

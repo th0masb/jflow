@@ -19,7 +19,6 @@ import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
-import java.util.stream.Stream;
 
 import xawd.jflow.iterators.construction.Iterate;
 import xawd.jflow.iterators.misc.DoubleWith;
@@ -29,9 +28,9 @@ import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
 
 /**
- * A Flow instance is an iterator with lots of FP style functionality in the
- * style of the Java {@linkplain Stream} interface. There are methods inspired
- * by other languages too, namely Python and Haskell.
+ * A Flow is a functional iterator with lots of functionality in the style of
+ * the Java Stream interface. There are methods inspired by other languages too,
+ * namely Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018

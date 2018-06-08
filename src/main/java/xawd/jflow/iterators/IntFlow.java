@@ -11,7 +11,6 @@ import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
-import java.util.stream.IntStream;
 
 import xawd.jflow.iterators.misc.IntPair;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
@@ -20,9 +19,9 @@ import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
 
 /**
- * An IntFlow instance is an primitive iterator with lots of FP style
- * functionality in the style of the {@link IntStream} interface. There are
- * methods inspired by other languages too, namely Python and Haskell.
+ * An IntFlow is an primitive functional iterator with lots of functionality in
+ * the style of the Java IntStream interface. There are methods inspired by
+ * other languages too, namely Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -263,7 +262,7 @@ public interface IntFlow extends PrototypeIntFlow
 
 	/**
 	 * Creates a new IntFlow from this IntFlow by adding each element of the
-	 * supplied {@linkplain primitive iterator} to its end in order.
+	 * supplied primitive iterator to its end in order.
 	 *
 	 * @param other
 	 *            A primitive iterator.
@@ -285,7 +284,7 @@ public interface IntFlow extends PrototypeIntFlow
 
 	/**
 	 * Creates a new IntFlow from this Flow by adding each element to the end of the
-	 * supplied {@linkplain primitive iterator} in order.
+	 * supplied primitive iterator in order.
 	 *
 	 * @param other
 	 *            A primitive iterator.
