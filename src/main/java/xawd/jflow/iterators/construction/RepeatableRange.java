@@ -48,15 +48,4 @@ public final class RepeatableRange
 			}
 		};
 	}
-
-//	public static void main(final String[] args) {
-//
-//		final int[][] arr = new int[3][3];
-//
-//		IterProduct.of(range(3), range(3)).forEach(pair ->
-//		{
-//			final int i = pair.getFirst(), j = pair.getSecond();
-//			arr[i][j] = i*j;
-//		});
-//	}
 }

@@ -4,7 +4,6 @@
 package xawd.jflow.iterators;
 
 import java.util.OptionalDouble;
-import java.util.PrimitiveIterator;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.function.DoubleConsumer;
 
@@ -18,7 +17,7 @@ public interface PrototypeDoubleFlow extends OfDouble, Skippable
 {
 	/**
 	 * A safe alternative to directly calling
-	 * {@link PrimitiveIterator.OfDouble#nextDouble()} method.
+	 * {@link #nextDouble()} method.
 	 *
 	 * @return an {@link OptionalDouble} wrapping the next element if there is one.
 	 */

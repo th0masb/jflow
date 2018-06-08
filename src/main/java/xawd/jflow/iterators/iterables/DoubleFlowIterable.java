@@ -22,7 +22,7 @@ public interface DoubleFlowIterable
 		iterator().forEach(action);
 	}
 
-	/**
+	/*
 	 * Default behaviour is late-binding without any structural checks on the
 	 * source.
 	 */

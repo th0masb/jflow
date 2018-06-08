@@ -22,7 +22,7 @@ public interface LongFlowIterable
 		iterator().forEachRemaining(action);
 	}
 
-	/**
+	/*
 	 * Default behaviour is late-binding without any structural checks on the
 	 * source.
 	 */
