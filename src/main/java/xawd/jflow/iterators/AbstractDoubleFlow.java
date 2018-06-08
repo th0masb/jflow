@@ -39,6 +39,10 @@ import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
 
 /**
+ * The skelatal implementation of a DoubleFlow, users writing custom DoubleFlows should
+ * subclass this class. There no internal state in this class, it can be thought of as
+ * the composition of all the functionality outlined in the DoubleFlow interface.
+ *
  * @author ThomasB
  * @since 23 Apr 2018
  */

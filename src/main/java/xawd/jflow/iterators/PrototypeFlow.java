@@ -8,17 +8,17 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * An interface implementing the requisite interfaces for {@link Flow} and adding
- * some necessary but somewhat unrelated functionality.
+ * An interface implementing the requisite interfaces for Flow and adding some
+ * necessary but somewhat unrelated functionality.
  *
  * @author t
  */
 public interface PrototypeFlow<E> extends Iterator<E>, Skippable
 {
 	/**
-	 * A safe alternative to directly calling {@link Iterator#next()} method.
+	 * A safe alternative to directly calling {@link #next()} method.
 	 *
-	 * @return an {@link Optional} wrapping the next element if there is one.
+	 * @return An Optional wrapping the next element if there is one.
 	 */
 	default Optional<E> safeNext()
 	{
@@ -30,7 +30,7 @@ public interface PrototypeFlow<E> extends Iterator<E>, Skippable
 	 * in doing so the iterator is consumed.
 	 *
 	 * @param action
-	 *            - the action to perform.
+	 *            The action to perform.
 	 */
 	default void forEach(final Consumer<? super E> action)
 	{

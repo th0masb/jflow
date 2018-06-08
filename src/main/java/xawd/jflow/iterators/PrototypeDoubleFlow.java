@@ -8,7 +8,7 @@ import java.util.PrimitiveIterator.OfDouble;
 import java.util.function.DoubleConsumer;
 
 /**
- * An interface implementing the requisite interfaces for {@link DoubleFlow} and adding
+ * An interface implementing the requisite interfaces for DoubleFlow and adding
  * some necessary but somewhat unrelated functionality.
  *
  * @author t
@@ -16,14 +16,13 @@ import java.util.function.DoubleConsumer;
 public interface PrototypeDoubleFlow extends OfDouble, Skippable
 {
 	/**
-	 * A safe alternative to directly calling
-	 * {@link #nextDouble()} method.
+	 * A safe alternative to directly calling {@link #nextDouble()} method.
 	 *
-	 * @return an {@link OptionalDouble} wrapping the next element if there is one.
+	 * @return An OptionalDouble wrapping the next element if there is one.
 	 */
 	default OptionalDouble safeNextDouble()
 	{
-		return hasNext()? OptionalDouble.of(nextDouble()) : OptionalDouble.empty();
+		return hasNext() ? OptionalDouble.of(nextDouble()) : OptionalDouble.empty();
 	}
 
 	/**
@@ -31,7 +30,7 @@ public interface PrototypeDoubleFlow extends OfDouble, Skippable
 	 * in doing so the iterator is consumed.
 	 *
 	 * @param action
-	 *            - the action to perform.
+	 *            The action to perform.
 	 */
 	default void forEach(final DoubleConsumer action)
 	{

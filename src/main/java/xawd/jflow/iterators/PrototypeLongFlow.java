@@ -8,7 +8,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.LongConsumer;
 
 /**
- * An interface implementing the requisite interfaces for {@link LongFlow} and adding
+ * An interface implementing the requisite interfaces for LongFlow and adding
  * some necessary but somewhat unrelated functionality.
  *
  * @author t
@@ -16,10 +16,9 @@ import java.util.function.LongConsumer;
 public interface PrototypeLongFlow extends Skippable, PrimitiveIterator.OfLong
 {
 	/**
-	 * A safe alternative to directly calling
-	 * {@link PrimitiveIterator.OfLong#nextLong()} method.
+	 * A safe alternative to directly calling {@link #nextLong()} method.
 	 *
-	 * @return an {@link OptionalLong} wrapping the next element if there is one.
+	 * @return An OptionalLong wrapping the next element if there is one.
 	 */
 	default OptionalLong safeNextLong()
 	{
@@ -31,7 +30,7 @@ public interface PrototypeLongFlow extends Skippable, PrimitiveIterator.OfLong
 	 * in doing so the iterator is consumed.
 	 *
 	 * @param action
-	 *            - the action to perform.
+	 *            The action to perform.
 	 */
 	default void forEach(final LongConsumer action)
 	{

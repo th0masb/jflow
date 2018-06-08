@@ -42,7 +42,11 @@ import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
 
 /**
- * @author t
+ * The skelatal implementation of a LongFlow, users writing custom LongFlows should
+ * subclass this class. There no internal state in this class, it can be thought of as
+ * the composition of all the functionality outlined in the LongFlow interface.
+ *
+ * @author ThomasB
  */
 public abstract class AbstractLongFlow implements LongFlow
 {

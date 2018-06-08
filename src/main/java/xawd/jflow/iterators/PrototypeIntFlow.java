@@ -8,7 +8,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.IntConsumer;
 
 /**
- * An interface implementing the requisite interfaces for {@link IntFlow} and adding
+ * An interface implementing the requisite interfaces for IntFlow and adding
  * some necessary but somewhat unrelated functionality.
  *
  * @author t
@@ -16,14 +16,13 @@ import java.util.function.IntConsumer;
 public interface PrototypeIntFlow extends PrimitiveIterator.OfInt, Skippable
 {
 	/**
-	 * A safe alternative to directly calling
-	 * {@link PrimitiveIterator.OfInt#nextInt()} method.
+	 * A safe alternative to directly calling {@link #nextInt()} method.
 	 *
-	 * @return an {@link OptionalInt} wrapping the next element if there is one.
+	 * @return An OptionalInt wrapping the next element if there is one.
 	 */
 	default OptionalInt safeNextInt()
 	{
-		return hasNext()? OptionalInt.of(nextInt()) : OptionalInt.empty();
+		return hasNext() ? OptionalInt.of(nextInt()) : OptionalInt.empty();
 	}
 
 	/**
@@ -31,7 +30,7 @@ public interface PrototypeIntFlow extends PrimitiveIterator.OfInt, Skippable
 	 * in doing so the iterator is consumed.
 	 *
 	 * @param action
-	 *            - the action to perform.
+	 *            The action to perform.
 	 */
 	default void forEach(final IntConsumer action)
 	{

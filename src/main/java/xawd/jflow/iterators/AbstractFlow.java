@@ -50,7 +50,15 @@ import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
 
 /**
- * @author t
+ * The skelatal implementation of a Flow, users writing custom Flows should
+ * subclass this class. There no internal state in this class, it can be thought
+ * of as the composition of all the functionality outlined in the Flow
+ * interface.
+ *
+ * @author ThomasB
+ *
+ * @param <E>
+ *            The type of elements produced by this Flow.
  */
 public abstract class AbstractFlow<E> implements Flow<E>
 {
@@ -127,7 +135,8 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public <E2, R> AbstractFlow<R> combineWith(final Iterator<? extends E2> other, final BiFunction<? super E, ? super E2, R> f)
+	public <E2, R> AbstractFlow<R> combineWith(final Iterator<? extends E2> other,
+			final BiFunction<? super E, ? super E2, R> f)
 	{
 		return new CombinedFlow.OfObjects<>(this, other, f);
 	}
