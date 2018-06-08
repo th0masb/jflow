@@ -75,8 +75,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         denoted by {@code I}. We return a new {@link Flow} instance {@code G}
 	 *         defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	<E> Flow<DoubleWith<E>> zipWith(final Iterator<? extends E> other);
 
@@ -89,8 +89,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<DoublePair> zipWith(final PrimitiveIterator.OfDouble other);
 
@@ -103,8 +103,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfLong other);
 
@@ -117,8 +117,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfInt other);
 
@@ -134,8 +134,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         function by {@code f}. We return a new {@link DoubleFlow} instance
 	 *         {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = f(F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = f(F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	DoubleFlow combineWith(final PrimitiveIterator.OfDouble other, final DoubleBinaryOperator combiner);
 
@@ -143,8 +143,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return Denote the source DoubleFlow by {@code F}. We return a new {@link Flow}
 	 *         instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], j)}
-	 *         <li>{@code length(G) = length(F)}
+	 *         <li>{@code G[j] = (F[j], j)}</li>
+	 *         <li>{@code length(G) = length(F)}</li>
 	 */
 	Flow<IntWithDouble> enumerate();
 
@@ -155,8 +155,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
 	 *         method returns an DoubleFlow {@code G} given by:
 	 *
-	 *         <li>{@code G[i] = F(f(i))}
-	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))}
+	 *         <li>{@code G[i] = F(f(i))}</li>
+	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))}</li>
 	 */
 	DoubleFlow slice(IntUnaryOperator indexMap);
 
@@ -250,7 +250,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *            - the accumulation function.
 	 * @return Let {@code F} denote the source {@link DoubleFlow} and {@code g} denote
 	 *         the accumulation function. Then the DoubleFlow returned is of the form:
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}
+	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
 	 */
 	DoubleFlow accumulate(DoubleBinaryOperator accumulator);
 
@@ -261,7 +261,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *            - the accumulator function.
 	 * @return Let {@code F} denote the source {@link DoubleFlow} and {@code g} denote
 	 *         the accumulation function. Then the DoubleFlow returned is of the form:
-	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}
+	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 */
 	DoubleFlow accumulate(double id, DoubleBinaryOperator accumulator);
 

@@ -116,8 +116,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         denoted by {@code I}. We return a new Flow instance {@code G} defined
 	 *         by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	<R> Flow<Pair<E, R>> zipWith(final Iterator<? extends R> other);
 
@@ -130,8 +130,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<IntWith<E>> zipWith(final PrimitiveIterator.OfInt other);
 
@@ -144,8 +144,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<DoubleWith<E>> zipWith(final PrimitiveIterator.OfDouble other);
 
@@ -158,8 +158,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<LongWith<E>> zipWith(final PrimitiveIterator.OfLong other);
 
@@ -177,8 +177,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         denoted by {@code I} and the combining function by {@code f}. We
 	 *         return a new Flow instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = f(F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = f(F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	<E2, R> Flow<R> combineWith(final Iterator<? extends E2> other, final BiFunction<? super E, ? super E2, R> f);
 
@@ -186,8 +186,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return Denote the source Flow by {@code F}. We return a new Flow instance
 	 *         {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], j)}
-	 *         <li>{@code length(G) = length(F)}
+	 *         <li>{@code G[j] = (F[j], j)}</li>
+	 *         <li>{@code length(G) = length(F)}</li>
 	 */
 	Flow<IntWith<E>> enumerate();
 
@@ -199,9 +199,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
 	 *         method returns a Flow {@code G} given by:
 	 *
-	 *         <li>{@code G[i] = F(f(i))}
-	 *         <li>
-	 *         <code> length(G) = supremum {i | (i in N) and (f(i) < length(F))} </code>
+	 *         <li>{@code G[i] = F(f(i))}</li>
+	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))} </code></li>
 	 */
 	Flow<E> slice(final IntUnaryOperator indexMap);
 
@@ -281,7 +280,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            - the accumulation function.
 	 * @return Let {@code F} denote the source {@link Flow} and {@code g} denote the
 	 *         accumulation function. Then the Flow returned is of the form:
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}
+	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
 	 */
 	Flow<E> accumulate(BinaryOperator<E> accumulator);
 
@@ -292,7 +291,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            - the accumulator function.
 	 * @return Let {@code F} denote the source {@link Flow} and {@code g} denote the
 	 *         accumulation function. Then the Flow returned is of the form:
-	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}
+	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 */
 	<R> Flow<R> accumulate(R id, BiFunction<R, E, R> accumulator);
 

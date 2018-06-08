@@ -76,8 +76,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         denoted by {@code I}. We return a new {@link Flow} instance {@code G}
 	 *         defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	<E> Flow<LongWith<E>> zipWith(final Iterator<? extends E> other);
 
@@ -90,8 +90,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<LongPair> zipWith(final PrimitiveIterator.OfLong other);
 
@@ -104,8 +104,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfDouble other);
 
@@ -118,8 +118,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfInt other);
 
@@ -135,8 +135,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         function by {@code f}. We return a new {@link LongFlow} instance
 	 *         {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = f(F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = f(F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	LongFlow combineWith(PrimitiveIterator.OfLong other, LongBinaryOperator combiner);
 
@@ -144,8 +144,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return Denote the source LongFlow by {@code F}. We return a new {@link Flow}
 	 *         instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], j)}
-	 *         <li>{@code length(G) = length(F)}
+	 *         <li>{@code G[j] = (F[j], j)}</li>
+	 *         <li>{@code length(G) = length(F)}</li>
 	 */
 	Flow<IntWithLong> enumerate();
 
@@ -156,8 +156,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
 	 *         method returns an LongFlow {@code G} given by:
 	 *
-	 *         <li>{@code G[i] = F(f(i))}
-	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))}
+	 *         <li>{@code G[i] = F(f(i))}</li>
+	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))}</li>
 	 */
 	LongFlow slice(IntUnaryOperator indexMap);
 
@@ -251,7 +251,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *            - the accumulation function.
 	 * @return Let {@code F} denote the source {@link LongFlow} and {@code g} denote
 	 *         the accumulation function. Then the LongFlow returned is of the form:
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}
+	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
 	 */
 	LongFlow accumulate(LongBinaryOperator accumulator);
 
@@ -262,7 +262,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *            - the accumulator function.
 	 * @return Let {@code F} denote the source {@link LongFlow} and {@code g} denote
 	 *         the accumulation function. Then the LongFlow returned is of the form:
-	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}
+	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 */
 	LongFlow accumulate(long id, LongBinaryOperator accumulator);
 

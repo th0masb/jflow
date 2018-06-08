@@ -75,8 +75,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         denoted by {@code I}. We return a new {@link Flow} instance {@code G}
 	 *         defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	<E> Flow<IntWith<E>> zipWith(final Iterator<? extends E> other);
 
@@ -89,8 +89,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<IntPair> zipWith(final PrimitiveIterator.OfInt other);
 
@@ -103,8 +103,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfDouble other);
 
@@ -117,8 +117,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new
 	 *         {@link Flow} instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfLong other);
 
@@ -134,8 +134,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         function by {@code f}. We return a new {@link IntFlow} instance
 	 *         {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = f(F[j], I[j])}
-	 *         <li>{@code length(G) = min(length(F), length(I))}
+	 *         <li>{@code G[j] = f(F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 */
 	IntFlow combineWith(PrimitiveIterator.OfInt other, IntBinaryOperator combiner);
 
@@ -143,8 +143,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return Denote the source IntFlow by {@code F}. We return a new {@link Flow}
 	 *         instance {@code G} defined by:
 	 *
-	 *         <li>{@code G[j] = (F[j], j)}
-	 *         <li>{@code length(G) = length(F)}
+	 *         <li>{@code G[j] = (F[j], j)}</li>
+	 *         <li>{@code length(G) = length(F)}</li>
 	 */
 	Flow<IntPair> enumerate();
 
@@ -155,8 +155,8 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
 	 *         method returns an IntFlow {@code G} given by:
 	 *
-	 *         <li>{@code G[i] = F(f(i))}
-	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))}
+	 *         <li>{@code G[i] = F(f(i))}</li>
+	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) < length(F))} </code></li>
 	 */
 	IntFlow slice(IntUnaryOperator indexMap);
 
@@ -249,7 +249,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *            - the accumulation function.
 	 * @return Let {@code F} denote the source {@link IntFlow} and {@code g} denote
 	 *         the accumulation function. Then the IntFlow returned is of the form:
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}
+	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
 	 */
 	IntFlow accumulate(IntBinaryOperator accumulator);
 
@@ -260,7 +260,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *            - the accumulator function.
 	 * @return Let {@code F} denote the source {@link IntFlow} and {@code g} denote
 	 *         the accumulation function. Then the IntFlow returned is of the form:
-	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}
+	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 */
 	IntFlow accumulate(int id, IntBinaryOperator accumulator);
 
