@@ -5,7 +5,6 @@ package xawd.jflow.utilities;
 
 
 import static xawd.jflow.utilities.CollectionUtil.sizeOf;
-import static xawd.jflow.utilities.PrimitiveUtil.sum;
 
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
@@ -83,50 +82,5 @@ public final class CombineUtil
 			combined[i] = f.applyAsLong(a[i], b[i]);
 		}
 		return combined;
-	}
-
-	/**
-	 * Convenience method for computing the dot product of two primitive number sequences. It is is fail fast with
-	 * regards to numerical overflow (in case of long and int). An assertion statement checks that the sequences
-	 * are of the same length.
-	 *
-	 * @param a - The first sequence of primitives
-	 * @param b - The second sequence of primitives
-	 * @return the dot product of the two sequences
-	 */
-	public static int dotProduct(final int[] a, final int[] b)
-	{
-		assert sizeOf(a) > 0 && sizeOf(a) == sizeOf(b);
-		return sum(combine((x, y) -> x * y, a, b));
-	}
-
-	/**
-	 * Convenience method for computing the dot product of two primitive number sequences. It is is fail fast with
-	 * regards to numerical overflow (in case of long and int). An assertion statement checks that the sequences
-	 * are of the same length.
-	 *
-	 * @param a - The first sequence of primitives
-	 * @param b - The second sequence of primitives
-	 * @return the dot product of the two sequences
-	 */
-	public static double dotProduct(final double[] a, final double[] b)
-	{
-		assert sizeOf(a) > 0 && sizeOf(a) == sizeOf(b);
-		return sum(combine((x, y) -> x * y, a, b));
-	}
-
-	/**
-	 * Convenience method for computing the dot product of two primitive number sequences. It is is fail fast with
-	 * regards to numerical overflow (in case of long and int). An assertion statement checks that the sequences
-	 * are of the same length.
-	 *
-	 * @param a - The first sequence of primitives
-	 * @param b - The second sequence of primitives
-	 * @return the dot product of the two sequences
-	 */
-	public static long dotProduct(final long[] a, final long[] b)
-	{
-		assert sizeOf(a) > 0 && sizeOf(a) == sizeOf(b);
-		return sum(combine((x, y) -> x * y, a, b));
 	}
 }

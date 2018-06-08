@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * A collection of functions relating to sequence manipulation.
+ *
  * @author ThomasB
  * @since 25 Jan 2018
  */
@@ -543,8 +545,8 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Drop the first n elements from the beginning of a {@linkplain List} retaining the order
-	 * of the remaining elements.
+	 * Drop the first n elements from the beginning of a {@linkplain List} retaining
+	 * the order of the remaining elements.
 	 *
 	 * @param n
 	 *            The number of elements to drop.
@@ -690,31 +692,14 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Append an element to the end of a sequence.
+	 * Append an element to the end of an array.
 	 *
 	 * @param x
-	 *            - To append
+	 *            The element to append
 	 * @param xs
-	 *            - To append to
-	 * @return a new sequence representing the result of the operation.
-	 */
-	public static <E, E2 extends E> List<E> append(final E2 x, final List<? extends E> xs)
-	{
-		final int n = sizeOf(xs);
-		final List<E> newList = new ArrayList<>(n + 1);
-		newList.addAll(xs);
-		newList.add(x);
-		return newList;
-	}
-
-	/**
-	 * Append an element to the end of a sequence.
-	 *
-	 * @param x
-	 *            - To append
-	 * @param xs
-	 *            - To append to
-	 * @return a new sequence representing the result of the operation.
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter appended to the end.
 	 */
 	public static double[] append(final double x, final double[] xs)
 	{
@@ -726,13 +711,14 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Append an element to the end of a sequence.
+	 * Append an element to the end of an array.
 	 *
 	 * @param x
-	 *            - To append
+	 *            The element to append
 	 * @param xs
-	 *            - To append to
-	 * @return a new sequence representing the result of the operation.
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter appended to the end.
 	 */
 	public static int[] append(final int x, final int[] xs)
 	{
@@ -744,13 +730,14 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Append an element to the end of a sequence.
+	 * Append an element to the end of an array.
 	 *
 	 * @param x
-	 *            - To append
+	 *            The element to append
 	 * @param xs
-	 *            - To append to
-	 * @return a new sequence representing the result of the operation.
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter appended to the end.
 	 */
 	public static long[] append(final long x, final long[] xs)
 	{
@@ -762,31 +749,52 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Insert an element at the start of a sequence.
+	 * Append an element to the end of an array.
 	 *
 	 * @param x
-	 *            - To insert
+	 *            The element to append
 	 * @param xs
-	 *            - To insert into
-	 * @return a new sequence representing the result of the operation.
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter appended to the end.
 	 */
-	public static <E, E2 extends E> List<E> insert(final E2 x, final List<? extends E> xs)
+	public static char[] append(final char x, final char[] xs)
+	{
+		final int n = sizeOf(xs);
+		final char[] newArr = new char[n + 1];
+		newArr[n] = x;
+		System.arraycopy(xs, 0, newArr, 0, n);
+		return newArr;
+	}
+
+	/**
+	 * Append an element to the end of a {@linkplain List}.
+	 *
+	 * @param x
+	 *            The element to append
+	 * @param xs
+	 *            The source List
+	 * @return A new List containing the elements from the source with the
+	 *         parameter appended to the end.
+	 */
+	public static <E, E2 extends E> List<E> append(final E2 x, final List<? extends E> xs)
 	{
 		final int n = sizeOf(xs);
 		final List<E> newList = new ArrayList<>(n + 1);
-		newList.add(x);
 		newList.addAll(xs);
+		newList.add(x);
 		return newList;
 	}
 
 	/**
-	 * Insert an element at the start of a sequence.
+	 * Insert an element at the beginning of an array.
 	 *
 	 * @param x
-	 *            - To insert
+	 *            The element to insert
 	 * @param xs
-	 *            - To insert into
-	 * @return a new sequence representing the result of the operation.
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter inserted at the beginning.
 	 */
 	public static double[] insert(final double x, final double[] xs)
 	{
@@ -798,13 +806,14 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Insert an element at the start of a sequence.
+	 * Insert an element at the beginning of an array.
 	 *
 	 * @param x
-	 *            - To insert
+	 *            The element to insert
 	 * @param xs
-	 *            - To insert into
-	 * @return a new sequence representing the result of the operation.
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter inserted at the beginning.
 	 */
 	public static int[] insert(final int x, final int[] xs)
 	{
@@ -816,13 +825,14 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Insert an element at the start of a sequence.
+	 * Insert an element at the beginning of an array.
 	 *
 	 * @param x
-	 *            - To insert
+	 *            The element to insert
 	 * @param xs
-	 *            - To insert into
-	 * @return a new sequence representing the result of the operation.
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter inserted at the beginning.
 	 */
 	public static long[] insert(final long x, final long[] xs)
 	{
@@ -832,4 +842,43 @@ public final class CollectionUtil
 		System.arraycopy(xs, 0, newArr, 1, n);
 		return newArr;
 	}
+
+	/**
+	 * Insert an element at the beginning of an array.
+	 *
+	 * @param x
+	 *            The element to insert
+	 * @param xs
+	 *            The source array
+	 * @return A new array containing the elements from the source with the
+	 *         parameter inserted at the beginning.
+	 */
+	public static char[] insert(final char x, final char[] xs)
+	{
+		final int n = sizeOf(xs);
+		final char[] newArr = new char[n + 1];
+		newArr[0] = x;
+		System.arraycopy(xs, 0, newArr, 1, n);
+		return newArr;
+	}
+
+	/**
+	 * Insert an element at the beginning of a {@linkplain List}.
+	 *
+	 * @param x
+	 *            The element to insert
+	 * @param xs
+	 *            The source List
+	 * @return A new List containing the elements from the source with the
+	 *         parameter inserted at the beginning.
+	 */
+	public static <E, E2 extends E> List<E> insert(final E2 x, final List<? extends E> xs)
+	{
+		final int n = sizeOf(xs);
+		final List<E> newList = new ArrayList<>(n + 1);
+		newList.add(x);
+		newList.addAll(xs);
+		return newList;
+	}
+
 }
