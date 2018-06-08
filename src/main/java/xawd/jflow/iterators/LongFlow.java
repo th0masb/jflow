@@ -46,6 +46,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 * Applies a function elementwise to this {@linkplain LongFlow} to make new
 	 * {@linkplain Flow}.
 	 *
+	 * @param <E>
+	 *            The target type of the mapping function.
 	 * @param f
 	 *            A mapping function.
 	 * @return A new Flow instance whose elements are obtained by applying the
@@ -80,8 +82,8 @@ public interface LongFlow extends PrototypeLongFlow
 
 	/**
 	 * Combines this {@linkplain LongFlow} with another {@linkplain Iterator} to
-	 * create a new Flow consisting of pairs of elements with the same index in
-	 * their respective origins.
+	 * create a new {@linkplain Flow} consisting of pairs of elements with the same
+	 * index in their respective origins.
 	 *
 	 * @param <E>
 	 *            The upper type bound on the parameter Iterator.
@@ -100,8 +102,9 @@ public interface LongFlow extends PrototypeLongFlow
 
 	/**
 	 * Combines this {@linkplain LongFlow} with another
-	 * {@linkplain PrimitiveIterator.OfLong}} to create a new LongFlow consisting of
-	 * pairs of elements with the same index in their respective origins.
+	 * {@linkplain PrimitiveIterator.OfLong}} to create a new {@linkplain Flow}
+	 * consisting of pairs of elements with the same index in their respective
+	 * origins.
 	 *
 	 * @param other
 	 *            The PrimitiveIterator.OfLong to zip this source LongFlow with.
@@ -118,8 +121,9 @@ public interface LongFlow extends PrototypeLongFlow
 
 	/**
 	 * Combines this {@linkplain LongFlow} with another
-	 * {@linkplain PrimitiveIterator.OfDouble}} to create a new Flow consisting of
-	 * pairs of elements with the same index in their respective origins.
+	 * {@linkplain PrimitiveIterator.OfDouble}} to create a new {@linkplain Flow}
+	 * consisting of pairs of elements with the same index in their respective
+	 * origins.
 	 *
 	 * @param other
 	 *            The PrimitiveIterator.OfDouble to zip this source LongFlow with.
@@ -136,8 +140,9 @@ public interface LongFlow extends PrototypeLongFlow
 
 	/**
 	 * Combines this {@linkplain LongFlow} with another
-	 * {@linkplain PrimitiveIterator.OfInt}} to create a new Flow consisting of
-	 * pairs of elements with the same index in their respective origins.
+	 * {@linkplain PrimitiveIterator.OfInt}} to create a new {@linkplain Flow}
+	 * consisting of pairs of elements with the same index in their respective
+	 * origins.
 	 *
 	 * @param other
 	 *            The PrimitiveIterator.OfInt to zip this source LongFlow with.
@@ -155,12 +160,12 @@ public interface LongFlow extends PrototypeLongFlow
 	/**
 	 * Combines this {@linkplain LongFlow} with another
 	 * {@linkplain PrimitiveIterator.OfLong} via a two argument function to create a
-	 * new LongFlow consisting of the images of pairs of elements with the same
-	 * index in their origin.
+	 * new {@linkplain Flow} consisting of the images of pairs of elements with the
+	 * same index in their origin.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfLong to combine this source Flow with.
-	 * @param f
+	 *            The PrimitiveIterator.OfLong to combine this source LongFlow with.
+	 * @param combiner
 	 *            The combining function.
 	 *
 	 * @return Denote this source LongFlow by {@code F} with the parameter
@@ -277,7 +282,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *
 	 * @param other
 	 *            A PrimitiveIterator.OfLong.
-	 * @return a LongFlow consisting of the elements of this source LongFlow
+	 * @return A LongFlow consisting of the elements of this source LongFlow
 	 *         followed by the elements of the parameter PrimitiveIterator.OfLong.
 	 */
 	LongFlow append(PrimitiveIterator.OfLong other);
@@ -288,7 +293,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *
 	 * @param other
 	 *            - A varargs long array
-	 * @return an LongFlow consisting of the elements of the source LongFlow
+	 * @return A LongFlow consisting of the elements of the source LongFlow
 	 *         followed by the elements in the parameter array.
 	 */
 	LongFlow append(long... other);
@@ -477,8 +482,8 @@ public interface LongFlow extends PrototypeLongFlow
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@linkplain LongFlow} passes the supplied
-	 * {@linkplain LongPredicate} test.
+	 * Checks whether every element in this {@linkplain LongFlow} passes the
+	 * supplied {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -519,10 +524,11 @@ public interface LongFlow extends PrototypeLongFlow
 	boolean noneMatch(final LongPredicate predicate);
 
 	/**
-	 * Partitions the elements of this {@linkplain LongFlow} on whether they pass the
-	 * supplied {@linkplain LongPredicate} test.
+	 * Partitions the elements of this {@linkplain LongFlow} on whether they pass
+	 * the supplied {@linkplain LongPredicate} test.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
 	 *
 	 * @param predicate
 	 *            The supplied test.
@@ -532,33 +538,35 @@ public interface LongFlow extends PrototypeLongFlow
 	LongPredicatePartition partition(LongPredicate predicate);
 
 	/**
-	 * Reduces this {@linkplain LongFlow} to a single value via some reduction function.
+	 * Reduces this {@linkplain LongFlow} to a single value via some reduction
+	 * function.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
 	 *
 	 * @param id
 	 *            The identity of the reduction operation
 	 * @param reducer
 	 *            The reduction function
-	 * @return If we denote this source LongFlow by {@code F}, the length of {@code F}
-	 *         by {@code n} and the reduction function by {@code f} then the result
-	 *         is equal to: <br>
+	 * @return If we denote this source LongFlow by {@code F}, the length of
+	 *         {@code F} by {@code n} and the reduction function by {@code f} then
+	 *         the result is equal to: <br>
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
 	 */
 	long reduce(long id, LongBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@linkplain LongFlow} to a single value via some reduction function.
+	 * Reduces this {@linkplain LongFlow} to a single value via some reduction
+	 * function.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
 	 *
-	 * @param id
-	 *            The identity of the reduction operation
 	 * @param reducer
 	 *            The reduction function
-	 * @return Let us denote this source LongFlow by {@code F}, the length of {@code F}
-	 *         by {@code n} and the reduction function by {@code f}. If
+	 * @return Let us denote this source LongFlow by {@code F}, the length of
+	 *         {@code F} by {@code n} and the reduction function by {@code f}. If
 	 *         {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
@@ -568,7 +576,8 @@ public interface LongFlow extends PrototypeLongFlow
 	/**
 	 * Counts the number of elements in this {@linkplain LongFlow}.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
 	 *
 	 * @return The number of elements in this LongFlow.
 	 */
@@ -586,21 +595,20 @@ public interface LongFlow extends PrototypeLongFlow
 	long[] toArray();
 
 	/**
-	 * Builds a {@linkplain Map} using the elements in this {@linkplain LongFlow} via
-	 * two supplied functions.
+	 * Builds a {@linkplain Map} using the elements in this {@linkplain LongFlow}
+	 * via two supplied functions.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
 	 *
 	 * @param <K>
 	 *            The type of the keys in the created mapping.
 	 * @param <V>
 	 *            The type of the values in the created mapping.
 	 * @param keyMapper
-	 *            A function mapping longs to elements of the key
-	 *            type.
+	 *            A function mapping longs to elements of the key type.
 	 * @param valueMapper
-	 *            A function mapping longs to elements of the value
-	 *            type.
+	 *            A function mapping longs to elements of the value type.
 	 *
 	 * @throws IllegalStateException
 	 *             If two elements of this LongFlow map to the same key.
@@ -611,36 +619,42 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li>
 	 *         </ul>
-	 *         an element of this source LongFlow, say {@code e}, is associated to the
-	 *         key value pair {@code (k(e), v(e))}.
+	 *         an element of this source LongFlow, say {@code e}, is associated to
+	 *         the key value pair {@code (k(e), v(e))}.
 	 */
 	<K, V> Map<K, V> toMap(final LongFunction<K> keyMapper, final LongFunction<V> valueMapper);
 
 	/**
-	 * Groups elements in this {@linkplain LongFlow} via their image under some supplied
-	 * classification function.
+	 * Groups elements in this {@linkplain LongFlow} via their image under some
+	 * supplied classification function.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
 	 *
 	 * @param <K>
 	 *            The type of the keys in the final grouping map.
 	 *
 	 * @param classifier
 	 *            A function defining the different groups of elements.
-	 * @return A Map instance whose keys partition the elements of this source LongFlow
-	 *         via the classification function. Elements in this source LongFlow who
-	 *         have equal (under .equals() contract) images under the classification
-	 *         function are grouped together in a long array accessed by their
-	 *         shared classification key.
+	 * @return A Map instance whose keys partition the elements of this source
+	 *         LongFlow via the classification function. Elements in this source
+	 *         LongFlow who have equal (under .equals() contract) images under the
+	 *         classification function are grouped together in a long array accessed
+	 *         by their shared classification key.
 	 */
 	<K> Map<K, long[]> groupBy(final LongFunction<K> classifier);
 
 	/**
+	 * A convenience method for applying a global function onto this
+	 * {@linkplain LongFlow}.
+	 *
 	 * This method is potentially (depending on the supplied function) a 'consuming
-	 * method', i.e. it will iterate through this {@link LongFlow}.
+	 * method', i.e. it will iterate through this LongFlow.
 	 *
 	 * A convenience method for applying a global function onto this LongFlow.
 	 *
+	 * @param <C>
+	 *            The target type of the build function.
 	 * @param builder
 	 *            - a function whose input encompasses LongFlow instances of this
 	 *            element type.
@@ -652,8 +666,10 @@ public interface LongFlow extends PrototypeLongFlow
 	}
 
 	/**
-	 * @return a copy of this source {@link LongFlow} as a {@link Flow} of boxed
-	 *         {@link Long} instances.
+	 * Boxes the primitive long values in this {@linkplain LongFlow}.
+	 *
+	 * @return a copy of this source LongFlow as a {@linkplain Flow} of boxed
+	 *         {@linkplain Long} instances.
 	 */
 	default Flow<Long> boxed()
 	{
