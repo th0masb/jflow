@@ -4,7 +4,7 @@
 package xawd.jflow.utilities;
 
 
-import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
@@ -31,7 +31,7 @@ public final class PredicateUtil
 	 */
 	public static boolean all(final IntPredicate p, final int[] xs)
 	{
-		for (int i = 0; i < len(xs); i++) {
+		for (int i = 0; i < sizeOf(xs); i++) {
 			if (!p.test(xs[i])) {
 				return false;
 			}
@@ -49,7 +49,7 @@ public final class PredicateUtil
 	 */
 	public static boolean all(final DoublePredicate p, final double[] xs)
 	{
-		for (int i = 0; i < len(xs); i++) {
+		for (int i = 0; i < sizeOf(xs); i++) {
 			if (!p.test(xs[i])) {
 				return false;
 			}
@@ -67,7 +67,7 @@ public final class PredicateUtil
 	 */
 	public static boolean all(final LongPredicate p, final long[] xs)
 	{
-		for (int i = 0; i < len(xs); i++) {
+		for (int i = 0; i < sizeOf(xs); i++) {
 			if (!p.test(xs[i])) {
 				return false;
 			}
@@ -104,7 +104,7 @@ public final class PredicateUtil
 	 */
 	public static boolean any(final IntPredicate p, final int[] xs)
 	{
-		for (int i = 0; i < len(xs); i++) {
+		for (int i = 0; i < sizeOf(xs); i++) {
 			if (p.test(xs[i])) {
 				return true;
 			}
@@ -122,7 +122,7 @@ public final class PredicateUtil
 	 */
 	public static boolean any(final DoublePredicate p, final double[] xs)
 	{
-		for (int i = 0; i < len(xs); i++) {
+		for (int i = 0; i < sizeOf(xs); i++) {
 			if (p.test(xs[i])) {
 				return true;
 			}
@@ -140,7 +140,7 @@ public final class PredicateUtil
 	 */
 	public static boolean any(final LongPredicate p, final long[] xs)
 	{
-		for (int i = 0; i < len(xs); i++) {
+		for (int i = 0; i < sizeOf(xs); i++) {
 			if (p.test(xs[i])) {
 				return true;
 			}

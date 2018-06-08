@@ -4,7 +4,7 @@
 package xawd.jflow.utilities;
 
 
-import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 import static xawd.jflow.utilities.FoldUtil.foldr;
 
 /**
@@ -100,7 +100,7 @@ public final class PrimitiveUtil
 	 */
 	public static double sum(final double... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr((a, b) -> a + b, 0, xs);
@@ -115,7 +115,7 @@ public final class PrimitiveUtil
 	 */
 	public static int sum(final int... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(Math::addExact, 0, xs);
@@ -130,7 +130,7 @@ public final class PrimitiveUtil
 	 */
 	public static long sum(final long... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(Math::addExact, 0, xs);
@@ -146,7 +146,7 @@ public final class PrimitiveUtil
 	 */
 	public static double product(final double... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr((a, b) -> a * b, 1, xs);
@@ -161,7 +161,7 @@ public final class PrimitiveUtil
 	 */
 	public static int product(final int... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(Math::multiplyExact, 1, xs);
@@ -176,7 +176,7 @@ public final class PrimitiveUtil
 	 */
 	public static long product(final long... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(Math::multiplyExact, 1, xs);
@@ -203,7 +203,7 @@ public final class PrimitiveUtil
 	 */
 	public static int min(final int... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(PrimitiveUtil::min, Integer.MAX_VALUE, xs);
@@ -229,7 +229,7 @@ public final class PrimitiveUtil
 	 */
 	public static double min(final double... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(PrimitiveUtil::min, Double.POSITIVE_INFINITY, xs);
@@ -255,7 +255,7 @@ public final class PrimitiveUtil
 	 */
 	public static long min(final long... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(PrimitiveUtil::min, Long.MAX_VALUE, xs);
@@ -281,7 +281,7 @@ public final class PrimitiveUtil
 	 */
 	public static int max(final int... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(PrimitiveUtil::max, Integer.MIN_VALUE, xs);
@@ -307,7 +307,7 @@ public final class PrimitiveUtil
 	 */
 	public static double max(final double... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(PrimitiveUtil::max, Double.NEGATIVE_INFINITY, xs);
@@ -333,7 +333,7 @@ public final class PrimitiveUtil
 	 */
 	public static long max(final long... xs)
 	{
-		if (len(xs) == 0) {
+		if (sizeOf(xs) == 0) {
 			throw new IllegalArgumentException();
 		}
 		return foldr(PrimitiveUtil::max, Long.MIN_VALUE, xs);

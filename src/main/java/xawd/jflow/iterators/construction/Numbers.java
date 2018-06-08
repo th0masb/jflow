@@ -1,6 +1,6 @@
 package xawd.jflow.iterators.construction;
 
-import static xawd.jflow.utilities.CollectionUtil.str;
+import static xawd.jflow.utilities.CollectionUtil.string;
 
 import xawd.jflow.iterators.AbstractLongFlow;
 import xawd.jflow.iterators.IntFlow;
@@ -53,7 +53,7 @@ public final class Numbers
 
 	public static void main(final String[] args)
 	{
-		System.out.println(str(fibonacci().take(60).toArray()));
+		System.out.println(string(fibonacci().take(60).toArray()));
 	}
 }
 

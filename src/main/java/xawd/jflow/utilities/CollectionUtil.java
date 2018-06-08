@@ -1,11 +1,9 @@
 package xawd.jflow.utilities;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
 
 /**
  * @author ThomasB
@@ -13,218 +11,249 @@ import java.util.List;
  */
 public final class CollectionUtil
 {
-	// Uninstantiable
 	private CollectionUtil()
 	{
 	}
 
-	/* -----------------------------------------------------------------------------------------------
-	 * A unified length/size function |
-	 * ----------------------------------------------------------------------------------------------- */
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param s - the String to calculate the length of
-	 * @return the length of <b>s</b>
+	 * @param s
+	 *            A non-null {@linkplain String} reference.
+	 * @return The character length of the parameter String.
 	 */
-	public static int len(final String s)
+	public static int sizeOf(final String s)
 	{
 		return s.length();
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Collection to calculate the size of
-	 * @return the size of <b>xs</b>
+	 * @param xs
+	 *            A non-null {@linkplain Collection} reference.
+	 * @return The size of the parameter Collection.
 	 */
-	public static <T> int len(final Collection<T> xs)
+	public static <E> int sizeOf(final Collection<? extends E> xs)
 	{
 		return xs.size();
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static <T> int len(final T[] xs)
+	public static <E> int sizeOf(final E[] xs)
 	{
 		return xs.length;
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static int len(final int[] xs)
-	{
-		return xs.length;
-	}
-
-
-	/**
-	 * A unified length/size function
-	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
-	 */
-	public static int len(final double[] xs)
+	public static int sizeOf(final int[] xs)
 	{
 		return xs.length;
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static int len(final long[] xs)
+	public static int sizeOf(final double[] xs)
 	{
 		return xs.length;
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static int len(final char[] xs)
+	public static int sizeOf(final long[] xs)
 	{
 		return xs.length;
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static int len(final int[][] xs)
+	public static int sizeOf(final char[] xs)
 	{
 		return xs.length;
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static int len(final double[][] xs)
+	public static int sizeOf(final int[][] xs)
 	{
 		return xs.length;
 	}
 
 	/**
-	 * A unified length/size function
+	 * A unified size function.
 	 *
-	 * @param xs - the Array to calculate the length of
-	 * @return the length of <b>xs</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static int len(final long[][] xs)
+	public static int sizeOf(final double[][] xs)
 	{
 		return xs.length;
 	}
 
-	/* -----------------------------------------------------------------------------------------------
-	 * A unified String conversion function |
-	 * ----------------------------------------------------------------------------------------------- */
 	/**
-	 * A unified String conversion function
+	 * A unified size function.
 	 *
-	 * @param e - the object to convert
-	 * @return the string representation of <b>t</b>
+	 * @param xs
+	 *            A non-null array reference.
+	 * @return The length of the parameter array.
 	 */
-	public static String str(final Object e)
+	public static int sizeOf(final long[][] xs)
 	{
-		return e == null ? "null" : e.toString();
+		return xs.length;
 	}
 
 	/**
-	 * A unified String conversion function
+	 * Converts an object reference to a {@linkplain String}.
 	 *
-	 * @param x - the primitive int to convert
-	 * @return the String representation of <b>x</b>
+	 * @param obj
+	 *            An object reference.
+	 * @return the string representation of the parameter object.
 	 */
-	public static String str(final int x)
+	public static String string(final Object obj)
+	{
+		return obj.toString();
+	}
+
+	/**
+	 * Converts an int to a {@linkplain String}.
+	 *
+	 * @param xs
+	 *            A primitive int.
+	 * @return The String representation of the parameter int.
+	 */
+	public static String string(final int x)
 	{
 		return Integer.toString(x);
 	}
 
 	/**
-	 * A unified String conversion function
+	 * Converts a double to a {@linkplain String}.
 	 *
-	 * @param x - the primitive double to convert
-	 * @return the String representation of <b>x</b>
+	 * @param xs
+	 *            A primitive double.
+	 * @return The String representation of the parameter double.
 	 */
-	public static String str(final double x)
+	public static String string(final double x)
 	{
 		return Double.toString(x);
 	}
 
 	/**
-	 * A unified String conversion function
+	 * Converts a long to a {@linkplain String}.
 	 *
-	 * @param x - the primitive long to convert
-	 * @return the String representation of <b>x</b>
+	 * @param xs
+	 *            A primitive long.
+	 * @return The String representation of the parameter long.
 	 */
-	public static String str(final long x)
+	public static String string(final long x)
 	{
 		return Long.toString(x);
 	}
 
 	/**
-	 * A unified String conversion function
+	 * Converts a char to a {@linkplain String}.
 	 *
-	 * @param xs - the int Array to convert
-	 * @return the String representation of <b>xs</b>
+	 * @param xs
+	 *            A primitive char.
+	 * @return The String representation of the parameter char.
 	 */
-	public static String str(final int[] xs)
+	public static String string(final char x)
+	{
+		return Character.toString(x);
+	}
+
+	/**
+	 * Converts an int array to a {@linkplain String}.
+	 *
+	 * @param xs
+	 *            An int array reference.
+	 * @return The String representation of the parameter array.
+	 */
+	public static String string(final int[] xs)
 	{
 		return Arrays.toString(xs);
 	}
 
 	/**
-	 * A unified String conversion function
+	 * Converts a double array to a {@linkplain String}.
 	 *
-	 * @param xs - the double Array to convert
-	 * @return the String representation of <b>xs</b>
+	 * @param xs
+	 *            A double array reference.
+	 * @return The String representation of the parameter array.
 	 */
-	public static String str(final double[] xs)
+	public static String string(final double[] xs)
 	{
 		return Arrays.toString(xs);
 	}
 
 	/**
-	 * A unified String conversion function
+	 * Converts a long array to a {@linkplain String}.
 	 *
-	 * @param xs - the long Array to convert
-	 * @return the String representation of <b>xs</b>
+	 * @param xs
+	 *            A long array reference.
+	 * @return The String representation of the parameter array.
 	 */
-	public static String str(final long[] xs)
+	public static String string(final long[] xs)
 	{
 		return Arrays.toString(xs);
 	}
 
-
-	/* -----------------------------------------------------------------------------------------------
-	 * A unified reverse function |
-	 * ----------------------------------------------------------------------------------------------- */
 	/**
-	 * Reverses the passed sequence
+	 * Converts a char array to a {@linkplain String}.
 	 *
-	 * @param xs - the passed sequence
-	 * @return a new sequence of the same type as passed containing the same values but with a reversed order.
+	 * @param xs
+	 *            A char array reference.
+	 * @return The String representation of the parameter array.
+	 */
+	public static String string(final char[] xs)
+	{
+		return Arrays.toString(xs);
+	}
+
+	/**
+	 * Reverses an int array.
+	 *
+	 * @param xs
+	 *            An int array reference.
+	 * @return An int array containing the same values as the parameter but with a
+	 *         reversed order.
 	 */
 	public static int[] reverse(final int[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final int[] reversed = new int[n];
 		for (int i = 0; i < n; i++) {
 			reversed[i] = xs[n - (i + 1)];
@@ -232,16 +261,17 @@ public final class CollectionUtil
 		return reversed;
 	}
 
-
 	/**
-	 * Reverses the passed sequence
+	 * Reverses a double array.
 	 *
-	 * @param xs - the passed sequence
-	 * @return a new sequence of the same type as passed containing the same values but with a reversed order.
+	 * @param xs
+	 *            A double array reference.
+	 * @return A double array containing the same values as the parameter but with a
+	 *         reversed order.
 	 */
 	public static double[] reverse(final double[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final double[] reversed = new double[n];
 		for (int i = 0; i < n; i++) {
 			reversed[i] = xs[n - (i + 1)];
@@ -250,14 +280,16 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Reverses the passed sequence
+	 * Reverses a long array.
 	 *
-	 * @param xs - the passed sequence
-	 * @return a new sequence of the same type as passed containing the same values but with a reversed order.
+	 * @param xs
+	 *            A long array reference.
+	 * @return A long array containing the same values as the parameter but with a
+	 *         reversed order.
 	 */
 	public static long[] reverse(final long[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final long[] reversed = new long[n];
 		for (int i = 0; i < n; i++) {
 			reversed[i] = xs[n - (i + 1)];
@@ -266,14 +298,16 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Reverses the passed sequence
+	 * Reverses a char array.
 	 *
-	 * @param xs - the passed sequence
-	 * @return a new sequence of the same type as passed containing the same values but with a reversed order.
+	 * @param xs
+	 *            A char array reference.
+	 * @return A char array containing the same values as the parameter but with a
+	 *         reversed order.
 	 */
 	public static char[] reverse(final char[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final char[] reversed = new char[n];
 		for (int i = 0; i < n; i++) {
 			reversed[i] = xs[n - (i + 1)];
@@ -282,14 +316,16 @@ public final class CollectionUtil
 	}
 
 	/**
-	 * Reverses the passed sequence
+	 * Reverses a {@linkplain List}.
 	 *
-	 * @param xs - the passed sequence
-	 * @return a new sequence of the same type as passed containing the same values but with a reversed order.
+	 * @param xs
+	 *            A List reference.
+	 * @return A List containing the same values as the parameter but with a
+	 *         reversed order.
 	 */
 	public static <E> List<E> reverse(final List<? extends E> source)
 	{
-		final int n = len(source);
+		final int n = sizeOf(source);
 		final List<E> reversed = new ArrayList<>(n);
 		for (int i = n - 1; i > -1; i--) {
 			reversed.add(source.get(i));
@@ -297,75 +333,108 @@ public final class CollectionUtil
 		return reversed;
 	}
 
-	//
-	//	/* -----------------------------------------------------------------------------------------------
-	//	 * A unified take function a la Haskell |
-	//	 * -----------------------------------------------------------------------------------------------
-	//	 *
-	//	 */
-	//
 	/**
-	 * Take the first n elements from the beginning of an array retaining their order.
+	 * Take the first n elements from the beginning of an array retaining their
+	 * order.
 	 *
-	 * @param n - The number of elements to take
-	 * @param xs - The sequence to take from
-	 * @return an int array containing the taken elements.
+	 * @param n
+	 *            The number of elements to take.
+	 * @param xs
+	 *            The array to take elements from.
+	 * @throws IllegalArgumentException
+	 *             If the take count is negative.
+	 * @return An array containing the taken elements.
 	 */
 	public static int[] take(final int n, final int[] xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int newSize = Math.min(len(xs), n);
+		final int newSize = Math.min(sizeOf(xs), n);
 		return Arrays.copyOf(xs, newSize);
 	}
 
-
 	/**
-	 * Take the first n elements from the beginning of an array retaining their order.
+	 * Take the first n elements from the beginning of an array retaining their
+	 * order.
 	 *
-	 * @param n - The number of elements to take
-	 * @param xs - The array to take from
-	 * @return a double array containing the taken elements.
+	 * @param n
+	 *            The number of elements to take.
+	 * @param xs
+	 *            The array to take elements from.
+	 * @throws IllegalArgumentException
+	 *             If the take count is negative.
+	 * @return An array containing the taken elements.
 	 */
 	public static double[] take(final int n, final double[] xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int newSize = Math.min(len(xs), n);
+		final int newSize = Math.min(sizeOf(xs), n);
 		return Arrays.copyOf(xs, newSize);
 	}
 
 	/**
-	 * Take the first n elements from the beginning of an array retaining their order.
+	 * Take the first n elements from the beginning of an array retaining their
+	 * order.
 	 *
-	 * @param n - The number of elements to take
-	 * @param xs - The array to take from
-	 * @return a long array containing the taken elements.
+	 * @param n
+	 *            The number of elements to take.
+	 * @param xs
+	 *            The array to take elements from.
+	 * @throws IllegalArgumentException
+	 *             If the take count is negative.
+	 * @return An array containing the taken elements.
 	 */
 	public static long[] take(final int n, final long[] xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int newSize = Math.min(len(xs), n);
+		final int newSize = Math.min(sizeOf(xs), n);
 		return Arrays.copyOf(xs, newSize);
 	}
 
 	/**
-	 * Take the first n elements from the beginning of a List retaining their order.
+	 * Take the first n elements from the beginning of an array retaining their
+	 * order.
 	 *
-	 * @param n - The number of elements to take
-	 * @param xs - The List to take from
-	 * @return an {@link ImmutableList} containing the taken elements.
+	 * @param n
+	 *            The number of elements to take.
+	 * @param xs
+	 *            The array to take elements from.
+	 * @throws IllegalArgumentException
+	 *             If the take count is negative.
+	 * @return An array containing the taken elements.
+	 */
+	public static char[] take(final int n, final char[] xs)
+	{
+		if (n < 0) {
+			throw new IllegalArgumentException();
+		}
+		final int newSize = Math.min(sizeOf(xs), n);
+		return Arrays.copyOf(xs, newSize);
+	}
+
+	/**
+	 * Take the first n elements from the beginning of a {@linkplain List} retaining
+	 * their order.
+	 *
+	 * @param n
+	 *            The number of elements to take.
+	 * @param xs
+	 *            The List to take elements from.
+	 * @throws IllegalArgumentException
+	 *             If the take count is negative.
+	 * @return A List containing the taken elements.
 	 */
 	public static <E> List<E> take(final int n, final List<? extends E> xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int newSize = Math.min(len(xs), n);
+		final int newSize = Math.min(sizeOf(xs), n);
 		final List<E> taken = new ArrayList<>(newSize);
 		for (int i = 0; i < newSize; i++) {
 			taken.add(xs.get(i));
@@ -373,83 +442,126 @@ public final class CollectionUtil
 		return taken;
 	}
 
-	/* -----------------------------------------------------------------------------------------------
-	 * A unified drop function a la Haskell |
-	 * -----------------------------------------------------------------------------------------------
-	 *
-	 */
-
 	/**
-	 * Drop the first n elements from the beginning of an int array retaining the remaining order.
+	 * Drop the first n elements from the beginning of an array retaining the order
+	 * of the remaining elements.
 	 *
-	 * @param n - The number of elements to drop
-	 * @param xs - The int array to drop from
-	 * @return an int array containing the remaining elements.
+	 * @param n
+	 *            The number of elements to drop.
+	 * @param xs
+	 *            The array to drop elements from.
+	 * @throws IllegalArgumentException
+	 *             If the drop count is negative.
+	 * @return An array containing the elements which were not dropped from the
+	 *         source.
 	 */
 	public static int[] drop(final int n, final int[] xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int dropPos = Math.min(len(xs), n);
-		final int newSize = len(xs) - dropPos;
+		final int dropPos = Math.min(sizeOf(xs), n);
+		final int newSize = sizeOf(xs) - dropPos;
 		final int[] newArr = new int[newSize];
 		System.arraycopy(xs, dropPos, newArr, 0, newSize);
 		return newArr;
 	}
 
 	/**
-	 * Drop the first n elements from the beginning of an array retaining the remaining order.
+	 * Drop the first n elements from the beginning of an array retaining the order
+	 * of the remaining elements.
 	 *
-	 * @param n - The number of elements to drop
-	 * @param xs - The array to drop from
-	 * @return a double array containing the remaining elements.
+	 * @param n
+	 *            The number of elements to drop.
+	 * @param xs
+	 *            The array to drop elements from.
+	 * @throws IllegalArgumentException
+	 *             If the drop count is negative.
+	 * @return An array containing the elements which were not dropped from the
+	 *         source.
 	 */
 	public static double[] drop(final int n, final double[] xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int dropPos = Math.min(len(xs), n);
-		final int newSize = len(xs) - dropPos;
+		final int dropPos = Math.min(sizeOf(xs), n);
+		final int newSize = sizeOf(xs) - dropPos;
 		final double[] newArr = new double[newSize];
 		System.arraycopy(xs, dropPos, newArr, 0, newSize);
 		return newArr;
 	}
 
 	/**
-	 * Drop the first n elements from the beginning of an array retaining the remaining order.
+	 * Drop the first n elements from the beginning of an array retaining the order
+	 * of the remaining elements.
 	 *
-	 * @param n - The number of elements to drop
-	 * @param xs - The array to drop from
-	 * @return a long array containing the remaining elements.
+	 * @param n
+	 *            The number of elements to drop.
+	 * @param xs
+	 *            The array to drop elements from.
+	 * @throws IllegalArgumentException
+	 *             If the drop count is negative.
+	 * @return An array containing the elements which were not dropped from the
+	 *         source.
 	 */
 	public static long[] drop(final int n, final long[] xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int dropPos = Math.min(len(xs), n);
-		final int newSize = len(xs) - dropPos;
+		final int dropPos = Math.min(sizeOf(xs), n);
+		final int newSize = sizeOf(xs) - dropPos;
 		final long[] newArr = new long[newSize];
 		System.arraycopy(xs, dropPos, newArr, 0, newSize);
 		return newArr;
 	}
 
 	/**
-	 * Drop the first n elements from the beginning of a List retaining the remaining order.
+	 * Drop the first n elements from the beginning of an array retaining the order
+	 * of the remaining elements.
 	 *
-	 * @param n - the number of elements to drop
-	 * @param xs - The List to drop from
-	 * @return an {@linkplain List} containing the remaining elements.
+	 * @param n
+	 *            The number of elements to drop.
+	 * @param xs
+	 *            The array to drop elements from.
+	 * @throws IllegalArgumentException
+	 *             If the drop count is negative.
+	 * @return An array containing the elements which were not dropped from the
+	 *         source.
+	 */
+	public static char[] drop(final int n, final char[] xs)
+	{
+		if (n < 0) {
+			throw new IllegalArgumentException();
+		}
+		final int dropPos = Math.min(sizeOf(xs), n);
+		final int newSize = sizeOf(xs) - dropPos;
+		final char[] newArr = new char[newSize];
+		System.arraycopy(xs, dropPos, newArr, 0, newSize);
+		return newArr;
+	}
+
+	/**
+	 * Drop the first n elements from the beginning of a {@linkplain List} retaining the order
+	 * of the remaining elements.
+	 *
+	 * @param n
+	 *            The number of elements to drop.
+	 * @param xs
+	 *            The List to drop elements from.
+	 * @throws IllegalArgumentException
+	 *             If the drop count is negative.
+	 * @return A List containing the elements which were not dropped from the
+	 *         source.
 	 */
 	public static <E> List<E> drop(final int n, final List<? extends E> xs)
 	{
 		if (n < 0) {
 			throw new IllegalArgumentException();
 		}
-		final int dropPos = Math.min(len(xs), n);
-		final int newSize = len(xs) - dropPos;
+		final int dropPos = Math.min(sizeOf(xs), n);
+		final int newSize = sizeOf(xs) - dropPos;
 		final List<E> newList = new ArrayList<>(newSize);
 		for (int i = 0; i < newSize; i++) {
 			newList.add(xs.get(i + dropPos));
@@ -457,162 +569,174 @@ public final class CollectionUtil
 		return newList;
 	}
 
-	////	/* -----------------------------------------------------------------------------------------------
-	//	 * A unified head function a la Haskell |
-	//	 * ----------------------------------------------------------------------------------------------- */
-
 	/**
-	 * Return the first element (head) of this sequence
+	 * Return the first element (head) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the first element in the sequence
+	 * @param xs
+	 *            The source array
+	 * @return The first element in the source
 	 */
 	public static int head(final int[] xs)
 	{
-		assert len(xs) > 0;
 		return xs[0];
 	}
 
-
 	/**
-	 * Return the first element (head) of this sequence
+	 * Return the first element (head) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the first element in the sequence
+	 * @param xs
+	 *            The source array
+	 * @return The first element in the source
 	 */
 	public static double head(final double[] xs)
 	{
-		assert len(xs) > 0;
 		return xs[0];
 	}
 
-
 	/**
-	 * Return the first element (head) of this sequence
+	 * Return the first element (head) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the first element in the sequence
+	 * @param xs
+	 *            The source array
+	 * @return The first element in the source
 	 */
 	public static long head(final long[] xs)
 	{
-		assert len(xs) > 0;
 		return xs[0];
 	}
 
 	/**
-	 * Return the first element (head) of this sequence
+	 * Return the first element (head) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the first element in the sequence
+	 * @param xs
+	 *            The source array
+	 * @return The first element in the source
+	 */
+	public static char head(final char[] xs)
+	{
+		return xs[0];
+	}
+
+	/**
+	 * Return the first element (head) of this {@linkplain List}.
+	 *
+	 * @param xs
+	 *            The source List
+	 * @return The first element in the source
 	 */
 	public static <E> E head(final List<? extends E> xs)
 	{
-		assert len(xs) > 0;
 		return xs.get(0);
 	}
 
-	/* -----------------------------------------------------------------------------------------------
-	 * A unified tail function a la Haskell |
-	 * ----------------------------------------------------------------------------------------------- */
-
 	/**
-	 * Return the last element (tail) of this sequence
+	 * Return the last element (tail) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the last element in the sequence.
+	 * @param xs
+	 *            The source array
+	 * @return The last element in the source
 	 */
 	public static int tail(final int[] xs)
 	{
-		assert len(xs) > 0;
-		return xs[len(xs) - 1];
+		return xs[sizeOf(xs) - 1];
 	}
 
 	/**
-	 * Return the last element (tail) of this sequence
+	 * Return the last element (tail) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the last element in the sequence.
+	 * @param xs
+	 *            The source array
+	 * @return The last element in the source
 	 */
 	public static double tail(final double[] xs)
 	{
-		assert len(xs) > 0;
-		return xs[len(xs) - 1];
+		return xs[sizeOf(xs) - 1];
 	}
 
 	/**
-	 * Return the last element (tail) of this sequence
+	 * Return the last element (tail) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the last element in the sequence.
+	 * @param xs
+	 *            The source array
+	 * @return The last element in the source
 	 */
 	public static long tail(final long[] xs)
 	{
-		assert len(xs) > 0;
-		return xs[len(xs) - 1];
+		return xs[sizeOf(xs) - 1];
 	}
 
 	/**
-	 * Return the last element (tail) of this sequence
+	 * Return the last element (tail) of this array.
 	 *
-	 * @param xs - the element sequence
-	 * @return the last element in the sequence.
+	 * @param xs
+	 *            The source array
+	 * @return The last element in the source
+	 */
+	public static char tail(final char[] xs)
+	{
+		return xs[sizeOf(xs) - 1];
+	}
+
+	/**
+	 * Return the last element (tail) of this {@linkplain List}.
+	 *
+	 * @param xs
+	 *            The source List
+	 * @return The last element in the source
 	 */
 	public static <E> E tail(final List<? extends E> xs)
 	{
-		assert len(xs) > 0;
-		return xs.get(len(xs) - 1);
+		return xs.get(sizeOf(xs) - 1);
 	}
-
-	//	/* -----------------------------------------------------------------------------------------------
-	//	 * A unified append function |
-	//	 * -----------------------------------------------------------------------------------------------
-	//	 *
-	//	 */
 
 	/**
 	 * Append an element to the end of a sequence.
 	 *
-	 * @param x - To append
-	 * @param xs - To append to
+	 * @param x
+	 *            - To append
+	 * @param xs
+	 *            - To append to
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static <E, E2 extends E> List<E> append(final E2 x, final List<? extends E> xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final List<E> newList = new ArrayList<>(n + 1);
 		newList.addAll(xs);
 		newList.add(x);
 		return newList;
 	}
 
-
 	/**
 	 * Append an element to the end of a sequence.
 	 *
-	 * @param x - To append
-	 * @param xs - To append to
+	 * @param x
+	 *            - To append
+	 * @param xs
+	 *            - To append to
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static double[] append(final double x, final double[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final double[] newArr = new double[n + 1];
 		newArr[n] = x;
 		System.arraycopy(xs, 0, newArr, 0, n);
 		return newArr;
 	}
 
-
 	/**
 	 * Append an element to the end of a sequence.
 	 *
-	 * @param x - To append
-	 * @param xs - To append to
+	 * @param x
+	 *            - To append
+	 * @param xs
+	 *            - To append to
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static int[] append(final int x, final int[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final int[] newArr = new int[n + 1];
 		newArr[n] = x;
 		System.arraycopy(xs, 0, newArr, 0, n);
@@ -622,52 +746,51 @@ public final class CollectionUtil
 	/**
 	 * Append an element to the end of a sequence.
 	 *
-	 * @param x - To append
-	 * @param xs - To append to
+	 * @param x
+	 *            - To append
+	 * @param xs
+	 *            - To append to
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static long[] append(final long x, final long[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final long[] newArr = new long[n + 1];
 		newArr[n] = x;
 		System.arraycopy(xs, 0, newArr, 0, n);
 		return newArr;
 	}
 
-	//	/* -----------------------------------------------------------------------------------------------
-	//	 * A unified insert function |
-	//	 * -----------------------------------------------------------------------------------------------
-	//	 *
-	//	 * TODO - performance of method to append elements to the google primitives will depened on length */
-
 	/**
 	 * Insert an element at the start of a sequence.
 	 *
-	 * @param x - To insert
-	 * @param xs - To insert into
+	 * @param x
+	 *            - To insert
+	 * @param xs
+	 *            - To insert into
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static <E, E2 extends E> List<E> insert(final E2 x, final List<? extends E> xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final List<E> newList = new ArrayList<>(n + 1);
 		newList.add(x);
 		newList.addAll(xs);
 		return newList;
 	}
 
-
 	/**
 	 * Insert an element at the start of a sequence.
 	 *
-	 * @param x - To insert
-	 * @param xs - To insert into
+	 * @param x
+	 *            - To insert
+	 * @param xs
+	 *            - To insert into
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static double[] insert(final double x, final double[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final double[] newArr = new double[n + 1];
 		newArr[0] = x;
 		System.arraycopy(xs, 0, newArr, 1, n);
@@ -677,13 +800,15 @@ public final class CollectionUtil
 	/**
 	 * Insert an element at the start of a sequence.
 	 *
-	 * @param x - To insert
-	 * @param xs - To insert into
+	 * @param x
+	 *            - To insert
+	 * @param xs
+	 *            - To insert into
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static int[] insert(final int x, final int[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final int[] newArr = new int[n + 1];
 		newArr[0] = x;
 		System.arraycopy(xs, 0, newArr, 1, n);
@@ -693,13 +818,15 @@ public final class CollectionUtil
 	/**
 	 * Insert an element at the start of a sequence.
 	 *
-	 * @param x - To insert
-	 * @param xs - To insert into
+	 * @param x
+	 *            - To insert
+	 * @param xs
+	 *            - To insert into
 	 * @return a new sequence representing the result of the operation.
 	 */
 	public static long[] insert(final long x, final long[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		final long[] newArr = new long[n + 1];
 		newArr[0] = x;
 		System.arraycopy(xs, 0, newArr, 1, n);

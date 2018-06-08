@@ -4,7 +4,7 @@
 package xawd.jflow.utilities;
 
 
-import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.Arrays;
 import java.util.function.DoublePredicate;
@@ -32,7 +32,7 @@ public final class FilterUtil
 	public static double[] filter(final DoublePredicate p, final double[] xs)
 	{
 		int arrcount = 0;
-		final double[] filtered = new double[len(xs)];
+		final double[] filtered = new double[sizeOf(xs)];
 		for (final double x : xs) {
 			if (p.test(x)) {
 				filtered[arrcount++] = x;
@@ -53,7 +53,7 @@ public final class FilterUtil
 	public static int[] filter(final IntPredicate p, final int[] xs)
 	{
 		int arrcount = 0;
-		final int[] filtered = new int[len(xs)];
+		final int[] filtered = new int[sizeOf(xs)];
 		for (final int x : xs) {
 			if (p.test(x)) {
 				filtered[arrcount++] = x;
@@ -74,7 +74,7 @@ public final class FilterUtil
 	public static long[] filter(final LongPredicate p, final long[] xs)
 	{
 		int arrcount = 0;
-		final long[] filtered = new long[len(xs)];
+		final long[] filtered = new long[sizeOf(xs)];
 		for (final long x : xs) {
 			if (p.test(x)) {
 				filtered[arrcount++] = x;

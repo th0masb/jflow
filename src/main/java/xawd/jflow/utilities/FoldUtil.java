@@ -2,7 +2,7 @@ package xawd.jflow.utilities;
 
 
 import static xawd.jflow.utilities.CollectionUtil.head;
-import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
@@ -32,7 +32,7 @@ public final class FoldUtil
 	public static int foldr(final IntBinaryOperator f, final int id, final int[] xs)
 	{
 		int cumulativeFold = id;
-		for (int i = len(xs) - 1; i > -1; i--) {
+		for (int i = sizeOf(xs) - 1; i > -1; i--) {
 			cumulativeFold = f.applyAsInt(xs[i], cumulativeFold);
 		}
 		return cumulativeFold;
@@ -53,7 +53,7 @@ public final class FoldUtil
 	public static double foldr(final DoubleBinaryOperator f, final double id, final double[] xs)
 	{
 		double cumulativeFold = id;
-		for (int i = len(xs) - 1; i > -1; i--) {
+		for (int i = sizeOf(xs) - 1; i > -1; i--) {
 			cumulativeFold = f.applyAsDouble(xs[i], cumulativeFold);
 		}
 		return cumulativeFold;
@@ -74,7 +74,7 @@ public final class FoldUtil
 	public static long foldr(final LongBinaryOperator f, final long id, final long[] xs)
 	{
 		long cumulativeFold = id;
-		for (int i = len(xs) - 1; i > -1; i--) {
+		for (int i = sizeOf(xs) - 1; i > -1; i--) {
 			cumulativeFold = f.applyAsLong(xs[i], cumulativeFold);
 		}
 		return cumulativeFold;
@@ -93,7 +93,7 @@ public final class FoldUtil
 	 */
 	public static int foldl(final IntBinaryOperator f, final int id, final int[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		int cumulativeFold = id;
 		for (int i = 0; i < n; i++) {
 			cumulativeFold = f.applyAsInt(cumulativeFold, xs[i]);
@@ -114,7 +114,7 @@ public final class FoldUtil
 	 */
 	public static double foldl(final DoubleBinaryOperator f, final double id, final double[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		double cumulativeFold = id;
 		for (int i = 0; i < n; i++) {
 			cumulativeFold = f.applyAsDouble(cumulativeFold, xs[i]);
@@ -135,7 +135,7 @@ public final class FoldUtil
 	 */
 	public static long foldl(final LongBinaryOperator f, final long id, final long[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		long cumulativeFold = id;
 		for (int i = 0; i < n; i++) {
 			cumulativeFold = f.applyAsLong(cumulativeFold, xs[i]);
@@ -154,7 +154,7 @@ public final class FoldUtil
 	 */
 	public static double[] accumulate(final DoubleBinaryOperator f, final double[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		if (n == 0) {
 			return new double[] {};
 		}
@@ -177,7 +177,7 @@ public final class FoldUtil
 	 */
 	public static int[] accumulate(final IntBinaryOperator f, final int[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		if (n == 0) {
 			return new int[] {};
 		}
@@ -200,7 +200,7 @@ public final class FoldUtil
 	 */
 	public static long[] accumulate(final LongBinaryOperator f, final long[] xs)
 	{
-		final int n = len(xs);
+		final int n = sizeOf(xs);
 		if (n == 0) {
 			return new long[] {};
 		}

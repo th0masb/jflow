@@ -4,7 +4,7 @@
 package xawd.jflow.utilities;
 
 
-import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.List;
 import java.util.function.DoubleFunction;
@@ -47,8 +47,8 @@ public final class MapUtil
 	 */
 	public static double[] doubleMap(final DoubleUnaryOperator f, final double[] xs)
 	{
-		final double[] mapped = new double[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final double[] mapped = new double[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsDouble(xs[i]);
 		}
 		return mapped;
@@ -66,8 +66,8 @@ public final class MapUtil
 	 */
 	public static double[] doubleMap(final IntToDoubleFunction f, final int[] xs)
 	{
-		final double[] mapped = new double[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final double[] mapped = new double[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsDouble(xs[i]);
 		}
 		return mapped;
@@ -85,8 +85,8 @@ public final class MapUtil
 	 */
 	public static double[] doubleMap(final LongToDoubleFunction f, final long[] xs)
 	{
-		final double[] mapped = new double[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final double[] mapped = new double[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsDouble(xs[i]);
 		}
 		return mapped;
@@ -103,8 +103,8 @@ public final class MapUtil
 	 */
 	public static <T> double[] doubleMap(final ToDoubleFunction<T> f, final List<? extends T> xs)
 	{
-		final double[] mapped = new double[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final double[] mapped = new double[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsDouble(xs.get(i));
 		}
 		return mapped;
@@ -121,8 +121,8 @@ public final class MapUtil
 	 */
 	public static int[] intMap(final IntUnaryOperator f, final int[] xs)
 	{
-		final int[] mapped = new int[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final int[] mapped = new int[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsInt(xs[i]);
 		}
 		return mapped;
@@ -139,8 +139,8 @@ public final class MapUtil
 	 */
 	public static int[] intMap(final DoubleToIntFunction f, final double[] xs)
 	{
-		final int[] mapped = new int[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final int[] mapped = new int[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsInt(xs[i]);
 		}
 		return mapped;
@@ -157,8 +157,8 @@ public final class MapUtil
 	 */
 	public static int[] intMap(final LongToIntFunction f, final long[] xs)
 	{
-		final int[] mapped = new int[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final int[] mapped = new int[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsInt(xs[i]);
 		}
 		return mapped;
@@ -175,8 +175,8 @@ public final class MapUtil
 	 */
 	public static <T> int[] intMap(final ToIntFunction<T> f, final List<? extends T> xs)
 	{
-		final int[] mapped = new int[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final int[] mapped = new int[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsInt(xs.get(i));
 		}
 		return mapped;
@@ -194,8 +194,8 @@ public final class MapUtil
 	 */
 	public static long[] longMap(final LongUnaryOperator f, final long[] xs)
 	{
-		final long[] mapped = new long[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final long[] mapped = new long[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsLong(xs[i]);
 		}
 		return mapped;
@@ -213,8 +213,8 @@ public final class MapUtil
 	 */
 	public static long[] longMap(final IntToLongFunction f, final int[] xs)
 	{
-		final long[] mapped = new long[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final long[] mapped = new long[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsLong(xs[i]);
 		}
 		return mapped;
@@ -232,8 +232,8 @@ public final class MapUtil
 	 */
 	public static long[] longMap(final DoubleToLongFunction f, final double[] xs)
 	{
-		final long[] mapped = new long[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final long[] mapped = new long[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsLong(xs[i]);
 		}
 		return mapped;
@@ -250,8 +250,8 @@ public final class MapUtil
 	 */
 	public static <T> long[] longMap(final ToLongFunction<T> f, final List<? extends T> xs)
 	{
-		final long[] mapped = new long[len(xs)];
-		for (int i = 0; i < len(xs); i++) {
+		final long[] mapped = new long[sizeOf(xs)];
+		for (int i = 0; i < sizeOf(xs); i++) {
 			mapped[i] = f.applyAsLong(xs.get(i));
 		}
 		return mapped;

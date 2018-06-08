@@ -4,7 +4,7 @@
 package xawd.jflow.utilities;
 
 
-import static xawd.jflow.utilities.CollectionUtil.len;
+import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 import static xawd.jflow.utilities.PrimitiveUtil.sum;
 
 import java.util.function.DoubleBinaryOperator;
@@ -33,7 +33,7 @@ public final class CombineUtil
 	 */
 	public static int[] combine(final IntBinaryOperator f, final int[] a, final int[] b)
 	{
-		final int newLength = Math.min(len(a), len(b));
+		final int newLength = Math.min(sizeOf(a), sizeOf(b));
 		final int[] combined = new int[newLength];
 		for (int i = 0; i < newLength; i++) {
 			combined[i] = f.applyAsInt(a[i], b[i]);
@@ -55,7 +55,7 @@ public final class CombineUtil
 	 */
 	public static double[] combine(final DoubleBinaryOperator f, final double[] a, final double[] b)
 	{
-		final int newLength = Math.min(len(a), len(b));
+		final int newLength = Math.min(sizeOf(a), sizeOf(b));
 		final double[] combined = new double[newLength];
 		for (int i = 0; i < newLength; i++) {
 			combined[i] = f.applyAsDouble(a[i], b[i]);
@@ -77,7 +77,7 @@ public final class CombineUtil
 	 */
 	public static long[] combine(final LongBinaryOperator f, final long[] a, final long[] b)
 	{
-		final int newLength = Math.min(len(a), len(b));
+		final int newLength = Math.min(sizeOf(a), sizeOf(b));
 		final long[] combined = new long[newLength];
 		for (int i = 0; i < newLength; i++) {
 			combined[i] = f.applyAsLong(a[i], b[i]);
@@ -96,7 +96,7 @@ public final class CombineUtil
 	 */
 	public static int dotProduct(final int[] a, final int[] b)
 	{
-		assert len(a) > 0 && len(a) == len(b);
+		assert sizeOf(a) > 0 && sizeOf(a) == sizeOf(b);
 		return sum(combine((x, y) -> x * y, a, b));
 	}
 
@@ -111,7 +111,7 @@ public final class CombineUtil
 	 */
 	public static double dotProduct(final double[] a, final double[] b)
 	{
-		assert len(a) > 0 && len(a) == len(b);
+		assert sizeOf(a) > 0 && sizeOf(a) == sizeOf(b);
 		return sum(combine((x, y) -> x * y, a, b));
 	}
 
@@ -126,7 +126,7 @@ public final class CombineUtil
 	 */
 	public static long dotProduct(final long[] a, final long[] b)
 	{
-		assert len(a) > 0 && len(a) == len(b);
+		assert sizeOf(a) > 0 && sizeOf(a) == sizeOf(b);
 		return sum(combine((x, y) -> x * y, a, b));
 	}
 }
