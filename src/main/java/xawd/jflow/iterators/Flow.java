@@ -521,7 +521,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	boolean noneMatch(final Predicate<? super E> predicate);
 
 	/**
-	 * Partitions the elements of this {@linkplain Flow} on whther they pass the
+	 * Partitions the elements of this {@linkplain Flow} on whether they pass the
 	 * supplied {@linkplain Predicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
@@ -616,7 +616,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li>
 	 *         </ul>
-	 *         an element of the source flow, say {@code e}, is associated to the
+	 *         an element of this source Flow, say {@code e}, is associated to the
 	 *         key value pair {@code (k(e), v(e))}.
 	 */
 	<K, V> Map<K, V> toMap(final Function<? super E, K> keyMapper, final Function<? super E, V> valueMapper);

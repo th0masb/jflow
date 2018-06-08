@@ -484,8 +484,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 * LongFlow.
 	 *
 	 * @param predicate
-	 *            - The supplied test.
-	 * @return true if every element passes the parameter predicate test, false
+	 *            The supplied test.
+	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
 	boolean allMatch(final LongPredicate predicate);
@@ -498,8 +498,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 * LongFlow.
 	 *
 	 * @param predicate
-	 *            - The supplied test.
-	 * @return true if any element passes the parameter predicate test, false
+	 *            The supplied test.
+	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
 	boolean anyMatch(final LongPredicate predicate);
@@ -512,47 +512,53 @@ public interface LongFlow extends PrototypeLongFlow
 	 * LongFlow.
 	 *
 	 * @param predicate
-	 *            - The supplied test.
-	 * @return true if every element fails the parameter predicate test, false
+	 *            The supplied test.
+	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
 	boolean noneMatch(final LongPredicate predicate);
 
 	/**
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongFlow}.
+	 * Partitions the elements of this {@linkplain LongFlow} on whether they pass the
+	 * supplied {@linkplain LongPredicate} test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
 	 *
 	 * @param predicate
-	 *            - A {@link LongPredicate}.
-	 * @return a partition of the cached elements split into two arrays on whether
+	 *            The supplied test.
+	 * @return A partition of the cached elements split into two arrays on whether
 	 *         they passed or failed the parameter predicate.
 	 */
 	LongPredicatePartition partition(LongPredicate predicate);
 
 	/**
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongFlow}.
+	 * Reduces this {@linkplain LongFlow} to a single value via some reduction function.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
 	 *
 	 * @param id
-	 *            - the identity of the reduction operation
+	 *            The identity of the reduction operation
 	 * @param reducer
-	 *            - the reduction function
-	 * @return If we denote the source LongFlow by {@code F}, the length of
-	 *         {@code F} by {@code n} and the reduction function by {@code f} then
-	 *         the result is equal to: <br>
+	 *            The reduction function
+	 * @return If we denote this source LongFlow by {@code F}, the length of {@code F}
+	 *         by {@code n} and the reduction function by {@code f} then the result
+	 *         is equal to: <br>
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
 	 */
 	long reduce(long id, LongBinaryOperator reducer);
 
 	/**
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongFlow}.
+	 * Reduces this {@linkplain LongFlow} to a single value via some reduction function.
 	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 *
+	 * @param id
+	 *            The identity of the reduction operation
 	 * @param reducer
-	 *            - the reduction function.
-	 * @return Let us denote the source LongFlow by {@code F}, the length of
-	 *         {@code F} by {@code n} and the reduction function by {@code f}. If
+	 *            The reduction function
+	 * @return Let us denote this source LongFlow by {@code F}, the length of {@code F}
+	 *         by {@code n} and the reduction function by {@code f}. If
 	 *         {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
@@ -560,63 +566,72 @@ public interface LongFlow extends PrototypeLongFlow
 	OptionalLong reduce(LongBinaryOperator reducer);
 
 	/**
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongFlow}.
+	 * Counts the number of elements in this {@linkplain LongFlow}.
 	 *
-	 * @return the number of elements in this LongFlow.
+	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
+	 *
+	 * @return The number of elements in this LongFlow.
 	 */
 	long count();
 
 	/**
+	 * Caches the values in this {@linkplain LongFlow} to an array.
+	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongFlow}.
 	 *
-	 * @return an long array containing all elements of this LongFlow with their
+	 * @return A long array containing all elements of this LongFlow with their
 	 *         ordering retained.
 	 */
 	long[] toArray();
 
 	/**
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongFlow}.
+	 * Builds a {@linkplain Map} using the elements in this {@linkplain LongFlow} via
+	 * two supplied functions.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
 	 *
 	 * @param <K>
-	 *            the type of the keys in the created mapping.
+	 *            The type of the keys in the created mapping.
 	 * @param <V>
-	 *            the type of the values in the created mapping.
+	 *            The type of the values in the created mapping.
 	 * @param keyMapper
-	 *            - a function mapping elements of this LongFlow to elements of the
-	 *            key type.
+	 *            A function mapping longs to elements of the key
+	 *            type.
 	 * @param valueMapper
-	 *            - a function mapping elements of this LongFlow to elements of the
-	 *            value type.
-	 * @return a {@link Map} instance whose key-value pairs have a 1-to-1
-	 *         correspondence with the elements in the source LongFlow. More
-	 *         specifically if:
+	 *            A function mapping longs to elements of the value
+	 *            type.
+	 *
+	 * @throws IllegalStateException
+	 *             If two elements of this LongFlow map to the same key.
+	 *
+	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
+	 *         with the elements in this source LongFlow. More specifically if:
+	 *         <ul>
 	 *         <li>{@code k} denotes the key mapping function</li>
-	 *         <li>{@code v} denotes the value mapping function</li> an element of
-	 *         the source LongFlow, say {@code e}, is associated to the key value
-	 *         pair {@code (k(e), v(e))}.<br>
-	 *         <br>
-	 *         If two different elements of the source LongFlow map to the same key
-	 *         then an {@link IllegalStateException} will be thrown.
+	 *         <li>{@code v} denotes the value mapping function</li>
+	 *         </ul>
+	 *         an element of this source LongFlow, say {@code e}, is associated to the
+	 *         key value pair {@code (k(e), v(e))}.
 	 */
 	<K, V> Map<K, V> toMap(final LongFunction<K> keyMapper, final LongFunction<V> valueMapper);
 
 	/**
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongFlow}.
+	 * Groups elements in this {@linkplain LongFlow} via their image under some supplied
+	 * classification function.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this LongFlow.
 	 *
 	 * @param <K>
-	 *            - the type of the keys in the final grouping map.
+	 *            The type of the keys in the final grouping map.
 	 *
 	 * @param classifier
-	 *            - a function defining the different groups of elements.
-	 * @return a {@link Map} instance whose keys partition the elements of the
-	 *         source LongFlow via the classification function. Elements in the
-	 *         source LongFlow who have equal (under .equals() contract) images
-	 *         under the classification function are grouped together in an array
-	 *         accessed by their shared classification key.
+	 *            A function defining the different groups of elements.
+	 * @return A Map instance whose keys partition the elements of this source LongFlow
+	 *         via the classification function. Elements in this source LongFlow who
+	 *         have equal (under .equals() contract) images under the classification
+	 *         function are grouped together in a long array accessed by their
+	 *         shared classification key.
 	 */
 	<K> Map<K, long[]> groupBy(final LongFunction<K> classifier);
 
