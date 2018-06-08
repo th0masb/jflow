@@ -913,5 +913,4 @@ public final class CollectionUtil
 		newList.addAll(xs);
 		return newList;
 	}
-
 }

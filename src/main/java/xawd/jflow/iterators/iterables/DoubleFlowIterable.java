@@ -11,7 +11,6 @@ import xawd.jflow.iterators.DoubleFlow;
 
 /**
  * @author t
- *
  */
 public interface DoubleFlowIterable
 {
