@@ -22,22 +22,6 @@ public final class PrimitiveUtil
 	/**
 	 * Checks if value is equal to zero
 	 */
-	public static boolean isZero(final int x)
-	{
-		return x == 0;
-	}
-
-	/**
-	 * Checks if value is equal to zero
-	 */
-	public static boolean isZero(final long x)
-	{
-		return x == 0;
-	}
-
-	/**
-	 * Checks if value is equal to zero
-	 */
 	public static boolean isZero(final double x)
 	{
 		return Math.abs(x) < EPSILON;

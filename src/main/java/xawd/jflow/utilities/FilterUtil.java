@@ -3,7 +3,6 @@
  */
 package xawd.jflow.utilities;
 
-
 import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.Arrays;
@@ -22,12 +21,14 @@ public final class FilterUtil
 	}
 
 	/**
-	 * Filters the passed sequence according to the given predicate. Returns a new sequence of the same type as the
-	 * parameter containing only those elements which satisfy the predicate. The relative order is maintained.
+	 * Filters an array according to some predicate.
 	 *
-	 * @param p - The predicate
-	 * @param xs - The sequence
-	 * @return a sequence containing the filtered elements.
+	 * @param p
+	 *            The predicate.
+	 * @param xs
+	 *            The source.
+	 * @return An array which contains only those elements in the source who pass
+	 *         the predicate test.
 	 */
 	public static double[] filter(final DoublePredicate p, final double[] xs)
 	{
@@ -41,14 +42,15 @@ public final class FilterUtil
 		return Arrays.copyOf(filtered, arrcount);
 	}
 
-
 	/**
-	 * Filters the passed sequence according to the given predicate. Returns a new sequence of the same type as the
-	 * parameter containing only those elements which satisfy the predicate. The relative order is maintained.
+	 * Filters an array according to some predicate.
 	 *
-	 * @param p - The predicate
-	 * @param xs - The sequence
-	 * @return a sequence containing the filtered elements.
+	 * @param p
+	 *            The predicate.
+	 * @param xs
+	 *            The source.
+	 * @return An array which contains only those elements in the source who pass
+	 *         the predicate test.
 	 */
 	public static int[] filter(final IntPredicate p, final int[] xs)
 	{
@@ -62,14 +64,15 @@ public final class FilterUtil
 		return Arrays.copyOf(filtered, arrcount);
 	}
 
-
 	/**
-	 * Filters the passed sequence according to the given predicate. Returns a new sequence of the same type as the
-	 * parameter containing only those elements which satisfy the predicate. The relative order is maintained.
+	 * Filters an array according to some predicate.
 	 *
-	 * @param p - The predicate
-	 * @param xs - The sequence
-	 * @return a sequence containing the filtered elements.
+	 * @param p
+	 *            The predicate.
+	 * @param xs
+	 *            The source.
+	 * @return An array which contains only those elements in the source who pass
+	 *         the predicate test.
 	 */
 	public static long[] filter(final LongPredicate p, final long[] xs)
 	{

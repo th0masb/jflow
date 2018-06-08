@@ -516,8 +516,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@linkplain IntFlow} passes the
-	 * supplied {@linkplain IntPredicate} test.
+	 * Checks whether every element in this {@linkplain IntFlow} passes the supplied
+	 * {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -530,8 +530,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean allMatch(final IntPredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@linkplain IntFlow} passes the
-	 * supplied {@linkplain IntPredicate} test.
+	 * Checks whether any element in this {@linkplain IntFlow} passes the supplied
+	 * {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -544,8 +544,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean anyMatch(final IntPredicate predicate);
 
 	/**
-	 * Checks whether every element in this {@linkplain IntFlow} fails the
-	 * supplied {@linkplain IntPredicate} test.
+	 * Checks whether every element in this {@linkplain IntFlow} fails the supplied
+	 * {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -558,8 +558,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean noneMatch(final IntPredicate predicate);
 
 	/**
-	 * Partitions the elements of this {@linkplain IntFlow} on whether they pass
-	 * the supplied {@linkplain IntPredicate} test.
+	 * Partitions the elements of this {@linkplain IntFlow} on whether they pass the
+	 * supplied {@linkplain IntPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -629,8 +629,8 @@ public interface IntFlow extends PrototypeIntFlow
 	int[] toArray();
 
 	/**
-	 * Builds a {@linkplain Map} using the elements in this {@linkplain IntFlow}
-	 * via two supplied functions.
+	 * Builds a {@linkplain Map} using the elements in this {@linkplain IntFlow} via
+	 * two supplied functions.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.

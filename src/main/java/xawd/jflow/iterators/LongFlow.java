@@ -293,8 +293,8 @@ public interface LongFlow extends PrototypeLongFlow
 	 *
 	 * @param other
 	 *            - A varargs long array
-	 * @return A LongFlow consisting of the elements of the source LongFlow
-	 *         followed by the elements in the parameter array.
+	 * @return A LongFlow consisting of the elements of the source LongFlow followed
+	 *         by the elements in the parameter array.
 	 */
 	LongFlow append(long... other);
 

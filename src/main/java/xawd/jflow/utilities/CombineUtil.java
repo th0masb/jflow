@@ -3,7 +3,6 @@
  */
 package xawd.jflow.utilities;
 
-
 import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.function.DoubleBinaryOperator;
@@ -21,36 +20,46 @@ public final class CombineUtil
 	}
 
 	/**
-	 * Combines two sequences into a sequence of the same type via the provided binary operator. It can be thought of as zipping
-	 * the sequences together into one which has the same length as the shortest parameter sequence (remaining values are discarded
-	 * from the longer sequence).
+	 * Combines two arrays into a single array via a binary operator.
 	 *
-	 * @param f - the binary operator describing the method of combination
-	 * @param a - the first parameter sequence
-	 * @param b - the second parameter sequence
-	 * @return the combined sequence.
+	 * @param combiner
+	 *            The operator describing how elements are combined.
+	 * @param xs
+	 *            The first array.
+	 * @param ys
+	 *            The second array.
+	 * @return Let {@code f} denote the combiner operator. Then we return an array
+	 *         {@code zs} defined by:
+	 *         <ul>
+	 *         <li>{@code zs[i] = f(xs[i], ys[i])}</li>
+	 *         <li>{@code sizeOf(zs) = min(sizeOf(xs), sizeOf(ys))}</li>
+	 *         </ul>
 	 */
-	public static int[] combine(final IntBinaryOperator f, final int[] a, final int[] b)
+	public static int[] combine(final IntBinaryOperator combiner, final int[] xs, final int[] ys)
 	{
-		final int newLength = Math.min(sizeOf(a), sizeOf(b));
+		final int newLength = Math.min(sizeOf(xs), sizeOf(ys));
 		final int[] combined = new int[newLength];
 		for (int i = 0; i < newLength; i++) {
-			combined[i] = f.applyAsInt(a[i], b[i]);
+			combined[i] = combiner.applyAsInt(xs[i], ys[i]);
 		}
 		return combined;
 	}
 
-
-
 	/**
-	 * Combines two sequences into a sequence of the same type via the provided binary operator. It can be thought of as zipping
-	 * the sequences together into one which has the same length as the shortest parameter sequence (remaining values are discarded
-	 * from the longer sequence).
+	 * Combines two arrays into a single array via a binary operator.
 	 *
-	 * @param f - the binary operator describing the method of combination
-	 * @param a - the first parameter sequence
-	 * @param b - the second parameter sequence
-	 * @return the combined sequence.
+	 * @param combiner
+	 *            The operator describing how elements are combined.
+	 * @param xs
+	 *            The first array.
+	 * @param ys
+	 *            The second array.
+	 * @return Let {@code f} denote the combiner operator. Then we return an array
+	 *         {@code zs} defined by:
+	 *         <ul>
+	 *         <li>{@code zs[i] = f(xs[i], ys[i])}</li>
+	 *         <li>{@code sizeOf(zs) = min(sizeOf(xs), sizeOf(ys))}</li>
+	 *         </ul>
 	 */
 	public static double[] combine(final DoubleBinaryOperator f, final double[] a, final double[] b)
 	{
@@ -62,17 +71,21 @@ public final class CombineUtil
 		return combined;
 	}
 
-
-
 	/**
-	 * Combines two sequences into a sequence of the same type via the provided binary operator. It can be thought of as zipping
-	 * the sequences together into one which has the same length as the shortest parameter sequence (remaining values are discarded
-	 * from the longer sequence).
+	 * Combines two arrays into a single array via a binary operator.
 	 *
-	 * @param f - the binary operator describing the method of combination
-	 * @param a - the first parameter sequence
-	 * @param b - the second parameter sequence
-	 * @return the combined sequence.
+	 * @param combiner
+	 *            The operator describing how elements are combined.
+	 * @param xs
+	 *            The first array.
+	 * @param ys
+	 *            The second array.
+	 * @return Let {@code f} denote the combiner operator. Then we return an array
+	 *         {@code zs} defined by:
+	 *         <ul>
+	 *         <li>{@code zs[i] = f(xs[i], ys[i])}</li>
+	 *         <li>{@code sizeOf(zs) = min(sizeOf(xs), sizeOf(ys))}</li>
+	 *         </ul>
 	 */
 	public static long[] combine(final LongBinaryOperator f, final long[] a, final long[] b)
 	{

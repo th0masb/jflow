@@ -37,8 +37,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param f
 	 *            A mapping function.
 	 * @return A new DoubleFlow instance whose elements are obtained by applying the
-	 *         parameter mapping function to each element of this DoubleFlow instance
-	 *         in turn.
+	 *         parameter mapping function to each element of this DoubleFlow
+	 *         instance in turn.
 	 */
 	DoubleFlow map(final DoubleUnaryOperator f);
 
@@ -51,8 +51,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param f
 	 *            A mapping function.
 	 * @return A new Flow instance whose elements are obtained by applying the
-	 *         parameter mapping function to each element of this DoubleFlow instance
-	 *         in turn.
+	 *         parameter mapping function to each element of this DoubleFlow
+	 *         instance in turn.
 	 */
 	<E> Flow<E> mapToObject(DoubleFunction<E> f);
 
@@ -63,8 +63,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param f
 	 *            A mapping function.
 	 * @return A new LongFlow instance whose elements are obtained by applying the
-	 *         parameter mapping function to each element of this DoubleFlow instance
-	 *         in turn.
+	 *         parameter mapping function to each element of this DoubleFlow
+	 *         instance in turn.
 	 */
 	LongFlow mapToLong(DoubleToLongFunction f);
 
@@ -75,8 +75,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param f
 	 *            A mapping function.
 	 * @return A new IntFlow instance whose elements are obtained by applying the
-	 *         parameter mapping function to each element of this DoubleFlow instance
-	 *         in turn.
+	 *         parameter mapping function to each element of this DoubleFlow
+	 *         instance in turn.
 	 */
 	IntFlow mapToInt(DoubleToIntFunction f);
 
@@ -90,9 +90,9 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param other
 	 *            The Iterator to zip this source Flow with.
 	 *
-	 * @return Denote this source DoubleFlow by {@code F} with the parameter Iterator
-	 *         denoted by {@code I}. We return a new Flow instance {@code G} defined
-	 *         by:
+	 * @return Denote this source DoubleFlow by {@code F} with the parameter
+	 *         Iterator denoted by {@code I}. We return a new Flow instance
+	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -159,12 +159,13 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 
 	/**
 	 * Combines this {@linkplain DoubleFlow} with another
-	 * {@linkplain PrimitiveIterator.OfDouble} via a two argument function to create a
-	 * new {@linkplain Flow} consisting of the images of pairs of elements with the
-	 * same index in their origin.
+	 * {@linkplain PrimitiveIterator.OfDouble} via a two argument function to create
+	 * a new {@linkplain Flow} consisting of the images of pairs of elements with
+	 * the same index in their origin.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfDouble to combine this source DoubleFlow with.
+	 *            The PrimitiveIterator.OfDouble to combine this source DoubleFlow
+	 *            with.
 	 * @param combiner
 	 *            The combining function.
 	 *
@@ -194,14 +195,14 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	Flow<IntWithDouble> enumerate();
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting elements
-	 * with indices defined by the parameter index mapping.
+	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting
+	 * elements with indices defined by the parameter index mapping.
 	 *
 	 * @param indexMap
 	 *            A strictly monotonically increasing function {@code f: N -> N}
-	 * @return Let {@code F} denote this source DoubleFlow, let {@code n = length(F)}
-	 *         and denote the indexMap by {@code f}. Then this method returns a
-	 *         DoubleFlow {@code G} given by:
+	 * @return Let {@code F} denote this source DoubleFlow, let
+	 *         {@code n = length(F)} and denote the indexMap by {@code f}. Then this
+	 *         method returns a DoubleFlow {@code G} given by:
 	 *         <ul>
 	 *         <li>{@code G[i] = F(f(i))}</li>
 	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) &lt; length(F))} </code></li>
@@ -210,8 +211,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow slice(IntUnaryOperator indexMap);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting the first
-	 * n elements.
+	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting the
+	 * first n elements.
 	 *
 	 * @param n
 	 *            A non-negative integer.
@@ -224,8 +225,9 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow take(final int n);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting elements
-	 * until an element fails the supplied test, the first failure is not selected.
+	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting
+	 * elements until an element fails the supplied test, the first failure is not
+	 * selected.
 	 *
 	 * @param predicate
 	 *            A {@link DoublePredicate}.
@@ -238,8 +240,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow takeWhile(final DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by removing the first
-	 * n elements.
+	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by removing the
+	 * first n elements.
 	 *
 	 * @param n
 	 *            A non-negative integer.
@@ -251,9 +253,9 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow drop(final int n);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by removing elements
-	 * until an element fails the supplied test, the first failure is the first
-	 * element of the result.
+	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by removing
+	 * elements until an element fails the supplied test, the first failure is the
+	 * first element of the result.
 	 *
 	 * @param predicate
 	 *            A {@link DoublePredicate}.
@@ -277,8 +279,9 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow filter(final DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by adding each element
-	 * of the supplied {@linkplain PrimitiveIterator.OfDouble} to its end in order.
+	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by adding each
+	 * element of the supplied {@linkplain PrimitiveIterator.OfDouble} to its end in
+	 * order.
 	 *
 	 * @param other
 	 *            A PrimitiveIterator.OfDouble.
@@ -288,8 +291,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow append(PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by adding each element
-	 * of the supplied varargs array to its end in order.
+	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by adding each
+	 * element of the supplied varargs array to its end in order.
 	 *
 	 * @param other
 	 *            - A varargs double array
@@ -299,8 +302,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow append(double... other);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this Flow by adding each element to
-	 * the end of the supplied {@linkplain PrimitiveIterator.OfDouble} in order.
+	 * Creates a new {@linkplain DoubleFlow} from this Flow by adding each element
+	 * to the end of the supplied {@linkplain PrimitiveIterator.OfDouble} in order.
 	 *
 	 * @param other
 	 *            A PrimitiveIterator.OfDouble.
@@ -311,8 +314,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow insert(PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this Flow by adding each element to
-	 * the end of the supplied varargs array in order.
+	 * Creates a new {@linkplain DoubleFlow} from this Flow by adding each element
+	 * to the end of the supplied varargs array in order.
 	 *
 	 * @param other
 	 *            - A varargs double array
@@ -322,8 +325,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow insert(double... other);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain DoubleFlow} to produce a
-	 * new DoubleFlow.
+	 * Applies an accumulation operation to this {@linkplain DoubleFlow} to produce
+	 * a new DoubleFlow.
 	 *
 	 * @param accumulator
 	 *            The accumulation function.
@@ -336,8 +339,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow accumulate(DoubleBinaryOperator accumulator);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain DoubleFlow} to produce a
-	 * new DoubleFlow.
+	 * Applies an accumulation operation to this {@linkplain DoubleFlow} to produce
+	 * a new DoubleFlow.
 	 *
 	 * @param id
 	 *            The identity element in the accumulation.
@@ -377,8 +380,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double min(double defaultValue);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain DoubleFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the minimum element in this {@linkplain DoubleFlow} by an
+	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -389,15 +392,15 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param key
 	 *            A function mapping the elements of this DoubleFlow into the real
 	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is the
-	 *         minimum among all images. A parameter default value is returned if
-	 *         the source is empty. NaN images are ignored.
+	 * @return The element of this DoubleFlow whose image under the key mapping is
+	 *         the minimum among all images. A parameter default value is returned
+	 *         if the source is empty. NaN images are ignored.
 	 */
 	double minByKey(double defaultValue, final DoubleUnaryOperator key);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain DoubleFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the minimum element in this {@linkplain DoubleFlow} by an
+	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -405,9 +408,9 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param key
 	 *            A function mapping the elements of this DoubleFlow into the real
 	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is the
-	 *         minimum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
+	 * @return The element of this DoubleFlow whose image under the key mapping is
+	 *         the minimum among all images. Nothing is returned if the source is
+	 *         empty. NaN images are ignored.
 	 */
 	OptionalDouble minByKey(final DoubleUnaryOperator key);
 
@@ -417,8 +420,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
 	 *
-	 * @return an {@link OptionalDouble} wrapping the largest element in this DoubleFlow
-	 *         or nothing if the iteration is empty.
+	 * @return an {@link OptionalDouble} wrapping the largest element in this
+	 *         DoubleFlow or nothing if the iteration is empty.
 	 */
 	OptionalDouble max();
 
@@ -437,8 +440,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double max(double defaultValue);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain DoubleFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the maximum element in this {@linkplain DoubleFlow} by an
+	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -449,15 +452,15 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param key
 	 *            A function mapping the elements of this DoubleFlow into the real
 	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is the
-	 *         maximum among all images. A parameter default value is returned if
-	 *         the source is empty. NaN images are ignored.
+	 * @return The element of this DoubleFlow whose image under the key mapping is
+	 *         the maximum among all images. A parameter default value is returned
+	 *         if the source is empty. NaN images are ignored.
 	 */
 	double maxByKey(double defaultValue, final DoubleUnaryOperator key);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain DoubleFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the maximum element in this {@linkplain DoubleFlow} by an
+	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -465,9 +468,9 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param key
 	 *            A function mapping the elements of this DoubleFlow into the real
 	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is the
-	 *         maximum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
+	 * @return The element of this DoubleFlow whose image under the key mapping is
+	 *         the maximum among all images. Nothing is returned if the source is
+	 *         empty. NaN images are ignored.
 	 */
 	OptionalDouble maxByKey(final DoubleUnaryOperator key);
 
@@ -496,8 +499,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	boolean allMatch(final DoublePredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@linkplain DoubleFlow} passes the supplied
-	 * {@linkplain DoublePredicate} test.
+	 * Checks whether any element in this {@linkplain DoubleFlow} passes the
+	 * supplied {@linkplain DoublePredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -510,8 +513,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	boolean anyMatch(final DoublePredicate predicate);
 
 	/**
-	 * Checks whether every element in this {@linkplain DoubleFlow} fails the supplied
-	 * {@linkplain DoublePredicate} test.
+	 * Checks whether every element in this {@linkplain DoubleFlow} fails the
+	 * supplied {@linkplain DoublePredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -639,8 +642,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return A Map instance whose keys partition the elements of this source
 	 *         DoubleFlow via the classification function. Elements in this source
 	 *         DoubleFlow who have equal (under .equals() contract) images under the
-	 *         classification function are grouped together in a double array accessed
-	 *         by their shared classification key.
+	 *         classification function are grouped together in a double array
+	 *         accessed by their shared classification key.
 	 */
 	<K> Map<K, double[]> groupBy(final DoubleFunction<K> classifier);
 

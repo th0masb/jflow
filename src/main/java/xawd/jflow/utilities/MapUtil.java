@@ -3,7 +3,6 @@
  */
 package xawd.jflow.utilities;
 
-
 import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.List;
@@ -37,13 +36,15 @@ public final class MapUtil
 	}
 
 	/**
-	 * The doubleMap function provides a unified way of mapping sequences to primitive double sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a double array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return A double array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static double[] doubleMap(final DoubleUnaryOperator f, final double[] xs)
 	{
@@ -54,15 +55,16 @@ public final class MapUtil
 		return mapped;
 	}
 
-
 	/**
-	 * The doubleMap function provides a unified way of mapping sequences to primitive double sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a double array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return A double array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static double[] doubleMap(final IntToDoubleFunction f, final int[] xs)
 	{
@@ -73,15 +75,16 @@ public final class MapUtil
 		return mapped;
 	}
 
-
 	/**
-	 * The doubleMap function provides a unified way of mapping sequences to primitive double sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a double array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return A double array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static double[] doubleMap(final LongToDoubleFunction f, final long[] xs)
 	{
@@ -93,15 +96,20 @@ public final class MapUtil
 	}
 
 	/**
-	 * The doubleMap function provides a unified way of mapping sequences to primitive double sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a double array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param <E>
+	 *            The upper bound on the type of elements which will be mapped.
+	 *
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source {@linkplain List}.
+	 * @return A double array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
-	public static <T> double[] doubleMap(final ToDoubleFunction<T> f, final List<? extends T> xs)
+	public static <E> double[] doubleMap(final ToDoubleFunction<? super E> f, final List<? extends E> xs)
 	{
 		final double[] mapped = new double[sizeOf(xs)];
 		for (int i = 0; i < sizeOf(xs); i++) {
@@ -111,13 +119,15 @@ public final class MapUtil
 	}
 
 	/**
-	 * The intMap function provides a unified way of mapping sequences to primitive int sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an int array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return An int array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static int[] intMap(final IntUnaryOperator f, final int[] xs)
 	{
@@ -129,13 +139,15 @@ public final class MapUtil
 	}
 
 	/**
-	 * The intMap function provides a unified way of mapping sequences to primitive int sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an int array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return An int array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static int[] intMap(final DoubleToIntFunction f, final double[] xs)
 	{
@@ -147,13 +159,15 @@ public final class MapUtil
 	}
 
 	/**
-	 * The intMap function provides a unified way of mapping sequences to primitive int sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an int array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return An int array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static int[] intMap(final LongToIntFunction f, final long[] xs)
 	{
@@ -165,15 +179,19 @@ public final class MapUtil
 	}
 
 	/**
-	 * The intMap function provides a unified way of mapping sequences to primitive int sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an int array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param <E>
+	 *            The upper bound on the type of elements which will be mapped.
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source {@linkplain List}.
+	 * @return An int array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
-	public static <T> int[] intMap(final ToIntFunction<T> f, final List<? extends T> xs)
+	public static <E> int[] intMap(final ToIntFunction<? super E> f, final List<? extends E> xs)
 	{
 		final int[] mapped = new int[sizeOf(xs)];
 		for (int i = 0; i < sizeOf(xs); i++) {
@@ -182,15 +200,16 @@ public final class MapUtil
 		return mapped;
 	}
 
-
 	/**
-	 * The longMap function provides a unified way of mapping sequences to primitive long sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an long array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return A long array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static long[] longMap(final LongUnaryOperator f, final long[] xs)
 	{
@@ -201,15 +220,16 @@ public final class MapUtil
 		return mapped;
 	}
 
-
 	/**
-	 * The longMap function provides a unified way of mapping sequences to primitive long sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an long array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return A long array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static long[] longMap(final IntToLongFunction f, final int[] xs)
 	{
@@ -220,15 +240,16 @@ public final class MapUtil
 		return mapped;
 	}
 
-
 	/**
-	 * The longMap function provides a unified way of mapping sequences to primitive long sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an long array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 * @return A long array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
 	public static long[] longMap(final DoubleToLongFunction f, final double[] xs)
 	{
@@ -240,15 +261,19 @@ public final class MapUtil
 	}
 
 	/**
-	 * The longMap function provides a unified way of mapping sequences to primitive long sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being Object Lists and arrays
-	 * which are mapped to primitive arrays.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce an long array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param <E>
+	 *            The upper bound on the type of elements which will be mapped.
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source {@linkplain List}.
+	 * @return A long array of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
-	public static <T> long[] longMap(final ToLongFunction<T> f, final List<? extends T> xs)
+	public static <E> long[] longMap(final ToLongFunction<? super E> f, final List<? extends E> xs)
 	{
 		final long[] mapped = new long[sizeOf(xs)];
 		for (int i = 0; i < sizeOf(xs); i++) {
@@ -257,61 +282,81 @@ public final class MapUtil
 		return mapped;
 	}
 
-
 	/**
-	 * The objMap function provides a unified way of mapping sequences to object sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being arrays
-	 * which are mapped to {@link ImmutableList} instances.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a {@linkplain List}.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param <E>
+	 *            The upper bound on the type of elements which will be mapped.
+	 *
+	 * @param <R>
+	 *            The target type of the mapping operation.
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source {@linkplain List}.
+	 *
+	 * @return A List of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
-	public static <E, R> List<R> objMap(final Function<E, R> f, final List<? extends E> xs)
+	public static <E, R> List<R> objMap(final Function<? super E, R> f, final List<? extends E> xs)
 	{
 		return Iterate.over(xs).map(f).toList();
 	}
 
-
 	/**
-	 * The objMap function provides a unified way of mapping sequences to object sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being arrays
-	 * which are mapped to {@link ImmutableList} instances.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a {@linkplain List}.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
-	 */
-	public static <T> List<T> objMap(final IntFunction<T> f, final int[] xs)
-	{
-		return Iterate.over(xs).mapToObject(f).toList();
-	}
-
-
-	/**
-	 * The objMap function provides a unified way of mapping sequences to object sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being arrays
-	 * which are mapped to {@link ImmutableList} instances.
+	 * @param <R>
+	 *            The target type of the mapping operation.
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @return A List of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
-	public static <T> List<T> objMap(final DoubleFunction<T> f, final double[] xs)
+	public static <R> List<R> objMap(final IntFunction<R> f, final int[] xs)
 	{
 		return Iterate.over(xs).mapToObject(f).toList();
 	}
 
 	/**
-	 * The objMap function provides a unified way of mapping sequences to object sequences. Generally
-	 * the type of the returned sequence is the same as the parameter one, the exception being arrays
-	 * which are mapped to {@link ImmutableList} instances.
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a {@linkplain List}.
 	 *
-	 * @param f - The function defining the mapping
-	 * @param xs - The sequence to map
-	 * @return a sequence of the same length as <b>xs</b> containing the mapped values of <b>xs</b> (with order retained).
+	 * @param <R>
+	 *            The target type of the mapping operation.
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 *
+	 * @return A List of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
 	 */
-	public static <T> List<T> objMap(final LongFunction<T> f, final long[] xs)
+	public static <R> List<R> objMap(final DoubleFunction<R> f, final double[] xs)
+	{
+		return Iterate.over(xs).mapToObject(f).toList();
+	}
+
+	/**
+	 * Sequentially applies a mapping function elementwise to an finite, ordered
+	 * input sequence to produce a {@linkplain List}.
+	 *
+	 * @param <R>
+	 *            The target type of the mapping operation.
+	 * @param f
+	 *            The function defining the mapping.
+	 * @param xs
+	 *            The source array.
+	 *
+	 * @return A List of the same length as the source containing the mapped
+	 *         values of the source elements with order retained.
+	 */
+	public static <R> List<R> objMap(final LongFunction<R> f, final long[] xs)
 	{
 		return Iterate.over(xs).mapToObject(f).toList();
 	}
