@@ -20,9 +20,9 @@ import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
 
 /**
- * An IntFlow instance is an primitive iterator with lots of extra functionality
- * in the style of the {@link IntStream} interface. There are methods inspired
- * by other languages too, namely Python and Haskell.
+ * An IntFlow instance is an primitive iterator with lots of FP style
+ * functionality in the style of the {@link IntStream} interface. There are
+ * methods inspired by other languages too, namely Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -215,7 +215,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * element fails the supplied test, the first failure is not selected.
 	 *
 	 * @param predicate
-	 *            A {@link IntPredicate}.
+	 *            A IntPredicate.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a IntFlow consisting of
 	 *         the first {@code n} elements of this source IntFlow. If no element
@@ -241,7 +241,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * result.
 	 *
 	 * @param predicate
-	 *            An {@link IntPredicate}.
+	 *            An IntPredicate.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a IntFlow missing
 	 *         {@code n} elements of this source IntFlow. If no element fails the
@@ -254,7 +254,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * the supplied predicate test.
 	 *
 	 * @param predicate
-	 *            A {@link IntPredicate}.
+	 *            A IntPredicate.
 	 * @return An IntFlow containing only those elements of this source IntFlow
 	 *         which pass the test defined by the parameter predicate. The relative
 	 *         ordering of elements is retained.
@@ -500,8 +500,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this IntFlow passes the supplied
-	 * {@linkplain IntPredicate} test.
+	 * Checks whether every element in this IntFlow passes the supplied IntPredicate
+	 * test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -514,8 +514,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean allMatch(final IntPredicate predicate);
 
 	/**
-	 * Checks whether any element in this IntFlow passes the supplied
-	 * {@linkplain IntPredicate} test.
+	 * Checks whether any element in this IntFlow passes the supplied IntPredicate
+	 * test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -528,8 +528,8 @@ public interface IntFlow extends PrototypeIntFlow
 	boolean anyMatch(final IntPredicate predicate);
 
 	/**
-	 * Checks whether every element in this IntFlow fails the supplied
-	 * {@linkplain IntPredicate} test.
+	 * Checks whether every element in this IntFlow fails the supplied IntPredicate
+	 * test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -543,7 +543,7 @@ public interface IntFlow extends PrototypeIntFlow
 
 	/**
 	 * Partitions the elements of this IntFlow on whether they pass the supplied
-	 * {@linkplain IntPredicate} test.
+	 * IntPredicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -611,8 +611,7 @@ public interface IntFlow extends PrototypeIntFlow
 	int[] toArray();
 
 	/**
-	 * Builds a {@linkplain Map} using the elements in this IntFlow via two supplied
-	 * functions.
+	 * Builds a Map using the elements in this IntFlow via two supplied functions.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.

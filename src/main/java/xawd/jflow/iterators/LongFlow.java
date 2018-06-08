@@ -21,9 +21,9 @@ import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
 
 /**
- * An {@link LongFlow} instance is an {@link PrimitiveIterator.OfLong} with lots
- * of extra functionality in the style of the {@link IntStream} interface. There
- * are methods inspired by other languages too, namely Python and Haskell.
+ * An LongFlow instance is an primitive iterator with lots of extra
+ * functionality in the style of the {@link IntStream} interface. There are
+ * methods inspired by other languages too, namely Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -31,8 +31,7 @@ import xawd.jflow.iterators.misc.LongWith;
 public interface LongFlow extends PrototypeLongFlow
 {
 	/**
-	 * Applies a function elementwise to this {@linkplain LongFlow} to make new
-	 * LongFlow.
+	 * Applies a function elementwise to this LongFlow to make new LongFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -40,11 +39,10 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         parameter mapping function to each element of this LongFlow instance
 	 *         in turn.
 	 */
-	LongFlow map(final LongUnaryOperator f);
+	LongFlow map(LongUnaryOperator f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain LongFlow} to make new
-	 * {@linkplain Flow}.
+	 * Applies a function elementwise to this LongFlow to make new Flow.
 	 *
 	 * @param <E>
 	 *            The target type of the mapping function.
@@ -57,8 +55,7 @@ public interface LongFlow extends PrototypeLongFlow
 	<E> Flow<E> mapToObject(LongFunction<E> f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain LongFlow} to make a new
-	 * {@linkplain DoubleFlow}.
+	 * Applies a function elementwise to this LongFlow to make a new DoubleFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -69,8 +66,7 @@ public interface LongFlow extends PrototypeLongFlow
 	DoubleFlow mapToDouble(LongToDoubleFunction f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain LongFlow} to make a new
-	 * {@linkplain IntFlow}.
+	 * Applies a function elementwise to this LongFlow to make a new IntFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -81,9 +77,8 @@ public interface LongFlow extends PrototypeLongFlow
 	IntFlow mapToInt(LongToIntFunction f);
 
 	/**
-	 * Combines this {@linkplain LongFlow} with another {@linkplain Iterator} to
-	 * create a new {@linkplain Flow} consisting of pairs of elements with the same
-	 * index in their respective origins.
+	 * Combines this LongFlow with another iterator to create a new Flow consisting
+	 * of pairs of elements with the same index in their respective origins.
 	 *
 	 * @param <E>
 	 *            The upper type bound on the parameter Iterator.
@@ -98,80 +93,75 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	<E> Flow<LongWith<E>> zipWith(final Iterator<? extends E> other);
+	<E> Flow<LongWith<E>> zipWith(Iterator<? extends E> other);
 
 	/**
-	 * Combines this {@linkplain LongFlow} with another
-	 * {@linkplain PrimitiveIterator.OfLong}} to create a new {@linkplain Flow}
+	 * Combines this LongFlow with another primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfLong to zip this source LongFlow with.
+	 *            The primitive iterator to zip this source LongFlow with.
 	 *
-	 * @return Denote this source LongFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new Flow
-	 *         instance {@code G} defined by:
+	 * @return Denote this source LongFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I}. We return a new Flow instance
+	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<LongPair> zipWith(final PrimitiveIterator.OfLong other);
+	Flow<LongPair> zipWith(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Combines this {@linkplain LongFlow} with another
-	 * {@linkplain PrimitiveIterator.OfDouble}} to create a new {@linkplain Flow}
+	 * Combines this LongFlow with another primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfDouble to zip this source LongFlow with.
+	 *            The primitive iterator to zip this source LongFlow with.
 	 *
-	 * @return Denote this source LongFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new Flow
-	 *         instance {@code G} defined by:
+	 * @return Denote this source LongFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I}. We return a new Flow instance
+	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfDouble other);
+	Flow<DoubleWithLong> zipWith(PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Combines this {@linkplain LongFlow} with another
-	 * {@linkplain PrimitiveIterator.OfInt}} to create a new {@linkplain Flow}
+	 * Combines this LongFlow with another primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfInt to zip this source LongFlow with.
+	 *            The primitive iterator to zip this source LongFlow with.
 	 *
-	 * @return Denote this source LongFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new Flow
-	 *         instance {@code G} defined by:
+	 * @return Denote this source LongFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I}. We return a new Flow instance
+	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfInt other);
+	Flow<IntWithLong> zipWith(PrimitiveIterator.OfInt other);
 
 	/**
-	 * Combines this {@linkplain LongFlow} with another
-	 * {@linkplain PrimitiveIterator.OfLong} via a two argument function to create a
-	 * new {@linkplain Flow} consisting of the images of pairs of elements with the
-	 * same index in their origin.
+	 * Combines this LongFlow with another primitive iterator via a two argument
+	 * function to create a new Flow consisting of the images of pairs of elements
+	 * with the same index in their origin.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfLong to combine this source LongFlow with.
+	 *            The primitive iterator to combine this source LongFlow with.
 	 * @param combiner
 	 *            The combining function.
 	 *
-	 * @return Denote this source LongFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfLong denoted by {@code I} and the combining
-	 *         function by {@code f}. We return a new Flow instance {@code G}
-	 *         defined by:
+	 * @return Denote this source LongFlow by {@code F} with the parameter primitive
+	 *         iterator denoted by {@code I} and the combining function by
+	 *         {@code f}. We return a new Flow instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = f(F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -180,9 +170,8 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow combineWith(PrimitiveIterator.OfLong other, LongBinaryOperator combiner);
 
 	/**
-	 * Creates a new {@linkplain Flow} by mapping each element in this source
-	 * {@linkplain LongFlow} to a pair consisting of the element and the index it
-	 * appears.
+	 * Creates a new Flow by mapping each element in this source LongFlow to a pair
+	 * consisting of the element and the index it appears.
 	 *
 	 * @return Denote this source LongFlow by {@code F}. We return a new Flow
 	 *         instance {@code G} defined by:
@@ -194,8 +183,8 @@ public interface LongFlow extends PrototypeLongFlow
 	Flow<IntWithLong> enumerate();
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by selecting elements
-	 * with indices defined by the parameter index mapping.
+	 * Creates a new LongFlow from this LongFlow by selecting elements with indices
+	 * defined by the parameter index mapping.
 	 *
 	 * @param indexMap
 	 *            A strictly monotonically increasing function {@code f: N -> N}
@@ -210,8 +199,7 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow slice(IntUnaryOperator indexMap);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by selecting the first
-	 * n elements.
+	 * Creates a new LongFlow from this LongFlow by selecting the first n elements.
 	 *
 	 * @param n
 	 *            A non-negative integer.
@@ -224,8 +212,8 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow take(final int n);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by selecting elements
-	 * until an element fails the supplied test, the first failure is not selected.
+	 * Creates a new LongFlow from this LongFlow by selecting elements until an
+	 * element fails the supplied test, the first failure is not selected.
 	 *
 	 * @param predicate
 	 *            A {@link LongPredicate}.
@@ -238,8 +226,7 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow takeWhile(final LongPredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by removing the first
-	 * n elements.
+	 * Creates a new LongFlow from this LongFlow by removing the first n elements.
 	 *
 	 * @param n
 	 *            A non-negative integer.
@@ -251,9 +238,9 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow drop(final int n);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by removing elements
-	 * until an element fails the supplied test, the first failure is the first
-	 * element of the result.
+	 * Creates a new LongFlow from this LongFlow by removing elements until an
+	 * element fails the supplied test, the first failure is the first element of
+	 * the result.
 	 *
 	 * @param predicate
 	 *            A {@link LongPredicate}.
@@ -265,8 +252,8 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow dropWhile(final LongPredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by removing any
-	 * element which fails the supplied predicate test.
+	 * Creates a new LongFlow from this LongFlow by removing any element which fails
+	 * the supplied predicate test.
 	 *
 	 * @param predicate
 	 *            A {@link LongPredicate}.
@@ -277,19 +264,19 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow filter(final LongPredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by adding each element
-	 * of the supplied {@linkplain PrimitiveIterator.OfLong} to its end in order.
+	 * Creates a new LongFlow from this LongFlow by adding each element of the
+	 * supplied {@linkplain primitive iterator} to its end in order.
 	 *
 	 * @param other
-	 *            A PrimitiveIterator.OfLong.
+	 *            A primitive iterator.
 	 * @return A LongFlow consisting of the elements of this source LongFlow
-	 *         followed by the elements of the parameter PrimitiveIterator.OfLong.
+	 *         followed by the elements of the parameter primitive iterator.
 	 */
 	LongFlow append(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this LongFlow by adding each element
-	 * of the supplied varargs array to its end in order.
+	 * Creates a new LongFlow from this LongFlow by adding each element of the
+	 * supplied varargs array to its end in order.
 	 *
 	 * @param other
 	 *            - A varargs long array
@@ -299,20 +286,19 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow append(long... other);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this Flow by adding each element to
-	 * the end of the supplied {@linkplain PrimitiveIterator.OfLong} in order.
+	 * Creates a new LongFlow from this Flow by adding each element to the end of
+	 * the supplied {@linkplain primitive iterator} in order.
 	 *
 	 * @param other
-	 *            A PrimitiveIterator.OfLong.
-	 * @return a LongFlow consisting of the elements of the parameter
-	 *         PrimitiveIterator.OfLong followed by the elements of this source
-	 *         LongFlow.
+	 *            A primitive iterator.
+	 * @return a LongFlow consisting of the elements of the parameter primitive
+	 *         iterator followed by the elements of this source LongFlow.
 	 */
 	LongFlow insert(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Creates a new {@linkplain LongFlow} from this Flow by adding each element to
-	 * the end of the supplied varargs array in order.
+	 * Creates a new LongFlow from this Flow by adding each element to the end of
+	 * the supplied varargs array in order.
 	 *
 	 * @param other
 	 *            - A varargs long array
@@ -322,8 +308,7 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow insert(long... other);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain LongFlow} to produce a
-	 * new LongFlow.
+	 * Applies an accumulation operation to this LongFlow to produce a new LongFlow.
 	 *
 	 * @param accumulator
 	 *            The accumulation function.
@@ -336,8 +321,7 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow accumulate(LongBinaryOperator accumulator);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain LongFlow} to produce a
-	 * new LongFlow.
+	 * Applies an accumulation operation to this LongFlow to produce a new LongFlow.
 	 *
 	 * @param id
 	 *            The identity element in the accumulation.
@@ -352,7 +336,7 @@ public interface LongFlow extends PrototypeLongFlow
 	LongFlow accumulate(long id, LongBinaryOperator accumulator);
 
 	/**
-	 * Calculates the minimum value in this {@linkplain LongFlow}.
+	 * Calculates the minimum value in this LongFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -363,7 +347,7 @@ public interface LongFlow extends PrototypeLongFlow
 	OptionalLong min();
 
 	/**
-	 * Calculates the minimum value in this {@linkplain LongFlow}.
+	 * Calculates the minimum value in this LongFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -377,8 +361,8 @@ public interface LongFlow extends PrototypeLongFlow
 	long min(long defaultValue);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain LongFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the minimum element in this LongFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -393,11 +377,11 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         minimum among all images. A parameter default value is returned if
 	 *         the source is empty. NaN images are ignored.
 	 */
-	long minByKey(long defaultValue, final LongToDoubleFunction key);
+	long minByKey(long defaultValue, LongToDoubleFunction key);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain LongFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the minimum element in this LongFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -409,10 +393,10 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         minimum among all images. Nothing is returned if the source is empty.
 	 *         NaN images are ignored.
 	 */
-	OptionalLong minByKey(final LongToDoubleFunction key);
+	OptionalLong minByKey(LongToDoubleFunction key);
 
 	/**
-	 * Calculates the maximum value in this {@linkplain LongFlow}.
+	 * Calculates the maximum value in this LongFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -423,7 +407,7 @@ public interface LongFlow extends PrototypeLongFlow
 	OptionalLong max();
 
 	/**
-	 * Calculates the maximum value in this {@linkplain LongFlow}.
+	 * Calculates the maximum value in this LongFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -437,8 +421,8 @@ public interface LongFlow extends PrototypeLongFlow
 	long max(long defaultValue);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain LongFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the maximum element in this LongFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -453,11 +437,11 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         maximum among all images. A parameter default value is returned if
 	 *         the source is empty. NaN images are ignored.
 	 */
-	long maxByKey(long defaultValue, final LongToDoubleFunction key);
+	long maxByKey(long defaultValue, LongToDoubleFunction key);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain LongFlow} by an embedding
-	 * into the real numbers.
+	 * Calculates the maximum element in this LongFlow by an embedding into the real
+	 * numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -469,10 +453,10 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         maximum among all images. Nothing is returned if the source is empty.
 	 *         NaN images are ignored.
 	 */
-	OptionalLong maxByKey(final LongToDoubleFunction key);
+	OptionalLong maxByKey(LongToDoubleFunction key);
 
 	/**
-	 * Checks whether every element in this {@linkplain LongFlow} is the same.
+	 * Checks whether every element in this LongFlow is the same.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -482,8 +466,8 @@ public interface LongFlow extends PrototypeLongFlow
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@linkplain LongFlow} passes the
-	 * supplied {@linkplain LongPredicate} test.
+	 * Checks whether every element in this LongFlow passes the supplied
+	 * {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -493,10 +477,10 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(final LongPredicate predicate);
+	boolean allMatch(LongPredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@linkplain LongFlow} passes the supplied
+	 * Checks whether any element in this LongFlow passes the supplied
 	 * {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -507,10 +491,10 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(final LongPredicate predicate);
+	boolean anyMatch(LongPredicate predicate);
 
 	/**
-	 * Checks whether every element in this {@linkplain LongFlow} fails the supplied
+	 * Checks whether every element in this LongFlow fails the supplied
 	 * {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -521,11 +505,11 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(final LongPredicate predicate);
+	boolean noneMatch(LongPredicate predicate);
 
 	/**
-	 * Partitions the elements of this {@linkplain LongFlow} on whether they pass
-	 * the supplied {@linkplain LongPredicate} test.
+	 * Partitions the elements of this LongFlow on whether they pass the supplied
+	 * {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -538,8 +522,7 @@ public interface LongFlow extends PrototypeLongFlow
 	LongPredicatePartition partition(LongPredicate predicate);
 
 	/**
-	 * Reduces this {@linkplain LongFlow} to a single value via some reduction
-	 * function.
+	 * Reduces this LongFlow to a single value via some reduction function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -557,8 +540,7 @@ public interface LongFlow extends PrototypeLongFlow
 	long reduce(long id, LongBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@linkplain LongFlow} to a single value via some reduction
-	 * function.
+	 * Reduces this LongFlow to a single value via some reduction function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -574,7 +556,7 @@ public interface LongFlow extends PrototypeLongFlow
 	OptionalLong reduce(LongBinaryOperator reducer);
 
 	/**
-	 * Counts the number of elements in this {@linkplain LongFlow}.
+	 * Counts the number of elements in this LongFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -584,10 +566,10 @@ public interface LongFlow extends PrototypeLongFlow
 	long count();
 
 	/**
-	 * Caches the values in this {@linkplain LongFlow} to an array.
+	 * Caches the values in this LongFlow to an array.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongFlow}.
+	 * LongFlow.
 	 *
 	 * @return A long array containing all elements of this LongFlow with their
 	 *         ordering retained.
@@ -595,8 +577,8 @@ public interface LongFlow extends PrototypeLongFlow
 	long[] toArray();
 
 	/**
-	 * Builds a {@linkplain Map} using the elements in this {@linkplain LongFlow}
-	 * via two supplied functions.
+	 * Builds a {@linkplain Map} using the elements in this LongFlow via two
+	 * supplied functions.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -622,11 +604,11 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         an element of this source LongFlow, say {@code e}, is associated to
 	 *         the key value pair {@code (k(e), v(e))}.
 	 */
-	<K, V> Map<K, V> toMap(final LongFunction<K> keyMapper, final LongFunction<V> valueMapper);
+	<K, V> Map<K, V> toMap(LongFunction<K> keyMapper, LongFunction<V> valueMapper);
 
 	/**
-	 * Groups elements in this {@linkplain LongFlow} via their image under some
-	 * supplied classification function.
+	 * Groups elements in this LongFlow via their image under some supplied
+	 * classification function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -642,11 +624,10 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         classification function are grouped together in a long array accessed
 	 *         by their shared classification key.
 	 */
-	<K> Map<K, long[]> groupBy(final LongFunction<K> classifier);
+	<K> Map<K, long[]> groupBy(LongFunction<K> classifier);
 
 	/**
-	 * A convenience method for applying a global function onto this
-	 * {@linkplain LongFlow}.
+	 * A convenience method for applying a global function onto this LongFlow.
 	 *
 	 * This method is potentially (depending on the supplied function) a 'consuming
 	 * method', i.e. it will iterate through this LongFlow.
@@ -666,10 +647,10 @@ public interface LongFlow extends PrototypeLongFlow
 	}
 
 	/**
-	 * Boxes the primitive long values in this {@linkplain LongFlow}.
+	 * Boxes the primitive long values in this LongFlow.
 	 *
-	 * @return a copy of this source LongFlow as a {@linkplain Flow} of boxed
-	 *         {@linkplain Long} instances.
+	 * @return a copy of this source LongFlow as a Flow of boxed {@linkplain Long}
+	 *         instances.
 	 */
 	default Flow<Long> boxed()
 	{
