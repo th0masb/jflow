@@ -31,7 +31,7 @@ import xawd.jflow.iterators.misc.IntWithDouble;
 public interface DoubleFlow extends PrototypeDoubleFlow
 {
 	/**
-	 * Applies a function elementwise to this {@linkplain DoubleFlow} to make new
+	 * Applies a function elementwise to this DoubleFlow to make new
 	 * DoubleFlow.
 	 *
 	 * @param f
@@ -43,8 +43,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow map(final DoubleUnaryOperator f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain DoubleFlow} to make new
-	 * {@linkplain Flow}.
+	 * Applies a function elementwise to this DoubleFlow to make new
+	 * Flow.
 	 *
 	 * @param <E>
 	 *            The target type of the mapping function.
@@ -57,8 +57,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	<E> Flow<E> mapToObject(DoubleFunction<E> f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain DoubleFlow} to make new
-	 * {@linkplain LongFlow}.
+	 * Applies a function elementwise to this DoubleFlow to make new
+	 * LongFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -69,8 +69,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	LongFlow mapToLong(DoubleToLongFunction f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain DoubleFlow} to make a new
-	 * {@linkplain IntFlow}.
+	 * Applies a function elementwise to this DoubleFlow to make a new
+	 * IntFlow.
 	 *
 	 * @param f
 	 *            A mapping function.
@@ -81,8 +81,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	IntFlow mapToInt(DoubleToIntFunction f);
 
 	/**
-	 * Combines this {@linkplain DoubleFlow} with another {@linkplain Iterator} to
-	 * create a new {@linkplain Flow} consisting of pairs of elements with the same
+	 * Combines this DoubleFlow with another iterator to
+	 * create a new Flow consisting of pairs of elements with the same
 	 * index in their respective origins.
 	 *
 	 * @param <E>
@@ -101,16 +101,16 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	<E> Flow<DoubleWith<E>> zipWith(final Iterator<? extends E> other);
 
 	/**
-	 * Combines this {@linkplain DoubleFlow} with another
-	 * {@linkplain PrimitiveIterator.OfDouble}} to create a new {@linkplain Flow}
+	 * Combines this DoubleFlow with another
+	 * primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfDouble to zip this source DoubleFlow with.
+	 *            The primitive iterator to zip this source DoubleFlow with.
 	 *
 	 * @return Denote this source DoubleFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new Flow
+	 *         primitive iterator denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
@@ -120,16 +120,16 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	Flow<DoublePair> zipWith(final PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Combines this {@linkplain DoubleFlow} with another
-	 * {@linkplain PrimitiveIterator.OfLong}} to create a new {@linkplain Flow}
+	 * Combines this DoubleFlow with another
+	 * primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfLong to zip this source DoubleFlow with.
+	 *            The primitive iterator to zip this source DoubleFlow with.
 	 *
 	 * @return Denote this source DoubleFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new Flow
+	 *         primitive iterator denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
@@ -139,16 +139,16 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfLong other);
 
 	/**
-	 * Combines this {@linkplain DoubleFlow} with another
-	 * {@linkplain PrimitiveIterator.OfInt}} to create a new {@linkplain Flow}
+	 * Combines this DoubleFlow with another
+	 * primitive iterator to create a new Flow
 	 * consisting of pairs of elements with the same index in their respective
 	 * origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfInt to zip this source DoubleFlow with.
+	 *            The primitive iterator to zip this source DoubleFlow with.
 	 *
 	 * @return Denote this source DoubleFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new Flow
+	 *         primitive iterator denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
@@ -158,19 +158,19 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfInt other);
 
 	/**
-	 * Combines this {@linkplain DoubleFlow} with another
-	 * {@linkplain PrimitiveIterator.OfDouble} via a two argument function to create
-	 * a new {@linkplain Flow} consisting of the images of pairs of elements with
+	 * Combines this DoubleFlow with another
+	 * primitive iterator via a two argument function to create
+	 * a new Flow consisting of the images of pairs of elements with
 	 * the same index in their origin.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfDouble to combine this source DoubleFlow
+	 *            The primitive iterator to combine this source DoubleFlow
 	 *            with.
 	 * @param combiner
 	 *            The combining function.
 	 *
 	 * @return Denote this source DoubleFlow by {@code F} with the parameter
-	 *         PrimitiveIterator.OfDouble denoted by {@code I} and the combining
+	 *         primitive iterator denoted by {@code I} and the combining
 	 *         function by {@code f}. We return a new Flow instance {@code G}
 	 *         defined by:
 	 *         <ul>
@@ -181,8 +181,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow combineWith(final PrimitiveIterator.OfDouble other, final DoubleBinaryOperator combiner);
 
 	/**
-	 * Creates a new {@linkplain Flow} by mapping each element in this source
-	 * {@linkplain DoubleFlow} to a pair consisting of the element and the index it
+	 * Creates a new Flow by mapping each element in this source
+	 * DoubleFlow to a pair consisting of the element and the index it
 	 * appears.
 	 *
 	 * @return Denote this source DoubleFlow by {@code F}. We return a new Flow
@@ -195,7 +195,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	Flow<IntWithDouble> enumerate();
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting
+	 * Creates a new DoubleFlow from this DoubleFlow by selecting
 	 * elements with indices defined by the parameter index mapping.
 	 *
 	 * @param indexMap
@@ -211,7 +211,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow slice(IntUnaryOperator indexMap);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting the
+	 * Creates a new DoubleFlow from this DoubleFlow by selecting the
 	 * first n elements.
 	 *
 	 * @param n
@@ -225,12 +225,12 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow take(final int n);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by selecting
+	 * Creates a new DoubleFlow from this DoubleFlow by selecting
 	 * elements until an element fails the supplied test, the first failure is not
 	 * selected.
 	 *
 	 * @param predicate
-	 *            A {@link DoublePredicate}.
+	 *            A DoublePredicate.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a DoubleFlow consisting
 	 *         of the first {@code n} elements of this source DoubleFlow. If no
@@ -240,7 +240,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow takeWhile(final DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by removing the
+	 * Creates a new DoubleFlow from this DoubleFlow by removing the
 	 * first n elements.
 	 *
 	 * @param n
@@ -253,12 +253,12 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow drop(final int n);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by removing
+	 * Creates a new DoubleFlow from this DoubleFlow by removing
 	 * elements until an element fails the supplied test, the first failure is the
 	 * first element of the result.
 	 *
 	 * @param predicate
-	 *            A {@link DoublePredicate}.
+	 *            A DoublePredicate.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a DoubleFlow missing
 	 *         {@code n} elements of this source DoubleFlow. If no element fails the
@@ -267,11 +267,11 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow dropWhile(final DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by removing any
+	 * Creates a new DoubleFlow from this DoubleFlow by removing any
 	 * element which fails the supplied predicate test.
 	 *
 	 * @param predicate
-	 *            A {@link DoublePredicate}.
+	 *            A DoublePredicate.
 	 * @return A DoubleFlow containing only those elements of this source DoubleFlow
 	 *         which pass the test defined by the parameter predicate. The relative
 	 *         ordering of elements is retained.
@@ -279,19 +279,19 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow filter(final DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by adding each
-	 * element of the supplied {@linkplain PrimitiveIterator.OfDouble} to its end in
+	 * Creates a new DoubleFlow from this DoubleFlow by adding each
+	 * element of the supplied primitive iterator to its end in
 	 * order.
 	 *
 	 * @param other
-	 *            A PrimitiveIterator.OfDouble.
+	 *            A primitive iterator.
 	 * @return A DoubleFlow consisting of the elements of this source DoubleFlow
 	 *         followed by the elements of the parameter PrimitiveIterator.OfDouble.
 	 */
 	DoubleFlow append(PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this DoubleFlow by adding each
+	 * Creates a new DoubleFlow from this DoubleFlow by adding each
 	 * element of the supplied varargs array to its end in order.
 	 *
 	 * @param other
@@ -302,19 +302,19 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow append(double... other);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this Flow by adding each element
-	 * to the end of the supplied {@linkplain PrimitiveIterator.OfDouble} in order.
+	 * Creates a new DoubleFlow from this Flow by adding each element
+	 * to the end of the supplied primitive iterator in order.
 	 *
 	 * @param other
-	 *            A PrimitiveIterator.OfDouble.
+	 *            A primitive iterator.
 	 * @return a DoubleFlow consisting of the elements of the parameter
-	 *         PrimitiveIterator.OfDouble followed by the elements of this source
+	 *         primitive iterator followed by the elements of this source
 	 *         DoubleFlow.
 	 */
 	DoubleFlow insert(PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Creates a new {@linkplain DoubleFlow} from this Flow by adding each element
+	 * Creates a new DoubleFlow from this Flow by adding each element
 	 * to the end of the supplied varargs array in order.
 	 *
 	 * @param other
@@ -325,7 +325,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow insert(double... other);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain DoubleFlow} to produce
+	 * Applies an accumulation operation to this DoubleFlow to produce
 	 * a new DoubleFlow.
 	 *
 	 * @param accumulator
@@ -339,7 +339,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow accumulate(DoubleBinaryOperator accumulator);
 
 	/**
-	 * Applies an accumulation operation to this {@linkplain DoubleFlow} to produce
+	 * Applies an accumulation operation to this DoubleFlow to produce
 	 * a new DoubleFlow.
 	 *
 	 * @param id
@@ -355,24 +355,24 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoubleFlow accumulate(double id, DoubleBinaryOperator accumulator);
 
 	/**
-	 * Calculates the minimum value in this {@linkplain DoubleFlow}.
+	 * Calculates the minimum value in this DoubleFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
 	 *
-	 * @return an {@link OptionalDouble} wrapping the smallest element in this
+	 * @return an OptionalDouble wrapping the smallest element in this
 	 *         DoubleFlow or nothing if the iteration is empty.
 	 */
 	OptionalDouble min();
 
 	/**
-	 * Calculates the minimum value in this {@linkplain DoubleFlow}.
+	 * Calculates the minimum value in this DoubleFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
 	 *
 	 * @param defaultValue
-	 *            - The value which will be returned if the source is empty.
+	 *            The value which will be returned if the source is empty.
 	 *
 	 * @return the smallest element in this DoubleFlow or the default value if the
 	 *         iteration is empty.
@@ -380,7 +380,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double min(double defaultValue);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain DoubleFlow} by an
+	 * Calculates the minimum element in this DoubleFlow by an
 	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -399,7 +399,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double minByKey(double defaultValue, final DoubleUnaryOperator key);
 
 	/**
-	 * Calculates the minimum element in this {@linkplain DoubleFlow} by an
+	 * Calculates the minimum element in this DoubleFlow by an
 	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -415,24 +415,24 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	OptionalDouble minByKey(final DoubleUnaryOperator key);
 
 	/**
-	 * Calculates the maximum value in this {@linkplain DoubleFlow}.
+	 * Calculates the maximum value in this DoubleFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
 	 *
-	 * @return an {@link OptionalDouble} wrapping the largest element in this
+	 * @return an OptionalDouble wrapping the largest element in this
 	 *         DoubleFlow or nothing if the iteration is empty.
 	 */
 	OptionalDouble max();
 
 	/**
-	 * Calculates the maximum value in this {@linkplain DoubleFlow}.
+	 * Calculates the maximum value in this DoubleFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
 	 *
 	 * @param defaultValue
-	 *            - The value which will be returned if the source is empty.
+	 *            The value which will be returned if the source is empty.
 	 *
 	 * @return The largest element in this DoubleFlow or the default value if the
 	 *         iteration is empty.
@@ -440,7 +440,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double max(double defaultValue);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain DoubleFlow} by an
+	 * Calculates the maximum element in this DoubleFlow by an
 	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -459,7 +459,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double maxByKey(double defaultValue, final DoubleUnaryOperator key);
 
 	/**
-	 * Calculates the maximum element in this {@linkplain DoubleFlow} by an
+	 * Calculates the maximum element in this DoubleFlow by an
 	 * embedding into the real numbers.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -475,7 +475,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	OptionalDouble maxByKey(final DoubleUnaryOperator key);
 
 	/**
-	 * Checks whether every element in this {@linkplain DoubleFlow} is the same.
+	 * Checks whether every element in this DoubleFlow is the same.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -485,8 +485,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@linkplain DoubleFlow} passes the
-	 * supplied {@linkplain DoublePredicate} test.
+	 * Checks whether every element in this DoubleFlow passes the
+	 * supplied DoublePredicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -499,8 +499,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	boolean allMatch(final DoublePredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@linkplain DoubleFlow} passes the
-	 * supplied {@linkplain DoublePredicate} test.
+	 * Checks whether any element in this DoubleFlow passes the
+	 * supplied DoublePredicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -513,8 +513,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	boolean anyMatch(final DoublePredicate predicate);
 
 	/**
-	 * Checks whether every element in this {@linkplain DoubleFlow} fails the
-	 * supplied {@linkplain DoublePredicate} test.
+	 * Checks whether every element in this DoubleFlow fails the
+	 * supplied DoublePredicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -527,8 +527,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	boolean noneMatch(final DoublePredicate predicate);
 
 	/**
-	 * Partitions the elements of this {@linkplain DoubleFlow} on whether they pass
-	 * the supplied {@linkplain DoublePredicate} test.
+	 * Partitions the elements of this DoubleFlow on whether they pass
+	 * the supplied DoublePredicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -541,7 +541,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoublePredicatePartition partition(DoublePredicate predicate);
 
 	/**
-	 * Reduces this {@linkplain DoubleFlow} to a single value via some reduction
+	 * Reduces this DoubleFlow to a single value via some reduction
 	 * function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -560,7 +560,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double reduce(double id, DoubleBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@linkplain DoubleFlow} to a single value via some reduction
+	 * Reduces this DoubleFlow to a single value via some reduction
 	 * function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -577,7 +577,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	OptionalDouble reduce(DoubleBinaryOperator reducer);
 
 	/**
-	 * Counts the number of elements in this {@linkplain DoubleFlow}.
+	 * Counts the number of elements in this DoubleFlow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -587,10 +587,10 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	long count();
 
 	/**
-	 * Caches the values in this {@linkplain DoubleFlow} to an array.
+	 * Caches the values in this DoubleFlow to an array.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link DoubleFlow}.
+	 * DoubleFlow.
 	 *
 	 * @return A double array containing all elements of this DoubleFlow with their
 	 *         ordering retained.
@@ -598,7 +598,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	double[] toArray();
 
 	/**
-	 * Builds a {@linkplain Map} using the elements in this {@linkplain DoubleFlow}
+	 * Builds a Map using the elements in this DoubleFlow
 	 * via two supplied functions.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -628,7 +628,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	<K, V> Map<K, V> toMap(final DoubleFunction<K> keyMapper, final DoubleFunction<V> valueMapper);
 
 	/**
-	 * Groups elements in this {@linkplain DoubleFlow} via their image under some
+	 * Groups elements in this DoubleFlow via their image under some
 	 * supplied classification function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -649,7 +649,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 
 	/**
 	 * A convenience method for applying a global function onto this
-	 * {@linkplain DoubleFlow}.
+	 * DoubleFlow.
 	 *
 	 * This method is potentially (depending on the supplied function) a 'consuming
 	 * method', i.e. it will iterate through this DoubleFlow.
@@ -659,7 +659,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @param <C>
 	 *            The target type of the build function.
 	 * @param builder
-	 *            - a function whose input encompasses DoubleFlow instances of this
+	 *            A function whose input encompasses DoubleFlow instances of this
 	 *            element type.
 	 * @return the output of the supplied function applied to this DoubleFlow.
 	 */
@@ -669,10 +669,10 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	}
 
 	/**
-	 * Boxes the primitive double values in this {@linkplain DoubleFlow}.
+	 * Boxes the primitive double values in this DoubleFlow.
 	 *
-	 * @return a copy of this source DoubleFlow as a {@linkplain Flow} of boxed
-	 *         {@linkplain Double} instances.
+	 * @return a copy of this source DoubleFlow as a Flow of boxed
+	 *         Double instances.
 	 */
 	default Flow<Double> boxed()
 	{

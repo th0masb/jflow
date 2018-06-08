@@ -23,9 +23,12 @@ import xawd.jflow.iterators.iterables.LongFlowIterable;
  */
 public class CycledIteration
 {
+	private CycledIteration()
+	{
+	}
+
 	/**
-	 * Creates an infinite, continuously looping {@linkplain Flow} from an instance
-	 * of {@linkplain Iterable}.
+	 * Creates an infinite, continuously looping Flow from an iterable sequence.
 	 *
 	 * @param <E>
 	 *            The upper bound on the type of elements in the source.
@@ -41,8 +44,7 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain Flow} from a single
-	 * element.
+	 * Creates an infinite, continuously looping Flow from a single element.
 	 *
 	 * @param <E>
 	 *            The type of the element which will be repeated.
@@ -57,8 +59,8 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain IntFlow} from an
-	 * instance of {@linkplain IntFlowIterable}.
+	 * Creates an infinite, continuously looping IntFlow from an iterable sequence
+	 * of ints.
 	 *
 	 * @param source
 	 *            The sequence which will be continuously looped over.
@@ -71,8 +73,7 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain IntFlow} from an int
-	 * array.
+	 * Creates an infinite, continuously looping IntFlow from an int array.
 	 *
 	 * @param source
 	 *            The array which will be continuously looped over.
@@ -85,8 +86,7 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain Flow} from a single
-	 * int.
+	 * Creates an infinite, continuously looping Flow from a single int.
 	 *
 	 * @param element
 	 *            The int which will be repeated indefinitely.
@@ -98,8 +98,8 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain DoubleFlow} from an
-	 * instance of {@linkplain DoubleFlowIterable}.
+	 * Creates an infinite, continuously looping DoubleFlow from an iterable
+	 * sequence of doubles.
 	 *
 	 * @param source
 	 *            The sequence which will be continuously looped over.
@@ -112,8 +112,7 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain DoubleFlow} from an double
-	 * array.
+	 * Creates an infinite, continuously looping DoubleFlow from an double array.
 	 *
 	 * @param source
 	 *            The array which will be continuously looped over.
@@ -126,8 +125,7 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain Flow} from a single
-	 * double.
+	 * Creates an infinite, continuously looping Flow from a single double.
 	 *
 	 * @param element
 	 *            The double which will be repeated indefinitely.
@@ -139,8 +137,8 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain LongFlow} from an
-	 * instance of {@linkplain LongFlowIterable}.
+	 * Creates an infinite, continuously looping LongFlow from an iterable sequence
+	 * of longs.
 	 *
 	 * @param source
 	 *            The sequence which will be continuously looped over.
@@ -153,8 +151,7 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain LongFlow} from an long
-	 * array.
+	 * Creates an infinite, continuously looping LongFlow from an long array.
 	 *
 	 * @param source
 	 *            The array which will be continuously looped over.
@@ -167,8 +164,7 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping {@linkplain Flow} from a single
-	 * long.
+	 * Creates an infinite, continuously looping Flow from a single long.
 	 *
 	 * @param element
 	 *            The long which will be repeated indefinitely.
