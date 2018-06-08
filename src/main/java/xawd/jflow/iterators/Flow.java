@@ -39,7 +39,7 @@ import xawd.jflow.iterators.misc.PredicatePartition;
 public interface Flow<E> extends PrototypeFlow<E>
 {
 	/**
-	 * Applies a function elementwise to this {@linkplain Flow} to make new Flow.
+	 * Applies a function elementwise to this {@linkplain Flow} to make a new Flow.
 	 *
 	 * @param <R>
 	 *            The target element type of the mapping operation.
@@ -53,7 +53,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	<R> Flow<R> map(final Function<? super E, R> f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain Flow} to make new
+	 * Applies a function elementwise to this {@linkplain Flow} to make a new
 	 * {@linkplain IntFlow}.
 	 *
 	 * @param f
@@ -65,7 +65,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	IntFlow mapToInt(ToIntFunction<? super E> f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain Flow} to make new
+	 * Applies a function elementwise to this {@linkplain Flow} to make a new
 	 * {@linkplain DoubleFlow}.
 	 *
 	 * @param f
@@ -77,7 +77,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	DoubleFlow mapToDouble(ToDoubleFunction<? super E> f);
 
 	/**
-	 * Applies a function elementwise to this {@linkplain Flow} to make new
+	 * Applies a function elementwise to this {@linkplain Flow} to make a new
 	 * {@linkplain LongFlow}.
 	 *
 	 * @param f
@@ -138,14 +138,14 @@ public interface Flow<E> extends PrototypeFlow<E>
 	/**
 	 * Combines this {@linkplain Flow} with another {@linkplain Iterator} to create
 	 * a new Flow consisting of pairs of elements with the same index in their
-	 * origin.
+	 * respective origins.
 	 *
 	 * @param <R>
 	 *            The upper type bound on the parameter Iterator.
 	 * @param other
-	 *            The Iterator to zip the source Flow with.
+	 *            The Iterator to zip this source Flow with.
 	 *
-	 * @return Denote the source Flow by {@code F} with the parameter Iterator
+	 * @return Denote this source Flow by {@code F} with the parameter Iterator
 	 *         denoted by {@code I}. We return a new Flow instance {@code G} defined
 	 *         by:
 	 *         <ul>
@@ -158,12 +158,12 @@ public interface Flow<E> extends PrototypeFlow<E>
 	/**
 	 * Combines this {@linkplain Flow} with another
 	 * {@linkplain PrimitiveIterator.OfInt}} to create a new Flow consisting of
-	 * pairs of elements with the same index in their origin.
+	 * pairs of elements with the same index in their respective origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfInt to zip the source Flow with.
+	 *            The PrimitiveIterator.OfInt to zip this source Flow with.
 	 *
-	 * @return Denote the source Flow by {@code F} with the parameter
+	 * @return Denote this source Flow by {@code F} with the parameter
 	 *         PrimitiveIterator.OfInt denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *         <ul>
@@ -176,12 +176,12 @@ public interface Flow<E> extends PrototypeFlow<E>
 	/**
 	 * Combines this {@linkplain Flow} with another
 	 * {@linkplain PrimitiveIterator.OfDouble}} to create a new Flow consisting of
-	 * pairs of elements with the same index in their origin.
+	 * pairs of elements with the same index in their respective origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfDouble to zip the source Flow with.
+	 *            The PrimitiveIterator.OfDouble to zip this source Flow with.
 	 *
-	 * @return Denote the source Flow by {@code F} with the parameter
+	 * @return Denote this source Flow by {@code F} with the parameter
 	 *         PrimitiveIterator.OfDouble denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *         <ul>
@@ -194,12 +194,12 @@ public interface Flow<E> extends PrototypeFlow<E>
 	/**
 	 * Combines this {@linkplain Flow} with another
 	 * {@linkplain PrimitiveIterator.OfLong}} to create a new Flow consisting of
-	 * pairs of elements with the same index in their origin.
+	 * pairs of elements with the same index in their respective origins.
 	 *
 	 * @param other
-	 *            The PrimitiveIterator.OfLong to zip the source Flow with.
+	 *            The PrimitiveIterator.OfLong to zip this source Flow with.
 	 *
-	 * @return Denote the source Flow by {@code F} with the parameter
+	 * @return Denote this source Flow by {@code F} with the parameter
 	 *         PrimitiveIterator.OfLong denoted by {@code I}. We return a new Flow
 	 *         instance {@code G} defined by:
 	 *         <ul>
@@ -219,11 +219,11 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @param <E2>
 	 *            The upper type bound on the parameter Iterator.
 	 * @param other
-	 *            The Iterator to combine the source Flow with.
+	 *            The Iterator to combine this source Flow with.
 	 * @param f
 	 *            The combining function.
 	 *
-	 * @return Denote the source Flow by {@code F} with the parameter Iterator
+	 * @return Denote this source Flow by {@code F} with the parameter Iterator
 	 *         denoted by {@code I} and the combining function by {@code f}. We
 	 *         return a new Flow instance {@code G} defined by:
 	 *         <ul>
@@ -234,10 +234,10 @@ public interface Flow<E> extends PrototypeFlow<E>
 	<E2, R> Flow<R> combineWith(final Iterator<? extends E2> other, final BiFunction<? super E, ? super E2, R> f);
 
 	/**
-	 * Maps each element of this {@linkplain Flow} to a pair consisting of the
-	 * element and the index it appears in the source.
+	 * Creates a new {@linkplain Flow} by mapping each element in this source Flow
+	 * to a pair consisting of the element and the index it appears.
 	 *
-	 * @return Denote the source Flow by {@code F}. We return a new Flow instance
+	 * @return Denote this source Flow by {@code F}. We return a new Flow instance
 	 *         {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], j)}</li>
@@ -270,7 +270,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            A non-negative integer.
 	 * @throws IllegalArgumentException
 	 *             If parameter is negative.
-	 * @return Let {@code F} denote the source Flow. We return a Flow consisting of
+	 * @return Let {@code F} denote this source Flow. We return a Flow consisting of
 	 *         the first {@code max(n, length(F))} elements of {@code F}.
 	 */
 	Flow<E> take(final int n);
@@ -284,7 +284,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            Flow.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a Flow consisting of
-	 *         the first {@code n} elements of the source Flow. If no element fails
+	 *         the first {@code n} elements of this source Flow. If no element fails
 	 *         the predicate test then a copy of the source is returned.
 	 */
 	Flow<E> takeWhile(final Predicate<? super E> predicate);
@@ -297,7 +297,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            A non-negative integer.
 	 * @throws IllegalArgumentException
 	 *             If parameter is negative.
-	 * @return Let {@code F} denote the source Flow. We return a Flow missing the
+	 * @return Let {@code F} denote this source Flow. We return a Flow missing the
 	 *         first {@code min(n, length(F))} elements of {@code F}.
 	 */
 	Flow<E> drop(final int n);
@@ -312,7 +312,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            Flow.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a Flow missing
-	 *         {@code n} elements of the source stream. If no element fails the
+	 *         {@code n} elements of this source Flow. If no element fails the
 	 *         predicate test then a copy of the source is returned.
 	 */
 	Flow<E> dropWhile(final Predicate<? super E> predicate);
@@ -324,7 +324,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @param predicate
 	 *            A {@link Predicate} applicable to the type of elements in this
 	 *            Flow.
-	 * @return a Flow containing only those elements of the source Flow which pass
+	 * @return A Flow containing only those elements of this source Flow which pass
 	 *         the test defined by the parameter predicate. The relative ordering of
 	 *         elements is retained.
 	 */
@@ -337,7 +337,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @param other
 	 *            An Iterator containing elements of the same type as this source
 	 *            Flow.
-	 * @return a Flow consisting of the elements of the source Flow followed by the
+	 * @return a Flow consisting of the elements of this source Flow followed by the
 	 *         elements of the parameter Iterator.
 	 */
 	Flow<E> append(Iterator<? extends E> other);
@@ -350,7 +350,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            An Iterator containing elements of the same type as this source
 	 *            Flow.
 	 * @return a Flow consisting of the elements of the parameter Iterator followed
-	 *         by the elements of the source Flow.
+	 *         by the elements of this source Flow.
 	 */
 	Flow<E> insert(Iterator<? extends E> other);
 
@@ -360,7 +360,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @param accumulator
 	 *            The accumulation function.
-	 * @return Let {@code F} denote the source Flow and {@code g} denote the
+	 * @return Let {@code F} denote this source Flow and {@code g} denote the
 	 *         accumulation function. Then the Flow returned is of the form:
 	 *         <ul>
 	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
@@ -379,7 +379,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            The identity element in the accumulation.
 	 * @param accumulator
 	 *            The accumulator function.
-	 * @return Let {@code F} denote the source Flow and {@code g} denote the
+	 * @return Let {@code F} denote this source Flow and {@code g} denote the
 	 *         accumulation function. Then the Flow returned is of the form:
 	 *         <ul>
 	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
@@ -395,14 +395,14 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            The target type of the pair folding operation.
 	 * @param foldFunction
 	 *            The function defining the pair folding operation.
-	 * @return Let {@code F = [F[0], F[1], ...]} represent the source Flow and
+	 * @return Let {@code F = [F[0], F[1], ...]} represent this source Flow and
 	 *         denote the folding function by {@code f}. Then we return a new Flow
 	 *         instance defined as follows:
 	 *         <ul>
 	 *         <li>{@code [f(F[0], F[1]), f(F[1], F[2]), ...]}</li>
 	 *         </ul>
 	 *         <br>
-	 *         If the source Flow has less that two elements an empty Flow is
+	 *         If this source Flow has less that two elements an empty Flow is
 	 *         returned.
 	 */
 	<R> Flow<R> pairFold(final BiFunction<? super E, ? super E, R> foldFunction);
@@ -544,9 +544,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            The identity of the reduction operation
 	 * @param reducer
 	 *            The reduction function
-	 * @return If we denote the source Flow by {@code F}, the length of {@code F} by
-	 *         {@code n} and the reduction function by {@code f} then the result is
-	 *         equal to: <br>
+	 * @return If we denote this source Flow by {@code F}, the length of {@code F}
+	 *         by {@code n} and the reduction function by {@code f} then the result
+	 *         is equal to: <br>
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
 	 */
@@ -559,7 +559,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @param reducer
 	 *            The reduction function.
-	 * @return Let us denote the source Flow by {@code F}, the length of {@code F}
+	 * @return Let us denote this source Flow by {@code F}, the length of {@code F}
 	 *         by {@code n} and the reduction function by {@code f}. If
 	 *         {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
@@ -611,7 +611,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *             If two elements of this Flow map to the same key.
 	 *
 	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
-	 *         with the elements in the source Flow. More specifically if:
+	 *         with the elements in this source Flow. More specifically if:
 	 *         <ul>
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li>
@@ -632,9 +632,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @param classifier
 	 *            A function defining the different groups of elements.
-	 * @return A Map instance whose keys partition the elements of the source Flow
-	 *         via the classification function. Elements in the source Flow who have
-	 *         equal (under .equals() contract) images under the classification
+	 * @return A Map instance whose keys partition the elements of this source Flow
+	 *         via the classification function. Elements in this source Flow who
+	 *         have equal (under .equals() contract) images under the classification
 	 *         function are grouped together in a {@link List} accessed by their
 	 *         shared classification key.
 	 */
@@ -683,7 +683,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @param e
 	 *            The element to append
-	 * @return A Flow consisting of the elements of the source Flow followed by the
+	 * @return A Flow consisting of the elements of this source Flow followed by the
 	 *         parameter element
 	 */
 	default Flow<E> append(final E e)
@@ -710,7 +710,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
-	 * @return A List instance containing all elements of the source Flow in the
+	 * @return A List instance containing all elements of this source Flow in the
 	 *         order that they appeared in the iteration.
 	 */
 	default List<E> toList()
@@ -722,11 +722,10 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * Caches the elements in this {@linkplain Flow} into an immutable
 	 * (unmodifiable) {@linkplain List}.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * Flow.
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
-	 * @return An immutable List instance containing all elements of the
-	 *         source Flow in the order that they appeared in the iteration.
+	 * @return An immutable List instance containing all elements of the source Flow
+	 *         in the order that they appeared in the iteration.
 	 */
 	default List<E> toImmutableList()
 	{
@@ -736,11 +735,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	/**
 	 * Caches the elements in this {@linkplain Flow} into a {@linkplain Set}.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * Flow.
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
-	 * @return A Set instance containing all unique elements of the source
-	 *         flow.
+	 * @return A Set instance containing all unique elements of the source flow.
 	 */
 	default Set<E> toSet()
 	{
@@ -751,11 +748,10 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * Caches the elements in this {@linkplain Flow} into an immutable
 	 * (unmodifiable) {@linkplain Set}.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * Flow.
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
-	 * @return An immutable Set instance containing all unique elements of
-	 *         the source flow.
+	 * @return An immutable Set instance containing all unique elements of the
+	 *         source flow.
 	 */
 	default Set<E> toImmutableSet()
 	{
