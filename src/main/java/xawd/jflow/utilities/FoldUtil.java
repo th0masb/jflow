@@ -79,11 +79,11 @@ public final class FoldUtil
 	 * 		<br>
 	 *         {@code x[0] * (x[1] * (... * (x[n-1] * (x[n] * id))...)}
 	 */
-	public static long foldr(final LongBinaryOperator f, final long id, final long[] xs)
+	public static long foldr(final LongBinaryOperator foldFunction, final long id, final long[] xs)
 	{
 		long cumulativeFold = id;
 		for (int i = sizeOf(xs) - 1; i > -1; i--) {
-			cumulativeFold = f.applyAsLong(xs[i], cumulativeFold);
+			cumulativeFold = foldFunction.applyAsLong(xs[i], cumulativeFold);
 		}
 		return cumulativeFold;
 	}

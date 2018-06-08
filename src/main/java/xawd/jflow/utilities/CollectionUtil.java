@@ -32,6 +32,9 @@ public final class CollectionUtil
 	/**
 	 * A unified size function.
 	 *
+	 * @param <E>
+	 *            The upper bound on the sequence element types.
+	 *
 	 * @param xs
 	 *            A non-null {@linkplain Collection} reference.
 	 * @return The size of the parameter Collection.
@@ -43,6 +46,9 @@ public final class CollectionUtil
 
 	/**
 	 * A unified size function.
+	 *
+	 * @param <E>
+	 *            The upper bound on the sequence element types.
 	 *
 	 * @param xs
 	 *            A non-null array reference.
@@ -152,7 +158,7 @@ public final class CollectionUtil
 	/**
 	 * Converts an int to a {@linkplain String}.
 	 *
-	 * @param xs
+	 * @param x
 	 *            A primitive int.
 	 * @return The String representation of the parameter int.
 	 */
@@ -164,7 +170,7 @@ public final class CollectionUtil
 	/**
 	 * Converts a double to a {@linkplain String}.
 	 *
-	 * @param xs
+	 * @param x
 	 *            A primitive double.
 	 * @return The String representation of the parameter double.
 	 */
@@ -176,7 +182,7 @@ public final class CollectionUtil
 	/**
 	 * Converts a long to a {@linkplain String}.
 	 *
-	 * @param xs
+	 * @param x
 	 *            A primitive long.
 	 * @return The String representation of the parameter long.
 	 */
@@ -188,7 +194,7 @@ public final class CollectionUtil
 	/**
 	 * Converts a char to a {@linkplain String}.
 	 *
-	 * @param xs
+	 * @param x
 	 *            A primitive char.
 	 * @return The String representation of the parameter char.
 	 */
@@ -320,17 +326,20 @@ public final class CollectionUtil
 	/**
 	 * Reverses a {@linkplain List}.
 	 *
+	 * @param <E>
+	 *            The upper bound on the sequence element types.
+	 *
 	 * @param xs
 	 *            A List reference.
 	 * @return A List containing the same values as the parameter but with a
 	 *         reversed order.
 	 */
-	public static <E> List<E> reverse(final List<? extends E> source)
+	public static <E> List<E> reverse(final List<? extends E> xs)
 	{
-		final int n = sizeOf(source);
+		final int n = sizeOf(xs);
 		final List<E> reversed = new ArrayList<>(n);
 		for (int i = n - 1; i > -1; i--) {
-			reversed.add(source.get(i));
+			reversed.add(xs.get(i));
 		}
 		return reversed;
 	}
@@ -422,6 +431,9 @@ public final class CollectionUtil
 	/**
 	 * Take the first n elements from the beginning of a {@linkplain List} retaining
 	 * their order.
+	 *
+	 * @param <E>
+	 *            The type upper bound on the List elements.
 	 *
 	 * @param n
 	 *            The number of elements to take.
@@ -548,6 +560,9 @@ public final class CollectionUtil
 	 * Drop the first n elements from the beginning of a {@linkplain List} retaining
 	 * the order of the remaining elements.
 	 *
+	 * @param <E>
+	 *            The type upper bound on the List elements.
+	 *
 	 * @param n
 	 *            The number of elements to drop.
 	 * @param xs
@@ -622,6 +637,9 @@ public final class CollectionUtil
 	/**
 	 * Return the first element (head) of this {@linkplain List}.
 	 *
+	 * @param <E>
+	 *            The upper bound on the sequence element types.
+	 *
 	 * @param xs
 	 *            The source List
 	 * @return The first element in the source
@@ -681,6 +699,9 @@ public final class CollectionUtil
 
 	/**
 	 * Return the last element (tail) of this {@linkplain List}.
+	 *
+	 * @param <E>
+	 *            The type upper bound on the List elements.
 	 *
 	 * @param xs
 	 *            The source List
@@ -770,12 +791,18 @@ public final class CollectionUtil
 	/**
 	 * Append an element to the end of a {@linkplain List}.
 	 *
+	 * @param <E>
+	 *            The type upper bound on the List elements.
+	 *
+	 * @param <E2>
+	 *            The type of the element to append.
+	 *
 	 * @param x
 	 *            The element to append
 	 * @param xs
 	 *            The source List
-	 * @return A new List containing the elements from the source with the
-	 *         parameter appended to the end.
+	 * @return A new List containing the elements from the source with the parameter
+	 *         appended to the end.
 	 */
 	public static <E, E2 extends E> List<E> append(final E2 x, final List<? extends E> xs)
 	{
@@ -865,12 +892,18 @@ public final class CollectionUtil
 	/**
 	 * Insert an element at the beginning of a {@linkplain List}.
 	 *
+	 * @param <E>
+	 *            The type upper bound on the List elements.
+	 *
+	 * @param <E2>
+	 *            The type of the element to append.
+	 *
 	 * @param x
 	 *            The element to insert
 	 * @param xs
 	 *            The source List
-	 * @return A new List containing the elements from the source with the
-	 *         parameter inserted at the beginning.
+	 * @return A new List containing the elements from the source with the parameter
+	 *         inserted at the beginning.
 	 */
 	public static <E, E2 extends E> List<E> insert(final E2 x, final List<? extends E> xs)
 	{

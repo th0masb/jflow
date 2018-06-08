@@ -3,7 +3,6 @@
  */
 package xawd.jflow.utilities;
 
-
 import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 
 import java.util.function.DoublePredicate;
@@ -22,17 +21,19 @@ public final class PredicateUtil
 	}
 
 	/**
-	 * Checks whether every element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a false result or the end of the sequence.
+	 * Checks whether every element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether every element in <b>xs</b> satisfies <b>p</b>
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if every element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static boolean all(final IntPredicate p, final int[] xs)
+	public static boolean all(final IntPredicate predicate, final int[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
-			if (!p.test(xs[i])) {
+			if (!predicate.test(xs[i])) {
 				return false;
 			}
 		}
@@ -40,17 +41,19 @@ public final class PredicateUtil
 	}
 
 	/**
-	 * Checks whether every element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a false result or the end of the sequence.
+	 * Checks whether every element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether every element in <b>xs</b> satisfies <b>p</b>
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if every element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static boolean all(final DoublePredicate p, final double[] xs)
+	public static boolean all(final DoublePredicate predicate, final double[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
-			if (!p.test(xs[i])) {
+			if (!predicate.test(xs[i])) {
 				return false;
 			}
 		}
@@ -58,17 +61,19 @@ public final class PredicateUtil
 	}
 
 	/**
-	 * Checks whether every element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a false result or the end of the sequence.
+	 * Checks whether every element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether every element in <b>xs</b> satisfies <b>p</b>
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if every element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static boolean all(final LongPredicate p, final long[] xs)
+	public static boolean all(final LongPredicate predicate, final long[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
-			if (!p.test(xs[i])) {
+			if (!predicate.test(xs[i])) {
 				return false;
 			}
 		}
@@ -76,36 +81,41 @@ public final class PredicateUtil
 	}
 
 	/**
-	 * Checks whether every element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a false result or the end of the sequence.
+	 * Checks whether every element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether every element in <b>xs</b> satisfies <b>p</b>
+	 * @param <E>
+	 *            The upper bound on the source element type.
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if every element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static <E> boolean all(final Predicate<? super E> p, final Iterable<? extends E> xs)
+	public static <E> boolean all(final Predicate<? super E> predicate, final Iterable<? extends E> xs)
 	{
 		for (final E t : xs) {
-			if (!p.test(t)) {
+			if (!predicate.test(t)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-
 	/**
-	 * Checks whether some element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a true result or the end of the sequence.
+	 * Checks whether any element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether an element in <b>xs</b> satisfies <b>p</b>
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if any element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static boolean any(final IntPredicate p, final int[] xs)
+	public static boolean any(final IntPredicate predicate, final int[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
-			if (p.test(xs[i])) {
+			if (predicate.test(xs[i])) {
 				return true;
 			}
 		}
@@ -113,17 +123,19 @@ public final class PredicateUtil
 	}
 
 	/**
-	 * Checks whether some element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a true result or the end of the sequence.
+	 * Checks whether any element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether an element in <b>xs</b> satisfies <b>p</b>
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if any element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static boolean any(final DoublePredicate p, final double[] xs)
+	public static boolean any(final DoublePredicate predicate, final double[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
-			if (p.test(xs[i])) {
+			if (predicate.test(xs[i])) {
 				return true;
 			}
 		}
@@ -131,17 +143,19 @@ public final class PredicateUtil
 	}
 
 	/**
-	 * Checks whether some element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a true result or the end of the sequence.
+	 * Checks whether any element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether an element in <b>xs</b> satisfies <b>p</b>
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if any element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static boolean any(final LongPredicate p, final long[] xs)
+	public static boolean any(final LongPredicate predicate, final long[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
-			if (p.test(xs[i])) {
+			if (predicate.test(xs[i])) {
 				return true;
 			}
 		}
@@ -149,17 +163,21 @@ public final class PredicateUtil
 	}
 
 	/**
-	 * Checks whether some element in a sequence satisfies a given predicate. The method evaluates lazily, i.e. only
-	 * it checks until it encounters a true result or the end of the sequence.
+	 * Checks whether any element in a sequence satisfies a given predicate.
 	 *
-	 * @param p - The given predicate
-	 * @param xs - The given sequence of elements
-	 * @return whether an element in <b>xs</b> satisfies <b>p</b>
+	 * @param <E>
+	 *            The upper bound on the source element type.
+	 * @param predicate
+	 *            The predicate test.
+	 * @param xs
+	 *            The source sequence.
+	 * @return True if any element in the source passes the predicate test, false
+	 *         otherwise.
 	 */
-	public static <E> boolean any(final Predicate<? super E> p, final Iterable<? extends E> xs)
+	public static <E> boolean any(final Predicate<? super E> predicate, final Iterable<? extends E> xs)
 	{
 		for (final E t : xs) {
-			if (p.test(t)) {
+			if (predicate.test(t)) {
 				return true;
 			}
 		}

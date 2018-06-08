@@ -61,12 +61,12 @@ public final class CombineUtil
 	 *         <li>{@code sizeOf(zs) = min(sizeOf(xs), sizeOf(ys))}</li>
 	 *         </ul>
 	 */
-	public static double[] combine(final DoubleBinaryOperator f, final double[] a, final double[] b)
+	public static double[] combine(final DoubleBinaryOperator combiner, final double[] xs, final double[] ys)
 	{
-		final int newLength = Math.min(sizeOf(a), sizeOf(b));
+		final int newLength = Math.min(sizeOf(xs), sizeOf(ys));
 		final double[] combined = new double[newLength];
 		for (int i = 0; i < newLength; i++) {
-			combined[i] = f.applyAsDouble(a[i], b[i]);
+			combined[i] = combiner.applyAsDouble(xs[i], ys[i]);
 		}
 		return combined;
 	}
@@ -87,12 +87,12 @@ public final class CombineUtil
 	 *         <li>{@code sizeOf(zs) = min(sizeOf(xs), sizeOf(ys))}</li>
 	 *         </ul>
 	 */
-	public static long[] combine(final LongBinaryOperator f, final long[] a, final long[] b)
+	public static long[] combine(final LongBinaryOperator combiner, final long[] xs, final long[] ys)
 	{
-		final int newLength = Math.min(sizeOf(a), sizeOf(b));
+		final int newLength = Math.min(sizeOf(xs), sizeOf(ys));
 		final long[] combined = new long[newLength];
 		for (int i = 0; i < newLength; i++) {
-			combined[i] = f.applyAsLong(a[i], b[i]);
+			combined[i] = combiner.applyAsLong(xs[i], ys[i]);
 		}
 		return combined;
 	}
