@@ -1,4 +1,4 @@
-package xawd.jflow.iterators.construction;
+package xawd.jflow.iterators.factories;
 
 import static java.lang.Math.abs;
 import static xawd.jflow.utilities.PrimitiveUtil.signum;

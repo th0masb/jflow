@@ -1,4 +1,4 @@
-package xawd.jflow.iterators.construction;
+package xawd.jflow.iterators.factories;
 
 import xawd.jflow.iterators.AbstractLongFlow;
 import xawd.jflow.iterators.IntFlow;
@@ -34,14 +34,17 @@ public final class Numbers
 
 	/**
 	 * Iterates over the Fibonacci numbers with custom starting values.
-	 * @param lowStart
-	 * @param highStart
-	 * @return
+	 *
+	 * @param first
+	 *            The first start val
+	 * @param second
+	 *            The second start val
+	 * @return The Fibonnaci numbers
 	 */
-	public static LongFlow fibonacci(final int lowStart, final int highStart)
+	public static LongFlow fibonacci(final int first, final int second)
 	{
 		return new AbstractLongFlow() {
-			long x1 = lowStart, x2 = highStart;
+			long x1 = first, x2 = second;
 			int count = 0;
 
 			@Override
@@ -61,7 +64,7 @@ public final class Numbers
 			{
 				if (count < 2) {
 					count++;
-					return count == 1 ? lowStart : highStart;
+					return count == 1 ? first : second;
 				} else {
 					final long nextFib = x1 + x2;
 					x1 = x2;

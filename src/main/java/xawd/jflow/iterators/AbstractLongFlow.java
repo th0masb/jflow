@@ -14,8 +14,8 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import xawd.jflow.iterators.construction.Iterate;
-import xawd.jflow.iterators.construction.Numbers;
+import xawd.jflow.iterators.factories.Iterate;
+import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;

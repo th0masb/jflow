@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import xawd.jflow.iterators.Flow;
-import xawd.jflow.iterators.construction.Iterate;
+import xawd.jflow.iterators.factories.Iterate;
 
 /**
  * @author ThomasB

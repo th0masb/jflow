@@ -21,7 +21,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import xawd.jflow.iterators.construction.Numbers;
+import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;

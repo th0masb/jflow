@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.construction;
+package xawd.jflow.iterators.factories;
 
 import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
