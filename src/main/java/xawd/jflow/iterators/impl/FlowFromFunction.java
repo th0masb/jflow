@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package xawd.jflow.iterators.impl;
 
@@ -18,34 +18,32 @@ import xawd.jflow.iterators.AbstractLongFlow;
  * @author t
  *
  */
-public final class FlowFromFunction 
+public final class FlowFromFunction
 {
 	private FlowFromFunction() {}
-	
+
 	public static class OfObject<T> extends AbstractFlow<T>
 	{
 		private final IntFunction<T> src;
 		private final int elementCap;
-		
+
 		private int count = 0;
-		
+
 		public OfObject(final IntFunction<T> src, final int elementCap) {
+			if (elementCap < 0) {
+				throw new IllegalArgumentException();
+			}
 			this.src = src;
 			this.elementCap = elementCap;
 		}
-		
+
 		public OfObject(final IntFunction<T> src) {
-			this(src, -1);
+			this(src, Integer.MAX_VALUE);
 		}
 
 		@Override
 		public boolean hasNext() {
-			if (elementCap < 0) {
-				return true;
-			}
-			else {
-				return count < elementCap;
-			}
+			return count < elementCap;
 		}
 
 		@Override
@@ -60,34 +58,33 @@ public final class FlowFromFunction
 
 		@Override
 		public void skip() {
-			next();
+			if (hasNext()) {
+				count++;
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
-	
+
 	public static class OfLong extends AbstractLongFlow
 	{
 		private final IntToLongFunction src;
 		private final int elementCap;
-		
+
 		private int count = 0;
-		
+
 		public OfLong(final IntToLongFunction src, final int elementCap) {
+			if (elementCap < 0) {
+				throw new IllegalArgumentException();
+			}
 			this.src = src;
 			this.elementCap = elementCap;
-		}
-		
-		public OfLong(final IntToLongFunction src) {
-			this(src, -1);
 		}
 
 		@Override
 		public boolean hasNext() {
-			if (elementCap < 0) {
-				return true;
-			}
-			else {
-				return count < elementCap;
-			}
+			return count < elementCap;
 		}
 
 		@Override
@@ -102,34 +99,33 @@ public final class FlowFromFunction
 
 		@Override
 		public void skip() {
-			nextLong();
+			if (hasNext()) {
+				count++;
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
-	
+
 	public static class OfInt extends AbstractIntFlow
 	{
 		private final IntUnaryOperator src;
 		private final int elementCap;
-		
+
 		private int count = 0;
-		
+
 		public OfInt(final IntUnaryOperator src, final int elementCap) {
+			if (elementCap < 0) {
+				throw new IllegalArgumentException();
+			}
 			this.src = src;
 			this.elementCap = elementCap;
-		}
-		
-		public OfInt(final IntUnaryOperator src) {
-			this(src, -1);
 		}
 
 		@Override
 		public boolean hasNext() {
-			if (elementCap < 0) {
-				return true;
-			}
-			else {
-				return count < elementCap;
-			}
+			return count < elementCap;
 		}
 
 		@Override
@@ -144,34 +140,33 @@ public final class FlowFromFunction
 
 		@Override
 		public void skip() {
-			nextInt();
+			if (hasNext()) {
+				count++;
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
-	
+
 	public static class OfDouble extends AbstractDoubleFlow
 	{
 		private final IntToDoubleFunction src;
 		private final int elementCap;
-		
+
 		private int count = 0;
-		
+
 		public OfDouble(final IntToDoubleFunction src, final int elementCap) {
+			if (elementCap < 0) {
+				throw new IllegalArgumentException();
+			}
 			this.src = src;
 			this.elementCap = elementCap;
-		}
-		
-		public OfDouble(final IntToDoubleFunction src) {
-			this(src, -1);
 		}
 
 		@Override
 		public boolean hasNext() {
-			if (elementCap < 0) {
-				return true;
-			}
-			else {
-				return count < elementCap;
-			}
+			return count < elementCap;
 		}
 
 		@Override
@@ -186,7 +181,12 @@ public final class FlowFromFunction
 
 		@Override
 		public void skip() {
-			nextDouble();
+			if (hasNext()) {
+				count++;
+			}
+			else {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 }

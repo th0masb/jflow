@@ -3,15 +3,18 @@
  */
 package xawd.jflow.iterators.construction;
 
+import java.util.List;
+
 import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 import xawd.jflow.iterators.impl.FlowFromValues;
+import xawd.jflow.iterators.impl.ReverseFlowFromValues;
 
 /**
- * Static constructors for creating Flow instances from groupings of values.
+ * Factory for building Flow instances from groups of values.
  *
  * @author ThomasB
  */
@@ -67,24 +70,93 @@ public final class Iterate
 	/**
 	 * Construct an DoubleFlow iterating over varargs primitive doubles.
 	 *
-	 * @param integers
+	 * @param doubles
 	 *            The doubles to be iterated over.
 	 * @return An DoubleFlow iterating over the given doubles.
 	 */
-	public static DoubleFlow over(double... is)
+	public static DoubleFlow over(double... doubles)
 	{
-		return new FlowFromValues.OfDouble(is);
+		return new FlowFromValues.OfDouble(doubles);
 	}
 
 	/**
 	 * Construct an LongFlow iterating over varargs primitive longs.
 	 *
-	 * @param integers
+	 * @param longs
 	 *            The longs to be iterated over.
 	 * @return An LongFlow iterating over the given longs.
 	 */
-	public static LongFlow over(long... is)
+	public static LongFlow over(long... longs)
 	{
-		return new FlowFromValues.OfLong(is);
+		return new FlowFromValues.OfLong(longs);
+	}
+
+	/**
+	 * Build a Flow reverse iterating over a List.
+	 *
+	 * @param <E>
+	 *            The upper type bound on the elements in the source.
+	 * @param source
+	 *            The source List
+	 * @return A Flow reversing over the source starting with the last element.
+	 */
+	public static <E> Flow<E> reverseOver(List<? extends E> source)
+	{
+		return new ReverseFlowFromValues.OfObject<>(source);
+	}
+
+	/**
+	 * Construct a Flow reverse iterating over varargs elements.
+	 *
+	 * @param <E>
+	 *            The least upper bound on the types of the passed elements.
+	 * @param elements
+	 *            The elements to be reversed over.
+	 * @return A Flow reversing over the given elements starting with the last
+	 *         element.
+	 */
+	@SafeVarargs
+	public static <E> Flow<E> reverseOver(final E... elements)
+	{
+		return new ReverseFlowFromValues.OfObject<>(elements);
+	}
+
+	/**
+	 * Construct a LongFlow reverse iterating over varargs elements.
+	 *
+	 * @param elements
+	 *            The elements to be reversed over.
+	 * @return A LongFlow reversing over the given elements starting with the last
+	 *         element.
+	 */
+	public static LongFlow reverseOver(final long... elements)
+	{
+		return new ReverseFlowFromValues.OfLong(elements);
+	}
+
+	/**
+	 * Construct a DoubleFlow reverse iterating over varargs elements.
+	 *
+	 * @param elements
+	 *            The elements to be reversed over.
+	 * @return A DoubleFlow reversing over the given elements starting with the last
+	 *         element.
+	 */
+	public static DoubleFlow reverseOver(final double... elements)
+	{
+		return new ReverseFlowFromValues.OfDouble(elements);
+	}
+
+	/**
+	 * Construct a IntFlow reverse iterating over varargs elements.
+	 *
+	 * @param elements
+	 *            The elements to be reversed over.
+	 * @return A IntFlow reversing over the given elements starting with the last
+	 *         element.
+	 */
+	public static IntFlow reverseOver(final int... elements)
+	{
+		return new ReverseFlowFromValues.OfInt(elements);
 	}
 }

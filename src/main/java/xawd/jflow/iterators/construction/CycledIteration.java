@@ -15,9 +15,7 @@ import xawd.jflow.iterators.iterables.IntFlowIterable;
 import xawd.jflow.iterators.iterables.LongFlowIterable;
 
 /**
- * A collection of static constructors for initialising Flows. More specifically
- * these methods pertain to infinite cycling Flows of values from some source
- * sequence.
+ * Factory for building infinite cycling Flows from groups of values.
  *
  * @author ThomasB
  */

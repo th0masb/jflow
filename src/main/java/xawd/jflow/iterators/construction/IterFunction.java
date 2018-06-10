@@ -15,62 +15,136 @@ import xawd.jflow.iterators.LongFlow;
 import xawd.jflow.iterators.impl.FlowFromFunction;
 
 /**
- * @author ThomasB
+ * Factory for building both finite and infinite Flows from functions.
  *
+ * @author ThomasB
  */
 public final class IterFunction
 {
-	private IterFunction() {}
-
-	public static <T> Flow<T> objectsFrom(final IntFunction<T> f)
+	private IterFunction()
 	{
-		return new FlowFromFunction.OfObject<>(f);
 	}
 
-	public static <T> Flow<T> objectsFrom(final IntFunction<T> f, final int elementCount)
+	/**
+	 * Build an infinite Flow from a function which accepts a positive integer
+	 * argument representing a sequence index.
+	 *
+	 * @param <E>
+	 *            The target type of the indexing function.
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @return An infinite Flow built from apply the indexing function to each
+	 *         natural number in turn.
+	 */
+	public static <E> Flow<E> objectsFrom(final IntFunction<E> indexingFunction)
 	{
-		if (elementCount < 0) {
-			throw new IllegalArgumentException();
-		}
-		return new FlowFromFunction.OfObject<>(f, elementCount);
+		return new FlowFromFunction.OfObject<>(indexingFunction);
 	}
 
-	public static LongFlow longsFrom(final IntToLongFunction f)
+	/**
+	 * Build a finite length Flow from a function which accepts a positive integer
+	 * argument representing a sequence index.
+	 *
+	 * @param <E>
+	 *            The target type of the indexing function.
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @param indexBound
+	 *            The upper bound (exclusive) of the index range.
+	 * @return A Flow built from apply the indexing function to a bounded range of
+	 *         natural numbers.
+	 */
+	public static <E> Flow<E> objectsFrom(final IntFunction<E> indexingFunction, final int indexBound)
 	{
-		return new FlowFromFunction.OfLong(f);
+		return new FlowFromFunction.OfObject<>(indexingFunction, indexBound);
 	}
 
-	public static LongFlow longsFrom(final IntToLongFunction f, final int elementCount)
+	/**
+	 * Build an infinite LongFlow from a function which accepts a positive integer
+	 * argument representing a sequence index.
+	 *
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @return An infinite LongFlow built from apply the indexing function to each
+	 *         natural number in turn.
+	 */
+	public static LongFlow longsFrom(final IntToLongFunction indexingFunction)
 	{
-		if (elementCount < 0) {
-			throw new IllegalArgumentException();
-		}
-		return new FlowFromFunction.OfLong(f, elementCount);
+		return new FlowFromFunction.OfLong(indexingFunction, Integer.MAX_VALUE);
 	}
 
-	public static IntFlow intsFrom(final IntUnaryOperator f)
+	/**
+	 * Build a finite length LongFlow from a function which accepts a positive
+	 * integer argument representing a sequence index.
+	 *
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @param indexBound
+	 *            The upper bound (exclusive) of the index range.
+	 * @return A LongFlow built from apply the indexing function to a bounded range
+	 *         of natural numbers.
+	 */
+	public static LongFlow longsFrom(final IntToLongFunction indexingFunction, final int indexBound)
 	{
-		return new FlowFromFunction.OfInt(f);
+		return new FlowFromFunction.OfLong(indexingFunction, indexBound);
 	}
 
-	public static IntFlow intsFrom(final IntUnaryOperator f, final int elementCount)
+	/**
+	 * Build an infinite IntFlow from a function which accepts a positive integer
+	 * argument representing a sequence index.
+	 *
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @return An infinite IntFlow built from apply the indexing function to each
+	 *         natural number in turn.
+	 */
+	public static IntFlow intsFrom(final IntUnaryOperator indexingFunction)
 	{
-		if (elementCount < 0) {
-			throw new IllegalArgumentException();
-		}
-		return new FlowFromFunction.OfInt(f, elementCount);
+		return new FlowFromFunction.OfInt(indexingFunction, Integer.MAX_VALUE);
 	}
 
-	public static DoubleFlow doublesFrom(final IntToDoubleFunction f)
+	/**
+	 * Build a finite length IntFlow from a function which accepts a positive
+	 * integer argument representing a sequence index.
+	 *
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @param indexBound
+	 *            The upper bound (exclusive) of the index range.
+	 * @return A IntFlow built from apply the indexing function to a bounded range
+	 *         of natural numbers.
+	 */
+	public static IntFlow intsFrom(final IntUnaryOperator indexingFunction, final int indexBound)
 	{
-		return new FlowFromFunction.OfDouble(f);
+		return new FlowFromFunction.OfInt(indexingFunction, indexBound);
 	}
 
-	public static DoubleFlow doublesFrom(final IntToDoubleFunction f, final int elementCount)
+	/**
+	 * Build an infinite DoubleFlow from a function which accepts a positive integer
+	 * argument representing a sequence index.
+	 *
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @return An infinite DoubleFlow built from apply the indexing function to each
+	 *         natural number in turn.
+	 */
+	public static DoubleFlow doublesFrom(final IntToDoubleFunction indexingFunction)
 	{
-		if (elementCount < 0) {
-			throw new IllegalArgumentException();
-		}
-		return new FlowFromFunction.OfDouble(f, elementCount);
+		return new FlowFromFunction.OfDouble(indexingFunction, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * Build a finite length DoubleFlow from a function which accepts a positive
+	 * integer argument representing a sequence index.
+	 *
+	 * @param indexingFunction
+	 *            A function whose domain is the natural numbers.
+	 * @param indexBound
+	 *            The upper bound (exclusive) of the index range.
+	 * @return A DoubleFlow built from apply the indexing function to a bounded range
+	 */
+	public static DoubleFlow doublesFrom(final IntToDoubleFunction indexingFunction, final int indexBound)
+	{
+		return new FlowFromFunction.OfDouble(indexingFunction, indexBound);
 	}
 }

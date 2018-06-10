@@ -10,7 +10,7 @@ import xawd.jflow.iterators.LongFlow;
 import xawd.jflow.iterators.impl.EmptyFlow;
 
 /**
- * Static factory methods for creating empty Flow instances.
+ * Factory for building empty Flow instances.
  *
  * @author ThomasB
  */

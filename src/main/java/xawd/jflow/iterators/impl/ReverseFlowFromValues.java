@@ -3,6 +3,7 @@
  */
 package xawd.jflow.iterators.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -21,30 +22,33 @@ public final class ReverseFlowFromValues
 
 	public static class OfObject<E> extends AbstractFlow<E>
 	{
-		private final List<? extends E> source;
-		private int count = Integer.MIN_VALUE;
+		private final Object[] source;
+		private int count;
 
 		public OfObject(final List<? extends E> source)
 		{
-			this.source = source;
+			count = source.size() - 1;
+			this.source = source.toArray();
+		}
+
+		@SafeVarargs
+		public OfObject(E... source)
+		{
+			count = source.length - 1;
+			this.source = Arrays.copyOf((Object[]) source, source.length);
 		}
 
 		@Override
 		public boolean hasNext() {
-			if (count == Integer.MIN_VALUE) {
-				count = source.size() - 1;
-			}
 			return count >= 0;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public E next()
 		{
 			try {
-				if (count == Integer.MIN_VALUE) {
-					count = source.size() - 1;
-				}
-				return source.get(count--);
+				return (E) source[count--];
 			}
 			catch (final IndexOutOfBoundsException ex) {
 				throw new NoSuchElementException("The source was potentially mutated after binding occured.");
@@ -54,7 +58,9 @@ public final class ReverseFlowFromValues
 		@Override
 		public void skip()
 		{
-			next();
+			if (count-- < 0) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -88,7 +94,9 @@ public final class ReverseFlowFromValues
 		@Override
 		public void skip()
 		{
-			nextLong();
+			if (count-- < 0) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -122,7 +130,9 @@ public final class ReverseFlowFromValues
 		@Override
 		public void skip()
 		{
-			nextDouble();
+			if (count-- < 0) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 
@@ -156,7 +166,9 @@ public final class ReverseFlowFromValues
 		@Override
 		public void skip()
 		{
-			nextInt();
+			if (count-- < 0) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 }
