@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.impl.consumption;
+package xawd.jflow.iterators.impl;
 
 import java.util.PrimitiveIterator;
 import java.util.function.IntPredicate;

@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.impl.consumption;
+package xawd.jflow.iterators.impl;
 
 import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
