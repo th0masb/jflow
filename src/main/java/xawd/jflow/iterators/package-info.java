@@ -1,4 +1,4 @@
 /**
- * Flow API and skelatal implementations for easily creating custom Flows.
+ * Flow API and skeletal implementations for easily creating custom Flows.
  */
 package xawd.jflow.iterators;
