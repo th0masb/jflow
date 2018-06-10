@@ -1,9 +1,3 @@
-/**
- * Copyright © 2018 Lhasa Limited
- * File created: 25 Apr 2018 by ThomasB
- * Creator : ThomasB
- * Version : $Id$
- */
 package xawd.jflow.iterators.impl;
 
 import java.util.function.BiFunction;

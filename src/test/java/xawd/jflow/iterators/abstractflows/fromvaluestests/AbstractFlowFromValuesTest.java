@@ -2,7 +2,6 @@ package xawd.jflow.iterators.abstractflows.fromvaluestests;
 
 import static java.util.Arrays.asList;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,20 +20,20 @@ class AbstractFlowFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final List<String> source)
+	void testCreationAsExpected(final String[] source)
 	{
-		assertObjectIteratorAsExpected(source, getCreationFromValuesIteratorProvider(source));
+		assertObjectIteratorAsExpected(asList(source), getCreationFromValuesIteratorProvider(source));
 	}
 
 	static Stream<Arguments> creationTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(asList()),
-				Arguments.of(asList("1", "1"))
+				Arguments.of(new Object[] {new String[0]}),
+				Arguments.of(new Object[] {new String[] {"1", "1"}})
 				);
 	}
 
-	<E> AbstractFlowIterable<E> getCreationFromValuesIteratorProvider(final List<E> source)
+	<E> AbstractFlowIterable<E> getCreationFromValuesIteratorProvider(final E[] source)
 	{
 		return new AbstractFlowIterable<E>() {
 			@Override

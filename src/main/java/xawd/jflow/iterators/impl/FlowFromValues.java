@@ -3,7 +3,6 @@
  */
 package xawd.jflow.iterators.impl;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
@@ -21,34 +20,37 @@ public final class FlowFromValues
 
 	public static class OfObject<E> extends AbstractFlow<E>
 	{
-		private final Iterable<? extends E> src;
-		private Iterator<? extends E> iterator;
+		private final Object[] cache;
+		private int count = 0;
 
-		public OfObject(final Iterable<? extends E> src)
+		@SafeVarargs
+		public OfObject(E... es)
 		{
-			this.src = src;
+			this.cache = es;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			if (iterator == null) {
-				iterator = src.iterator();
-			}
-			return iterator.hasNext();
+			return count < cache.length;
 		}
+		@SuppressWarnings("unchecked")
 		@Override
 		public E next()
 		{
-			if (iterator == null) {
-				iterator = src.iterator();
+			try {
+				return (E) cache[count++];
 			}
-			return iterator.next();
+			catch (final IndexOutOfBoundsException ex) {
+				throw new NoSuchElementException();
+			}
 		}
 		@Override
 		public void skip()
 		{
-			next();
+			if (count++ >= cache.length) {
+				throw new NoSuchElementException();
+			}
 		}
 	}
 

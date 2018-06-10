@@ -3,199 +3,88 @@
  */
 package xawd.jflow.iterators.construction;
 
-import static java.util.Arrays.asList;
-
 import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
+import xawd.jflow.iterators.impl.FlowFromIterator;
 import xawd.jflow.iterators.impl.FlowFromValues;
 
 /**
+ * Static constructors for creating Flow instances from groupings of values.
  *
  * @author ThomasB
  */
 public final class Iterate
 {
-	private Iterate() {}
+	private Iterate()
+	{
+	}
 
+	/**
+	 * Construct a Flow which wraps an iterator provided from an existing iterable
+	 * object.
+	 *
+	 * @param <E>
+	 *            The upper bound on the source iterable element type.
+	 * @param source
+	 *            An object which can construct an iterator over it's elements.
+	 * @return A Flow instance wrapping an iterator constructed from the source
+	 *         sequence.
+	 */
 	public static <E> Flow<E> over(final Iterable<? extends E> source)
 	{
-		return new FlowFromValues.OfObject<>(source);
+		return new FlowFromIterator.OfObject<>(source.iterator());
 	}
 
-	public static <E> Flow<E> over(final E e1)
+	/**
+	 * Construct a Flow iterating over varargs elements.
+	 *
+	 * @param <E>
+	 *            The least upper bound on the types of the passed elements.
+	 * @param elements
+	 *            The elements to be iterated over.
+	 * @return A Flow iterating over the given elements.
+	 */
+	@SafeVarargs
+	public static <E> Flow<E> over(final E... elements)
 	{
-		return new FlowFromValues.OfObject<>(asList(e1));
+		return new FlowFromValues.OfObject<>(elements);
 	}
 
-	public static <E> Flow<E> over(final E e1, final E e2)
+	/**
+	 * Construct an IntFlow iterating over varargs primitive integers.
+	 *
+	 * @param integers
+	 *            The integers to be iterated over.
+	 * @return An IntFlow iterating over the given integers.
+	 */
+	public static IntFlow over(int... integers)
 	{
-		return new FlowFromValues.OfObject<>(asList(e1, e2));
+		return new FlowFromValues.OfInt(integers);
 	}
 
-	public static <E> Flow<E> over(final E e1, final E e2, final E e3)
+	/**
+	 * Construct an DoubleFlow iterating over varargs primitive doubles.
+	 *
+	 * @param integers
+	 *            The doubles to be iterated over.
+	 * @return An DoubleFlow iterating over the given doubles.
+	 */
+	public static DoubleFlow over(double... is)
 	{
-		return new FlowFromValues.OfObject<>(asList(e1, e2, e3));
+		return new FlowFromValues.OfDouble(is);
 	}
 
-	public static <E> Flow<E> over(final E e1, final E e2, final E e3, final E e4)
+	/**
+	 * Construct an LongFlow iterating over varargs primitive longs.
+	 *
+	 * @param integers
+	 *            The longs to be iterated over.
+	 * @return An LongFlow iterating over the given longs.
+	 */
+	public static LongFlow over(long... is)
 	{
-		return new FlowFromValues.OfObject<>(asList(e1, e2, e3, e4));
-	}
-
-	public static <E> Flow<E> over(final E e1, final E e2, final E e3, final E e4, final E e5)
-	{
-		return new FlowFromValues.OfObject<>(asList(e1, e2, e3, e4, e5));
-	}
-
-	public static <E> Flow<E> over(final E e1, final E e2, final E e3, final E e4, final E e5, final E e6)
-	{
-		return new FlowFromValues.OfObject<>(asList(e1, e2, e3, e4, e5, e6));
-	}
-
-	public static <E> Flow<E> over(final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7)
-	{
-		return new FlowFromValues.OfObject<>(asList(e1, e2, e3, e4, e5, e6, e7));
-	}
-
-	public static <E> Flow<E> over(final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7, final E e8)
-	{
-		return new FlowFromValues.OfObject<>(asList(e1, e2, e3, e4, e5, e6, e7, e8));
-	}
-
-	public static DoubleFlow over(final double x1)
-	{
-		return new FlowFromValues.OfDouble(x1);
-	}
-
-	public static DoubleFlow over(final double x1, final double x2)
-	{
-		return new FlowFromValues.OfDouble(new double[] {x1, x2});
-	}
-
-	public static DoubleFlow over(final double x1, final double x2, final double x3)
-	{
-		return new FlowFromValues.OfDouble(new double[] {x1, x2, x3});
-	}
-
-	public static DoubleFlow over(final double x1, final double x2, final double x3, final double x4)
-	{
-		return new FlowFromValues.OfDouble(new double[] {x1, x2, x3, x4});
-	}
-
-	public static DoubleFlow over(final double x1, final double x2, final double x3, final double x4, final double x5)
-	{
-		return new FlowFromValues.OfDouble(new double[] {x1, x2, x3, x4, x5});
-	}
-
-	public static DoubleFlow over(final double x1, final double x2, final double x3, final double x4, final double x5, final double x6)
-	{
-		return new FlowFromValues.OfDouble(new double[] {x1, x2, x3, x4, x5, x6});
-	}
-
-	public static DoubleFlow over(final double x1, final double x2, final double x3, final double x4, final double x5, final double x6, final double x7)
-	{
-		return new FlowFromValues.OfDouble(new double[] {x1, x2, x3, x4, x5, x6, x7});
-	}
-
-	public static DoubleFlow over(final double x1, final double x2, final double x3, final double x4, final double x5, final double x6, final double x7, final double x8)
-	{
-		return new FlowFromValues.OfDouble(new double[] {x1, x2, x3, x4, x5, x6, x7, x8});
-	}
-
-	public static DoubleFlow over(final double[] source)
-	{
-		return new FlowFromValues.OfDouble(source);
-	}
-
-	public static LongFlow over(final long x1)
-	{
-		return new FlowFromValues.OfLong(x1);
-	}
-
-	public static LongFlow over(final long x1, final long x2)
-	{
-		return new FlowFromValues.OfLong(new long[] {x1, x2});
-	}
-
-	public static LongFlow over(final long x1, final long x2, final long x3)
-	{
-		return new FlowFromValues.OfLong(new long[] {x1, x2, x3});
-	}
-
-	public static LongFlow over(final long x1, final long x2, final long x3, final long x4)
-	{
-		return new FlowFromValues.OfLong(new long[] {x1, x2, x3, x4});
-	}
-
-	public static LongFlow over(final long x1, final long x2, final long x3, final long x4, final long x5)
-	{
-		return new FlowFromValues.OfLong(new long[] {x1, x2, x3, x4, x5});
-	}
-
-	public static LongFlow over(final long x1, final long x2, final long x3, final long x4, final long x5, final long x6)
-	{
-		return new FlowFromValues.OfLong(new long[] {x1, x2, x3, x4, x5, x6});
-	}
-
-	public static LongFlow over(final long x1, final long x2, final long x3, final long x4, final long x5, final long x6, final long x7)
-	{
-		return new FlowFromValues.OfLong(new long[] {x1, x2, x3, x4, x5, x6, x7});
-	}
-
-	public static LongFlow over(final long x1, final long x2, final long x3, final long x4, final long x5, final long x6, final long x7, final long x8)
-	{
-		return new FlowFromValues.OfLong(new long[] {x1, x2, x3, x4, x5, x6, x7, x8});
-	}
-
-	public static LongFlow over(final long[] source)
-	{
-		return new FlowFromValues.OfLong(source);
-	}
-
-	public static IntFlow over(final int x1)
-	{
-		return new FlowFromValues.OfInt(x1);
-	}
-
-	public static IntFlow over(final int x1, final int x2)
-	{
-		return new FlowFromValues.OfInt(new int[] {x1, x2});
-	}
-
-	public static IntFlow over(final int x1, final int x2, final int x3)
-	{
-		return new FlowFromValues.OfInt(new int[] {x1, x2, x3});
-	}
-
-	public static IntFlow over(final int x1, final int x2, final int x3, final int x4)
-	{
-		return new FlowFromValues.OfInt(new int[] {x1, x2, x3, x4});
-	}
-
-	public static IntFlow over(final int x1, final int x2, final int x3, final int x4, final int x5)
-	{
-		return new FlowFromValues.OfInt(new int[] {x1, x2, x3, x4, x5});
-	}
-
-	public static IntFlow over(final int x1, final int x2, final int x3, final int x4, final int x5, final int x6)
-	{
-		return new FlowFromValues.OfInt(new int[] {x1, x2, x3, x4, x5, x6});
-	}
-
-	public static IntFlow over(final int x1, final int x2, final int x3, final int x4, final int x5, final int x6, final int x7)
-	{
-		return new FlowFromValues.OfInt(new int[] {x1, x2, x3, x4, x5, x6, x7});
-	}
-
-	public static IntFlow over(final int x1, final int x2, final int x3, final int x4, final int x5, final int x6, final int x7, final int x8)
-	{
-		return new FlowFromValues.OfInt(new int[] {x1, x2, x3, x4, x5, x6, x7, x8});
-	}
-
-	public static IntFlow over(final int[] source)
-	{
-		return new FlowFromValues.OfInt(source);
+		return new FlowFromValues.OfLong(is);
 	}
 }
