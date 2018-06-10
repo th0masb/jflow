@@ -21,14 +21,29 @@ complement to Steams, not a replacement.
 
 It will be helpful to see some examples of the API:
 
-######Mapping
+###### Mapping
 
 ``` 
 Iterate.over("a", "b", "c").map(x -> x + x).toList();  ==> ["aa", "bb", "cc"]
 ```
 
-#####Filtering
+##### Filtering
 
 ```
 Iterate.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
 ```
+
+#### Building the Jar files and documentation
+
+To us this library you need to build the archives and documentation from this source 
+repository. To build the latest version on Windows do the following:
+
+1. Clone this repository
+2. Make sure the master branch is checked out
+3. Make sure the pwd is the directory containing gradle.bat
+4. Run the command `gradlew clean build` in the command prompt
+
+The jars will be built in build/libs directory and an uncompressed version of the documentation
+will be built in build/docs/javadoc directory. If you are using unix simply substitute the 
+command prompt instruction for the following in the Terminal; `./gradlew clean build`.
+
