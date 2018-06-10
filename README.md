@@ -21,7 +21,7 @@ complement to Steams, not a replacement.
 
 It will be helpful to see some examples of the API:
 
-#####Mapping
+######Mapping
 
 ``` 
 Iterate.over("a", "b", "c").map(x -> x + x).toList();  ==> ["aa", "bb", "cc"]
