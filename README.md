@@ -27,7 +27,7 @@ It will be helpful to see some examples of the API:
 Iterate.over("a", "b", "c").map(x -> x + x).toList();  ==> ["aa", "bb", "cc"]
 ```
 
-##### Filtering
+###### Filtering
 
 ```
 Iterate.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
@@ -43,7 +43,7 @@ repository. To build the latest version on Windows do the following:
 3. Make sure the pwd is the directory containing gradle.bat
 4. Run the command `gradlew clean build` in the command prompt
 
-The jars will be built in build/libs directory and an uncompressed version of the documentation
-will be built in build/docs/javadoc directory. If you are using unix simply substitute the 
+The jars will be built in `build/libs` directory and an uncompressed version of the documentation
+will be built in `build/docs/javadoc` directory. If you are using unix simply substitute the 
 command prompt instruction for the following in the Terminal; `./gradlew clean build`.
 
