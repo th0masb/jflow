@@ -42,18 +42,19 @@ public class CycledIteration
 	}
 
 	/**
-	 * Creates an infinite, continuously looping Flow from a single element.
+	 * Creates an infinite, continuously looping Flow from a varargs array source.
 	 *
 	 * @param <E>
 	 *            The type of the element which will be repeated.
 	 *
-	 * @param element
-	 *            The reference which will be repeated indefinitely.
-	 * @return A Flow which indefinitely repeats the source element.
+	 * @param elements
+	 *            The references which will be cycled through.
+	 * @return A Flow which indefinitely cycles through the source elements.
 	 */
-	public static <E> Flow<E> of(final E element)
+	@SafeVarargs
+	public static <E> Flow<E> of(final E... elements)
 	{
-		return of(Arrays.asList(element));
+		return of(Arrays.asList(elements));
 	}
 
 	/**
@@ -78,21 +79,9 @@ public class CycledIteration
 	 * @return An IntFlow which continuously loops through the elements of the
 	 *         source array.
 	 */
-	public static IntFlow of(final int[] source)
+	public static IntFlow of(final int... source)
 	{
 		return new CyclicFlow.OfInt(() -> Iterate.over(source));
-	}
-
-	/**
-	 * Creates an infinite, continuously looping Flow from a single int.
-	 *
-	 * @param element
-	 *            The int which will be repeated indefinitely.
-	 * @return An IntFlow which indefinitely repeats the source element.
-	 */
-	public static IntFlow of(final int element)
-	{
-		return of(new int[] { element });
 	}
 
 	/**
@@ -117,21 +106,9 @@ public class CycledIteration
 	 * @return An DoubleFlow which continuously loops through the elements of the
 	 *         source array.
 	 */
-	public static DoubleFlow of(final double[] source)
+	public static DoubleFlow of(final double... source)
 	{
 		return new CyclicFlow.OfDouble(() -> Iterate.over(source));
-	}
-
-	/**
-	 * Creates an infinite, continuously looping Flow from a single double.
-	 *
-	 * @param element
-	 *            The double which will be repeated indefinitely.
-	 * @return An DoubleFlow which indefinitely repeats the source element.
-	 */
-	public static DoubleFlow of(final double element)
-	{
-		return of(new double[] { element });
 	}
 
 	/**
@@ -156,20 +133,8 @@ public class CycledIteration
 	 * @return An LongFlow which continuously loops through the elements of the
 	 *         source array.
 	 */
-	public static LongFlow of(final long[] source)
+	public static LongFlow of(final long... source)
 	{
 		return new CyclicFlow.OfLong(() -> Iterate.over(source));
-	}
-
-	/**
-	 * Creates an infinite, continuously looping Flow from a single long.
-	 *
-	 * @param element
-	 *            The long which will be repeated indefinitely.
-	 * @return An LongFlow which indefinitely repeats the source element.
-	 */
-	public static LongFlow of(final long element)
-	{
-		return of(new long[] { element });
 	}
 }
