@@ -33,6 +33,19 @@ Iterate.over("a", "b", "c").map(x -> x + x).toList();  ==> ["aa", "bb", "cc"]
 Iterate.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
 ```
 
+###### Take, takeWhile, drop, dropWhile
+
+```
+List<String> someStrings = Arrays.asList("0", "1", "2", "3");
+
+Iterate.over(someStrings).take(2).toSet(); ==> {"0", "1"}
+Iterate.over(someStrings).drop(2).toImmutableSet(); ==> {"3", "2"}
+
+Predicate<String> lessThanTwo = x -> Integer.parseInt(x) < 2;
+Iterate.over(someStrings).takeWhile(lessThanTwo).toList(); ==> ["0", "1"]
+Iterate.over(someStrings).dropWhile(lessThanTwo).toImmutableList(); ==> ["2", "3"]
+```
+
 #### Building the Jar files and documentation
 
 To us this library you need to build the archives and documentation from this source 
@@ -43,7 +56,8 @@ repository. To build the latest version on Windows do the following:
 3. Make sure the pwd is the directory containing gradle.bat
 4. Run the command `gradlew clean build` in the command prompt
 
-The jars will be built in `build/libs` directory and an uncompressed version of the documentation
-will be built in `build/docs/javadoc` directory. If you are using unix simply substitute the 
-command prompt instruction for the following in the Terminal; `./gradlew clean build`.
+The jars (including source and javadoc) will be built in `build/libs` directory and an uncompressed 
+version of the documentation ready to be viewed in a browser will be built in the `build/docs/javadoc` 
+directory. If you are using unix simply substitute the command prompt instruction for the following 
+command in the Terminal `./gradlew clean build`.
 
