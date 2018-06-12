@@ -22,9 +22,9 @@ import xawd.jflow.iterators.LongFlow;
  * @author t
  *
  */
-public class SkipwhileFlow {
+public class DropWhileFlow {
 	
-	private SkipwhileFlow() {}
+	private DropWhileFlow() {}
 
 	public static class OfObject<T> extends AbstractFlow<T> 
 	{

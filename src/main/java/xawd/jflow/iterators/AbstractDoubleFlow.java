@@ -26,8 +26,8 @@ import xawd.jflow.iterators.impl.MapFlow;
 import xawd.jflow.iterators.impl.MapToIntFlow;
 import xawd.jflow.iterators.impl.MapToLongFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
-import xawd.jflow.iterators.impl.SkipFlow;
-import xawd.jflow.iterators.impl.SkipwhileFlow;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -129,13 +129,13 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	@Override
 	public AbstractDoubleFlow drop(final int n)
 	{
-		return new SkipFlow.OfDouble(this, n);
+		return new DropFlow.OfDouble(this, n);
 	}
 
 	@Override
 	public AbstractDoubleFlow dropWhile(final DoublePredicate predicate)
 	{
-		return new SkipwhileFlow.OfDouble(this, predicate);
+		return new DropWhileFlow.OfDouble(this, predicate);
 	}
 
 	@Override

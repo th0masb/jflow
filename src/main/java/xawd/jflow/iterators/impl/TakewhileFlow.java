@@ -22,24 +22,27 @@ import xawd.jflow.iterators.LongFlow;
 public final class TakewhileFlow
 {
 	private TakewhileFlow() {}
-	
+
 	public static class OfObject<T> extends AbstractFlow<T>
 	{
 		private final Flow<T> src;
 		private final Predicate<? super T> predicate;
-		
+
 		private T cached = null;
 		private boolean iteratorExhausted = false;
-		
-		public OfObject(final Flow<T> src, final Predicate<? super T> predicate) 
+
+		public OfObject(final Flow<T> src, final Predicate<? super T> predicate)
 		{
 			this.src = src;
 			this.predicate = predicate;
 		}
-		
+
 		@Override
 		public boolean hasNext()
 		{
+			if (iteratorExhausted) {
+				return false;
+			}
 			if (cached != null) {
 				return true;
 			}
@@ -102,25 +105,28 @@ public final class TakewhileFlow
 			}
 		}
 	}
-	
+
 	public static class OfInt extends AbstractIntFlow
 	{
 		private final IntFlow src;
 		private final IntPredicate predicate;
-		
+
 		private int cached = -1;
 		private boolean nextReady = false;
 		private boolean iteratorExhausted = false;
-		
-		public OfInt(final IntFlow src, final IntPredicate predicate) 
+
+		public OfInt(final IntFlow src, final IntPredicate predicate)
 		{
 			this.src = src;
 			this.predicate = predicate;
 		}
-		
+
 		@Override
 		public boolean hasNext()
 		{
+			if (iteratorExhausted) {
+				return false;
+			}
 			if (nextReady) {
 				return true;
 			}
@@ -141,7 +147,7 @@ public final class TakewhileFlow
 				return false;
 			}
 		}
-		
+
 		@Override
 		public int nextInt()
 		{
@@ -162,7 +168,7 @@ public final class TakewhileFlow
 				}
 			}
 		}
-		
+
 		@Override
 		public void skip()
 		{
@@ -187,20 +193,23 @@ public final class TakewhileFlow
 	{
 		private final DoubleFlow src;
 		private final DoublePredicate predicate;
-		
+
 		private double cached = -1;
 		private boolean nextReady = false;
 		private boolean iteratorExhausted = false;
-		
-		public OfDouble(final DoubleFlow src, final DoublePredicate predicate) 
+
+		public OfDouble(final DoubleFlow src, final DoublePredicate predicate)
 		{
 			this.src = src;
 			this.predicate = predicate;
 		}
-		
+
 		@Override
 		public boolean hasNext()
 		{
+			if (iteratorExhausted) {
+				return false;
+			}
 			if (nextReady) {
 				return true;
 			}
@@ -221,7 +230,7 @@ public final class TakewhileFlow
 				return false;
 			}
 		}
-		
+
 		@Override
 		public double nextDouble()
 		{
@@ -242,7 +251,7 @@ public final class TakewhileFlow
 				}
 			}
 		}
-		
+
 		@Override
 		public void skip()
 		{
@@ -267,20 +276,23 @@ public final class TakewhileFlow
 	{
 		private final LongFlow src;
 		private final LongPredicate predicate;
-		
+
 		private long cached = -1;
 		private boolean nextReady = false;
 		private boolean iteratorExhausted = false;
-		
-		public OfLong(final LongFlow src, final LongPredicate predicate) 
+
+		public OfLong(final LongFlow src, final LongPredicate predicate)
 		{
 			this.src = src;
 			this.predicate = predicate;
 		}
-		
+
 		@Override
 		public boolean hasNext()
 		{
+			if (iteratorExhausted) {
+				return false;
+			}
 			if (nextReady) {
 				return true;
 			}
@@ -301,7 +313,7 @@ public final class TakewhileFlow
 				return false;
 			}
 		}
-		
+
 		@Override
 		public long nextLong()
 		{
@@ -322,7 +334,7 @@ public final class TakewhileFlow
 				}
 			}
 		}
-		
+
 		@Override
 		public void skip()
 		{

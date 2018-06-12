@@ -13,9 +13,9 @@ import xawd.jflow.iterators.LongFlow;
  * @author ThomasB
  * @since 25 Apr 2018
  */
-public final class SkipFlow
+public final class DropFlow
 {
-	private SkipFlow() {}
+	private DropFlow() {}
 
 	public static class OfObject<T> extends AbstractFlow<T>
 	{

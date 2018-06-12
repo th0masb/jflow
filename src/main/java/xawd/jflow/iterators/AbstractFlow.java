@@ -37,8 +37,8 @@ import xawd.jflow.iterators.impl.ObjectMinMaxConsumption;
 import xawd.jflow.iterators.impl.ObjectPredicateConsumption;
 import xawd.jflow.iterators.impl.ObjectReductionConsumption;
 import xawd.jflow.iterators.impl.PairFoldFlow;
-import xawd.jflow.iterators.impl.SkipFlow;
-import xawd.jflow.iterators.impl.SkipwhileFlow;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -168,13 +168,13 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	@Override
 	public AbstractFlow<E> drop(final int n)
 	{
-		return new SkipFlow.OfObject<>(this, n);
+		return new DropFlow.OfObject<>(this, n);
 	}
 
 	@Override
 	public AbstractFlow<E> dropWhile(final Predicate<? super E> predicate)
 	{
-		return new SkipwhileFlow.OfObject<>(this, predicate);
+		return new DropWhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override

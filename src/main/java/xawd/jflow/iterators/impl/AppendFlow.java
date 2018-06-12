@@ -44,6 +44,7 @@ public final class AppendFlow
 		@Override
 		public E next()
 		{
+			System.out.println(source.hasNext());
 			return source.hasNext()? source.next() : appended.next();
 		}
 
