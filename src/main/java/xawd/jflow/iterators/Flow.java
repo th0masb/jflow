@@ -682,7 +682,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 */
 	default Flow<E> insert(final E e)
 	{
-		return append(Iterate.over(e));
+		return insert(Iterate.over(e));
 	}
 
 	/**

@@ -10,4 +10,9 @@ public interface FlowIterable<E> extends Iterable<E>
 {
 	@Override
 	Flow<E> iterator();
+
+	default Flow<E> flow()
+	{
+		return iterator();
+	}
 }
