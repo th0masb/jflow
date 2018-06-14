@@ -735,4 +735,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	{
 		return Collections.unmodifiableSet(toSet());
 	}
+
+	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper, final Function<? super E, V> valueMapper)
+	{
+		return Collections.unmodifiableMap(toMap(keyMapper, valueMapper));
+	}
 }
