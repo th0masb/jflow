@@ -55,13 +55,13 @@ public interface Flow<E> extends PrototypeFlow<E>
 	/**
 	 * Applies a function elementwise to this Flow to make a new IntFlow.
 	 *
-	 * @param f
+	 * @param mappingFunction
 	 *            A mapping function.
 	 * @return A new IntFlow instance whose elements are obtained by applying the
 	 *         parameter mapping function to each element of this Flow instance in
 	 *         turn.
 	 */
-	IntFlow mapToInt(ToIntFunction<? super E> f);
+	IntFlow mapToInt(ToIntFunction<? super E> mappingFunction);
 
 	/**
 	 * Applies a function elementwise to this Flow to make a new DoubleFlow.
