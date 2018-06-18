@@ -3,6 +3,7 @@ package xawd.jflow.iterators;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -395,68 +396,100 @@ public interface Flow<E> extends PrototypeFlow<E>
 	<R> Flow<R> pairFold(final BiFunction<? super E, ? super E, R> foldFunction);
 
 	/**
-	 * Calculates the minimum element in this Flow by an embedding into the real
-	 * numbers.
+	 * Calculates the minimum element in this Flow with respect to the ordering
+	 * specified by the parameter.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow into the real
-	 *            numbers.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         minimum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
+	 * @param orderingFunction
+	 *            This function defines the ordering on this element type.
+	 * @return Nothing if the Flow is empty. Otherwise the minimum element in this
+	 *         Flow.
 	 */
-	Optional<E> minByKey(final ToDoubleFunction<? super E> key);
+	Optional<E> min(Comparator<? super E> orderingFunction);
 
 	/**
-	 * Calculates the minimum element in this Flow by a mapping to a type equipped
-	 * with a natural ordering.
+	 * Calculates the maximum element in this Flow with respect to the ordering
+	 * specified by the parameter.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param <C>
-	 *            A type equipped with a natural ordering.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow to some data type
-	 *            with an ordering.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         minimum among all images. Nothing is returned if the source is empty.
+	 * @param orderingFunction
+	 *            This function defines the ordering on this element type.
+	 * @return Nothing if the Flow is empty. Otherwise the maximum element in this
+	 *         Flow.
 	 */
-	<C extends Comparable<C>> Optional<E> minByObjectKey(final Function<? super E, C> key);
+	Optional<E> max(Comparator<? super E> orderingFunction);
 
-	/**
-	 * Calculates the maximum element in this Flow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow into the real
-	 *            numbers.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         maximum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
-	 */
-	Optional<E> maxByKey(final ToDoubleFunction<? super E> key);
-
-	/**
-	 * Calculates the maximum element in this Flow by a mapping to a type equipped
-	 * with a natural ordering.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param <C>
-	 *            A type equipped with a natural ordering.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow to some data type
-	 *            with an ordering.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         maximum among all images. Nothing is returned if the source is empty.
-	 */
-	<C extends Comparable<C>> Optional<E> maxByObjectKey(final Function<? super E, C> key);
+	// /**
+	// * Calculates the minimum element in this Flow by an embedding into the real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// Flow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this Flow into the real
+	// * numbers.
+	// * @return The element of this Flow whose image under the key mapping is the
+	// * minimum among all images. Nothing is returned if the source is empty.
+	// * NaN images are ignored.
+	// */
+	// @Deprecated
+	// Optional<E> minByKey(final ToDoubleFunction<? super E> key);
+	//
+	// /**
+	// * Calculates the minimum element in this Flow by a mapping to a type equipped
+	// * with a natural ordering.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// Flow.
+	// *
+	// * @param <C>
+	// * A type equipped with a natural ordering.
+	// *
+	// * @param key
+	// * A function mapping the elements of this Flow to some data type
+	// * with an ordering.
+	// * @return The element of this Flow whose image under the key mapping is the
+	// * minimum among all images. Nothing is returned if the source is empty.
+	// */
+	// @Deprecated
+	// <C extends Comparable<C>> Optional<E> minByObjectKey(final Function<? super
+	// E, C> key);
+	//
+	// /**
+	// * Calculates the maximum element in this Flow by an embedding into the real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// Flow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this Flow into the real
+	// * numbers.
+	// * @return The element of this Flow whose image under the key mapping is the
+	// * maximum among all images. Nothing is returned if the source is empty.
+	// * NaN images are ignored.
+	// */
+	// @Deprecated
+	// Optional<E> maxByKey(final ToDoubleFunction<? super E> key);
+	//
+	// /**
+	// * Calculates the maximum element in this Flow by a mapping to a type equipped
+	// * with a natural ordering.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// Flow.
+	// *
+	// * @param <C>
+	// * A type equipped with a natural ordering.
+	// *
+	// * @param key
+	// * A function mapping the elements of this Flow to some data type
+	// * with an ordering.
+	// * @return The element of this Flow whose image under the key mapping is the
+	// * maximum among all images. Nothing is returned if the source is empty.
+	// */
+	// @Deprecated
+	// <C extends Comparable<C>> Optional<E> maxByObjectKey(final Function<? super
+	// E, C> key);
 
 	/**
 	 * Checks whether every element in this Flow is the same.
@@ -736,7 +769,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 		return Collections.unmodifiableSet(toSet());
 	}
 
-	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper, final Function<? super E, V> valueMapper)
+	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper,
+			final Function<? super E, V> valueMapper)
 	{
 		return Collections.unmodifiableMap(toMap(keyMapper, valueMapper));
 	}

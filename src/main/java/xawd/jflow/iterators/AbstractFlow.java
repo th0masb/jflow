@@ -4,6 +4,7 @@
 package xawd.jflow.iterators;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.FlattenedFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
@@ -37,8 +40,6 @@ import xawd.jflow.iterators.impl.ObjectMinMaxConsumption;
 import xawd.jflow.iterators.impl.ObjectPredicateConsumption;
 import xawd.jflow.iterators.impl.ObjectReductionConsumption;
 import xawd.jflow.iterators.impl.PairFoldFlow;
-import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -214,27 +215,15 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public Optional<E> minByKey(final ToDoubleFunction<? super E> key)
+	public Optional<E> min(final Comparator<? super E> orderingFunction)
 	{
-		return ObjectMinMaxConsumption.findMin(this, key);
+		return ObjectMinMaxConsumption.findMin(this, orderingFunction);
 	}
 
 	@Override
-	public <C extends Comparable<C>> Optional<E> minByObjectKey(final Function<? super E, C> key)
+	public Optional<E> max(final Comparator<? super E> orderingFunction)
 	{
-		return ObjectMinMaxConsumption.findMin(this, key);
-	}
-
-	@Override
-	public Optional<E> maxByKey(final ToDoubleFunction<? super E> key)
-	{
-		return ObjectMinMaxConsumption.findMax(this, key);
-	}
-
-	@Override
-	public <C extends Comparable<C>> Optional<E> maxByObjectKey(final Function<? super E, C> key)
-	{
-		return ObjectMinMaxConsumption.findMax(this, key);
+		return ObjectMinMaxConsumption.findMax(this, orderingFunction);
 	}
 
 	@Override
