@@ -27,7 +27,7 @@ import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;
 import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.FlattenedFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
@@ -49,6 +49,8 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
+
+
 
 /**
  * The skelatal implementation of a Flow, users writing custom Flows should
@@ -175,7 +177,7 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	@Override
 	public AbstractFlow<E> dropWhile(final Predicate<? super E> predicate)
 	{
-		return new DropWhileFlow.OfObject<>(this, predicate);
+		return new DropwhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import xawd.jflow.iterators.impl.MapToDoubleFlow;
 import xawd.jflow.iterators.impl.MapToLongFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
 import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -135,7 +135,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public AbstractIntFlow dropWhile(final IntPredicate predicate)
 	{
-		return new DropWhileFlow.OfInt(this, predicate);
+		return new DropwhileFlow.OfInt(this, predicate);
 	}
 
 	@Override

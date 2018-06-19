@@ -2,6 +2,8 @@ package xawd.jflow.iterators.iterables;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -64,34 +66,6 @@ public interface FlowIterable<E> extends Iterable<E>
 		return flow().enumerate();
 	}
 
-	/*
-	 * index related functions should go in ListFlow interface
-	 */
-//	default Flow<E> slice(final IntUnaryOperator indexMap)
-//	{
-//		return flow().slice(indexMap);
-//	}
-//
-//	default Flow<E> take(final int n)
-//	{
-//		return flow().take(n);
-//	}
-//
-//	default Flow<E> takeWhile(final Predicate<? super E> predicate)
-//	{
-//		return flow().takeWhile(predicate);
-//	}
-//
-//	default Flow<E> drop(final int n)
-//	{
-//		return flow().drop(n);
-//	}
-//
-//	default Flow<E> dropWhile(final Predicate<? super E> predicate)
-//	{
-//		return flow().dropWhile(predicate);
-//	}
-
 	default Flow<E> append(Iterator<? extends E> other)
 	{
 		return flow().append(other);
@@ -106,24 +80,6 @@ public interface FlowIterable<E> extends Iterable<E>
 	{
 		return flow().append(other);
 	}
-
-	/*
-	 * Put in ListFlow since it requires notion of a 'start point' in a collection
-	 */
-//	default Flow<E> insert(Iterator<? extends E> other)
-//	{
-//		return flow().insert(other);
-//	}
-//
-//	default Flow<E> insert(Iterable<? extends E> other)
-//	{
-//		return flow().insert(other.iterator());
-//	}
-//
-//	default Flow<E> insert(E other)
-//	{
-//		return flow().insert(other);
-//	}
 
 	default Optional<E> min(Comparator<? super E> orderingFunction)
 	{
@@ -158,5 +114,10 @@ public interface FlowIterable<E> extends Iterable<E>
 	default <R> Flow<R> filterAndCastTo(final Class<R> klass)
 	{
 		return flow().filterAndCastTo(klass);
+	}
+
+	default <K> Map<K, List<E>> groupBy(final Function<? super E, K> classifier)
+	{
+		return flow().groupBy(classifier);
 	}
 }

@@ -30,7 +30,7 @@ import xawd.jflow.iterators.impl.MapToDoubleFlow;
 import xawd.jflow.iterators.impl.MapToIntFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
 import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -137,7 +137,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public AbstractLongFlow dropWhile(final LongPredicate predicate)
 	{
-		return new DropWhileFlow.OfLong(this, predicate);
+		return new DropwhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
