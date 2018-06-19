@@ -3,6 +3,7 @@ package xawd.jflow.iterators;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -407,6 +408,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         minimum among all images. Nothing is returned if the source is empty.
 	 *         NaN images are ignored.
 	 */
+	@Deprecated
 	Optional<E> minByKey(final ToDoubleFunction<? super E> key);
 
 	/**
@@ -424,6 +426,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return The element of this Flow whose image under the key mapping is the
 	 *         minimum among all images. Nothing is returned if the source is empty.
 	 */
+	@Deprecated
 	<C extends Comparable<C>> Optional<E> minByObjectKey(final Function<? super E, C> key);
 
 	/**
@@ -439,6 +442,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         maximum among all images. Nothing is returned if the source is empty.
 	 *         NaN images are ignored.
 	 */
+	@Deprecated
 	Optional<E> maxByKey(final ToDoubleFunction<? super E> key);
 
 	/**
@@ -456,7 +460,32 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return The element of this Flow whose image under the key mapping is the
 	 *         maximum among all images. Nothing is returned if the source is empty.
 	 */
+	@Deprecated
 	<C extends Comparable<C>> Optional<E> maxByObjectKey(final Function<? super E, C> key);
+
+	default Optional<E> min(Comparator<? super E> orderingFunction)
+	{
+		E min = null;
+		while (hasNext()) {
+			final E next = next();
+			if (min == null || orderingFunction.compare(min, next) > 0) {
+				min = next;
+			}
+		}
+		return min == null? Optional.empty() : Optional.of(min);
+	}
+
+	default Optional<E> max(Comparator<? super E> orderingFunction)
+	{
+		E max = null;
+		while (hasNext()) {
+			final E next = next();
+			if (max == null || orderingFunction.compare(max, next) < 0) {
+				max = next;
+			}
+		}
+		return max == null? Optional.empty() : Optional.of(max);
+	}
 
 	/**
 	 * Checks whether every element in this Flow is the same.
