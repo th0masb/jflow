@@ -1,10 +1,8 @@
 package xawd.jflow.iterators;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +19,13 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.collections.DelegatingFlowList;
+import xawd.jflow.collections.DelegatingFlowSet;
+import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.FlowSet;
+import xawd.jflow.collections.impl.FlowArrayList;
+import xawd.jflow.collections.impl.FlowHashSet;
+import xawd.jflow.collections.impl.ImmutableFlowList;
 import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
@@ -28,10 +33,11 @@ import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
 
+
 /**
  * A Flow is a functional iterator with lots of functionality in the style of
  * the Java Stream interface. There are methods inspired by other languages too,
- * namely Python and Haskell.
+ * namely Scala Python and Haskell.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -55,13 +61,13 @@ public interface Flow<E> extends PrototypeFlow<E>
 	/**
 	 * Applies a function elementwise to this Flow to make a new IntFlow.
 	 *
-	 * @param f
+	 * @param mappingFunction
 	 *            A mapping function.
 	 * @return A new IntFlow instance whose elements are obtained by applying the
 	 *         parameter mapping function to each element of this Flow instance in
 	 *         turn.
 	 */
-	IntFlow mapToInt(ToIntFunction<? super E> f);
+	IntFlow mapToInt(ToIntFunction<? super E> mappingFunction);
 
 	/**
 	 * Applies a function elementwise to this Flow to make a new DoubleFlow.
@@ -396,96 +402,50 @@ public interface Flow<E> extends PrototypeFlow<E>
 	<R> Flow<R> pairFold(final BiFunction<? super E, ? super E, R> foldFunction);
 
 	/**
-	 * Calculates the minimum element in this Flow by an embedding into the real
-	 * numbers.
+	 * Calculates the minimum element in this Flow with respect to the ordering
+	 * specified by the parameter.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow into the real
-	 *            numbers.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         minimum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
+	 * @param orderingFunction
+	 *            This function defines the ordering on this element type.
+	 * @return Nothing if the Flow is empty. Otherwise the minimum element in this
+	 *         Flow.
 	 */
-	@Deprecated
-	Optional<E> minByKey(final ToDoubleFunction<? super E> key);
+	Optional<E> min(Comparator<? super E> orderingFunction);
 
 	/**
-	 * Calculates the minimum element in this Flow by a mapping to a type equipped
-	 * with a natural ordering.
+	 * Calculates the maximum element in this Flow with respect to the ordering
+	 * specified by the parameter.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param <C>
-	 *            A type equipped with a natural ordering.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow to some data type
-	 *            with an ordering.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         minimum among all images. Nothing is returned if the source is empty.
+	 * @param orderingFunction
+	 *            This function defines the ordering on this element type.
+	 * @return Nothing if the Flow is empty. Otherwise the maximum element in this
+	 *         Flow.
 	 */
-	@Deprecated
-	<C extends Comparable<C>> Optional<E> minByObjectKey(final Function<? super E, C> key);
+	Optional<E> max(Comparator<? super E> orderingFunction);
 
-	/**
-	 * Calculates the maximum element in this Flow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow into the real
-	 *            numbers.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         maximum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
-	 */
-	@Deprecated
-	Optional<E> maxByKey(final ToDoubleFunction<? super E> key);
-
-	/**
-	 * Calculates the maximum element in this Flow by a mapping to a type equipped
-	 * with a natural ordering.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param <C>
-	 *            A type equipped with a natural ordering.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this Flow to some data type
-	 *            with an ordering.
-	 * @return The element of this Flow whose image under the key mapping is the
-	 *         maximum among all images. Nothing is returned if the source is empty.
-	 */
-	@Deprecated
-	<C extends Comparable<C>> Optional<E> maxByObjectKey(final Function<? super E, C> key);
-
-	default Optional<E> min(Comparator<? super E> orderingFunction)
-	{
-		E min = null;
-		while (hasNext()) {
-			final E next = next();
-			if (min == null || orderingFunction.compare(min, next) > 0) {
-				min = next;
-			}
-		}
-		return min == null? Optional.empty() : Optional.of(min);
-	}
-
-	default Optional<E> max(Comparator<? super E> orderingFunction)
-	{
-		E max = null;
-		while (hasNext()) {
-			final E next = next();
-			if (max == null || orderingFunction.compare(max, next) < 0) {
-				max = next;
-			}
-		}
-		return max == null? Optional.empty() : Optional.of(max);
-	}
+	//		default Optional<E> min(Comparator<? super E> orderingFunction)
+	//	{
+	//		E min = null;
+	//		while (hasNext()) {
+	//			final E next = next();
+	//			if (min == null || orderingFunction.compare(min, next) > 0) {
+	//				min = next;
+	//			}
+	//		}
+	//		return min == null? Optional.empty() : Optional.of(min);
+	//	}
+	//
+	//	default Optional<E> max(Comparator<? super E> orderingFunction)
+	//	{
+	//		E max = null;
+	//		while (hasNext()) {
+	//			final E next = next();
+	//			if (max == null || orderingFunction.compare(max, next) < 0) {
+	//				max = next;
+	//			}
+	//		}
+	//		return max == null? Optional.empty() : Optional.of(max);
+	//	}
 
 	/**
 	 * Checks whether every element in this Flow is the same.
@@ -602,6 +562,29 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         once and adding each element in this Flow to it
 	 */
 	<C extends Collection<E>> C toCollection(final Supplier<C> collectionFactory);
+
+	/**
+	 *
+	 * @param setFactory
+	 * @return
+	 */
+	default <S extends Set<E>> FlowSet<E> toSet(Supplier<S> setFactory)
+	{
+		final S mutableSet = setFactory.get();
+		while (hasNext()) {
+			mutableSet.add(next());
+		}
+		return new DelegatingFlowSet<>(mutableSet);
+	}
+
+	default <L extends List<E>> FlowList<E> toList(Supplier<L> listFactory)
+	{
+		final L mutableList = listFactory.get();
+		while (hasNext()) {
+			mutableList.add(next());
+		}
+		return new DelegatingFlowList<>(mutableList);
+	}
 
 	/**
 	 * Builds a Map using the elements in this Flow via two supplied functions.
@@ -722,9 +705,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return A List instance containing all elements of this source Flow in the
 	 *         order that they appeared in the iteration.
 	 */
-	default List<E> toList()
+	default FlowList<E> toList()
 	{
-		return toCollection(ArrayList::new);
+		return toCollection(FlowArrayList::new);
 	}
 
 	/**
@@ -735,9 +718,10 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return An immutable List instance containing all elements of the source Flow
 	 *         in the order that they appeared in the iteration.
 	 */
-	default List<E> toImmutableList()
+	default FlowList<E> toImmutableList()
 	{
-		return Collections.unmodifiableList(toList());
+		final FlowList<E> mutable = toList();
+		return new ImmutableFlowList<>(mutable::get, mutable.size());
 	}
 
 	/**
@@ -747,9 +731,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @return A Set instance containing all unique elements of the source flow.
 	 */
-	default Set<E> toSet()
+	default FlowSet<E> toSet()
 	{
-		return toCollection(HashSet::new);
+		return toCollection(FlowHashSet::new);
 	}
 
 	/**
@@ -765,7 +749,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 		return Collections.unmodifiableSet(toSet());
 	}
 
-	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper, final Function<? super E, V> valueMapper)
+	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper,
+			final Function<? super E, V> valueMapper)
 	{
 		return Collections.unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
