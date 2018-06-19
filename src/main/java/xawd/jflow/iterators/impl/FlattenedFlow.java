@@ -55,15 +55,15 @@ public final class FlattenedFlow
 				init();
 			}
 
-			try {
+			if (currentSubFlow == null) {
+				throw new NoSuchElementException();
+			}
+			else {
 				final R next = currentSubFlow.next();
 				while (!currentSubFlow.hasNext() && src.hasNext()) {
 					currentSubFlow = mapping.apply(src.next());
 				}
 				return next;
-			}
-			catch (final NullPointerException ex) {
-				throw new NoSuchElementException();
 			}
 		}
 
@@ -110,15 +110,15 @@ public final class FlattenedFlow
 				init();
 			}
 
-			try {
+			if (currentSubFlow == null) {
+				throw new NoSuchElementException();
+			}
+			else {
 				final long next = currentSubFlow.nextLong();
 				while (!currentSubFlow.hasNext() && src.hasNext()) {
 					currentSubFlow = mapping.apply(src.next());
 				}
 				return next;
-			}
-			catch (final NullPointerException ex) {
-				throw new NoSuchElementException();
 			}
 		}
 
@@ -165,15 +165,15 @@ public final class FlattenedFlow
 				init();
 			}
 
-			try {
+			if (currentSubFlow == null) {
+				throw new NoSuchElementException();
+			}
+			else {
 				final double next = currentSubFlow.nextDouble();
 				while (!currentSubFlow.hasNext() && src.hasNext()) {
 					currentSubFlow = mapping.apply(src.next());
 				}
 				return next;
-			}
-			catch (final NullPointerException ex) {
-				throw new NoSuchElementException();
 			}
 		}
 
@@ -220,15 +220,15 @@ public final class FlattenedFlow
 				init();
 			}
 
-			try {
+			if (currentSubFlow == null) {
+				throw new NoSuchElementException();
+			}
+			else {
 				final int next = currentSubFlow.nextInt();
 				while (!currentSubFlow.hasNext() && src.hasNext()) {
 					currentSubFlow = mapping.apply(src.next());
 				}
 				return next;
-			}
-			catch (final NullPointerException ex) {
-				throw new NoSuchElementException();
 			}
 		}
 

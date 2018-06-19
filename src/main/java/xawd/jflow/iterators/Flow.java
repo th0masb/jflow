@@ -423,30 +423,6 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 */
 	Optional<E> max(Comparator<? super E> orderingFunction);
 
-	//		default Optional<E> min(Comparator<? super E> orderingFunction)
-	//	{
-	//		E min = null;
-	//		while (hasNext()) {
-	//			final E next = next();
-	//			if (min == null || orderingFunction.compare(min, next) > 0) {
-	//				min = next;
-	//			}
-	//		}
-	//		return min == null? Optional.empty() : Optional.of(min);
-	//	}
-	//
-	//	default Optional<E> max(Comparator<? super E> orderingFunction)
-	//	{
-	//		E max = null;
-	//		while (hasNext()) {
-	//			final E next = next();
-	//			if (max == null || orderingFunction.compare(max, next) < 0) {
-	//				max = next;
-	//			}
-	//		}
-	//		return max == null? Optional.empty() : Optional.of(max);
-	//	}
-
 	/**
 	 * Checks whether every element in this Flow is the same.
 	 *
