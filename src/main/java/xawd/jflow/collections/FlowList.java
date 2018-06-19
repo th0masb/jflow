@@ -9,6 +9,7 @@ import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 
 import xawd.jflow.iterators.Flow;
+import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.iterables.FlowIterable;
 
 /**
@@ -16,6 +17,14 @@ import xawd.jflow.iterators.iterables.FlowIterable;
  */
 public interface FlowList<E> extends List<E>, FlowIterable<E>
 {
+	@Override
+	FlowList<E> subList(int fromIndex, int toIndex);
+
+	default Flow<E> reverse()
+	{
+		return Iterate.reverseOver(this);
+	}
+
 	default Flow<E> slice(final IntUnaryOperator indexMap)
 	{
 		return flow().slice(indexMap);

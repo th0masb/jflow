@@ -4,7 +4,6 @@
 package xawd.jflow.collections.impl;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.function.IntFunction;
 
@@ -179,7 +178,7 @@ public class ImmutableFlowList<E> implements FlowList<E>
 	}
 
 	@Override
-	public List<E> subList(int fromIndex, int toIndex)
+	public FlowList<E> subList(int fromIndex, int toIndex)
 	{
 		if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException();

@@ -19,6 +19,8 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.collections.DelegatingFlowList;
+import xawd.jflow.collections.DelegatingFlowSet;
 import xawd.jflow.collections.FlowList;
 import xawd.jflow.collections.FlowSet;
 import xawd.jflow.collections.impl.FlowArrayList;
@@ -536,6 +538,29 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         once and adding each element in this Flow to it
 	 */
 	<C extends Collection<E>> C toCollection(final Supplier<C> collectionFactory);
+
+	/**
+	 *
+	 * @param setFactory
+	 * @return
+	 */
+	default <S extends Set<E>> FlowSet<E> toSet(Supplier<S> setFactory)
+	{
+		final S mutableSet = setFactory.get();
+		while (hasNext()) {
+			mutableSet.add(next());
+		}
+		return new DelegatingFlowSet<>(mutableSet);
+	}
+
+	default <L extends List<E>> FlowList<E> toList(Supplier<L> listFactory)
+	{
+		final L mutableList = listFactory.get();
+		while (hasNext()) {
+			mutableList.add(next());
+		}
+		return new DelegatingFlowList<>(mutableList);
+	}
 
 	/**
 	 * Builds a Map using the elements in this Flow via two supplied functions.
