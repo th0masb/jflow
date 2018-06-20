@@ -16,6 +16,7 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
 import xawd.jflow.iterators.misc.IntWith;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * @author ThomasB
@@ -91,22 +92,22 @@ public interface FlowIterable<E> extends Iterable<E>
 		return flow().max(orderingFunction);
 	}
 
-	default boolean areAllEqual()
+	default PredicateResult areAllEqual()
 	{
 		return flow().areAllEqual();
 	}
 
-	default boolean allMatch(final Predicate<? super E> condition)
+	default PredicateResult allMatch(final Predicate<? super E> condition)
 	{
 		return flow().allMatch(condition);
 	}
 
-	default boolean anyMatch(final Predicate<? super E> condition)
+	default PredicateResult anyMatch(final Predicate<? super E> condition)
 	{
 		return flow().anyMatch(condition);
 	}
 
-	default boolean noneMatch(final Predicate<? super E> condition)
+	default PredicateResult noneMatch(final Predicate<? super E> condition)
 	{
 		return flow().noneMatch(condition);
 	}

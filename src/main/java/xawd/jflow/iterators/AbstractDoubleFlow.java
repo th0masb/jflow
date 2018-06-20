@@ -20,14 +20,14 @@ import xawd.jflow.iterators.impl.DoubleCollectionConsumption;
 import xawd.jflow.iterators.impl.DoubleMinMaxConsumption;
 import xawd.jflow.iterators.impl.DoublePredicateConsumption;
 import xawd.jflow.iterators.impl.DoubleReductionConsumption;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
 import xawd.jflow.iterators.impl.MapFlow;
 import xawd.jflow.iterators.impl.MapToIntFlow;
 import xawd.jflow.iterators.impl.MapToLongFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
-import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -37,6 +37,7 @@ import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * The skelatal implementation of a DoubleFlow, users writing custom DoubleFlows should
@@ -229,25 +230,25 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public boolean areAllEqual()
+	public PredicateResult areAllEqual()
 	{
 		return DoublePredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public boolean allMatch(final DoublePredicate predicate)
+	public PredicateResult allMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(final DoublePredicate predicate)
+	public PredicateResult anyMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(final DoublePredicate predicate)
+	public PredicateResult noneMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.noneMatch(this, predicate);
 	}

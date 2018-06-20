@@ -8,6 +8,7 @@ import java.util.function.DoublePredicate;
 
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 import xawd.jflow.iterators.misc.DoublePredicatePartition;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * @author ThomasB
@@ -18,7 +19,7 @@ public final class DoublePredicateConsumption
 
 	public DoublePredicateConsumption() {}
 
-	public static boolean allEqual(final PrimitiveIterator.OfDouble source)
+	public static PredicateResult allEqual(final PrimitiveIterator.OfDouble source)
 	{
 		boolean initialised = false;
 		double last = -1;
@@ -32,40 +33,40 @@ public final class DoublePredicateConsumption
 				last = next;
 			}
 			else {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
-	public static boolean allMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
+	public static PredicateResult allMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextDouble())) {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
-	public static boolean anyMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
+	public static PredicateResult anyMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextDouble())) {
-				return true;
+				return PredicateResult.PASS;
 			}
 		}
-		return false;
+		return PredicateResult.FAIL;
 	}
 
-	public static boolean noneMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
+	public static PredicateResult noneMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextDouble())) {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
 	public static DoublePredicatePartition partition(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)

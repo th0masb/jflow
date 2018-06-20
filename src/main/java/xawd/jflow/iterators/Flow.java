@@ -32,6 +32,7 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 
 /**
@@ -431,7 +432,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True is every element of this Flow is equal (under .equals contract),
 	 *         false otherwise.
 	 */
-	boolean areAllEqual();
+	PredicateResult areAllEqual();
 
 	/**
 	 * Checks whether every element in this Flow passes the supplied predicate test.
@@ -443,7 +444,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(final Predicate<? super E> predicate);
+	PredicateResult allMatch(final Predicate<? super E> predicate);
 
 	/**
 	 * Checks whether any element in this Flow passes the supplied predicate test.
@@ -455,7 +456,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(final Predicate<? super E> predicate);
+	PredicateResult anyMatch(final Predicate<? super E> predicate);
 
 	/**
 	 * Checks whether every element in this Flow fails the supplied predicate test.
@@ -467,7 +468,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(final Predicate<? super E> predicate);
+	PredicateResult noneMatch(final Predicate<? super E> predicate);
 
 	/**
 	 * Partitions the elements of this Flow on whether they pass the supplied

@@ -8,6 +8,7 @@ import java.util.function.IntPredicate;
 
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * @author ThomasB
@@ -16,7 +17,7 @@ public final class IntPredicateConsumption
 {
 	public IntPredicateConsumption() {}
 
-	public static boolean allEqual(final PrimitiveIterator.OfInt source)
+	public static PredicateResult allEqual(final PrimitiveIterator.OfInt source)
 	{
 		boolean initialised = false;
 		int last = -1;
@@ -30,40 +31,40 @@ public final class IntPredicateConsumption
 				last = next;
 			}
 			else {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
-	public static boolean allMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static PredicateResult allMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextInt())) {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
-	public static boolean anyMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static PredicateResult anyMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextInt())) {
-				return true;
+				return PredicateResult.PASS;
 			}
 		}
-		return false;
+		return PredicateResult.FAIL;
 	}
 
-	public static boolean noneMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static PredicateResult noneMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextInt())) {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
 	public static IntPredicatePartition partition(final PrimitiveIterator.OfInt source, final IntPredicate predicate)

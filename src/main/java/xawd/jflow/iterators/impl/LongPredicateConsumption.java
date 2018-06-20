@@ -8,6 +8,7 @@ import java.util.function.LongPredicate;
 
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * @author ThomasB
@@ -16,7 +17,7 @@ public final class LongPredicateConsumption
 {
 	public LongPredicateConsumption() {}
 
-	public static boolean allEqual(final PrimitiveIterator.OfLong source)
+	public static PredicateResult allEqual(final PrimitiveIterator.OfLong source)
 	{
 		boolean initialised = false;
 		long last = -1L;
@@ -30,40 +31,40 @@ public final class LongPredicateConsumption
 				last = next;
 			}
 			else {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
-	public static boolean allMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static PredicateResult allMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextLong())) {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
-	public static boolean anyMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static PredicateResult anyMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLong())) {
-				return true;
+				return PredicateResult.PASS;
 			}
 		}
-		return false;
+		return PredicateResult.FAIL;
 	}
 
-	public static boolean noneMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static PredicateResult noneMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLong())) {
-				return false;
+				return PredicateResult.FAIL;
 			}
 		}
-		return true;
+		return PredicateResult.PASS;
 	}
 
 	public static LongPredicatePartition partition(final PrimitiveIterator.OfLong source, final LongPredicate predicate)

@@ -17,6 +17,7 @@ import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * An IntFlow is an primitive functional iterator with lots of functionality in
@@ -496,7 +497,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *
 	 * @return True is every element of this IntFlow is equal, false otherwise.
 	 */
-	boolean areAllEqual();
+	PredicateResult areAllEqual();
 
 	/**
 	 * Checks whether every element in this IntFlow passes the supplied IntPredicate
@@ -510,7 +511,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(final IntPredicate predicate);
+	PredicateResult allMatch(final IntPredicate predicate);
 
 	/**
 	 * Checks whether any element in this IntFlow passes the supplied IntPredicate
@@ -524,7 +525,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(final IntPredicate predicate);
+	PredicateResult anyMatch(final IntPredicate predicate);
 
 	/**
 	 * Checks whether every element in this IntFlow fails the supplied IntPredicate
@@ -538,7 +539,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(final IntPredicate predicate);
+	PredicateResult noneMatch(final IntPredicate predicate);
 
 	/**
 	 * Partitions the elements of this IntFlow on whether they pass the supplied

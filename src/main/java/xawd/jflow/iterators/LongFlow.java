@@ -18,6 +18,7 @@ import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * A LongFlow is an primitive functional iterator with lots of functionality in
@@ -462,7 +463,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *
 	 * @return True is every element of this LongFlow is equal, false otherwise.
 	 */
-	boolean areAllEqual();
+	PredicateResult areAllEqual();
 
 	/**
 	 * Checks whether every element in this LongFlow passes the supplied
@@ -476,7 +477,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(LongPredicate predicate);
+	PredicateResult allMatch(LongPredicate predicate);
 
 	/**
 	 * Checks whether any element in this LongFlow passes the supplied
@@ -490,7 +491,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(LongPredicate predicate);
+	PredicateResult anyMatch(LongPredicate predicate);
 
 	/**
 	 * Checks whether every element in this LongFlow fails the supplied
@@ -504,7 +505,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(LongPredicate predicate);
+	PredicateResult noneMatch(LongPredicate predicate);
 
 	/**
 	 * Partitions the elements of this LongFlow on whether they pass the supplied

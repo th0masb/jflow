@@ -49,6 +49,7 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 
 
@@ -229,25 +230,25 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public boolean areAllEqual()
+	public PredicateResult areAllEqual()
 	{
 		return ObjectPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public boolean allMatch(final Predicate<? super E> predicate)
+	public PredicateResult allMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(final Predicate<? super E> predicate)
+	public PredicateResult anyMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(final Predicate<? super E> predicate)
+	public PredicateResult noneMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.noneMatch(this, predicate);
 	}

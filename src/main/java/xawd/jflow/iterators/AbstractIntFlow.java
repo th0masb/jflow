@@ -16,6 +16,8 @@ import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
 import xawd.jflow.iterators.impl.IntCollectionConsumption;
@@ -26,8 +28,6 @@ import xawd.jflow.iterators.impl.MapFlow;
 import xawd.jflow.iterators.impl.MapToDoubleFlow;
 import xawd.jflow.iterators.impl.MapToLongFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
-import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -37,6 +37,7 @@ import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * The skelatal implementation of a IntFlow, users writing custom IntFlows should
@@ -241,25 +242,25 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public boolean areAllEqual()
+	public PredicateResult areAllEqual()
 	{
 		return IntPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public boolean allMatch(final IntPredicate predicate)
+	public PredicateResult allMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(final IntPredicate predicate)
+	public PredicateResult anyMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(final IntPredicate predicate)
+	public PredicateResult noneMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.noneMatch(this, predicate);
 	}

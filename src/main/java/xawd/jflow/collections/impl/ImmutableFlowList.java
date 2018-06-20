@@ -83,7 +83,8 @@ public class ImmutableFlowList<E> implements FlowList<E>
 	{
 		return IterRange.to(size)
 				.mapToObject(indexingFunction)
-				.anyMatch(e -> e.equals(arg0));
+				.anyMatch(e -> e.equals(arg0))
+				.get();
 	}
 
 	@Override

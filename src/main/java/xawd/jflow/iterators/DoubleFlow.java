@@ -18,6 +18,7 @@ import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * A DoubleFlow is a primitive functional iterator with lots of functionality in
@@ -467,7 +468,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *
 	 * @return True is every element of this DoubleFlow is equal, false otherwise.
 	 */
-	boolean areAllEqual();
+	PredicateResult areAllEqual();
 
 	/**
 	 * Checks whether every element in this DoubleFlow passes the supplied
@@ -481,7 +482,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(final DoublePredicate predicate);
+	PredicateResult allMatch(final DoublePredicate predicate);
 
 	/**
 	 * Checks whether any element in this DoubleFlow passes the supplied
@@ -495,7 +496,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(final DoublePredicate predicate);
+	PredicateResult anyMatch(final DoublePredicate predicate);
 
 	/**
 	 * Checks whether every element in this DoubleFlow fails the supplied
@@ -509,7 +510,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(final DoublePredicate predicate);
+	PredicateResult noneMatch(final DoublePredicate predicate);
 
 	/**
 	 * Partitions the elements of this DoubleFlow on whether they pass the supplied

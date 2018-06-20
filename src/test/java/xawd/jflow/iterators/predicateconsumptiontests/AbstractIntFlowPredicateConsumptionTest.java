@@ -26,7 +26,7 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("allEqualTestDataProvider")
 	void testAllEqual(final AbstractIntFlow iterator, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual());
+		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual().get());
 	}
 
 	static Stream<Arguments> allEqualTestDataProvider()
@@ -65,7 +65,7 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("allMatchTestDataProvider")
 	void testAllMatch(final AbstractIntFlow iterator, final IntPredicate predicate, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate));
+		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate).get());
 	}
 
 	static Stream<Arguments> allMatchTestDataProvider()
@@ -82,7 +82,7 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("anyMatchTestDataProvider")
 	void testAnyMatch(final AbstractIntFlow iterator, final IntPredicate predicate, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate));
+		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate).get());
 	}
 
 	static Stream<Arguments> anyMatchTestDataProvider()
@@ -99,7 +99,7 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("noneMatchTestDataProvider")
 	void testNoneMatch(final AbstractIntFlow iterator, final IntPredicate predicate, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate));
+		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate).get());
 	}
 
 	static Stream<Arguments> noneMatchTestDataProvider()
