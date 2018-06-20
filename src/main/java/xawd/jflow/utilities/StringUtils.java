@@ -9,6 +9,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import xawd.jflow.collections.DelegatingFlowList;
+import xawd.jflow.collections.FlowList;
+
 /**
  * @author t
  *
@@ -17,19 +20,19 @@ public class StringUtils {
 
 	private StringUtils() {}
 
-	public static List<String> getAllMatches(final String source, final String regex)
+	public static FlowList<String> getAllMatches(final String source, final String regex)
 	{
 		return getAllMatches(source, Pattern.compile(regex));
 	}
 
-	public static List<String> getAllMatches(final String source, final Pattern pattern)
+	public static FlowList<String> getAllMatches(final String source, final Pattern pattern)
 	{
 		final Matcher patternMatcher = pattern.matcher(source);
 		final List<String> matches = new ArrayList<>();
 		while (patternMatcher.find()) {
 			matches.add(patternMatcher.group());
 		}
-		return matches;
+		return new DelegatingFlowList<>(matches);
 	}
 
 	public static Optional<String> findFirstMatch(final String source, final Pattern pattern)
