@@ -320,7 +320,7 @@ public final class MapUtil
 	 */
 	public static <R> List<R> objMap(final IntFunction<R> f, final int[] xs)
 	{
-		return Iterate.over(xs).mapToObject(f).toList();
+		return Iterate.overInts(xs).mapToObject(f).toList();
 	}
 
 	/**
@@ -339,7 +339,7 @@ public final class MapUtil
 	 */
 	public static <R> List<R> objMap(final DoubleFunction<R> f, final double[] xs)
 	{
-		return Iterate.over(xs).mapToObject(f).toList();
+		return Iterate.overDoubles(xs).mapToObject(f).toList();
 	}
 
 	/**
@@ -358,6 +358,6 @@ public final class MapUtil
 	 */
 	public static <R> List<R> objMap(final LongFunction<R> f, final long[] xs)
 	{
-		return Iterate.over(xs).mapToObject(f).toList();
+		return Iterate.overLongs(xs).mapToObject(f).toList();
 	}
 }

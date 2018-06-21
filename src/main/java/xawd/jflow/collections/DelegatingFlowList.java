@@ -172,4 +172,10 @@ public final class DelegatingFlowList<E> implements FlowList<E>
 	{
 		return delegate.toArray(a);
 	}
+
+	@Override
+	public String toString()
+	{
+		return delegate.toString();
+	}
 }

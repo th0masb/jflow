@@ -62,7 +62,7 @@ public final class Iterate
 	 *            The integers to be iterated over.
 	 * @return An IntFlow iterating over the given integers.
 	 */
-	public static IntFlow over(int... integers)
+	public static IntFlow overInts(int... integers)
 	{
 		return new FlowFromValues.OfInt(integers);
 	}
@@ -74,7 +74,7 @@ public final class Iterate
 	 *            The doubles to be iterated over.
 	 * @return An DoubleFlow iterating over the given doubles.
 	 */
-	public static DoubleFlow over(double... doubles)
+	public static DoubleFlow overDoubles(double... doubles)
 	{
 		return new FlowFromValues.OfDouble(doubles);
 	}
@@ -86,7 +86,7 @@ public final class Iterate
 	 *            The longs to be iterated over.
 	 * @return An LongFlow iterating over the given longs.
 	 */
-	public static LongFlow over(long... longs)
+	public static LongFlow overLongs(long... longs)
 	{
 		return new FlowFromValues.OfLong(longs);
 	}
@@ -129,7 +129,7 @@ public final class Iterate
 	 * @return A LongFlow reversing over the given elements starting with the last
 	 *         element.
 	 */
-	public static LongFlow reverseOver(final long... elements)
+	public static LongFlow reverseOverLongs(final long... elements)
 	{
 		return new ReverseFlowFromValues.OfLong(elements);
 	}
@@ -142,7 +142,7 @@ public final class Iterate
 	 * @return A DoubleFlow reversing over the given elements starting with the last
 	 *         element.
 	 */
-	public static DoubleFlow reverseOver(final double... elements)
+	public static DoubleFlow reverseOverDoubles(final double... elements)
 	{
 		return new ReverseFlowFromValues.OfDouble(elements);
 	}
@@ -155,7 +155,7 @@ public final class Iterate
 	 * @return A IntFlow reversing over the given elements starting with the last
 	 *         element.
 	 */
-	public static IntFlow reverseOver(final int... elements)
+	public static IntFlow reverseOverInts(final int... elements)
 	{
 		return new ReverseFlowFromValues.OfInt(elements);
 	}

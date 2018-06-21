@@ -156,7 +156,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public AbstractLongFlow append(final long... xs)
 	{
-		return append(Iterate.over(xs));
+		return append(Iterate.overLongs(xs));
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public AbstractLongFlow insert(final long... xs)
 	{
-		return insert(Iterate.over(xs));
+		return insert(Iterate.overLongs(xs));
 	}
 
 	@Override

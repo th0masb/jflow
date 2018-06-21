@@ -154,7 +154,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	@Override
 	public AbstractDoubleFlow append(final double... xs)
 	{
-		return append(Iterate.over(xs));
+		return append(Iterate.overDoubles(xs));
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	@Override
 	public AbstractDoubleFlow insert(final double... xs)
 	{
-		return insert(Iterate.over(xs));
+		return insert(Iterate.overDoubles(xs));
 	}
 
 	@Override

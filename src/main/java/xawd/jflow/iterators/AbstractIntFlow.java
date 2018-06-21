@@ -154,7 +154,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public AbstractIntFlow append(final int... xs)
 	{
-		return append(Iterate.over(xs));
+		return append(Iterate.overInts(xs));
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public AbstractIntFlow insert(final int... xs)
 	{
-		return insert(Iterate.over(xs));
+		return insert(Iterate.overInts(xs));
 	}
 
 	@Override
