@@ -3,8 +3,9 @@
 Provides support for a multitude of sequence manipulation 
 features for both objects and primitives using sequential 
 lazy evaluating iterator objects inspired by python generators 
-and functional programming techniques. The library comes with
-extensive and rigorous unit tests plus informative documentation.
+and functional programming techniques. Enhanced List and Sets
+are also provided which provide convenience methods by delegating
+to their iterators.
 
 #### Why use this library?
 A clean and intuitive API is provided for sequence manipulation 
@@ -37,14 +38,14 @@ Iterate.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
 ###### Take, takeWhile, drop, dropWhile
 
 ```
-List<String> someStrings = Arrays.asList("0", "1", "2", "3");
+FlowList<String> someStrings = Lists.build("0", "1", "2", "3");
 
-Iterate.over(someStrings).take(2).toSet(); ==> {"0", "1"}
-Iterate.over(someStrings).drop(2).toImmutableSet(); ==> {"3", "2"}
+someStrings.take(2).toSet(); ==> {"0", "1"}
+someStrings.drop(2).toImmutableSet(); ==> {"3", "2"}
 
 Predicate<String> lessThanTwo = x -> parseInt(x) < 2;
-Iterate.over(someStrings).takeWhile(lessThanTwo).toList(); ==> ["0", "1"]
-Iterate.over(someStrings).dropWhile(lessThanTwo).toImmutableList(); ==> ["2", "3"]
+someStrings.takeWhile(lessThanTwo).toList(); ==> ["0", "1"]
+someStrings.dropWhile(lessThanTwo).toImmutableList(); ==> ["2", "3"]
 ```
 
 ###### Building integer ranges
@@ -62,15 +63,20 @@ Iterate.over("0", "1", "2", "3").groupBy(x -> parseInt(x) % 2); ==> {0: ["0", "2
 Iterate.over("0", "1").toCollection(ArrayList::new); ==> ArrayList<String>["0", "1"]
 ```
 
-###### Zipping, enumerating (without boxed ints) and combining
+###### Zipping, enumerating and combining
 
 ```
-List<String> strings = Arrays.asList("a", "b");
-List<Integer> integers = Arrays.asList(1, 2, 3);
+FlowList<String> strings = Lists.build("a", "b");
+FlowList<Integer> integers = Lists.build(1, 2, 3);
 
-Iterate.over(strings).zipWith(integers.iterator()).toList(); ==> [("a", 1), ("b", 2)]
-Iterate.over(strings).enumerate().toList(); ==> [(0, "a"), (1, "b")]
-Iterate.over(integers).combineWith(strings.iterator(), (n, s) -> s + n).toList(); ==> ["a1", "b2"]
+strings.flow().zipWith(integers.flow()).toList(); ==> [("a", 1), ("b", 2)]
+strings.enumerate().toList(); ==> [(0, "a"), (1, "b")]
+integers.flow().combineWith(strings.flow(), (n, s) -> s + n).toList(); ==> ["a1", "b2"]
+```
+
+###### Folding
+```
+Lists.build("1", "2").fold(0, (a, b) -> a + b); ==> 3
 ```
 
 #### Building the Jar files and documentation
@@ -85,6 +91,6 @@ repository. To build the latest version on Windows do the following:
 
 The jars (including source and javadoc) will be built in `build/libs` directory and an uncompressed 
 version of the documentation ready to be viewed in a browser will be built in the `build/docs/javadoc` 
-directory. If you are using unix simply substitute the command prompt instruction for the following 
+directory. If you are using Unix simply substitute the command prompt instruction for the following 
 command in the Terminal `./gradlew clean build`.
 

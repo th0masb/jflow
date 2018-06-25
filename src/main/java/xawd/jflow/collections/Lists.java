@@ -28,7 +28,7 @@ public final class Lists
 	 * @return An immutable FlowList containing all the specified elements.
 	 */
 	@SafeVarargs
-	public static <E> FlowList<E> of(E... elements)
+	public static <E> FlowList<E> build(E... elements)
 	{
 		return new ImmutableFlowList<>(elements);
 	}
@@ -42,7 +42,7 @@ public final class Lists
 	 *         parameter Collection.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> FlowList<E> copyOf(Collection<? extends E> src)
+	public static <E> FlowList<E> copy(Collection<? extends E> src)
 	{
 		final Object[] cpy = src.toArray();
 		return new ImmutableFlowList<>(i -> (E) cpy[i], cpy.length);
@@ -56,7 +56,7 @@ public final class Lists
 	 * @return n mutable FlowList containing all the specified elements.
 	 */
 	@SafeVarargs
-	public static <E> FlowList<E> mutableOf(E... elements)
+	public static <E> FlowList<E> buildMutable(E... elements)
 	{
 		final FlowList<E> mutable = new FlowArrayList<>(elements.length);
 		for (final E element : elements) {
@@ -73,7 +73,7 @@ public final class Lists
 	 * @return A mutable FlowList containing the same references as in the parameter
 	 *         Collection.
 	 */
-	public static <E> FlowList<E> mutableCopyOf(Collection<? extends E> src)
+	public static <E> FlowList<E> copyMutable(Collection<? extends E> src)
 	{
 		return new FlowArrayList<>(src);
 	}

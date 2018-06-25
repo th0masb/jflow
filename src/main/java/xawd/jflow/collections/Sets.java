@@ -28,7 +28,7 @@ public final class Sets
 	 * @return An immutable FlowSet containing all the specified elements.
 	 */
 	@SafeVarargs
-	public static <E> FlowSet<E> of(E... elements)
+	public static <E> FlowSet<E> build(E... elements)
 	{
 		final FlowSet<E> mutable = new FlowHashSet<>();
 		for (final E element : elements) {
@@ -45,7 +45,7 @@ public final class Sets
 	 * @return An immutable FlowSet containing the same references as in the
 	 *         parameter Collection.
 	 */
-	public static <E> FlowSet<E> copyOf(Collection<? extends E> src)
+	public static <E> FlowSet<E> copy(Collection<? extends E> src)
 	{
 		final FlowSet<E> mutable = new FlowHashSet<>(src);
 		return new UnmodifiableDelegatingFlowSet<>(mutable);
@@ -59,7 +59,7 @@ public final class Sets
 	 * @return n mutable FlowSet containing all the specified elements.
 	 */
 	@SafeVarargs
-	public static <E> FlowSet<E> mutableOf(E... elements)
+	public static <E> FlowSet<E> buildMutable(E... elements)
 	{
 		final FlowSet<E> mutable = new FlowHashSet<>();
 		for (final E element : elements) {
@@ -76,8 +76,16 @@ public final class Sets
 	 * @return A mutable FlowSet containing the same references as in the parameter
 	 *         Collection.
 	 */
-	public static <E> FlowSet<E> mutableCopyOf(Collection<? extends E> src)
+	public static <E> FlowSet<E> copyMutable(Collection<? extends E> src)
 	{
 		return new FlowHashSet<>(src);
 	}
+	//
+	//	public static void main(String[] args)
+	//	{
+	//		final FlowSet<String> xs = Sets.build("a", "b", "c");
+	//		final FlowList<String> ys = Lists.build("a", "b");
+	//
+	//		ys.anyMatch(s -> s.equals("a")).throwIfFailed(AssertionError::new);
+	//	}
 }
