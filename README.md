@@ -76,7 +76,7 @@ integers.flow().combineWith(strings.flow(), (n, s) -> s + n).toList(); ==> ["a1"
 
 ###### Folding
 ```
-Lists.build("1", "2").fold(0, (a, b) -> a + b); ==> 3
+Lists.build("1", "2").fold("0", (a, b) -> a + b); ==> "012"
 ```
 
 #### Building the Jar files and documentation
