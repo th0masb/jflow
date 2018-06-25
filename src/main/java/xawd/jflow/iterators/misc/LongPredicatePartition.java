@@ -19,12 +19,12 @@ public final class LongPredicatePartition
 		this.rejectedElements = rejectedElements;
 	}
 
-	public long[] getAcceptedElements()
+	public long[] getAccepted()
 	{
 		return acceptedElements;
 	}
 
-	public long[] getRejectedElements()
+	public long[] getRejected()
 	{
 		return rejectedElements;
 	}

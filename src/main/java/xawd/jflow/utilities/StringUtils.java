@@ -9,8 +9,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import xawd.jflow.collections.DelegatingFlowList;
 import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.impl.DelegatingFlowList;
 
 /**
  * @author t

@@ -1,4 +1,4 @@
-package xawd.jflow.iterators.reductionconsumptiontests;
+package xawd.jflow.iterators.reduceandfoldtests;
 
 import static java.lang.Double.parseDouble;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,11 +47,11 @@ class AbstractFlowReductionConsumptionTest extends IteratorExampleProvider
 	void testTwoTypeReduction(final Double id, final BiFunction<Double, String, Double> reducer, final Double expectedPopulatedResult)
 	{
 		final AbstractFlow<String> populated = getObjectTestIteratorProvider().iterator();
-		final Double reduction = populated.reduce(id, reducer);
+		final Double reduction = populated.fold(id, reducer);
 		assertEquals(expectedPopulatedResult, reduction);
 
 		final AbstractFlow<String> empty = getEmptyObjectTestIteratorProvider().iterator();
-		assertEquals(id, empty.reduce(id, reducer));
+		assertEquals(id, empty.fold(id, reducer));
 	}
 
 	static Stream<Arguments> twoTypeReductionTestDataProvider()

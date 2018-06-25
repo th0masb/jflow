@@ -1,12 +1,13 @@
 /**
  *
  */
-package xawd.jflow.collections;
+package xawd.jflow.collections.impl;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
+import xawd.jflow.collections.FlowList;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
@@ -171,11 +172,5 @@ public final class DelegatingFlowList<E> implements FlowList<E>
 	public <T> T[] toArray(T[] a)
 	{
 		return delegate.toArray(a);
-	}
-
-	@Override
-	public String toString()
-	{
-		return delegate.toString();
 	}
 }

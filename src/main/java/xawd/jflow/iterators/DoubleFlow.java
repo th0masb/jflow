@@ -365,40 +365,40 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 */
 	double min(double defaultValue);
 
-	/**
-	 * Calculates the minimum element in this DoubleFlow by an embedding into the
-	 * real numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * DoubleFlow.
-	 *
-	 * @param defaultValue
-	 *            The value returned if this DoubleFlow is empty.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this DoubleFlow into the real
-	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is
-	 *         the minimum among all images. A parameter default value is returned
-	 *         if the source is empty. NaN images are ignored.
-	 */
-	double minByKey(double defaultValue, final DoubleUnaryOperator key);
-
-	/**
-	 * Calculates the minimum element in this DoubleFlow by an embedding into the
-	 * real numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * DoubleFlow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this DoubleFlow into the real
-	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is
-	 *         the minimum among all images. Nothing is returned if the source is
-	 *         empty. NaN images are ignored.
-	 */
-	OptionalDouble minByKey(final DoubleUnaryOperator key);
+	// /**
+	// * Calculates the minimum element in this DoubleFlow by an embedding into the
+	// * real numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * DoubleFlow.
+	// *
+	// * @param defaultValue
+	// * The value returned if this DoubleFlow is empty.
+	// *
+	// * @param key
+	// * A function mapping the elements of this DoubleFlow into the real
+	// * numbers.
+	// * @return The element of this DoubleFlow whose image under the key mapping is
+	// * the minimum among all images. A parameter default value is returned
+	// * if the source is empty. NaN images are ignored.
+	// */
+	// double minByKey(double defaultValue, final DoubleUnaryOperator key);
+	//
+	// /**
+	// * Calculates the minimum element in this DoubleFlow by an embedding into the
+	// * real numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * DoubleFlow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this DoubleFlow into the real
+	// * numbers.
+	// * @return The element of this DoubleFlow whose image under the key mapping is
+	// * the minimum among all images. Nothing is returned if the source is
+	// * empty. NaN images are ignored.
+	// */
+	// OptionalDouble minByKey(final DoubleUnaryOperator key);
 
 	/**
 	 * Calculates the maximum value in this DoubleFlow.
@@ -425,40 +425,40 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 */
 	double max(double defaultValue);
 
-	/**
-	 * Calculates the maximum element in this DoubleFlow by an embedding into the
-	 * real numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * DoubleFlow.
-	 *
-	 * @param defaultValue
-	 *            The value returned if this DoubleFlow is empty.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this DoubleFlow into the real
-	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is
-	 *         the maximum among all images. A parameter default value is returned
-	 *         if the source is empty. NaN images are ignored.
-	 */
-	double maxByKey(double defaultValue, final DoubleUnaryOperator key);
-
-	/**
-	 * Calculates the maximum element in this DoubleFlow by an embedding into the
-	 * real numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * DoubleFlow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this DoubleFlow into the real
-	 *            numbers.
-	 * @return The element of this DoubleFlow whose image under the key mapping is
-	 *         the maximum among all images. Nothing is returned if the source is
-	 *         empty. NaN images are ignored.
-	 */
-	OptionalDouble maxByKey(final DoubleUnaryOperator key);
+	// /**
+	// * Calculates the maximum element in this DoubleFlow by an embedding into the
+	// * real numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * DoubleFlow.
+	// *
+	// * @param defaultValue
+	// * The value returned if this DoubleFlow is empty.
+	// *
+	// * @param key
+	// * A function mapping the elements of this DoubleFlow into the real
+	// * numbers.
+	// * @return The element of this DoubleFlow whose image under the key mapping is
+	// * the maximum among all images. A parameter default value is returned
+	// * if the source is empty. NaN images are ignored.
+	// */
+	// double maxByKey(double defaultValue, final DoubleUnaryOperator key);
+	//
+	// /**
+	// * Calculates the maximum element in this DoubleFlow by an embedding into the
+	// * real numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * DoubleFlow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this DoubleFlow into the real
+	// * numbers.
+	// * @return The element of this DoubleFlow whose image under the key mapping is
+	// * the maximum among all images. Nothing is returned if the source is
+	// * empty. NaN images are ignored.
+	// */
+	// OptionalDouble maxByKey(final DoubleUnaryOperator key);
 
 	/**
 	 * Checks whether every element in this DoubleFlow is the same.
@@ -527,7 +527,8 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	DoublePredicatePartition partition(DoublePredicate predicate);
 
 	/**
-	 * Reduces this DoubleFlow to a single value via some reduction function.
+	 * Reduces this DoubleFlow to a single value via some reduction function. and an
+	 * initial value
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * DoubleFlow.
@@ -542,7 +543,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
 	 */
-	double reduce(double id, DoubleBinaryOperator reducer);
+	double fold(double id, DoubleBinaryOperator reducer);
 
 	/**
 	 * Reduces this DoubleFlow to a single value via some reduction function.

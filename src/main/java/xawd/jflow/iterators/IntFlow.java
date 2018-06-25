@@ -358,40 +358,44 @@ public interface IntFlow extends PrototypeIntFlow
 	 */
 	int min(int defaultValue);
 
-	/**
-	 * Calculates the minimum element in this IntFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * IntFlow.
-	 *
-	 * @param defaultValue
-	 *            The value returned if this IntFlow is empty.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this IntFlow into the real
-	 *            numbers.
-	 * @return The element of this IntFlow whose image under the key mapping is the
-	 *         minimum among all images. A parameter default value is returned if
-	 *         the source is empty. NaN images are ignored.
-	 */
-	int minByKey(int defaultValue, final IntToDoubleFunction key);
-
-	/**
-	 * Calculates the minimum element in this IntFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * IntFlow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this IntFlow into the real
-	 *            numbers.
-	 * @return The element of this IntFlow whose image under the key mapping is the
-	 *         minimum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
-	 */
-	OptionalInt minByKey(final IntToDoubleFunction key);
+	// /**
+	// * Calculates the minimum element in this IntFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * IntFlow.
+	// *
+	// * @param defaultValue
+	// * The value returned if this IntFlow is empty.
+	// *
+	// * @param key
+	// * A function mapping the elements of this IntFlow into the real
+	// * numbers.
+	// * @return The element of this IntFlow whose image under the key mapping is
+	// the
+	// * minimum among all images. A parameter default value is returned if
+	// * the source is empty. NaN images are ignored.
+	// */
+	// int minByKey(int defaultValue, final IntToDoubleFunction key);
+	//
+	// /**
+	// * Calculates the minimum element in this IntFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * IntFlow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this IntFlow into the real
+	// * numbers.
+	// * @return The element of this IntFlow whose image under the key mapping is
+	// the
+	// * minimum among all images. Nothing is returned if the source is empty.
+	// * NaN images are ignored.
+	// */
+	// OptionalInt minByKey(final IntToDoubleFunction key);
 
 	/**
 	 * Calculates the minimum element in this IntFlow by a mapping to a type
@@ -409,7 +413,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return The element of this IntFlow whose image under the key mapping is the
 	 *         minimum among all images. Nothing is returned if the source is empty.
 	 */
-	<C extends Comparable<C>> OptionalInt minByObjectKey(final IntFunction<C> key);
+	<C extends Comparable<C>> OptionalInt minByKey(final IntFunction<C> key);
 
 	/**
 	 * Calculates the maximum value in this IntFlow.
@@ -436,40 +440,44 @@ public interface IntFlow extends PrototypeIntFlow
 	 */
 	int max(int defaultValue);
 
-	/**
-	 * Calculates the maximum element in this IntFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * IntFlow.
-	 *
-	 * @param defaultValue
-	 *            The value returned if this IntFlow is empty.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this IntFlow into the real
-	 *            numbers.
-	 * @return The element of this IntFlow whose image under the key mapping is the
-	 *         maximum among all images. A parameter default value is returned if
-	 *         the source is empty. NaN images are ignored.
-	 */
-	int maxByKey(int defaultValue, final IntToDoubleFunction key);
-
-	/**
-	 * Calculates the maximum element in this IntFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * IntFlow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this IntFlow into the real
-	 *            numbers.
-	 * @return The element of this IntFlow whose image under the key mapping is the
-	 *         maximum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
-	 */
-	OptionalInt maxByKey(final IntToDoubleFunction key);
+	// /**
+	// * Calculates the maximum element in this IntFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * IntFlow.
+	// *
+	// * @param defaultValue
+	// * The value returned if this IntFlow is empty.
+	// *
+	// * @param key
+	// * A function mapping the elements of this IntFlow into the real
+	// * numbers.
+	// * @return The element of this IntFlow whose image under the key mapping is
+	// the
+	// * maximum among all images. A parameter default value is returned if
+	// * the source is empty. NaN images are ignored.
+	// */
+	// int maxByKey(int defaultValue, final IntToDoubleFunction key);
+	//
+	// /**
+	// * Calculates the maximum element in this IntFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * IntFlow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this IntFlow into the real
+	// * numbers.
+	// * @return The element of this IntFlow whose image under the key mapping is
+	// the
+	// * maximum among all images. Nothing is returned if the source is empty.
+	// * NaN images are ignored.
+	// */
+	// OptionalInt maxByKey(final IntToDoubleFunction key);
 
 	/**
 	 * Calculates the maximum element in this IntFlow by a mapping to a type
@@ -487,7 +495,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return The element of this IntFlow whose image under the key mapping is the
 	 *         maximum among all images. Nothing is returned if the source is empty.
 	 */
-	<C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key);
+	<C extends Comparable<C>> OptionalInt maxByKey(final IntFunction<C> key);
 
 	/**
 	 * Checks whether every element in this IntFlow is the same.
@@ -556,7 +564,8 @@ public interface IntFlow extends PrototypeIntFlow
 	IntPredicatePartition partition(IntPredicate predicate);
 
 	/**
-	 * Reduces this IntFlow to a single value via some reduction function.
+	 * Reduces this IntFlow to a single value via some reduction function and an
+	 * initial value.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * IntFlow.
@@ -571,7 +580,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
 	 */
-	int reduce(int id, IntBinaryOperator reducer);
+	int fold(int id, IntBinaryOperator reducer);
 
 	/**
 	 * Reduces this IntFlow to a single value via some reduction function.

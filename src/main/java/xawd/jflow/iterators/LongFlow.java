@@ -360,40 +360,44 @@ public interface LongFlow extends PrototypeLongFlow
 	 */
 	long min(long defaultValue);
 
-	/**
-	 * Calculates the minimum element in this LongFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * LongFlow.
-	 *
-	 * @param defaultValue
-	 *            The value returned if this LongFlow is empty.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this LongFlow into the real
-	 *            numbers.
-	 * @return The element of this LongFlow whose image under the key mapping is the
-	 *         minimum among all images. A parameter default value is returned if
-	 *         the source is empty. NaN images are ignored.
-	 */
-	long minByKey(long defaultValue, LongToDoubleFunction key);
-
-	/**
-	 * Calculates the minimum element in this LongFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * LongFlow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this LongFlow into the real
-	 *            numbers.
-	 * @return The element of this LongFlow whose image under the key mapping is the
-	 *         minimum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
-	 */
-	OptionalLong minByKey(LongToDoubleFunction key);
+	// /**
+	// * Calculates the minimum element in this LongFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * LongFlow.
+	// *
+	// * @param defaultValue
+	// * The value returned if this LongFlow is empty.
+	// *
+	// * @param key
+	// * A function mapping the elements of this LongFlow into the real
+	// * numbers.
+	// * @return The element of this LongFlow whose image under the key mapping is
+	// the
+	// * minimum among all images. A parameter default value is returned if
+	// * the source is empty. NaN images are ignored.
+	// */
+	// long minByKey(long defaultValue, LongToDoubleFunction key);
+	//
+	// /**
+	// * Calculates the minimum element in this LongFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * LongFlow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this LongFlow into the real
+	// * numbers.
+	// * @return The element of this LongFlow whose image under the key mapping is
+	// the
+	// * minimum among all images. Nothing is returned if the source is empty.
+	// * NaN images are ignored.
+	// */
+	// OptionalLong minByKey(LongToDoubleFunction key);
 
 	/**
 	 * Calculates the maximum value in this LongFlow.
@@ -420,40 +424,44 @@ public interface LongFlow extends PrototypeLongFlow
 	 */
 	long max(long defaultValue);
 
-	/**
-	 * Calculates the maximum element in this LongFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * LongFlow.
-	 *
-	 * @param defaultValue
-	 *            The value returned if this LongFlow is empty.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this LongFlow into the real
-	 *            numbers.
-	 * @return The element of this LongFlow whose image under the key mapping is the
-	 *         maximum among all images. A parameter default value is returned if
-	 *         the source is empty. NaN images are ignored.
-	 */
-	long maxByKey(long defaultValue, LongToDoubleFunction key);
-
-	/**
-	 * Calculates the maximum element in this LongFlow by an embedding into the real
-	 * numbers.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * LongFlow.
-	 *
-	 * @param key
-	 *            A function mapping the elements of this LongFlow into the real
-	 *            numbers.
-	 * @return The element of this LongFlow whose image under the key mapping is the
-	 *         maximum among all images. Nothing is returned if the source is empty.
-	 *         NaN images are ignored.
-	 */
-	OptionalLong maxByKey(LongToDoubleFunction key);
+	// /**
+	// * Calculates the maximum element in this LongFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * LongFlow.
+	// *
+	// * @param defaultValue
+	// * The value returned if this LongFlow is empty.
+	// *
+	// * @param key
+	// * A function mapping the elements of this LongFlow into the real
+	// * numbers.
+	// * @return The element of this LongFlow whose image under the key mapping is
+	// the
+	// * maximum among all images. A parameter default value is returned if
+	// * the source is empty. NaN images are ignored.
+	// */
+	// long maxByKey(long defaultValue, LongToDoubleFunction key);
+	//
+	// /**
+	// * Calculates the maximum element in this LongFlow by an embedding into the
+	// real
+	// * numbers.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * LongFlow.
+	// *
+	// * @param key
+	// * A function mapping the elements of this LongFlow into the real
+	// * numbers.
+	// * @return The element of this LongFlow whose image under the key mapping is
+	// the
+	// * maximum among all images. Nothing is returned if the source is empty.
+	// * NaN images are ignored.
+	// */
+	// OptionalLong maxByKey(LongToDoubleFunction key);
 
 	/**
 	 * Checks whether every element in this LongFlow is the same.
@@ -522,7 +530,8 @@ public interface LongFlow extends PrototypeLongFlow
 	LongPredicatePartition partition(LongPredicate predicate);
 
 	/**
-	 * Reduces this LongFlow to a single value via some reduction function.
+	 * Reduces this LongFlow to a single value via some reduction function and an
+	 * initial value.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * LongFlow.
@@ -537,7 +546,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
 	 */
-	long reduce(long id, LongBinaryOperator reducer);
+	long fold(long id, LongBinaryOperator reducer);
 
 	/**
 	 * Reduces this LongFlow to a single value via some reduction function.

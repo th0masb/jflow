@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.collectionconsumptiontests;
+package xawd.jflow.iterators.collectingtests;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toMap;

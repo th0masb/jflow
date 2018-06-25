@@ -196,18 +196,6 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long minByKey(final long defaultValue, final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMin(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalLong minByKey(final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMin(this, key);
-	}
-
-	@Override
 	public OptionalLong max()
 	{
 		return LongMinMaxConsumption.findMax(this);
@@ -217,18 +205,6 @@ public abstract class AbstractLongFlow implements LongFlow
 	public long max(final long defaultValue)
 	{
 		return LongMinMaxConsumption.findMax(this, defaultValue);
-	}
-
-	@Override
-	public long maxByKey(final long defaultValue, final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMax(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalLong maxByKey(final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMax(this, key);
 	}
 
 	@Override
@@ -268,7 +244,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long reduce(final long id, final LongBinaryOperator reducer)
+	public long fold(final long id, final LongBinaryOperator reducer)
 	{
 		return LongReductionConsumption.reduce(this, id, reducer);
 	}

@@ -193,20 +193,20 @@ public abstract class AbstractIntFlow implements IntFlow
 		return IntMinMaxConsumption.findMin(this, defaultValue);
 	}
 
-	@Override
-	public int minByKey(final int defaultValue, final IntToDoubleFunction key)
-	{
-		return IntMinMaxConsumption.findMin(this, defaultValue, key);
-	}
+//	@Override
+//	public int minByKey(final int defaultValue, final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMin(this, defaultValue, key);
+//	}
+//
+//	@Override
+//	public OptionalInt minByKey(final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMin(this, key);
+//	}
 
 	@Override
-	public OptionalInt minByKey(final IntToDoubleFunction key)
-	{
-		return IntMinMaxConsumption.findMin(this, key);
-	}
-
-	@Override
-	public <C extends Comparable<C>> OptionalInt minByObjectKey(final IntFunction<C> key)
+	public <C extends Comparable<C>> OptionalInt minByKey(final IntFunction<C> key)
 	{
 		return IntMinMaxConsumption.findMin(this, key);
 	}
@@ -223,20 +223,20 @@ public abstract class AbstractIntFlow implements IntFlow
 		return IntMinMaxConsumption.findMax(this, defaultValue);
 	}
 
-	@Override
-	public int maxByKey(final int defaultValue, final IntToDoubleFunction key)
-	{
-		return IntMinMaxConsumption.findMax(this, defaultValue, key);
-	}
+//	@Override
+//	public int maxByKey(final int defaultValue, final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMax(this, defaultValue, key);
+//	}
+//
+//	@Override
+//	public OptionalInt maxByKey(final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMax(this, key);
+//	}
 
 	@Override
-	public OptionalInt maxByKey(final IntToDoubleFunction key)
-	{
-		return IntMinMaxConsumption.findMax(this, key);
-	}
-
-	@Override
-	public <C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key)
+	public <C extends Comparable<C>> OptionalInt maxByKey(final IntFunction<C> key)
 	{
 		return IntMinMaxConsumption.findMax(this, key);
 	}
@@ -278,7 +278,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public int reduce(final int id, final IntBinaryOperator reducer)
+	public int fold(final int id, final IntBinaryOperator reducer)
 	{
 		return IntReductionConsumption.reduce(this, id, reducer);
 	}

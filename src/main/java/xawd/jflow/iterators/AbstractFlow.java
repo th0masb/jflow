@@ -266,7 +266,7 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public <R> R reduce(final R id, final BiFunction<R, E, R> reducer)
+	public <R> R fold(final R id, final BiFunction<R, E, R> reducer)
 	{
 		return ObjectReductionConsumption.reduce(this, id, reducer);
 	}

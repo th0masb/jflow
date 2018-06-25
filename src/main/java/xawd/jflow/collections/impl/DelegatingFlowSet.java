@@ -1,11 +1,12 @@
 /**
  *
  */
-package xawd.jflow.collections;
+package xawd.jflow.collections.impl;
 
 import java.util.Collection;
 import java.util.Set;
 
+import xawd.jflow.collections.FlowSet;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 

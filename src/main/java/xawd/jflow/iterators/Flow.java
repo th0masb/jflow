@@ -19,13 +19,14 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import xawd.jflow.collections.DelegatingFlowList;
-import xawd.jflow.collections.DelegatingFlowSet;
 import xawd.jflow.collections.FlowList;
 import xawd.jflow.collections.FlowSet;
+import xawd.jflow.collections.impl.DelegatingFlowList;
+import xawd.jflow.collections.impl.DelegatingFlowSet;
 import xawd.jflow.collections.impl.FlowArrayList;
 import xawd.jflow.collections.impl.FlowHashSet;
 import xawd.jflow.collections.impl.ImmutableFlowList;
+import xawd.jflow.collections.impl.UnmodifiableDelegatingFlowSet;
 import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
@@ -33,7 +34,6 @@ import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
 import xawd.jflow.iterators.misc.PredicateResult;
-
 
 /**
  * A Flow is a functional iterator with lots of functionality in the style of
@@ -484,7 +484,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	PredicatePartition<E> partition(Predicate<? super E> predicate);
 
 	/**
-	 * Reduces this Flow to a single value via some reduction function.
+	 * Fold this Flow to a single value via some reduction function and an initial
+	 * value.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
@@ -500,7 +501,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
 	 */
-	<R> R reduce(R id, BiFunction<R, E, R> reducer);
+	<R> R fold(R id, BiFunction<R, E, R> reducer);
 
 	/**
 	 * Reduces this Flow to a single value via some reduction function.
@@ -721,9 +722,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return An immutable Set instance containing all unique elements of the
 	 *         source flow.
 	 */
-	default Set<E> toImmutableSet()
+	default FlowSet<E> toImmutableSet()
 	{
-		return Collections.unmodifiableSet(toSet());
+		return new UnmodifiableDelegatingFlowSet<>(toSet());
 	}
 
 	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper,

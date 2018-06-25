@@ -194,18 +194,6 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public double minByKey(final double defaultValue, final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMin(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalDouble minByKey(final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMin(this, key);
-	}
-
-	@Override
 	public OptionalDouble max()
 	{
 		return DoubleMinMaxConsumption.findMax(this);
@@ -215,18 +203,6 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	public double max(final double defaultValue)
 	{
 		return DoubleMinMaxConsumption.findMax(this, defaultValue);
-	}
-
-	@Override
-	public double maxByKey(final double defaultValue, final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMax(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalDouble maxByKey(final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMax(this, key);
 	}
 
 	@Override
@@ -266,7 +242,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public double reduce(final double id, final DoubleBinaryOperator reducer)
+	public double fold(final double id, final DoubleBinaryOperator reducer)
 	{
 		return DoubleReductionConsumption.reduce(this, id, reducer);
 	}

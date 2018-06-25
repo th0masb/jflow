@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.minmaxconsumptiontests;
+package xawd.jflow.iterators.minmaxtests;
 
 import static java.lang.Double.parseDouble;
 import static org.junit.jupiter.api.Assertions.assertEquals;

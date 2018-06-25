@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.predicateconsumptiontests;
+package xawd.jflow.iterators.predicatetests;
 
 import static java.lang.Double.parseDouble;
 import static java.util.Arrays.asList;

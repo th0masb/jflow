@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.predicateconsumptiontests;
+package xawd.jflow.iterators.predicatetests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
