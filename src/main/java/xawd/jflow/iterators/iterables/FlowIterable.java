@@ -160,7 +160,7 @@ public interface FlowIterable<E> extends Iterable<E>
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
-	 * {@link Flow#areAllEqual()} method.
+	 * {@link Flow#allMatch(Predicate)} method.
 	 */
 	default PredicateResult allMatch(final Predicate<? super E> condition)
 	{
@@ -169,7 +169,7 @@ public interface FlowIterable<E> extends Iterable<E>
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
-	 * {@link Flow#anyMatch()} method.
+	 * {@link Flow#anyMatch(Predicate)} method.
 	 */
 	default PredicateResult anyMatch(final Predicate<? super E> condition)
 	{
@@ -178,7 +178,7 @@ public interface FlowIterable<E> extends Iterable<E>
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
-	 * {@link Flow#noneMatch()} method.
+	 * {@link Flow#noneMatch(Predicate)} method.
 	 */
 	default PredicateResult noneMatch(final Predicate<? super E> condition)
 	{

@@ -1,7 +1,8 @@
 package xawd.jflow.iterators;
 
+import static java.util.Collections.unmodifiableMap;
+
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -542,9 +543,12 @@ public interface Flow<E> extends PrototypeFlow<E>
 	<C extends Collection<E>> C toCollection(final Supplier<C> collectionFactory);
 
 	/**
+	 * Caches the elements of this Flow to a FlowSet delegating to the specified
+	 * type of Set.
 	 *
 	 * @param setFactory
-	 * @return
+	 *            A function which creates empty, mutable instances of Set
+	 * @return A FlowSet delegating to the result of calling the factory function.
 	 */
 	default <S extends Set<E>> FlowSet<E> toSet(Supplier<S> setFactory)
 	{
@@ -555,6 +559,14 @@ public interface Flow<E> extends PrototypeFlow<E>
 		return new DelegatingFlowSet<>(mutableSet);
 	}
 
+	/**
+	 * Caches the elements of this Flow to a FlowList delegating to the specified
+	 * type of List.
+	 *
+	 * @param listFactory
+	 *            A function which creates empty, mutable instances of List
+	 * @return A FlowList delegating to the result of calling the factory function.
+	 */
 	default <L extends List<E>> FlowList<E> toList(Supplier<L> listFactory)
 	{
 		final L mutableList = listFactory.get();
@@ -727,9 +739,12 @@ public interface Flow<E> extends PrototypeFlow<E>
 		return new UnmodifiableDelegatingFlowSet<>(toSet());
 	}
 
+	/**
+	 * @return An immutable view of the result of {@link Flow#toMap(Function, Function)}.
+	 */
 	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper,
 			final Function<? super E, V> valueMapper)
 	{
-		return Collections.unmodifiableMap(toMap(keyMapper, valueMapper));
+		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
 }
