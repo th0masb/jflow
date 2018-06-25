@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.reductionconsumptiontests;
+package xawd.jflow.iterators.reduceandfoldtests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -48,11 +48,11 @@ class AbstractIntFlowReductionConsumptionTest extends IteratorExampleProvider
 	void testReductionWithId(final Integer id, final IntBinaryOperator reducer, final Integer expectedPopulatedResult)
 	{
 		final AbstractIntFlow populated = getIntTestIteratorProvider().iterator();
-		final int reduction = populated.reduce(id.intValue(), reducer);
+		final int reduction = populated.fold(id.intValue(), reducer);
 		assertEquals(expectedPopulatedResult.intValue(), reduction);
 
 		final AbstractIntFlow empty = getEmptyIntTestIteratorProvider().iterator();
-		assertEquals(id.intValue(), empty.reduce(id.intValue(), reducer));
+		assertEquals(id.intValue(), empty.fold(id.intValue(), reducer));
 	}
 
 	static Stream<Arguments> reductionWithIdTestDataProvider()

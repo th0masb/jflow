@@ -19,6 +19,8 @@ import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
 import xawd.jflow.iterators.impl.LongCollectionConsumption;
@@ -29,8 +31,6 @@ import xawd.jflow.iterators.impl.MapFlow;
 import xawd.jflow.iterators.impl.MapToDoubleFlow;
 import xawd.jflow.iterators.impl.MapToIntFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
-import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -40,6 +40,7 @@ import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * The skelatal implementation of a LongFlow, users writing custom LongFlows should
@@ -137,7 +138,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public AbstractLongFlow dropWhile(final LongPredicate predicate)
 	{
-		return new DropWhileFlow.OfLong(this, predicate);
+		return new DropwhileFlow.OfLong(this, predicate);
 	}
 
 	@Override
@@ -155,7 +156,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public AbstractLongFlow append(final long... xs)
 	{
-		return append(Iterate.over(xs));
+		return append(Iterate.overLongs(xs));
 	}
 
 	@Override
@@ -167,7 +168,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	@Override
 	public AbstractLongFlow insert(final long... xs)
 	{
-		return insert(Iterate.over(xs));
+		return insert(Iterate.overLongs(xs));
 	}
 
 	@Override
@@ -195,18 +196,6 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long minByKey(final long defaultValue, final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMin(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalLong minByKey(final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMin(this, key);
-	}
-
-	@Override
 	public OptionalLong max()
 	{
 		return LongMinMaxConsumption.findMax(this);
@@ -219,37 +208,25 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long maxByKey(final long defaultValue, final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMax(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalLong maxByKey(final LongToDoubleFunction key)
-	{
-		return LongMinMaxConsumption.findMax(this, key);
-	}
-
-	@Override
-	public boolean areAllEqual()
+	public PredicateResult areAllEqual()
 	{
 		return LongPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public boolean allMatch(final LongPredicate predicate)
+	public PredicateResult allMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(final LongPredicate predicate)
+	public PredicateResult anyMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(final LongPredicate predicate)
+	public PredicateResult noneMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -267,7 +244,7 @@ public abstract class AbstractLongFlow implements LongFlow
 	}
 
 	@Override
-	public long reduce(final long id, final LongBinaryOperator reducer)
+	public long fold(final long id, final LongBinaryOperator reducer)
 	{
 		return LongReductionConsumption.reduce(this, id, reducer);
 	}

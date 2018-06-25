@@ -47,11 +47,11 @@ public final class ReverseFlowFromValues
 		@Override
 		public E next()
 		{
-			try {
+			if (hasNext()) {
 				return (E) source[count--];
 			}
-			catch (final IndexOutOfBoundsException ex) {
-				throw new NoSuchElementException("The source was potentially mutated after binding occured.");
+			else {
+				throw new NoSuchElementException();
 			}
 		}
 
@@ -83,10 +83,10 @@ public final class ReverseFlowFromValues
 		@Override
 		public long nextLong()
 		{
-			try {
+			if (hasNext()) {
 				return source[count--];
 			}
-			catch (final IndexOutOfBoundsException ex) {
+			else {
 				throw new NoSuchElementException();
 			}
 		}
@@ -119,10 +119,10 @@ public final class ReverseFlowFromValues
 		@Override
 		public double nextDouble()
 		{
-			try {
+			if (hasNext()) {
 				return source[count--];
 			}
-			catch (final IndexOutOfBoundsException ex) {
+			else {
 				throw new NoSuchElementException();
 			}
 		}
@@ -155,10 +155,10 @@ public final class ReverseFlowFromValues
 		@Override
 		public int nextInt()
 		{
-			try {
+			if (hasNext()) {
 				return source[count--];
 			}
-			catch (final IndexOutOfBoundsException ex) {
+			else {
 				throw new NoSuchElementException();
 			}
 		}

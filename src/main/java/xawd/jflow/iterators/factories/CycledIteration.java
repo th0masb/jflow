@@ -81,7 +81,7 @@ public class CycledIteration
 	 */
 	public static IntFlow of(final int... source)
 	{
-		return new CyclicFlow.OfInt(() -> Iterate.over(source));
+		return new CyclicFlow.OfInt(() -> Iterate.overInts(source));
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class CycledIteration
 	 */
 	public static DoubleFlow of(final double... source)
 	{
-		return new CyclicFlow.OfDouble(() -> Iterate.over(source));
+		return new CyclicFlow.OfDouble(() -> Iterate.overDoubles(source));
 	}
 
 	/**
@@ -135,6 +135,6 @@ public class CycledIteration
 	 */
 	public static LongFlow of(final long... source)
 	{
-		return new CyclicFlow.OfLong(() -> Iterate.over(source));
+		return new CyclicFlow.OfLong(() -> Iterate.overLongs(source));
 	}
 }

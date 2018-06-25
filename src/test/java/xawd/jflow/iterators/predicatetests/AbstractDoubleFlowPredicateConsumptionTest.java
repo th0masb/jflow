@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.predicateconsumptiontests;
+package xawd.jflow.iterators.predicatetests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,7 +26,7 @@ class AbstractDoubleFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("allEqualTestDataProvider")
 	void testAllEqual(final AbstractDoubleFlow iterator, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual());
+		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual().get());
 	}
 
 	static Stream<Arguments> allEqualTestDataProvider()
@@ -65,7 +65,7 @@ class AbstractDoubleFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("allMatchTestDataProvider")
 	void testAllMatch(final AbstractDoubleFlow iterator, final DoublePredicate predicate, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate));
+		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate).get());
 	}
 
 	static Stream<Arguments> allMatchTestDataProvider()
@@ -82,7 +82,7 @@ class AbstractDoubleFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("anyMatchTestDataProvider")
 	void testAnyMatch(final AbstractDoubleFlow iterator, final DoublePredicate predicate, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate));
+		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate).get());
 	}
 
 	static Stream<Arguments> anyMatchTestDataProvider()
@@ -99,7 +99,7 @@ class AbstractDoubleFlowPredicateConsumptionTest extends IteratorExampleProvider
 	@MethodSource("noneMatchTestDataProvider")
 	void testNoneMatch(final AbstractDoubleFlow iterator, final DoublePredicate predicate, final Boolean expectedResult)
 	{
-		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate));
+		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate).get());
 	}
 
 	static Stream<Arguments> noneMatchTestDataProvider()

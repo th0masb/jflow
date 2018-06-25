@@ -4,6 +4,7 @@
 package xawd.jflow.iterators;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.FlattenedFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
@@ -37,8 +40,6 @@ import xawd.jflow.iterators.impl.ObjectMinMaxConsumption;
 import xawd.jflow.iterators.impl.ObjectPredicateConsumption;
 import xawd.jflow.iterators.impl.ObjectReductionConsumption;
 import xawd.jflow.iterators.impl.PairFoldFlow;
-import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -48,6 +49,9 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
+import xawd.jflow.iterators.misc.PredicateResult;
+
+
 
 /**
  * The skelatal implementation of a Flow, users writing custom Flows should
@@ -174,7 +178,7 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	@Override
 	public AbstractFlow<E> dropWhile(final Predicate<? super E> predicate)
 	{
-		return new DropWhileFlow.OfObject<>(this, predicate);
+		return new DropwhileFlow.OfObject<>(this, predicate);
 	}
 
 	@Override
@@ -214,49 +218,37 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public Optional<E> minByKey(final ToDoubleFunction<? super E> key)
+	public Optional<E> min(final Comparator<? super E> orderingFunction)
 	{
-		return ObjectMinMaxConsumption.findMin(this, key);
+		return ObjectMinMaxConsumption.findMin(this, orderingFunction);
 	}
 
 	@Override
-	public <C extends Comparable<C>> Optional<E> minByObjectKey(final Function<? super E, C> key)
+	public Optional<E> max(final Comparator<? super E> orderingFunction)
 	{
-		return ObjectMinMaxConsumption.findMin(this, key);
+		return ObjectMinMaxConsumption.findMax(this, orderingFunction);
 	}
 
 	@Override
-	public Optional<E> maxByKey(final ToDoubleFunction<? super E> key)
-	{
-		return ObjectMinMaxConsumption.findMax(this, key);
-	}
-
-	@Override
-	public <C extends Comparable<C>> Optional<E> maxByObjectKey(final Function<? super E, C> key)
-	{
-		return ObjectMinMaxConsumption.findMax(this, key);
-	}
-
-	@Override
-	public boolean areAllEqual()
+	public PredicateResult areAllEqual()
 	{
 		return ObjectPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public boolean allMatch(final Predicate<? super E> predicate)
+	public PredicateResult allMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(final Predicate<? super E> predicate)
+	public PredicateResult anyMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(final Predicate<? super E> predicate)
+	public PredicateResult noneMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -274,7 +266,7 @@ public abstract class AbstractFlow<E> implements Flow<E>
 	}
 
 	@Override
-	public <R> R reduce(final R id, final BiFunction<R, E, R> reducer)
+	public <R> R fold(final R id, final BiFunction<R, E, R> reducer)
 	{
 		return ObjectReductionConsumption.reduce(this, id, reducer);
 	}

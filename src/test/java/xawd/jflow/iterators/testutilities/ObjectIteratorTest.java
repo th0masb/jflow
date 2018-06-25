@@ -36,8 +36,7 @@ public interface ObjectIteratorTest
 
 	static <T> void assertNextElementChecksAsExpected(final List<T> expectedElements, final AbstractFlow<T> iterator)
 	{
-		IntStream.range(0, expectedElements.size()).forEach(i ->
-		{
+		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			assertTrue(iterator.hasNext());
 			iterator.skip();
 		});

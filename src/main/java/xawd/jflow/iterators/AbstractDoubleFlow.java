@@ -20,14 +20,14 @@ import xawd.jflow.iterators.impl.DoubleCollectionConsumption;
 import xawd.jflow.iterators.impl.DoubleMinMaxConsumption;
 import xawd.jflow.iterators.impl.DoublePredicateConsumption;
 import xawd.jflow.iterators.impl.DoubleReductionConsumption;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
 import xawd.jflow.iterators.impl.MapFlow;
 import xawd.jflow.iterators.impl.MapToIntFlow;
 import xawd.jflow.iterators.impl.MapToLongFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
-import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -37,6 +37,7 @@ import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * The skelatal implementation of a DoubleFlow, users writing custom DoubleFlows should
@@ -135,7 +136,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	@Override
 	public AbstractDoubleFlow dropWhile(final DoublePredicate predicate)
 	{
-		return new DropWhileFlow.OfDouble(this, predicate);
+		return new DropwhileFlow.OfDouble(this, predicate);
 	}
 
 	@Override
@@ -153,7 +154,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	@Override
 	public AbstractDoubleFlow append(final double... xs)
 	{
-		return append(Iterate.over(xs));
+		return append(Iterate.overDoubles(xs));
 	}
 
 	@Override
@@ -165,7 +166,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	@Override
 	public AbstractDoubleFlow insert(final double... xs)
 	{
-		return insert(Iterate.over(xs));
+		return insert(Iterate.overDoubles(xs));
 	}
 
 	@Override
@@ -193,18 +194,6 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public double minByKey(final double defaultValue, final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMin(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalDouble minByKey(final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMin(this, key);
-	}
-
-	@Override
 	public OptionalDouble max()
 	{
 		return DoubleMinMaxConsumption.findMax(this);
@@ -217,37 +206,25 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public double maxByKey(final double defaultValue, final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMax(this, defaultValue, key);
-	}
-
-	@Override
-	public OptionalDouble maxByKey(final DoubleUnaryOperator key)
-	{
-		return DoubleMinMaxConsumption.findMax(this, key);
-	}
-
-	@Override
-	public boolean areAllEqual()
+	public PredicateResult areAllEqual()
 	{
 		return DoublePredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public boolean allMatch(final DoublePredicate predicate)
+	public PredicateResult allMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(final DoublePredicate predicate)
+	public PredicateResult anyMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(final DoublePredicate predicate)
+	public PredicateResult noneMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.noneMatch(this, predicate);
 	}
@@ -265,7 +242,7 @@ public abstract class AbstractDoubleFlow implements DoubleFlow
 	}
 
 	@Override
-	public double reduce(final double id, final DoubleBinaryOperator reducer)
+	public double fold(final double id, final DoubleBinaryOperator reducer)
 	{
 		return DoubleReductionConsumption.reduce(this, id, reducer);
 	}

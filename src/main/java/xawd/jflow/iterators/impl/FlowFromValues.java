@@ -38,10 +38,10 @@ public final class FlowFromValues
 		@Override
 		public E next()
 		{
-			try {
+			if (hasNext()) {
 				return (E) cache[count++];
 			}
-			catch (final IndexOutOfBoundsException ex) {
+			else {
 				throw new NoSuchElementException();
 			}
 		}
@@ -72,10 +72,10 @@ public final class FlowFromValues
 		@Override
 		public long nextLong()
 		{
-			try {
+			if (hasNext()) {
 				return cache[count++];
 			}
-			catch (final IndexOutOfBoundsException ex) {
+			else {
 				throw new NoSuchElementException();
 			}
 		}
@@ -106,10 +106,10 @@ public final class FlowFromValues
 		@Override
 		public double nextDouble()
 		{
-			try {
+			if (hasNext()) {
 				return cache[count++];
 			}
-			catch (final IndexOutOfBoundsException ex) {
+			else {
 				throw new NoSuchElementException();
 			}
 		}
@@ -140,10 +140,10 @@ public final class FlowFromValues
 		@Override
 		public int nextInt()
 		{
-			try {
+			if (hasNext()) {
 				return cache[count++];
 			}
-			catch (final IndexOutOfBoundsException ex) {
+			else {
 				throw new NoSuchElementException();
 			}
 		}

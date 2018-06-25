@@ -20,7 +20,7 @@ public final class PredicatePartition<E>
 		this.rejectedElements = Collections.unmodifiableList(rejectedElements);
 	}
 
-	public List<E> getAcceptedElements()
+	public List<E> getAccepted()
 	{
 		return acceptedElements;
 	}
@@ -30,7 +30,7 @@ public final class PredicatePartition<E>
 		return Iterate.over(acceptedElements);
 	}
 
-	public List<E> getRejectedElements()
+	public List<E> getRejected()
 	{
 		return rejectedElements;
 	}

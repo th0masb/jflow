@@ -16,6 +16,8 @@ import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
 import xawd.jflow.iterators.impl.CombinedFlow;
+import xawd.jflow.iterators.impl.DropFlow;
+import xawd.jflow.iterators.impl.DropwhileFlow;
 import xawd.jflow.iterators.impl.FilteredFlow;
 import xawd.jflow.iterators.impl.InsertFlow;
 import xawd.jflow.iterators.impl.IntCollectionConsumption;
@@ -26,8 +28,6 @@ import xawd.jflow.iterators.impl.MapFlow;
 import xawd.jflow.iterators.impl.MapToDoubleFlow;
 import xawd.jflow.iterators.impl.MapToLongFlow;
 import xawd.jflow.iterators.impl.MapToObjectFlow;
-import xawd.jflow.iterators.impl.DropFlow;
-import xawd.jflow.iterators.impl.DropWhileFlow;
 import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
@@ -37,6 +37,7 @@ import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
+import xawd.jflow.iterators.misc.PredicateResult;
 
 /**
  * The skelatal implementation of a IntFlow, users writing custom IntFlows should
@@ -135,7 +136,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public AbstractIntFlow dropWhile(final IntPredicate predicate)
 	{
-		return new DropWhileFlow.OfInt(this, predicate);
+		return new DropwhileFlow.OfInt(this, predicate);
 	}
 
 	@Override
@@ -153,7 +154,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public AbstractIntFlow append(final int... xs)
 	{
-		return append(Iterate.over(xs));
+		return append(Iterate.overInts(xs));
 	}
 
 	@Override
@@ -165,7 +166,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	@Override
 	public AbstractIntFlow insert(final int... xs)
 	{
-		return insert(Iterate.over(xs));
+		return insert(Iterate.overInts(xs));
 	}
 
 	@Override
@@ -192,20 +193,20 @@ public abstract class AbstractIntFlow implements IntFlow
 		return IntMinMaxConsumption.findMin(this, defaultValue);
 	}
 
-	@Override
-	public int minByKey(final int defaultValue, final IntToDoubleFunction key)
-	{
-		return IntMinMaxConsumption.findMin(this, defaultValue, key);
-	}
+//	@Override
+//	public int minByKey(final int defaultValue, final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMin(this, defaultValue, key);
+//	}
+//
+//	@Override
+//	public OptionalInt minByKey(final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMin(this, key);
+//	}
 
 	@Override
-	public OptionalInt minByKey(final IntToDoubleFunction key)
-	{
-		return IntMinMaxConsumption.findMin(this, key);
-	}
-
-	@Override
-	public <C extends Comparable<C>> OptionalInt minByObjectKey(final IntFunction<C> key)
+	public <C extends Comparable<C>> OptionalInt minByKey(final IntFunction<C> key)
 	{
 		return IntMinMaxConsumption.findMin(this, key);
 	}
@@ -222,44 +223,44 @@ public abstract class AbstractIntFlow implements IntFlow
 		return IntMinMaxConsumption.findMax(this, defaultValue);
 	}
 
-	@Override
-	public int maxByKey(final int defaultValue, final IntToDoubleFunction key)
-	{
-		return IntMinMaxConsumption.findMax(this, defaultValue, key);
-	}
+//	@Override
+//	public int maxByKey(final int defaultValue, final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMax(this, defaultValue, key);
+//	}
+//
+//	@Override
+//	public OptionalInt maxByKey(final IntToDoubleFunction key)
+//	{
+//		return IntMinMaxConsumption.findMax(this, key);
+//	}
 
 	@Override
-	public OptionalInt maxByKey(final IntToDoubleFunction key)
+	public <C extends Comparable<C>> OptionalInt maxByKey(final IntFunction<C> key)
 	{
 		return IntMinMaxConsumption.findMax(this, key);
 	}
 
 	@Override
-	public <C extends Comparable<C>> OptionalInt maxByObjectKey(final IntFunction<C> key)
-	{
-		return IntMinMaxConsumption.findMax(this, key);
-	}
-
-	@Override
-	public boolean areAllEqual()
+	public PredicateResult areAllEqual()
 	{
 		return IntPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public boolean allMatch(final IntPredicate predicate)
+	public PredicateResult allMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(final IntPredicate predicate)
+	public PredicateResult anyMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(final IntPredicate predicate)
+	public PredicateResult noneMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -277,7 +278,7 @@ public abstract class AbstractIntFlow implements IntFlow
 	}
 
 	@Override
-	public int reduce(final int id, final IntBinaryOperator reducer)
+	public int fold(final int id, final IntBinaryOperator reducer)
 	{
 		return IntReductionConsumption.reduce(this, id, reducer);
 	}

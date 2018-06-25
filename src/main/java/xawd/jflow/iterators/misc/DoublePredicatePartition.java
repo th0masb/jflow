@@ -22,12 +22,12 @@ public final class DoublePredicatePartition
 		this.rejectedElements = rejectedElements;
 	}
 
-	public double[] getAcceptedElements()
+	public double[] getAccepted()
 	{
 		return acceptedElements;
 	}
 
-	public double[] getRejectedElements()
+	public double[] getRejected()
 	{
 		return rejectedElements;
 	}
