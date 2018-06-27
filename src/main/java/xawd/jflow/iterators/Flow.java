@@ -747,4 +747,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	{
 		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
+
+	default <R> Flow<Pair<E, R>> zipWith(final Iterable<? extends R> other)
+	{
+		return zipWith(other.iterator());
+	}
 }
