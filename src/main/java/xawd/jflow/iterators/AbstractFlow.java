@@ -303,9 +303,21 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	}
 
 	@Override
+	public FlowList<E> toImmutableList()
+	{
+		return ObjectCollectionConsumption.toImmutableList(this);
+	}
+
+	@Override
 	public FlowSet<E> toSet()
 	{
 		return ObjectCollectionConsumption.toSet(this);
+	}
+
+	@Override
+	public FlowSet<E> toImmutableSet()
+	{
+		return ObjectCollectionConsumption.toImmutableSet(this);
 	}
 
 	@Override

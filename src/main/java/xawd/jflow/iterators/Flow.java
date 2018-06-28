@@ -24,8 +24,6 @@ import xawd.jflow.collections.FlowList;
 import xawd.jflow.collections.FlowSet;
 import xawd.jflow.collections.impl.DelegatingFlowList;
 import xawd.jflow.collections.impl.DelegatingFlowSet;
-import xawd.jflow.collections.impl.ImmutableFlowList;
-import xawd.jflow.collections.impl.UnmodifiableDelegatingFlowSet;
 import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
@@ -551,6 +549,16 @@ public interface Flow<E> extends PrototypeFlow<E>
 	FlowList<E> toList();
 
 	/**
+	 * Caches the elements in this Flow into an immutable (unmodifiable) List.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @return An immutable List instance containing all elements of the source Flow
+	 *         in the order that they appeared in the iteration.
+	 */
+	FlowList<E> toImmutableList();
+
+	/**
 	 * Caches the elements in this Flow into a Set.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
@@ -558,6 +566,16 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return A Set instance containing all unique elements of the source flow.
 	 */
 	FlowSet<E> toSet();
+
+	/**
+	 * Caches the elements in this Flow into an immutable (unmodifiable) Set.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @return An immutable Set instance containing all unique elements of the
+	 *         source flow.
+	 */
+	FlowSet<E> toImmutableSet();
 
 	/**
 	 * Builds a Map using the elements in this Flow via two supplied functions.
@@ -702,33 +720,6 @@ public interface Flow<E> extends PrototypeFlow<E>
 			mutableList.add(next());
 		}
 		return new DelegatingFlowList<>(mutableList);
-	}
-
-	/**
-	 * Caches the elements in this Flow into an immutable (unmodifiable) List.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @return An immutable List instance containing all elements of the source Flow
-	 *         in the order that they appeared in the iteration.
-	 */
-	default FlowList<E> toImmutableList()
-	{
-		final FlowList<E> mutable = toList();
-		return new ImmutableFlowList<>(mutable::get, mutable.size());
-	}
-
-	/**
-	 * Caches the elements in this Flow into an immutable (unmodifiable) Set.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @return An immutable Set instance containing all unique elements of the
-	 *         source flow.
-	 */
-	default FlowSet<E> toImmutableSet()
-	{
-		return new UnmodifiableDelegatingFlowSet<>(toSet());
 	}
 
 	/**
