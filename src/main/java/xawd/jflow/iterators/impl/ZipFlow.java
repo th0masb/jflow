@@ -34,6 +34,7 @@ public final class ZipFlow
 
 		public OfObjects(final Flow<? extends E1> firstSource, final Iterator<? extends E2> secondSource)
 		{
+			super(ImplUtils.calculateNewSize(firstSource, secondSource));
 			this.firstSource = firstSource;
 			this.secondSource = secondSource;
 		}

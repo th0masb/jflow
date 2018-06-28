@@ -13,7 +13,7 @@ import java.util.function.IntConsumer;
  *
  * @author t
  */
-public interface PrototypeIntFlow extends PrimitiveIterator.OfInt, Skippable
+public interface PrototypeIntFlow extends PrimitiveIterator.OfInt, Skippable, OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextInt()} method.

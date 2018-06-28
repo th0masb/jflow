@@ -33,6 +33,7 @@ public final class TakewhileFlow
 
 		public OfObject(final Flow<T> src, final Predicate<? super T> predicate)
 		{
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}

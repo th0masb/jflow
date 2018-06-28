@@ -3,6 +3,9 @@
  */
 package xawd.jflow.iterators.impl;
 
+import static xawd.jflow.iterators.impl.ImplUtils.getSize;
+import static xawd.jflow.iterators.impl.ImplUtils.isSized;
+
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
@@ -25,6 +28,7 @@ public final class FlowFromIterator
 
 		public OfObject(final Iterator<? extends E> src)
 		{
+			super(isSized(src)? getSize(src) : -1);
 			this.iterator = src;
 		}
 

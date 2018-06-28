@@ -47,8 +47,13 @@ import xawd.jflow.iterators.misc.PredicateResult;
  * @author ThomasB
  * @since 23 Apr 2018
  */
-public abstract class AbstractIntFlow implements IntFlow
+public abstract class AbstractIntFlow extends AbstractOptionallySized implements IntFlow
 {
+	public AbstractIntFlow(int size)
+	{
+		super(size);
+	}
+
 	@Override
 	public AbstractIntFlow slice(final IntUnaryOperator sliceMap)
 	{

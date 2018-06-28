@@ -32,6 +32,7 @@ public final class AccumulationFlow
 
 		public OfObjectWithMixedTypes(final Flow<T> src, final R id, final BiFunction<R, T, R> accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 			this.accumulationValue = id;
@@ -66,6 +67,7 @@ public final class AccumulationFlow
 
 		public OfObject(final Flow<T> src, final BinaryOperator<T> accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 		}
@@ -101,6 +103,7 @@ public final class AccumulationFlow
 
 		public OfLong(final LongFlow src, final long id, final LongBinaryOperator accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 			this.accumulationValue = id;
@@ -109,6 +112,7 @@ public final class AccumulationFlow
 
 		public OfLong(final LongFlow src, final LongBinaryOperator accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 			initialized = false;
@@ -150,6 +154,7 @@ public final class AccumulationFlow
 
 		public OfInt(final IntFlow src, final int id, final IntBinaryOperator accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 			this.accumulationValue = id;
@@ -158,6 +163,7 @@ public final class AccumulationFlow
 
 		public OfInt(final IntFlow src, final IntBinaryOperator accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 			initialized = false;
@@ -199,6 +205,7 @@ public final class AccumulationFlow
 
 		public OfDouble(final DoubleFlow src, final double id, final DoubleBinaryOperator accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 			this.accumulationValue = id;
@@ -207,6 +214,7 @@ public final class AccumulationFlow
 
 		public OfDouble(final DoubleFlow src, final DoubleBinaryOperator accumulator)
 		{
+			super(src.size());
 			this.src = src;
 			this.accumulator = accumulator;
 			initialized = false;

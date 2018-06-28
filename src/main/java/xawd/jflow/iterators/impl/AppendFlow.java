@@ -3,6 +3,8 @@
  */
 package xawd.jflow.iterators.impl;
 
+import static xawd.jflow.iterators.impl.ImplUtils.getSize;
+
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
@@ -14,7 +16,6 @@ import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
-import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB
@@ -31,6 +32,7 @@ public final class AppendFlow
 
 		public OfObject(final Flow<E> source, final Iterator<? extends E> appended)
 		{
+			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
 			this.source = source;
 			this.appended = appended;
 		}
@@ -53,11 +55,8 @@ public final class AppendFlow
 			if (source.hasNext()) {
 				source.skip();
 			}
-			else if (appended instanceof Skippable) {
-				((Skippable) appended).skip();
-			}
 			else {
-				appended.next();
+				ImplUtils.skip(appended);
 			}
 		}
 	}
@@ -69,6 +68,7 @@ public final class AppendFlow
 
 		public OfDouble(final DoubleFlow source, final PrimitiveIterator.OfDouble appended)
 		{
+			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
 			this.source = source;
 			this.appended = appended;
 		}
@@ -91,11 +91,8 @@ public final class AppendFlow
 			if (source.hasNext()) {
 				source.skip();
 			}
-			else if (appended instanceof Skippable) {
-				((Skippable) appended).skip();
-			}
 			else {
-				appended.nextDouble();
+				ImplUtils.skip(appended);
 			}
 		}
 	}
@@ -107,6 +104,7 @@ public final class AppendFlow
 
 		public OfLong(final LongFlow source, final PrimitiveIterator.OfLong appended)
 		{
+			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
 			this.source = source;
 			this.appended = appended;
 		}
@@ -129,11 +127,8 @@ public final class AppendFlow
 			if (source.hasNext()) {
 				source.skip();
 			}
-			else if (appended instanceof Skippable) {
-				((Skippable) appended).skip();
-			}
 			else {
-				appended.nextLong();
+				ImplUtils.skip(appended);
 			}
 		}
 	}
@@ -145,6 +140,7 @@ public final class AppendFlow
 
 		public OfInt(final IntFlow source, final PrimitiveIterator.OfInt appended)
 		{
+			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
 			this.source = source;
 			this.appended = appended;
 		}
@@ -167,11 +163,8 @@ public final class AppendFlow
 			if (source.hasNext()) {
 				source.skip();
 			}
-			else if (appended instanceof Skippable) {
-				((Skippable) appended).skip();
-			}
 			else {
-				appended.nextInt();
+				ImplUtils.skip(appended);
 			}
 		}
 	}

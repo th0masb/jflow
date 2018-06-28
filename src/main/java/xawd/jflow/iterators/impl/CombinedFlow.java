@@ -14,7 +14,6 @@ import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.AbstractIntFlow;
 import xawd.jflow.iterators.AbstractLongFlow;
-import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB
@@ -30,8 +29,9 @@ public final class CombinedFlow
 		private final Iterator<E2> secondSource;
 		private final BiFunction<? super E1, ? super E2, R> combiner;
 
-		public OfObjects(final Iterator<E1> firstSource, final Iterator<E2> secondSource, final BiFunction<? super E1, ? super E2, R> combiner)
+		public OfObjects(Iterator<E1> firstSource, Iterator<E2> secondSource, BiFunction<? super E1, ? super E2, R> combiner)
 		{
+			super(ImplUtils.calculateNewSize(firstSource, secondSource));
 			this.firstSource = firstSource;
 			this.secondSource = secondSource;
 			this.combiner = combiner;
@@ -52,19 +52,8 @@ public final class CombinedFlow
 		@Override
 		public void skip()
 		{
-			if (firstSource instanceof Skippable) {
-				((Skippable) firstSource).skip();
-			}
-			else {
-				firstSource.next();
-			}
-
-			if (secondSource instanceof Skippable) {
-				((Skippable) secondSource).skip();
-			}
-			else {
-				secondSource.next();
-			}
+			ImplUtils.skip(firstSource);
+			ImplUtils.skip(secondSource);
 		}
 	}
 
@@ -78,6 +67,7 @@ public final class CombinedFlow
 				final PrimitiveIterator.OfDouble secondSource,
 				final DoubleBinaryOperator combiner)
 		{
+			super(ImplUtils.calculateNewSize(firstSource, secondSource));
 			this.firstSource = firstSource;
 			this.secondSource = secondSource;
 			this.combiner = combiner;
@@ -98,19 +88,8 @@ public final class CombinedFlow
 		@Override
 		public void skip()
 		{
-			if (firstSource instanceof Skippable) {
-				((Skippable) firstSource).skip();
-			}
-			else {
-				firstSource.nextDouble();
-			}
-
-			if (secondSource instanceof Skippable) {
-				((Skippable) secondSource).skip();
-			}
-			else {
-				secondSource.nextDouble();
-			}
+			ImplUtils.skip(firstSource);
+			ImplUtils.skip(secondSource);
 		}
 	}
 
@@ -124,6 +103,7 @@ public final class CombinedFlow
 				final PrimitiveIterator.OfLong secondSource,
 				final LongBinaryOperator combiner)
 		{
+			super(ImplUtils.calculateNewSize(firstSource, secondSource));
 			this.firstSource = firstSource;
 			this.secondSource = secondSource;
 			this.combiner = combiner;
@@ -144,19 +124,8 @@ public final class CombinedFlow
 		@Override
 		public void skip()
 		{
-			if (firstSource instanceof Skippable) {
-				((Skippable) firstSource).skip();
-			}
-			else {
-				firstSource.nextLong();
-			}
-
-			if (secondSource instanceof Skippable) {
-				((Skippable) secondSource).skip();
-			}
-			else {
-				secondSource.nextLong();
-			}
+			ImplUtils.skip(firstSource);
+			ImplUtils.skip(secondSource);
 		}
 	}
 
@@ -170,6 +139,7 @@ public final class CombinedFlow
 				final PrimitiveIterator.OfInt secondSource,
 				final IntBinaryOperator combiner)
 		{
+			super(ImplUtils.calculateNewSize(firstSource, secondSource));
 			this.firstSource = firstSource;
 			this.secondSource = secondSource;
 			this.combiner = combiner;
@@ -190,19 +160,8 @@ public final class CombinedFlow
 		@Override
 		public void skip()
 		{
-			if (firstSource instanceof Skippable) {
-				((Skippable) firstSource).skip();
-			}
-			else {
-				firstSource.nextInt();
-			}
-
-			if (secondSource instanceof Skippable) {
-				((Skippable) secondSource).skip();
-			}
-			else {
-				secondSource.nextInt();
-			}
+			ImplUtils.skip(firstSource);
+			ImplUtils.skip(secondSource);
 		}
 	}
 }

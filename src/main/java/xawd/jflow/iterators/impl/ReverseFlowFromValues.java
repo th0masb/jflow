@@ -27,6 +27,7 @@ public final class ReverseFlowFromValues
 
 		public OfObject(final List<? extends E> source)
 		{
+			super(source.size());
 			count = source.size() - 1;
 			this.source = source.toArray();
 		}
@@ -34,6 +35,7 @@ public final class ReverseFlowFromValues
 		@SafeVarargs
 		public OfObject(E... source)
 		{
+			super(source.length);
 			count = source.length - 1;
 			this.source = Arrays.copyOf((Object[]) source, source.length);
 		}

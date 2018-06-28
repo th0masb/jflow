@@ -23,10 +23,10 @@ import xawd.jflow.iterators.LongFlow;
  *
  */
 public class DropwhileFlow {
-	
+
 	private DropwhileFlow() {}
 
-	public static class OfObject<T> extends AbstractFlow<T> 
+	public static class OfObject<T> extends AbstractFlow<T>
 	{
 		private final Flow<T> src;
 		private final Predicate<? super T> predicate;
@@ -35,6 +35,7 @@ public class DropwhileFlow {
 		private T firstFailure = null;
 
 		public OfObject(final Flow<T> src, final Predicate<? super T> predicate) {
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -98,22 +99,23 @@ public class DropwhileFlow {
 			}
 		}
 	}
-	
-	public static class OfLong extends AbstractLongFlow 
+
+	public static class OfLong extends AbstractLongFlow
 	{
 		private final LongFlow src;
 		private final LongPredicate predicate;
-		
+
 		private boolean firstFailureInitialized, firstFailureConsumed;
 		private long firstFailure;
-		
+
 		public OfLong(final LongFlow src, final LongPredicate predicate) {
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
-		
+
 		@Override
-		public boolean hasNext() 
+		public boolean hasNext()
 		{
 			if (!firstFailureInitialized) {
 				while (!firstFailureInitialized && src.hasNext()) {
@@ -133,7 +135,7 @@ public class DropwhileFlow {
 				return src.hasNext();
 			}
 		}
-		
+
 		@Override
 		public long nextLong() {
 			if (!firstFailureInitialized) {
@@ -173,21 +175,22 @@ public class DropwhileFlow {
 		}
 	}
 
-	public static class OfDouble extends AbstractDoubleFlow 
+	public static class OfDouble extends AbstractDoubleFlow
 	{
 		private final DoubleFlow src;
 		private final DoublePredicate predicate;
-		
+
 		private boolean firstFailureInitialized, firstFailureConsumed;
 		private double firstFailure;
-		
+
 		public OfDouble(final DoubleFlow src, final DoublePredicate predicate) {
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
-		
+
 		@Override
-		public boolean hasNext() 
+		public boolean hasNext()
 		{
 			if (!firstFailureInitialized) {
 				while (!firstFailureInitialized && src.hasNext()) {
@@ -207,7 +210,7 @@ public class DropwhileFlow {
 				return src.hasNext();
 			}
 		}
-		
+
 		@Override
 		public double nextDouble() {
 			if (!firstFailureInitialized) {
@@ -246,22 +249,23 @@ public class DropwhileFlow {
 			}
 		}
 	}
-	
-	public static class OfInt extends AbstractIntFlow 
+
+	public static class OfInt extends AbstractIntFlow
 	{
 		private final IntFlow src;
 		private final IntPredicate predicate;
-		
+
 		private boolean firstFailureInitialized, firstFailureConsumed;
 		private int firstFailure;
-		
+
 		public OfInt(final IntFlow src, final IntPredicate predicate) {
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
-		
+
 		@Override
-		public boolean hasNext() 
+		public boolean hasNext()
 		{
 			if (!firstFailureInitialized) {
 				while (!firstFailureInitialized && src.hasNext()) {
@@ -281,7 +285,7 @@ public class DropwhileFlow {
 				return src.hasNext();
 			}
 		}
-		
+
 		@Override
 		public int nextInt() {
 			if (!firstFailureInitialized) {

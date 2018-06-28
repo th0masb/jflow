@@ -13,7 +13,7 @@ import java.util.function.LongConsumer;
  *
  * @author t
  */
-public interface PrototypeLongFlow extends Skippable, PrimitiveIterator.OfLong
+public interface PrototypeLongFlow extends Skippable, PrimitiveIterator.OfLong, OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextLong()} method.

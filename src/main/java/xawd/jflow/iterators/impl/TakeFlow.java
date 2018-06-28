@@ -28,6 +28,7 @@ public final class TakeFlow
 
 		public OfObject(final Flow<T> src, final int takeCount)
 		{
+			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}

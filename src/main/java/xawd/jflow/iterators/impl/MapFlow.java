@@ -32,6 +32,7 @@ public class MapFlow
 
 		public OfObject(final Flow<E> sourceFlow, final Function<? super E, R> mappingFunction)
 		{
+			super(sourceFlow.size());
 			this.sourceFlow = sourceFlow;
 			this.mappingFunction = mappingFunction;
 		}

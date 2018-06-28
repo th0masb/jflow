@@ -1,5 +1,7 @@
 package xawd.jflow.iterators.impl;
 
+import static xawd.jflow.iterators.impl.ImplUtils.getSize;
+
 import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.AbstractIntFlow;
@@ -26,6 +28,7 @@ public final class DropFlow
 
 		public OfObject(final Flow<T> src, final int dropCount)
 		{
+			super(src.isSized()? Math.max(0, getSize(src) - dropCount) : -1);
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -77,6 +80,7 @@ public final class DropFlow
 
 		public OfLong(final LongFlow src, final int dropCount)
 		{
+			super(src.isSized()? Math.max(0, getSize(src) - dropCount) : -1);
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -128,6 +132,7 @@ public final class DropFlow
 
 		public OfInt(final IntFlow src, final int dropCount)
 		{
+			super(src.isSized()? Math.max(0, getSize(src) - dropCount) : -1);
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -179,6 +184,7 @@ public final class DropFlow
 
 		public OfDouble(final DoubleFlow src, final int dropCount)
 		{
+			super(src.isSized()? Math.max(0, getSize(src) - dropCount) : -1);
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}

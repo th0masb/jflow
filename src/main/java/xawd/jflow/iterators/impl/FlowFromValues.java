@@ -26,13 +26,14 @@ public final class FlowFromValues
 		@SafeVarargs
 		public OfObject(E... es)
 		{
+			super(es.length);
 			this.cache = es;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < cache.length;
+			return count < size;
 		}
 		@SuppressWarnings("unchecked")
 		@Override
@@ -48,7 +49,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= cache.length) {
+			if (count++ >= size) {
 				throw new NoSuchElementException();
 			}
 		}

@@ -47,8 +47,13 @@ import xawd.jflow.iterators.misc.PredicateResult;
  * @author ThomasB
  * @since 23 Apr 2018
  */
-public abstract class AbstractDoubleFlow implements DoubleFlow
+public abstract class AbstractDoubleFlow extends AbstractOptionallySized implements DoubleFlow
 {
+	public AbstractDoubleFlow(int size)
+	{
+		super(size);
+	}
+
 	@Override
 	public AbstractDoubleFlow slice(final IntUnaryOperator indexMapping)
 	{

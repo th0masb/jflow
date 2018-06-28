@@ -22,16 +22,17 @@ import xawd.jflow.iterators.LongFlow;
 public class FilteredFlow
 {
 	private FilteredFlow() {}
-	
+
 	public static class OfObject<T> extends AbstractFlow<T>
 	{
 		private final Flow<T> src;
 		private final Predicate<? super T> predicate;
-		
+
 		private T cached = null;
-		
+
 		public OfObject(final Flow<T> src, final Predicate<? super T> predicate)
 		{
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -72,16 +73,17 @@ public class FilteredFlow
 			}
 		}
 	}
-	
+
 	public static class OfLong extends AbstractLongFlow
 	{
 		private final LongFlow src;
 		private final LongPredicate predicate;
-		
+
 		private boolean nextReady = false;
 		private long cached = -1;
 
 		public OfLong(final LongFlow src, final LongPredicate predicate) {
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -97,7 +99,7 @@ public class FilteredFlow
 			}
 			return nextReady;
 		}
-		
+
 		@Override
 		public long nextLong() {
 			if (nextReady) {
@@ -114,7 +116,7 @@ public class FilteredFlow
 				}
 			}
 		}
-		
+
 		@Override
 		public void skip() {
 			if (nextReady) {
@@ -130,16 +132,17 @@ public class FilteredFlow
 			}
 		}
 	}
-	
+
 	public static class OfInt extends AbstractIntFlow
 	{
 		private final IntFlow src;
 		private final IntPredicate predicate;
-		
+
 		private boolean nextReady = false;
 		private int cached = -1;
 
 		public OfInt(final IntFlow src, final IntPredicate predicate) {
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -155,7 +158,7 @@ public class FilteredFlow
 			}
 			return nextReady;
 		}
-		
+
 		@Override
 		public int nextInt() {
 			if (nextReady) {
@@ -172,7 +175,7 @@ public class FilteredFlow
 				}
 			}
 		}
-		
+
 		@Override
 		public void skip() {
 			if (nextReady) {
@@ -188,16 +191,17 @@ public class FilteredFlow
 			}
 		}
 	}
-	
+
 	public static class OfDouble extends AbstractDoubleFlow
 	{
 		private final DoubleFlow src;
 		private final DoublePredicate predicate;
-		
+
 		private boolean nextReady = false;
 		private double cached = -1;
 
 		public OfDouble(final DoubleFlow src, final DoublePredicate predicate) {
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -213,7 +217,7 @@ public class FilteredFlow
 			}
 			return nextReady;
 		}
-		
+
 		@Override
 		public double nextDouble() {
 			if (nextReady) {
@@ -230,7 +234,7 @@ public class FilteredFlow
 				}
 			}
 		}
-		
+
 		@Override
 		public void skip() {
 			if (nextReady) {

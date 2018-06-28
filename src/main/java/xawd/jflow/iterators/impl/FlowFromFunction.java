@@ -25,25 +25,20 @@ public final class FlowFromFunction
 	public static class OfObject<T> extends AbstractFlow<T>
 	{
 		private final IntFunction<T> src;
-		private final int elementCap;
-
 		private int count = 0;
 
 		public OfObject(final IntFunction<T> src, final int elementCap) {
-			if (elementCap < 0) {
-				throw new IllegalArgumentException();
-			}
+			super(elementCap);
 			this.src = src;
-			this.elementCap = elementCap;
 		}
 
 		public OfObject(final IntFunction<T> src) {
-			this(src, Integer.MAX_VALUE);
+			this(src, -1);
 		}
 
 		@Override
 		public boolean hasNext() {
-			return count < elementCap;
+			return size < 0 || count < size;
 		}
 
 		@Override

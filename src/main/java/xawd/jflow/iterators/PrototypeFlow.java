@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  *
  * @author t
  */
-public interface PrototypeFlow<E> extends Iterator<E>, Skippable
+public interface PrototypeFlow<E> extends Iterator<E>, Skippable, OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link #next()} method.

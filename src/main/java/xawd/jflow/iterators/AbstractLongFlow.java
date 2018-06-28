@@ -49,8 +49,13 @@ import xawd.jflow.iterators.misc.PredicateResult;
  *
  * @author ThomasB
  */
-public abstract class AbstractLongFlow implements LongFlow
+public abstract class AbstractLongFlow extends AbstractOptionallySized implements LongFlow
 {
+	public AbstractLongFlow(int size)
+	{
+		super(size);
+	}
+
 	@Override
 	public AbstractLongFlow slice(final IntUnaryOperator indexMapping)
 	{

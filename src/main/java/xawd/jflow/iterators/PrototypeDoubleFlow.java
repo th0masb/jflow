@@ -13,7 +13,7 @@ import java.util.function.DoubleConsumer;
  *
  * @author t
  */
-public interface PrototypeDoubleFlow extends OfDouble, Skippable
+public interface PrototypeDoubleFlow extends OfDouble, Skippable, OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextDouble()} method.

@@ -36,6 +36,7 @@ public final class SlicedFlow
 
 		public OfObject(final Flow<E> src, final IntUnaryOperator indexMapping)
 		{
+			super(-1);
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}

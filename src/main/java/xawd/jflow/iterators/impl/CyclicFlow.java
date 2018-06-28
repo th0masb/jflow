@@ -11,7 +11,6 @@ import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.AbstractIntFlow;
 import xawd.jflow.iterators.AbstractLongFlow;
-import xawd.jflow.iterators.Skippable;
 
 /**
  * @author t
@@ -27,6 +26,7 @@ public final class CyclicFlow
 		private Iterator<? extends T> iter;
 
 		public OfObject(Supplier<? extends Iterator<? extends T>> iteratorSupply) {
+			super(-1);
 			this.iteratorSupply = iteratorSupply;
 			iter = iteratorSupply.get();
 			if (!iter.hasNext()) {
@@ -52,12 +52,7 @@ public final class CyclicFlow
 			if (!iter.hasNext()) {
 				iter = iteratorSupply.get();
 			}
-			if (iter instanceof Skippable) {
-				((Skippable) iter).skip();
-			}
-			else {
-				iter.next();
-			}
+			ImplUtils.skip(iter);
 		}
 	}
 
@@ -67,6 +62,7 @@ public final class CyclicFlow
 		private PrimitiveIterator.OfLong iter;
 
 		public OfLong(Supplier<? extends PrimitiveIterator.OfLong> iteratorSupplier) {
+			super(-1);
 			this.iteratorSupplier = iteratorSupplier;
 			iter = iteratorSupplier.get();
 			if (!iter.hasNext()) {
@@ -92,12 +88,7 @@ public final class CyclicFlow
 			if (!iter.hasNext()) {
 				iter = iteratorSupplier.get();
 			}
-			if (iter instanceof Skippable) {
-				((Skippable) iter).skip();
-			}
-			else {
-				iter.nextLong();
-			}
+			ImplUtils.skip(iter);
 		}
 	}
 
@@ -107,6 +98,7 @@ public final class CyclicFlow
 		private PrimitiveIterator.OfDouble iter;
 
 		public OfDouble(Supplier<? extends PrimitiveIterator.OfDouble> iteratorSupplier) {
+			super(-1);
 			this.iteratorSupplier = iteratorSupplier;
 			iter = iteratorSupplier.get();
 			if (!iter.hasNext()) {
@@ -132,12 +124,7 @@ public final class CyclicFlow
 			if (!iter.hasNext()) {
 				iter = iteratorSupplier.get();
 			}
-			if (iter instanceof Skippable) {
-				((Skippable) iter).skip();
-			}
-			else {
-				iter.nextDouble();
-			}
+			ImplUtils.skip(iter);
 		}
 	}
 
@@ -147,6 +134,7 @@ public final class CyclicFlow
 		private PrimitiveIterator.OfInt iter;
 
 		public OfInt(Supplier<? extends PrimitiveIterator.OfInt> iteratorSupplier) {
+			super(-1);
 			this.iteratorSupplier = iteratorSupplier;
 			iter = iteratorSupplier.get();
 			if (!iter.hasNext()) {
@@ -172,12 +160,7 @@ public final class CyclicFlow
 			if (!iter.hasNext()) {
 				iter = iteratorSupplier.get();
 			}
-			if (iter instanceof Skippable) {
-				((Skippable) iter).skip();
-			}
-			else {
-				iter.nextInt();
-			}
+			ImplUtils.skip(iter);
 		}
 	}
 }

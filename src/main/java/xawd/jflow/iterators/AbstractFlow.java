@@ -64,8 +64,19 @@ import xawd.jflow.iterators.misc.PredicateResult;
  * @param <E>
  *            The type of elements produced by this Flow.
  */
-public abstract class AbstractFlow<E> implements Flow<E>
+public abstract class AbstractFlow<E> extends AbstractOptionallySized implements Flow<E>
 {
+	public AbstractFlow(int size)
+	{
+		super(size);
+	}
+
+	@Override
+	public int size()
+	{
+		return size;
+	}
+
 	@Override
 	public <R> AbstractFlow<R> map(final Function<? super E, R> f)
 	{

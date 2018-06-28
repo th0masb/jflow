@@ -25,6 +25,7 @@ public final class PairFoldFlow
 
 		public OfObject(final Flow<E> source, final BiFunction<? super E, ? super E, R> foldFunction)
 		{
+			super(ImplUtils.isSized(source)? Math.max(0, source.size() - 1) : -1);
 			this.source = source;
 			this.foldFunction = foldFunction;
 			this.cached = source.hasNext()? source.next() : null;

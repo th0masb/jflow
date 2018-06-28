@@ -3,6 +3,9 @@
  */
 package xawd.jflow.iterators.impl;
 
+import static xawd.jflow.iterators.impl.ImplUtils.getSize;
+import static xawd.jflow.iterators.impl.ImplUtils.isSized;
+
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
@@ -30,6 +33,7 @@ public final class InsertFlow
 
 		public OfObject(final Flow<E> source, final Iterator<? extends E> inserted)
 		{
+			super(isSized(source) && isSized(inserted)? source.size() + getSize(inserted) : -1);
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -50,12 +54,7 @@ public final class InsertFlow
 		public void skip()
 		{
 			if (inserted.hasNext()) {
-				if (inserted instanceof Skippable) {
-					((Skippable) inserted).skip();
-				}
-				else {
-					inserted.next();
-				}
+				ImplUtils.skip(inserted);
 			}
 			else {
 				source.skip();
