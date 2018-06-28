@@ -22,6 +22,8 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.FlowSet;
 import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
@@ -292,6 +294,18 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	public <C extends Collection<E>> C toCollection(final Supplier<C> collectionFactory)
 	{
 		return ObjectCollectionConsumption.toCollection(this, collectionFactory);
+	}
+
+	@Override
+	public FlowList<E> toList()
+	{
+		return ObjectCollectionConsumption.toList(this);
+	}
+
+	@Override
+	public FlowSet<E> toSet()
+	{
+		return ObjectCollectionConsumption.toSet(this);
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import xawd.jflow.iterators.AbstractLongFlow;
 
 /**
  * @author t
- *
  */
 public final class FlowFromValues
 {
@@ -62,13 +61,14 @@ public final class FlowFromValues
 
 		public OfLong(final long...src)
 		{
+			super(src.length);
 			this.cache = src;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < cache.length;
+			return count < size;
 		}
 		@Override
 		public long nextLong()
@@ -83,7 +83,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= cache.length) {
+			if (count++ >= size) {
 				throw new NoSuchElementException();
 			}
 		}
@@ -96,13 +96,14 @@ public final class FlowFromValues
 
 		public OfDouble(final double...src)
 		{
+			super(src.length);
 			this.cache = src;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < cache.length;
+			return count < size;
 		}
 		@Override
 		public double nextDouble()
@@ -117,7 +118,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= cache.length) {
+			if (count++ >= size) {
 				throw new NoSuchElementException();
 			}
 		}
@@ -130,13 +131,14 @@ public final class FlowFromValues
 
 		public OfInt(final int...src)
 		{
+			super(src.length);
 			this.cache = src;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < cache.length;
+			return count < size;
 		}
 		@Override
 		public int nextInt()
@@ -151,7 +153,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= cache.length) {
+			if (count++ >= size) {
 				throw new NoSuchElementException();
 			}
 		}

@@ -24,9 +24,10 @@ public final class MapToLongFlow
 		private final Flow<E> sourceFlow;
 		private final ToLongFunction<? super E> mappingFunction;
 
-		public FromObject(final Flow<E> sourceFlow, final ToLongFunction<? super E> mappingFunction)
+		public FromObject(final Flow<E> src, final ToLongFunction<? super E> mappingFunction)
 		{
-			this.sourceFlow = sourceFlow;
+			super(src.size());
+			this.sourceFlow = src;
 			this.mappingFunction = mappingFunction;
 		}
 
@@ -54,9 +55,10 @@ public final class MapToLongFlow
 		private final IntFlow sourceFlow;
 		private final IntToLongFunction mappingFunction;
 
-		public FromInt(final IntFlow sourceFlow, final IntToLongFunction mappingFunction)
+		public FromInt(final IntFlow src, final IntToLongFunction mappingFunction)
 		{
-			this.sourceFlow = sourceFlow;
+			super(src.size());
+			this.sourceFlow = src;
 			this.mappingFunction = mappingFunction;
 		}
 
@@ -84,9 +86,10 @@ public final class MapToLongFlow
 		private final DoubleFlow sourceFlow;
 		private final DoubleToLongFunction mappingFunction;
 
-		public FromDouble(final DoubleFlow sourceFlow, final DoubleToLongFunction mappingFunction)
+		public FromDouble(final DoubleFlow src, final DoubleToLongFunction mappingFunction)
 		{
-			this.sourceFlow = sourceFlow;
+			super(src.size());
+			this.sourceFlow = src;
 			this.mappingFunction = mappingFunction;
 		}
 

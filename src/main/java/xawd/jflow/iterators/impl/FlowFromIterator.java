@@ -4,7 +4,6 @@
 package xawd.jflow.iterators.impl;
 
 import static xawd.jflow.iterators.impl.ImplUtils.getSize;
-import static xawd.jflow.iterators.impl.ImplUtils.isSized;
 
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
@@ -28,7 +27,7 @@ public final class FlowFromIterator
 
 		public OfObject(final Iterator<? extends E> src)
 		{
-			super(isSized(src)? getSize(src) : -1);
+			super(ImplUtils.isSized(src)? getSize(src) : -1);
 			this.iterator = src;
 		}
 
@@ -55,9 +54,10 @@ public final class FlowFromIterator
 	{
 		private final PrimitiveIterator.OfDouble source;
 
-		public OfDouble(PrimitiveIterator.OfDouble source)
+		public OfDouble(PrimitiveIterator.OfDouble src)
 		{
-			this.source = source;
+			super(ImplUtils.isSized(src)? getSize(src) : -1);
+			this.source = src;
 		}
 
 		@Override
@@ -83,9 +83,10 @@ public final class FlowFromIterator
 	{
 		private final PrimitiveIterator.OfLong source;
 
-		public OfLong(PrimitiveIterator.OfLong source)
+		public OfLong(PrimitiveIterator.OfLong src)
 		{
-			this.source = source;
+			super(ImplUtils.isSized(src)? getSize(src) : -1);
+			this.source = src;
 		}
 
 		@Override
@@ -111,9 +112,10 @@ public final class FlowFromIterator
 	{
 		private final PrimitiveIterator.OfInt source;
 
-		public OfInt(PrimitiveIterator.OfInt source)
+		public OfInt(PrimitiveIterator.OfInt src)
 		{
-			this.source = source;
+			super(ImplUtils.isSized(src)? getSize(src) : -1);
+			this.source = src;
 		}
 
 		@Override

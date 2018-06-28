@@ -37,7 +37,7 @@ class AbstractFlowFlattenToIntTest extends IteratorExampleProvider implements It
 
 	private AbstractIntFlow repeat(final int element, final int nTimes)
 	{
-		return new AbstractIntFlow() {
+		return new AbstractIntFlow(nTimes) {
 			int count = 0;
 			@Override
 			public boolean hasNext() {

@@ -37,7 +37,7 @@ class AbstractFlowFlattenToDoubleTest extends IteratorExampleProvider implements
 
 	private AbstractDoubleFlow repeat(final double element, final int nTimes)
 	{
-		return new AbstractDoubleFlow() {
+		return new AbstractDoubleFlow(nTimes) {
 			int count = 0;
 			@Override
 			public boolean hasNext() {

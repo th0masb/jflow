@@ -43,7 +43,7 @@ public final class Numbers
 	 */
 	public static LongFlow fibonacci(final int first, final int second)
 	{
-		return new AbstractLongFlow() {
+		return new AbstractLongFlow(-1) {
 			long x1 = first, x2 = second;
 			int count = 0;
 

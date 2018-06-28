@@ -118,6 +118,7 @@ public final class TakewhileFlow
 
 		public OfInt(final IntFlow src, final IntPredicate predicate)
 		{
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -201,6 +202,7 @@ public final class TakewhileFlow
 
 		public OfDouble(final DoubleFlow src, final DoublePredicate predicate)
 		{
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -284,6 +286,7 @@ public final class TakewhileFlow
 
 		public OfLong(final LongFlow src, final LongPredicate predicate)
 		{
+			super(-1);
 			this.src = src;
 			this.predicate = predicate;
 		}

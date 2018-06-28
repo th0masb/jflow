@@ -40,7 +40,7 @@ class AbstractDoubleFlowPredicateConsumptionTest extends IteratorExampleProvider
 
 	private static AbstractDoubleFlow getAllEqualFlow()
 	{
-		return new AbstractDoubleFlow()
+		return new AbstractDoubleFlow(3)
 		{
 			int count = 0;
 			@Override

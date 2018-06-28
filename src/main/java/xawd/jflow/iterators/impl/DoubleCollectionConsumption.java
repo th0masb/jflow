@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.PrimitiveIterator;
 import java.util.function.DoubleFunction;
 
+import xawd.jflow.iterators.OptionallySized;
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 
 /**
@@ -20,11 +21,21 @@ public final class DoubleCollectionConsumption
 
 	public static double[] toArray(final PrimitiveIterator.OfDouble iterator)
 	{
-		final ArrayAccumulators.OfDouble accumulater = ArrayAccumulators.doubleAccumulator();
-		while (iterator.hasNext()) {
-			accumulater.add(iterator.nextDouble());
+		if (ImplUtils.isSized(iterator)) {
+			final double[] cache = new double[((OptionallySized) iterator).size()];
+			int index = 0;
+			while (iterator.hasNext()) {
+				cache[index++] = iterator.nextDouble();
+			}
+			return cache;
 		}
-		return accumulater.compress();
+		else {
+			final ArrayAccumulators.OfDouble accumulater = ArrayAccumulators.doubleAccumulator();
+			while (iterator.hasNext()) {
+				accumulater.add(iterator.nextDouble());
+			}
+			return accumulater.compress();
+		}
 	}
 
 	public static <K, V> Map<K, V> toMap(final PrimitiveIterator.OfDouble iterator, final DoubleFunction<K> keyMapper, final DoubleFunction<V> valueMapper)

@@ -24,8 +24,6 @@ import xawd.jflow.collections.FlowList;
 import xawd.jflow.collections.FlowSet;
 import xawd.jflow.collections.impl.DelegatingFlowList;
 import xawd.jflow.collections.impl.DelegatingFlowSet;
-import xawd.jflow.collections.impl.FlowArrayList;
-import xawd.jflow.collections.impl.FlowHashSet;
 import xawd.jflow.collections.impl.ImmutableFlowList;
 import xawd.jflow.collections.impl.UnmodifiableDelegatingFlowSet;
 import xawd.jflow.iterators.factories.Iterate;
@@ -543,38 +541,23 @@ public interface Flow<E> extends PrototypeFlow<E>
 	<C extends Collection<E>> C toCollection(final Supplier<C> collectionFactory);
 
 	/**
-	 * Caches the elements of this Flow to a FlowSet delegating to the specified
-	 * type of Set.
+	 * Caches the elements in this Flow into a List.
 	 *
-	 * @param setFactory
-	 *            A function which creates empty, mutable instances of Set
-	 * @return A FlowSet delegating to the result of calling the factory function.
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @return A List instance containing all elements of this source Flow in the
+	 *         order that they appeared in the iteration.
 	 */
-	default <S extends Set<E>> FlowSet<E> toSet(Supplier<S> setFactory)
-	{
-		final S mutableSet = setFactory.get();
-		while (hasNext()) {
-			mutableSet.add(next());
-		}
-		return new DelegatingFlowSet<>(mutableSet);
-	}
+	FlowList<E> toList();
 
 	/**
-	 * Caches the elements of this Flow to a FlowList delegating to the specified
-	 * type of List.
+	 * Caches the elements in this Flow into a Set.
 	 *
-	 * @param listFactory
-	 *            A function which creates empty, mutable instances of List
-	 * @return A FlowList delegating to the result of calling the factory function.
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @return A Set instance containing all unique elements of the source flow.
 	 */
-	default <L extends List<E>> FlowList<E> toList(Supplier<L> listFactory)
-	{
-		final L mutableList = listFactory.get();
-		while (hasNext()) {
-			mutableList.add(next());
-		}
-		return new DelegatingFlowList<>(mutableList);
-	}
+	FlowSet<E> toSet();
 
 	/**
 	 * Builds a Map using the elements in this Flow via two supplied functions.
@@ -688,16 +671,37 @@ public interface Flow<E> extends PrototypeFlow<E>
 	}
 
 	/**
-	 * Caches the elements in this Flow into a List.
+	 * Caches the elements of this Flow to a FlowSet delegating to the specified
+	 * type of Set.
 	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @return A List instance containing all elements of this source Flow in the
-	 *         order that they appeared in the iteration.
+	 * @param setFactory
+	 *            A function which creates empty, mutable instances of Set
+	 * @return A FlowSet delegating to the result of calling the factory function.
 	 */
-	default FlowList<E> toList()
+	default <S extends Set<E>> FlowSet<E> toSet(Supplier<S> setFactory)
 	{
-		return toCollection(FlowArrayList::new);
+		final S mutableSet = setFactory.get();
+		while (hasNext()) {
+			mutableSet.add(next());
+		}
+		return new DelegatingFlowSet<>(mutableSet);
+	}
+
+	/**
+	 * Caches the elements of this Flow to a FlowList delegating to the specified
+	 * type of List.
+	 *
+	 * @param listFactory
+	 *            A function which creates empty, mutable instances of List
+	 * @return A FlowList delegating to the result of calling the factory function.
+	 */
+	default <L extends List<E>> FlowList<E> toList(Supplier<L> listFactory)
+	{
+		final L mutableList = listFactory.get();
+		while (hasNext()) {
+			mutableList.add(next());
+		}
+		return new DelegatingFlowList<>(mutableList);
 	}
 
 	/**
@@ -712,18 +716,6 @@ public interface Flow<E> extends PrototypeFlow<E>
 	{
 		final FlowList<E> mutable = toList();
 		return new ImmutableFlowList<>(mutable::get, mutable.size());
-	}
-
-	/**
-	 * Caches the elements in this Flow into a Set.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @return A Set instance containing all unique elements of the source flow.
-	 */
-	default FlowSet<E> toSet()
-	{
-		return toCollection(FlowHashSet::new);
 	}
 
 	/**

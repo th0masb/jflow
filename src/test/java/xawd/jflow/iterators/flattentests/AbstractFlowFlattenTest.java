@@ -43,7 +43,7 @@ class AbstractFlowFlattenTest extends IteratorExampleProvider implements Iterato
 			@Override
 			public AbstractFlow<E> iterator()
 			{
-				return new AbstractFlow<E>() {
+				return new AbstractFlow<E>(nTimes) {
 					int count = 0;
 					@Override
 					public boolean hasNext() {

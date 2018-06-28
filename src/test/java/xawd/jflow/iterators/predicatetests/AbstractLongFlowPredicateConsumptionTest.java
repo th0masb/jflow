@@ -40,7 +40,7 @@ class AbstractLongFlowPredicateConsumptionTest extends IteratorExampleProvider
 
 	private static AbstractLongFlow getAllEqualFlow()
 	{
-		return new AbstractLongFlow()
+		return new AbstractLongFlow(3)
 		{
 			int count = 0;
 			@Override

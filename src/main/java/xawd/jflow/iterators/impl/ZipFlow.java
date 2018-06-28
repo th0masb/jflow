@@ -8,7 +8,6 @@ import java.util.PrimitiveIterator;
 
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.Flow;
-import xawd.jflow.iterators.Skippable;
 import xawd.jflow.iterators.misc.DoublePair;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
@@ -55,12 +54,7 @@ public final class ZipFlow
 		public void skip()
 		{
 			firstSource.skip();
-			if (secondSource instanceof Skippable) {
-				((Skippable) secondSource).skip();
-			}
-			else {
-				secondSource.next();
-			}
+			ImplUtils.skip(secondSource);
 		}
 	}
 
@@ -71,6 +65,7 @@ public final class ZipFlow
 
 		public OfObjectAndLong(final Iterator<? extends E> objectSource, final PrimitiveIterator.OfLong longSource)
 		{
+			super(ImplUtils.calculateNewSize(objectSource, longSource));
 			this.objectSource = objectSource;
 			this.longSource = longSource;
 		}
@@ -90,19 +85,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (objectSource instanceof Skippable) {
-				((Skippable) objectSource).skip();
-			}
-			else {
-				objectSource.next();
-			}
-
-			if (longSource instanceof Skippable) {
-				((Skippable) longSource).skip();
-			}
-			else {
-				longSource.nextLong();
-			}
+			ImplUtils.skip(objectSource);
+			ImplUtils.skip(longSource);
 		}
 	}
 
@@ -113,6 +97,7 @@ public final class ZipFlow
 
 		public OfObjectAndDouble(final Iterator<? extends E> objectSource, final PrimitiveIterator.OfDouble doubleSource)
 		{
+			super(ImplUtils.calculateNewSize(objectSource, doubleSource));
 			this.objectSource = objectSource;
 			this.doubleSource = doubleSource;
 		}
@@ -132,19 +117,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (objectSource instanceof Skippable) {
-				((Skippable) objectSource).skip();
-			}
-			else {
-				objectSource.next();
-			}
-
-			if (doubleSource instanceof Skippable) {
-				((Skippable) doubleSource).skip();
-			}
-			else {
-				doubleSource.nextDouble();
-			}
+			ImplUtils.skip(objectSource);
+			ImplUtils.skip(doubleSource);
 		}
 	}
 
@@ -155,6 +129,7 @@ public final class ZipFlow
 
 		public OfObjectAndInt(final Iterator<? extends E> objectSource, final PrimitiveIterator.OfInt intSource)
 		{
+			super(ImplUtils.calculateNewSize(objectSource, intSource));
 			this.objectSource = objectSource;
 			this.intSource = intSource;
 		}
@@ -174,19 +149,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (objectSource instanceof Skippable) {
-				((Skippable) objectSource).skip();
-			}
-			else {
-				objectSource.next();
-			}
-
-			if (intSource instanceof Skippable) {
-				((Skippable) intSource).skip();
-			}
-			else {
-				intSource.nextInt();
-			}
+			ImplUtils.skip(objectSource);
+			ImplUtils.skip(intSource);
 		}
 	}
 
@@ -197,6 +161,7 @@ public final class ZipFlow
 
 		public OfDoubleWithLong(final PrimitiveIterator.OfDouble doubleSource, final PrimitiveIterator.OfLong longSource)
 		{
+			super(ImplUtils.calculateNewSize(doubleSource, longSource));
 			this.doubleSource = doubleSource;
 			this.longSource = longSource;
 		}
@@ -216,19 +181,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (doubleSource instanceof Skippable) {
-				((Skippable) doubleSource).skip();
-			}
-			else {
-				doubleSource.nextDouble();
-			}
-
-			if (longSource instanceof Skippable) {
-				((Skippable) longSource).skip();
-			}
-			else {
-				longSource.nextLong();
-			}
+			ImplUtils.skip(doubleSource);
+			ImplUtils.skip(longSource);
 		}
 	}
 
@@ -239,6 +193,7 @@ public final class ZipFlow
 
 		public OfIntWithLong(final PrimitiveIterator.OfInt intSource, final PrimitiveIterator.OfLong longSource)
 		{
+			super(ImplUtils.calculateNewSize(intSource, longSource));
 			this.intSource = intSource;
 			this.longSource = longSource;
 		}
@@ -258,19 +213,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (intSource instanceof Skippable) {
-				((Skippable) intSource).skip();
-			}
-			else {
-				intSource.nextInt();
-			}
-
-			if (longSource instanceof Skippable) {
-				((Skippable) longSource).skip();
-			}
-			else {
-				longSource.nextLong();
-			}
+			ImplUtils.skip(intSource);
+			ImplUtils.skip(longSource);
 		}
 	}
 
@@ -281,6 +225,7 @@ public final class ZipFlow
 
 		public OfIntWithDouble(final PrimitiveIterator.OfInt intSource, final PrimitiveIterator.OfDouble doubleSource)
 		{
+			super(ImplUtils.calculateNewSize(intSource, doubleSource));
 			this.intSource = intSource;
 			this.doubleSource = doubleSource;
 		}
@@ -300,19 +245,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (intSource instanceof Skippable) {
-				((Skippable) intSource).skip();
-			}
-			else {
-				intSource.nextInt();
-			}
-
-			if (doubleSource instanceof Skippable) {
-				((Skippable) doubleSource).skip();
-			}
-			else {
-				doubleSource.nextDouble();
-			}
+			ImplUtils.skip(intSource);
+			ImplUtils.skip(doubleSource);
 		}
 	}
 
@@ -323,6 +257,7 @@ public final class ZipFlow
 
 		public OfIntPair(final PrimitiveIterator.OfInt firstIntSource, final PrimitiveIterator.OfInt secondIntSource)
 		{
+			super(ImplUtils.calculateNewSize(firstIntSource, secondIntSource));
 			this.firstIntSource = firstIntSource;
 			this.secondIntSource = secondIntSource;
 		}
@@ -342,19 +277,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (firstIntSource instanceof Skippable) {
-				((Skippable) firstIntSource).skip();
-			}
-			else {
-				firstIntSource.nextInt();
-			}
-
-			if (secondIntSource instanceof Skippable) {
-				((Skippable) secondIntSource).skip();
-			}
-			else {
-				secondIntSource.nextInt();
-			}
+			ImplUtils.skip(firstIntSource);
+			ImplUtils.skip(secondIntSource);
 		}
 	}
 
@@ -365,6 +289,7 @@ public final class ZipFlow
 
 		public OfDoublePair(final PrimitiveIterator.OfDouble firstDoubleSource, final PrimitiveIterator.OfDouble secondDoubleSource)
 		{
+			super(ImplUtils.calculateNewSize(firstDoubleSource, secondDoubleSource));
 			this.firstDoubleSource = firstDoubleSource;
 			this.secondDoubleSource = secondDoubleSource;
 		}
@@ -384,19 +309,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (firstDoubleSource instanceof Skippable) {
-				((Skippable) firstDoubleSource).skip();
-			}
-			else {
-				firstDoubleSource.nextDouble();
-			}
-
-			if (secondDoubleSource instanceof Skippable) {
-				((Skippable) secondDoubleSource).skip();
-			}
-			else {
-				secondDoubleSource.nextDouble();
-			}
+			ImplUtils.skip(firstDoubleSource);
+			ImplUtils.skip(secondDoubleSource);
 		}
 	}
 
@@ -407,6 +321,7 @@ public final class ZipFlow
 
 		public OfLongPair(final PrimitiveIterator.OfLong firstLongSource, final PrimitiveIterator.OfLong secondLongSource)
 		{
+			super(ImplUtils.calculateNewSize(firstLongSource, secondLongSource));
 			this.firstLongSource = firstLongSource;
 			this.secondLongSource = secondLongSource;
 		}
@@ -426,19 +341,8 @@ public final class ZipFlow
 		@Override
 		public void skip()
 		{
-			if (firstLongSource instanceof Skippable) {
-				((Skippable) firstLongSource).skip();
-			}
-			else {
-				firstLongSource.nextLong();
-			}
-
-			if (secondLongSource instanceof Skippable) {
-				((Skippable) secondLongSource).skip();
-			}
-			else {
-				secondLongSource.nextLong();
-			}
+			ImplUtils.skip(firstLongSource);
+			ImplUtils.skip(secondLongSource);
 		}
 	}
 }

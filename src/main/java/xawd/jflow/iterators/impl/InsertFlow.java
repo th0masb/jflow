@@ -4,7 +4,6 @@
 package xawd.jflow.iterators.impl;
 
 import static xawd.jflow.iterators.impl.ImplUtils.getSize;
-import static xawd.jflow.iterators.impl.ImplUtils.isSized;
 
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
@@ -17,7 +16,6 @@ import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
-import xawd.jflow.iterators.Skippable;
 
 /**
  * @author ThomasB
@@ -33,7 +31,7 @@ public final class InsertFlow
 
 		public OfObject(final Flow<E> source, final Iterator<? extends E> inserted)
 		{
-			super(isSized(source) && isSized(inserted)? source.size() + getSize(inserted) : -1);
+			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -69,6 +67,7 @@ public final class InsertFlow
 
 		public OfDouble(final DoubleFlow source, final PrimitiveIterator.OfDouble inserted)
 		{
+			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -89,12 +88,7 @@ public final class InsertFlow
 		public void skip()
 		{
 			if (inserted.hasNext()) {
-				if (inserted instanceof Skippable) {
-					((Skippable) inserted).skip();
-				}
-				else {
-					inserted.nextDouble();
-				}
+				ImplUtils.skip(inserted);
 			}
 			else {
 				source.skip();
@@ -109,6 +103,7 @@ public final class InsertFlow
 
 		public OfLong(final LongFlow source, final PrimitiveIterator.OfLong inserted)
 		{
+			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -129,12 +124,7 @@ public final class InsertFlow
 		public void skip()
 		{
 			if (inserted.hasNext()) {
-				if (inserted instanceof Skippable) {
-					((Skippable) inserted).skip();
-				}
-				else {
-					inserted.nextLong();
-				}
+				ImplUtils.skip(inserted);
 			}
 			else {
 				source.skip();
@@ -149,6 +139,7 @@ public final class InsertFlow
 
 		public OfInt(final IntFlow source, final PrimitiveIterator.OfInt inserted)
 		{
+			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -169,12 +160,7 @@ public final class InsertFlow
 		public void skip()
 		{
 			if (inserted.hasNext()) {
-				if (inserted instanceof Skippable) {
-					((Skippable) inserted).skip();
-				}
-				else {
-					inserted.nextInt();
-				}
+				ImplUtils.skip(inserted);
 			}
 			else {
 				source.skip();

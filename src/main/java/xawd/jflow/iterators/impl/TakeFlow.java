@@ -74,6 +74,7 @@ public final class TakeFlow
 
 		public OfLong(final LongFlow src, final int takeCount)
 		{
+			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -119,6 +120,7 @@ public final class TakeFlow
 
 		public OfInt(final IntFlow src, final int takeCount)
 		{
+			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -164,6 +166,7 @@ public final class TakeFlow
 
 		public OfDouble(final DoubleFlow src, final int takeCount)
 		{
+			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}

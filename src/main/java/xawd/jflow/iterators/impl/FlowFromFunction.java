@@ -65,21 +65,16 @@ public final class FlowFromFunction
 	public static class OfLong extends AbstractLongFlow
 	{
 		private final IntToLongFunction src;
-		private final int elementCap;
-
 		private int count = 0;
 
 		public OfLong(final IntToLongFunction src, final int elementCap) {
-			if (elementCap < 0) {
-				throw new IllegalArgumentException();
-			}
+			super(elementCap);
 			this.src = src;
-			this.elementCap = elementCap;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return count < elementCap;
+			return size < 0 || count < size;
 		}
 
 		@Override
@@ -106,21 +101,16 @@ public final class FlowFromFunction
 	public static class OfInt extends AbstractIntFlow
 	{
 		private final IntUnaryOperator src;
-		private final int elementCap;
-
 		private int count = 0;
 
 		public OfInt(final IntUnaryOperator src, final int elementCap) {
-			if (elementCap < 0) {
-				throw new IllegalArgumentException();
-			}
+			super(elementCap);
 			this.src = src;
-			this.elementCap = elementCap;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return count < elementCap;
+			return size < 0 || count < size;
 		}
 
 		@Override
@@ -147,21 +137,16 @@ public final class FlowFromFunction
 	public static class OfDouble extends AbstractDoubleFlow
 	{
 		private final IntToDoubleFunction src;
-		private final int elementCap;
-
 		private int count = 0;
 
 		public OfDouble(final IntToDoubleFunction src, final int elementCap) {
-			if (elementCap < 0) {
-				throw new IllegalArgumentException();
-			}
+			super(elementCap);
 			this.src = src;
-			this.elementCap = elementCap;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return count < elementCap;
+			return size < 0 || count < size;
 		}
 
 		@Override

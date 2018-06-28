@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.PrimitiveIterator;
 import java.util.function.LongFunction;
 
+import xawd.jflow.iterators.OptionallySized;
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 
 /**
@@ -20,11 +21,21 @@ public final class LongCollectionConsumption
 
 	public static long[] toArray(final PrimitiveIterator.OfLong iterator)
 	{
-		final ArrayAccumulators.OfLong accumulater = ArrayAccumulators.longAccumulator();
-		while (iterator.hasNext()) {
-			accumulater.add(iterator.nextLong());
+		if (ImplUtils.isSized(iterator)) {
+			final long[] cache = new long[((OptionallySized) iterator).size()];
+			int index = 0;
+			while (iterator.hasNext()) {
+				cache[index++] = iterator.nextLong();
+			}
+			return cache;
 		}
-		return accumulater.compress();
+		else {
+			final ArrayAccumulators.OfLong accumulater = ArrayAccumulators.longAccumulator();
+			while (iterator.hasNext()) {
+				accumulater.add(iterator.nextLong());
+			}
+			return accumulater.compress();
+		}
 	}
 
 	public static <K, V> Map<K, V> toMap(final PrimitiveIterator.OfLong iterator, final LongFunction<K> keyMapper, final LongFunction<V> valueMapper)

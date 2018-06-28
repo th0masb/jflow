@@ -164,6 +164,7 @@ public final class SlicedFlow
 
 		public OfInt(final IntFlow src, final IntUnaryOperator indexMapping)
 		{
+			super(-1);
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}
@@ -291,6 +292,7 @@ public final class SlicedFlow
 
 		public OfDouble(final DoubleFlow src, final IntUnaryOperator indexMapping)
 		{
+			super(-1);
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}
@@ -418,6 +420,7 @@ public final class SlicedFlow
 
 		public OfLong(final LongFlow src, final IntUnaryOperator indexMapping)
 		{
+			super(-1);
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}

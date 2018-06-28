@@ -63,6 +63,7 @@ public class MapFlow
 
 		public OfLong(final LongFlow src, final LongUnaryOperator mappingFunction)
 		{
+			super(src.size());
 			this.sourceFlow = src;
 			this.mappingFunction = mappingFunction;
 		}
@@ -93,6 +94,7 @@ public class MapFlow
 
 		public OfDouble(final DoubleFlow src, final DoubleUnaryOperator mappingFunction)
 		{
+			super(src.size());
 			this.sourceFlow = src;
 			this.mappingFunction = mappingFunction;
 		}
@@ -123,6 +125,7 @@ public class MapFlow
 
 		public OfInt(final IntFlow src, final IntUnaryOperator mappingFunction)
 		{
+			super(src.size());
 			this.sourceFlow = src;
 			this.mappingFunction = mappingFunction;
 		}

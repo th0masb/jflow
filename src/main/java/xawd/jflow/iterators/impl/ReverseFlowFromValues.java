@@ -73,6 +73,7 @@ public final class ReverseFlowFromValues
 
 		public OfLong(final long[] source)
 		{
+			super(source.length);
 			this.source = source;
 			count = source.length - 1;
 		}
@@ -109,6 +110,7 @@ public final class ReverseFlowFromValues
 
 		public OfDouble(final double[] source)
 		{
+			super(source.length);
 			this.source = source;
 			count = source.length - 1;
 		}
@@ -145,6 +147,7 @@ public final class ReverseFlowFromValues
 
 		public OfInt(final int[] source)
 		{
+			super(source.length);
 			this.source = source;
 			count = source.length - 1;
 		}

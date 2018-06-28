@@ -37,7 +37,7 @@ class AbstractFlowFlattenToLongTest extends IteratorExampleProvider implements I
 
 	private AbstractLongFlow repeat(final long element, final int nTimes)
 	{
-		return new AbstractLongFlow() {
+		return new AbstractLongFlow(nTimes) {
 			int count = 0;
 			@Override
 			public boolean hasNext() {

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.PrimitiveIterator;
 import java.util.function.IntFunction;
 
+import xawd.jflow.iterators.OptionallySized;
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 
 /**
@@ -20,11 +21,21 @@ public final class IntCollectionConsumption
 
 	public static int[] toArray(final PrimitiveIterator.OfInt iterator)
 	{
-		final ArrayAccumulators.OfInt accumulater = ArrayAccumulators.intAccumulator();
-		while (iterator.hasNext()) {
-			accumulater.add(iterator.nextInt());
+		if (ImplUtils.isSized(iterator)) {
+			final int[] cache = new int[((OptionallySized) iterator).size()];
+			int index = 0;
+			while (iterator.hasNext()) {
+				cache[index++] = iterator.nextInt();
+			}
+			return cache;
 		}
-		return accumulater.compress();
+		else {
+			final ArrayAccumulators.OfInt accumulater = ArrayAccumulators.intAccumulator();
+			while (iterator.hasNext()) {
+				accumulater.add(iterator.nextInt());
+			}
+			return accumulater.compress();
+		}
 	}
 
 	public static <K, V> Map<K, V> toMap(final PrimitiveIterator.OfInt iterator, final IntFunction<K> keyMapper, final IntFunction<V> valueMapper)
