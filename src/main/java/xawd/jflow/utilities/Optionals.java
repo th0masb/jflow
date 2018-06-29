@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.valuewrappers;
+package xawd.jflow.utilities;
 
 import java.util.Optional;
 import java.util.OptionalDouble;

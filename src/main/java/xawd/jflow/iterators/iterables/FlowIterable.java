@@ -17,14 +17,12 @@ import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.IntWith;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
- * An instance of this interface has all the functionality of a standard Java
- * Iterable along with enhanced iterators and functional programming style
- * methods implemented by delegating to these enhanced iterators. See
- * {@link Flow}.
+ * Abstraction of iterable object which can construct enhanced iterators
+ * ({@link Flow}).
  *
  * @param <E>
  *            The type of element this object can iterate over.

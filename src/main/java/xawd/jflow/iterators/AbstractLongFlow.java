@@ -36,12 +36,12 @@ import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
 import xawd.jflow.iterators.impl.ZipFlow;
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * A skeletal implementation of a LongFlow, users writing custom LongFlows

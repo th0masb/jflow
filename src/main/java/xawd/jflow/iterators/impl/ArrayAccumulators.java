@@ -1,7 +1,7 @@
 /**
  *
  */
-package xawd.jflow.iterators.misc;
+package xawd.jflow.iterators.impl;
 
 import static xawd.jflow.utilities.CollectionUtil.tail;
 
@@ -12,36 +12,36 @@ import java.util.List;
  * @author t
  *
  */
-public final class ArrayAccumulators
+final class ArrayAccumulators
 {
 	static final int DEFAULT_ARRAY_SIZE = 40;
 
-	public static OfInt intAccumulator()
+	static OfInt intAccumulator()
 	{
 		return new OfInt();
 	}
 
-	public static OfDouble doubleAccumulator()
+	static OfDouble doubleAccumulator()
 	{
 		return new OfDouble();
 	}
 
-	public static OfLong longAccumulator()
+	static OfLong longAccumulator()
 	{
 		return new OfLong();
 	}
 
-	public static class OfInt
+	static class OfInt
 	{
 		private final List<int[]> arrays = new ArrayList<>();
 		private int count = 0;
 
-		public OfInt()
+		OfInt()
 		{
 			arrays.add(new int[DEFAULT_ARRAY_SIZE]);
 		}
 
-		public void add(final int i)
+		void add(final int i)
 		{
 			final int[] currentStore = tail(arrays);
 			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
@@ -50,7 +50,7 @@ public final class ArrayAccumulators
 			}
 		}
 
-		public int[] compress()
+		int[] compress()
 		{
 			final int[] compressed = new int[count];
 			final int cacheSizeMinusOne = arrays.size() - 1;
@@ -63,17 +63,17 @@ public final class ArrayAccumulators
 		}
 	}
 
-	public static class OfDouble
+	static class OfDouble
 	{
 		private final List<double[]> arrays = new ArrayList<>();
 		private int count = 0;
 
-		public OfDouble()
+		OfDouble()
 		{
 			arrays.add(new double[DEFAULT_ARRAY_SIZE]);
 		}
 
-		public void add(final double i)
+		void add(final double i)
 		{
 			final double[] currentStore = tail(arrays);
 			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
@@ -82,7 +82,7 @@ public final class ArrayAccumulators
 			}
 		}
 
-		public double[] compress()
+		double[] compress()
 		{
 			final double[] compressed = new double[count];
 			final int cacheSizeMinusOne = arrays.size() - 1;
@@ -95,17 +95,17 @@ public final class ArrayAccumulators
 		}
 	}
 
-	public static class OfLong
+	static class OfLong
 	{
 		private final List<long[]> arrays = new ArrayList<>();
 		private int count = 0;
 
-		public OfLong()
+		OfLong()
 		{
 			arrays.add(new long[DEFAULT_ARRAY_SIZE]);
 		}
 
-		public void add(final long i)
+		void add(final long i)
 		{
 			final long[] currentStore = tail(arrays);
 			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
@@ -114,7 +114,7 @@ public final class ArrayAccumulators
 			}
 		}
 
-		public long[] compress()
+		long[] compress()
 		{
 			final long[] compressed = new long[count];
 			final int cacheSizeMinusOne = arrays.size() - 1;

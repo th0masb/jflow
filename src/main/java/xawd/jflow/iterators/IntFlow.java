@@ -13,12 +13,12 @@ import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.IntPair;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * An IntFlow is a sequential, single use iterator with lots of functionality in

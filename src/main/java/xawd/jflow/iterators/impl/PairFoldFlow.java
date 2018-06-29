@@ -7,7 +7,7 @@ import java.util.function.BiFunction;
 
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.Flow;
-import xawd.jflow.valuewrappers.Optionals;
+import xawd.jflow.utilities.Optionals;
 
 /**
  * @author ThomasB

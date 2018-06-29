@@ -16,7 +16,7 @@ import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
-import xawd.jflow.valuewrappers.Optionals;
+import xawd.jflow.utilities.Optionals;
 
 /**
  * @author ThomasB

@@ -16,7 +16,7 @@ import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.factories.IterRange;
 import xawd.jflow.iterators.factories.Iterate;
-import xawd.jflow.valuewrappers.Optionals;
+import xawd.jflow.utilities.Optionals;
 
 /**
  * An immutable implementation of {@link FlowList}. This class is very space

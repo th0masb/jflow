@@ -14,12 +14,12 @@ import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 import java.util.stream.LongStream;
 
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * An LongFlow is a sequential, single use iterator with lots of functionality

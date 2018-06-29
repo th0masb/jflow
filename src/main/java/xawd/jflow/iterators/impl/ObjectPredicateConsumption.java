@@ -8,8 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.PredicatePartition;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * @author ThomasB

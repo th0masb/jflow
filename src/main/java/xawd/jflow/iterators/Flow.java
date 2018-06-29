@@ -26,12 +26,12 @@ import xawd.jflow.collections.FlowSet;
 import xawd.jflow.collections.impl.DelegatingFlowList;
 import xawd.jflow.collections.impl.DelegatingFlowSet;
 import xawd.jflow.iterators.factories.Iterate;
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * A Flow is a sequential, single use iterator with lots of functionality in the

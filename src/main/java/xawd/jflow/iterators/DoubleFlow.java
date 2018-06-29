@@ -14,12 +14,12 @@ import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.DoubleStream;
 
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoublePair;
 import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * A DoubleFlow is a sequential, single use iterator with lots of functionality

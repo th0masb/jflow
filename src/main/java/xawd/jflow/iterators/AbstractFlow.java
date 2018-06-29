@@ -47,12 +47,12 @@ import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
 import xawd.jflow.iterators.impl.ZipFlow;
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * A skeletal implementation of a Flow, users writing custom Flows should

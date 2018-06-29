@@ -33,12 +33,12 @@ import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
 import xawd.jflow.iterators.impl.ZipFlow;
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoublePair;
 import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * A skeletal implementation of DoubleFlow, users writing custom DoubleFlows

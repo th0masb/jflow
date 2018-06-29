@@ -6,9 +6,8 @@ package xawd.jflow.iterators.impl;
 import java.util.PrimitiveIterator;
 import java.util.function.DoublePredicate;
 
-import xawd.jflow.iterators.misc.ArrayAccumulators;
+import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoublePredicatePartition;
-import xawd.jflow.valuewrappers.Bool;
 
 /**
  * @author ThomasB
