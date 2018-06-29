@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.Iterator;
+import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 
 import xawd.jflow.iterators.OptionallySized;
@@ -19,59 +20,60 @@ final class ImplUtils
 	{
 	}
 
-	static boolean isSized(Iterator<?> x)
+//	static boolean isSized(Iterator<?> x)
+//	{
+//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+//	}
+//
+//	static boolean isSized(PrimitiveIterator.OfInt x)
+//	{
+//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+//	}
+//
+//	static boolean isSized(PrimitiveIterator.OfLong x)
+//	{
+//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+//	}
+//
+//	static boolean isSized(PrimitiveIterator.OfDouble x)
+//	{
+//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+//	}
+
+	static OptionalInt getSize(Iterator<?> x)
 	{
-		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
-	static boolean isSized(PrimitiveIterator.OfInt x)
+	static OptionalInt getSize(PrimitiveIterator.OfInt x)
 	{
-		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
-	static boolean isSized(PrimitiveIterator.OfLong x)
+	static OptionalInt getSize(PrimitiveIterator.OfLong x)
 	{
-		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
-	static boolean isSized(PrimitiveIterator.OfDouble x)
+	static OptionalInt getSize(PrimitiveIterator.OfDouble x)
 	{
-		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
+		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
-	static int getSize(Iterator<?> x)
-	{
-		return ((OptionallySized) x).size();
-	}
-
-	static int getSize(PrimitiveIterator.OfInt x)
-	{
-		return ((OptionallySized) x).size();
-	}
-
-	static int getSize(PrimitiveIterator.OfLong x)
-	{
-		return ((OptionallySized) x).size();
-	}
-
-	static int getSize(PrimitiveIterator.OfDouble x)
-	{
-		return ((OptionallySized) x).size();
-	}
-
-	static int calculateNewSize(Object firstSource, final Object secondSource)
+	static OptionalInt calculateNewSize(Object firstSource, final Object secondSource)
 	{
 		if (firstSource instanceof OptionallySized && secondSource instanceof OptionallySized) {
 			final OptionallySized fsrc = (OptionallySized) firstSource, ssrc = (OptionallySized) secondSource;
-			if (fsrc.isSized() && ssrc.isSized()) {
-				return Math.min(fsrc.size(), ssrc.size());
+			if (fsrc.isSizeKnown() && ssrc.isSizeKnown()) {
+				final OptionalInt fsize = fsrc.size(), ssize = ssrc.size();
+				return fsize.getAsInt() < ssize.getAsInt()? fsize : ssize;
 			}
 			else {
-				return -1;
+				return OptionalInt.empty();
 			}
 		}
 		else {
-			return -1;
+			return OptionalInt.empty();
 		}
 	}
 

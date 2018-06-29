@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
@@ -25,20 +26,20 @@ public final class FlowFromValues
 		@SafeVarargs
 		public OfObject(E... es)
 		{
-			super(es.length);
+			super(OptionalInt.of(es.length));
 			this.cache = es;
 		}
 
-//		public OfObject(Collection<? extends E> src)
-//		{
-//			super(src.size());
-//			this.cache = src.toArray();
-//		}
+		public OfObject(Object[] src, Class<E> cls)
+		{
+			super(OptionalInt.of(src.length));
+			this.cache = src;
+		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < size;
+			return count < size.getAsInt();
 		}
 		@SuppressWarnings("unchecked")
 		@Override
@@ -54,7 +55,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= size) {
+			if (count++ >= size.getAsInt()) {
 				throw new NoSuchElementException();
 			}
 		}
@@ -67,14 +68,14 @@ public final class FlowFromValues
 
 		public OfLong(final long...src)
 		{
-			super(src.length);
+			super(OptionalInt.of(src.length));
 			this.cache = src;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < size;
+			return count < size.getAsInt();
 		}
 		@Override
 		public long nextLong()
@@ -89,7 +90,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= size) {
+			if (count++ >= size.getAsInt()) {
 				throw new NoSuchElementException();
 			}
 		}
@@ -102,14 +103,14 @@ public final class FlowFromValues
 
 		public OfDouble(final double...src)
 		{
-			super(src.length);
+			super(OptionalInt.of(src.length));
 			this.cache = src;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < size;
+			return count < size.getAsInt();
 		}
 		@Override
 		public double nextDouble()
@@ -124,7 +125,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= size) {
+			if (count++ >= size.getAsInt()) {
 				throw new NoSuchElementException();
 			}
 		}
@@ -137,14 +138,14 @@ public final class FlowFromValues
 
 		public OfInt(final int...src)
 		{
-			super(src.length);
+			super(OptionalInt.of(src.length));
 			this.cache = src;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return count < size;
+			return count < size.getAsInt();
 		}
 		@Override
 		public int nextInt()
@@ -159,7 +160,7 @@ public final class FlowFromValues
 		@Override
 		public void skip()
 		{
-			if (count++ >= size) {
+			if (count++ >= size.getAsInt()) {
 				throw new NoSuchElementException();
 			}
 		}

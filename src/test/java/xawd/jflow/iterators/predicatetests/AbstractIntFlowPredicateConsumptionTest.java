@@ -6,6 +6,7 @@ package xawd.jflow.iterators.predicatetests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.IntPredicate;
 import java.util.stream.Stream;
 
@@ -40,7 +41,7 @@ class AbstractIntFlowPredicateConsumptionTest extends IteratorExampleProvider
 
 	private static AbstractIntFlow getAllEqualFlow()
 	{
-		return new AbstractIntFlow(3)
+		return new AbstractIntFlow(OptionalInt.of(3))
 		{
 			int count = 0;
 			@Override

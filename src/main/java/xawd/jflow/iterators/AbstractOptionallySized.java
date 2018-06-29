@@ -3,23 +3,26 @@
  */
 package xawd.jflow.iterators;
 
+import java.util.OptionalInt;
+
 /**
- * @author ThomasB
+ * A skeletal implementation of an object which has an 'optional' (i.e possibly
+ * unknown) size.
  *
+ * @author ThomasB
  */
 public abstract class AbstractOptionallySized implements OptionallySized
 {
-	protected final int size;
+	protected final OptionalInt size;
 
-	public AbstractOptionallySized(int size)
+	public AbstractOptionallySized(OptionalInt size)
 	{
 		this.size = size;
 	}
 
 	@Override
-	public int size()
+	public OptionalInt size()
 	{
 		return size;
 	}
-
 }

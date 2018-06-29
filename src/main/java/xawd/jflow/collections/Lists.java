@@ -41,11 +41,9 @@ public final class Lists
 	 * @return An immutable FlowList containing the same references as in the
 	 *         parameter Collection.
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> FlowList<E> copy(Collection<? extends E> src)
 	{
-		final Object[] cpy = src.toArray();
-		return new ImmutableFlowList<>(i -> (E) cpy[i], cpy.length);
+		return new ImmutableFlowList<>(src);
 	}
 
 	/**

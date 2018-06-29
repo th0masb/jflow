@@ -11,8 +11,15 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * @author ThomasB
+ * A mutable FlowSet implementation which inherits all Set related
+ * functionality from the Java {@linkplain HashSet} class and adds enhanced iterator
+ * capabilities without needing to resort to wrapping a separate instance via
+ * {@linkplain DelegatingFlowSet}.
  *
+ * @param <E>
+ *            The type of the elements contained in this Set.
+ *
+ * @author ThomasB
  */
 public final class FlowHashSet<E> extends HashSet<E> implements FlowSet<E>
 {

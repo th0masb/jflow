@@ -6,6 +6,7 @@ package xawd.jflow.iterators.predicatetests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.DoublePredicate;
 import java.util.stream.Stream;
 
@@ -40,7 +41,7 @@ class AbstractDoubleFlowPredicateConsumptionTest extends IteratorExampleProvider
 
 	private static AbstractDoubleFlow getAllEqualFlow()
 	{
-		return new AbstractDoubleFlow(3)
+		return new AbstractDoubleFlow(OptionalInt.of(3))
 		{
 			int count = 0;
 			@Override

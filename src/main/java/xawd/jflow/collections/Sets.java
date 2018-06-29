@@ -80,12 +80,4 @@ public final class Sets
 	{
 		return new FlowHashSet<>(src);
 	}
-	//
-	//	public static void main(String[] args)
-	//	{
-	//		final FlowSet<String> xs = Sets.build("a", "b", "c");
-	//		final FlowList<String> ys = Lists.build("a", "b");
-	//
-	//		ys.anyMatch(s -> s.equals("a")).throwIfFailed(AssertionError::new);
-	//	}
 }

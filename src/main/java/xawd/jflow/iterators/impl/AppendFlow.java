@@ -16,6 +16,7 @@ import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
+import xawd.jflow.valuewrappers.Optionals;
 
 /**
  * @author ThomasB
@@ -32,7 +33,7 @@ public final class AppendFlow
 
 		public OfObject(final Flow<E> source, final Iterator<? extends E> appended)
 		{
-			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
+			super(Optionals.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}
@@ -68,7 +69,7 @@ public final class AppendFlow
 
 		public OfDouble(final DoubleFlow source, final PrimitiveIterator.OfDouble appended)
 		{
-			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
+			super(Optionals.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}
@@ -104,7 +105,7 @@ public final class AppendFlow
 
 		public OfLong(final LongFlow source, final PrimitiveIterator.OfLong appended)
 		{
-			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
+			super(Optionals.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}
@@ -140,7 +141,7 @@ public final class AppendFlow
 
 		public OfInt(final IntFlow source, final PrimitiveIterator.OfInt appended)
 		{
-			super(source.isSized() && ImplUtils.isSized(appended)? source.size() + getSize(appended) : -1);
+			super(Optionals.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}

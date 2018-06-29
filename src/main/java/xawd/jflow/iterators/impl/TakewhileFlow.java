@@ -1,6 +1,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
@@ -23,17 +24,17 @@ public final class TakewhileFlow
 {
 	private TakewhileFlow() {}
 
-	public static class OfObject<T> extends AbstractFlow<T>
+	public static class OfObject<E> extends AbstractFlow<E>
 	{
-		private final Flow<T> src;
-		private final Predicate<? super T> predicate;
+		private final Flow<E> src;
+		private final Predicate<? super E> predicate;
 
-		private T cached = null;
+		private E cached = null;
 		private boolean iteratorExhausted = false;
 
-		public OfObject(final Flow<T> src, final Predicate<? super T> predicate)
+		public OfObject(final Flow<E> src, final Predicate<? super E> predicate)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -48,7 +49,7 @@ public final class TakewhileFlow
 				return true;
 			}
 			else if(src.hasNext()) {
-				final T tmp  = src.next();
+				final E tmp  = src.next();
 				if (predicate.test(tmp)) {
 					cached = tmp;
 					return true;
@@ -65,19 +66,19 @@ public final class TakewhileFlow
 		}
 
 		@Override
-		public T next()
+		public E next()
 		{
 			if (iteratorExhausted) {
 				throw new NoSuchElementException();
 			}
 			else if (cached != null) {
-				final T tmp = cached;
+				final E tmp = cached;
 				cached = null;
 				return tmp;
 			}
 			else { // hasnext wasn't called
 				if (hasNext()) {
-					final T tmp = cached;
+					final E tmp = cached;
 					cached = null;
 					return tmp;
 				}
@@ -118,7 +119,7 @@ public final class TakewhileFlow
 
 		public OfInt(final IntFlow src, final IntPredicate predicate)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -202,7 +203,7 @@ public final class TakewhileFlow
 
 		public OfDouble(final DoubleFlow src, final DoublePredicate predicate)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -286,7 +287,7 @@ public final class TakewhileFlow
 
 		public OfLong(final LongFlow src, final LongPredicate predicate)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}

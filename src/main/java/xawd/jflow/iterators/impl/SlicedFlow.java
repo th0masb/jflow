@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.IntUnaryOperator;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
@@ -36,7 +37,7 @@ public final class SlicedFlow
 
 		public OfObject(final Flow<E> src, final IntUnaryOperator indexMapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}
@@ -164,7 +165,7 @@ public final class SlicedFlow
 
 		public OfInt(final IntFlow src, final IntUnaryOperator indexMapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}
@@ -292,7 +293,7 @@ public final class SlicedFlow
 
 		public OfDouble(final DoubleFlow src, final IntUnaryOperator indexMapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}
@@ -420,7 +421,7 @@ public final class SlicedFlow
 
 		public OfLong(final LongFlow src, final IntUnaryOperator indexMapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.indexMapping = indexMapping;
 		}

@@ -10,6 +10,7 @@ import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
+import xawd.jflow.valuewrappers.Optionals;
 
 /**
  * @author ThomasB
@@ -19,16 +20,16 @@ public final class TakeFlow
 {
 	private TakeFlow() {}
 
-	public static class OfObject<T> extends AbstractFlow<T>
+	public static class OfObject<E> extends AbstractFlow<E>
 	{
-		private final Flow<T> src;
+		private final Flow<E> src;
 		private final int takeCount;
 
 		private int count = 0;
 
-		public OfObject(final Flow<T> src, final int takeCount)
+		public OfObject(final Flow<E> src, final int takeCount)
 		{
-			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
+			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -43,7 +44,7 @@ public final class TakeFlow
 		}
 
 		@Override
-		public T next()
+		public E next()
 		{
 			if (count++ < takeCount) {
 				return src.next();
@@ -74,7 +75,7 @@ public final class TakeFlow
 
 		public OfLong(final LongFlow src, final int takeCount)
 		{
-			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
+			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -120,7 +121,7 @@ public final class TakeFlow
 
 		public OfInt(final IntFlow src, final int takeCount)
 		{
-			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
+			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -166,7 +167,7 @@ public final class TakeFlow
 
 		public OfDouble(final DoubleFlow src, final int takeCount)
 		{
-			super(ImplUtils.isSized(src)? Math.max(src.size(), takeCount) : -1);
+			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}

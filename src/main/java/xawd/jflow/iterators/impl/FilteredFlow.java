@@ -1,6 +1,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
@@ -32,7 +33,7 @@ public class FilteredFlow
 
 		public OfObject(final Flow<T> src, final Predicate<? super T> predicate)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -83,7 +84,7 @@ public class FilteredFlow
 		private long cached = -1;
 
 		public OfLong(final LongFlow src, final LongPredicate predicate) {
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -142,7 +143,7 @@ public class FilteredFlow
 		private int cached = -1;
 
 		public OfInt(final IntFlow src, final IntPredicate predicate) {
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}
@@ -201,7 +202,7 @@ public class FilteredFlow
 		private double cached = -1;
 
 		public OfDouble(final DoubleFlow src, final DoublePredicate predicate) {
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.predicate = predicate;
 		}

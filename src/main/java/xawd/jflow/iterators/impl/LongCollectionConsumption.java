@@ -5,10 +5,10 @@ package xawd.jflow.iterators.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.LongFunction;
 
-import xawd.jflow.iterators.OptionallySized;
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 
 /**
@@ -21,8 +21,9 @@ public final class LongCollectionConsumption
 
 	public static long[] toArray(final PrimitiveIterator.OfLong iterator)
 	{
-		if (ImplUtils.isSized(iterator)) {
-			final long[] cache = new long[((OptionallySized) iterator).size()];
+		final OptionalInt size = ImplUtils.getSize(iterator);
+		if (size.isPresent()) {
+			final long[] cache = new long[size.getAsInt()];
 			int index = 0;
 			while (iterator.hasNext()) {
 				cache[index++] = iterator.nextLong();

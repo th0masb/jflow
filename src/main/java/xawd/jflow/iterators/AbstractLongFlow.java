@@ -5,6 +5,7 @@ package xawd.jflow.iterators;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
@@ -40,18 +41,19 @@ import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * The skelatal implementation of a LongFlow, users writing custom LongFlows should
- * subclass this class. There no internal state in this class, it can be thought of as
- * the composition of all the functionality outlined in the LongFlow interface.
+ * A skeletal implementation of a LongFlow, users writing custom LongFlows
+ * should subclass this class. There no internal state in this class, it can be
+ * thought of as the composition of all the functionality outlined in the
+ * LongFlow interface.
  *
  * @author ThomasB
  */
 public abstract class AbstractLongFlow extends AbstractOptionallySized implements LongFlow
 {
-	public AbstractLongFlow(int size)
+	public AbstractLongFlow(OptionalInt size)
 	{
 		super(size);
 	}
@@ -213,25 +215,25 @@ public abstract class AbstractLongFlow extends AbstractOptionallySized implement
 	}
 
 	@Override
-	public PredicateResult areAllEqual()
+	public Bool areAllEqual()
 	{
 		return LongPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public PredicateResult allMatch(final LongPredicate predicate)
+	public Bool allMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult anyMatch(final LongPredicate predicate)
+	public Bool anyMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult noneMatch(final LongPredicate predicate)
+	public Bool noneMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.noneMatch(this, predicate);
 	}

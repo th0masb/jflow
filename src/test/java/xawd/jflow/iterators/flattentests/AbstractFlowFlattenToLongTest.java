@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.flattentests;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class AbstractFlowFlattenToLongTest extends IteratorExampleProvider implements I
 
 	private AbstractLongFlow repeat(final long element, final int nTimes)
 	{
-		return new AbstractLongFlow(nTimes) {
+		return new AbstractLongFlow(OptionalInt.of(nTimes)) {
 			int count = 0;
 			@Override
 			public boolean hasNext() {

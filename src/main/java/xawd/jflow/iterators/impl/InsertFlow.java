@@ -16,6 +16,7 @@ import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
+import xawd.jflow.valuewrappers.Optionals;
 
 /**
  * @author ThomasB
@@ -31,7 +32,7 @@ public final class InsertFlow
 
 		public OfObject(final Flow<E> source, final Iterator<? extends E> inserted)
 		{
-			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
+			super(Optionals.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -67,7 +68,7 @@ public final class InsertFlow
 
 		public OfDouble(final DoubleFlow source, final PrimitiveIterator.OfDouble inserted)
 		{
-			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
+			super(Optionals.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -103,7 +104,7 @@ public final class InsertFlow
 
 		public OfLong(final LongFlow source, final PrimitiveIterator.OfLong inserted)
 		{
-			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
+			super(Optionals.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -139,7 +140,7 @@ public final class InsertFlow
 
 		public OfInt(final IntFlow source, final PrimitiveIterator.OfInt inserted)
 		{
-			super(source.isSized() && ImplUtils.isSized(inserted)? source.size() + getSize(inserted) : -1);
+			super(Optionals.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}

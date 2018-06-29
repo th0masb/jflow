@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import xawd.jflow.iterators.misc.PredicatePartition;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
  * @author ThomasB
@@ -18,7 +18,7 @@ public final class ObjectPredicateConsumption
 {
 	public ObjectPredicateConsumption() {}
 
-	public static <E> PredicateResult allEqual(final Iterator<? extends E> source)
+	public static <E> Bool allEqual(final Iterator<? extends E> source)
 	{
 		E last = null;
 		while (source.hasNext()) {
@@ -27,40 +27,40 @@ public final class ObjectPredicateConsumption
 				last = next;
 			}
 			else {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
-	public static <E> PredicateResult allMatch(final Iterator<? extends E> source, final Predicate<? super E> predicate)
+	public static <E> Bool allMatch(final Iterator<? extends E> source, final Predicate<? super E> predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.next())) {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
-	public static <E> PredicateResult anyMatch(final Iterator<? extends E> source, final Predicate<? super E> predicate)
+	public static <E> Bool anyMatch(final Iterator<? extends E> source, final Predicate<? super E> predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.next())) {
-				return PredicateResult.PASS;
+				return Bool.TRUE;
 			}
 		}
-		return PredicateResult.FAIL;
+		return Bool.FALSE;
 	}
 
-	public static <E> PredicateResult noneMatch(final Iterator<? extends E> source, final Predicate<? super E> predicate)
+	public static <E> Bool noneMatch(final Iterator<? extends E> source, final Predicate<? super E> predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.next())) {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
 	public static <E> PredicatePartition<E> partition(final Iterator<? extends E> source, final Predicate<? super E> predicate)

@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.IntFunction;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
@@ -28,7 +29,7 @@ public final class FlowFromFunction
 		private int count = 0;
 
 		public OfObject(final IntFunction<T> src, final int elementCap) {
-			super(elementCap);
+			super(elementCap < 0? OptionalInt.empty() : OptionalInt.of(elementCap));
 			this.src = src;
 		}
 
@@ -38,7 +39,7 @@ public final class FlowFromFunction
 
 		@Override
 		public boolean hasNext() {
-			return size < 0 || count < size;
+			return !size.isPresent() || count < size.getAsInt();
 		}
 
 		@Override
@@ -68,13 +69,13 @@ public final class FlowFromFunction
 		private int count = 0;
 
 		public OfLong(final IntToLongFunction src, final int elementCap) {
-			super(elementCap);
+			super(elementCap < 0? OptionalInt.empty() : OptionalInt.of(elementCap));
 			this.src = src;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return size < 0 || count < size;
+			return !size.isPresent() || count < size.getAsInt();
 		}
 
 		@Override
@@ -104,13 +105,13 @@ public final class FlowFromFunction
 		private int count = 0;
 
 		public OfInt(final IntUnaryOperator src, final int elementCap) {
-			super(elementCap);
+			super(elementCap < 0? OptionalInt.empty() : OptionalInt.of(elementCap));
 			this.src = src;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return size < 0 || count < size;
+			return !size.isPresent() || count < size.getAsInt();
 		}
 
 		@Override
@@ -140,13 +141,13 @@ public final class FlowFromFunction
 		private int count = 0;
 
 		public OfDouble(final IntToDoubleFunction src, final int elementCap) {
-			super(elementCap);
+			super(elementCap < 0? OptionalInt.empty() : OptionalInt.of(elementCap));
 			this.src = src;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return size < 0 || count < size;
+			return !size.isPresent() || count < size.getAsInt();
 		}
 
 		@Override

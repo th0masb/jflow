@@ -18,7 +18,7 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
 import xawd.jflow.iterators.misc.IntWith;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
  * An instance of this interface has all the functionality of a standard Java
@@ -26,8 +26,12 @@ import xawd.jflow.iterators.misc.PredicateResult;
  * methods implemented by delegating to these enhanced iterators. See
  * {@link Flow}.
  *
+ * @param <E>
+ *            The type of element this object can iterate over.
+ *
  * @author ThomasB
  */
+@FunctionalInterface
 public interface FlowIterable<E> extends Iterable<E>
 {
 	@Override
@@ -153,7 +157,7 @@ public interface FlowIterable<E> extends Iterable<E>
 	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#areAllEqual()} method.
 	 */
-	default PredicateResult areAllEqual()
+	default Bool areAllEqual()
 	{
 		return flow().areAllEqual();
 	}
@@ -162,7 +166,7 @@ public interface FlowIterable<E> extends Iterable<E>
 	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#allMatch(Predicate)} method.
 	 */
-	default PredicateResult allMatch(final Predicate<? super E> condition)
+	default Bool allMatch(final Predicate<? super E> condition)
 	{
 		return flow().allMatch(condition);
 	}
@@ -171,7 +175,7 @@ public interface FlowIterable<E> extends Iterable<E>
 	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#anyMatch(Predicate)} method.
 	 */
-	default PredicateResult anyMatch(final Predicate<? super E> condition)
+	default Bool anyMatch(final Predicate<? super E> condition)
 	{
 		return flow().anyMatch(condition);
 	}
@@ -180,7 +184,7 @@ public interface FlowIterable<E> extends Iterable<E>
 	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#noneMatch(Predicate)} method.
 	 */
-	default PredicateResult noneMatch(final Predicate<? super E> condition)
+	default Bool noneMatch(final Predicate<? super E> condition)
 	{
 		return flow().noneMatch(condition);
 	}

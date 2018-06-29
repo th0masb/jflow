@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.flattentests;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class AbstractFlowFlattenToDoubleTest extends IteratorExampleProvider implements
 
 	private AbstractDoubleFlow repeat(final double element, final int nTimes)
 	{
-		return new AbstractDoubleFlow(nTimes) {
+		return new AbstractDoubleFlow(OptionalInt.of(nTimes)) {
 			int count = 0;
 			@Override
 			public boolean hasNext() {

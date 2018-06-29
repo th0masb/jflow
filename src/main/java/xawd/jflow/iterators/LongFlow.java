@@ -12,18 +12,24 @@ import java.util.function.LongPredicate;
 import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
+import java.util.stream.LongStream;
 
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * A LongFlow is an primitive functional iterator with lots of functionality in
- * the style of the Java LongStream interface. There are methods inspired by
- * other languages too, namely Python and Haskell.
+ * An LongFlow is a sequential, single use iterator with lots of functionality
+ * in the style of the {@link LongStream} interface. It bears a strong
+ * resemblance in that it they are lazily-evaluated, possibly infinite sequences
+ * of values. It was written with the intention of providing a cleaner API for
+ * common sequence manipulations as well as providing the user more fine-grained
+ * control over value consumption compared to streams. This finer control comes
+ * at the cost of any potential parallelism in computations and therefore Flows
+ * should be viewed as an accompaniment to Streams, not as replacements.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -471,7 +477,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *
 	 * @return True is every element of this LongFlow is equal, false otherwise.
 	 */
-	PredicateResult areAllEqual();
+	Bool areAllEqual();
 
 	/**
 	 * Checks whether every element in this LongFlow passes the supplied
@@ -485,7 +491,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult allMatch(LongPredicate predicate);
+	Bool allMatch(LongPredicate predicate);
 
 	/**
 	 * Checks whether any element in this LongFlow passes the supplied
@@ -499,7 +505,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult anyMatch(LongPredicate predicate);
+	Bool anyMatch(LongPredicate predicate);
 
 	/**
 	 * Checks whether every element in this LongFlow fails the supplied
@@ -513,7 +519,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult noneMatch(LongPredicate predicate);
+	Bool noneMatch(LongPredicate predicate);
 
 	/**
 	 * Partitions the elements of this LongFlow on whether they pass the supplied

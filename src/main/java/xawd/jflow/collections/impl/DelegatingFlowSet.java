@@ -11,8 +11,16 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * @author ThomasB
+ * A FlowSet implementation following the 'Delegator' design pattern. This class
+ * simply wraps a Set instance and all methods described in the Set interface
+ * are delegated to the implementation of the wrapped Set. The main purpose of
+ * this class is to offer the enhanced iterator capabilities to existing Set
+ * implementations.
  *
+ * @param <E>
+ *            The type of the elements contained in this Set.
+ *
+ * @author ThomasB
  */
 public final class DelegatingFlowSet<E> implements FlowSet<E>
 {
@@ -111,5 +119,11 @@ public final class DelegatingFlowSet<E> implements FlowSet<E>
 	public <T> T[] toArray(T[] arg0)
 	{
 		return delegate.toArray(arg0);
+	}
+
+	@Override
+	public String toString()
+	{
+		return delegate.toString();
 	}
 }

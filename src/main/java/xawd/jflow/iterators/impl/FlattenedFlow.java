@@ -1,6 +1,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.Function;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
@@ -28,7 +29,7 @@ public final class FlattenedFlow
 
 		public OfObject(final Flow<E> src, final Function<? super E, ? extends Flow<R>> mapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.mapping = mapping;
 		}
@@ -84,7 +85,7 @@ public final class FlattenedFlow
 
 		public OfLong(final Flow<E> src, final Function<? super E, ? extends LongFlow> mapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.mapping = mapping;
 		}
@@ -140,7 +141,7 @@ public final class FlattenedFlow
 
 		public OfDouble(final Flow<E> src, final Function<? super E, ? extends DoubleFlow> mapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.mapping = mapping;
 		}
@@ -196,7 +197,7 @@ public final class FlattenedFlow
 
 		public OfInt(final Flow<E> src, final Function<? super E, ? extends IntFlow> mapping)
 		{
-			super(-1);
+			super(OptionalInt.empty());
 			this.src = src;
 			this.mapping = mapping;
 		}

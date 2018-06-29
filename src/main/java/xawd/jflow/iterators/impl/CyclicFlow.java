@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.Iterator;
+import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.Supplier;
 
@@ -26,7 +27,7 @@ public final class CyclicFlow
 		private Iterator<? extends T> iter;
 
 		public OfObject(Supplier<? extends Iterator<? extends T>> iteratorSupply) {
-			super(-1);
+			super(OptionalInt.empty());
 			this.iteratorSupply = iteratorSupply;
 			iter = iteratorSupply.get();
 			if (!iter.hasNext()) {
@@ -62,7 +63,7 @@ public final class CyclicFlow
 		private PrimitiveIterator.OfLong iter;
 
 		public OfLong(Supplier<? extends PrimitiveIterator.OfLong> iteratorSupplier) {
-			super(-1);
+			super(OptionalInt.empty());
 			this.iteratorSupplier = iteratorSupplier;
 			iter = iteratorSupplier.get();
 			if (!iter.hasNext()) {
@@ -98,7 +99,7 @@ public final class CyclicFlow
 		private PrimitiveIterator.OfDouble iter;
 
 		public OfDouble(Supplier<? extends PrimitiveIterator.OfDouble> iteratorSupplier) {
-			super(-1);
+			super(OptionalInt.empty());
 			this.iteratorSupplier = iteratorSupplier;
 			iter = iteratorSupplier.get();
 			if (!iter.hasNext()) {
@@ -134,7 +135,7 @@ public final class CyclicFlow
 		private PrimitiveIterator.OfInt iter;
 
 		public OfInt(Supplier<? extends PrimitiveIterator.OfInt> iteratorSupplier) {
-			super(-1);
+			super(OptionalInt.empty());
 			this.iteratorSupplier = iteratorSupplier;
 			iter = iteratorSupplier.get();
 			if (!iter.hasNext()) {

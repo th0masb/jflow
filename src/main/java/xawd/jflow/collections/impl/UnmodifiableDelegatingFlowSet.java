@@ -11,6 +11,16 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
+ * A FlowSet implementation following the 'Delegator' design pattern but with
+ * mutation methods disabled. This class simply wraps a Set instance and all
+ * non-mutation methods described in the Set interface are delegated to the
+ * implementation of the wrapped Set. The main purpose of this class is to offer
+ * the enhanced iterator capabilities to existing Set implementations through an
+ * immutable view.
+ *
+ * @param <E>
+ *            The type of the elements contained in this Set.
+ *
  * @author ThomasB
  */
 public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
@@ -25,19 +35,19 @@ public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 	@Override
 	public boolean add(E e)
 	{
-		throw new RuntimeException("Operation not supported");
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends E> c)
 	{
-		throw new RuntimeException("Operation not supported");
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void clear()
 	{
-		throw new RuntimeException("Operation not supported");
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -79,7 +89,7 @@ public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 	@Override
 	public boolean retainAll(Collection<?> c)
 	{
-		throw new RuntimeException("Operation not supported");
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -103,12 +113,18 @@ public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 	@Override
 	public boolean remove(Object o)
 	{
-		throw new RuntimeException("Operation not supported");
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c)
 	{
-		throw new RuntimeException("Operation not supported");
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String toString()
+	{
+		return delegate.toString();
 	}
 }

@@ -5,15 +5,21 @@ package xawd.jflow.collections.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.function.IntFunction;
 
 import xawd.jflow.collections.FlowList;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * @author ThomasB
+ * A mutable FlowList implementation which inherits all List related
+ * functionality from the Java {@linkplain ArrayList} class and adds enhanced
+ * iterator capabilities without needing to resort to wrapping a separate
+ * instance via {@linkplain DelegatingFlowList}.
  *
+ * @param <E>
+ *            The type of the elements contained in this List.
+ *
+ * @author ThomasB
  */
 public final class FlowArrayList<E> extends ArrayList<E> implements FlowList<E>
 {
@@ -23,9 +29,9 @@ public final class FlowArrayList<E> extends ArrayList<E> implements FlowList<E>
 	{
 	}
 
-	public FlowArrayList(int arg0)
+	public FlowArrayList(int initialCapacity)
 	{
-		super(arg0);
+		super(initialCapacity);
 	}
 
 	public FlowArrayList(Collection<? extends E> c)
@@ -36,11 +42,7 @@ public final class FlowArrayList<E> extends ArrayList<E> implements FlowList<E>
 	@Override
 	public FlowList<E> subList(int fromIndex, int toIndex)
 	{
-		if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
-			throw new IndexOutOfBoundsException();
-		}
-		final IntFunction<E> indexingFunction = this::get;
-		return new ImmutableFlowList<>(i -> indexingFunction.apply(i + fromIndex), toIndex - fromIndex);
+		return new DelegatingFlowList<>(super.subList(fromIndex, toIndex));
 	}
 
 	@Override

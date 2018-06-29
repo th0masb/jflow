@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -43,7 +44,7 @@ class AbstractFlowFlattenTest extends IteratorExampleProvider implements Iterato
 			@Override
 			public AbstractFlow<E> iterator()
 			{
-				return new AbstractFlow<E>(nTimes) {
+				return new AbstractFlow<E>(OptionalInt.of(nTimes)) {
 					int count = 0;
 					@Override
 					public boolean hasNext() {

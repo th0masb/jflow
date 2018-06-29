@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -36,38 +37,34 @@ public final class ObjectCollectionConsumption
 		return container;
 	}
 
-	public static <E> FlowList<E> toList(final Flow<? extends E> iterator)
+	public static <E> FlowList<E> toMutableList(final Flow<? extends E> iterator)
 	{
-		final FlowList<E> container = iterator.isSized()? new FlowArrayList<>(iterator.size()) : new FlowArrayList<>();
+		final OptionalInt size = iterator.size();
+		final FlowList<E> container = size.isPresent()? new FlowArrayList<>(size.getAsInt()) : new FlowArrayList<>();
 		while (iterator.hasNext()) {
 			container.add(iterator.next());
 		}
 		return container;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <E> FlowList<E> toImmutableList(final Flow<? extends E> iterator)
 	{
-		if (iterator.isSized()) {
-			final Object[] cache = new Object[iterator.size()];
-			int index = 0;
-			while (iterator.hasNext()) {
-				cache[index++] = iterator.next();
-			}
-			return new ImmutableFlowList<>(i -> (E) cache[i], cache.length);
+		if (iterator.size().isPresent()) {
+			return new ImmutableFlowList<>(iterator);
 		}
 		else {
-			final FlowList<E> mutable = new FlowArrayList<>();
+			final List<E> mutable = new ArrayList<>();
 			while (iterator.hasNext()) {
 				mutable.add(iterator.next());
 			}
-			return new ImmutableFlowList<>(mutable::get, mutable.size());
+			return new ImmutableFlowList<>(mutable);
 		}
 	}
 
-	public static <E> FlowSet<E> toSet(final Flow<? extends E> iterator)
+	public static <E> FlowSet<E> toMutableSet(final Flow<? extends E> iterator)
 	{
-		final FlowSet<E> container = iterator.isSized()? new FlowHashSet<>(iterator.size()) : new FlowHashSet<>();
+		final OptionalInt size = iterator.size();
+		final FlowSet<E> container = size.isPresent()? new FlowHashSet<>(size.getAsInt()) : new FlowHashSet<>();
 		while (iterator.hasNext()) {
 			container.add(iterator.next());
 		}
@@ -76,7 +73,8 @@ public final class ObjectCollectionConsumption
 
 	public static <E> FlowSet<E> toImmutableSet(final Flow<? extends E> iterator)
 	{
-		final FlowSet<E> container = iterator.isSized()? new FlowHashSet<>(iterator.size()) : new FlowHashSet<>();
+		final OptionalInt size = iterator.size();
+		final FlowSet<E> container = size.isPresent()? new FlowHashSet<>(size.getAsInt()) : new FlowHashSet<>();
 		while (iterator.hasNext()) {
 			container.add(iterator.next());
 		}

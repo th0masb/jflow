@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.PrimitiveIterator.OfInt;
 import java.util.PrimitiveIterator.OfLong;
@@ -51,32 +52,24 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
-import xawd.jflow.iterators.misc.PredicateResult;
-
-
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * The skelatal implementation of a Flow, users writing custom Flows should
+ * A skeletal implementation of a Flow, users writing custom Flows should
  * subclass this class. There no internal state in this class, it can be thought
  * of as the composition of all the functionality outlined in the Flow
  * interface.
  *
- * @author ThomasB
- *
  * @param <E>
  *            The type of elements produced by this Flow.
+ *
+ * @author ThomasB
  */
 public abstract class AbstractFlow<E> extends AbstractOptionallySized implements Flow<E>
 {
-	public AbstractFlow(int size)
+	public AbstractFlow(OptionalInt size)
 	{
 		super(size);
-	}
-
-	@Override
-	public int size()
-	{
-		return size;
 	}
 
 	@Override
@@ -243,25 +236,25 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	}
 
 	@Override
-	public PredicateResult areAllEqual()
+	public Bool areAllEqual()
 	{
 		return ObjectPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public PredicateResult allMatch(final Predicate<? super E> predicate)
+	public Bool allMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult anyMatch(final Predicate<? super E> predicate)
+	public Bool anyMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult noneMatch(final Predicate<? super E> predicate)
+	public Bool noneMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -299,25 +292,25 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	@Override
 	public FlowList<E> toList()
 	{
-		return ObjectCollectionConsumption.toList(this);
+		return ObjectCollectionConsumption.toImmutableList(this);
 	}
 
 	@Override
-	public FlowList<E> toImmutableList()
+	public FlowList<E> toMutableList()
 	{
-		return ObjectCollectionConsumption.toImmutableList(this);
+		return ObjectCollectionConsumption.toMutableList(this);
 	}
 
 	@Override
 	public FlowSet<E> toSet()
 	{
-		return ObjectCollectionConsumption.toSet(this);
+		return ObjectCollectionConsumption.toImmutableSet(this);
 	}
 
 	@Override
-	public FlowSet<E> toImmutableSet()
+	public FlowSet<E> toMutableSet()
 	{
-		return ObjectCollectionConsumption.toImmutableSet(this);
+		return ObjectCollectionConsumption.toMutableSet(this);
 	}
 
 	@Override

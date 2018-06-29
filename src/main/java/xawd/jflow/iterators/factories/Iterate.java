@@ -15,7 +15,7 @@ import xawd.jflow.iterators.impl.FlowFromValues;
 import xawd.jflow.iterators.impl.ReverseFlowFromValues;
 
 /**
- * Factory for building Flow instances from groups of values.
+ * Factory for building Flow instances from existing groups of values.
  *
  * @author ThomasB
  */

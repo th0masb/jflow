@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.testutilities;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
@@ -29,12 +30,12 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractFlow<String> iterator()
 			{
-				return new AbstractFlow<String>(Constants.SMALL_OBJECT_EXAMPLE_SRC.length)
+				return new AbstractFlow<String>(OptionalInt.of(Constants.SMALL_OBJECT_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
 					public boolean hasNext() {
-						return count < size;
+						return count < size.getAsInt();
 					}
 					@Override
 					public String next() {
@@ -61,7 +62,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractFlow<String> iterator()
 			{
-				return new AbstractFlow<String>(Constants.OBJECT_EXAMPLE_SRC.length)
+				return new AbstractFlow<String>(OptionalInt.of(Constants.OBJECT_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -93,7 +94,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractFlow<String> iterator()
 			{
-				return new AbstractFlow<String>(Constants.LARGE_OBJECT_EXAMPLE_SRC.length)
+				return new AbstractFlow<String>(OptionalInt.of(Constants.LARGE_OBJECT_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -125,7 +126,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractFlow<String> iterator()
 			{
-				return new AbstractFlow<String>(1)
+				return new AbstractFlow<String>(OptionalInt.of(1))
 				{
 					int count = 0;
 					@Override
@@ -157,7 +158,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractFlow<String> iterator()
 			{
-				return new AbstractFlow<String>(0)
+				return new AbstractFlow<String>(OptionalInt.of(0))
 				{
 					@Override
 					public boolean hasNext() {
@@ -183,7 +184,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractLongFlow iterator()
 			{
-				return new AbstractLongFlow(Constants.SMALL_LONG_EXAMPLE_SRC.length)
+				return new AbstractLongFlow(OptionalInt.of(Constants.SMALL_LONG_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -215,7 +216,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractLongFlow iterator()
 			{
-				return new AbstractLongFlow(Constants.LONG_EXAMPLE_SRC.length)
+				return new AbstractLongFlow(OptionalInt.of(Constants.LONG_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -247,7 +248,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractLongFlow iterator()
 			{
-				return new AbstractLongFlow(Constants.LARGE_LONG_EXAMPLE_SRC.length)
+				return new AbstractLongFlow(OptionalInt.of(Constants.LARGE_LONG_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -279,7 +280,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractLongFlow iterator()
 			{
-				return new AbstractLongFlow(0) {
+				return new AbstractLongFlow(OptionalInt.of(0)) {
 					@Override
 					public boolean hasNext() {
 						return false;
@@ -304,7 +305,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntFlow iterator()
 			{
-				return new AbstractIntFlow(Constants.SMALL_INT_EXAMPLE_SRC.length)
+				return new AbstractIntFlow(OptionalInt.of(Constants.SMALL_INT_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -336,7 +337,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntFlow iterator()
 			{
-				return new AbstractIntFlow(Constants.INT_EXAMPLE_SRC.length)
+				return new AbstractIntFlow(OptionalInt.of(Constants.INT_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -368,7 +369,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntFlow iterator()
 			{
-				return new AbstractIntFlow(Constants.LARGE_INT_EXAMPLE_SRC.length)
+				return new AbstractIntFlow(OptionalInt.of(Constants.LARGE_INT_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -400,7 +401,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntFlow iterator()
 			{
-				return new AbstractIntFlow(0) {
+				return new AbstractIntFlow(OptionalInt.of(0)) {
 					@Override
 					public boolean hasNext() {
 						return false;
@@ -425,7 +426,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleFlow iterator()
 			{
-				return new AbstractDoubleFlow(Constants.SMALL_DOUBLE_EXAMPLE_SRC.length)
+				return new AbstractDoubleFlow(OptionalInt.of(Constants.SMALL_DOUBLE_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -457,7 +458,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleFlow iterator()
 			{
-				return new AbstractDoubleFlow(Constants.DOUBLE_EXAMPLE_SRC.length)
+				return new AbstractDoubleFlow(OptionalInt.of(Constants.DOUBLE_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -489,7 +490,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleFlow iterator()
 			{
-				return new AbstractDoubleFlow(Constants.LARGE_DOUBLE_EXAMPLE_SRC.length)
+				return new AbstractDoubleFlow(OptionalInt.of(Constants.LARGE_DOUBLE_EXAMPLE_SRC.length))
 				{
 					int count = 0;
 					@Override
@@ -521,7 +522,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleFlow iterator()
 			{
-				return new AbstractDoubleFlow(0) {
+				return new AbstractDoubleFlow(OptionalInt.of(0)) {
 					@Override
 					public boolean hasNext() {
 						return false;

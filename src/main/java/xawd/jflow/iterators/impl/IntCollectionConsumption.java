@@ -5,10 +5,10 @@ package xawd.jflow.iterators.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.IntFunction;
 
-import xawd.jflow.iterators.OptionallySized;
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 
 /**
@@ -21,8 +21,9 @@ public final class IntCollectionConsumption
 
 	public static int[] toArray(final PrimitiveIterator.OfInt iterator)
 	{
-		if (ImplUtils.isSized(iterator)) {
-			final int[] cache = new int[((OptionallySized) iterator).size()];
+		final OptionalInt size = ImplUtils.getSize(iterator);
+		if (size.isPresent()) {
+			final int[] cache = new int[size.getAsInt()];
 			int index = 0;
 			while (iterator.hasNext()) {
 				cache[index++] = iterator.nextInt();

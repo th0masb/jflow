@@ -6,6 +6,7 @@ package xawd.jflow.iterators.impl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
@@ -27,7 +28,7 @@ public final class ReverseFlowFromValues
 
 		public OfObject(final List<? extends E> source)
 		{
-			super(source.size());
+			super(OptionalInt.of(source.size()));
 			count = source.size() - 1;
 			this.source = source.toArray();
 		}
@@ -35,7 +36,7 @@ public final class ReverseFlowFromValues
 		@SafeVarargs
 		public OfObject(E... source)
 		{
-			super(source.length);
+			super(OptionalInt.of(source.length));
 			count = source.length - 1;
 			this.source = Arrays.copyOf((Object[]) source, source.length);
 		}
@@ -73,7 +74,7 @@ public final class ReverseFlowFromValues
 
 		public OfLong(final long[] source)
 		{
-			super(source.length);
+			super(OptionalInt.of(source.length));
 			this.source = source;
 			count = source.length - 1;
 		}
@@ -110,7 +111,7 @@ public final class ReverseFlowFromValues
 
 		public OfDouble(final double[] source)
 		{
-			super(source.length);
+			super(OptionalInt.of(source.length));
 			this.source = source;
 			count = source.length - 1;
 		}
@@ -147,7 +148,7 @@ public final class ReverseFlowFromValues
 
 		public OfInt(final int[] source)
 		{
-			super(source.length);
+			super(OptionalInt.of(source.length));
 			this.source = source;
 			count = source.length - 1;
 		}

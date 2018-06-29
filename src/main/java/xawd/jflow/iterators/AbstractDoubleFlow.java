@@ -3,6 +3,7 @@ package xawd.jflow.iterators;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
@@ -37,19 +38,20 @@ import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * The skelatal implementation of a DoubleFlow, users writing custom DoubleFlows should
- * subclass this class. There no internal state in this class, it can be thought of as
- * the composition of all the functionality outlined in the DoubleFlow interface.
+ * A skeletal implementation of DoubleFlow, users writing custom DoubleFlows
+ * should subclass this class. There is no internal state in this class, it can
+ * be thought of as the composition of all the functionality outlined in the
+ * DoubleFlow interface.
  *
  * @author ThomasB
  * @since 23 Apr 2018
  */
 public abstract class AbstractDoubleFlow extends AbstractOptionallySized implements DoubleFlow
 {
-	public AbstractDoubleFlow(int size)
+	public AbstractDoubleFlow(OptionalInt size)
 	{
 		super(size);
 	}
@@ -211,25 +213,25 @@ public abstract class AbstractDoubleFlow extends AbstractOptionallySized impleme
 	}
 
 	@Override
-	public PredicateResult areAllEqual()
+	public Bool areAllEqual()
 	{
 		return DoublePredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public PredicateResult allMatch(final DoublePredicate predicate)
+	public Bool allMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult anyMatch(final DoublePredicate predicate)
+	public Bool anyMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult noneMatch(final DoublePredicate predicate)
+	public Bool noneMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.noneMatch(this, predicate);
 	}

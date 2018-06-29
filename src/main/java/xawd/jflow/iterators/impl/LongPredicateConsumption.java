@@ -8,7 +8,7 @@ import java.util.function.LongPredicate;
 
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
  * @author ThomasB
@@ -17,7 +17,7 @@ public final class LongPredicateConsumption
 {
 	public LongPredicateConsumption() {}
 
-	public static PredicateResult allEqual(final PrimitiveIterator.OfLong source)
+	public static Bool allEqual(final PrimitiveIterator.OfLong source)
 	{
 		boolean initialised = false;
 		long last = -1L;
@@ -31,40 +31,40 @@ public final class LongPredicateConsumption
 				last = next;
 			}
 			else {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
-	public static PredicateResult allMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static Bool allMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextLong())) {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
-	public static PredicateResult anyMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static Bool anyMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLong())) {
-				return PredicateResult.PASS;
+				return Bool.TRUE;
 			}
 		}
-		return PredicateResult.FAIL;
+		return Bool.FALSE;
 	}
 
-	public static PredicateResult noneMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static Bool noneMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLong())) {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
 	public static LongPredicatePartition partition(final PrimitiveIterator.OfLong source, final LongPredicate predicate)

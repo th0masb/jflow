@@ -37,19 +37,20 @@ import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * The skelatal implementation of a IntFlow, users writing custom IntFlows should
- * subclass this class. There no internal state in this class, it can be thought of as
- * the composition of all the functionality outlined in the IntFlow interface.
+ * A skeletal implementation of a IntFlow, users writing custom IntFlows should
+ * subclass this class. There no internal state in this class, it can be thought
+ * of as the composition of all the functionality outlined in the IntFlow
+ * interface.
  *
  * @author ThomasB
  * @since 23 Apr 2018
  */
 public abstract class AbstractIntFlow extends AbstractOptionallySized implements IntFlow
 {
-	public AbstractIntFlow(int size)
+	public AbstractIntFlow(OptionalInt size)
 	{
 		super(size);
 	}
@@ -198,17 +199,17 @@ public abstract class AbstractIntFlow extends AbstractOptionallySized implements
 		return IntMinMaxConsumption.findMin(this, defaultValue);
 	}
 
-//	@Override
-//	public int minByKey(final int defaultValue, final IntToDoubleFunction key)
-//	{
-//		return IntMinMaxConsumption.findMin(this, defaultValue, key);
-//	}
-//
-//	@Override
-//	public OptionalInt minByKey(final IntToDoubleFunction key)
-//	{
-//		return IntMinMaxConsumption.findMin(this, key);
-//	}
+	// @Override
+	// public int minByKey(final int defaultValue, final IntToDoubleFunction key)
+	// {
+	// return IntMinMaxConsumption.findMin(this, defaultValue, key);
+	// }
+	//
+	// @Override
+	// public OptionalInt minByKey(final IntToDoubleFunction key)
+	// {
+	// return IntMinMaxConsumption.findMin(this, key);
+	// }
 
 	@Override
 	public <C extends Comparable<C>> OptionalInt minByKey(final IntFunction<C> key)
@@ -228,17 +229,17 @@ public abstract class AbstractIntFlow extends AbstractOptionallySized implements
 		return IntMinMaxConsumption.findMax(this, defaultValue);
 	}
 
-//	@Override
-//	public int maxByKey(final int defaultValue, final IntToDoubleFunction key)
-//	{
-//		return IntMinMaxConsumption.findMax(this, defaultValue, key);
-//	}
-//
-//	@Override
-//	public OptionalInt maxByKey(final IntToDoubleFunction key)
-//	{
-//		return IntMinMaxConsumption.findMax(this, key);
-//	}
+	// @Override
+	// public int maxByKey(final int defaultValue, final IntToDoubleFunction key)
+	// {
+	// return IntMinMaxConsumption.findMax(this, defaultValue, key);
+	// }
+	//
+	// @Override
+	// public OptionalInt maxByKey(final IntToDoubleFunction key)
+	// {
+	// return IntMinMaxConsumption.findMax(this, key);
+	// }
 
 	@Override
 	public <C extends Comparable<C>> OptionalInt maxByKey(final IntFunction<C> key)
@@ -247,25 +248,25 @@ public abstract class AbstractIntFlow extends AbstractOptionallySized implements
 	}
 
 	@Override
-	public PredicateResult areAllEqual()
+	public Bool areAllEqual()
 	{
 		return IntPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public PredicateResult allMatch(final IntPredicate predicate)
+	public Bool allMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult anyMatch(final IntPredicate predicate)
+	public Bool anyMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public PredicateResult noneMatch(final IntPredicate predicate)
+	public Bool noneMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.noneMatch(this, predicate);
 	}

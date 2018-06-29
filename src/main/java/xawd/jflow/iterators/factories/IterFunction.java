@@ -50,7 +50,8 @@ public final class IterFunction
 	 * @param indexingFunction
 	 *            A function whose domain is the natural numbers.
 	 * @param indexBound
-	 *            The upper bound (exclusive) of the index range.
+	 *            The upper bound (exclusive) of the index range. If the bound is
+	 *            negative it will be ignored and an infinite iteration returned.
 	 * @return A Flow built from apply the indexing function to a bounded range of
 	 *         natural numbers.
 	 */
@@ -70,7 +71,7 @@ public final class IterFunction
 	 */
 	public static LongFlow longsFrom(final IntToLongFunction indexingFunction)
 	{
-		return new FlowFromFunction.OfLong(indexingFunction, Integer.MAX_VALUE);
+		return new FlowFromFunction.OfLong(indexingFunction, -1);
 	}
 
 	/**
@@ -80,7 +81,8 @@ public final class IterFunction
 	 * @param indexingFunction
 	 *            A function whose domain is the natural numbers.
 	 * @param indexBound
-	 *            The upper bound (exclusive) of the index range.
+	 *            The upper bound (exclusive) of the index range. If the bound is
+	 *            negative it will be ignored and an infinite iteration returned.
 	 * @return A LongFlow built from apply the indexing function to a bounded range
 	 *         of natural numbers.
 	 */
@@ -100,7 +102,7 @@ public final class IterFunction
 	 */
 	public static IntFlow intsFrom(final IntUnaryOperator indexingFunction)
 	{
-		return new FlowFromFunction.OfInt(indexingFunction, Integer.MAX_VALUE);
+		return new FlowFromFunction.OfInt(indexingFunction, -1);
 	}
 
 	/**
@@ -110,7 +112,8 @@ public final class IterFunction
 	 * @param indexingFunction
 	 *            A function whose domain is the natural numbers.
 	 * @param indexBound
-	 *            The upper bound (exclusive) of the index range.
+	 *            The upper bound (exclusive) of the index range. If the bound is
+	 *            negative it will be ignored and an infinite iteration returned.
 	 * @return A IntFlow built from apply the indexing function to a bounded range
 	 *         of natural numbers.
 	 */
@@ -130,7 +133,7 @@ public final class IterFunction
 	 */
 	public static DoubleFlow doublesFrom(final IntToDoubleFunction indexingFunction)
 	{
-		return new FlowFromFunction.OfDouble(indexingFunction, Integer.MAX_VALUE);
+		return new FlowFromFunction.OfDouble(indexingFunction, -1);
 	}
 
 	/**
@@ -140,8 +143,10 @@ public final class IterFunction
 	 * @param indexingFunction
 	 *            A function whose domain is the natural numbers.
 	 * @param indexBound
-	 *            The upper bound (exclusive) of the index range.
-	 * @return A DoubleFlow built from apply the indexing function to a bounded range
+	 *            The upper bound (exclusive) of the index range. If the bound is
+	 *            negative it will be ignored and an infinite iteration returned.
+	 * @return A DoubleFlow built from apply the indexing function to a bounded
+	 *         range
 	 */
 	public static DoubleFlow doublesFrom(final IntToDoubleFunction indexingFunction, final int indexBound)
 	{

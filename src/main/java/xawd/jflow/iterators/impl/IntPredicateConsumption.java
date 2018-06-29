@@ -8,7 +8,7 @@ import java.util.function.IntPredicate;
 
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
  * @author ThomasB
@@ -17,7 +17,7 @@ public final class IntPredicateConsumption
 {
 	public IntPredicateConsumption() {}
 
-	public static PredicateResult allEqual(final PrimitiveIterator.OfInt source)
+	public static Bool allEqual(final PrimitiveIterator.OfInt source)
 	{
 		boolean initialised = false;
 		int last = -1;
@@ -31,40 +31,40 @@ public final class IntPredicateConsumption
 				last = next;
 			}
 			else {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
-	public static PredicateResult allMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static Bool allMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextInt())) {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
-	public static PredicateResult anyMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static Bool anyMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextInt())) {
-				return PredicateResult.PASS;
+				return Bool.TRUE;
 			}
 		}
-		return PredicateResult.FAIL;
+		return Bool.FALSE;
 	}
 
-	public static PredicateResult noneMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static Bool noneMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextInt())) {
-				return PredicateResult.FAIL;
+				return Bool.FALSE;
 			}
 		}
-		return PredicateResult.PASS;
+		return Bool.TRUE;
 	}
 
 	public static IntPredicatePartition partition(final PrimitiveIterator.OfInt source, final IntPredicate predicate)

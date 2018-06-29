@@ -1,6 +1,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 
 import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
@@ -15,7 +16,7 @@ public final class EmptyFlow
 	{
 		public OfObjects()
 		{
-			super(0);
+			super(OptionalInt.of(0));
 		}
 		@Override
 		public boolean hasNext()
@@ -38,7 +39,7 @@ public final class EmptyFlow
 	{
 		public OfLongs()
 		{
-			super(0);
+			super(OptionalInt.of(0));
 		}
 		@Override
 		public boolean hasNext()
@@ -61,7 +62,7 @@ public final class EmptyFlow
 	{
 		public OfDoubles()
 		{
-			super(0);
+			super(OptionalInt.of(0));
 		}
 		@Override
 		public boolean hasNext()
@@ -84,7 +85,7 @@ public final class EmptyFlow
 	{
 		public OfInts()
 		{
-			super(0);
+			super(OptionalInt.of(0));
 		}
 		@Override
 		public boolean hasNext()

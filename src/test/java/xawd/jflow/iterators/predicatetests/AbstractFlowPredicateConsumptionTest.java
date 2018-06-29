@@ -8,6 +8,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -43,7 +44,7 @@ class AbstractFlowPredicateConsumptionTest extends IteratorExampleProvider
 
 	private static AbstractFlow<String> getAllEqualFlow()
 	{
-		return new AbstractFlow<String>(3)
+		return new AbstractFlow<String>(OptionalInt.of(3))
 		{
 			int count = 0;
 			@Override

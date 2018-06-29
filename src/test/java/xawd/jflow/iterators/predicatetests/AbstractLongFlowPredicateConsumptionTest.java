@@ -6,6 +6,7 @@ package xawd.jflow.iterators.predicatetests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.function.LongPredicate;
 import java.util.stream.Stream;
 
@@ -40,7 +41,7 @@ class AbstractLongFlowPredicateConsumptionTest extends IteratorExampleProvider
 
 	private static AbstractLongFlow getAllEqualFlow()
 	{
-		return new AbstractLongFlow(3)
+		return new AbstractLongFlow(OptionalInt.of(3))
 		{
 			int count = 0;
 			@Override

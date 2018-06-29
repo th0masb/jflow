@@ -19,6 +19,7 @@ import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
+import java.util.stream.Stream;
 
 import xawd.jflow.collections.FlowList;
 import xawd.jflow.collections.FlowSet;
@@ -30,12 +31,17 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * A Flow is a functional iterator with lots of functionality in the style of
- * the Java Stream interface. There are methods inspired by other languages too,
- * namely Scala Python and Haskell.
+ * A Flow is a sequential, single use iterator with lots of functionality in the
+ * style of the {@link Stream} interface. It bears a strong resemblance in that
+ * it they are lazily-evaluated, possibly infinite sequences of values. It was
+ * written with the intention of providing a cleaner API for common sequence
+ * manipulations as well as providing the user more fine-grained control over
+ * value consumption compared to streams. This finer control comes at the cost
+ * of any potential parallelism in computations and therefore Flows should be
+ * viewed as an accompaniment to Streams, not as replacements.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -429,7 +435,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True is every element of this Flow is equal (under .equals contract),
 	 *         false otherwise.
 	 */
-	PredicateResult areAllEqual();
+	Bool areAllEqual();
 
 	/**
 	 * Checks whether every element in this Flow passes the supplied predicate test.
@@ -441,7 +447,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult allMatch(final Predicate<? super E> predicate);
+	Bool allMatch(final Predicate<? super E> predicate);
 
 	/**
 	 * Checks whether any element in this Flow passes the supplied predicate test.
@@ -453,7 +459,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult anyMatch(final Predicate<? super E> predicate);
+	Bool anyMatch(final Predicate<? super E> predicate);
 
 	/**
 	 * Checks whether every element in this Flow fails the supplied predicate test.
@@ -465,7 +471,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult noneMatch(final Predicate<? super E> predicate);
+	Bool noneMatch(final Predicate<? super E> predicate);
 
 	/**
 	 * Partitions the elements of this Flow on whether they pass the supplied
@@ -539,7 +545,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	<C extends Collection<E>> C toCollection(final Supplier<C> collectionFactory);
 
 	/**
-	 * Caches the elements in this Flow into a List.
+	 * Caches the elements in this Flow into an immutable (unmodifiable) List.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
@@ -549,17 +555,17 @@ public interface Flow<E> extends PrototypeFlow<E>
 	FlowList<E> toList();
 
 	/**
-	 * Caches the elements in this Flow into an immutable (unmodifiable) List.
+	 * Caches the elements in this Flow into a mutable List.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
 	 * @return An immutable List instance containing all elements of the source Flow
 	 *         in the order that they appeared in the iteration.
 	 */
-	FlowList<E> toImmutableList();
+	FlowList<E> toMutableList();
 
 	/**
-	 * Caches the elements in this Flow into a Set.
+	 * Caches the elements in this Flow into an immutable (unmodifiable) Set.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
@@ -568,14 +574,14 @@ public interface Flow<E> extends PrototypeFlow<E>
 	FlowSet<E> toSet();
 
 	/**
-	 * Caches the elements in this Flow into an immutable (unmodifiable) Set.
+	 * Caches the elements in this Flow into a mutable Set.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
 	 * @return An immutable Set instance containing all unique elements of the
 	 *         source flow.
 	 */
-	FlowSet<E> toImmutableSet();
+	FlowSet<E> toMutableSet();
 
 	/**
 	 * Builds a Map using the elements in this Flow via two supplied functions.
@@ -723,7 +729,8 @@ public interface Flow<E> extends PrototypeFlow<E>
 	}
 
 	/**
-	 * @return An immutable view of the result of {@link Flow#toMap(Function, Function)}.
+	 * @return An immutable view of the result of
+	 *         {@link Flow#toMap(Function, Function)}.
 	 */
 	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper,
 			final Function<? super E, V> valueMapper)
@@ -731,6 +738,14 @@ public interface Flow<E> extends PrototypeFlow<E>
 		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
 
+	/**
+	 * Convenience method which delegates to {@link Flow#zipWith(Iterator)}.
+	 *
+	 * @param other
+	 *            Some iterable object.
+	 * @return the result of zipping this Flow with an iterator created from the
+	 *         parameter iterable.
+	 */
 	default <R> Flow<Pair<E, R>> zipWith(final Iterable<? extends R> other)
 	{
 		return zipWith(other.iterator());

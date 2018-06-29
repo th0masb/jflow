@@ -11,18 +11,24 @@ import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
+import java.util.stream.IntStream;
 
 import xawd.jflow.iterators.misc.IntPair;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * An IntFlow is an primitive functional iterator with lots of functionality in
- * the style of the Java IntStream interface. There are methods inspired by
- * other languages too, namely Python and Haskell.
+ * An IntFlow is a sequential, single use iterator with lots of functionality in
+ * the style of the {@link IntStream} interface. It bears a strong resemblance
+ * in that it they are lazily-evaluated, possibly infinite sequences of values.
+ * It was written with the intention of providing a cleaner API for common
+ * sequence manipulations as well as providing the user more fine-grained
+ * control over value consumption compared to streams. This finer control comes
+ * at the cost of any potential parallelism in computations and therefore Flows
+ * should be viewed as an accompaniment to Streams, not as replacements.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -505,7 +511,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *
 	 * @return True is every element of this IntFlow is equal, false otherwise.
 	 */
-	PredicateResult areAllEqual();
+	Bool areAllEqual();
 
 	/**
 	 * Checks whether every element in this IntFlow passes the supplied IntPredicate
@@ -519,7 +525,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult allMatch(final IntPredicate predicate);
+	Bool allMatch(final IntPredicate predicate);
 
 	/**
 	 * Checks whether any element in this IntFlow passes the supplied IntPredicate
@@ -533,7 +539,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult anyMatch(final IntPredicate predicate);
+	Bool anyMatch(final IntPredicate predicate);
 
 	/**
 	 * Checks whether every element in this IntFlow fails the supplied IntPredicate
@@ -547,7 +553,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult noneMatch(final IntPredicate predicate);
+	Bool noneMatch(final IntPredicate predicate);
 
 	/**
 	 * Partitions the elements of this IntFlow on whether they pass the supplied

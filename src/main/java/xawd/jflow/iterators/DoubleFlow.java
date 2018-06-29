@@ -12,18 +12,24 @@ import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
+import java.util.stream.DoubleStream;
 
 import xawd.jflow.iterators.misc.DoublePair;
 import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
-import xawd.jflow.iterators.misc.PredicateResult;
+import xawd.jflow.valuewrappers.Bool;
 
 /**
- * A DoubleFlow is a primitive functional iterator with lots of functionality in
- * the style of the Java DoubleStream interface. There are methods inspired by
- * other languages too, namely Python and Haskell.
+ * A DoubleFlow is a sequential, single use iterator with lots of functionality
+ * in the style of the {@link DoubleStream} interface. It bears a strong
+ * resemblance in that it they are lazily-evaluated, possibly infinite sequences
+ * of values. It was written with the intention of providing a cleaner API for
+ * common sequence manipulations as well as providing the user more fine-grained
+ * control over value consumption compared to streams. This finer control comes
+ * at the cost of any potential parallelism in computations and therefore Flows
+ * should be viewed as an accompaniment to Streams, not as replacements.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -468,7 +474,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *
 	 * @return True is every element of this DoubleFlow is equal, false otherwise.
 	 */
-	PredicateResult areAllEqual();
+	Bool areAllEqual();
 
 	/**
 	 * Checks whether every element in this DoubleFlow passes the supplied
@@ -482,7 +488,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult allMatch(final DoublePredicate predicate);
+	Bool allMatch(final DoublePredicate predicate);
 
 	/**
 	 * Checks whether any element in this DoubleFlow passes the supplied
@@ -496,7 +502,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult anyMatch(final DoublePredicate predicate);
+	Bool anyMatch(final DoublePredicate predicate);
 
 	/**
 	 * Checks whether every element in this DoubleFlow fails the supplied
@@ -510,7 +516,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	PredicateResult noneMatch(final DoublePredicate predicate);
+	Bool noneMatch(final DoublePredicate predicate);
 
 	/**
 	 * Partitions the elements of this DoubleFlow on whether they pass the supplied

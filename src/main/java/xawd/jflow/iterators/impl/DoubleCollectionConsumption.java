@@ -5,10 +5,10 @@ package xawd.jflow.iterators.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.DoubleFunction;
 
-import xawd.jflow.iterators.OptionallySized;
 import xawd.jflow.iterators.misc.ArrayAccumulators;
 
 /**
@@ -21,8 +21,9 @@ public final class DoubleCollectionConsumption
 
 	public static double[] toArray(final PrimitiveIterator.OfDouble iterator)
 	{
-		if (ImplUtils.isSized(iterator)) {
-			final double[] cache = new double[((OptionallySized) iterator).size()];
+		final OptionalInt size = ImplUtils.getSize(iterator);
+		if (size.isPresent()) {
+			final double[] cache = new double[size.getAsInt()];
 			int index = 0;
 			while (iterator.hasNext()) {
 				cache[index++] = iterator.nextDouble();

@@ -1,5 +1,7 @@
 package xawd.jflow.iterators.factories;
 
+import java.util.OptionalInt;
+
 import xawd.jflow.iterators.AbstractLongFlow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
@@ -43,7 +45,7 @@ public final class Numbers
 	 */
 	public static LongFlow fibonacci(final int first, final int second)
 	{
-		return new AbstractLongFlow(-1) {
+		return new AbstractLongFlow(OptionalInt.empty()) {
 			long x1 = first, x2 = second;
 			int count = 0;
 
