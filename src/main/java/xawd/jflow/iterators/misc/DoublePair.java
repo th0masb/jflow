@@ -21,11 +21,11 @@ public final class DoublePair
 		return new DoublePair(first, second);
 	}
 
-	public double getFirst() {
+	public double first() {
 		return first;
 	}
 
-	public double getSecond() {
+	public double second() {
 		return second;
 	}
 
