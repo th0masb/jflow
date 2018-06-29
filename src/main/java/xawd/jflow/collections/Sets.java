@@ -9,8 +9,8 @@ import xawd.jflow.collections.impl.FlowHashSet;
 import xawd.jflow.collections.impl.UnmodifiableDelegatingFlowSet;
 
 /**
- * A collection of static factory methods pertaining to the creation of
- * {@link FlowSet} instances.
+ * A collection of static factory methods for creating {@link FlowSet}
+ * instances.
  *
  * @author ThomasB
  */

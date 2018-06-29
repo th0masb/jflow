@@ -11,7 +11,7 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * A mutable FlowList implementation which inherits all List related
+ * A mutable {@link FlowList} implementation which inherits all List related
  * functionality from the Java {@linkplain ArrayList} class and adds enhanced
  * iterator capabilities without needing to resort to wrapping a separate
  * instance via {@linkplain DelegatingFlowList}.

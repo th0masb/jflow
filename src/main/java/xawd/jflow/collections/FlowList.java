@@ -13,9 +13,11 @@ import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.iterables.FlowIterable;
 
 /**
- * An instance of this interface has all the functionality of a standard Java
- * List along with enhanced iterators and functional programming style methods
- * implemented by delegating to these enhanced iterators. See {@link Flow}.
+ * An extension of the List interface adding enhanced iterators to support a
+ * more functional style of programming. See {@link Flow}.
+ *
+ * @param <E>
+ *            The type of the elements in this list.
  *
  * @author ThomasB
  */

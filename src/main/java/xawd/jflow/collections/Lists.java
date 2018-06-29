@@ -9,8 +9,8 @@ import xawd.jflow.collections.impl.FlowArrayList;
 import xawd.jflow.collections.impl.ImmutableFlowList;
 
 /**
- * A collection of static factory methods pertaining to the creation of
- * {@link FlowList} instances.
+ * A collection of static factory methods for creating {@link FlowList}
+ * instances.
  *
  * @author ThomasB
  */

@@ -16,13 +16,13 @@ import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.impl.FlowFromFunction;
 
 /**
- * A functional implementation of a List. It works by wrapping a function whose
- * domain is the natural numbers and a positive number which determines the size
- * of the list and the index range of its elements. Treating this class alone it
- * is immutable, however constructing an instance via some impure function can
- * result in mutable and possibly undefined behaviour. Therefore it is
- * recommended only to pass pure (or essentially pure) functions to the relevant
- * constructor.
+ * A functional implementation of a {@link FlowList}. It works by wrapping a
+ * function whose domain is the natural numbers and a positive number which
+ * determines the size of the list and the index range of its elements. Treating
+ * this class alone it is immutable, however constructing an instance via some
+ * impure function can result in mutable and possibly undefined behaviour.
+ * Therefore it is recommended only to pass pure (or essentially pure) functions
+ * to the relevant constructor.
  *
  * @param <E>
  *            The type of the elements contained in this List.

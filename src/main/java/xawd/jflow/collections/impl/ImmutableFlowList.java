@@ -19,12 +19,12 @@ import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.valuewrappers.Optionals;
 
 /**
- * An immutable implementation of the {@link FlowList} interface. This class is
- * very space efficient as it simply wraps a single Object array. When combined
- * with {@link Flow} instances one can write very clean, efficient and safe code
- * code without ever needing to reference this type directly. In fact I would
- * say it is bad practice to ever directly reference this type, static factories
- * and Flow collection should be used to instantiate them. See
+ * An immutable implementation of {@link FlowList}. This class is very space
+ * efficient as it simply wraps a single Object array. When combined with
+ * {@link Flow} instances one can write very clean, efficient and safe code code
+ * without ever needing to reference this type directly. In fact I would say it
+ * is bad practice to ever directly reference this type, static factories and
+ * Flow collection should be used to instantiate them. See
  * {@link Lists#build(Object...)}, {@link Lists#copy(Collection)}
  * {@link Flow#toList()}.
  *

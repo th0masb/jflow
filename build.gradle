@@ -3,6 +3,12 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 version = '0.1'
 
+if (JavaVersion.current().isJava8Compatible()) {
+	tasks.withType(Javadoc) {
+    	options.addStringOption('Xdoclint:none', '-quiet')
+    }
+ }
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'JFlow',

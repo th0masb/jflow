@@ -11,11 +11,11 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * A FlowSet implementation following the 'Delegator' design pattern. This class
- * simply wraps a Set instance and all methods described in the Set interface
- * are delegated to the implementation of the wrapped Set. The main purpose of
- * this class is to offer the enhanced iterator capabilities to existing Set
- * implementations.
+ * A {@link FlowSet} implementation following the 'Delegator' design pattern.
+ * This class simply wraps a Set instance and all methods described in the Set
+ * interface are delegated to the implementation of the wrapped Set. The main
+ * purpose of this class is to offer the enhanced iterator capabilities to
+ * existing Set implementations.
  *
  * @param <E>
  *            The type of the elements contained in this Set.

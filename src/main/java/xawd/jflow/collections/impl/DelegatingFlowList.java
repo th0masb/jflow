@@ -12,8 +12,8 @@ import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * A FlowList implementation following the 'Delegator' design pattern. This
- * class simply wraps a List instance and all methods described in the List
+ * A {@link FlowList} implementation following the 'Delegator' design pattern.
+ * This class simply wraps a List instance and all methods described in the List
  * interface are delegated to the implementation of the wrapped List. The main
  * purpose of this class is to offer the enhanced iterator capabilities to
  * existing List implementations.

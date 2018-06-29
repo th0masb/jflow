@@ -37,7 +37,7 @@ public final class Optionals
 	/**
 	 * Static factory for wrapping values in optional instances.
 	 *
-	 * @param t
+	 * @param x
 	 *            The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
@@ -49,7 +49,7 @@ public final class Optionals
 	/**
 	 * Static factory for wrapping values in optional instances.
 	 *
-	 * @param t
+	 * @param x
 	 *            The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
@@ -61,7 +61,7 @@ public final class Optionals
 	/**
 	 * Static factory for wrapping values in optional instances.
 	 *
-	 * @param t
+	 * @param x
 	 *            The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
