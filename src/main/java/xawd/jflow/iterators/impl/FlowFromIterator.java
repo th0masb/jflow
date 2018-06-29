@@ -31,6 +31,12 @@ public final class FlowFromIterator
 			this.iterator = src;
 		}
 
+		public OfObject(final Iterator<? extends E> src, int size)
+		{
+			super(size);
+			this.iterator = src;
+		}
+
 		@Override
 		public boolean hasNext()
 		{

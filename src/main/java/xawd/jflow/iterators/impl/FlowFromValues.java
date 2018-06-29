@@ -29,6 +29,12 @@ public final class FlowFromValues
 			this.cache = es;
 		}
 
+//		public OfObject(Collection<? extends E> src)
+//		{
+//			super(src.size());
+//			this.cache = src.toArray();
+//		}
+
 		@Override
 		public boolean hasNext()
 		{

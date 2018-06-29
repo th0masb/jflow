@@ -99,7 +99,7 @@ public final class DelegatingFlowList<E> implements FlowList<E>
 	@Override
 	public Flow<E> iterator()
 	{
-		return new FlowFromIterator.OfObject<>(delegate.iterator());
+		return new FlowFromIterator.OfObject<>(delegate.iterator(), size());
 	}
 
 	@Override

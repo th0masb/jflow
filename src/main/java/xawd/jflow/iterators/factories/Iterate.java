@@ -3,6 +3,7 @@
  */
 package xawd.jflow.iterators.factories;
 
+import java.util.Collection;
 import java.util.List;
 
 import xawd.jflow.iterators.DoubleFlow;
@@ -38,6 +39,22 @@ public final class Iterate
 	public static <E> Flow<E> over(final Iterable<? extends E> source)
 	{
 		return new FlowFromIterator.OfObject<>(source.iterator());
+	}
+
+	/**
+	 * Construct a Flow which wraps an iterator provided from an existing
+	 * Collection.
+	 *
+	 * @param <E>
+	 *            The upper bound on the source Collection element type.
+	 * @param source
+	 *            Some Collection of elements.
+	 * @return A Flow instance wrapping an iterator constructed from the source
+	 *         sequence.
+	 */
+	public static <E> Flow<E> over(final Collection<? extends E> source)
+	{
+		return new FlowFromIterator.OfObject<>(source.iterator(), source.size());
 	}
 
 	/**

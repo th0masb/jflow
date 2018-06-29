@@ -4,18 +4,20 @@
 package xawd.jflow.collections.impl;
 
 import java.util.Collection;
+import java.util.Set;
 
 import xawd.jflow.collections.FlowSet;
 import xawd.jflow.iterators.Flow;
+import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
  * @author ThomasB
  */
 public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 {
-	private final FlowSet<E> delegate;
+	private final Set<E> delegate;
 
-	public UnmodifiableDelegatingFlowSet(FlowSet<E> delegate)
+	public UnmodifiableDelegatingFlowSet(Set<E> delegate)
 	{
 		this.delegate = delegate;
 	}
@@ -71,7 +73,7 @@ public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 	@Override
 	public Flow<E> iterator()
 	{
-		return delegate.iterator();
+		return new FlowFromIterator.OfObject<>(delegate.iterator(), size());
 	}
 
 	@Override

@@ -74,7 +74,7 @@ public final class DelegatingFlowSet<E> implements FlowSet<E>
 	@Override
 	public Flow<E> iterator()
 	{
-		return new FlowFromIterator.OfObject<>(delegate.iterator());
+		return new FlowFromIterator.OfObject<>(delegate.iterator(), size());
 	}
 
 	@Override

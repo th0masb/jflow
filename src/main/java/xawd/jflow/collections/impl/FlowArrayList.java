@@ -46,6 +46,6 @@ public final class FlowArrayList<E> extends ArrayList<E> implements FlowList<E>
 	@Override
 	public Flow<E> iterator()
 	{
-		return new FlowFromIterator.OfObject<>(super.iterator());
+		return new FlowFromIterator.OfObject<>(super.iterator(), size());
 	}
 }

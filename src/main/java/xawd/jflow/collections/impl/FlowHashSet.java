@@ -40,6 +40,6 @@ public final class FlowHashSet<E> extends HashSet<E> implements FlowSet<E>
 	@Override
 	public Flow<E> iterator()
 	{
-		return new FlowFromIterator.OfObject<>(super.iterator());
+		return new FlowFromIterator.OfObject<>(super.iterator(), size());
 	}
 }
