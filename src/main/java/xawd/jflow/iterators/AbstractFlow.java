@@ -262,7 +262,7 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	@Override
 	public PredicatePartition<E> partition(final Predicate<? super E> predicate)
 	{
-		return ObjectPredicateConsumption.partition(this, predicate);
+		return new PredicatePartition<>(this, predicate);
 	}
 
 	@Override

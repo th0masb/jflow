@@ -1,47 +1,53 @@
 package xawd.jflow.iterators.misc;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
+import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.Lists;
 import xawd.jflow.iterators.Flow;
-import xawd.jflow.iterators.factories.Iterate;
 
 /**
+ * Represents result of partitioning some sequence of elements based on whether
+ * they pass or fail a given predicate.
+ *
  * @author ThomasB
  * @since 26 Apr 2018
  */
 public final class PredicatePartition<E>
 {
-	private final List<E> acceptedElements, rejectedElements;
+	private final FlowList<E> acceptedElements, rejectedElements;
 
-	public PredicatePartition(final List<E> acceptedElements, final List<E> rejectedElements)
+	public PredicatePartition(Flow<E> source, Predicate<? super E> predicate)
 	{
-		this.acceptedElements = Collections.unmodifiableList(acceptedElements);
-		this.rejectedElements = Collections.unmodifiableList(rejectedElements);
+		final List<E> accepted = new ArrayList<>(), rejected = new ArrayList<>();
+		while (source.hasNext()) {
+			final E next = source.next();
+			if (predicate.test(next)) {
+				accepted.add(next);
+			}
+			else {
+				rejected.add(next);
+			}
+		}
+		this.acceptedElements = Lists.copy(accepted);
+		this.rejectedElements = Lists.copy(rejected);
 	}
 
-	public List<E> getAccepted()
+	public FlowList<E> getAccepted()
 	{
 		return acceptedElements;
 	}
 
-	public Flow<E> iterateAccepted()
-	{
-		return Iterate.over(acceptedElements);
-	}
-
-	public List<E> getRejected()
+	public FlowList<E> getRejected()
 	{
 		return rejectedElements;
 	}
 
-	public Flow<E> iterateRejected()
-	{
-		return Iterate.over(rejectedElements);
-	}
-
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((acceptedElements == null) ? 0 : acceptedElements.hashCode());
@@ -50,7 +56,8 @@ public final class PredicatePartition<E>
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(final Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

@@ -3,13 +3,10 @@
  */
 package xawd.jflow.iterators.impl;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.function.Predicate;
 
 import xawd.jflow.iterators.misc.Bool;
-import xawd.jflow.iterators.misc.PredicatePartition;
 
 /**
  * @author ThomasB
@@ -61,20 +58,5 @@ public final class ObjectPredicateConsumption
 			}
 		}
 		return Bool.TRUE;
-	}
-
-	public static <E> PredicatePartition<E> partition(final Iterator<? extends E> source, final Predicate<? super E> predicate)
-	{
-		final List<E> accepted = new ArrayList<>(), rejected = new ArrayList<>();
-		while (source.hasNext()) {
-			final E next = source.next();
-			if (predicate.test(next)) {
-				accepted.add(next);
-			}
-			else {
-				rejected.add(next);
-			}
-		}
-		return new PredicatePartition<>(accepted, rejected);
 	}
 }
