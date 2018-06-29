@@ -6,6 +6,7 @@ package xawd.jflow.iterators.misc;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+
 /**
  * Monoidal representation of a truth value;
  *
@@ -16,6 +17,21 @@ public enum PredicateResult
 	PASS(true), FAIL(false);
 
 	private final boolean asBoolean;
+
+	public PredicateResult or(PredicateResult other)
+	{
+		return asBoolean || other.asBoolean? PASS : FAIL;
+	}
+
+	public PredicateResult xor(PredicateResult other)
+	{
+		return asBoolean ^ other.asBoolean? PASS : FAIL;
+	}
+
+	public PredicateResult and(PredicateResult other)
+	{
+		return asBoolean && other.asBoolean? PASS : FAIL;
+	}
 
 	private PredicateResult(boolean asBoolean)
 	{
