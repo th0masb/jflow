@@ -61,30 +61,35 @@ public class FunctionalFlowList<E> implements FlowList<E>
 		this.indexingFunction = i -> (E) cpy[i];
 	}
 
+	@Deprecated
 	@Override
 	public boolean add(E arg0)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public void add(int arg0, E arg1)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean addAll(Collection<? extends E> arg0)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean addAll(int arg0, Collection<? extends E> arg1)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public void clear()
 	{
@@ -152,30 +157,35 @@ public class FunctionalFlowList<E> implements FlowList<E>
 		return new ImmutableListIterator<>(size, indexingFunction, arg0);
 	}
 
+	@Deprecated
 	@Override
 	public boolean remove(Object arg0)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public E remove(int arg0)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean removeAll(Collection<?> arg0)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean retainAll(Collection<?> arg0)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public E set(int arg0, E arg1)
 	{

@@ -58,30 +58,35 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 		cache = src.toArray();
 	}
 
+	@Deprecated
 	@Override
 	public boolean add(E e)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public void add(int index, E element)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean addAll(Collection<? extends E> c)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean addAll(int index, Collection<? extends E> c)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public void clear()
 	{
@@ -152,30 +157,35 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 		return new ImmutableListIterator<>(cache.length, this::get, index);
 	}
 
+	@Deprecated
 	@Override
 	public boolean remove(Object o)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public E remove(int index)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean removeAll(Collection<?> c)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean retainAll(Collection<?> c)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public E set(int index, E element)
 	{

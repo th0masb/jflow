@@ -32,18 +32,21 @@ public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 		this.delegate = delegate;
 	}
 
+	@Deprecated
 	@Override
 	public boolean add(E e)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean addAll(Collection<? extends E> c)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public void clear()
 	{
@@ -86,6 +89,7 @@ public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 		return new FlowFromIterator.OfObject<>(delegate.iterator(), size());
 	}
 
+	@Deprecated
 	@Override
 	public boolean retainAll(Collection<?> c)
 	{
@@ -110,12 +114,14 @@ public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
 		return delegate.toArray(a);
 	}
 
+	@Deprecated
 	@Override
 	public boolean remove(Object o)
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	@Deprecated
 	@Override
 	public boolean removeAll(Collection<?> c)
 	{
