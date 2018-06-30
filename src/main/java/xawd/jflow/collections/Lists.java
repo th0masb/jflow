@@ -21,7 +21,7 @@ public final class Lists
 	}
 
 	/**
-	 * Create an immutable FlowList containing the passed arguments.
+	 * Create an immutable array-backed FlowList containing the passed arguments.
 	 *
 	 * @param elements
 	 *            The elements to cache into a FlowList.
@@ -34,7 +34,8 @@ public final class Lists
 	}
 
 	/**
-	 * Create an immutable FlowList containing elements in the parameter Collection.
+	 * Create an immutable array-backed FlowList containing elements in the
+	 * parameter Collection.
 	 *
 	 * @param src
 	 *            The container to copy references from.
@@ -47,7 +48,7 @@ public final class Lists
 	}
 
 	/**
-	 * Create an mutable FlowList containing the passed arguments.
+	 * Create a mutable array-backed FlowList containing the passed arguments.
 	 *
 	 * @param elements
 	 *            The elements to cache into a FlowList.
@@ -64,7 +65,8 @@ public final class Lists
 	}
 
 	/**
-	 * Create an mutable FlowList containing elements in the parameter Collection.
+	 * Create a mutable array-backed FlowList containing elements in the parameter
+	 * Collection.
 	 *
 	 * @param src
 	 *            The container to copy references from.

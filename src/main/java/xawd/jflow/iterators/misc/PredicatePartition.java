@@ -35,6 +35,12 @@ public final class PredicatePartition<E>
 		this.rejectedElements = Lists.copy(rejected);
 	}
 
+	public PredicatePartition(List<? extends E> accepted, List<? extends E> rejected)
+	{
+		this.acceptedElements = Lists.copy(accepted);
+		this.rejectedElements = Lists.copy(rejected);
+	}
+
 	public FlowList<E> getAccepted()
 	{
 		return acceptedElements;
