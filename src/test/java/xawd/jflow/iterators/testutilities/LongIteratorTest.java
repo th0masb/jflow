@@ -22,11 +22,19 @@ public interface LongIteratorTest
 {
 	default void assertLongIteratorAsExpected(final long[] expectedElements, final AbstractIterableLongs iteratorProvider)
 	{
+		assertSizeAsExpected(expectedElements, iteratorProvider.iterator());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
+	}
+
+	static void assertSizeAsExpected(long[] expectedElements, AbstractLongFlow iterator)
+	{
+		if (iterator.sizeIsKnown()) {
+			assertEquals(expectedElements.length, iterator.size().getAsInt());
+		}
 	}
 
 	static void assertSkippingAsExpected(final long[] expectedElements, final AbstractLongFlow iterator)

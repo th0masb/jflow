@@ -22,11 +22,19 @@ public interface DoubleIteratorTest
 {
 	default void assertDoubleIteratorAsExpected(final double[] expectedElements, final AbstractIterableDoubles iteratorProvider)
 	{
+		assertSizeAsExpected(expectedElements, iteratorProvider.iterator());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
+	}
+
+	static void assertSizeAsExpected(double[] expectedElements, AbstractDoubleFlow iterator)
+	{
+		if (iterator.sizeIsKnown()) {
+			assertEquals(expectedElements.length, iterator.size().getAsInt());
+		}
 	}
 
 	static void assertSkippingAsExpected(final double[] expectedElements, final AbstractDoubleFlow iterator)

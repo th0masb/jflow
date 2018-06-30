@@ -290,7 +290,7 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 	{
 		final StringBuilder sb = new StringBuilder("[");
 		for (final E element : this) {
-			sb.append(element.toString()).append(", ");
+			sb.append(element == null? "null" : element.toString()).append(", ");
 		}
 		sb.delete(sb.length() - 2, sb.length());
 		sb.append("]");

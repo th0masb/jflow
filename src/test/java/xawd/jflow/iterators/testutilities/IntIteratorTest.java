@@ -22,11 +22,19 @@ public interface IntIteratorTest
 {
 	default void assertIntIteratorAsExpected(final int[] expectedElements, final AbstractIterableInts iteratorProvider)
 	{
+		assertSizeAsExpected(expectedElements, iteratorProvider.iterator());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
+	}
+
+	static void assertSizeAsExpected(int[] expectedElements, AbstractIntFlow iterator)
+	{
+		if (iterator.sizeIsKnown()) {
+			assertEquals(expectedElements.length, iterator.size().getAsInt());
+		}
 	}
 
 	static void assertSkippingAsExpected(final int[] expectedElements, final AbstractIntFlow iterator)

@@ -29,7 +29,7 @@ public final class TakeFlow
 
 		public OfObject(final Flow<E> src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
+			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -75,7 +75,7 @@ public final class TakeFlow
 
 		public OfLong(final LongFlow src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
+			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -121,7 +121,7 @@ public final class TakeFlow
 
 		public OfInt(final IntFlow src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
+			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -167,7 +167,7 @@ public final class TakeFlow
 
 		public OfDouble(final DoubleFlow src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.max(takeCount, n), src.size()));
+			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}

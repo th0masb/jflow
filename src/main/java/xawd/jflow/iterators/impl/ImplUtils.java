@@ -64,7 +64,7 @@ final class ImplUtils
 	{
 		if (firstSource instanceof OptionallySized && secondSource instanceof OptionallySized) {
 			final OptionallySized fsrc = (OptionallySized) firstSource, ssrc = (OptionallySized) secondSource;
-			if (fsrc.isSizeKnown() && ssrc.isSizeKnown()) {
+			if (fsrc.sizeIsKnown() && ssrc.sizeIsKnown()) {
 				final OptionalInt fsize = fsrc.size(), ssize = ssrc.size();
 				return fsize.getAsInt() < ssize.getAsInt()? fsize : ssize;
 			}

@@ -24,7 +24,7 @@ public interface OptionallySized
 	/**
 	 * @return true if the size of this sequence is known, false otherwise.
 	 */
-	default boolean isSizeKnown()
+	default boolean sizeIsKnown()
 	{
 		return size().isPresent();
 	}

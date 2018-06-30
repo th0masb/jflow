@@ -21,11 +21,19 @@ public interface ObjectIteratorTest
 {
 	default <T> void assertObjectIteratorAsExpected(final List<T> expectedElements, final AbstractFlowIterable<T> iteratorProvider)
 	{
+		assertSizeAsExpected(expectedElements, iteratorProvider.iterator());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
+	}
+
+	static <T> void assertSizeAsExpected(List<T> expectedElements, AbstractFlow<T> iterator)
+	{
+		if (iterator.sizeIsKnown()) {
+			assertEquals(expectedElements.size(), iterator.size().getAsInt());
+		}
 	}
 
 	static <T> void assertSkippingAsExpected(final List<T> expectedElements, final AbstractFlow<T> iterator)
