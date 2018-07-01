@@ -37,10 +37,10 @@ public class FunctionalFlowList<E> implements FlowList<E>
 
 	public FunctionalFlowList(IntFunction<E> indexingFunction, int size)
 	{
-		if (size < 0 || Objects.isNull(indexingFunction)) {
+		if (size < 0) {
 			throw new IllegalArgumentException();
 		}
-		this.indexingFunction = indexingFunction;
+		this.indexingFunction = Objects.requireNonNull(indexingFunction);
 		this.size = size;
 	}
 
@@ -100,7 +100,7 @@ public class FunctionalFlowList<E> implements FlowList<E>
 	@Override
 	public boolean contains(Object arg0)
 	{
-		return IterRange.to(size).mapToObject(indexingFunction).anyMatch(e -> e.equals(arg0)).get();
+		return IterRange.to(size).mapToObject(indexingFunction).anyMatch(e -> Objects.equals(e, arg0)).get();
 	}
 
 	@Override
@@ -262,7 +262,8 @@ public class FunctionalFlowList<E> implements FlowList<E>
 			final List<?> other = (List<?>) obj;
 			if (other.size() == size()) {
 				return IterRange.to(size())
-						.allMatch(i -> Objects.equals(indexingFunction.apply(i), other.get(i))).get();
+						.allMatch(i -> Objects.equals(indexingFunction.apply(i), other.get(i)))
+						.get();
 			} else {
 				return false;
 			}

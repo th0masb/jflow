@@ -18,9 +18,9 @@ import xawd.jflow.collections.impl.DelegatingFlowList;
  * @author t
  *
  */
-public class StringUtils {
+public class Strings {
 
-	private StringUtils() {}
+	private Strings() {}
 
 	public static FlowList<String> getAllMatches(final String source, final String regex)
 	{

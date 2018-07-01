@@ -32,14 +32,14 @@ public final class Iterate
 	 *
 	 * @param <E>
 	 *            The upper bound on the source iterable element type.
-	 * @param source
+	 * @param src
 	 *            An object which can construct an iterator over it's elements.
 	 * @return A Flow instance wrapping an iterator constructed from the source
 	 *         sequence.
 	 */
-	public static <E> Flow<E> over(final Iterable<? extends E> source)
+	public static <E> Flow<E> over(final Iterable<? extends E> src)
 	{
-		return new FlowFromIterator.OfObject<>(source.iterator());
+		return new FlowFromIterator.OfObject<>(src.iterator());
 	}
 
 	/**
@@ -48,14 +48,14 @@ public final class Iterate
 	 *
 	 * @param <E>
 	 *            The upper bound on the source Collection element type.
-	 * @param source
+	 * @param src
 	 *            Some Collection of elements.
 	 * @return A Flow instance wrapping an iterator constructed from the source
 	 *         sequence.
 	 */
-	public static <E> Flow<E> over(final Collection<? extends E> source)
+	public static <E> Flow<E> over(final Collection<? extends E> src)
 	{
-		return new FlowFromIterator.OfObject<>(source.iterator(), source.size());
+		return new FlowFromIterator.OfObject<>(src.iterator(), src.size());
 	}
 
 	/**

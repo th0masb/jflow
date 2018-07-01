@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.impl;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 
@@ -20,48 +21,34 @@ final class ImplUtils
 	{
 	}
 
-//	static boolean isSized(Iterator<?> x)
-//	{
-//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
-//	}
-//
-//	static boolean isSized(PrimitiveIterator.OfInt x)
-//	{
-//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
-//	}
-//
-//	static boolean isSized(PrimitiveIterator.OfLong x)
-//	{
-//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
-//	}
-//
-//	static boolean isSized(PrimitiveIterator.OfDouble x)
-//	{
-//		return x instanceof OptionallySized && ((OptionallySized) x).isSized();
-//	}
-
 	static OptionalInt getSize(Iterator<?> x)
 	{
+		x = Objects.requireNonNull(x);
 		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
 	static OptionalInt getSize(PrimitiveIterator.OfInt x)
 	{
+		x = Objects.requireNonNull(x);
 		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
 	static OptionalInt getSize(PrimitiveIterator.OfLong x)
 	{
+		x = Objects.requireNonNull(x);
 		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
 	static OptionalInt getSize(PrimitiveIterator.OfDouble x)
 	{
+		x = Objects.requireNonNull(x);
 		return x instanceof OptionallySized? ((OptionallySized) x).size() : OptionalInt.empty();
 	}
 
-	static OptionalInt calculateNewSize(Object firstSource, final Object secondSource)
+	static OptionalInt calculateNewSize(Object firstSource, Object secondSource)
 	{
+		firstSource = Objects.requireNonNull(firstSource);
+		secondSource = Objects.requireNonNull(secondSource);
 		if (firstSource instanceof OptionallySized && secondSource instanceof OptionallySized) {
 			final OptionallySized fsrc = (OptionallySized) firstSource, ssrc = (OptionallySized) secondSource;
 			if (fsrc.sizeIsKnown() && ssrc.sizeIsKnown()) {
@@ -79,6 +66,7 @@ final class ImplUtils
 
 	static void skip(Iterator<?> x)
 	{
+		x = Objects.requireNonNull(x);
 		if (x instanceof Skippable) {
 			((Skippable) x).skip();
 		}
@@ -89,6 +77,7 @@ final class ImplUtils
 
 	static void skip(PrimitiveIterator.OfInt x)
 	{
+		x = Objects.requireNonNull(x);
 		if (x instanceof Skippable) {
 			((Skippable) x).skip();
 		}
@@ -99,6 +88,7 @@ final class ImplUtils
 
 	static void skip(PrimitiveIterator.OfLong x)
 	{
+		x = Objects.requireNonNull(x);
 		if (x instanceof Skippable) {
 			((Skippable) x).skip();
 		}
@@ -109,6 +99,7 @@ final class ImplUtils
 
 	static void skip(PrimitiveIterator.OfDouble x)
 	{
+		x = Objects.requireNonNull(x);
 		if (x instanceof Skippable) {
 			((Skippable) x).skip();
 		}

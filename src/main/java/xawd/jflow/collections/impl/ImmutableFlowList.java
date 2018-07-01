@@ -44,12 +44,7 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 		cache = new Object[Optionals.getOrError(src.size())];
 		int count = 0;
 		while (src.hasNext()) {
-			final E next = src.next();
-			if (Objects.isNull(next)) {
-				throw new IllegalStateException("Null references are not permitted.");
-			} else {
-				cache[count++] = next;
-			}
+			cache[count++] = Objects.requireNonNull(src.next());
 		}
 	}
 
