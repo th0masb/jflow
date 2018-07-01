@@ -58,6 +58,6 @@ final class ImmutableListSpliterator<E> implements Spliterator<E>
 	@Override
 	public int characteristics()
 	{
-		return IMMUTABLE | ORDERED | SIZED | SUBSIZED;
+		return IMMUTABLE | ORDERED | NONNULL | SIZED | SUBSIZED;
 	}
 }

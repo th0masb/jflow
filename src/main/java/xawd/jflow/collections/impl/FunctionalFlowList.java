@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 import java.util.function.IntFunction;
 
 import xawd.jflow.collections.FlowList;
@@ -36,7 +37,7 @@ public class FunctionalFlowList<E> implements FlowList<E>
 
 	public FunctionalFlowList(IntFunction<E> indexingFunction, int size)
 	{
-		if (size < 0) {
+		if (size < 0 || Objects.isNull(indexingFunction)) {
 			throw new IllegalArgumentException();
 		}
 		this.indexingFunction = indexingFunction;
@@ -245,8 +246,7 @@ public class FunctionalFlowList<E> implements FlowList<E>
 	{
 		final StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < size; i++) {
-			final E element = indexingFunction.apply(i);
-			sb.append(element == null? "null" : element.toString());
+			sb.append(Objects.toString(indexingFunction.apply(i)));
 			if (i < size - 1) {
 				sb.append(", ");
 			}
@@ -261,7 +261,8 @@ public class FunctionalFlowList<E> implements FlowList<E>
 		if (obj instanceof List<?>) {
 			final List<?> other = (List<?>) obj;
 			if (other.size() == size()) {
-				return IterRange.to(size()).allMatch(i -> indexingFunction.apply(i).equals(other.get(i))).get();
+				return IterRange.to(size())
+						.allMatch(i -> Objects.equals(indexingFunction.apply(i), other.get(i))).get();
 			} else {
 				return false;
 			}
@@ -273,6 +274,6 @@ public class FunctionalFlowList<E> implements FlowList<E>
 	@Override
 	public int hashCode()
 	{
-		return flow().mapToInt(Object::hashCode).fold(1, (res, n) -> 31 * res + n);
+		return flow().mapToInt(Objects::hashCode).fold(1, (res, n) -> 31 * res + n);
 	}
 }

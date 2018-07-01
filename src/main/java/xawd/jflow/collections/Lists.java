@@ -26,6 +26,8 @@ public final class Lists
 	 * @param elements
 	 *            The elements to cache into a FlowList.
 	 * @return An immutable FlowList containing all the specified elements.
+	 * @throws IllegalStateException
+	 *             if a null reference is passed.
 	 */
 	@SafeVarargs
 	public static <E> FlowList<E> build(E... elements)
@@ -41,6 +43,8 @@ public final class Lists
 	 *            The container to copy references from.
 	 * @return An immutable FlowList containing the same references as in the
 	 *         parameter Collection.
+	 * @throws IllegalStateException
+	 *             if the source collection contains a null reference.
 	 */
 	public static <E> FlowList<E> copy(Collection<? extends E> src)
 	{

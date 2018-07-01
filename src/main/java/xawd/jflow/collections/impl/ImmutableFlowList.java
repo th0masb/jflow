@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.Spliterator;
 
@@ -20,14 +21,14 @@ import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.utilities.Optionals;
 
 /**
- * An immutable implementation of {@link FlowList}. This class is very space
- * efficient as it simply wraps a single Object array. When combined with
- * {@link Flow} instances one can write very clean, efficient and safe code code
- * without ever needing to reference this type directly. In fact I would say it
- * is bad practice to ever directly reference this type, static factories and
- * Flow collection should be used to instantiate them. See
- * {@link Lists#build(Object...)}, {@link Lists#copy(Collection)}
- * {@link Flow#toList()}.
+ * An immutable implementation of {@link FlowList} which stores only non null
+ * references. This class is very space efficient as it simply wraps a single
+ * Object array. When combined with {@link Flow} instances one can write very
+ * clean, efficient and safe code code without ever needing to reference this
+ * type directly. In fact I would say it is bad practice to ever directly
+ * reference this type, static factories and Flow collection should be used to
+ * instantiate them. See {@link Lists#build(Object...)},
+ * {@link Lists#copy(Collection)} {@link Flow#toList()}.
  *
  * @param <E>
  *            The type of the elements contained in this List.
@@ -43,20 +44,24 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 		cache = new Object[Optionals.getOrError(src.size())];
 		int count = 0;
 		while (src.hasNext()) {
-			cache[count++] = src.next();
+			final E next = src.next();
+			if (Objects.isNull(next)) {
+				throw new IllegalStateException("Null references are not permitted.");
+			} else {
+				cache[count++] = next;
+			}
 		}
 	}
 
 	@SafeVarargs
 	public ImmutableFlowList(E... elements)
 	{
-		cache = new Object[elements.length];
-		System.arraycopy(elements, 0, cache, 0, elements.length);
+		this(Iterate.over(elements));
 	}
 
 	public ImmutableFlowList(Collection<? extends E> src)
 	{
-		cache = src.toArray();
+		this(Iterate.over(src));
 	}
 
 	@Deprecated
@@ -237,21 +242,27 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 	{
 		return new AbstractFlow<E>(OptionalInt.of(size())) {
 			int count = 0;
+
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return count < cache.length;
 			}
+
 			@SuppressWarnings("unchecked")
 			@Override
-			public E next() {
+			public E next()
+			{
 				if (hasNext()) {
 					return (E) cache[count++];
 				} else {
 					throw new NoSuchElementException();
 				}
 			}
+
 			@Override
-			public void skip() {
+			public void skip()
+			{
 				if (count++ >= cache.length) {
 					throw new NoSuchElementException();
 				}
@@ -271,9 +282,7 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 		if (obj instanceof List<?>) {
 			final List<?> other = (List<?>) obj;
 			if (other.size() == size()) {
-				return IterRange.to(size())
-						.allMatch(i -> cache[i].equals(other.get(i)))
-						.get();
+				return IterRange.to(size()).allMatch(i -> cache[i].equals(other.get(i))).get();
 			} else {
 				return false;
 			}
@@ -293,8 +302,7 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 	{
 		final StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < cache.length; i++) {
-			final Object element = cache[i];
-			sb.append(element == null ? "null" : element.toString());
+			sb.append(cache[i].toString());
 			if (i < cache.length - 1) {
 				sb.append(", ");
 			}
@@ -302,10 +310,4 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 		sb.append("]");
 		return sb.toString();
 	}
-	//
-	//	public static void main(String[] args)
-	//	{
-	//		final FlowList<IntPair> xs = IterRange.to(10000).mapToObject(i -> IntPair.of(i*2, i*3)).toList();
-	//		System.out.println(xs.parallelStream().reduce((a, b) -> IntPair.of((a.first() + b.first())/2, (a.second() + b.second())/2)));
-	//	}
 }
