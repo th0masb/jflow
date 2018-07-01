@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
+import java.util.Spliterator;
 
 import xawd.jflow.collections.FlowList;
 import xawd.jflow.collections.Lists;
@@ -236,27 +237,21 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 	{
 		return new AbstractFlow<E>(OptionalInt.of(size())) {
 			int count = 0;
-
 			@Override
-			public boolean hasNext()
-			{
+			public boolean hasNext() {
 				return count < cache.length;
 			}
-
 			@SuppressWarnings("unchecked")
 			@Override
-			public E next()
-			{
+			public E next() {
 				if (hasNext()) {
 					return (E) cache[count++];
 				} else {
 					throw new NoSuchElementException();
 				}
 			}
-
 			@Override
-			public void skip()
-			{
+			public void skip() {
 				if (count++ >= cache.length) {
 					throw new NoSuchElementException();
 				}
@@ -265,12 +260,20 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 	}
 
 	@Override
+	public Spliterator<E> spliterator()
+	{
+		return new ImmutableListSpliterator<>(this, 0, size());
+	}
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj instanceof List<?>) {
 			final List<?> other = (List<?>) obj;
 			if (other.size() == size()) {
-				return IterRange.to(size()).allMatch(i -> cache[i].equals(other.get(i))).get();
+				return IterRange.to(size())
+						.allMatch(i -> cache[i].equals(other.get(i)))
+						.get();
 			} else {
 				return false;
 			}
@@ -289,11 +292,20 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 	public String toString()
 	{
 		final StringBuilder sb = new StringBuilder("[");
-		for (final E element : this) {
-			sb.append(element == null? "null" : element.toString()).append(", ");
+		for (int i = 0; i < cache.length; i++) {
+			final Object element = cache[i];
+			sb.append(element == null ? "null" : element.toString());
+			if (i < cache.length - 1) {
+				sb.append(", ");
+			}
 		}
-		sb.delete(sb.length() - 2, sb.length());
 		sb.append("]");
 		return sb.toString();
 	}
+	//
+	//	public static void main(String[] args)
+	//	{
+	//		final FlowList<IntPair> xs = IterRange.to(10000).mapToObject(i -> IntPair.of(i*2, i*3)).toList();
+	//		System.out.println(xs.parallelStream().reduce((a, b) -> IntPair.of((a.first() + b.first())/2, (a.second() + b.second())/2)));
+	//	}
 }

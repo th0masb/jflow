@@ -244,10 +244,13 @@ public class FunctionalFlowList<E> implements FlowList<E>
 	public String toString()
 	{
 		final StringBuilder sb = new StringBuilder("[");
-		for (final E element : this) {
-			sb.append(element.toString()).append(", ");
+		for (int i = 0; i < size; i++) {
+			final E element = indexingFunction.apply(i);
+			sb.append(element == null? "null" : element.toString());
+			if (i < size - 1) {
+				sb.append(", ");
+			}
 		}
-		sb.delete(sb.length() - 2, sb.length());
 		sb.append("]");
 		return sb.toString();
 	}

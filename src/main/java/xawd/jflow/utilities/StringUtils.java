@@ -3,6 +3,8 @@
  */
 package xawd.jflow.utilities;
 
+import static xawd.jflow.utilities.CollectionUtil.tail;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +46,12 @@ public class StringUtils {
 	public static Optional<String> findFirstMatch(final String source, final String regex)
 	{
 		return findFirstMatch(source, Pattern.compile(regex));
+	}
+
+	public static Optional<String> findLastMatch(String source, String regex)
+	{
+		final FlowList<String> allMatches = getAllMatches(source, regex);
+		return allMatches.isEmpty()? Optional.empty() : Optionals.of(tail(allMatches));
 	}
 
 	public static boolean matchesAnywhere(final String source, final String regex)

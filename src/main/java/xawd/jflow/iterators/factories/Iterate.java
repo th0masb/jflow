@@ -4,6 +4,7 @@
 package xawd.jflow.iterators.factories;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import xawd.jflow.iterators.DoubleFlow;
@@ -164,6 +165,7 @@ public final class Iterate
 		return new ReverseFlowFromValues.OfDouble(elements);
 	}
 
+
 	/**
 	 * Construct a IntFlow reverse iterating over varargs elements.
 	 *
@@ -175,5 +177,18 @@ public final class Iterate
 	public static IntFlow reverseOverInts(final int... elements)
 	{
 		return new ReverseFlowFromValues.OfInt(elements);
+	}
+
+	/**
+	 * Wraps an existing iterator in a Flow to enable use of all extra
+	 * functionality.
+	 *
+	 * @param src
+	 *            The iterator to wrap.
+	 * @return A flow wrapping the provided iterator.
+	 */
+	public static <E> Flow<E> wrap(Iterator<? extends E> src)
+	{
+		return new FlowFromIterator.OfObject<>(src);
 	}
 }

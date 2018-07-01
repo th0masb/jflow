@@ -21,11 +21,11 @@ public final class IntPair
 		return new IntPair(first, second);
 	}
 
-	public int getFirst() {
+	public int first() {
 		return first;
 	}
 
-	public int getSecond() {
+	public int second() {
 		return second;
 	}
 
