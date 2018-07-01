@@ -11,14 +11,15 @@ to their iterators.
 A clean and intuitive API is provided for sequence manipulation 
 operations which are frequently useful in programming. The 
 introduction of Java Streams was a significant improvement
-to the language but I felt that the API was a bit clumsy, the 
+to the language but I felt that the API could have been better for some
+frequently used operations (for example collecting elements into a List), the 
 machinery used to implement Streams is more complicated than it needs to be when used
 in a sequential context and most importantly the constraints on
-implementing custom consumption of stream are far too restrictive.
+consuming streams in a custom way are prohibitively restrictive in some use cases.
 This library add additional functionality in the style of Streams 
-with a nicer (in my opinion) API but at a deeper level it simply trades 
-potential parallelism for  additional flexibility in manually iterating 
-through for use in algorithms. To this end it should be seen as a lightweight 
+with some tweaks to the API but at a deeper level it simply trades 
+potential parallelism for  additional flexibility in manual consumption 
+for use in algorithms. To this end it should be seen as a lightweight 
 complement to Steams, not a replacement.
 
 #### API examples
@@ -85,9 +86,8 @@ To us this library you need to build the archives and documentation from this so
 repository. To build the latest version on Windows do the following:
 
 1. Clone this repository
-2. Make sure the master branch is checked out
-3. Make sure the pwd is the directory containing gradle.bat
-4. Run the command `gradlew clean build` in the command prompt
+2. Make sure the pwd is the directory containing gradle.bat
+3. Run the command `gradlew clean build` in the command prompt
 
 The jars (including source and javadoc) will be built in `build/libs` directory and an uncompressed 
 version of the documentation ready to be viewed in a browser will be built in the `build/docs/javadoc` 
