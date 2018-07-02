@@ -23,6 +23,29 @@ public enum Bool
 	}
 
 	/**
+	 * Static converter for wrapping primitive boolean values in Bools.
+	 *
+	 * @param value
+	 *            The primitive boolean to wrap.
+	 * @return A Bool wrapper instance.
+	 */
+	public static Bool of(boolean value)
+	{
+		return value ? TRUE : FALSE;
+	}
+
+	/**
+	 * Perform a boolean NOT operation on this Bool.
+	 *
+	 * @return A wrapped boolean which is the logical inverse of boolean wrapped in
+	 *         this Bool.
+	 */
+	public Bool not()
+	{
+		return primitiveVal ? FALSE : TRUE;
+	}
+
+	/**
 	 * Applies a boolean OR operation with another wrapped truth value.
 	 *
 	 * @param other
@@ -33,6 +56,19 @@ public enum Bool
 	public Bool or(Bool other)
 	{
 		return primitiveVal || other.primitiveVal ? TRUE : FALSE;
+	}
+
+	/**
+	 * Applies a boolean OR operation with another truth value.
+	 *
+	 * @param other
+	 *            A truth value.
+	 *
+	 * @return true if either boolean is true, false otherwise.
+	 */
+	public Bool or(boolean other)
+	{
+		return primitiveVal || other ? TRUE : FALSE;
 	}
 
 	/**
@@ -49,6 +85,19 @@ public enum Bool
 	}
 
 	/**
+	 * Applies a boolean XOR operation with another truth value.
+	 *
+	 * @param other
+	 *            A truth value.
+	 *
+	 * @return true if exactly one boolean is true, false otherwise.
+	 */
+	public Bool xor(boolean other)
+	{
+		return primitiveVal ^ other ? TRUE : FALSE;
+	}
+
+	/**
 	 * Applies a boolean AND operation with another wrapped truth value.
 	 *
 	 * @param other
@@ -59,6 +108,19 @@ public enum Bool
 	public Bool and(Bool other)
 	{
 		return primitiveVal && other.primitiveVal ? TRUE : FALSE;
+	}
+
+	/**
+	 * Applies a boolean AND operation with wrapped truth value.
+	 *
+	 * @param other
+	 *            A wrapped truth value.
+	 *
+	 * @return true if both wrapped booleans are true, false otherwise.
+	 */
+	public Bool and(boolean other)
+	{
+		return primitiveVal && other ? TRUE : FALSE;
 	}
 
 	/**
@@ -175,3 +237,4 @@ public enum Bool
 		}
 	}
 }
+
