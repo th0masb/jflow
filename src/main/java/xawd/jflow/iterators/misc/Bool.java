@@ -23,6 +23,62 @@ public enum Bool
 	}
 
 	/**
+	 * Provides a wrapper for the Java ternary conditional operator.
+	 *
+	 * @param valueIfTrue
+	 *            The value to return if this Bool wraps true.
+	 * @param valueIfFalse
+	 *            The value to return if this Bool wraps false.
+	 * @return The first parameter if this Bool wraps true, the second if false.
+	 */
+	public <T> T choose(T valueIfTrue, T valueIfFalse)
+	{
+		return primitiveVal ? valueIfTrue : valueIfFalse;
+	}
+
+	/**
+	 * Provides a wrapper for the Java ternary conditional operator.
+	 *
+	 * @param valueIfTrue
+	 *            The value to return if this Bool wraps true.
+	 * @param valueIfFalse
+	 *            The value to return if this Bool wraps false.
+	 * @return The first parameter if this Bool wraps true, the second if false.
+	 */
+	public double choose(double valueIfTrue, double valueIfFalse)
+	{
+		return primitiveVal ? valueIfTrue : valueIfFalse;
+	}
+
+	/**
+	 * Provides a wrapper for the Java ternary conditional operator.
+	 *
+	 * @param valueIfTrue
+	 *            The value to return if this Bool wraps true.
+	 * @param valueIfFalse
+	 *            The value to return if this Bool wraps false.
+	 * @return The first parameter if this Bool wraps true, the second if false.
+	 */
+	public int choose(int valueIfTrue, int valueIfFalse)
+	{
+		return primitiveVal ? valueIfTrue : valueIfFalse;
+	}
+
+	/**
+	 * Provides a wrapper for the Java ternary conditional operator.
+	 *
+	 * @param valueIfTrue
+	 *            The value to return if this Bool wraps true.
+	 * @param valueIfFalse
+	 *            The value to return if this Bool wraps false.
+	 * @return The first parameter if this Bool wraps true, the second if false.
+	 */
+	public long choose(long valueIfTrue, long valueIfFalse)
+	{
+		return primitiveVal ? valueIfTrue : valueIfFalse;
+	}
+
+	/**
 	 * Applies a boolean OR operation with another wrapped truth value.
 	 *
 	 * @param other
