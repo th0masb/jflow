@@ -27,6 +27,7 @@ import xawd.jflow.collections.impl.DelegatingFlowList;
 import xawd.jflow.collections.impl.DelegatingFlowSet;
 import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.misc.Bool;
+import xawd.jflow.iterators.misc.BoolPredicate;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
@@ -294,6 +295,22 @@ public interface Flow<E> extends PrototypeFlow<E>
 	Flow<E> takeWhile(final Predicate<? super E> predicate);
 
 	/**
+	 * Creates a new Flow from this Flow by selecting elements until an element
+	 * fails the supplied test, the first failure is not selected.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return Let {@code n} be the index of the first element that the parameter
+	 *         predicate fails for. Then this method returns a Flow consisting of
+	 *         the first {@code n} elements of this source Flow. If no element fails
+	 *         the predicate test then a copy of the source is returned.
+	 */
+	default Flow<E> takeWhile2(final BoolPredicate<? super E> predicate)
+	{
+		return takeWhile(predicate.toPrimitivePredicate());
+	}
+
+	/**
 	 * Creates a new Flow from this Flow by removing the first n elements.
 	 *
 	 * @param n
@@ -319,6 +336,22 @@ public interface Flow<E> extends PrototypeFlow<E>
 	Flow<E> dropWhile(final Predicate<? super E> predicate);
 
 	/**
+	 * Creates a new Flow from this Flow by removing elements until an element fails
+	 * the supplied test, the first failure is the first element of the result.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return Let {@code n} be the index of the first element that the parameter
+	 *         predicate fails for. Then this method returns a Flow missing
+	 *         {@code n} elements of this source Flow. If no element fails the
+	 *         predicate test then a copy of the source is returned.
+	 */
+	default Flow<E> dropWhile2(final BoolPredicate<? super E> predicate)
+	{
+		return dropWhile(predicate.toPrimitivePredicate());
+	}
+
+	/**
 	 * Creates a new Flow from this Flow by removing any element which fails the
 	 * supplied predicate test.
 	 *
@@ -329,6 +362,21 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         elements is retained.
 	 */
 	Flow<E> filter(final Predicate<? super E> predicate);
+
+	/**
+	 * Creates a new Flow from this Flow by removing any element which fails the
+	 * supplied predicate test.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return A Flow containing only those elements of this source Flow which pass
+	 *         the test defined by the parameter predicate. The relative ordering of
+	 *         elements is retained.
+	 */
+	default Flow<E> filter2(final BoolPredicate<? super E> predicate)
+	{
+		return filter(predicate.toPrimitivePredicate());
+	}
 
 	/**
 	 * Creates a new Flow from this Flow by adding each element of the supplied
@@ -450,6 +498,21 @@ public interface Flow<E> extends PrototypeFlow<E>
 	Bool allMatch(final Predicate<? super E> predicate);
 
 	/**
+	 * Checks whether every element in this Flow passes the supplied predicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return True if every element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool allMatch2(BoolPredicate<? super E> predicate)
+	{
+		return allMatch(predicate.toPrimitivePredicate());
+	}
+
+	/**
 	 * Checks whether any element in this Flow passes the supplied predicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
@@ -460,6 +523,21 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         otherwise.
 	 */
 	Bool anyMatch(final Predicate<? super E> predicate);
+
+	/**
+	 * Checks whether any element in this Flow passes the supplied predicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return True if any element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool anyMatch2(BoolPredicate<? super E> predicate)
+	{
+		return anyMatch(predicate.toPrimitivePredicate());
+	}
 
 	/**
 	 * Checks whether every element in this Flow fails the supplied predicate test.
@@ -474,6 +552,21 @@ public interface Flow<E> extends PrototypeFlow<E>
 	Bool noneMatch(final Predicate<? super E> predicate);
 
 	/**
+	 * Checks whether every element in this Flow fails the supplied predicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return True if every element fails the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool noneMatch2(BoolPredicate<? super E> predicate)
+	{
+		return noneMatch(predicate.toPrimitivePredicate());
+	}
+
+	/**
 	 * Partitions the elements of this Flow on whether they pass the supplied
 	 * predicate test.
 	 *
@@ -485,6 +578,22 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         they passed or failed the parameter predicate.
 	 */
 	PredicatePartition<E> partition(Predicate<? super E> predicate);
+
+	/**
+	 * Partitions the elements of this Flow on whether they pass the supplied
+	 * predicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return A partition of the cached elements split into two lists on whether
+	 *         they passed or failed the parameter predicate.
+	 */
+	default PredicatePartition<E> partition2(BoolPredicate<? super E> predicate)
+	{
+		return partition(predicate.toPrimitivePredicate());
+	}
 
 	/**
 	 * Fold this Flow to a single value via some reduction function and an initial
