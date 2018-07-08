@@ -4,19 +4,22 @@ Provides support for a multitude of sequence manipulation
 features for both objects and primitives using sequential 
 lazy evaluating iterators inspired by Java streams, Python generators 
 and Scala collections. Enhanced `List` and `Set` interfaces (`FlowList` and `FlowSet` respectively)
-are provided which provide convenience methods by delegating
-to iterators.
+are included which provide a selection of convenient default methods (for mapping, filtering etc) by delegating
+to these iterators.
 
 #### Why use this library?
-A clean and intuitive API is provided for sequence manipulation 
-operations which are frequently useful in programming. The 
-introduction of streams in Java was a **significant** improvement
+The introduction of streams and lambdas in Java 8 was a **significant** improvement
 to the language but having spent a lot of time working with the API 
-I really felt it could have been so much better. Apart from the API the 
-machinery used to implement Streams is more complicated than it needs to be when used
-in a sequential context and there is no attempt to encourage use of immutable collections 
-(which I find ridiculous since parallelism is such a big focus). Most importantly the constraints on
-consuming streams in a custom way are prohibitively restrictive for even very simple use cases.
+I really felt it could have been better, for example `someCollection.stream().map(someFunction).collect(Collectors.toList())` 
+is presumably considered by the implementors as a clean way to write the extremely common operation of sequentially
+applying a mapping function element-wise to some collection and collecting the result to a List? I think not.  
+Apart from the API the machinery used to implement Streams is more complicated than it needs to be when used
+in a sequential context and there is no attempt to encourage use of immutable collections (weird since 
+parallelism is such a big focus) in fact the `.collect(...)` method explicitly requires a mutable container. 
+
+Most importantly the constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFX canvas **without caching the points first**. This is a trivial task with the polygon represented by an **iterator** of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream.
+
+
 This library add additional functionality in the style of Streams 
 with some tweaks to the API but at a deeper level it simply trades 
 potential parallelism for  additional flexibility in manual consumption 
