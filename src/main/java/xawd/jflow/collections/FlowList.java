@@ -30,7 +30,7 @@ public interface FlowList<E> extends List<E>, FlowIterable<E>
 	 * @return An iteration of the elements in this List in reverse order. I.e from
 	 *         tail to head.
 	 */
-	default Flow<E> reverse()
+	default Flow<E> rflow()
 	{
 		return Iterate.reverseOver(this);
 	}
