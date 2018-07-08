@@ -8,26 +8,32 @@ are included which provide a selection of convenient default methods (for mappin
 to these iterators.
 
 #### Why use this library?
-The introduction of streams and lambdas in Java 8 was a **significant** improvement
-to the language but having spent a lot of time working with the API 
-I really felt it could have been better, for example `someCollection.stream().map(someFunction).collect(Collectors.toList())` 
-is presumably considered by the implementors as a clean way to write the extremely common operation of sequentially
-applying a mapping function element-wise to some collection and collecting the result to a List? I think not.  
-Apart from the API the machinery used to implement Streams is more complicated than it needs to be when used
-in a sequential context and there is no attempt to encourage use of immutable collections (weird since 
-parallelism is such a big focus) in fact the `.collect(...)` method explicitly requires a mutable container. 
 
-Most importantly the constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFX canvas **without caching the points first**. This is a trivial task with the polygon represented by an **iterator** of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream.
+Let me make it clear that the introduction of streams and lambdas in Java 8 was a **significant** improvement to the Java programming language. There was understandably a large focus on parallelism and how it could be exploited to improve performance. It is also clear, however, that attempting to parallelise every operation on every collection of data no matter the size or operation is silly. In my experience programming, operating sequentially on a sequence of data is often appropriate. I feel that the syntax of very common operations has been stunted by this focus on parallelism and I wanted to have a go at improving it. This therefore is a library built for **sequential** operations on collections of data building on the existing Java `Iterator` interface with an API roughly aligned with that of the stream library so it would be simple to switch between the two. Therefore this is not a library designed to replace streams, but one to complement them and encourage better (and more enjoyable) programming.
+
+I spent a lot of time working with the stream, and found myself writing variants of the following code an awful lot:
+
+```
+List<MyObject> dataCollection = ...;
+List<String> dataNames = dataCollection.stream().map(MyObject::toString).collect(Collectors.toList());
+
+```
+
+Is this really the best we can do for this mapping operation? Sure we could favourite static imports so we can reduce the size a bit but I found this to interrupt my flow quite a lot and generally be a bit frustrating. Wouldn't it be nicer (and equally as readable) to have something like this:
+
+```
+List<MyObject> dataCollection = ...;
+List<String> dataNames = dataCollection.map(MyObject::toString).toList();
+```
+well I definitely think so.
+
+Is using all the implementation machinery for parallelising operations in a sequential context efficient? Does it naturally lead to encouraging the use of immutable collections? Well I need to do some benchmarking for the first question but I can quite safely say that the answer to the second question is no. It seems that encouraging use of higher order functions is good but encouraging one of the fundamental tenets of FP - immutability - isn't worth it. Immutability and null-safety are the default approaches here.  
 
 
-This library add additional functionality in the style of Streams 
-with some tweaks to the API but at a deeper level it simply trades 
-potential parallelism for  additional flexibility in manual consumption 
-for use in algorithms. To this end it should be seen as a lightweight 
-complement to Steams, not a replacement. Immutability is the default and a highly efficient, 
-immutable List implementation is provided which incidentally is a much better candidate for 
-constructing parallel streams than all the mutable List implementations in the Java collections
-library.
+Additionally the constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFX canvas **without caching the points first**. This is a trivial task with the polygon represented by an **iterator** of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream.
+
+
+So to conclude, this library adds functionality in the style of Streams with some tweaks to the API in a way optimised for sequential operations. At a deeper level it trades potential parallelism for flexibility in custom consumption (e.g. for use in algorithms). To this end it should be seen as a lightweight complement to Steams, not a replacement.
 
 #### API examples
 
