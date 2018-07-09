@@ -9,9 +9,9 @@ to these iterators.
 
 #### Why use this library?
 
-Let me make it clear that the introduction of streams and lambdas in Java 8 was a **significant** improvement to the Java programming language. There was understandably a large focus on parallelism and how it could be exploited to improve performance. It is also clear, however, that attempting to parallelise every operation on every collection of data no matter the size or operation is silly. In my experience programming, operating sequentially on a sequence of data is often appropriate. I feel that the syntax of very common operations has been stunted by this focus on parallelism and I wanted to have a go at improving it. This therefore is a library built for **sequential** operations on collections of data building on the existing Java `Iterator` interface with an API roughly aligned with that of the stream library so it would be simple to switch between the two. Therefore this is not a library designed to replace streams, but one to complement them and encourage better (and more enjoyable) programming.
+Let me make it clear that the introduction of streams and lambdas in Java 8 was a **significant** improvement to the Java programming language. There was understandably a large focus on parallelism and how it could be exploited to improve performance. It is also clear, however, that attempting to parallelise every operation on every collection of data no matter the size or operation is silly. In my experience programming, operating sequentially on a collection of data is often appropriate. I feel that the syntax of very common operations has been stunted by this focus on parallelism and I wanted to have a go at writing a companion library to rectify these syntactical issues. This is a library built for **sequential** operations on collections of data which builds on the existing Java `Iterator` interface with an API roughly aligned with that of the stream library. Therefore this is not a library designed to replace streams, but one to complement them and toegther encourage better (and more enjoyable) programming practices.
 
-I spent a lot of time working with the stream, and found myself writing variants of the following code an awful lot:
+I've spent a large amount of time working with streams and found myself writing variants of the following code an awful lot:
 
 ```
 List<MyObject> dataCollection = ...;
@@ -19,7 +19,7 @@ List<String> dataNames = dataCollection.stream().map(MyObject::toString).collect
 
 ```
 
-Is this really the best we can do for this mapping operation? Sure we could favourite static imports so we can reduce the size a bit but I found this to interrupt my flow quite a lot and generally be a bit frustrating. Wouldn't it be nicer (and equally as readable) to have something like this:
+Is this really the best we can do for a simple mapping operation? Sure we could favourite static imports so we can reduce the size a bit but I found this to interrupt my flow and generally be a bit frustrating. Wouldn't it be nicer (and equally as readable) to have something like this:
 
 ```
 List<MyObject> dataCollection = ...;
@@ -27,13 +27,13 @@ List<String> dataNames = dataCollection.map(MyObject::toString).toList();
 ```
 well I definitely think so.
 
-Is using all the implementation machinery for parallelising operations in a sequential context efficient? Does it naturally lead to encouraging the use of immutable collections? Well I need to do some benchmarking for the first question but I can quite safely say that the answer to the second question is no. It seems that encouraging use of higher order functions is good but encouraging one of the fundamental tenets of FP - immutability - isn't worth it. Immutability and null-safety are the default approaches here.  
+Is using all the implementation machinery for parallelising operations in a sequential context efficient? Does use of streams naturally lead to encouraging the use of immutable collections? Well I need to do some benchmarking for the first question but I can quite safely say that the answer to the second question is no. It seems that encouraging use of higher order functions is good but encouraging one of the fundamental tenets of FP - immutability - isn't worth it. Immutability and null-safety are the default approaches here.  
 
 
-Additionally the constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFX canvas **without caching the points first**. This is a trivial task with the polygon represented by an **iterator** of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream.
+The constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFX canvas **without caching the points first**. This is a trivial task with the polygon represented by an **iterator** of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream.
 
 
-So to conclude, this library adds functionality in the style of Streams with some tweaks to the API in a way optimised for sequential operations. At a deeper level it trades potential parallelism for flexibility in custom consumption (e.g. for use in algorithms). To this end it should be seen as a lightweight complement to Steams, not a replacement.
+To conclude, this library adds functionality in the style of Streams with some tweaks to the API in a way optimised for sequential operations. At a deeper level it trades potential parallelism for flexibility in custom consumption (e.g. for use in algorithms). To this end it should be seen as a lightweight complement to Steams, not a replacement.
 
 #### API examples
 
@@ -83,9 +83,9 @@ Iterate.over("0", "1").toCollection(ArrayList::new); ==> ArrayList<String>["0", 
 FlowList<String> strings = Lists.build("a", "b");
 FlowList<Integer> integers = Lists.build(1, 2, 3);
 
-strings.flow().zipWith(integers.flow()).toList(); ==> [("a", 1), ("b", 2)]
+strings.flow().zipWith(integers).toList(); ==> [("a", 1), ("b", 2)]
 strings.enumerate().toList(); ==> [(0, "a"), (1, "b")]
-integers.flow().combineWith(strings.flow(), (n, s) -> s + n).toList(); ==> ["a1", "b2"]
+integers.flow().combineWith(strings, (n, s) -> s + n).toList(); ==> ["a1", "b2"]
 ```
 
 ###### Folding
