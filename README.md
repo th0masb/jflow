@@ -2,25 +2,38 @@
 
 Provides support for a multitude of sequence manipulation 
 features for both objects and primitives using sequential 
-lazy evaluating iterator objects inspired by python generators 
-and functional programming techniques. Enhanced List and Sets
-are also provided which provide convenience methods by delegating
-to their iterators.
+lazy evaluating iterators inspired by Java streams, Python generators 
+and Scala collections. Enhanced `List` and `Set` interfaces (`FlowList` and `FlowSet` respectively)
+are included which provide a selection of convenient default methods (for mapping, filtering etc) by delegating
+to these iterators.
 
 #### Why use this library?
-A clean and intuitive API is provided for sequence manipulation 
-operations which are frequently useful in programming. The 
-introduction of Java Streams was a significant improvement
-to the language but I felt that the API could have been better for some
-frequently used operations (for example collecting elements into a List), the 
-machinery used to implement Streams is more complicated than it needs to be when used
-in a sequential context and most importantly the constraints on
-consuming streams in a custom way are prohibitively restrictive in some use cases.
-This library add additional functionality in the style of Streams 
-with some tweaks to the API but at a deeper level it simply trades 
-potential parallelism for  additional flexibility in manual consumption 
-for use in algorithms. To this end it should be seen as a lightweight 
-complement to Steams, not a replacement.
+
+Let me make it clear that the introduction of streams and lambdas in Java 8 was a **significant** improvement to the Java programming language. There was understandably a large focus on parallelism and how it could be exploited to improve performance. It is also clear, however, that attempting to parallelise every operation on every collection of data no matter the size or operation is silly. In my experience programming, operating sequentially on a collection of data is often appropriate. I feel that the syntax of very common operations has been stunted by this focus on parallelism and I wanted to have a go at writing a companion library to rectify these syntactical issues. This is a library built for **sequential** operations on collections of data which builds on the existing Java `Iterator` interface with an API roughly aligned with that of the stream library. Therefore this is not a library designed to replace streams, but one to complement them and toegther encourage better (and more enjoyable) programming practices.
+
+I've spent a large amount of time working with streams and found myself writing variants of the following code an awful lot:
+
+```
+List<MyObject> dataCollection = ...;
+List<String> dataNames = dataCollection.stream().map(MyObject::toString).collect(Collectors.toList());
+
+```
+
+Is this really the best we can do for a simple mapping operation? Sure we could favourite static imports so we can reduce the size a bit but I found this to interrupt my flow and generally be a bit frustrating. Wouldn't it be nicer (and equally as readable) to have something like this:
+
+```
+List<MyObject> dataCollection = ...;
+List<String> dataNames = dataCollection.map(MyObject::toString).toList();
+```
+well I definitely think so.
+
+Is using all the implementation machinery for parallelising operations in a sequential context efficient? Does use of streams naturally lead to encouraging the use of immutable collections? Well I need to do some benchmarking for the first question but I can quite safely say that the answer to the second question is no. It seems that encouraging use of higher order functions is good but encouraging one of the fundamental tenets of FP - immutability - isn't worth it. Immutability and null-safety are the default approaches here.  
+
+
+The constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFX canvas **without caching the points first**. This is a trivial task with the polygon represented by an **iterator** of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream.
+
+
+To conclude, this library adds functionality in the style of Streams with some tweaks to the API in a way optimised for sequential operations. At a deeper level it trades potential parallelism for flexibility in custom consumption (e.g. for use in algorithms). To this end it should be seen as a lightweight complement to Steams, not a replacement.
 
 #### API examples
 
@@ -42,11 +55,11 @@ Iterate.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
 FlowList<String> someStrings = Lists.build("0", "1", "2", "3");
 
 someStrings.take(2).toSet(); ==> {"0", "1"}
-someStrings.drop(2).toImmutableSet(); ==> {"3", "2"}
+someStrings.drop(2).toMutableSet(); ==> {"3", "2"}
 
 Predicate<String> lessThanTwo = x -> parseInt(x) < 2;
 someStrings.takeWhile(lessThanTwo).toList(); ==> ["0", "1"]
-someStrings.dropWhile(lessThanTwo).toImmutableList(); ==> ["2", "3"]
+someStrings.dropWhile(lessThanTwo).toMutableList(); ==> ["2", "3"]
 ```
 
 ###### Building integer ranges
@@ -70,9 +83,9 @@ Iterate.over("0", "1").toCollection(ArrayList::new); ==> ArrayList<String>["0", 
 FlowList<String> strings = Lists.build("a", "b");
 FlowList<Integer> integers = Lists.build(1, 2, 3);
 
-strings.flow().zipWith(integers.flow()).toList(); ==> [("a", 1), ("b", 2)]
+strings.flow().zipWith(integers).toList(); ==> [("a", 1), ("b", 2)]
 strings.enumerate().toList(); ==> [(0, "a"), (1, "b")]
-integers.flow().combineWith(strings.flow(), (n, s) -> s + n).toList(); ==> ["a1", "b2"]
+integers.flow().combineWith(strings, (n, s) -> s + n).toList(); ==> ["a1", "b2"]
 ```
 
 ###### Folding
