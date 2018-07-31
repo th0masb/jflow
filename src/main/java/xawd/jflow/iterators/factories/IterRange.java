@@ -104,7 +104,7 @@ public final class IterRange
 		if (nSubIntervals < 1 || Math.abs(end - start) < 0.00001) {
 			throw new IllegalArgumentException();
 		}
-		final double dir = Math.signum(end - start), step = 1.0 / nSubIntervals;
-		return to(nSubIntervals + 1).mapToDouble(i -> start + i * dir * step);
+		final double step = (end - start) / nSubIntervals;
+		return to(nSubIntervals + 1).mapToDouble(i -> start + i * step);
 	}
 }
