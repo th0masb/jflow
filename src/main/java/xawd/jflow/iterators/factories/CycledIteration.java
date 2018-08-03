@@ -66,7 +66,7 @@ public class CycledIteration
 	 * @return An IntFlow which continuously loops through the elements of the
 	 *         source sequence.
 	 */
-	public static IntFlow of(final IntFlowIterable source)
+	public static IntFlow ofInts(final IntFlowIterable source)
 	{
 		return new CyclicFlow.OfInt(source::iterator);
 	}
@@ -79,7 +79,7 @@ public class CycledIteration
 	 * @return An IntFlow which continuously loops through the elements of the
 	 *         source array.
 	 */
-	public static IntFlow of(final int... source)
+	public static IntFlow ofInts(final int... source)
 	{
 		return new CyclicFlow.OfInt(() -> Iterate.overInts(source));
 	}
@@ -93,7 +93,7 @@ public class CycledIteration
 	 * @return An DoubleFlow which continuously loops through the elements of the
 	 *         source sequence.
 	 */
-	public static DoubleFlow of(final DoubleFlowIterable source)
+	public static DoubleFlow ofDoubles(final DoubleFlowIterable source)
 	{
 		return new CyclicFlow.OfDouble(source::iterator);
 	}
@@ -106,7 +106,7 @@ public class CycledIteration
 	 * @return An DoubleFlow which continuously loops through the elements of the
 	 *         source array.
 	 */
-	public static DoubleFlow of(final double... source)
+	public static DoubleFlow ofDoubles(final double... source)
 	{
 		return new CyclicFlow.OfDouble(() -> Iterate.overDoubles(source));
 	}
@@ -120,7 +120,7 @@ public class CycledIteration
 	 * @return An LongFlow which continuously loops through the elements of the
 	 *         source sequence.
 	 */
-	public static LongFlow of(final LongFlowIterable source)
+	public static LongFlow ofLongs(final LongFlowIterable source)
 	{
 		return new CyclicFlow.OfLong(source::iterator);
 	}
@@ -133,7 +133,7 @@ public class CycledIteration
 	 * @return An LongFlow which continuously loops through the elements of the
 	 *         source array.
 	 */
-	public static LongFlow of(final long... source)
+	public static LongFlow ofLongs(final long... source)
 	{
 		return new CyclicFlow.OfLong(() -> Iterate.overLongs(source));
 	}
