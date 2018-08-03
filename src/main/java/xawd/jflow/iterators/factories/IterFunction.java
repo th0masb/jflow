@@ -3,16 +3,21 @@
  */
 package xawd.jflow.iterators.factories;
 
+import java.util.function.DoubleSupplier;
 import java.util.function.IntFunction;
+import java.util.function.IntSupplier;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
+import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 
 import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
 import xawd.jflow.iterators.impl.FlowFromFunction;
+
 
 /**
  * Factory for building both finite and infinite Flows from functions.
@@ -23,6 +28,21 @@ public final class IterFunction
 {
 	private IterFunction()
 	{
+	}
+
+	/**
+	 * Build an infinite Flow from a function which generates instances of a
+	 * specified type.
+	 *
+	 * @param <E>
+	 *            The target type of the supply function.
+	 * @param indexingFunction
+	 *            A supplier of objects.
+	 * @return An infinite Flow built from repeatedly calling the supply function.
+	 */
+	public static <E> Flow<E> objectsFrom(final Supplier<E> indexingFunction)
+	{
+		return new FlowFromFunction.OfObject<>(i -> indexingFunction.get());
 	}
 
 	/**
@@ -61,6 +81,19 @@ public final class IterFunction
 	}
 
 	/**
+	 * Build an infinite LongFlow from a function which generates primitive longs.
+	 *
+	 * @param indexingFunction
+	 *            A supplier of longs.
+	 * @return An infinite LongFlow built from repeatedly calling the supply
+	 *         function.
+	 */
+	public static LongFlow longsFrom(final LongSupplier indexingFunction)
+	{
+		return longsFrom(i -> indexingFunction.getAsLong());
+	}
+
+	/**
 	 * Build an infinite LongFlow from a function which accepts a positive integer
 	 * argument representing a sequence index.
 	 *
@@ -89,6 +122,19 @@ public final class IterFunction
 	public static LongFlow longsFrom(final IntToLongFunction indexingFunction, final int indexBound)
 	{
 		return new FlowFromFunction.OfLong(indexingFunction, indexBound);
+	}
+	
+	/**
+	 * Build an infinite IntFlow from a function which generates primitive ints.
+	 *
+	 * @param indexingFunction
+	 *            A supplier of Ints.
+	 * @return An infinite IntFlow built from repeatedly calling the supply
+	 *         function.
+	 */
+	public static IntFlow intsFrom(final IntSupplier indexingFunction)
+	{
+		return intsFrom(i -> indexingFunction.getAsInt());
 	}
 
 	/**
@@ -120,6 +166,19 @@ public final class IterFunction
 	public static IntFlow intsFrom(final IntUnaryOperator indexingFunction, final int indexBound)
 	{
 		return new FlowFromFunction.OfInt(indexingFunction, indexBound);
+	}
+	
+	/**
+	 * Build an infinite DoubleFlow from a function which generates primitive doubles.
+	 *
+	 * @param indexingFunction
+	 *            A supplier of Doubles.
+	 * @return An infinite DoubleFlow built from repeatedly calling the supply
+	 *         function.
+	 */
+	public static DoubleFlow doublesFrom(final DoubleSupplier indexingFunction)
+	{
+		return doublesFrom(i -> indexingFunction.getAsDouble());
 	}
 
 	/**

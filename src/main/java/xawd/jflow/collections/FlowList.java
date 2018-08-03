@@ -5,13 +5,14 @@ package xawd.jflow.collections;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.iterables.FlowIterable;
-
+import xawd.jflow.utilities.Optionals;
 /**
  * An extension of the List interface adding enhanced iterators to support a
  * more functional style of programming. See {@link Flow}.
@@ -25,6 +26,26 @@ public interface FlowList<E> extends List<E>, FlowIterable<E>
 {
 	@Override
 	FlowList<E> subList(int fromIndex, int toIndex);
+	
+	/**
+	 * Method for safely retrieving the head of this List.
+	 * 
+	 * @return The first element in this list if it is non-empty, nothing otherwise.
+	 */
+	default Optional<E> head()
+	{
+		return isEmpty() ? Optional.empty() : Optionals.of(get(0));
+	}
+
+	/**
+	 * Method for safely retrieving the last element of this List.
+	 * 
+	 * @return The last element in this list if it is non-empty, nothing otherwise.
+	 */
+	default Optional<E> last()
+	{
+		return isEmpty() ? Optional.empty() : Optionals.of(get(size() - 1));
+	}
 
 	/**
 	 * @return An iteration of the elements in this List in reverse order. I.e from
