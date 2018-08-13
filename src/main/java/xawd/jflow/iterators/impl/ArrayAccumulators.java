@@ -3,7 +3,7 @@
  */
 package xawd.jflow.iterators.impl;
 
-import static xawd.jflow.utilities.CollectionUtil.tail;
+import static xawd.jflow.utilities.CollectionUtil.last;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,11 @@ import java.util.List;
  */
 final class ArrayAccumulators
 {
-	static final int DEFAULT_ARRAY_SIZE = 40;
-
+	static final int INITIAL_ARRAY_SIZE            = 20;
+	static final int INITIAL_ACCUMULATION_CAPACITY = 4;
+	static final int MAX_ARRAY_SIZE                = 1 << 20;
+	static final int GROWTH_FACTOR                 = 2;
+	
 	static OfInt intAccumulator()
 	{
 		return new OfInt();
@@ -30,100 +33,136 @@ final class ArrayAccumulators
 	{
 		return new OfLong();
 	}
-
+	
 	static class OfInt
 	{
-		private final List<int[]> arrays = new ArrayList<>();
-		private int count = 0;
-
+		private final List<int[]> arrays = new ArrayList<>(INITIAL_ACCUMULATION_CAPACITY);
+		private int runningIndex = 0;
+		
 		OfInt()
 		{
-			arrays.add(new int[DEFAULT_ARRAY_SIZE]);
+			arrays.add(new int[INITIAL_ARRAY_SIZE]);
 		}
-
-		void add(final int i)
+		
+		void add(int n)
 		{
-			final int[] currentStore = tail(arrays);
-			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
-			if (count % DEFAULT_ARRAY_SIZE == 0) {
-				arrays.add(new int[DEFAULT_ARRAY_SIZE]);
+			int[] currentStore = last(arrays);
+			currentStore[runningIndex] = n;
+			runningIndex = (runningIndex + 1) % currentStore.length;
+			
+			if (runningIndex == 0) {
+				int newSize = Math.min(MAX_ARRAY_SIZE, GROWTH_FACTOR * currentStore.length);
+				arrays.add(new int[newSize]);
 			}
 		}
-
+		
 		int[] compress()
 		{
-			final int[] compressed = new int[count];
-			final int cacheSizeMinusOne = arrays.size() - 1;
-			for (int i = 0; i < cacheSizeMinusOne; i++) {
-				System.arraycopy(arrays.get(i), 0, compressed, i*DEFAULT_ARRAY_SIZE, DEFAULT_ARRAY_SIZE);
+			int total = 0;
+			for (int i = 0; i < arrays.size() - 1; i++) {
+				total += arrays.get(i).length;
 			}
-			final int lastCacheSize = compressed.length - cacheSizeMinusOne*DEFAULT_ARRAY_SIZE;
-			System.arraycopy(tail(arrays), 0, compressed, cacheSizeMinusOne*DEFAULT_ARRAY_SIZE, lastCacheSize);
-			return compressed;
+			
+			int[] result = new int[runningIndex + total];
+			int indexTracker = 0;
+			
+			// Copy the full arrays
+			for (int i = 0; i < arrays.size() - 1; i++) {
+				int[] array = arrays.get(i);
+				System.arraycopy(array, 0, result, indexTracker, array.length);
+				indexTracker += array.length;
+			}
+			// copy the last array which is only partially full.
+			System.arraycopy(last(arrays), 0, result, indexTracker, runningIndex);
+			return result;
 		}
 	}
 
 	static class OfDouble
 	{
-		private final List<double[]> arrays = new ArrayList<>();
-		private int count = 0;
-
+		private final List<double[]> arrays = new ArrayList<>(INITIAL_ACCUMULATION_CAPACITY);
+		private int runningIndex = 0;
+		
 		OfDouble()
 		{
-			arrays.add(new double[DEFAULT_ARRAY_SIZE]);
+			arrays.add(new double[INITIAL_ARRAY_SIZE]);
 		}
-
-		void add(final double i)
+		
+		void add(double n)
 		{
-			final double[] currentStore = tail(arrays);
-			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
-			if (count % DEFAULT_ARRAY_SIZE == 0) {
-				arrays.add(new double[DEFAULT_ARRAY_SIZE]);
+			double[] currentStore = last(arrays);
+			currentStore[runningIndex] = n;
+			runningIndex = (runningIndex + 1) % currentStore.length;
+			
+			if (runningIndex == 0) {
+				int newSize = Math.min(MAX_ARRAY_SIZE, GROWTH_FACTOR * currentStore.length);
+				arrays.add(new double[newSize]);
 			}
 		}
-
+		
 		double[] compress()
 		{
-			final double[] compressed = new double[count];
-			final int cacheSizeMinusOne = arrays.size() - 1;
-			for (int i = 0; i < cacheSizeMinusOne; i++) {
-				System.arraycopy(arrays.get(i), 0, compressed, i*DEFAULT_ARRAY_SIZE, DEFAULT_ARRAY_SIZE);
+			int total = 0;
+			for (int i = 0; i < arrays.size() - 1; i++) {
+				total += arrays.get(i).length;
 			}
-			final int lastCacheSize = compressed.length - cacheSizeMinusOne*DEFAULT_ARRAY_SIZE;
-			System.arraycopy(tail(arrays), 0, compressed, cacheSizeMinusOne*DEFAULT_ARRAY_SIZE, lastCacheSize);
-			return compressed;
+			
+			double[] result = new double[runningIndex + total];
+			int indexTracker = 0;
+			
+			// Copy the full arrays
+			for (int i = 0; i < arrays.size() - 1; i++) {
+				double[] array = arrays.get(i);
+				System.arraycopy(array, 0, result, indexTracker, array.length);
+				indexTracker += array.length;
+			}
+			// copy the last array which is only partially full.
+			System.arraycopy(last(arrays), 0, result, indexTracker, runningIndex);
+			return result;
 		}
 	}
 
 	static class OfLong
 	{
-		private final List<long[]> arrays = new ArrayList<>();
-		private int count = 0;
-
+		private final List<long[]> arrays = new ArrayList<>(INITIAL_ACCUMULATION_CAPACITY);
+		private int runningIndex = 0;
+		
 		OfLong()
 		{
-			arrays.add(new long[DEFAULT_ARRAY_SIZE]);
+			arrays.add(new long[INITIAL_ARRAY_SIZE]);
 		}
-
-		void add(final long i)
+		
+		void add(long n)
 		{
-			final long[] currentStore = tail(arrays);
-			currentStore[(count++ % DEFAULT_ARRAY_SIZE)] = i;
-			if (count % DEFAULT_ARRAY_SIZE == 0) {
-				arrays.add(new long[DEFAULT_ARRAY_SIZE]);
+			long[] currentStore = last(arrays);
+			currentStore[runningIndex] = n;
+			runningIndex = (runningIndex + 1) % currentStore.length;
+			
+			if (runningIndex == 0) {
+				int newSize = Math.min(MAX_ARRAY_SIZE, GROWTH_FACTOR * currentStore.length);
+				arrays.add(new long[newSize]);
 			}
 		}
-
+		
 		long[] compress()
 		{
-			final long[] compressed = new long[count];
-			final int cacheSizeMinusOne = arrays.size() - 1;
-			for (int i = 0; i < cacheSizeMinusOne; i++) {
-				System.arraycopy(arrays.get(i), 0, compressed, i*DEFAULT_ARRAY_SIZE, DEFAULT_ARRAY_SIZE);
+			int total = 0;
+			for (int i = 0; i < arrays.size() - 1; i++) {
+				total += arrays.get(i).length;
 			}
-			final int lastCacheSize = compressed.length - cacheSizeMinusOne*DEFAULT_ARRAY_SIZE;
-			System.arraycopy(tail(arrays), 0, compressed, cacheSizeMinusOne*DEFAULT_ARRAY_SIZE, lastCacheSize);
-			return compressed;
+			
+			long[] result = new long[runningIndex + total];
+			int indexTracker = 0;
+			
+			// Copy the full arrays
+			for (int i = 0; i < arrays.size() - 1; i++) {
+				long[] array = arrays.get(i);
+				System.arraycopy(array, 0, result, indexTracker, array.length);
+				indexTracker += array.length;
+			}
+			// copy the last array which is only partially full.
+			System.arraycopy(last(arrays), 0, result, indexTracker, runningIndex);
+			return result;
 		}
 	}
 }

@@ -7,6 +7,9 @@ import xawd.jflow.iterators.AbstractDoubleFlow;
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.AbstractIntFlow;
 import xawd.jflow.iterators.AbstractLongFlow;
+import xawd.jflow.iterators.DoubleFlow;
+import xawd.jflow.iterators.IntFlow;
+import xawd.jflow.iterators.LongFlow;
 
 public final class EmptyFlow
 {
@@ -34,8 +37,10 @@ public final class EmptyFlow
 			throw new NoSuchElementException();
 		}
 	}
+	
+	public static final LongFlow OF_LONGS = new OfLongs();
 
-	public static class OfLongs extends AbstractLongFlow
+	private static class OfLongs extends AbstractLongFlow
 	{
 		public OfLongs()
 		{
@@ -57,10 +62,12 @@ public final class EmptyFlow
 			throw new NoSuchElementException();
 		}
 	}
+	
+	public static final DoubleFlow OF_DOUBLES = new OfDoubles();
 
-	public static class OfDoubles extends AbstractDoubleFlow
+	private static class OfDoubles extends AbstractDoubleFlow
 	{
-		public OfDoubles()
+		private OfDoubles()
 		{
 			super(OptionalInt.of(0));
 		}
@@ -80,10 +87,12 @@ public final class EmptyFlow
 			throw new NoSuchElementException();
 		}
 	}
+	
+	public static final IntFlow OF_INTS = new OfInts();
 
-	public static class OfInts extends AbstractIntFlow
+	private static class OfInts extends AbstractIntFlow
 	{
-		public OfInts()
+		private OfInts()
 		{
 			super(OptionalInt.of(0));
 		}

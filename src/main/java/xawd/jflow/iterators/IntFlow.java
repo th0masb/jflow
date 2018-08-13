@@ -20,15 +20,16 @@ import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.IntWithDouble;
 import xawd.jflow.iterators.misc.IntWithLong;
 
+
 /**
- * An IntFlow is a sequential, single use iterator with lots of functionality in
- * the style of the {@link IntStream} interface. It bears a strong resemblance
- * in that it they are lazily-evaluated, possibly infinite sequences of values.
- * It was written with the intention of providing a cleaner API for common
- * sequence manipulations as well as providing the user more fine-grained
- * control over value consumption compared to streams. This finer control comes
- * at the cost of any potential parallelism in computations and therefore Flows
- * should be viewed as an accompaniment to Streams, not as replacements.
+ * A sequential, single use iterator with lots of functionality in the style of
+ * the {@link IntStream} interface. It bears a strong resemblance in that it
+ * they are lazily-evaluated, possibly infinite sequences of values. It was
+ * written with the intention of providing a cleaner API for common sequence
+ * manipulations as well as providing the user more fine-grained control over
+ * value consumption compared to streams. This finer control comes at the cost
+ * of any potential parallelism in computations and therefore Flows should be
+ * viewed as an accompaniment to Streams, not as replacements.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -44,7 +45,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         parameter mapping function to each element of this IntFlow instance
 	 *         in turn.
 	 */
-	IntFlow map(final IntUnaryOperator f);
+	IntFlow map(IntUnaryOperator f);
 
 	/**
 	 * Applies a function elementwise to this IntFlow to make new Flow.
@@ -98,7 +99,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	<E> Flow<IntWith<E>> zipWith(final Iterator<? extends E> other);
+	<E> Flow<IntWith<E>> zipWith(Iterator<? extends E> other);
 
 	/**
 	 * Combines this IntFlow with another primitive iterator to create a new Flow
@@ -116,7 +117,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<IntPair> zipWith(final PrimitiveIterator.OfInt other);
+	Flow<IntPair> zipWith(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Combines this IntFlow with another primitive iterator to create a new Flow
@@ -134,7 +135,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfDouble other);
+	Flow<IntWithDouble> zipWith(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Combines this IntFlow with another primitive iterator to create a new Flow
@@ -152,7 +153,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<IntWithLong> zipWith(final PrimitiveIterator.OfLong other);
+	Flow<IntWithLong> zipWith(PrimitiveIterator.OfLong other);
 
 	/**
 	 * Combines this IntFlow with another primitive iterator via a two argument
@@ -214,7 +215,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         consisting of the first {@code max(n, length(F))} elements of
 	 *         {@code F}.
 	 */
-	IntFlow take(final int n);
+	IntFlow take(int n);
 
 	/**
 	 * Creates a new IntFlow from this IntFlow by selecting elements until an
@@ -227,7 +228,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         the first {@code n} elements of this source IntFlow. If no element
 	 *         fails the predicate test then a copy of the source is returned.
 	 */
-	IntFlow takeWhile(final IntPredicate predicate);
+	IntFlow takeWhile(IntPredicate predicate);
 
 	/**
 	 * Creates a new IntFlow from this IntFlow by removing the first n elements.
@@ -239,7 +240,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return Let {@code F} denote this source IntFlow. We return a IntFlow missing
 	 *         the first {@code min(n, length(F))} elements of {@code F}.
 	 */
-	IntFlow drop(final int n);
+	IntFlow drop(int n);
 
 	/**
 	 * Creates a new IntFlow from this IntFlow by removing elements until an element
@@ -253,7 +254,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         {@code n} elements of this source IntFlow. If no element fails the
 	 *         predicate test then a copy of the source is returned.
 	 */
-	IntFlow dropWhile(final IntPredicate predicate);
+	IntFlow dropWhile(IntPredicate predicate);
 
 	/**
 	 * Creates a new IntFlow from this IntFlow by removing any element which fails
@@ -265,7 +266,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         which pass the test defined by the parameter predicate. The relative
 	 *         ordering of elements is retained.
 	 */
-	IntFlow filter(final IntPredicate predicate);
+	IntFlow filter(IntPredicate predicate);
 
 	/**
 	 * Creates a new IntFlow from this IntFlow by adding each element of the
@@ -364,45 +365,6 @@ public interface IntFlow extends PrototypeIntFlow
 	 */
 	int min(int defaultValue);
 
-	// /**
-	// * Calculates the minimum element in this IntFlow by an embedding into the
-	// real
-	// * numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * IntFlow.
-	// *
-	// * @param defaultValue
-	// * The value returned if this IntFlow is empty.
-	// *
-	// * @param key
-	// * A function mapping the elements of this IntFlow into the real
-	// * numbers.
-	// * @return The element of this IntFlow whose image under the key mapping is
-	// the
-	// * minimum among all images. A parameter default value is returned if
-	// * the source is empty. NaN images are ignored.
-	// */
-	// int minByKey(int defaultValue, final IntToDoubleFunction key);
-	//
-	// /**
-	// * Calculates the minimum element in this IntFlow by an embedding into the
-	// real
-	// * numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * IntFlow.
-	// *
-	// * @param key
-	// * A function mapping the elements of this IntFlow into the real
-	// * numbers.
-	// * @return The element of this IntFlow whose image under the key mapping is
-	// the
-	// * minimum among all images. Nothing is returned if the source is empty.
-	// * NaN images are ignored.
-	// */
-	// OptionalInt minByKey(final IntToDoubleFunction key);
-
 	/**
 	 * Calculates the minimum element in this IntFlow by a mapping to a type
 	 * equipped with a natural ordering.
@@ -419,7 +381,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return The element of this IntFlow whose image under the key mapping is the
 	 *         minimum among all images. Nothing is returned if the source is empty.
 	 */
-	<C extends Comparable<C>> OptionalInt minByKey(final IntFunction<C> key);
+	<C extends Comparable<C>> OptionalInt minByKey(IntFunction<C> key);
 
 	/**
 	 * Calculates the maximum value in this IntFlow.
@@ -446,45 +408,6 @@ public interface IntFlow extends PrototypeIntFlow
 	 */
 	int max(int defaultValue);
 
-	// /**
-	// * Calculates the maximum element in this IntFlow by an embedding into the
-	// real
-	// * numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * IntFlow.
-	// *
-	// * @param defaultValue
-	// * The value returned if this IntFlow is empty.
-	// *
-	// * @param key
-	// * A function mapping the elements of this IntFlow into the real
-	// * numbers.
-	// * @return The element of this IntFlow whose image under the key mapping is
-	// the
-	// * maximum among all images. A parameter default value is returned if
-	// * the source is empty. NaN images are ignored.
-	// */
-	// int maxByKey(int defaultValue, final IntToDoubleFunction key);
-	//
-	// /**
-	// * Calculates the maximum element in this IntFlow by an embedding into the
-	// real
-	// * numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * IntFlow.
-	// *
-	// * @param key
-	// * A function mapping the elements of this IntFlow into the real
-	// * numbers.
-	// * @return The element of this IntFlow whose image under the key mapping is
-	// the
-	// * maximum among all images. Nothing is returned if the source is empty.
-	// * NaN images are ignored.
-	// */
-	// OptionalInt maxByKey(final IntToDoubleFunction key);
-
 	/**
 	 * Calculates the maximum element in this IntFlow by a mapping to a type
 	 * equipped with a natural ordering.
@@ -501,7 +424,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return The element of this IntFlow whose image under the key mapping is the
 	 *         maximum among all images. Nothing is returned if the source is empty.
 	 */
-	<C extends Comparable<C>> OptionalInt maxByKey(final IntFunction<C> key);
+	<C extends Comparable<C>> OptionalInt maxByKey(IntFunction<C> key);
 
 	/**
 	 * Checks whether every element in this IntFlow is the same.
@@ -511,7 +434,20 @@ public interface IntFlow extends PrototypeIntFlow
 	 *
 	 * @return True is every element of this IntFlow is equal, false otherwise.
 	 */
-	Bool areAllEqual();
+	boolean areAllEqual();
+
+	/**
+	 * Checks whether every element in this IntFlow is the same.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * IntFlow.
+	 *
+	 * @return True is every element of this IntFlow is equal, false otherwise.
+	 */
+	default Bool areAllEqual2()
+	{
+		return Bool.of(areAllEqual());
+	}
 
 	/**
 	 * Checks whether every element in this IntFlow passes the supplied IntPredicate
@@ -525,7 +461,24 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool allMatch(final IntPredicate predicate);
+	boolean allMatch(IntPredicate predicate);
+
+	/**
+	 * Checks whether every element in this IntFlow passes the supplied IntPredicate
+	 * test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * IntFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if every element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool allMatch2(IntPredicate predicate)
+	{
+		return Bool.of(allMatch(predicate));
+	}
 
 	/**
 	 * Checks whether any element in this IntFlow passes the supplied IntPredicate
@@ -539,7 +492,24 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool anyMatch(final IntPredicate predicate);
+	boolean anyMatch(IntPredicate predicate);
+
+	/**
+	 * Checks whether any element in this IntFlow passes the supplied IntPredicate
+	 * test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * IntFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if any element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool anyMatch2(IntPredicate predicate)
+	{
+		return Bool.of(anyMatch(predicate));
+	}
 
 	/**
 	 * Checks whether every element in this IntFlow fails the supplied IntPredicate
@@ -553,7 +523,24 @@ public interface IntFlow extends PrototypeIntFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool noneMatch(final IntPredicate predicate);
+	boolean noneMatch(IntPredicate predicate);
+
+	/**
+	 * Checks whether every element in this IntFlow fails the supplied IntPredicate
+	 * test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * IntFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if every element fails the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool noneMatch2(IntPredicate predicate)
+	{
+		return Bool.of(noneMatch(predicate));
+	}
 
 	/**
 	 * Partitions the elements of this IntFlow on whether they pass the supplied
@@ -602,7 +589,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
-	OptionalInt reduce(IntBinaryOperator reducer);
+	OptionalInt fold(IntBinaryOperator reducer);
 
 	/**
 	 * Counts the number of elements in this IntFlow.
@@ -652,7 +639,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         an element of this source IntFlow, say {@code e}, is associated to
 	 *         the key value pair {@code (k(e), v(e))}.
 	 */
-	<K, V> Map<K, V> toMap(final IntFunction<K> keyMapper, final IntFunction<V> valueMapper);
+	<K, V> Map<K, V> toMap(IntFunction<K> keyMapper, IntFunction<V> valueMapper);
 
 	/**
 	 * Groups elements in this IntFlow via their image under some supplied
@@ -662,7 +649,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 * IntFlow.
 	 *
 	 * @param <K>
-	 *            The type of the keys in the final grouping map.
+	 *            The type of the keys in the grouping map.
 	 *
 	 * @param classifier
 	 *            A function defining the different groups of elements.
@@ -672,7 +659,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *         classification function are grouped together in a long array accessed
 	 *         by their shared classification key.
 	 */
-	<K> Map<K, int[]> groupBy(final IntFunction<K> classifier);
+	<K> Map<K, int[]> groupBy(IntFunction<K> classifier);
 
 	/**
 	 * A convenience method for applying a global function onto this IntFlow.
@@ -689,7 +676,7 @@ public interface IntFlow extends PrototypeIntFlow
 	 *            element type.
 	 * @return the output of the supplied function applied to this IntFlow.
 	 */
-	default <C> C build(final Function<? super IntFlow, C> builder)
+	default <C> C build(Function<? super IntFlow, C> builder)
 	{
 		return builder.apply(this);
 	}

@@ -6,7 +6,6 @@ package xawd.jflow.iterators.impl;
 import java.util.PrimitiveIterator;
 import java.util.function.DoublePredicate;
 
-import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoublePredicatePartition;
 
 /**
@@ -18,7 +17,7 @@ public final class DoublePredicateConsumption
 
 	public DoublePredicateConsumption() {}
 
-	public static Bool allEqual(final PrimitiveIterator.OfDouble source)
+	public static boolean allEqual(final PrimitiveIterator.OfDouble source)
 	{
 		boolean initialised = false;
 		double last = -1;
@@ -32,40 +31,40 @@ public final class DoublePredicateConsumption
 				last = next;
 			}
 			else {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
-	public static Bool allMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
+	public static boolean allMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextDouble())) {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
-	public static Bool anyMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
+	public static boolean anyMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextDouble())) {
-				return Bool.TRUE;
+				return true;
 			}
 		}
-		return Bool.FALSE;
+		return false;
 	}
 
-	public static Bool noneMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
+	public static boolean noneMatch(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextDouble())) {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
 	public static DoublePredicatePartition partition(final PrimitiveIterator.OfDouble source, final DoublePredicate predicate)

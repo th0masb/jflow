@@ -21,8 +21,9 @@ import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithDouble;
 
+
 /**
- * A DoubleFlow is a sequential, single use iterator with lots of functionality
+ * A sequential, single use iterator with lots of functionality
  * in the style of the {@link DoubleStream} interface. It bears a strong
  * resemblance in that it they are lazily-evaluated, possibly infinite sequences
  * of values. It was written with the intention of providing a cleaner API for
@@ -45,7 +46,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         parameter mapping function to each element of this DoubleFlow
 	 *         instance in turn.
 	 */
-	DoubleFlow map(final DoubleUnaryOperator f);
+	DoubleFlow map(DoubleUnaryOperator f);
 
 	/**
 	 * Applies a function elementwise to this DoubleFlow to make new Flow.
@@ -100,7 +101,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	<E> Flow<DoubleWith<E>> zipWith(final Iterator<? extends E> other);
+	<E> Flow<DoubleWith<E>> zipWith(Iterator<? extends E> other);
 
 	/**
 	 * Combines this DoubleFlow with another primitive iterator to create a new Flow
@@ -118,7 +119,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<DoublePair> zipWith(final PrimitiveIterator.OfDouble other);
+	Flow<DoublePair> zipWith(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Combines this DoubleFlow with another primitive iterator to create a new Flow
@@ -136,7 +137,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<DoubleWithLong> zipWith(final PrimitiveIterator.OfLong other);
+	Flow<DoubleWithLong> zipWith(PrimitiveIterator.OfLong other);
 
 	/**
 	 * Combines this DoubleFlow with another primitive iterator to create a new Flow
@@ -154,7 +155,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<IntWithDouble> zipWith(final PrimitiveIterator.OfInt other);
+	Flow<IntWithDouble> zipWith(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Combines this DoubleFlow with another primitive iterator via a two argument
@@ -174,7 +175,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	DoubleFlow combineWith(final PrimitiveIterator.OfDouble other, final DoubleBinaryOperator combiner);
+	DoubleFlow combineWith(PrimitiveIterator.OfDouble other, DoubleBinaryOperator combiner);
 
 	/**
 	 * Creates a new Flow by mapping each element in this source DoubleFlow to a
@@ -217,7 +218,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         consisting of the first {@code max(n, length(F))} elements of
 	 *         {@code F}.
 	 */
-	DoubleFlow take(final int n);
+	DoubleFlow take(int n);
 
 	/**
 	 * Creates a new DoubleFlow from this DoubleFlow by selecting elements until an
@@ -231,7 +232,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         element fails the predicate test then a copy of the source is
 	 *         returned.
 	 */
-	DoubleFlow takeWhile(final DoublePredicate predicate);
+	DoubleFlow takeWhile(DoublePredicate predicate);
 
 	/**
 	 * Creates a new DoubleFlow from this DoubleFlow by removing the first n
@@ -244,7 +245,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return Let {@code F} denote this source DoubleFlow. We return a DoubleFlow
 	 *         missing the first {@code min(n, length(F))} elements of {@code F}.
 	 */
-	DoubleFlow drop(final int n);
+	DoubleFlow drop(int n);
 
 	/**
 	 * Creates a new DoubleFlow from this DoubleFlow by removing elements until an
@@ -258,7 +259,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         {@code n} elements of this source DoubleFlow. If no element fails the
 	 *         predicate test then a copy of the source is returned.
 	 */
-	DoubleFlow dropWhile(final DoublePredicate predicate);
+	DoubleFlow dropWhile(DoublePredicate predicate);
 
 	/**
 	 * Creates a new DoubleFlow from this DoubleFlow by removing any element which
@@ -270,7 +271,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         which pass the test defined by the parameter predicate. The relative
 	 *         ordering of elements is retained.
 	 */
-	DoubleFlow filter(final DoublePredicate predicate);
+	DoubleFlow filter(DoublePredicate predicate);
 
 	/**
 	 * Creates a new DoubleFlow from this DoubleFlow by adding each element of the
@@ -371,41 +372,6 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 */
 	double min(double defaultValue);
 
-	// /**
-	// * Calculates the minimum element in this DoubleFlow by an embedding into the
-	// * real numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * DoubleFlow.
-	// *
-	// * @param defaultValue
-	// * The value returned if this DoubleFlow is empty.
-	// *
-	// * @param key
-	// * A function mapping the elements of this DoubleFlow into the real
-	// * numbers.
-	// * @return The element of this DoubleFlow whose image under the key mapping is
-	// * the minimum among all images. A parameter default value is returned
-	// * if the source is empty. NaN images are ignored.
-	// */
-	// double minByKey(double defaultValue, final DoubleUnaryOperator key);
-	//
-	// /**
-	// * Calculates the minimum element in this DoubleFlow by an embedding into the
-	// * real numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * DoubleFlow.
-	// *
-	// * @param key
-	// * A function mapping the elements of this DoubleFlow into the real
-	// * numbers.
-	// * @return The element of this DoubleFlow whose image under the key mapping is
-	// * the minimum among all images. Nothing is returned if the source is
-	// * empty. NaN images are ignored.
-	// */
-	// OptionalDouble minByKey(final DoubleUnaryOperator key);
-
 	/**
 	 * Calculates the maximum value in this DoubleFlow.
 	 *
@@ -431,40 +397,15 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 */
 	double max(double defaultValue);
 
-	// /**
-	// * Calculates the maximum element in this DoubleFlow by an embedding into the
-	// * real numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * DoubleFlow.
-	// *
-	// * @param defaultValue
-	// * The value returned if this DoubleFlow is empty.
-	// *
-	// * @param key
-	// * A function mapping the elements of this DoubleFlow into the real
-	// * numbers.
-	// * @return The element of this DoubleFlow whose image under the key mapping is
-	// * the maximum among all images. A parameter default value is returned
-	// * if the source is empty. NaN images are ignored.
-	// */
-	// double maxByKey(double defaultValue, final DoubleUnaryOperator key);
-	//
-	// /**
-	// * Calculates the maximum element in this DoubleFlow by an embedding into the
-	// * real numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * DoubleFlow.
-	// *
-	// * @param key
-	// * A function mapping the elements of this DoubleFlow into the real
-	// * numbers.
-	// * @return The element of this DoubleFlow whose image under the key mapping is
-	// * the maximum among all images. Nothing is returned if the source is
-	// * empty. NaN images are ignored.
-	// */
-	// OptionalDouble maxByKey(final DoubleUnaryOperator key);
+	/**
+	 * Checks whether every element in this DoubleFlow is the same.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * DoubleFlow.
+	 *
+	 * @return True is every element of this DoubleFlow is equal, false otherwise.
+	 */
+	boolean areAllEqual();
 
 	/**
 	 * Checks whether every element in this DoubleFlow is the same.
@@ -474,7 +415,10 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *
 	 * @return True is every element of this DoubleFlow is equal, false otherwise.
 	 */
-	Bool areAllEqual();
+	default Bool areAllEqual2()
+	{
+		return Bool.of(areAllEqual());
+	}
 
 	/**
 	 * Checks whether every element in this DoubleFlow passes the supplied
@@ -488,7 +432,24 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool allMatch(final DoublePredicate predicate);
+	boolean allMatch(DoublePredicate predicate);
+
+	/**
+	 * Checks whether every element in this DoubleFlow passes the supplied
+	 * DoublePredicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * DoubleFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if every element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool allMatch2(DoublePredicate predicate)
+	{
+		return Bool.of(allMatch(predicate));
+	}
 
 	/**
 	 * Checks whether any element in this DoubleFlow passes the supplied
@@ -502,7 +463,24 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool anyMatch(final DoublePredicate predicate);
+	boolean anyMatch(DoublePredicate predicate);
+	
+	/**
+	 * Checks whether any element in this DoubleFlow passes the supplied
+	 * DoublePredicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * DoubleFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if any element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool anyMatch2(DoublePredicate predicate)
+	{
+		return Bool.of(anyMatch(predicate));
+	}
 
 	/**
 	 * Checks whether every element in this DoubleFlow fails the supplied
@@ -516,7 +494,24 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool noneMatch(final DoublePredicate predicate);
+	boolean noneMatch(DoublePredicate predicate);
+	
+	/**
+	 * Checks whether every element in this DoubleFlow fails the supplied
+	 * DoublePredicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * DoubleFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if every element fails the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool noneMatch2(DoublePredicate predicate)
+	{
+		return Bool.of(noneMatch(predicate));
+	}
 
 	/**
 	 * Partitions the elements of this DoubleFlow on whether they pass the supplied
@@ -616,7 +611,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         an element of this source DoubleFlow, say {@code e}, is associated to
 	 *         the key value pair {@code (k(e), v(e))}.
 	 */
-	<K, V> Map<K, V> toMap(final DoubleFunction<K> keyMapper, final DoubleFunction<V> valueMapper);
+	<K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper, DoubleFunction<V> valueMapper);
 
 	/**
 	 * Groups elements in this DoubleFlow via their image under some supplied
@@ -626,7 +621,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 * DoubleFlow.
 	 *
 	 * @param <K>
-	 *            The type of the keys in the final grouping map.
+	 *            The type of the keys in the grouping map.
 	 *
 	 * @param classifier
 	 *            A function defining the different groups of elements.
@@ -636,7 +631,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *         classification function are grouped together in a double array
 	 *         accessed by their shared classification key.
 	 */
-	<K> Map<K, double[]> groupBy(final DoubleFunction<K> classifier);
+	<K> Map<K, double[]> groupBy(DoubleFunction<K> classifier);
 
 	/**
 	 * A convenience method for applying a global function onto this DoubleFlow.
@@ -653,7 +648,7 @@ public interface DoubleFlow extends PrototypeDoubleFlow
 	 *            element type.
 	 * @return the output of the supplied function applied to this DoubleFlow.
 	 */
-	default <C> C build(final Function<? super DoubleFlow, C> builder)
+	default <C> C build(Function<? super DoubleFlow, C> builder)
 	{
 		return builder.apply(this);
 	}

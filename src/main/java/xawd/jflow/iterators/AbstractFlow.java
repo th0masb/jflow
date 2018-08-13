@@ -23,8 +23,8 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import xawd.jflow.collections.FlowList;
-import xawd.jflow.collections.FlowSet;
+import xawd.jflow.collections.FList;
+import xawd.jflow.collections.FSet;
 import xawd.jflow.iterators.factories.Numbers;
 import xawd.jflow.iterators.impl.AccumulationFlow;
 import xawd.jflow.iterators.impl.AppendFlow;
@@ -47,7 +47,6 @@ import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
 import xawd.jflow.iterators.impl.ZipFlow;
-import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
@@ -56,9 +55,7 @@ import xawd.jflow.iterators.misc.PredicatePartition;
 
 /**
  * A skeletal implementation of a Flow, users writing custom Flows should
- * subclass this class. There no internal state in this class, it can be thought
- * of as the composition of all the functionality outlined in the Flow
- * interface.
+ * subclass this class.
  *
  * @param <E>
  *            The type of elements produced by this Flow.
@@ -206,13 +203,13 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	}
 
 	@Override
-	public AbstractFlow<E> accumulate(final BinaryOperator<E> accumulator)
+	public AbstractFlow<E> scan(final BinaryOperator<E> accumulator)
 	{
 		return new AccumulationFlow.OfObject<>(this, accumulator);
 	}
 
 	@Override
-	public <R> AbstractFlow<R> accumulate(final R id, final BiFunction<R, E, R> accumulator)
+	public <R> AbstractFlow<R> scan(final R id, final BiFunction<R, E, R> accumulator)
 	{
 		return new AccumulationFlow.OfObjectWithMixedTypes<>(this, id, accumulator);
 	}
@@ -236,25 +233,25 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	}
 
 	@Override
-	public Bool areAllEqual()
+	public boolean areAllEqual()
 	{
 		return ObjectPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public Bool allMatch(final Predicate<? super E> predicate)
+	public boolean allMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public Bool anyMatch(final Predicate<? super E> predicate)
+	public boolean anyMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public Bool noneMatch(final Predicate<? super E> predicate)
+	public boolean noneMatch(final Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -290,25 +287,25 @@ public abstract class AbstractFlow<E> extends AbstractOptionallySized implements
 	}
 
 	@Override
-	public FlowList<E> toList()
+	public FList<E> toList()
 	{
 		return ObjectCollectionConsumption.toImmutableList(this);
 	}
 
 	@Override
-	public FlowList<E> toMutableList()
+	public FList<E> toMutableList()
 	{
 		return ObjectCollectionConsumption.toMutableList(this);
 	}
 
 	@Override
-	public FlowSet<E> toSet()
+	public FSet<E> toSet()
 	{
 		return ObjectCollectionConsumption.toImmutableSet(this);
 	}
 
 	@Override
-	public FlowSet<E> toMutableSet()
+	public FSet<E> toMutableSet()
 	{
 		return ObjectCollectionConsumption.toMutableSet(this);
 	}

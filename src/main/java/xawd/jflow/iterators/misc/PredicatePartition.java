@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.FList;
 import xawd.jflow.collections.Lists;
 import xawd.jflow.iterators.Flow;
 
@@ -17,7 +17,7 @@ import xawd.jflow.iterators.Flow;
  */
 public final class PredicatePartition<E>
 {
-	private final FlowList<E> acceptedElements, rejectedElements;
+	private final FList<E> acceptedElements, rejectedElements;
 
 	public PredicatePartition(Flow<E> source, Predicate<? super E> predicate)
 	{
@@ -41,12 +41,12 @@ public final class PredicatePartition<E>
 		this.rejectedElements = Lists.copy(rejected);
 	}
 
-	public FlowList<E> getAccepted()
+	public FList<E> getAccepted()
 	{
 		return acceptedElements;
 	}
 
-	public FlowList<E> getRejected()
+	public FList<E> getRejected()
 	{
 		return rejectedElements;
 	}

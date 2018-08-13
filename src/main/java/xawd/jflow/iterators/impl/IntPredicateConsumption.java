@@ -6,7 +6,6 @@ package xawd.jflow.iterators.impl;
 import java.util.PrimitiveIterator;
 import java.util.function.IntPredicate;
 
-import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
 
 /**
@@ -16,7 +15,7 @@ public final class IntPredicateConsumption
 {
 	public IntPredicateConsumption() {}
 
-	public static Bool allEqual(final PrimitiveIterator.OfInt source)
+	public static boolean allEqual(final PrimitiveIterator.OfInt source)
 	{
 		boolean initialised = false;
 		int last = -1;
@@ -30,40 +29,40 @@ public final class IntPredicateConsumption
 				last = next;
 			}
 			else {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
-	public static Bool allMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static boolean allMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextInt())) {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
-	public static Bool anyMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static boolean anyMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextInt())) {
-				return Bool.TRUE;
+				return true;
 			}
 		}
-		return Bool.FALSE;
+		return false;
 	}
 
-	public static Bool noneMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
+	public static boolean noneMatch(final PrimitiveIterator.OfInt source, final IntPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextInt())) {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
 	public static IntPredicatePartition partition(final PrimitiveIterator.OfInt source, final IntPredicate predicate)

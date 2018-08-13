@@ -6,9 +6,7 @@ package xawd.jflow.iterators;
 import java.util.OptionalInt;
 
 /**
- * Abstraction of the concept of a sequence having an 'optional' size, more
- * accurately it describes a sequence which has a (possibly infinite) size but
- * the specific quantity may not be known.
+ * Abstraction of a sequence whose (possibly infinite) size may not be known.
  *
  * @author ThomasB
  */

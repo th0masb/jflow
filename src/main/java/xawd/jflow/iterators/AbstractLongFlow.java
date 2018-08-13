@@ -36,7 +36,6 @@ import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
 import xawd.jflow.iterators.impl.ZipFlow;
-import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoubleWithLong;
 import xawd.jflow.iterators.misc.IntWithLong;
 import xawd.jflow.iterators.misc.LongPair;
@@ -45,9 +44,7 @@ import xawd.jflow.iterators.misc.LongWith;
 
 /**
  * A skeletal implementation of a LongFlow, users writing custom LongFlows
- * should subclass this class. There no internal state in this class, it can be
- * thought of as the composition of all the functionality outlined in the
- * LongFlow interface.
+ * should subclass this class.
  *
  * @author ThomasB
  */
@@ -215,25 +212,25 @@ public abstract class AbstractLongFlow extends AbstractOptionallySized implement
 	}
 
 	@Override
-	public Bool areAllEqual()
+	public boolean areAllEqual()
 	{
 		return LongPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public Bool allMatch(final LongPredicate predicate)
+	public boolean allMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public Bool anyMatch(final LongPredicate predicate)
+	public boolean anyMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public Bool noneMatch(final LongPredicate predicate)
+	public boolean noneMatch(final LongPredicate predicate)
 	{
 		return LongPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -257,7 +254,7 @@ public abstract class AbstractLongFlow extends AbstractOptionallySized implement
 	}
 
 	@Override
-	public OptionalLong reduce(final LongBinaryOperator reducer)
+	public OptionalLong fold(final LongBinaryOperator reducer)
 	{
 		return LongReductionConsumption.reduce(this, reducer);
 	}

@@ -8,8 +8,7 @@ import java.util.PrimitiveIterator.OfDouble;
 import java.util.function.DoubleConsumer;
 
 /**
- * An interface extending the requisite interfaces for DoubleFlow and adding
- * some necessary but somewhat unrelated functionality.
+ * A precursor interface to {@linkplain DoubleFlow}.
  *
  * @author t
  */

@@ -10,6 +10,8 @@ import java.util.function.IntBinaryOperator;
 import java.util.function.LongBinaryOperator;
 
 /**
+ * Static methods for combining primitive arrays with functions.
+ * 
  * @author ThomasB
  * @since 14 Feb 2018
  */

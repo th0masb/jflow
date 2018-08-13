@@ -32,7 +32,6 @@ import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
 import xawd.jflow.iterators.impl.ZipFlow;
-import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.IntPair;
 import xawd.jflow.iterators.misc.IntPredicatePartition;
 import xawd.jflow.iterators.misc.IntWith;
@@ -41,9 +40,7 @@ import xawd.jflow.iterators.misc.IntWithLong;
 
 /**
  * A skeletal implementation of a IntFlow, users writing custom IntFlows should
- * subclass this class. There no internal state in this class, it can be thought
- * of as the composition of all the functionality outlined in the IntFlow
- * interface.
+ * subclass this class.
  *
  * @author ThomasB
  * @since 23 Apr 2018
@@ -248,25 +245,25 @@ public abstract class AbstractIntFlow extends AbstractOptionallySized implements
 	}
 
 	@Override
-	public Bool areAllEqual()
+	public boolean areAllEqual()
 	{
 		return IntPredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public Bool allMatch(final IntPredicate predicate)
+	public boolean allMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public Bool anyMatch(final IntPredicate predicate)
+	public boolean anyMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public Bool noneMatch(final IntPredicate predicate)
+	public boolean noneMatch(final IntPredicate predicate)
 	{
 		return IntPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -290,7 +287,7 @@ public abstract class AbstractIntFlow extends AbstractOptionallySized implements
 	}
 
 	@Override
-	public OptionalInt reduce(final IntBinaryOperator reducer)
+	public OptionalInt fold(final IntBinaryOperator reducer)
 	{
 		return IntReductionConsumption.reduce(this, reducer);
 	}

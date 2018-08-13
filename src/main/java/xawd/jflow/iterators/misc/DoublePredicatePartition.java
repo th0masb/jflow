@@ -5,9 +5,6 @@ package xawd.jflow.iterators.misc;
 
 import java.util.Arrays;
 
-import xawd.jflow.iterators.Flow;
-import xawd.jflow.iterators.factories.Iterate;
-
 /**
  * @author ThomasB
  *
@@ -55,12 +52,5 @@ public final class DoublePredicatePartition
 		if (!Arrays.equals(rejectedElements, other.rejectedElements))
 			return false;
 		return true;
-	}
-
-	public static void main(final String[] args)
-	{
-		final Flow<String> x = Iterate.over("1", "2").takeWhile(s -> !s.equals("1")).append("1");
-		System.out.println(x.hasNext());
-		System.out.println(x.next());
 	}
 }

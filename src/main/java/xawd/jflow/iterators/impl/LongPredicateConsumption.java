@@ -6,7 +6,6 @@ package xawd.jflow.iterators.impl;
 import java.util.PrimitiveIterator;
 import java.util.function.LongPredicate;
 
-import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 
 /**
@@ -16,7 +15,7 @@ public final class LongPredicateConsumption
 {
 	public LongPredicateConsumption() {}
 
-	public static Bool allEqual(final PrimitiveIterator.OfLong source)
+	public static boolean allEqual(final PrimitiveIterator.OfLong source)
 	{
 		boolean initialised = false;
 		long last = -1L;
@@ -30,40 +29,40 @@ public final class LongPredicateConsumption
 				last = next;
 			}
 			else {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
-	public static Bool allMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static boolean allMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextLong())) {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
-	public static Bool anyMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static boolean anyMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLong())) {
-				return Bool.TRUE;
+				return true;
 			}
 		}
-		return Bool.FALSE;
+		return false;
 	}
 
-	public static Bool noneMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
+	public static boolean noneMatch(final PrimitiveIterator.OfLong source, final LongPredicate predicate)
 	{
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLong())) {
-				return Bool.FALSE;
+				return false;
 			}
 		}
-		return Bool.TRUE;
+		return true;
 	}
 
 	public static LongPredicatePartition partition(final PrimitiveIterator.OfLong source, final LongPredicate predicate)

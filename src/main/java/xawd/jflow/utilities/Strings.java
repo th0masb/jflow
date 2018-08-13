@@ -3,59 +3,198 @@
  */
 package xawd.jflow.utilities;
 
-import static xawd.jflow.utilities.CollectionUtil.tail;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import xawd.jflow.collections.FlowList;
-import xawd.jflow.collections.impl.DelegatingFlowList;
+import xawd.jflow.iterators.AbstractFlow;
+import xawd.jflow.iterators.Flow;
+import xawd.jflow.iterators.factories.Iterate;
+
 
 /**
+ * Static methods for operations on strings, e.g. regex pattern matching.
+ * 
  * @author t
- *
  */
-public class Strings {
-
-	private Strings() {}
-
-	public static FlowList<String> getAllMatches(final String source, final String regex)
+public class Strings
+{
+	private Strings()
 	{
-		return getAllMatches(source, Pattern.compile(regex));
 	}
 
-	public static FlowList<String> getAllMatches(final String source, final Pattern pattern)
+	/**
+	 * Efficiently concatenates a sequence of strings end to end.
+	 * 
+	 * @param source
+	 *            The source of the strings which we want to concatenate.
+	 * 
+	 * @return The concatenated string.
+	 */
+	public static String concat(Flow<String> source)
 	{
-		final Matcher patternMatcher = pattern.matcher(source);
-		final List<String> matches = new ArrayList<>();
-		while (patternMatcher.find()) {
-			matches.add(patternMatcher.group());
-		}
-		return new DelegatingFlowList<>(matches);
+		return source.fold(new StringBuilder(), (b, s) -> b.append(s)).toString();
 	}
 
-	public static Optional<String> findFirstMatch(final String source, final Pattern pattern)
+	/**
+	 * Efficiently concatenates a sequence of strings end to end.
+	 * 
+	 * @param source
+	 *            The source of the strings which we want to concatenate.
+	 * 
+	 * @return The concatenated string.
+	 */
+	public static String concat(String... source)
 	{
-		final Matcher patternMatcher = pattern.matcher(source);
-		return patternMatcher.find()? Optional.of(patternMatcher.group()) : Optional.empty();
+		return concat(Iterate.over(source));
 	}
 
-	public static Optional<String> findFirstMatch(final String source, final String regex)
+	/**
+	 * Efficiently concatenates a sequence of strings end to end.
+	 * 
+	 * @param source
+	 *            The source of the strings which we want to concatenate.
+	 * 
+	 * @return The concatenated string.
+	 */
+	public static String concat(Collection<String> source)
 	{
-		return findFirstMatch(source, Pattern.compile(regex));
+		return concat(Iterate.over(source));
 	}
 
-	public static Optional<String> findLastMatch(String source, String regex)
+	/**
+	 * Builds a lazy Flow over all the matches of a provided regular expression in
+	 * the given source string. Escaping backslashes are required in the regex.
+	 * 
+	 * @param source
+	 *            The string in which to search for the regular expression.
+	 * @param regex
+	 *            The regular expression to search for.
+	 * 
+	 * @return A Flow over all matches.
+	 */
+	public static Flow<String> allMatches(String source, String regex)
 	{
-		final FlowList<String> allMatches = getAllMatches(source, regex);
-		return allMatches.isEmpty()? Optional.empty() : Optionals.of(tail(allMatches));
+		return allMatches(source, Pattern.compile(regex));
 	}
 
-	public static boolean matchesAnywhere(final String source, final String regex)
+	/**
+	 * Builds a lazy Flow over all the matches of a provided regular expression
+	 * pattern in the given source string.
+	 * 
+	 * @param source
+	 *            The string in which to search for the regular expression.
+	 * @param pattern
+	 *            The regular expression to search for.
+	 * 
+	 * @return A Flow over all matches.
+	 */
+	public static Flow<String> allMatches(String source, Pattern pattern)
 	{
-		return findFirstMatch(source, regex).isPresent();
+		return new AbstractFlow<String>(OptionalInt.empty()) {
+			Matcher matcher = pattern.matcher(source);
+			String current;
+
+			@Override
+			public boolean hasNext()
+			{
+				if (current != null) {
+					return true;
+				}
+				else {
+					if (matcher.find()) {
+						current = matcher.group();
+						return true;
+					}
+					else {
+						return false;
+					}
+				}
+			}
+
+			@Override
+			public String next()
+			{
+				if (hasNext()) {
+					String next = current;
+					current = null;
+					return next;
+				}
+				else {
+					throw new NoSuchElementException();
+				}
+			}
+
+			@Override
+			public void skip()
+			{
+				next();
+			}
+		};
+	}
+
+	/**
+	 * Find the first match of a regular expression in a given string.
+	 * 
+	 * @param source
+	 *            The string to search in.
+	 * @param pattern
+	 *            The regular expression to search for.
+	 * 
+	 * @return The first match if there is one, nothing otherwise.
+	 */
+	public static Optional<String> firstMatch(String source, Pattern pattern)
+	{
+		return allMatches(source, pattern).safeNext();
+	}
+
+	/**
+	 * Find the first match of a regular expression in a given string. Escaping
+	 * backslashes are required in the regex.
+	 * 
+	 * @param source
+	 *            The string to search in.
+	 * @param regex
+	 *            The regular expression to search for.
+	 * 
+	 * @return The first match if there is one, nothing otherwise.
+	 */
+	public static Optional<String> firstMatch(String source, String regex)
+	{
+		return firstMatch(source, Pattern.compile(regex));
+	}
+
+	/**
+	 * Find the last match of a regular expression in a given string. Escaping
+	 * backslashes are required in the regex.
+	 * 
+	 * @param source
+	 *            The string to search in.
+	 * @param regex
+	 *            The regular expression to search for.
+	 * 
+	 * @return The last match if there is one, nothing otherwise.
+	 */
+	public static Optional<String> lastMatch(String source, String regex)
+	{
+		return allMatches(source, regex).last();
+	}
+
+	/**
+	 * Checks whether a regular expression matches anywhere in a string.
+	 * 
+	 * @param source
+	 *            The string to search in.
+	 * @param regex
+	 *            The regular expression to search for.
+	 * 
+	 * @return True if there is a match, false otherwise.
+	 */
+	public static boolean matchesAnywhere(String source, String regex)
+	{
+		return firstMatch(source, regex).isPresent();
 	}
 }

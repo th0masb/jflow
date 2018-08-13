@@ -21,15 +21,16 @@ import xawd.jflow.iterators.misc.LongPair;
 import xawd.jflow.iterators.misc.LongPredicatePartition;
 import xawd.jflow.iterators.misc.LongWith;
 
+
 /**
- * An LongFlow is a sequential, single use iterator with lots of functionality
- * in the style of the {@link LongStream} interface. It bears a strong
- * resemblance in that it they are lazily-evaluated, possibly infinite sequences
- * of values. It was written with the intention of providing a cleaner API for
- * common sequence manipulations as well as providing the user more fine-grained
- * control over value consumption compared to streams. This finer control comes
- * at the cost of any potential parallelism in computations and therefore Flows
- * should be viewed as an accompaniment to Streams, not as replacements.
+ * A sequential, single use iterator with lots of functionality in the style of
+ * the {@link LongStream} interface. It bears a strong resemblance in that it
+ * they are lazily-evaluated, possibly infinite sequences of values. It was
+ * written with the intention of providing a cleaner API for common sequence
+ * manipulations as well as providing the user more fine-grained control over
+ * value consumption compared to streams. This finer control comes at the cost
+ * of any potential parallelism in computations and therefore Flows should be
+ * viewed as an accompaniment to Streams, not as replacements.
  *
  * @author ThomasB
  * @since 20 Apr 2018
@@ -215,7 +216,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         consisting of the first {@code max(n, length(F))} elements of
 	 *         {@code F}.
 	 */
-	LongFlow take(final int n);
+	LongFlow take(int n);
 
 	/**
 	 * Creates a new LongFlow from this LongFlow by selecting elements until an
@@ -229,7 +230,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         element fails the predicate test then a copy of the source is
 	 *         returned.
 	 */
-	LongFlow takeWhile(final LongPredicate predicate);
+	LongFlow takeWhile(LongPredicate predicate);
 
 	/**
 	 * Creates a new LongFlow from this LongFlow by removing the first n elements.
@@ -241,7 +242,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return Let {@code F} denote this source LongFlow. We return a LongFlow
 	 *         missing the first {@code min(n, length(F))} elements of {@code F}.
 	 */
-	LongFlow drop(final int n);
+	LongFlow drop(int n);
 
 	/**
 	 * Creates a new LongFlow from this LongFlow by removing elements until an
@@ -255,7 +256,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         {@code n} elements of this source LongFlow. If no element fails the
 	 *         predicate test then a copy of the source is returned.
 	 */
-	LongFlow dropWhile(final LongPredicate predicate);
+	LongFlow dropWhile(LongPredicate predicate);
 
 	/**
 	 * Creates a new LongFlow from this LongFlow by removing any element which fails
@@ -267,7 +268,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         which pass the test defined by the parameter predicate. The relative
 	 *         ordering of elements is retained.
 	 */
-	LongFlow filter(final LongPredicate predicate);
+	LongFlow filter(LongPredicate predicate);
 
 	/**
 	 * Creates a new LongFlow from this LongFlow by adding each element of the
@@ -430,44 +431,15 @@ public interface LongFlow extends PrototypeLongFlow
 	 */
 	long max(long defaultValue);
 
-	// /**
-	// * Calculates the maximum element in this LongFlow by an embedding into the
-	// real
-	// * numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * LongFlow.
-	// *
-	// * @param defaultValue
-	// * The value returned if this LongFlow is empty.
-	// *
-	// * @param key
-	// * A function mapping the elements of this LongFlow into the real
-	// * numbers.
-	// * @return The element of this LongFlow whose image under the key mapping is
-	// the
-	// * maximum among all images. A parameter default value is returned if
-	// * the source is empty. NaN images are ignored.
-	// */
-	// long maxByKey(long defaultValue, LongToDoubleFunction key);
-	//
-	// /**
-	// * Calculates the maximum element in this LongFlow by an embedding into the
-	// real
-	// * numbers.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * LongFlow.
-	// *
-	// * @param key
-	// * A function mapping the elements of this LongFlow into the real
-	// * numbers.
-	// * @return The element of this LongFlow whose image under the key mapping is
-	// the
-	// * maximum among all images. Nothing is returned if the source is empty.
-	// * NaN images are ignored.
-	// */
-	// OptionalLong maxByKey(LongToDoubleFunction key);
+	/**
+	 * Checks whether every element in this LongFlow is the same.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
+	 *
+	 * @return True is every element of this LongFlow is equal, false otherwise.
+	 */
+	boolean areAllEqual();
 
 	/**
 	 * Checks whether every element in this LongFlow is the same.
@@ -477,7 +449,10 @@ public interface LongFlow extends PrototypeLongFlow
 	 *
 	 * @return True is every element of this LongFlow is equal, false otherwise.
 	 */
-	Bool areAllEqual();
+	default Bool areAllEqual2()
+	{
+		return Bool.of(areAllEqual());
+	}
 
 	/**
 	 * Checks whether every element in this LongFlow passes the supplied
@@ -491,7 +466,24 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool allMatch(LongPredicate predicate);
+	boolean allMatch(LongPredicate predicate);
+
+	/**
+	 * Checks whether every element in this LongFlow passes the supplied
+	 * {@linkplain LongPredicate} test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if every element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool allMatch2(LongPredicate predicate)
+	{
+		return Bool.of(allMatch(predicate));
+	}
 
 	/**
 	 * Checks whether any element in this LongFlow passes the supplied
@@ -505,7 +497,24 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool anyMatch(LongPredicate predicate);
+	boolean anyMatch(LongPredicate predicate);
+
+	/**
+	 * Checks whether any element in this LongFlow passes the supplied
+	 * {@linkplain LongPredicate} test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if any element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool anyMatch2(LongPredicate predicate)
+	{
+		return Bool.of(anyMatch(predicate));
+	}
 
 	/**
 	 * Checks whether every element in this LongFlow fails the supplied
@@ -519,7 +528,24 @@ public interface LongFlow extends PrototypeLongFlow
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool noneMatch(LongPredicate predicate);
+	boolean noneMatch(LongPredicate predicate);
+
+	/**
+	 * Checks whether every element in this LongFlow fails the supplied
+	 * {@linkplain LongPredicate} test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * LongFlow.
+	 *
+	 * @param predicate
+	 *            The supplied test.
+	 * @return True if every element fails the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool noneMatch2(LongPredicate predicate)
+	{
+		return Bool.of(noneMatch(predicate));
+	}
 
 	/**
 	 * Partitions the elements of this LongFlow on whether they pass the supplied
@@ -568,7 +594,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
-	OptionalLong reduce(LongBinaryOperator reducer);
+	OptionalLong fold(LongBinaryOperator reducer);
 
 	/**
 	 * Counts the number of elements in this LongFlow.
@@ -629,7 +655,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 * LongFlow.
 	 *
 	 * @param <K>
-	 *            The type of the keys in the final grouping map.
+	 *            The type of the keys in the grouping map.
 	 *
 	 * @param classifier
 	 *            A function defining the different groups of elements.
@@ -656,7 +682,7 @@ public interface LongFlow extends PrototypeLongFlow
 	 *            element type.
 	 * @return the output of the supplied function applied to this LongFlow.
 	 */
-	default <C> C build(final Function<? super LongFlow, C> builder)
+	default <C> C build(Function<? super LongFlow, C> builder)
 	{
 		return builder.apply(this);
 	}

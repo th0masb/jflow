@@ -33,7 +33,6 @@ import xawd.jflow.iterators.impl.SlicedFlow;
 import xawd.jflow.iterators.impl.TakeFlow;
 import xawd.jflow.iterators.impl.TakewhileFlow;
 import xawd.jflow.iterators.impl.ZipFlow;
-import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.DoublePair;
 import xawd.jflow.iterators.misc.DoublePredicatePartition;
 import xawd.jflow.iterators.misc.DoubleWith;
@@ -42,9 +41,7 @@ import xawd.jflow.iterators.misc.IntWithDouble;
 
 /**
  * A skeletal implementation of DoubleFlow, users writing custom DoubleFlows
- * should subclass this class. There is no internal state in this class, it can
- * be thought of as the composition of all the functionality outlined in the
- * DoubleFlow interface.
+ * should subclass this class.
  *
  * @author ThomasB
  * @since 23 Apr 2018
@@ -213,25 +210,25 @@ public abstract class AbstractDoubleFlow extends AbstractOptionallySized impleme
 	}
 
 	@Override
-	public Bool areAllEqual()
+	public boolean areAllEqual()
 	{
 		return DoublePredicateConsumption.allEqual(this);
 	}
 
 	@Override
-	public Bool allMatch(final DoublePredicate predicate)
+	public boolean allMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public Bool anyMatch(final DoublePredicate predicate)
+	public boolean anyMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public Bool noneMatch(final DoublePredicate predicate)
+	public boolean noneMatch(final DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.noneMatch(this, predicate);
 	}

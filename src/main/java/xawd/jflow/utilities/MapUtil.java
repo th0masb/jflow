@@ -26,6 +26,8 @@ import java.util.function.ToLongFunction;
 import xawd.jflow.iterators.factories.Iterate;
 
 /**
+ * Static methods for mapping primitive arrays element-wise with functions.
+ * 
  * @author ThomasB
  * @since 26 Jan 2018
  */

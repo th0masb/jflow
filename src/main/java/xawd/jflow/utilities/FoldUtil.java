@@ -7,6 +7,8 @@ import java.util.function.IntBinaryOperator;
 import java.util.function.LongBinaryOperator;
 
 /**
+ * Static methods for folding primitive arrays into a single value.
+ * 
  * @author ThomasB
  * @since 14 Feb 2018
  */

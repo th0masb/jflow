@@ -8,8 +8,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * An interface extending the requisite interfaces for Flow and adding some
- * necessary but somewhat unrelated functionality.
+ * A precursor interface to {@linkplain Flow}.
  *
  * @author t
  */

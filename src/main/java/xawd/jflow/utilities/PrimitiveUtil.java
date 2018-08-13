@@ -3,176 +3,186 @@
  */
 package xawd.jflow.utilities;
 
-import static xawd.jflow.utilities.CollectionUtil.sizeOf;
 import static xawd.jflow.utilities.FoldUtil.foldr;
 
+
 /**
+ * Static methods for standard operations on primitive number sequences.
+ * 
  * @author ThomasB
  * @since 26 Jan 2018
  */
-public final class PrimitiveUtil
+public class PrimitiveUtil
 {
 	private PrimitiveUtil()
 	{
 	}
 
 	/**
-	 * Converts an integer to a boolean value.
-	 *
-	 * @param x
-	 *            An integer.
-	 * @return True if the argument is non-zero, false otherwise.
+	 * Calculates the sum of the parameter values.
+	 * 
+	 * @param xs
+	 *            The values to sum
+	 * 
+	 * @return The sum of the values if non-empty, zero otherwise.
 	 */
-	public static boolean bool(final long x)
+	public static double sum(double... xs)
 	{
-		return x != 0;
-	}
-
-	/**
-	 * Calculates the signum of a real number.
-	 *
-	 * @param x A number.
-	 * @return The signum of the input.
-	 */
-	public static int signum(final double x)
-	{
-		return (int) Math.signum(x);
-	}
-
-	/**
-	 * Calculates the signum of an input.
-	 *
-	 * @param x A number.
-	 * @return The signum of the input.
-	 */
-	public static int signum(final long x)
-	{
-		return (int) Math.signum(x);
-	}
-
-	public static double sum(final double... xs)
-	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
 		return foldr((a, b) -> a + b, 0, xs);
 	}
 
-	public static int sum(final int... xs)
+	/**
+	 * Calculates the sum of the parameter values. It is fail-fast on numerical
+	 * overflow.
+	 * 
+	 * @param xs
+	 *            The values to sum
+	 * 
+	 * @return The sum of the values if non-empty, zero otherwise.
+	 */
+	public static int sum(int... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
 		return foldr(Math::addExact, 0, xs);
 	}
 
-	public static long sum(final long... xs)
+	/**
+	 * Calculates the sum of the parameter values. It is fail-fast on numerical
+	 * overflow.
+	 * 
+	 * @param xs
+	 *            The values to sum
+	 * 
+	 * @return The sum of the values if non-empty, zero otherwise.
+	 */
+	public static long sum(long... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
 		return foldr(Math::addExact, 0, xs);
 	}
 
-	public static double product(final double... xs)
+	/**
+	 * Calculates the product of the parameter values.
+	 * 
+	 * @param xs
+	 *            The values to multiply
+	 * 
+	 * @return The product of the values if non-empty, one otherwise.
+	 */
+	public static double product(double... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
 		return foldr((a, b) -> a * b, 1, xs);
 	}
 
-	public static int product(final int... xs)
+	/**
+	 * Calculates the product of the parameter values. It is fail-fast on numerical
+	 * overflow.
+	 * 
+	 * @param xs
+	 *            The values to multiply
+	 * 
+	 * @return The product of the values if non-empty, one otherwise.
+	 */
+	public static int product(int... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
 		return foldr(Math::multiplyExact, 1, xs);
 	}
 
-	public static long product(final long... xs)
+	/**
+	 * Calculates the product of the parameter values. It is fail-fast on numerical
+	 * overflow.
+	 * 
+	 * @param xs
+	 *            The values to multiply
+	 * 
+	 * @return The product of the values if non-empty, one otherwise.
+	 */
+	public static long product(long... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
 		return foldr(Math::multiplyExact, 1, xs);
 	}
 
-	public static int min(final int a, final int b)
+	/**
+	 * Calculates the minimum of a non-empty sequence of primitive values. If an
+	 * empty sequence is passed an exception will be thrown.
+	 * 
+	 * @param xs
+	 *            The values to find the minimum of.
+	 * 
+	 * @return The minimum value in the sequence.
+	 */
+	public static int min(int... xs)
 	{
-		return a < b ? a : b;
+		Exceptions.requireArgument(xs.length > 0);
+		return foldr(Math::min, Integer.MAX_VALUE, xs);
 	}
 
-	public static int min(final int... xs)
+	/**
+	 * Calculates the minimum of a non-empty sequence of primitive values. If an
+	 * empty sequence is passed an exception will be thrown.
+	 * 
+	 * @param xs
+	 *            The values to find the minimum of.
+	 * 
+	 * @return The minimum value in the sequence.
+	 */
+	public static double min(double... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
-		return foldr(PrimitiveUtil::min, Integer.MAX_VALUE, xs);
+		return foldr(Math::min, Double.POSITIVE_INFINITY, xs);
 	}
 
-	public static double min(final double a, final double b)
+	/**
+	 * Calculates the minimum of a non-empty sequence of primitive values. If an
+	 * empty sequence is passed an exception will be thrown.
+	 * 
+	 * @param xs
+	 *            The values to find the minimum of.
+	 * 
+	 * @return The minimum value in the sequence.
+	 */
+	public static long min(long... xs)
 	{
-		return a < b ? a : b;
+		return foldr(Math::min, Long.MAX_VALUE, xs);
 	}
 
-	public static double min(final double... xs)
+	/**
+	 * Calculates the maximum of a non-empty sequence of primitive values. If an
+	 * empty sequence is passed an exception will be thrown.
+	 * 
+	 * @param xs
+	 *            The values to find the maximum of.
+	 * 
+	 * @return The maximum value in the sequence.
+	 */
+	public static int max(int... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
-		return foldr(PrimitiveUtil::min, Double.POSITIVE_INFINITY, xs);
+		Exceptions.requireArgument(xs.length > 0);
+		return foldr(Math::max, Integer.MIN_VALUE, xs);
 	}
 
-	public static long min(final long a, final long b)
+	/**
+	 * Calculates the maximum of a non-empty sequence of primitive values. If an
+	 * empty sequence is passed an exception will be thrown.
+	 * 
+	 * @param xs
+	 *            The values to find the maximum of.
+	 * 
+	 * @return The maximum value in the sequence.
+	 */
+	public static double max(double... xs)
 	{
-		return a < b ? a : b;
+		return foldr(Math::max, Double.NEGATIVE_INFINITY, xs);
 	}
 
-	public static long min(final long... xs)
+	/**
+	 * Calculates the maximum of a non-empty sequence of primitive values. If an
+	 * empty sequence is passed an exception will be thrown.
+	 * 
+	 * @param xs
+	 *            The values to find the maximum of.
+	 * 
+	 * @return The maximum value in the sequence.
+	 */
+	public static long max(long... xs)
 	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
-		return foldr(PrimitiveUtil::min, Long.MAX_VALUE, xs);
-	}
-
-	public static int max(final int a, final int b)
-	{
-		return a < b ? b : a;
-	}
-
-	public static int max(final int... xs)
-	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
-		return foldr(PrimitiveUtil::max, Integer.MIN_VALUE, xs);
-	}
-
-	public static double max(final double a, final double b)
-	{
-		return a < b ? b : a;
-	}
-
-	public static double max(final double... xs)
-	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
-		return foldr(PrimitiveUtil::max, Double.NEGATIVE_INFINITY, xs);
-	}
-
-	public static long max(final long a, final long b)
-	{
-		return a < b ? b : a;
-	}
-
-	public static long max(final long... xs)
-	{
-		if (sizeOf(xs) == 0) {
-			throw new IllegalArgumentException();
-		}
-		return foldr(PrimitiveUtil::max, Long.MIN_VALUE, xs);
+		return foldr(Math::max, Long.MIN_VALUE, xs);
 	}
 }

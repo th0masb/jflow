@@ -7,12 +7,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
-import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.FList;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * A {@link FlowList} implementation following the 'Delegator' design pattern.
+ * A {@link FList} implementation following the 'Delegator' design pattern.
  * This class simply wraps a List instance and all methods described in the List
  * interface are delegated to the implementation of the wrapped List. The main
  * purpose of this class is to offer the enhanced iterator capabilities to
@@ -23,7 +23,7 @@ import xawd.jflow.iterators.impl.FlowFromIterator;
  *
  * @author ThomasB
  */
-public final class DelegatingFlowList<E> implements FlowList<E>
+public final class DelegatingFlowList<E> implements FList<E>
 {
 	private final List<E> delegate;
 
@@ -165,7 +165,7 @@ public final class DelegatingFlowList<E> implements FlowList<E>
 	}
 
 	@Override
-	public FlowList<E> subList(int fromIndex, int toIndex)
+	public FList<E> subList(int fromIndex, int toIndex)
 	{
 		return new DelegatingFlowList<>(delegate.subList(fromIndex, toIndex));
 	}

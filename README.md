@@ -52,7 +52,7 @@ Iterate.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
 ###### Take, takeWhile, drop, dropWhile
 
 ```
-FlowList<String> someStrings = Lists.build("0", "1", "2", "3");
+FList<String> someStrings = Lists.build("0", "1", "2", "3");
 
 someStrings.take(2).toSet(); ==> {"0", "1"}
 someStrings.drop(2).toMutableSet(); ==> {"3", "2"}

@@ -9,7 +9,7 @@ import xawd.jflow.collections.impl.FlowArrayList;
 import xawd.jflow.collections.impl.ImmutableFlowList;
 
 /**
- * A collection of static factory methods for creating {@link FlowList}
+ * A collection of static factory methods for creating {@link FList}
  * instances.
  *
  * @author ThomasB
@@ -21,47 +21,57 @@ public final class Lists
 	}
 
 	/**
-	 * Create an immutable array-backed FlowList containing the passed arguments.
+	 * Create an immutable array-backed FList containing the passed arguments.
 	 *
 	 * @param elements
-	 *            The elements to cache into a FlowList.
-	 * @return An immutable FlowList containing all the specified elements.
+	 *            The elements to cache into a FList.
+	 * @return An immutable FList containing all the specified elements.
 	 * @throws IllegalStateException
 	 *             if a null reference is passed.
 	 */
 	@SafeVarargs
-	public static <E> FlowList<E> build(E... elements)
+	public static <E> FList<E> build(E... elements)
 	{
 		return new ImmutableFlowList<>(elements);
 	}
-
+	
 	/**
-	 * Create an immutable array-backed FlowList containing elements in the
+	 * Create an immutable array-backed FList containing elements in the
 	 * parameter Collection.
 	 *
 	 * @param src
 	 *            The container to copy references from.
-	 * @return An immutable FlowList containing the same references as in the
+	 * @return An immutable FList containing the same references as in the
 	 *         parameter Collection.
 	 * @throws IllegalStateException
 	 *             if the source collection contains a null reference.
 	 */
-	public static <E> FlowList<E> copy(Collection<? extends E> src)
+	public static <E> FList<E> copy(Collection<? extends E> src)
 	{
 		return new ImmutableFlowList<>(src);
 	}
+	
+	/**
+	 * Create an immutable empty FList.
+	 * 
+	 * @return an empty FList.
+	 */
+	public static <E> FList<E> empty()
+	{
+		return new ImmutableFlowList<E>();
+	}
 
 	/**
-	 * Create a mutable array-backed FlowList containing the passed arguments.
+	 * Create a mutable array-backed FList containing the passed arguments.
 	 *
 	 * @param elements
-	 *            The elements to cache into a FlowList.
-	 * @return n mutable FlowList containing all the specified elements.
+	 *            The elements to cache into a FList.
+	 * @return n mutable FList containing all the specified elements.
 	 */
 	@SafeVarargs
-	public static <E> FlowList<E> buildMutable(E... elements)
+	public static <E> FList<E> buildMutable(E... elements)
 	{
-		final FlowList<E> mutable = new FlowArrayList<>(elements.length);
+		final FList<E> mutable = new FlowArrayList<>(elements.length);
 		for (final E element : elements) {
 			mutable.add(element);
 		}
@@ -69,16 +79,26 @@ public final class Lists
 	}
 
 	/**
-	 * Create a mutable array-backed FlowList containing elements in the parameter
+	 * Create a mutable array-backed FList containing elements in the parameter
 	 * Collection.
 	 *
 	 * @param src
 	 *            The container to copy references from.
-	 * @return A mutable FlowList containing the same references as in the parameter
+	 * @return A mutable FList containing the same references as in the parameter
 	 *         Collection.
 	 */
-	public static <E> FlowList<E> copyMutable(Collection<? extends E> src)
+	public static <E> FList<E> copyMutable(Collection<? extends E> src)
 	{
 		return new FlowArrayList<>(src);
+	}
+	
+	/**
+	 * Create a mutable array-backed FList which is initially empty.
+	 * 
+	 * @return an empty mutable FList.
+	 */
+	public static <E> FList<E> emptyMutable()
+	{
+		return new FlowArrayList<E>();
 	}
 }

@@ -8,8 +8,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.IntConsumer;
 
 /**
- * An interface extending the requisite interfaces for IntFlow and adding
- * some necessary but somewhat unrelated functionality.
+ * A precursor interface to {@linkplain IntFlow}.
  *
  * @author t
  */

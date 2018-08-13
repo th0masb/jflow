@@ -13,8 +13,8 @@ import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import xawd.jflow.collections.FlowList;
-import xawd.jflow.collections.FlowSet;
+import xawd.jflow.collections.FList;
+import xawd.jflow.collections.FSet;
 import xawd.jflow.collections.impl.FlowArrayList;
 import xawd.jflow.collections.impl.FlowHashSet;
 import xawd.jflow.collections.impl.ImmutableFlowList;
@@ -37,17 +37,17 @@ public final class ObjectCollectionConsumption
 		return container;
 	}
 
-	public static <E> FlowList<E> toMutableList(final Flow<? extends E> iterator)
+	public static <E> FList<E> toMutableList(final Flow<? extends E> iterator)
 	{
 		final OptionalInt size = iterator.size();
-		final FlowList<E> container = size.isPresent()? new FlowArrayList<>(size.getAsInt()) : new FlowArrayList<>();
+		final FList<E> container = size.isPresent()? new FlowArrayList<>(size.getAsInt()) : new FlowArrayList<>();
 		while (iterator.hasNext()) {
 			container.add(iterator.next());
 		}
 		return container;
 	}
 
-	public static <E> FlowList<E> toImmutableList(final Flow<? extends E> iterator)
+	public static <E> FList<E> toImmutableList(final Flow<? extends E> iterator)
 	{
 		if (iterator.size().isPresent()) {
 			return new ImmutableFlowList<>(iterator);
@@ -61,20 +61,20 @@ public final class ObjectCollectionConsumption
 		}
 	}
 
-	public static <E> FlowSet<E> toMutableSet(final Flow<? extends E> iterator)
+	public static <E> FSet<E> toMutableSet(final Flow<? extends E> iterator)
 	{
 		final OptionalInt size = iterator.size();
-		final FlowSet<E> container = size.isPresent()? new FlowHashSet<>(size.getAsInt()) : new FlowHashSet<>();
+		final FSet<E> container = size.isPresent()? new FlowHashSet<>(size.getAsInt()) : new FlowHashSet<>();
 		while (iterator.hasNext()) {
 			container.add(iterator.next());
 		}
 		return container;
 	}
 
-	public static <E> FlowSet<E> toImmutableSet(final Flow<? extends E> iterator)
+	public static <E> FSet<E> toImmutableSet(final Flow<? extends E> iterator)
 	{
 		final OptionalInt size = iterator.size();
-		final FlowSet<E> container = size.isPresent()? new FlowHashSet<>(size.getAsInt()) : new FlowHashSet<>();
+		final FSet<E> container = size.isPresent()? new FlowHashSet<>(size.getAsInt()) : new FlowHashSet<>();
 		while (iterator.hasNext()) {
 			container.add(iterator.next());
 		}

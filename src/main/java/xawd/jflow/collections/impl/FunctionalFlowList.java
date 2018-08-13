@@ -10,14 +10,14 @@ import java.util.ListIterator;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
-import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.FList;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.factories.IterRange;
 import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.impl.FlowFromFunction;
 
 /**
- * A functional implementation of a {@link FlowList}. It works by wrapping a
+ * A functional implementation of a {@link FList}. It works by wrapping a
  * function whose domain is the natural numbers and a positive number which
  * determines the size of the list and the index range of its elements. Treating
  * this class alone it is immutable, however constructing an instance via some
@@ -30,7 +30,7 @@ import xawd.jflow.iterators.impl.FlowFromFunction;
  *
  * @author ThomasB
  */
-public class FunctionalFlowList<E> implements FlowList<E>
+public class FunctionalFlowList<E> implements FList<E>
 {
 	private final IntFunction<E> indexingFunction;
 	private final int size;
@@ -100,13 +100,13 @@ public class FunctionalFlowList<E> implements FlowList<E>
 	@Override
 	public boolean contains(Object arg0)
 	{
-		return IterRange.to(size).mapToObject(indexingFunction).anyMatch(e -> Objects.equals(e, arg0)).get();
+		return IterRange.to(size).mapToObject(indexingFunction).anyMatch(e -> Objects.equals(e, arg0));
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> arg0)
 	{
-		return Iterate.over(arg0).allMatch(this::contains).get();
+		return Iterate.over(arg0).allMatch(this::contains);
 	}
 
 	@Override
@@ -200,7 +200,7 @@ public class FunctionalFlowList<E> implements FlowList<E>
 	}
 
 	@Override
-	public FlowList<E> subList(int fromIndex, int toIndex)
+	public FList<E> subList(int fromIndex, int toIndex)
 	{
 		if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException();
@@ -262,8 +262,7 @@ public class FunctionalFlowList<E> implements FlowList<E>
 			final List<?> other = (List<?>) obj;
 			if (other.size() == size()) {
 				return IterRange.to(size())
-						.allMatch(i -> Objects.equals(indexingFunction.apply(i), other.get(i)))
-						.get();
+						.allMatch(i -> Objects.equals(indexingFunction.apply(i), other.get(i)));
 			} else {
 				return false;
 			}

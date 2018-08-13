@@ -1,17 +1,18 @@
 package xawd.jflow.iterators.factories;
 
 import static java.lang.Math.abs;
-import static xawd.jflow.utilities.PrimitiveUtil.signum;
+import static java.lang.Math.signum;
 
 import xawd.jflow.iterators.DoubleFlow;
 import xawd.jflow.iterators.IntFlow;
 
+
 /**
- * Factory for building primitive number range Flows.
+ * Static methods for building primitive number ranges.
  *
  * @author t
  */
-public final class IterRange
+public class IterRange
 {
 	private IterRange()
 	{
@@ -30,9 +31,9 @@ public final class IterRange
 	 * 				[0,n)
 	 *         </pre>
 	 */
-	public static IntFlow to(final int upperBound)
+	public static IntFlow to(int upperBound)
 	{
-		return upperBound > 0 ? IterFunction.intsFrom(i -> i, upperBound) : EmptyIteration.ofInts();
+		return upperBound > 0 ? Iterate.intsByIndexing(i -> i, upperBound) : Iterate.emptyInts();
 	}
 
 	/**
@@ -52,9 +53,9 @@ public final class IterRange
 	 * 				[m,n)
 	 *         </pre>
 	 */
-	public static IntFlow between(final int low, final int high)
+	public static IntFlow between(int low, int high)
 	{
-		return high > low ? IterFunction.intsFrom(i -> i + low, high - low) : EmptyIteration.ofInts();
+		return high > low ? Iterate.intsByIndexing(i -> i + low, high - low) : Iterate.emptyInts();
 	}
 
 	/**
@@ -75,12 +76,12 @@ public final class IterRange
 	 *         in the half open interval [m, n) whose consecutive difference is
 	 *         equal to the step size.
 	 */
-	public static IntFlow between(final int start, final int end, final int step)
+	public static IntFlow between(int start, int end, int step)
 	{
-		final int length = end - start;
-		final int elementCount = (int) Math.ceil(abs((double) length / step));
-		return signum(step) == signum(length) ? IterFunction.intsFrom(i -> start + i * step, elementCount)
-				: EmptyIteration.ofInts();
+		int length = end - start;
+		int elementCount = (int) Math.ceil(abs((double) length / step));
+		return signum(step) == signum(length) ? Iterate.intsByIndexing(i -> start + i * step, elementCount)
+				: Iterate.emptyInts();
 	}
 
 	/**
@@ -99,12 +100,12 @@ public final class IterRange
 	 *         {J_m} and return an iteration over them ordered on proximity to the
 	 *         'start' of the interval J.
 	 */
-	public static DoubleFlow partition(final double start, final double end, final int nSubIntervals)
+	public static DoubleFlow partition(double start, double end, int nSubIntervals)
 	{
 		if (nSubIntervals < 1 || Math.abs(end - start) < 0.00001) {
 			throw new IllegalArgumentException();
 		}
-		final double step = (end - start) / nSubIntervals;
+		double step = (end - start) / nSubIntervals;
 		return to(nSubIntervals + 1).mapToDouble(i -> start + i * step);
 	}
 }

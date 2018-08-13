@@ -6,12 +6,12 @@ package xawd.jflow.collections.impl;
 import java.util.Collection;
 import java.util.HashSet;
 
-import xawd.jflow.collections.FlowSet;
+import xawd.jflow.collections.FSet;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * A mutable {@link FlowSet} implementation which inherits all Set related
+ * A mutable {@link FSet} implementation which inherits all Set related
  * functionality from the Java {@linkplain HashSet} class and adds enhanced
  * iterator capabilities without needing to resort to wrapping a separate
  * instance via {@linkplain DelegatingFlowSet}.
@@ -21,7 +21,7 @@ import xawd.jflow.iterators.impl.FlowFromIterator;
  *
  * @author ThomasB
  */
-public final class FlowHashSet<E> extends HashSet<E> implements FlowSet<E>
+public final class FlowHashSet<E> extends HashSet<E> implements FSet<E>
 {
 	private static final long serialVersionUID = 2078317551236121767L;
 

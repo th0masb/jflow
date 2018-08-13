@@ -7,7 +7,7 @@ import xawd.jflow.iterators.IntFlow;
 import xawd.jflow.iterators.LongFlow;
 
 /**
- * Factory for building Flows of common number sets.
+ * Static methods for building Flows of common number sets.
  *
  * @author ThomasB
  */
@@ -20,7 +20,7 @@ public final class Numbers
 	 */
 	public static IntFlow natural()
 	{
-		return IterFunction.intsFrom(i -> i);
+		return Repeatedly.indexInts(i -> i);
 	}
 
 	/**

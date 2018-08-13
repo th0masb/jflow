@@ -6,12 +6,12 @@ package xawd.jflow.collections.impl;
 import java.util.Collection;
 import java.util.Set;
 
-import xawd.jflow.collections.FlowSet;
+import xawd.jflow.collections.FSet;
 import xawd.jflow.iterators.Flow;
 import xawd.jflow.iterators.impl.FlowFromIterator;
 
 /**
- * An implementation of {@link FlowSet} following the 'Delegator' design
+ * An implementation of {@link FSet} following the 'Delegator' design
  * pattern but with mutation methods disabled. This class simply wraps a Set
  * instance and all non-mutation methods described in the Set interface are
  * delegated to the implementation of the wrapped Set. The main purpose of this
@@ -23,7 +23,7 @@ import xawd.jflow.iterators.impl.FlowFromIterator;
  *
  * @author ThomasB
  */
-public final class UnmodifiableDelegatingFlowSet<E> implements FlowSet<E>
+public final class UnmodifiableDelegatingFlowSet<E> implements FSet<E>
 {
 	private final Set<E> delegate;
 

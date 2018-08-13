@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.Spliterator;
 
-import xawd.jflow.collections.FlowList;
+import xawd.jflow.collections.FList;
 import xawd.jflow.collections.Lists;
 import xawd.jflow.iterators.AbstractFlow;
 import xawd.jflow.iterators.Flow;
@@ -21,7 +21,7 @@ import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.utilities.Optionals;
 
 /**
- * An immutable implementation of {@link FlowList} which stores only non null
+ * An immutable implementation of {@link FList} which stores only non null
  * references. This class is very space efficient as it simply wraps a single
  * Object array. When combined with {@link Flow} instances one can write very
  * clean, efficient and safe code code without ever needing to reference this
@@ -35,13 +35,15 @@ import xawd.jflow.utilities.Optionals;
  *
  * @author ThomasB
  */
-public final class ImmutableFlowList<E> implements FlowList<E>
+public final class ImmutableFlowList<E> implements FList<E>
 {
+	private static final String EXTRACTION_ERR = "A concrete size must be supplied to construct an instance.";
+	
 	private final Object[] cache;
 
 	public ImmutableFlowList(Flow<? extends E> src)
 	{
-		cache = new Object[Optionals.getOrError(src.size())];
+		cache = new Object[Optionals.extract(src.size(), EXTRACTION_ERR)];
 		int count = 0;
 		while (src.hasNext()) {
 			cache[count++] = Objects.requireNonNull(src.next());
@@ -108,7 +110,7 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 	@Override
 	public boolean containsAll(Collection<?> c)
 	{
-		return Iterate.over(c).allMatch(this::contains).get();
+		return Iterate.over(c).allMatch(this::contains);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -224,7 +226,7 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public FlowList<E> subList(int fromIndex, int toIndex)
+	public FList<E> subList(int fromIndex, int toIndex)
 	{
 		if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException();
@@ -277,7 +279,7 @@ public final class ImmutableFlowList<E> implements FlowList<E>
 		if (obj instanceof List<?>) {
 			final List<?> other = (List<?>) obj;
 			if (other.size() == size()) {
-				return IterRange.to(size()).allMatch(i -> cache[i].equals(other.get(i))).get();
+				return IterRange.to(size()).allMatch(i -> cache[i].equals(other.get(i)));
 			} else {
 				return false;
 			}

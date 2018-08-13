@@ -7,7 +7,8 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * Wrapped truth values, useful for chaining boolean operations.
+ * Wrapped truth values, useful for chaining boolean operations however at the
+ * moment this comes at the expense of short circuiting operations.
  *
  * @author ThomasB
  */
@@ -32,17 +33,6 @@ public enum Bool
 	public static Bool of(boolean value)
 	{
 		return value ? TRUE : FALSE;
-	}
-
-	/**
-	 * Perform a boolean NOT operation on this Bool.
-	 *
-	 * @return A wrapped boolean which is the logical inverse of boolean wrapped in
-	 *         this Bool.
-	 */
-	public Bool not()
-	{
-		return primitiveVal ? FALSE : TRUE;
 	}
 
 	/**
@@ -99,6 +89,17 @@ public enum Bool
 	public long choose(long valueIfTrue, long valueIfFalse)
 	{
 		return primitiveVal ? valueIfTrue : valueIfFalse;
+	}
+
+	/**
+	 * Perform a boolean NOT operation on this Bool.
+	 *
+	 * @return A wrapped boolean which is the logical inverse of boolean wrapped in
+	 *         this Bool.
+	 */
+	public Bool not()
+	{
+		return primitiveVal ? FALSE : TRUE;
 	}
 
 	/**
@@ -293,4 +294,3 @@ public enum Bool
 		}
 	}
 }
-

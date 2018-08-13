@@ -10,11 +10,14 @@ import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
+
 /**
+ * Static methods for predicate matching on primitive arrays.
+ * 
  * @author ThomasB
  * @since 26 Jan 2018
  */
-public final class PredicateUtil
+public class PredicateUtil
 {
 	public PredicateUtil()
 	{
@@ -30,7 +33,7 @@ public final class PredicateUtil
 	 * @return True if every element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static boolean all(final IntPredicate predicate, final int[] xs)
+	public static boolean all(IntPredicate predicate, int[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
 			if (!predicate.test(xs[i])) {
@@ -50,7 +53,7 @@ public final class PredicateUtil
 	 * @return True if every element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static boolean all(final DoublePredicate predicate, final double[] xs)
+	public static boolean all(DoublePredicate predicate, double[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
 			if (!predicate.test(xs[i])) {
@@ -70,7 +73,7 @@ public final class PredicateUtil
 	 * @return True if every element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static boolean all(final LongPredicate predicate, final long[] xs)
+	public static boolean all(LongPredicate predicate, long[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
 			if (!predicate.test(xs[i])) {
@@ -92,9 +95,9 @@ public final class PredicateUtil
 	 * @return True if every element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static <E> boolean all(final Predicate<? super E> predicate, final Iterable<? extends E> xs)
+	public static <E> boolean all(Predicate<? super E> predicate, Iterable<? extends E> xs)
 	{
-		for (final E t : xs) {
+		for (E t : xs) {
 			if (!predicate.test(t)) {
 				return false;
 			}
@@ -112,7 +115,7 @@ public final class PredicateUtil
 	 * @return True if any element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static boolean any(final IntPredicate predicate, final int[] xs)
+	public static boolean any(IntPredicate predicate, int[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
 			if (predicate.test(xs[i])) {
@@ -132,7 +135,7 @@ public final class PredicateUtil
 	 * @return True if any element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static boolean any(final DoublePredicate predicate, final double[] xs)
+	public static boolean any(DoublePredicate predicate, double[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
 			if (predicate.test(xs[i])) {
@@ -152,7 +155,7 @@ public final class PredicateUtil
 	 * @return True if any element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static boolean any(final LongPredicate predicate, final long[] xs)
+	public static boolean any(LongPredicate predicate, long[] xs)
 	{
 		for (int i = 0; i < sizeOf(xs); i++) {
 			if (predicate.test(xs[i])) {
@@ -174,9 +177,9 @@ public final class PredicateUtil
 	 * @return True if any element in the source passes the predicate test, false
 	 *         otherwise.
 	 */
-	public static <E> boolean any(final Predicate<? super E> predicate, final Iterable<? extends E> xs)
+	public static <E> boolean any(Predicate<? super E> predicate, Iterable<? extends E> xs)
 	{
-		for (final E t : xs) {
+		for (E t : xs) {
 			if (predicate.test(t)) {
 				return true;
 			}

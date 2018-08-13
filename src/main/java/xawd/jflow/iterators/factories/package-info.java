@@ -1,5 +1,4 @@
 /**
- * Static factories for building Flow instances from various sources including
- * existing groups of values and functions.
+ * Static factories for building Flow instances from various sources.
  */
 package xawd.jflow.iterators.factories;

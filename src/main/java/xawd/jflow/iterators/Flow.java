@@ -21,18 +21,19 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 import java.util.stream.Stream;
 
-import xawd.jflow.collections.FlowList;
-import xawd.jflow.collections.FlowSet;
+import xawd.jflow.collections.FList;
+import xawd.jflow.collections.FSet;
 import xawd.jflow.collections.impl.DelegatingFlowList;
 import xawd.jflow.collections.impl.DelegatingFlowSet;
 import xawd.jflow.iterators.factories.Iterate;
 import xawd.jflow.iterators.misc.Bool;
-import xawd.jflow.iterators.misc.BoolPredicate;
 import xawd.jflow.iterators.misc.DoubleWith;
 import xawd.jflow.iterators.misc.IntWith;
 import xawd.jflow.iterators.misc.LongWith;
 import xawd.jflow.iterators.misc.Pair;
 import xawd.jflow.iterators.misc.PredicatePartition;
+import xawd.jflow.utilities.Optionals;
+
 
 /**
  * A Flow is a sequential, single use iterator with lots of functionality in the
@@ -61,7 +62,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         parameter mapping function to each element of this Flow instance in
 	 *         turn.
 	 */
-	<R> Flow<R> map(final Function<? super E, R> f);
+	<R> Flow<R> map(Function<? super E, R> f);
 
 	/**
 	 * Applies a function elementwise to this Flow to make a new IntFlow.
@@ -160,7 +161,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	<R> Flow<Pair<E, R>> zipWith(final Iterator<? extends R> other);
+	<R> Flow<Pair<E, R>> zipWith(Iterator<? extends R> other);
 
 	/**
 	 * Combines this Flow with another primitive iterator to create a new Flow
@@ -178,7 +179,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<IntWith<E>> zipWith(final PrimitiveIterator.OfInt other);
+	Flow<IntWith<E>> zipWith(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Combines this Flow with another primitive iterator to create a new Flow
@@ -196,7 +197,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<DoubleWith<E>> zipWith(final PrimitiveIterator.OfDouble other);
+	Flow<DoubleWith<E>> zipWith(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Combines this Flow with another primitive iterator to create a new Flow
@@ -214,7 +215,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	Flow<LongWith<E>> zipWith(final PrimitiveIterator.OfLong other);
+	Flow<LongWith<E>> zipWith(PrimitiveIterator.OfLong other);
 
 	/**
 	 * Combines this Flow with another iterator via a two argument function to
@@ -238,7 +239,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	<E2, R> Flow<R> combineWith(final Iterator<? extends E2> other, final BiFunction<? super E, ? super E2, R> f);
+	<E2, R> Flow<R> combineWith(Iterator<? extends E2> other, BiFunction<? super E, ? super E2, R> f);
 
 	/**
 	 * Creates a new Flow by mapping each element in this source Flow to a pair
@@ -267,7 +268,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) &lt; length(F))} </code></li>
 	 *         </ul>
 	 */
-	Flow<E> slice(final IntUnaryOperator indexMap);
+	Flow<E> slice(IntUnaryOperator indexMap);
 
 	/**
 	 * Creates a new Flow from this Flow by selecting the first n elements.
@@ -279,7 +280,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return Let {@code F} denote this source Flow. We return a Flow consisting of
 	 *         the first {@code max(n, length(F))} elements of {@code F}.
 	 */
-	Flow<E> take(final int n);
+	Flow<E> take(int n);
 
 	/**
 	 * Creates a new Flow from this Flow by selecting elements until an element
@@ -292,23 +293,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         the first {@code n} elements of this source Flow. If no element fails
 	 *         the predicate test then a copy of the source is returned.
 	 */
-	Flow<E> takeWhile(final Predicate<? super E> predicate);
-
-	/**
-	 * Creates a new Flow from this Flow by selecting elements until an element
-	 * fails the supplied test, the first failure is not selected.
-	 *
-	 * @param predicate
-	 *            A predicate applicable to the type of elements in this Flow.
-	 * @return Let {@code n} be the index of the first element that the parameter
-	 *         predicate fails for. Then this method returns a Flow consisting of
-	 *         the first {@code n} elements of this source Flow. If no element fails
-	 *         the predicate test then a copy of the source is returned.
-	 */
-	default Flow<E> takeWhile2(final BoolPredicate<? super E> predicate)
-	{
-		return takeWhile(predicate.toPrimitivePredicate());
-	}
+	Flow<E> takeWhile(Predicate<? super E> predicate);
 
 	/**
 	 * Creates a new Flow from this Flow by removing the first n elements.
@@ -320,7 +305,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return Let {@code F} denote this source Flow. We return a Flow missing the
 	 *         first {@code min(n, length(F))} elements of {@code F}.
 	 */
-	Flow<E> drop(final int n);
+	Flow<E> drop(int n);
 
 	/**
 	 * Creates a new Flow from this Flow by removing elements until an element fails
@@ -333,23 +318,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         {@code n} elements of this source Flow. If no element fails the
 	 *         predicate test then a copy of the source is returned.
 	 */
-	Flow<E> dropWhile(final Predicate<? super E> predicate);
-
-	/**
-	 * Creates a new Flow from this Flow by removing elements until an element fails
-	 * the supplied test, the first failure is the first element of the result.
-	 *
-	 * @param predicate
-	 *            A predicate applicable to the type of elements in this Flow.
-	 * @return Let {@code n} be the index of the first element that the parameter
-	 *         predicate fails for. Then this method returns a Flow missing
-	 *         {@code n} elements of this source Flow. If no element fails the
-	 *         predicate test then a copy of the source is returned.
-	 */
-	default Flow<E> dropWhile2(final BoolPredicate<? super E> predicate)
-	{
-		return dropWhile(predicate.toPrimitivePredicate());
-	}
+	Flow<E> dropWhile(Predicate<? super E> predicate);
 
 	/**
 	 * Creates a new Flow from this Flow by removing any element which fails the
@@ -361,22 +330,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         the test defined by the parameter predicate. The relative ordering of
 	 *         elements is retained.
 	 */
-	Flow<E> filter(final Predicate<? super E> predicate);
-
-	/**
-	 * Creates a new Flow from this Flow by removing any element which fails the
-	 * supplied predicate test.
-	 *
-	 * @param predicate
-	 *            A predicate applicable to the type of elements in this Flow.
-	 * @return A Flow containing only those elements of this source Flow which pass
-	 *         the test defined by the parameter predicate. The relative ordering of
-	 *         elements is retained.
-	 */
-	default Flow<E> filter2(final BoolPredicate<? super E> predicate)
-	{
-		return filter(predicate.toPrimitivePredicate());
-	}
+	Flow<E> filter(Predicate<? super E> predicate);
 
 	/**
 	 * Creates a new Flow from this Flow by adding each element of the supplied
@@ -413,7 +367,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
 	 *         </ul>
 	 */
-	Flow<E> accumulate(BinaryOperator<E> accumulator);
+	Flow<E> scan(BinaryOperator<E> accumulator);
 
 	/**
 	 * Applies an accumulation operation to this Flow to produce a new Flow.
@@ -431,7 +385,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 *         </ul>
 	 */
-	<R> Flow<R> accumulate(R id, BiFunction<R, E, R> accumulator);
+	<R> Flow<R> scan(R id, BiFunction<R, E, R> accumulator);
 
 	/**
 	 * Combines consecutive pairs of elements in this Flow via a two argument
@@ -451,7 +405,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         If this source Flow has less that two elements an empty Flow is
 	 *         returned.
 	 */
-	<R> Flow<R> pairFold(final BiFunction<? super E, ? super E, R> foldFunction);
+	<R> Flow<R> pairFold(BiFunction<? super E, ? super E, R> foldFunction);
 
 	/**
 	 * Calculates the minimum element in this Flow with respect to the ordering
@@ -483,33 +437,46 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True is every element of this Flow is equal (under .equals contract),
 	 *         false otherwise.
 	 */
-	Bool areAllEqual();
+	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this Flow passes the supplied predicate test.
+	 * Checks whether every element in this Flow is the same.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
-	 * @param predicate
-	 *            A predicate applicable to the type of elements in this Flow.
-	 * @return True if every element passes the parameter predicate test, false
-	 *         otherwise.
+	 * @return True is every element of this Flow is equal (under .equals contract),
+	 *         false otherwise.
 	 */
-	Bool allMatch(final Predicate<? super E> predicate);
-
-	/**
-	 * Checks whether every element in this Flow passes the supplied predicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param predicate
-	 *            A predicate applicable to the type of elements in this Flow.
-	 * @return True if every element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool allMatch2(BoolPredicate<? super E> predicate)
+	default Bool areAllEqual2()
 	{
-		return allMatch(predicate.toPrimitivePredicate());
+		return Bool.of(areAllEqual());
+	}
+
+	/**
+	 * Checks whether every element in this Flow passes the supplied predicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return True if every element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	boolean allMatch(Predicate<? super E> predicate);
+
+	/**
+	 * Checks whether every element in this Flow passes the supplied predicate test.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
+	 *
+	 * @param predicate
+	 *            A predicate applicable to the type of elements in this Flow.
+	 * @return True if every element passes the parameter predicate test, false
+	 *         otherwise.
+	 */
+	default Bool allMatch2(Predicate<? super E> predicate)
+	{
+		return Bool.of(allMatch(predicate));
 	}
 
 	/**
@@ -522,7 +489,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool anyMatch(final Predicate<? super E> predicate);
+	boolean anyMatch(Predicate<? super E> predicate);
 
 	/**
 	 * Checks whether any element in this Flow passes the supplied predicate test.
@@ -534,9 +501,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	default Bool anyMatch2(BoolPredicate<? super E> predicate)
+	default Bool anyMatch2(Predicate<? super E> predicate)
 	{
-		return anyMatch(predicate.toPrimitivePredicate());
+		return Bool.of(anyMatch(predicate));
 	}
 
 	/**
@@ -549,7 +516,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	Bool noneMatch(final Predicate<? super E> predicate);
+	boolean noneMatch(Predicate<? super E> predicate);
 
 	/**
 	 * Checks whether every element in this Flow fails the supplied predicate test.
@@ -561,9 +528,9 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	default Bool noneMatch2(BoolPredicate<? super E> predicate)
+	default Bool noneMatch2(Predicate<? super E> predicate)
 	{
-		return noneMatch(predicate.toPrimitivePredicate());
+		return Bool.of(noneMatch(predicate));
 	}
 
 	/**
@@ -578,22 +545,6 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         they passed or failed the parameter predicate.
 	 */
 	PredicatePartition<E> partition(Predicate<? super E> predicate);
-
-	/**
-	 * Partitions the elements of this Flow on whether they pass the supplied
-	 * predicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
-	 *
-	 * @param predicate
-	 *            A predicate applicable to the type of elements in this Flow.
-	 * @return A partition of the cached elements split into two lists on whether
-	 *         they passed or failed the parameter predicate.
-	 */
-	default PredicatePartition<E> partition2(BoolPredicate<? super E> predicate)
-	{
-		return partition(predicate.toPrimitivePredicate());
-	}
 
 	/**
 	 * Fold this Flow to a single value via some reduction function and an initial
@@ -651,7 +602,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return The collection obtained by calling the collection supply function
 	 *         once and adding each element in this Flow to it
 	 */
-	<C extends Collection<E>> C toCollection(final Supplier<C> collectionFactory);
+	<C extends Collection<E>> C toCollection(Supplier<C> collectionFactory);
 
 	/**
 	 * Caches the elements in this Flow into an immutable (unmodifiable) List.
@@ -661,7 +612,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return A List instance containing all elements of this source Flow in the
 	 *         order that they appeared in the iteration.
 	 */
-	FlowList<E> toList();
+	FList<E> toList();
 
 	/**
 	 * Caches the elements in this Flow into a mutable List.
@@ -671,7 +622,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return An immutable List instance containing all elements of the source Flow
 	 *         in the order that they appeared in the iteration.
 	 */
-	FlowList<E> toMutableList();
+	FList<E> toMutableList();
 
 	/**
 	 * Caches the elements in this Flow into an immutable (unmodifiable) Set.
@@ -680,7 +631,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *
 	 * @return A Set instance containing all unique elements of the source flow.
 	 */
-	FlowSet<E> toSet();
+	FSet<E> toSet();
 
 	/**
 	 * Caches the elements in this Flow into a mutable Set.
@@ -690,7 +641,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return An immutable Set instance containing all unique elements of the
 	 *         source flow.
 	 */
-	FlowSet<E> toMutableSet();
+	FSet<E> toMutableSet();
 
 	/**
 	 * Builds a Map using the elements in this Flow via two supplied functions.
@@ -720,7 +671,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         an element of this source Flow, say {@code e}, is associated to the
 	 *         key value pair {@code (k(e), v(e))}.
 	 */
-	<K, V> Map<K, V> toMap(final Function<? super E, K> keyMapper, final Function<? super E, V> valueMapper);
+	<K, V> Map<K, V> toMap(Function<? super E, K> keyMapper, Function<? super E, V> valueMapper);
 
 	/**
 	 * Groups elements in this Flow via their image under some supplied
@@ -729,7 +680,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * This method is a 'consuming method', i.e. it will iterate through this Flow.
 	 *
 	 * @param <K>
-	 *            The type of the keys in the final grouping map.
+	 *            The type of the keys in the grouping map.
 	 *
 	 * @param classifier
 	 *            A function defining the different groups of elements.
@@ -739,7 +690,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         function are grouped together in a {@link List} accessed by their
 	 *         shared classification key.
 	 */
-	<K> Map<K, List<E>> groupBy(final Function<? super E, K> classifier);
+	<K> Map<K, List<E>> groupBy(Function<? super E, K> classifier);
 
 	/**
 	 * A convenience method for safely manipulating the element type of this Flow.
@@ -752,7 +703,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *         containing only the elements of the source which are of the target
 	 *         type.
 	 */
-	default <R> Flow<R> filterAndCastTo(final Class<R> klass)
+	default <R> Flow<R> filterAndCastTo(Class<R> klass)
 	{
 		return filter(klass::isInstance).map(klass::cast);
 	}
@@ -771,7 +722,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 *            type.
 	 * @return The output of the supplied function applied to this Flow.
 	 */
-	default <R> R build(final Function<? super Flow<E>, R> builder)
+	default <R> R build(Function<? super Flow<E>, R> builder)
 	{
 		return builder.apply(this);
 	}
@@ -784,7 +735,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return A Flow consisting of the elements of this source Flow followed by the
 	 *         parameter element
 	 */
-	default Flow<E> append(final E e)
+	default Flow<E> append(E e)
 	{
 		return append(Iterate.over(e));
 	}
@@ -798,22 +749,22 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return A Flow consisting of the parameter element followed by the elements
 	 *         of the source flow
 	 */
-	default Flow<E> insert(final E e)
+	default Flow<E> insert(E e)
 	{
 		return insert(Iterate.over(e));
 	}
 
 	/**
-	 * Caches the elements of this Flow to a FlowSet delegating to the specified
-	 * type of Set.
+	 * Caches the elements of this Flow to an ISet delegating to the specified type
+	 * of Set.
 	 *
 	 * @param setFactory
 	 *            A function which creates empty, mutable instances of Set
-	 * @return A FlowSet delegating to the result of calling the factory function.
+	 * @return An ISet delegating to the result of calling the factory function.
 	 */
-	default <S extends Set<E>> FlowSet<E> toSet(Supplier<S> setFactory)
+	default <S extends Set<E>> FSet<E> toSet(Supplier<S> setFactory)
 	{
-		final S mutableSet = setFactory.get();
+		S mutableSet = setFactory.get();
 		while (hasNext()) {
 			mutableSet.add(next());
 		}
@@ -821,16 +772,16 @@ public interface Flow<E> extends PrototypeFlow<E>
 	}
 
 	/**
-	 * Caches the elements of this Flow to a FlowList delegating to the specified
-	 * type of List.
+	 * Caches the elements of this Flow to an FList delegating to the specified type
+	 * of List.
 	 *
 	 * @param listFactory
 	 *            A function which creates empty, mutable instances of List
-	 * @return A FlowList delegating to the result of calling the factory function.
+	 * @return An FList delegating to the result of calling the factory function.
 	 */
-	default <L extends List<E>> FlowList<E> toList(Supplier<L> listFactory)
+	default <L extends List<E>> FList<E> toList(Supplier<L> listFactory)
 	{
-		final L mutableList = listFactory.get();
+		L mutableList = listFactory.get();
 		while (hasNext()) {
 			mutableList.add(next());
 		}
@@ -841,8 +792,7 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return An immutable view of the result of
 	 *         {@link Flow#toMap(Function, Function)}.
 	 */
-	default <K, V> Map<K, V> toImmutableMap(final Function<? super E, K> keyMapper,
-			final Function<? super E, V> valueMapper)
+	default <K, V> Map<K, V> toImmutableMap(Function<? super E, K> keyMapper, Function<? super E, V> valueMapper)
 	{
 		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
@@ -855,8 +805,23 @@ public interface Flow<E> extends PrototypeFlow<E>
 	 * @return the result of zipping this Flow with an iterator created from the
 	 *         parameter iterable.
 	 */
-	default <R> Flow<Pair<E, R>> zipWith(final Iterable<? extends R> other)
+	default <R> Flow<Pair<E, R>> zipWith(Iterable<? extends R> other)
 	{
 		return zipWith(other.iterator());
+	}
+
+	/**
+	 * Consumes this Flow and returns the last element in it. If the Flow is
+	 * infinite then this method will cause an infinite loop.
+	 * 
+	 * @return The last element of the Flow if it is non-empty, nothing otherwise.
+	 */
+	default Optional<E> last()
+	{
+		E current = null;
+		while (hasNext()) {
+			current = next();
+		}
+		return current == null? Optional.empty() : Optionals.of(current);
 	}
 }

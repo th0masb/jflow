@@ -20,6 +20,7 @@ import xawd.jflow.iterators.LongFlow;
 import xawd.jflow.iterators.misc.Bool;
 import xawd.jflow.iterators.misc.IntWith;
 
+
 /**
  * Abstraction of iterable object which can construct enhanced iterators
  * ({@link Flow}).
@@ -155,7 +156,7 @@ public interface FlowIterable<E> extends Iterable<E>
 	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#areAllEqual()} method.
 	 */
-	default Bool areAllEqual()
+	default boolean areAllEqual()
 	{
 		return flow().areAllEqual();
 	}
@@ -164,34 +165,61 @@ public interface FlowIterable<E> extends Iterable<E>
 	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#allMatch(Predicate)} method.
 	 */
-	default Bool allMatch(final Predicate<? super E> condition)
+	default boolean allMatch(Predicate<? super E> condition)
 	{
 		return flow().allMatch(condition);
 	}
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
+	 * {@link Flow#allMatch2(Predicate)} method.
+	 */
+	default Bool allMatch2(Predicate<? super E> condition)
+	{
+		return flow().allMatch2(condition);
+	}
+
+	/**
+	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#anyMatch(Predicate)} method.
 	 */
-	default Bool anyMatch(final Predicate<? super E> condition)
+	default boolean anyMatch(Predicate<? super E> condition)
 	{
 		return flow().anyMatch(condition);
 	}
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
+	 * {@link Flow#anyMatch2(Predicate)} method.
+	 */
+	default Bool anyMatch2(Predicate<? super E> condition)
+	{
+		return flow().anyMatch2(condition);
+	}
+
+	/**
+	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#noneMatch(Predicate)} method.
 	 */
-	default Bool noneMatch(final Predicate<? super E> condition)
+	default boolean noneMatch(Predicate<? super E> condition)
 	{
 		return flow().noneMatch(condition);
 	}
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
+	 * {@link Flow#noneMatch(Predicate)} method.
+	 */
+	default Bool noneMatch2(Predicate<? super E> condition)
+	{
+		return flow().noneMatch2(condition);
+	}
+
+	/**
+	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#filterAndCastTo(Class)} method.
 	 */
-	default <R> Flow<R> filterAndCastTo(final Class<R> klass)
+	default <R> Flow<R> filterAndCastTo(Class<R> klass)
 	{
 		return flow().filterAndCastTo(klass);
 	}
@@ -200,7 +228,7 @@ public interface FlowIterable<E> extends Iterable<E>
 	 * A convenience method which spawns a Flow and delegates to its
 	 * {@link Flow#groupBy(Function)} method.
 	 */
-	default <K> Map<K, List<E>> groupBy(final Function<? super E, K> classifier)
+	default <K> Map<K, List<E>> groupBy(Function<? super E, K> classifier)
 	{
 		return flow().groupBy(classifier);
 	}

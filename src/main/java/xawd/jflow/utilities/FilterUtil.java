@@ -11,6 +11,8 @@ import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
 
 /**
+ * Static methods for filtering primitive arrays using predicates.
+ * 
  * @author ThomasB
  * @since 25 Jan 2018
  */

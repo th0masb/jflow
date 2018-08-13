@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * A collection of functions relating to sequence manipulation.
+ * Static methods for manipulating sequences.
  *
  * @author ThomasB
  * @since 25 Jan 2018
@@ -656,7 +656,7 @@ public final class CollectionUtil
 	 *            The source array
 	 * @return The last element in the source
 	 */
-	public static int tail(final int[] xs)
+	public static int last(final int[] xs)
 	{
 		return xs[sizeOf(xs) - 1];
 	}
@@ -668,7 +668,7 @@ public final class CollectionUtil
 	 *            The source array
 	 * @return The last element in the source
 	 */
-	public static double tail(final double[] xs)
+	public static double last(final double[] xs)
 	{
 		return xs[sizeOf(xs) - 1];
 	}
@@ -680,7 +680,7 @@ public final class CollectionUtil
 	 *            The source array
 	 * @return The last element in the source
 	 */
-	public static long tail(final long[] xs)
+	public static long last(final long[] xs)
 	{
 		return xs[sizeOf(xs) - 1];
 	}
@@ -692,7 +692,7 @@ public final class CollectionUtil
 	 *            The source array
 	 * @return The last element in the source
 	 */
-	public static char tail(final char[] xs)
+	public static char last(final char[] xs)
 	{
 		return xs[sizeOf(xs) - 1];
 	}
@@ -707,7 +707,7 @@ public final class CollectionUtil
 	 *            The source List
 	 * @return The last element in the source
 	 */
-	public static <E> E tail(final List<? extends E> xs)
+	public static <E> E last(final List<? extends E> xs)
 	{
 		return xs.get(sizeOf(xs) - 1);
 	}

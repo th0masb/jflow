@@ -8,8 +8,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.LongConsumer;
 
 /**
- * An interface extending the requisite interfaces for LongFlow and adding
- * some necessary but somewhat unrelated functionality.
+ * A precursor interface to {@linkplain LongFlow}.
  *
  * @author t
  */
