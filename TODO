@@ -1,1 +1,0 @@
-Add support for predicate operations with Function<? super E, Bool>
