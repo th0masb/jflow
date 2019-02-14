@@ -15,7 +15,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import maumay.jflow.iterators.EnhancedIterator;
-import maumay.jflow.iterators.misc.Bool;
 
 /**
  * Abstraction of iterable object which can construct enhanced iterators
@@ -87,14 +86,14 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().allMatch(condition);
 	}
 
-	/**
-	 * A convenience method which spawns a Flow and delegates to its
-	 * {@link EnhancedIterator#allMatch2(Predicate)} method.
-	 */
-	default Bool allMatch2(Predicate<? super E> condition)
-	{
-		return iter().allMatch2(condition);
-	}
+	// /**
+	// * A convenience method which spawns a Flow and delegates to its
+	// * {@link EnhancedIterator#allMatch2(Predicate)} method.
+	// */
+	// default Bool allMatch2(Predicate<? super E> condition)
+	// {
+	// return iter().allMatch2(condition);
+	// }
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
@@ -105,14 +104,14 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().anyMatch(condition);
 	}
 
-	/**
-	 * A convenience method which spawns a Flow and delegates to its
-	 * {@link EnhancedIterator#anyMatch2(Predicate)} method.
-	 */
-	default Bool anyMatch2(Predicate<? super E> condition)
-	{
-		return iter().anyMatch2(condition);
-	}
+	// /**
+	// * A convenience method which spawns a Flow and delegates to its
+	// * {@link EnhancedIterator#anyMatch2(Predicate)} method.
+	// */
+	// default Bool anyMatch2(Predicate<? super E> condition)
+	// {
+	// return iter().anyMatch2(condition);
+	// }
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its
@@ -123,14 +122,14 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().noneMatch(condition);
 	}
 
-	/**
-	 * A convenience method which spawns a Flow and delegates to its
-	 * {@link EnhancedIterator#noneMatch(Predicate)} method.
-	 */
-	default Bool noneMatch2(Predicate<? super E> condition)
-	{
-		return iter().noneMatch2(condition);
-	}
+	// /**
+	// * A convenience method which spawns a Flow and delegates to its
+	// * {@link EnhancedIterator#noneMatch(Predicate)} method.
+	// */
+	// default Bool noneMatch2(Predicate<? super E> condition)
+	// {
+	// return iter().noneMatch2(condition);
+	// }
 
 	/**
 	 * A convenience method which spawns a Flow and delegates to its

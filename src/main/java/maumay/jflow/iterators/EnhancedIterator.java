@@ -26,7 +26,6 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import maumay.jflow.iterators.factories.Iter;
-import maumay.jflow.iterators.misc.Bool;
 import maumay.jflow.iterators.misc.DoubleWith;
 import maumay.jflow.iterators.misc.IntWith;
 import maumay.jflow.iterators.misc.LongWith;
@@ -112,8 +111,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return A {@link EnhancedIterator} obtained by applying the mapping function
 	 *         to each element in turn and sequentially concatenating the results.
 	 */
-	<R> EnhancedIterator<R> flatMap(
-			Function<? super E, ? extends Iterator<? extends R>> mapping);
+	<R> EnhancedIterator<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to {@link EnhancedIntIterator}
@@ -125,8 +123,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         function to each element in turn and sequentially concatenating the
 	 *         results.
 	 */
-	EnhancedIntIterator flatMapToInt(
-			Function<? super E, ? extends EnhancedIntIterator> mapping);
+	EnhancedIntIterator flatMapToInt(Function<? super E, ? extends EnhancedIntIterator> mapping);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to
@@ -139,8 +136,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         function to each element in turn and sequentially concatenating the
 	 *         results.
 	 */
-	EnhancedLongIterator flatMapToLong(
-			Function<? super E, ? extends EnhancedLongIterator> mapping);
+	EnhancedLongIterator flatMapToLong(Function<? super E, ? extends EnhancedLongIterator> mapping);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to
@@ -414,19 +410,19 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	boolean areAllEqual();
 
-	/**
-	 * Checks whether every element in this {@link EnhancedIterator} is the same.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedIterator}.
-	 *
-	 * @return True is every element of this {@link EnhancedIterator} is equal
-	 *         (under .equals contract), false otherwise.
-	 */
-	default Bool areAllEqual2()
-	{
-		return Bool.of(areAllEqual());
-	}
+	// /**
+	// * Checks whether every element in this {@link EnhancedIterator} is the same.
+	// *
+	// * This method is a 'consuming method', i.e. it will iterate through this
+	// * {@link EnhancedIterator}.
+	// *
+	// * @return True is every element of this {@link EnhancedIterator} is equal
+	// * (under .equals contract), false otherwise.
+	// */
+	// default Bool areAllEqual2()
+	// {
+	// return Bool.of(areAllEqual());
+	// }
 
 	/**
 	 * Checks whether every element in this {@link EnhancedIterator} passes the
@@ -440,20 +436,20 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	boolean allMatch(Predicate<? super E> predicate);
 
-	/**
-	 * Checks whether every element in this {@link EnhancedIterator} passes the
-	 * supplied predicate test. This method is a 'consuming method', i.e. it will
-	 * iterate through this {@link EnhancedIterator}.
-	 *
-	 * @param predicate A predicate applicable to the type of elements in this
-	 *                  {@link EnhancedIterator}.
-	 * @return True if every element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool allMatch2(Predicate<? super E> predicate)
-	{
-		return Bool.of(allMatch(predicate));
-	}
+	// /**
+	// * Checks whether every element in this {@link EnhancedIterator} passes the
+	// * supplied predicate test. This method is a 'consuming method', i.e. it will
+	// * iterate through this {@link EnhancedIterator}.
+	// *
+	// * @param predicate A predicate applicable to the type of elements in this
+	// * {@link EnhancedIterator}.
+	// * @return True if every element passes the parameter predicate test, false
+	// * otherwise.
+	// */
+	// default Bool allMatch2(Predicate<? super E> predicate)
+	// {
+	// return Bool.of(allMatch(predicate));
+	// }
 
 	/**
 	 * Checks whether any element in this {@link EnhancedIterator} passes the
@@ -467,20 +463,20 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	boolean anyMatch(Predicate<? super E> predicate);
 
-	/**
-	 * Checks whether any element in this {@link EnhancedIterator} passes the
-	 * supplied predicate test. This method is a 'consuming method', i.e. it will
-	 * iterate through this {@link EnhancedIterator}.
-	 *
-	 * @param predicate A predicate applicable to the type of elements in this
-	 *                  {@link EnhancedIterator}.
-	 * @return True if any element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool anyMatch2(Predicate<? super E> predicate)
-	{
-		return Bool.of(anyMatch(predicate));
-	}
+	// /**
+	// * Checks whether any element in this {@link EnhancedIterator} passes the
+	// * supplied predicate test. This method is a 'consuming method', i.e. it will
+	// * iterate through this {@link EnhancedIterator}.
+	// *
+	// * @param predicate A predicate applicable to the type of elements in this
+	// * {@link EnhancedIterator}.
+	// * @return True if any element passes the parameter predicate test, false
+	// * otherwise.
+	// */
+	// default Bool anyMatch2(Predicate<? super E> predicate)
+	// {
+	// return Bool.of(anyMatch(predicate));
+	// }
 
 	/**
 	 * Checks whether every element in this {@link EnhancedIterator} fails the
@@ -494,20 +490,20 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	boolean noneMatch(Predicate<? super E> predicate);
 
-	/**
-	 * Checks whether every element in this {@link EnhancedIterator} fails the
-	 * supplied predicate test. This method is a 'consuming method', i.e. it will
-	 * iterate through this {@link EnhancedIterator}.
-	 *
-	 * @param predicate A predicate applicable to the type of elements in this
-	 *                  {@link EnhancedIterator}.
-	 * @return True if every element fails the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool noneMatch2(Predicate<? super E> predicate)
-	{
-		return Bool.of(noneMatch(predicate));
-	}
+	// /**
+	// * Checks whether every element in this {@link EnhancedIterator} fails the
+	// * supplied predicate test. This method is a 'consuming method', i.e. it will
+	// * iterate through this {@link EnhancedIterator}.
+	// *
+	// * @param predicate A predicate applicable to the type of elements in this
+	// * {@link EnhancedIterator}.
+	// * @return True if every element fails the parameter predicate test, false
+	// * otherwise.
+	// */
+	// default Bool noneMatch2(Predicate<? super E> predicate)
+	// {
+	// return Bool.of(noneMatch(predicate));
+	// }
 
 	/**
 	 * Fold this {@link EnhancedIterator} to a single value via some reduction
@@ -688,6 +684,16 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 		return collected;
 	}
 
+	/**
+	 * Applies the same logic as {@link #toMap(Function, Function)} but optimizes
+	 * the result for enumerate types by returning an instance of {@link EnumMap}.
+	 * Note that if this iterator is empty then a {@link HashMap} will be returned
+	 * instead.
+	 * 
+	 * @param keyMapper   see {@link #toMap(Function, Function)}
+	 * @param valueMapper see {@link #toMap(Function, Function)}
+	 * @return see {@link #toMap(Function, Function)}
+	 */
 	default <K extends Enum<K>, V> Map<K, V> toEnumMap(Function<? super E, K> keyMapper,
 			Function<? super E, ? extends V> valueMapper)
 	{
@@ -713,6 +719,18 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 		return dest;
 	}
 
+	/**
+	 * Associates each unique value in this iterator with the result of applying the
+	 * provided function to it. The result is similar to
+	 * {@link #toMap(Function, Function)} with the first argument being the identity
+	 * function. If duplicate elements appear in this iterator then only the first
+	 * is taken for the resultant map.
+	 * 
+	 * @param valueMapper the function which produces the associated values in the
+	 *                    resultant map for each unique element in this iterator.
+	 * @return a map associating the unique elements of this iterator with the
+	 *         result of applying the parameter function to them.
+	 */
 	default <V> Map<E, V> toMap(Function<? super E, ? extends V> valueMapper)
 	{
 		Map<E, V> collected = new HashMap<>();
@@ -791,8 +809,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return The output of the supplied function applied to this
 	 *         {@link EnhancedIterator}.
 	 */
-	default <R> R build(
-			Function<? super EnhancedIterator<? extends E>, ? extends R> builder)
+	default <R> R build(Function<? super EnhancedIterator<? extends E>, ? extends R> builder)
 	{
 		return builder.apply(this);
 	}
@@ -810,22 +827,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 		return append(Iter.over(e));
 	}
 
-	// /**
-	// * Convenience method for appending an optional element onto the end of this
-	// * {@link EnhancedIterator}.
-	// *
-	// * @param e The element to append
-	// * @return A {@link EnhancedIterator} consisting of the elements of this
-	// source
-	// * {@link EnhancedIterator} followed by the parameter element if it is
-	// * present, this flow otherwise.
-	// */
-	// @Deprecated
-	// default EnhancedIterator<E> append(Optional<? extends E> e)
-	// {
-	// return e.isPresent() ? append(e.get()) : this;
-	// }
-
 	/**
 	 * Convenience method for inserting a single element into the beginning of this
 	 * {@link EnhancedIterator}.
@@ -839,22 +840,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 		return insert(Iter.over(e));
 	}
 
-	// /**
-	// * Convenience method for inserting an optional element at the beginning of
-	// this
-	// * {@link EnhancedIterator}.
-	// *
-	// * @param e The element to insert
-	// * @return A {@link EnhancedIterator} consisting of the parameter element
-	// * followed by the elements of the source flow if the parameter is
-	// * present, this flow otherwise.
-	// */
-	// @Deprecated
-	// default EnhancedIterator<E> insert(Optional<? extends E> e)
-	// {
-	// return e.isPresent() ? insert(e.get()) : this;
-	// }
-
 	/**
 	 * Convenience method which delegates to
 	 * {@link EnhancedIterator#zipWith(Iterator)}.
@@ -866,14 +851,5 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	default <R> EnhancedIterator<Pair<E, R>> zipWith(Iterable<? extends R> other)
 	{
 		return zipWith(other.iterator());
-	}
-
-	static EnhancedIterator<Object> x()
-	{
-		throw new RuntimeException();
-	}
-
-	public static void main(String[] args)
-	{
 	}
 }
