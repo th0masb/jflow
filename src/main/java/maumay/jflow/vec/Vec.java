@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.Spliterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
@@ -23,12 +22,12 @@ import maumay.jflow.iterators.misc.Pair;
 
 /**
  * <p>
- * A sequence is an <b>immutable</b> alternative to a {@link List} which
- * provides a myriad of higher order methods for operating on the elements in
- * the style of {@link Stream} but using sequential iterators, see
- * {@link EnhancedIterator}. That is not to say that streams are not supported,
- * in fact because of the immutability guarantee we can construct a
- * {@link Spliterator} that is well suited for parallelising operations.
+ * A Vec (vector) is an <b>immutable</b> wrapper around an object array which
+ * provides a myriad of higher order methods for operating on the elements using
+ * enhanced sequential iterators (see {@link EnhancedIterator}). The
+ * immutability guarantee means we can also construct streams which are well
+ * suited for parallelising operations. Null values are not permitted to be
+ * stored inside this data structure.
  * </p>
  * 
  * @author ThomasB
@@ -36,113 +35,113 @@ import maumay.jflow.iterators.misc.Pair;
 public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 {
 	/**
-	 * @return An iteration of the elements in this List in reverse order.
+	 * @return An iteration of the elements in this vector in reverse order.
 	 */
 	EnhancedIterator<E> revIter();
 
 	/**
-	 * @return A sequential stream over the elements of this sequence in order.
+	 * @return A sequential stream over the elements of this vector in order.
 	 */
 	Stream<E> stream();
 
 	/**
-	 * @return A new sequence obtains by mapping this sequence elementwise by the
+	 * @return A new vector obtains by mapping this vector elementwise by the
 	 *         parameter function.
 	 */
 	<R> Vec<R> map(Function<? super E, ? extends R> mappingFunction);
 
 	/**
-	 * @return A flattened sequence obtained by concatenating the images of the
-	 *         parameter function applied elementwise to this sequence.
+	 * @return A flattened vector obtained by concatenating the images of the
+	 *         parameter function applied elementwise to this vector.
 	 */
 	<R> Vec<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
-	 * @return A sequence contained the elements of this sequence which pass the
+	 * @return A vector contained the elements of this vector which pass the
 	 *         supplied predicate with their relative order preserved.
 	 */
 	Vec<E> filter(Predicate<? super E> predicate);
 
 	/**
-	 * @return A sequence with the required parameterisation containing the elements
-	 *         of this sequence which can be cast to the given type with their
+	 * @return A vector with the required parameterisation containing the elements
+	 *         of this vector which can be cast to the given type with their
 	 *         relative order preserved.
 	 */
 	<R> Vec<R> cast(Class<R> klass);
 
 	/**
-	 * @return A sequence containing the elements of this sequence with order
-	 *         retained followed by the elements of the parameter iterable whose
-	 *         order is defined by the iterator it produces.
+	 * @return A vector containing the elements of this vector with order retained
+	 *         followed by the elements of the parameter iterable whose order is
+	 *         defined by the iterator it produces.
 	 */
 	Vec<E> append(Iterable<? extends E> other);
 
 	/**
-	 * @return A sequence containing the elements of this sequence with order
-	 *         preserved followed by the parameter element.
+	 * @return A vector containing the elements of this vector with order preserved
+	 *         followed by the parameter element.
 	 */
 	Vec<E> append(E other);
 
 	/**
-	 * @return A sequence containing the elements of the parameter iterable whose
+	 * @return A vector containing the elements of the parameter iterable whose
 	 *         order is determined by the iterator it produces followed by the
-	 *         elements of this sequence whose relative order is preserved.
+	 *         elements of this vector whose relative order is preserved.
 	 */
 	Vec<E> insert(Iterable<? extends E> other);
 
 	/**
-	 * @return A sequence containing the parameter element followed by the elements
-	 *         of this sequence whose relative order is preserved.
+	 * @return A vector containing the parameter element followed by the elements of
+	 *         this vector whose relative order is preserved.
 	 */
 	Vec<E> insert(E other);
 
 	/**
-	 * @return A sequence consisting of the first n elements of this sequence with
-	 *         their relative order retained. If the requested number of elements is
-	 *         larger than the size of this sequence then we will just return this
-	 *         sequence, if it is less than zero an exception will be thrown.
+	 * @return A vector consisting of the first n elements of this vector with their
+	 *         relative order retained. If the requested number of elements is
+	 *         larger than the size of this vector then we will just return this
+	 *         vector, if it is less than zero an exception will be thrown.
 	 */
 	Vec<E> take(int n);
 
 	/**
-	 * @return A sequence consisting of the elements taken from the head of this
-	 *         sequence until an element fails the given predicate. The first
-	 *         failure <b>is not</b> included.
+	 * @return A vector consisting of the elements taken from the head of this
+	 *         vector until an element fails the given predicate. The first failure
+	 *         <b>is not</b> included.
 	 */
 	Vec<E> takeWhile(Predicate<? super E> predicate);
 
 	/**
-	 * @return A sequence consisting of all but the first n elements of this
-	 *         sequence with their relative order retained. If the requested number
-	 *         of elements is 0 then we just return this sequence, if it is less
-	 *         than zero an exception will be thrown.
+	 * @return A vector consisting of all but the first n elements of this vector
+	 *         with their relative order retained. If the requested number of
+	 *         elements is 0 then we just return this vector, if it is less than
+	 *         zero an exception will be thrown.
 	 */
 	Vec<E> drop(int n);
 
 	/**
-	 * @return A sequence consisting of the elements in this sequence which occur
-	 *         after the first element which fails the predicate. This first failure
+	 * @return A vector consisting of the elements in this vector which occur after
+	 *         the first element which fails the predicate. This first failure
 	 *         <b>is</b> included.
 	 */
 	Vec<E> dropWhile(Predicate<? super E> predicate);
 
 	/**
-	 * @return A pair of sequences whose first element is the result of
-	 *         {@link Vec#takeWhile(Predicate)} and whose second element is a
-	 *         sequence of all elements who were not included in the first sequence.
+	 * @return A pair of vectors whose first element is the result of
+	 *         {@link Vec#takeWhile(Predicate)} and whose second element is a vector
+	 *         of all elements who were not included in the first vector.
 	 */
 	Pair<Vec<E>, Vec<E>> span(Predicate<? super E> predicate);
 
 	/**
-	 * @return A pair of sequences whose first element is all the elements of this
-	 *         sequence which pass the given predicate, the second is all the
-	 *         failures. Relative ordering in these subsequences is preserved.
+	 * @return A pair of vectors whose first element is all the elements of this
+	 *         vector which pass the given predicate, the second is all the
+	 *         failures. Relative ordering in these subvectors is preserved.
 	 */
 	Pair<Vec<E>, Vec<E>> partition(Predicate<? super E> predicate);
 
 	/**
-	 * @return A copy of this sequence where the elements are ordered according to
-	 *         the supplied comparator.
+	 * @return A copy of this vector where the elements are ordered according to the
+	 *         supplied comparator.
 	 */
 	Vec<E> sorted(Comparator<? super E> orderingFunction);
 
@@ -150,7 +149,7 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 
 	/**
 	 * @param element The instance to check for membership.
-	 * @return true if the given element is in this sequence, false otherwise.
+	 * @return true if the given element is in this vector, false otherwise.
 	 */
 	default boolean contains(E element)
 	{
@@ -158,33 +157,64 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 	}
 
 	/**
-	 * @return A parallel stream over the elements of this sequence.
+	 * @return A parallel stream over the elements of this vector.
 	 */
 	default Stream<E> parstream()
 	{
 		return stream().parallel();
 	}
 
+	/**
+	 * Safely attempts to retrieve the element at a given index.
+	 * 
+	 * @param index the index to search at.
+	 * @return an optional wrapping the element if the index is valid, nothing
+	 *         otherwise.
+	 */
 	default Optional<E> getOption(int index)
 	{
 		return -1 < index && index < size() ? Optional.of(get(index)) : Optional.empty();
 	}
 
+	/**
+	 * Attempts to get the head (first element) of this vector in an unsafe manner.
+	 * If this vector is empty then an exception will be thrown.
+	 * 
+	 * @return the head of this vector.
+	 */
 	default E head()
 	{
 		return get(0);
 	}
 
+	/**
+	 * Gets the head (first element) of this vector in an safe manner.
+	 * 
+	 * @return an optional wrapping the head of this vector if is is non-empty,
+	 *         nothing otherwise.
+	 */
 	default Optional<E> headOption()
 	{
 		return size() > 0 ? Optional.of(head()) : Optional.empty();
 	}
 
+	/**
+	 * Attempts to get the last element of this vector in an unsafe manner. If this
+	 * vector is empty then an exception will be thrown.
+	 * 
+	 * @return the last element of this vector.
+	 */
 	default E last()
 	{
 		return get(size() - 1);
 	}
 
+	/**
+	 * Attempts to get the last element of this vector in an safe manner.
+	 * 
+	 * @return the last element of this vector if it is non-empty, nothing
+	 *         otherwise.
+	 */
 	default Optional<E> lastOption()
 	{
 		return size() > 0 ? Optional.of(last()) : Optional.empty();
@@ -205,8 +235,10 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 		return iter().mapToLong(mappingFunction).toArray();
 	}
 
+	// Static factories
+
 	/**
-	 * @return An empty sequence
+	 * @return An empty vector
 	 */
 	static <E> Vec<E> empty()
 	{
@@ -215,9 +247,12 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 
 	/**
 	 * Note that this method is only designed for varargs. If it is passed an array
-	 * it won't make a copy.
+	 * it won't make a copy and therefore immutability is compromised, this is the
+	 * only way to make a mutable instance of this class and it is <b>not</b>
+	 * advised. If a null reference is passed as an argument then an exception will
+	 * be thrown.
 	 * 
-	 * @param elements
+	 * @param elements the elements which will populate the resulting vector.
 	 * @return
 	 */
 	@SafeVarargs
@@ -226,6 +261,11 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 		return new VecImpl<>(elements);
 	}
 
+	/**
+	 * 
+	 * @param collection
+	 * @return
+	 */
 	static <E> Vec<E> copy(Collection<? extends E> collection)
 	{
 		return new VecImpl<>(collection);
