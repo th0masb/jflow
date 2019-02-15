@@ -3,12 +3,6 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 version = '0.4'
 
-if (JavaVersion.current().isJava8Compatible()) {
-	tasks.withType(Javadoc) {
-    	options.addStringOption('Xdoclint:none', '-quiet')
-    }
- }
-
 jar {
     manifest {
         attributes 'Implementation-Title': 'JFlow',
@@ -25,10 +19,6 @@ dependencies {
 	testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
-}
-
-test {
-	useJUnitPlatform()
 }
 
 task wrapper(type: Wrapper) {
