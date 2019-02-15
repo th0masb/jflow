@@ -220,17 +220,17 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 		return size() > 0 ? Optional.of(last()) : Optional.empty();
 	}
 
-	default int[] mapToInt(ToIntFunction<? super E> mappingFunction)
+	default int[] mapToIntArray(ToIntFunction<? super E> mappingFunction)
 	{
 		return iter().mapToInt(mappingFunction).toArray();
 	}
 
-	default double[] mapToDouble(ToDoubleFunction<? super E> mappingFunction)
+	default double[] mapToDoubleArray(ToDoubleFunction<? super E> mappingFunction)
 	{
 		return iter().mapToDouble(mappingFunction).toArray();
 	}
 
-	default long[] mapToLong(ToLongFunction<? super E> mappingFunction)
+	default long[] mapToLongArray(ToLongFunction<? super E> mappingFunction)
 	{
 		return iter().mapToLong(mappingFunction).toArray();
 	}
@@ -253,7 +253,7 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 	 * be thrown.
 	 * 
 	 * @param elements the elements which will populate the resulting vector.
-	 * @return
+	 * @return a vector wrapping the arguments.
 	 */
 	@SafeVarargs
 	static <E> Vec<E> of(E... elements)
@@ -262,20 +262,43 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 	}
 
 	/**
+	 * Copies the contents of the given collection into a vector, the ordering is
+	 * determined by the particular implementation of {@link Collection#iterator()}.
+	 * If the passed collection contains a null reference then an exception will be
+	 * thrown.
 	 * 
-	 * @param collection
-	 * @return
+	 * @param collection the collection to copy the contents of.
+	 * @return a vector containing all the elements contained in the argument.
 	 */
 	static <E> Vec<E> copy(Collection<? extends E> collection)
 	{
 		return new VecImpl<>(collection);
 	}
 
+	/**
+	 * Creates a vector of elements described by the iterator returned by
+	 * {@link Iterable#iterator()} applied to the parameter. An exception will be
+	 * thrown if the source iterable produces an iterator containing a null
+	 * reference.
+	 * 
+	 * @param iterable the source of the elements which will be stored in the
+	 *                 resultant vector.
+	 * @return a vector containing all the elements in the iterator produced by the
+	 *         source iterable.
+	 */
 	static <E> Vec<E> copy(Iterable<? extends E> iterable)
 	{
 		return new VecImpl<>(iterable.iterator());
 	}
 
+	/**
+	 * Creates a vector of elements from a Stream source. The argument will be
+	 * consumed, if the stream produces a null reference then an exception will be
+	 * thrown.
+	 * 
+	 * @param source the source of elements
+	 * @return a vector containing all the elements in the source stream.
+	 */
 	static <E> Vec<E> fromStream(Stream<? extends E> source)
 	{
 		return copy(source.sequential().collect(Collectors.toCollection(ArrayList::new)));

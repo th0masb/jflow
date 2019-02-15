@@ -410,20 +410,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	boolean areAllEqual();
 
-	// /**
-	// * Checks whether every element in this {@link EnhancedIterator} is the same.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * {@link EnhancedIterator}.
-	// *
-	// * @return True is every element of this {@link EnhancedIterator} is equal
-	// * (under .equals contract), false otherwise.
-	// */
-	// default Bool areAllEqual2()
-	// {
-	// return Bool.of(areAllEqual());
-	// }
-
 	/**
 	 * Checks whether every element in this {@link EnhancedIterator} passes the
 	 * supplied predicate test. This method is a 'consuming method', i.e. it will
@@ -435,21 +421,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         otherwise.
 	 */
 	boolean allMatch(Predicate<? super E> predicate);
-
-	// /**
-	// * Checks whether every element in this {@link EnhancedIterator} passes the
-	// * supplied predicate test. This method is a 'consuming method', i.e. it will
-	// * iterate through this {@link EnhancedIterator}.
-	// *
-	// * @param predicate A predicate applicable to the type of elements in this
-	// * {@link EnhancedIterator}.
-	// * @return True if every element passes the parameter predicate test, false
-	// * otherwise.
-	// */
-	// default Bool allMatch2(Predicate<? super E> predicate)
-	// {
-	// return Bool.of(allMatch(predicate));
-	// }
 
 	/**
 	 * Checks whether any element in this {@link EnhancedIterator} passes the
@@ -463,21 +434,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	boolean anyMatch(Predicate<? super E> predicate);
 
-	// /**
-	// * Checks whether any element in this {@link EnhancedIterator} passes the
-	// * supplied predicate test. This method is a 'consuming method', i.e. it will
-	// * iterate through this {@link EnhancedIterator}.
-	// *
-	// * @param predicate A predicate applicable to the type of elements in this
-	// * {@link EnhancedIterator}.
-	// * @return True if any element passes the parameter predicate test, false
-	// * otherwise.
-	// */
-	// default Bool anyMatch2(Predicate<? super E> predicate)
-	// {
-	// return Bool.of(anyMatch(predicate));
-	// }
-
 	/**
 	 * Checks whether every element in this {@link EnhancedIterator} fails the
 	 * supplied predicate test. This method is a 'consuming method', i.e. it will
@@ -489,21 +445,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         otherwise.
 	 */
 	boolean noneMatch(Predicate<? super E> predicate);
-
-	// /**
-	// * Checks whether every element in this {@link EnhancedIterator} fails the
-	// * supplied predicate test. This method is a 'consuming method', i.e. it will
-	// * iterate through this {@link EnhancedIterator}.
-	// *
-	// * @param predicate A predicate applicable to the type of elements in this
-	// * {@link EnhancedIterator}.
-	// * @return True if every element fails the parameter predicate test, false
-	// * otherwise.
-	// */
-	// default Bool noneMatch2(Predicate<? super E> predicate)
-	// {
-	// return Bool.of(noneMatch(predicate));
-	// }
 
 	/**
 	 * Fold this {@link EnhancedIterator} to a single value via some reduction
