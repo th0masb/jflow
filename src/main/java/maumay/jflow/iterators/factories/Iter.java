@@ -26,7 +26,7 @@ import maumay.jflow.iterators.misc.Exceptions;
 import maumay.jflow.iterators.misc.Pair;
 
 /**
- * Static methods for building finite Flow instances.
+ * Static methods for building finite EnhancedIterator instances.
  *
  * @author ThomasB
  */
@@ -37,11 +37,11 @@ public final class Iter
 	}
 
 	/**
-	 * Creates an empty Flow of the required type.
+	 * Creates an empty EnhancedIterator of an inferred type.
 	 *
-	 * @param <E> The element type of the Flow (it will be inferred from the context
-	 *        of the method call).
-	 * @return An empty Flow.
+	 * @param <E> The element type of the EnhancedIterator (it will be inferred from
+	 *        the context of the method call).
+	 * @return An empty EnhancedIterator.
 	 */
 	public static <E> EnhancedIterator<E> empty()
 	{
@@ -49,13 +49,13 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a Flow which wraps an iterator provided from an existing
-	 * Collection.
+	 * Construct a EnhancedIterator which wraps an iterator provided from an
+	 * existing Collection.
 	 *
 	 * @param     <E> The upper bound on the source Collection element type.
 	 * @param src Some Collection of elements.
-	 * @return A Flow instance wrapping an iterator constructed from the source
-	 *         sequence.
+	 * @return A EnhancedIterator instance wrapping an iterator constructed from the
+	 *         source sequence.
 	 */
 	public static <E> EnhancedIterator<E> over(Collection<? extends E> src)
 	{
@@ -63,12 +63,12 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a Flow iterating over varargs elements.
+	 * Construct a EnhancedIterator iterating over varargs elements.
 	 *
 	 * @param          <E> The least upper bound on the types of the passed
 	 *                 elements.
 	 * @param elements The elements to be iterated over.
-	 * @return A Flow iterating over the given elements.
+	 * @return A EnhancedIterator iterating over the given elements.
 	 */
 	@SafeVarargs
 	public static <E> EnhancedIterator<E> over(E... elements)
@@ -85,11 +85,12 @@ public final class Iter
 	}
 
 	/**
-	 * Build a Flow reverse iterating over a List.
+	 * Build a EnhancedIterator reverse iterating over a List.
 	 *
 	 * @param        <E> The upper type bound on the elements in the source.
 	 * @param source The source List
-	 * @return A Flow reversing over the source starting with the last element.
+	 * @return A EnhancedIterator reversing over the source starting with the last
+	 *         element.
 	 */
 	public static <E> EnhancedIterator<E> reverse(List<? extends E> source)
 	{
@@ -97,13 +98,13 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a Flow reverse iterating over varargs elements.
+	 * Construct a EnhancedIterator reverse iterating over varargs elements.
 	 *
 	 * @param          <E> The least upper bound on the types of the passed
 	 *                 elements.
 	 * @param elements The elements to be reversed over.
-	 * @return A Flow reversing over the given elements starting with the last
-	 *         element.
+	 * @return A EnhancedIterator reversing over the given elements starting with
+	 *         the last element.
 	 */
 	@SafeVarargs
 	public static <E> EnhancedIterator<E> reverse(E... elements)
@@ -112,16 +113,16 @@ public final class Iter
 	}
 
 	/**
-	 * Build a finite length Flow from a function which accepts a positive integer
-	 * argument representing a sequence index.
+	 * Build a finite length EnhancedIterator from a function which accepts a
+	 * positive integer argument representing a sequence index.
 	 *
 	 * @param                  <E> The target type of the indexing function.
 	 * @param indexingFunction A function whose domain is the natural numbers.
 	 * @param indexBound       The upper bound (exclusive) of the index range. It
 	 *                         must be non-negative otherwise an exception will be
 	 *                         thrown.
-	 * @return A Flow built from apply the indexing function to a bounded range of
-	 *         natural numbers.
+	 * @return A EnhancedIterator built from apply the indexing function to a
+	 *         bounded range of natural numbers.
 	 */
 	public static <E> EnhancedIterator<E> byIndexing(IntFunction<E> indexingFunction,
 			int indexBound)
@@ -134,34 +135,55 @@ public final class Iter
 	 * Converts an Optional into an Iterator, if the input is present then returns a
 	 * single element Iterator containing that element else an empty Iterator is
 	 * returned.
+	 * 
+	 * @param src the optional value to convert into an iterator.
+	 * @return a single element iterator wrapping the wrapped element if it exists,
+	 *         an empty iterator otherwise.
 	 */
 	public static <E> EnhancedIterator<E> option(Optional<? extends E> src)
 	{
 		return src.isPresent() ? Iter.over(src.get()) : Iter.empty();
 	}
 
+	/**
+	 * Creates an enhanced iterator traversing the values of some {@link Map}
+	 * 
+	 * @param src the map encapsulating the values to traverse.
+	 * @return an iterator traversing the input values.
+	 */
 	public static <V> EnhancedIterator<V> values(Map<?, ? extends V> src)
 	{
 		return Iter.over(src.values());
 	}
 
+	/**
+	 * Creates an enhanced iterator traversing the keys of some {@link Map}
+	 * 
+	 * @param src the map encapsulating the keys to traverse.
+	 * @return an iterator traversing the input keys.
+	 */
 	public static <K> EnhancedIterator<K> keys(Map<? extends K, ?> src)
 	{
 		return Iter.over(src.keySet());
 	}
 
+	/**
+	 * Creates an enhanced iterator traversing the entry pairs of some {@link Map}
+	 * 
+	 * @param src the map encapsulating the entries to traverse.
+	 * @return an iterator traversing the key, value pairs of the map.
+	 */
 	public static <K, V> EnhancedIterator<Pair<K, V>> entries(Map<K, V> src)
 	{
-		return Iter.over(src.entrySet())
-				.map(entry -> Pair.of(entry.getKey(), entry.getValue()));
+		return Iter.over(src.entrySet()).map(entry -> Pair.of(entry.getKey(), entry.getValue()));
 	}
 
 	// Ints
 
 	/**
-	 * Creates an empty IntFlow.
+	 * Creates an empty IntEnhancedIterator.
 	 *
-	 * @return An empty IntFlow.
+	 * @return An empty IntEnhancedIterator.
 	 */
 	public static EnhancedIntIterator emptyInts()
 	{
@@ -169,10 +191,10 @@ public final class Iter
 	}
 
 	/**
-	 * Construct an IntFlow iterating over varargs primitive integers.
+	 * Construct an IntEnhancedIterator iterating over varargs primitive integers.
 	 *
 	 * @param integers The integers to be iterated over.
-	 * @return An IntFlow iterating over the given integers.
+	 * @return An IntEnhancedIterator iterating over the given integers.
 	 */
 	public static EnhancedIntIterator ints(int... integers)
 	{
@@ -180,11 +202,11 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a IntFlow reverse iterating over varargs elements.
+	 * Construct a IntEnhancedIterator reverse iterating over varargs elements.
 	 *
 	 * @param elements The elements to be reversed over.
-	 * @return A IntFlow reversing over the given elements starting with the last
-	 *         element.
+	 * @return A IntEnhancedIterator reversing over the given elements starting with
+	 *         the last element.
 	 */
 	public static EnhancedIntIterator reverseInts(int... elements)
 	{
@@ -192,15 +214,15 @@ public final class Iter
 	}
 
 	/**
-	 * Build a finite length IntFlow from a function which accepts a positive
-	 * integer argument representing a sequence index.
+	 * Build a finite length IntEnhancedIterator from a function which accepts a
+	 * positive integer argument representing a sequence index.
 	 *
 	 * @param indexingFunction A function whose domain is the natural numbers.
 	 * @param indexBound       The upper bound (exclusive) of the index range. It
 	 *                         must be non-negative otherwise an exception will be
 	 *                         thrown.
-	 * @return A IntFlow built from apply the indexing function to a bounded range
-	 *         of natural numbers.
+	 * @return A IntEnhancedIterator built from apply the indexing function to a
+	 *         bounded range of natural numbers.
 	 */
 	public static EnhancedIntIterator intsByIndexing(IntUnaryOperator indexingFunction,
 			int indexBound)
@@ -212,9 +234,9 @@ public final class Iter
 	// Doubles
 
 	/**
-	 * Creates an empty DoubleFlow.
+	 * Creates an empty DoubleEnhancedIterator.
 	 *
-	 * @return An empty DoubleFlow.
+	 * @return An empty DoubleEnhancedIterator.
 	 */
 	public static EnhancedDoubleIterator emptyDoubles()
 	{
@@ -222,10 +244,10 @@ public final class Iter
 	}
 
 	/**
-	 * Construct an DoubleFlow iterating over varargs primitive doubles.
+	 * Construct an DoubleEnhancedIterator iterating over varargs primitive doubles.
 	 *
 	 * @param doubles The doubles to be iterated over.
-	 * @return An DoubleFlow iterating over the given doubles.
+	 * @return An DoubleEnhancedIterator iterating over the given doubles.
 	 */
 	public static EnhancedDoubleIterator doubles(double... doubles)
 	{
@@ -233,11 +255,11 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a DoubleFlow reverse iterating over varargs elements.
+	 * Construct a DoubleEnhancedIterator reverse iterating over varargs elements.
 	 *
 	 * @param elements The elements to be reversed over.
-	 * @return A DoubleFlow reversing over the given elements starting with the last
-	 *         element.
+	 * @return A DoubleEnhancedIterator reversing over the given elements starting
+	 *         with the last element.
 	 */
 	public static EnhancedDoubleIterator reverseDoubles(double... elements)
 	{
@@ -245,18 +267,18 @@ public final class Iter
 	}
 
 	/**
-	 * Build a finite length DoubleFlow from a function which accepts a positive
-	 * integer argument representing a sequence index.
+	 * Build a finite length DoubleEnhancedIterator from a function which accepts a
+	 * positive integer argument representing a sequence index.
 	 *
 	 * @param indexingFunction A function whose domain is the natural numbers.
 	 * @param indexBound       The upper bound (exclusive) of the index range. It
 	 *                         must be non-negative otherwise an exception will be
 	 *                         thrown.
-	 * @return A DoubleFlow built from apply the indexing function to a bounded
-	 *         range
+	 * @return A DoubleEnhancedIterator built from apply the indexing function to a
+	 *         bounded range
 	 */
-	public static EnhancedDoubleIterator doublesByIndexing(
-			IntToDoubleFunction indexingFunction, int indexBound)
+	public static EnhancedDoubleIterator doublesByIndexing(IntToDoubleFunction indexingFunction,
+			int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
 		return new FunctionIterator.OfDouble(indexingFunction, indexBound);
@@ -265,9 +287,9 @@ public final class Iter
 	// Longs
 
 	/**
-	 * Creates an empty LongFlow.
+	 * Creates an empty LongEnhancedIterator.
 	 *
-	 * @return An empty LongFlow.
+	 * @return An empty LongEnhancedIterator.
 	 */
 	public static EnhancedLongIterator emptyLongs()
 	{
@@ -275,10 +297,10 @@ public final class Iter
 	}
 
 	/**
-	 * Construct an LongFlow iterating over varargs primitive longs.
+	 * Construct an LongEnhancedIterator iterating over varargs primitive longs.
 	 *
 	 * @param longs The longs to be iterated over.
-	 * @return An LongFlow iterating over the given longs.
+	 * @return An LongEnhancedIterator iterating over the given longs.
 	 */
 	public static EnhancedLongIterator longs(long... longs)
 	{
@@ -286,11 +308,11 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a LongFlow reverse iterating over varargs elements.
+	 * Construct a LongEnhancedIterator reverse iterating over varargs elements.
 	 *
 	 * @param elements The elements to be reversed over.
-	 * @return A LongFlow reversing over the given elements starting with the last
-	 *         element.
+	 * @return A LongEnhancedIterator reversing over the given elements starting
+	 *         with the last element.
 	 */
 	public static EnhancedLongIterator reverseLongs(long... elements)
 	{
@@ -298,15 +320,15 @@ public final class Iter
 	}
 
 	/**
-	 * Build a finite length LongFlow from a function which accepts a positive
-	 * integer argument representing a sequence index.
+	 * Build a finite length LongEnhancedIterator from a function which accepts a
+	 * positive integer argument representing a sequence index.
 	 *
 	 * @param indexingFunction A function whose domain is the natural numbers.
 	 * @param indexBound       The upper bound (exclusive) of the index range. It
 	 *                         must be non-negative otherwise an exception will be
 	 *                         thrown.
-	 * @return A LongFlow built from apply the indexing function to a bounded range
-	 *         of natural numbers.
+	 * @return A LongEnhancedIterator built from apply the indexing function to a
+	 *         bounded range of natural numbers.
 	 */
 	public static EnhancedLongIterator longsByIndexing(IntToLongFunction indexingFunction,
 			int indexBound)
@@ -316,7 +338,7 @@ public final class Iter
 	}
 
 	/**
-	 * Wraps an existing iterator in a Flow to enable use of all extra
+	 * Wraps an existing iterator in a EnhancedIterator to enable use of all extra
 	 * functionality.
 	 *
 	 * @param src The iterator to wrap.
@@ -328,13 +350,13 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a Flow which wraps an iterator provided from an existing iterable
-	 * object.
+	 * Construct a EnhancedIterator which wraps an iterator provided from an
+	 * existing iterable object.
 	 *
 	 * @param     <E> The upper bound on the source iterable element type.
 	 * @param src An object which can construct an iterator over it's elements.
-	 * @return A Flow instance wrapping an iterator constructed from the source
-	 *         sequence.
+	 * @return A EnhancedIterator instance wrapping an iterator constructed from the
+	 *         source sequence.
 	 */
 	public static <E> EnhancedIterator<E> wrap(Iterable<? extends E> src)
 	{

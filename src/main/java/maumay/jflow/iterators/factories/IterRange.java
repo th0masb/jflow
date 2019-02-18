@@ -31,8 +31,7 @@ public class IterRange
 	 */
 	public static EnhancedIntIterator to(int upperBound)
 	{
-		return upperBound > 0 ? Iter.intsByIndexing(i -> i, upperBound)
-				: Iter.emptyInts();
+		return upperBound > 0 ? Iter.intsByIndexing(i -> i, upperBound) : Iter.emptyInts();
 	}
 
 	/**
@@ -52,8 +51,7 @@ public class IterRange
 	 */
 	public static EnhancedIntIterator between(int low, int high)
 	{
-		return high > low ? Iter.intsByIndexing(i -> i + low, high - low)
-				: Iter.emptyInts();
+		return high > low ? Iter.intsByIndexing(i -> i + low, high - low) : Iter.emptyInts();
 	}
 
 	/**
@@ -81,7 +79,8 @@ public class IterRange
 	}
 
 	/**
-	 * Builds a Flow iterating over the boundary points of a partitioned interval.
+	 * Builds an iterator traversing over the boundary points of a partitioned
+	 * interval.
 	 *
 	 * @param start         The start of the interval to be partitioned.
 	 * @param end           The end of the interval to be partitioned.
@@ -93,8 +92,7 @@ public class IterRange
 	 *         {J_m} and return an iteration over them ordered on proximity to the
 	 *         'start' of the interval J.
 	 */
-	public static EnhancedDoubleIterator partition(double start, double end,
-			int nSubIntervals)
+	public static EnhancedDoubleIterator partition(double start, double end, int nSubIntervals)
 	{
 		if (nSubIntervals < 1) {
 			throw new IllegalArgumentException();
