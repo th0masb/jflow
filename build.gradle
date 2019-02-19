@@ -1,12 +1,12 @@
-apply plugin: 'java'
+apply(plugin: 'java')
 
 sourceCompatibility = 1.8
 version = '0.4'
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'JFlow',
-                   'Implementation-Version': version
+        attributes('Implementation-Title': 'JFlow')
+        attributes('Implementation-Version': version)
     }
 }
 
@@ -15,27 +15,29 @@ repositories {
 }
 
 dependencies {
-	testCompile 'org.junit.platform:junit-platform-launcher:1.1.1'
-	testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+	testCompile('org.junit.platform:junit-platform-launcher:1.1.1')
+	testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.1.0')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '4.6'
+task printThis {
+	println(this)
 }
+
+javadoc.failOnError = false
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.java
+    archiveClassifier = 'sources'
+    from(sourceSets.main.java)
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
+    archiveClassifier = 'javadoc'
+    from(javadoc.destinationDir)
 }
 
 artifacts {
-    archives sourcesJar
-    archives javadocJar
+    archives(sourcesJar)
+    archives(javadocJar)
 }
