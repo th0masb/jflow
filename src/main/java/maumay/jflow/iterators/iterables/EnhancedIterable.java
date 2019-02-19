@@ -28,7 +28,7 @@ import maumay.jflow.iterators.EnhancedIterator;
 public interface EnhancedIterable<E> extends Iterable<E>
 {
 	/**
-	 * @return A Flow over the elements in this iterable.
+	 * @return An {@link EnhancedIterator} traversing the elements in this iterable.
 	 */
 	EnhancedIterator<E> iter();
 
@@ -51,7 +51,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#min(Comparator)} method.
 	 */
 	default Optional<E> min(Comparator<? super E> orderingFunction)
@@ -60,7 +60,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#max(Comparator)} method.
 	 */
 	default Optional<E> max(Comparator<? super E> orderingFunction)
@@ -69,7 +69,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#areAllEqual()} method.
 	 */
 	default boolean areAllEqual()
@@ -78,7 +78,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#allMatch(Predicate)} method.
 	 */
 	default boolean allMatch(Predicate<? super E> condition)
@@ -86,17 +86,8 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().allMatch(condition);
 	}
 
-	// /**
-	// * A convenience method which spawns a Flow and delegates to its
-	// * {@link EnhancedIterator#allMatch2(Predicate)} method.
-	// */
-	// default Bool allMatch2(Predicate<? super E> condition)
-	// {
-	// return iter().allMatch2(condition);
-	// }
-
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#anyMatch(Predicate)} method.
 	 */
 	default boolean anyMatch(Predicate<? super E> condition)
@@ -104,17 +95,8 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().anyMatch(condition);
 	}
 
-	// /**
-	// * A convenience method which spawns a Flow and delegates to its
-	// * {@link EnhancedIterator#anyMatch2(Predicate)} method.
-	// */
-	// default Bool anyMatch2(Predicate<? super E> condition)
-	// {
-	// return iter().anyMatch2(condition);
-	// }
-
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#noneMatch(Predicate)} method.
 	 */
 	default boolean noneMatch(Predicate<? super E> condition)
@@ -122,17 +104,8 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().noneMatch(condition);
 	}
 
-	// /**
-	// * A convenience method which spawns a Flow and delegates to its
-	// * {@link EnhancedIterator#noneMatch(Predicate)} method.
-	// */
-	// default Bool noneMatch2(Predicate<? super E> condition)
-	// {
-	// return iter().noneMatch2(condition);
-	// }
-
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#groupBy(Function)} method.
 	 */
 	default <K> Map<K, List<E>> groupBy(Function<? super E, K> classifier)
@@ -141,7 +114,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#fold(Object, BiFunction)} method.
 	 */
 	default <R> R fold(R id, BiFunction<R, E, R> reducer)
@@ -150,7 +123,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * A convenience method which spawns a Flow and delegates to its
+	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#foldOption(BinaryOperator)} method.
 	 */
 	default Optional<E> foldOption(BinaryOperator<E> reducer)
@@ -158,32 +131,56 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().foldOption(reducer);
 	}
 
+	/**
+	 * Spawns an enhanced iterator and delegates to it's
+	 * {@link EnhancedIterator#fold(BinaryOperator)} method.
+	 */
 	default E fold(BinaryOperator<E> reducer)
 	{
 		return iter().fold(reducer);
 	}
 
+	/**
+	 * Spawns an enhanced iterator and delegates to it's
+	 * {@link EnhancedIterator#toMap(Function, Function)} method.
+	 */
 	default <K, V> Map<K, V> toMap(Function<? super E, ? extends K> keyMap,
 			Function<? super E, ? extends V> valueMap)
 	{
 		return iter().toMap(keyMap, valueMap);
 	}
 
+	/**
+	 * Spawns an enhanced iterator and delegates to it's
+	 * {@link EnhancedIterator#toMap(Function)} method.
+	 */
 	default <V> Map<E, V> toMap(Function<? super E, ? extends V> valueMap)
 	{
 		return iter().toMap(valueMap);
 	}
 
+	/**
+	 * Spawns an enhanced iterator and delegates to it's
+	 * {@link EnhancedIterator#toList()} method.
+	 */
 	default List<E> toList()
 	{
 		return toCollection(ArrayList::new);
 	}
 
+	/**
+	 * Spawns an enhanced iterator and delegates to it's
+	 * {@link EnhancedIterator#toSet()} method.
+	 */
 	default Set<E> toSet()
 	{
 		return toCollection(HashSet::new);
 	}
 
+	/**
+	 * Spawns an enhanced iterator and delegates to it's
+	 * {@link EnhancedIterator#toCollection(Supplier)} method.
+	 */
 	default <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
 	{
 		return iter().toCollection(collectionFactory);

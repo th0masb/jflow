@@ -6,60 +6,24 @@ package maumay.jflow.vec;
 import java.util.stream.DoubleStream;
 
 import maumay.jflow.iterators.EnhancedDoubleIterator;
-import maumay.jflow.iterators.factories.Iter;
+import maumay.jflow.iterators.iterables.DoubleIterable;
 
 /**
- * @author ThomasB
+ * @author thomasb
  *
  */
-public final class DoubleVec
+public interface DoubleVec extends DoubleIterable
 {
-	private static final DoubleVec EMPTY = new DoubleVec(new double[0]);
+	int size();
 
-	private final double[] src;
+	double get(int index);
 
-	public DoubleVec(double[] src)
+	EnhancedDoubleIterator revIter();
+
+	DoubleStream stream();
+
+	static DoubleVec of(double... xs)
 	{
-		this.src = src;
-	}
-
-	public static DoubleVec of(double[] src)
-	{
-		return new DoubleVec(src);
-	}
-
-	public EnhancedDoubleIterator iter()
-	{
-		return Iter.doubles(src);
-	}
-
-	public DoubleStream stream()
-	{
-		return DoubleStream.of(src);
-	}
-
-	public double get(int index)
-	{
-		return src[index];
-	}
-
-	public int size()
-	{
-		return src.length;
-	}
-
-	public static DoubleVec empty()
-	{
-		return EMPTY;
+		throw new RuntimeException();
 	}
 }
-
-/*
- * ---------------------------------------------------------------------* This
- * software is the confidential and proprietary information of Lhasa Limited
- * Granary Wharf House, 2 Canal Wharf, Leeds LS11 5PS --- No part of this
- * confidential information shall be disclosed and it shall be used only in
- * accordance with the terms of a written license agreement entered into by
- * holder of the information with LHASA Ltd.
- * ---------------------------------------------------------------------
- */

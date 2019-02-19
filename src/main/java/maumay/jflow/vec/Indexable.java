@@ -7,7 +7,7 @@ package maumay.jflow.vec;
  * @author ThomasB
  *
  */
-public interface IIndexable<E>
+public interface Indexable<E>
 {
 	int size();
 

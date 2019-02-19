@@ -32,7 +32,7 @@ import maumay.jflow.iterators.misc.Pair;
  * 
  * @author ThomasB
  */
-public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
+public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 {
 	/**
 	 * @return An iteration of the elements in this vector in reverse order.
@@ -220,14 +220,19 @@ public interface Vec<E> extends EnhancedIterable<E>, IIndexable<E>
 		return size() > 0 ? Optional.of(last()) : Optional.empty();
 	}
 
-	default int[] mapToIntArray(ToIntFunction<? super E> mappingFunction)
+	default DoubleVec mapToDouble(ToDoubleFunction<? super E> mappingFunction)
 	{
-		return iter().mapToInt(mappingFunction).toArray();
+		return DoubleVec.of(mapToDoubleArray(mappingFunction));
 	}
 
 	default double[] mapToDoubleArray(ToDoubleFunction<? super E> mappingFunction)
 	{
 		return iter().mapToDouble(mappingFunction).toArray();
+	}
+
+	default int[] mapToIntArray(ToIntFunction<? super E> mappingFunction)
+	{
+		return iter().mapToInt(mappingFunction).toArray();
 	}
 
 	default long[] mapToLongArray(ToLongFunction<? super E> mappingFunction)

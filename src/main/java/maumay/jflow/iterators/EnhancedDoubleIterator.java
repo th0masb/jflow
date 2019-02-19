@@ -512,6 +512,21 @@ public interface EnhancedDoubleIterator extends SafeDoubleIterator
 	long count();
 
 	/**
+	 * Caches the values in this {@link EnhancedDoubleIterator} to a
+	 * {@link DoubleVec}.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link EnhancedDoubleIterator}.
+	 *
+	 * @return A vector containing all elements of this
+	 *         {@link EnhancedDoubleIterator} with their ordering retained.
+	 */
+	default DoubleVec toVec()
+	{
+		return DoubleVec.of(toArray());
+	}
+
+	/**
 	 * Caches the values in this {@link EnhancedDoubleIterator} to an array.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
@@ -625,8 +640,4 @@ public interface EnhancedDoubleIterator extends SafeDoubleIterator
 		return sum / count;
 	}
 
-	default DoubleVec toVec()
-	{
-		return DoubleVec.of(toArray());
-	}
 }
