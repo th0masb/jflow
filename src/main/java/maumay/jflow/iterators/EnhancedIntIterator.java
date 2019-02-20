@@ -13,7 +13,6 @@ import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import maumay.jflow.iterators.factories.Iter;
-import maumay.jflow.iterators.misc.Bool;
 import maumay.jflow.iterators.misc.IntPair;
 import maumay.jflow.iterators.misc.IntWith;
 
@@ -385,20 +384,6 @@ public interface EnhancedIntIterator extends SafeIntIterator
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@link EnhancedIntIterator} is the same.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedIntIterator}.
-	 *
-	 * @return True is every element of this {@link EnhancedIntIterator} is equal,
-	 *         false otherwise.
-	 */
-	default Bool areAllEqual2()
-	{
-		return Bool.of(areAllEqual());
-	}
-
-	/**
 	 * Checks whether every element in this {@link EnhancedIntIterator} passes the
 	 * supplied IntPredicate test.
 	 *
@@ -410,22 +395,6 @@ public interface EnhancedIntIterator extends SafeIntIterator
 	 *         otherwise.
 	 */
 	boolean allMatch(IntPredicate predicate);
-
-	/**
-	 * Checks whether every element in this {@link EnhancedIntIterator} passes the
-	 * supplied IntPredicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedIntIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if every element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool allMatch2(IntPredicate predicate)
-	{
-		return Bool.of(allMatch(predicate));
-	}
 
 	/**
 	 * Checks whether any element in this {@link EnhancedIntIterator} passes the
@@ -441,22 +410,6 @@ public interface EnhancedIntIterator extends SafeIntIterator
 	boolean anyMatch(IntPredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@link EnhancedIntIterator} passes the
-	 * supplied IntPredicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedIntIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if any element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool anyMatch2(IntPredicate predicate)
-	{
-		return Bool.of(anyMatch(predicate));
-	}
-
-	/**
 	 * Checks whether every element in this {@link EnhancedIntIterator} fails the
 	 * supplied IntPredicate test.
 	 *
@@ -468,22 +421,6 @@ public interface EnhancedIntIterator extends SafeIntIterator
 	 *         otherwise.
 	 */
 	boolean noneMatch(IntPredicate predicate);
-
-	/**
-	 * Checks whether every element in this {@link EnhancedIntIterator} fails the
-	 * supplied IntPredicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedIntIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if every element fails the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool noneMatch2(IntPredicate predicate)
-	{
-		return Bool.of(noneMatch(predicate));
-	}
 
 	/**
 	 * Reduces this {@link EnhancedIntIterator} to a single value via some reduction
@@ -635,6 +572,12 @@ public interface EnhancedIntIterator extends SafeIntIterator
 		return mapToObject(x -> x);
 	}
 
+	/**
+	 * Computes the sum of elements in a non-empty iterator.
+	 * 
+	 * @return the sum of elements if this iterator is non-empty, throws an
+	 *         exception otherwise.
+	 */
 	default int sum()
 	{
 		return fold(0, (a, b) -> a + b);

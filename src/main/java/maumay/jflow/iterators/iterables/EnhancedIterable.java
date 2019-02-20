@@ -152,11 +152,11 @@ public interface EnhancedIterable<E> extends Iterable<E>
 
 	/**
 	 * Spawns an enhanced iterator and delegates to it's
-	 * {@link EnhancedIterator#toMap(Function)} method.
+	 * {@link EnhancedIterator#associate(Function)} method.
 	 */
-	default <V> Map<E, V> toMap(Function<? super E, ? extends V> valueMap)
+	default <V> Map<E, V> associate(Function<? super E, ? extends V> valueMap)
 	{
-		return iter().toMap(valueMap);
+		return iter().associate(valueMap);
 	}
 
 	/**

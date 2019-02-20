@@ -15,7 +15,6 @@ import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 
 import maumay.jflow.iterators.factories.Iter;
-import maumay.jflow.iterators.misc.Bool;
 import maumay.jflow.iterators.misc.DoublePair;
 import maumay.jflow.iterators.misc.DoubleWith;
 import maumay.jflow.vec.DoubleVec;
@@ -348,21 +347,6 @@ public interface EnhancedDoubleIterator extends SafeDoubleIterator
 	 */
 	boolean areAllEqual();
 
-	// /**
-	// * Checks whether every element in this {@link EnhancedDoubleIterator} is the
-	// * same.
-	// *
-	// * This method is a 'consuming method', i.e. it will iterate through this
-	// * {@link EnhancedDoubleIterator}.
-	// *
-	// * @return True is every element of this {@link EnhancedDoubleIterator} is
-	// * equal, false otherwise.
-	// */
-	// default Bool areAllEqual2()
-	// {
-	// return Bool.of(areAllEqual());
-	// }
-
 	/**
 	 * Checks whether every element in this {@link EnhancedDoubleIterator} passes
 	 * the supplied DoublePredicate test.
@@ -375,22 +359,6 @@ public interface EnhancedDoubleIterator extends SafeDoubleIterator
 	 *         otherwise.
 	 */
 	boolean allMatch(DoublePredicate predicate);
-
-	/**
-	 * Checks whether every element in this {@link EnhancedDoubleIterator} passes
-	 * the supplied DoublePredicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedDoubleIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if every element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool allMatch2(DoublePredicate predicate)
-	{
-		return Bool.of(allMatch(predicate));
-	}
 
 	/**
 	 * Checks whether any element in this {@link EnhancedDoubleIterator} passes the
@@ -406,22 +374,6 @@ public interface EnhancedDoubleIterator extends SafeDoubleIterator
 	boolean anyMatch(DoublePredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@link EnhancedDoubleIterator} passes the
-	 * supplied DoublePredicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedDoubleIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if any element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool anyMatch2(DoublePredicate predicate)
-	{
-		return Bool.of(anyMatch(predicate));
-	}
-
-	/**
 	 * Checks whether every element in this {@link EnhancedDoubleIterator} fails the
 	 * supplied DoublePredicate test.
 	 *
@@ -433,22 +385,6 @@ public interface EnhancedDoubleIterator extends SafeDoubleIterator
 	 *         otherwise.
 	 */
 	boolean noneMatch(DoublePredicate predicate);
-
-	/**
-	 * Checks whether every element in this {@link EnhancedDoubleIterator} fails the
-	 * supplied DoublePredicate test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedDoubleIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if every element fails the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool noneMatch2(DoublePredicate predicate)
-	{
-		return Bool.of(noneMatch(predicate));
-	}
 
 	/**
 	 * Reduces this {@link EnhancedDoubleIterator} to a single value via some
@@ -616,16 +552,34 @@ public interface EnhancedDoubleIterator extends SafeDoubleIterator
 		return mapToObject(x -> x);
 	}
 
+	/**
+	 * Computes the sum of elements in a non-empty iterator.
+	 * 
+	 * @return the sum of elements if this iterator is non-empty, throws an
+	 *         exception otherwise.
+	 */
 	default double sum()
 	{
 		return fold((a, b) -> a + b);
 	}
 
+	/**
+	 * Computes the product of elements in a non-empty iterator.
+	 * 
+	 * @return the product of elements if this iterator is non-empty, throws an
+	 *         exception otherwise.
+	 */
 	default double product()
 	{
 		return fold((a, b) -> a * b);
 	}
 
+	/**
+	 * Computes the average of elements in a non-empty iterator.
+	 * 
+	 * @return the average of elements if this iterator is non-empty, throws an
+	 *         exception otherwise.
+	 */
 	default double average()
 	{
 		if (!hasNext()) {

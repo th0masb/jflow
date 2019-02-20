@@ -672,7 +672,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return a map associating the unique elements of this iterator with the
 	 *         result of applying the parameter function to them.
 	 */
-	default <V> Map<E, V> toMap(Function<? super E, ? extends V> valueMapper)
+	default <V> Map<E, V> associate(Function<? super E, ? extends V> valueMapper)
 	{
 		Map<E, V> collected = new HashMap<>();
 		while (hasNext()) {

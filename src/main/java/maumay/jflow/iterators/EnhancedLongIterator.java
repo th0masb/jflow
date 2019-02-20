@@ -14,7 +14,6 @@ import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
 import maumay.jflow.iterators.factories.Iter;
-import maumay.jflow.iterators.misc.Bool;
 import maumay.jflow.iterators.misc.LongPair;
 import maumay.jflow.iterators.misc.LongWith;
 
@@ -356,21 +355,6 @@ public interface EnhancedLongIterator extends SafeLongIterator
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@link EnhancedLongIterator} is the
-	 * same.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedLongIterator}.
-	 *
-	 * @return True is every element of this {@link EnhancedLongIterator} is equal,
-	 *         false otherwise.
-	 */
-	default Bool areAllEqual2()
-	{
-		return Bool.of(areAllEqual());
-	}
-
-	/**
 	 * Checks whether every element in this {@link EnhancedLongIterator} passes the
 	 * supplied {@linkplain LongPredicate} test.
 	 *
@@ -382,22 +366,6 @@ public interface EnhancedLongIterator extends SafeLongIterator
 	 *         otherwise.
 	 */
 	boolean allMatch(LongPredicate predicate);
-
-	/**
-	 * Checks whether every element in this {@link EnhancedLongIterator} passes the
-	 * supplied {@linkplain LongPredicate} test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedLongIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if every element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool allMatch2(LongPredicate predicate)
-	{
-		return Bool.of(allMatch(predicate));
-	}
 
 	/**
 	 * Checks whether any element in this {@link EnhancedLongIterator} passes the
@@ -413,22 +381,6 @@ public interface EnhancedLongIterator extends SafeLongIterator
 	boolean anyMatch(LongPredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@link EnhancedLongIterator} passes the
-	 * supplied {@linkplain LongPredicate} test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedLongIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if any element passes the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool anyMatch2(LongPredicate predicate)
-	{
-		return Bool.of(anyMatch(predicate));
-	}
-
-	/**
 	 * Checks whether every element in this {@link EnhancedLongIterator} fails the
 	 * supplied {@linkplain LongPredicate} test.
 	 *
@@ -440,22 +392,6 @@ public interface EnhancedLongIterator extends SafeLongIterator
 	 *         otherwise.
 	 */
 	boolean noneMatch(LongPredicate predicate);
-
-	/**
-	 * Checks whether every element in this {@link EnhancedLongIterator} fails the
-	 * supplied {@linkplain LongPredicate} test.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedLongIterator}.
-	 *
-	 * @param predicate The supplied test.
-	 * @return True if every element fails the parameter predicate test, false
-	 *         otherwise.
-	 */
-	default Bool noneMatch2(LongPredicate predicate)
-	{
-		return Bool.of(noneMatch(predicate));
-	}
 
 	/**
 	 * Reduces this {@link EnhancedLongIterator} to a single value via some
