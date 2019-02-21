@@ -1,15 +1,20 @@
-# A functional iterator library for Java
+# An enhanced iterator library for Java
 
 Provides support for a multitude of sequence manipulation 
 features for both objects and primitives using sequential 
-lazy evaluating iterators inspired by Java streams, Python generators 
-and Scala collections. Enhanced `List` and `Set` interfaces (`FlowList` and `FlowSet` respectively)
-are included which provide a selection of convenient default methods (for mapping, filtering etc) by delegating
-to these iterators.
+lazy evaluating iterators inspired by Java streams and Scala collections. 
+The central building block is the `EnhancedIterator` interface (along with it's primitive analogs)
+which extends the `Iterator` interface adding a lot of functionality.
+An immutable analog of a `List` named `Vec` is also provided which, in my opinion,
+is much nicer (and not to mention safer) to program with.
 
-#### Why use this library?
+## Why use this library?
 
-Let me make it clear that the introduction of streams and lambdas in Java 8 was a **significant** improvement to the Java programming language. There was understandably a large focus on parallelism and how it could be exploited to improve performance. It is also clear, however, that attempting to parallelise every operation on every collection of data no matter the size or operation is silly. In my experience programming, operating sequentially on a collection of data is often appropriate. I feel that the syntax of very common operations has been stunted by this focus on parallelism and I wanted to have a go at writing a companion library to rectify these syntactical issues. This is a library built for **sequential** operations on collections of data which builds on the existing Java `Iterator` interface with an API roughly aligned with that of the stream library. Therefore this is not a library designed to replace streams, but one to complement them and toegther encourage better (and more enjoyable) programming practices.
+Let me make it clear that the introduction of streams and lambdas in Java 8 was a *significant* improvement to the Java programming language. There was understandably a large focus on parallelism and how it could be exploited to improve performance. It is also clear, however, that attempting to parallelise every operation on every collection of data no matter the size or operation is silly. In my experience programming, operating sequentially on a collection of data is often appropriate. In my opinion most of the Stream API is great, but some of it... some of it silly, notably transforming streams into collections.
+
+This is a library built for **sequential** operations on collections of data which builds on the existing Java Iterator interface with an API roughly aligned with that of the stream library. Therefore this is not a library designed to replace streams, but one to complement them and together encourage better (and more enjoyable) programming practices.
+
+### Excessively verbose Stream collecting
 
 I've spent a large amount of time working with streams and found myself writing variants of the following code an awful lot:
 
@@ -23,43 +28,72 @@ Is this really the best we can do for a simple mapping operation? Sure we could 
 
 ```
 List<MyObject> dataCollection = ...;
-List<String> dataNames = dataCollection.map(MyObject::toString).toList();
+List<String> dataNames = dataCollection.stream().map(MyObject::toString).toList();
 ```
-well I definitely think so.
+well I definitely think so. Of course this has also been addressed in other libraries people have 
+written to enhance the stream api so this is not the selling point but it is ultimately the
+reason I started writing this library, so I could have more control over an api I use so much. 
+Iterators and Streams are fundamentally different beasts though and so having both in your toolbox
+is a good idea.
 
-Is using all the implementation machinery for parallelising operations in a sequential context efficient? Does use of streams naturally lead to encouraging the use of immutable collections? Well I need to do some benchmarking for the first question but I can quite safely say that the answer to the second question is no. It seems that encouraging use of higher order functions is good but encouraging one of the fundamental tenets of FP - immutability - isn't worth it. Immutability and null-safety are the default approaches here.  
+### More control
+
+The constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFx canvas **without caching the points first**. This is a trivial task with the polygon represented by an iterator of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream. 
+
+In general I have encountered enough algorithms which can be implemented efficiently with iterators
+to warrant this work enhancing them.
+
+### Immutable, null-safe List alternative
+
+Sure you could use Guava's ImmutableList but it is fundamentally flawed, it makes no sense to 
+implement an interface but decide to ban some of the methods from use. How can you program to
+the interface if you aren't sure whether the particular implementation you're working with 
+supports certain methods or not? I provide an immutable, array-backed vector which does not 
+implement the `Collection` interface and does not accept null values. How does it work 
+with existing methods I hear you ask? Well instead of
+
+```
+List<T> xs = ...;
+someFunc(xs);
+```
+
+you have
+
+```
+Vec<T> xs = ...;
+someFunc(xs.toList());
+```
 
 
-The constraints on consuming streams in a custom way can be prohibitively restrictive for even very simple use cases, an example is drawing a polygon represented by a stream of points onto a JavaFX canvas **without caching the points first**. This is a trivial task with the polygon represented by an **iterator** of points since we can easily apply custom logic in the consumption of the iterator. No such luck with a stream.
 
 
-To conclude, this library adds functionality in the style of Streams with some tweaks to the API in a way optimised for sequential operations. At a deeper level it trades potential parallelism for flexibility in custom consumption (e.g. for use in algorithms). To this end it should be seen as a lightweight complement to Steams, not a replacement.
+To conclude, this library adds functionality in the style of Streams with some tweaks to the API. At a deeper level it trades potential parallelism for flexibility in consumption (e.g. for use in algorithms). To this end it should be seen as a lightweight complement to Steams, not a replacement. It is very lightweight, has no other dependencies, is well tested, has good documentation and, importantly, makes writing Java so much nicer. I use it extensively in the Java I write. 
 
-#### API examples
+## API examples
 
 ###### Mapping
 
 ``` 
-Iterate.over("a", "b", "c").map(x -> x + x).toList();  ==> ["aa", "bb", "cc"]
+Iter.over("a", "b", "c").map(x -> x + x).toList();  ==> List["aa", "bb", "cc"]
 ```
 
 ###### Filtering
 
 ```
-Iterate.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
+Iter.over(1, 2, 3).filter(x -> (x % 2) == 0).toArray(); ==> [2]
 ```
 
 ###### Take, takeWhile, drop, dropWhile
 
 ```
-FList<String> someStrings = Lists.build("0", "1", "2", "3");
+Seq<String> someStrings = Seq.of("0", "1", "2", "3");
 
-someStrings.take(2).toSet(); ==> {"0", "1"}
-someStrings.drop(2).toMutableSet(); ==> {"3", "2"}
+someStrings.take(2); ==> Seq["0", "1"]
+someStrings.flow().drop(2).toSet(); ==> {"3", "2"}
 
 Predicate<String> lessThanTwo = x -> parseInt(x) < 2;
-someStrings.takeWhile(lessThanTwo).toList(); ==> ["0", "1"]
-someStrings.dropWhile(lessThanTwo).toMutableList(); ==> ["2", "3"]
+someStrings.takeWhile(lessThanTwo); ==> Seq["0", "1"]
+someStrings.dropWhile(lessThanTwo).toList(); ==> List["2", "3"]
 ```
 
 ###### Building integer ranges
@@ -72,25 +106,24 @@ IterRange.between(2, 6).toArray(); ==> [2, 3, 4, 5]
 ###### Creating Maps and arbitrary mutable collections
 
 ```
-Iterate.over("a", "b").toMap(x -> x, x -> x + x); ==> {"a": "aa", "b": "bb"}
-Iterate.over("0", "1", "2", "3").groupBy(x -> parseInt(x) % 2); ==> {0: ["0", "2"], 1: ["1", "3"]}
-Iterate.over("0", "1").toCollection(ArrayList::new); ==> ArrayList<String>["0", "1"]
+Iter.over("a", "b").toMap(x -> x, x -> x + x); ==> {"a": "aa", "b": "bb"}
+Iter.over("0", "1", "2", "3").groupBy(x -> parseInt(x) % 2); ==> {0: ["0", "2"], 1: ["1", "3"]}
+Iter.over("0", "1").toCollection(ArrayList::new); ==> ArrayList<String>["0", "1"]
 ```
 
 ###### Zipping, enumerating and combining
 
 ```
-FlowList<String> strings = Lists.build("a", "b");
-FlowList<Integer> integers = Lists.build(1, 2, 3);
+Seq<String> strings = Seq.of("a", "b");
+Seq<Integer> integers = Seq.of(1, 2, 3);
 
-strings.flow().zipWith(integers).toList(); ==> [("a", 1), ("b", 2)]
-strings.enumerate().toList(); ==> [(0, "a"), (1, "b")]
-integers.flow().combineWith(strings, (n, s) -> s + n).toList(); ==> ["a1", "b2"]
+strings.flow().zipWith(integers).toSeq(); ==> Seq[("a", 1), ("b", 2)]
+strings.flow().enumerate().toList(); ==> List[(0, "a"), (1, "b")]
 ```
 
-###### Folding
+###### Folding (Reducing)
 ```
-Lists.build("1", "2").fold("0", (a, b) -> a + b); ==> "012"
+Seq.of("0", "1", "2").fold(new StringBuilder(), (b, s) -> b.append(s)).toString(); ==> "012"
 ```
 
 #### Building the Jar files and documentation
