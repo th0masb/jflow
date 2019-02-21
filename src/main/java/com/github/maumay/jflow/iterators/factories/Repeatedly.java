@@ -28,7 +28,7 @@ import com.github.maumay.jflow.iterators.iterables.IntIterable;
 import com.github.maumay.jflow.iterators.iterables.LongIterable;
 
 /**
- * Static methods for building infinite {@link EnhancedIterators}.
+ * Static methods for building infinite {@link EnhancedIterator}s.
  * 
  * @author ThomasB
  */

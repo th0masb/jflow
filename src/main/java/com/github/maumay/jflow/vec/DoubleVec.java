@@ -9,8 +9,9 @@ import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
 import com.github.maumay.jflow.iterators.iterables.DoubleIterable;
 
 /**
+ * Will improve documentation and add more methods in a future version...
+ * 
  * @author thomasb
- *
  */
 public interface DoubleVec extends DoubleIterable
 {

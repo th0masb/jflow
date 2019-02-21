@@ -1,4 +1,4 @@
 /**
- * Flow API and skeletal implementations for easily creating custom Flows.
+ * Enhanced iterator API plus skeletal implementations.
  */
 package com.github.maumay.jflow.iterators;

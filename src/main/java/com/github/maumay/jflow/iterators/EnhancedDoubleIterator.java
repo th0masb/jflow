@@ -29,9 +29,9 @@ import com.github.maumay.jflow.vec.DoubleVec;
  * <p>
  * In general a good rule of thumb when using iterators is to avoid consuming
  * them with the {@link #nextDouble()} method unless it is in the standard while
- * loop idiom. The consumption methods provided in this interface are vastly
- * more useful general (unless you enjoy writing while loops and using mutable
- * collections in which case this library isn't for you).
+ * loop idiom. The consumption methods provided in this interface are usually
+ * far more useful in general (unless you enjoy writing while loops and using
+ * mutable collections in which case this library isn't for you).
  * </p>
  *
  * @author ThomasB
