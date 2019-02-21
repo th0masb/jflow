@@ -1,0 +1,86 @@
+/**
+ *
+ */
+package com.github.maumay.jflow.iterators.impl.flatten;
+
+import java.util.NoSuchElementException;
+import java.util.OptionalInt;
+import java.util.function.Function;
+
+import org.junit.jupiter.api.Test;
+
+import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
+import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
+import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorTest;
+
+/**
+ * @author ThomasB
+ */
+class AbstractEnhancedIteratorFlattenToDoubleTest extends IteratorExampleProvider
+		implements IteratorTest
+{
+	@Test
+	void test()
+	{
+		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+
+		final Function<String, AbstractEnhancedDoubleIterator> flattenMapping1 = string -> repeat(
+				Double.parseDouble(string), 2 * (Integer.parseInt(string) % 2));
+		assertDoubleIteratorAsExpected(new double[] { 1, 1, 3, 3 },
+				createFlattenToDoublesIteratorProviderFrom(populated, flattenMapping1));
+		assertDoubleIteratorAsExpected(new double[0],
+				createFlattenToDoublesIteratorProviderFrom(empty, flattenMapping1));
+
+		final Function<String, AbstractEnhancedDoubleIterator> flattenMapping2 = string -> repeat(
+				Double.parseDouble(string), 2 * ((Integer.parseInt(string) + 1) % 2));
+		assertDoubleIteratorAsExpected(new double[] { 0, 0, 2, 2, 4, 4 },
+				createFlattenToDoublesIteratorProviderFrom(populated, flattenMapping2));
+		assertDoubleIteratorAsExpected(new double[0],
+				createFlattenToDoublesIteratorProviderFrom(empty, flattenMapping2));
+	}
+
+	private AbstractEnhancedDoubleIterator repeat(final double element, final int nTimes)
+	{
+		return new AbstractEnhancedDoubleIterator(OptionalInt.of(nTimes)) {
+			int count = 0;
+
+			@Override
+			public boolean hasNext()
+			{
+				return count < nTimes;
+			}
+
+			@Override
+			public double nextDouble()
+			{
+				if (count++ >= nTimes) {
+					throw new NoSuchElementException();
+				}
+				return element;
+			}
+
+			@Override
+			public void skip()
+			{
+				nextDouble();
+			}
+		};
+	}
+
+	private <E> AbstractIterableDoubles createFlattenToDoublesIteratorProviderFrom(
+			final AbstractEnhancedIterable<E> source,
+			final Function<? super E, ? extends EnhancedDoubleIterator> flattenMapping)
+	{
+		return new AbstractIterableDoubles() {
+			@Override
+			public AbstractEnhancedDoubleIterator iter()
+			{
+				return source.iterator().flatMapToDouble(flattenMapping);
+			}
+		};
+	}
+}

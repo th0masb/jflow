@@ -1,4 +1,0 @@
-/**
- * 
- */
-package maumay.jflow.vec;
