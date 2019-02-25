@@ -16,6 +16,9 @@ import java.util.function.LongUnaryOperator;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
+import com.github.maumay.jflow.iterables.DoubleIterable;
+import com.github.maumay.jflow.iterables.IntIterable;
+import com.github.maumay.jflow.iterables.LongIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
@@ -23,9 +26,6 @@ import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.impl.ApplicationIterator;
 import com.github.maumay.jflow.iterators.impl.CyclicIterator;
 import com.github.maumay.jflow.iterators.impl.FunctionIterator;
-import com.github.maumay.jflow.iterators.iterables.DoubleIterable;
-import com.github.maumay.jflow.iterators.iterables.IntIterable;
-import com.github.maumay.jflow.iterators.iterables.LongIterable;
 
 /**
  * Static methods for building infinite {@link EnhancedIterator}s.

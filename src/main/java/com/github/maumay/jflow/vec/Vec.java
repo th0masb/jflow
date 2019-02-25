@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.iterables.EnhancedIterable;
 
 /**
  * <p>

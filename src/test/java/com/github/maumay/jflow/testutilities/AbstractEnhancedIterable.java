@@ -1,7 +1,7 @@
 package com.github.maumay.jflow.testutilities;
 
+import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.iterables.EnhancedIterable;
 
 /**
  * @author ThomasB

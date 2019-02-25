@@ -5,8 +5,8 @@ package com.github.maumay.jflow.vec;
 
 import java.util.stream.DoubleStream;
 
+import com.github.maumay.jflow.iterables.DoubleIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.iterables.DoubleIterable;
 
 /**
  * An immutable wrapper around a primitive double array which can build enhanced

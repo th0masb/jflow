@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators.iterables;
+package com.github.maumay.jflow.iterables;
 
 import java.util.function.IntConsumer;
 
