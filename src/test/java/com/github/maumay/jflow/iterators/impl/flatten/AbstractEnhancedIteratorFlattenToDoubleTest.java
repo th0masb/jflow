@@ -9,8 +9,8 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
@@ -28,14 +28,14 @@ class AbstractEnhancedIteratorFlattenToDoubleTest extends IteratorExampleProvide
 		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
 		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		final Function<String, AbstractEnhancedDoubleIterator> flattenMapping1 = string -> repeat(
+		final Function<String, AbstractDoubleIterator> flattenMapping1 = string -> repeat(
 				Double.parseDouble(string), 2 * (Integer.parseInt(string) % 2));
 		assertDoubleIteratorAsExpected(new double[] { 1, 1, 3, 3 },
 				createFlattenToDoublesIteratorProviderFrom(populated, flattenMapping1));
 		assertDoubleIteratorAsExpected(new double[0],
 				createFlattenToDoublesIteratorProviderFrom(empty, flattenMapping1));
 
-		final Function<String, AbstractEnhancedDoubleIterator> flattenMapping2 = string -> repeat(
+		final Function<String, AbstractDoubleIterator> flattenMapping2 = string -> repeat(
 				Double.parseDouble(string), 2 * ((Integer.parseInt(string) + 1) % 2));
 		assertDoubleIteratorAsExpected(new double[] { 0, 0, 2, 2, 4, 4 },
 				createFlattenToDoublesIteratorProviderFrom(populated, flattenMapping2));
@@ -43,9 +43,9 @@ class AbstractEnhancedIteratorFlattenToDoubleTest extends IteratorExampleProvide
 				createFlattenToDoublesIteratorProviderFrom(empty, flattenMapping2));
 	}
 
-	private AbstractEnhancedDoubleIterator repeat(final double element, final int nTimes)
+	private AbstractDoubleIterator repeat(final double element, final int nTimes)
 	{
-		return new AbstractEnhancedDoubleIterator(OptionalInt.of(nTimes)) {
+		return new AbstractDoubleIterator(OptionalInt.of(nTimes)) {
 			int count = 0;
 
 			@Override
@@ -73,11 +73,11 @@ class AbstractEnhancedIteratorFlattenToDoubleTest extends IteratorExampleProvide
 
 	private <E> AbstractIterableDoubles createFlattenToDoublesIteratorProviderFrom(
 			final AbstractEnhancedIterable<E> source,
-			final Function<? super E, ? extends EnhancedDoubleIterator> flattenMapping)
+			final Function<? super E, ? extends DoubleIterator> flattenMapping)
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
 				return source.iterator().flatMapToDouble(flattenMapping);
 			}

@@ -15,10 +15,10 @@ import java.util.function.IntUnaryOperator;
 
 import com.gihub.maumay.jflow.iterators.misc.Exceptions;
 import com.gihub.maumay.jflow.iterators.misc.Pair;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.impl.EmptyIterator;
 import com.github.maumay.jflow.iterators.impl.FunctionIterator;
 import com.github.maumay.jflow.iterators.impl.ReversedSourceIterator;
@@ -185,7 +185,7 @@ public final class Iter
 	 *
 	 * @return An empty IntEnhancedIterator.
 	 */
-	public static EnhancedIntIterator emptyInts()
+	public static IntIterator emptyInts()
 	{
 		return EmptyIterator.OF_INTS;
 	}
@@ -196,7 +196,7 @@ public final class Iter
 	 * @param integers The integers to be iterated over.
 	 * @return An IntEnhancedIterator iterating over the given integers.
 	 */
-	public static EnhancedIntIterator ints(int... integers)
+	public static IntIterator ints(int... integers)
 	{
 		return new SourceIterator.OfInt(integers);
 	}
@@ -208,7 +208,7 @@ public final class Iter
 	 * @return A IntEnhancedIterator reversing over the given elements starting with
 	 *         the last element.
 	 */
-	public static EnhancedIntIterator reverseInts(int... elements)
+	public static IntIterator reverseInts(int... elements)
 	{
 		return new ReversedSourceIterator.OfInt(elements);
 	}
@@ -224,7 +224,7 @@ public final class Iter
 	 * @return A IntEnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static EnhancedIntIterator intsByIndexing(IntUnaryOperator indexingFunction,
+	public static IntIterator intsByIndexing(IntUnaryOperator indexingFunction,
 			int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
@@ -238,7 +238,7 @@ public final class Iter
 	 *
 	 * @return An empty DoubleEnhancedIterator.
 	 */
-	public static EnhancedDoubleIterator emptyDoubles()
+	public static DoubleIterator emptyDoubles()
 	{
 		return EmptyIterator.OF_DOUBLES;
 	}
@@ -249,7 +249,7 @@ public final class Iter
 	 * @param doubles The doubles to be iterated over.
 	 * @return An DoubleEnhancedIterator iterating over the given doubles.
 	 */
-	public static EnhancedDoubleIterator doubles(double... doubles)
+	public static DoubleIterator doubles(double... doubles)
 	{
 		return new SourceIterator.OfDouble(doubles);
 	}
@@ -261,7 +261,7 @@ public final class Iter
 	 * @return A DoubleEnhancedIterator reversing over the given elements starting
 	 *         with the last element.
 	 */
-	public static EnhancedDoubleIterator reverseDoubles(double... elements)
+	public static DoubleIterator reverseDoubles(double... elements)
 	{
 		return new ReversedSourceIterator.OfDouble(elements);
 	}
@@ -277,7 +277,7 @@ public final class Iter
 	 * @return A DoubleEnhancedIterator built from apply the indexing function to a
 	 *         bounded range
 	 */
-	public static EnhancedDoubleIterator doublesByIndexing(IntToDoubleFunction indexingFunction,
+	public static DoubleIterator doublesByIndexing(IntToDoubleFunction indexingFunction,
 			int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
@@ -291,7 +291,7 @@ public final class Iter
 	 *
 	 * @return An empty LongEnhancedIterator.
 	 */
-	public static EnhancedLongIterator emptyLongs()
+	public static LongIterator emptyLongs()
 	{
 		return EmptyIterator.OF_LONGS;
 	}
@@ -302,7 +302,7 @@ public final class Iter
 	 * @param longs The longs to be iterated over.
 	 * @return An LongEnhancedIterator iterating over the given longs.
 	 */
-	public static EnhancedLongIterator longs(long... longs)
+	public static LongIterator longs(long... longs)
 	{
 		return new SourceIterator.OfLong(longs);
 	}
@@ -314,7 +314,7 @@ public final class Iter
 	 * @return A LongEnhancedIterator reversing over the given elements starting
 	 *         with the last element.
 	 */
-	public static EnhancedLongIterator reverseLongs(long... elements)
+	public static LongIterator reverseLongs(long... elements)
 	{
 		return new ReversedSourceIterator.OfLong(elements);
 	}
@@ -330,7 +330,7 @@ public final class Iter
 	 * @return A LongEnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static EnhancedLongIterator longsByIndexing(IntToLongFunction indexingFunction,
+	public static LongIterator longsByIndexing(IntToLongFunction indexingFunction,
 			int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);

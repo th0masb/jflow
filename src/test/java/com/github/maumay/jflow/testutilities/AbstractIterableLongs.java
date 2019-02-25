@@ -1,6 +1,6 @@
 package com.github.maumay.jflow.testutilities;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.iterables.LongIterable;
 
 /**
@@ -10,5 +10,5 @@ import com.github.maumay.jflow.iterators.iterables.LongIterable;
 public abstract class AbstractIterableLongs implements LongIterable
 {
 	@Override
-	public abstract AbstractEnhancedLongIterator iter();
+	public abstract AbstractLongIterator iter();
 }

@@ -1,6 +1,6 @@
 package com.github.maumay.jflow.testutilities;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.iterables.IntIterable;
 
 /**
@@ -10,5 +10,5 @@ import com.github.maumay.jflow.iterators.iterables.IntIterable;
 public abstract class AbstractIterableInts implements IntIterable
 {
 	@Override
-	public abstract AbstractEnhancedIntIterator iter();
+	public abstract AbstractIntIterator iter();
 }

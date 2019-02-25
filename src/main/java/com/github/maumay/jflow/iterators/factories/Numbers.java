@@ -2,9 +2,9 @@ package com.github.maumay.jflow.iterators.factories;
 
 import java.util.OptionalInt;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * Static methods for building Flows of common number sets.
@@ -18,7 +18,7 @@ public final class Numbers
 	 *
 	 * @return A sorted iteration of the non-negative integers (natural numbers).
 	 */
-	public static EnhancedIntIterator natural()
+	public static IntIterator natural()
 	{
 		return Repeatedly.indexInts(i -> i);
 	}
@@ -29,7 +29,7 @@ public final class Numbers
 	 * @return A sorted iteration of the Fibonacci numbers with beginning values 1,
 	 *         1.
 	 */
-	public static EnhancedLongIterator fibonacci()
+	public static LongIterator fibonacci()
 	{
 		return fibonacci(1, 1);
 	}
@@ -41,9 +41,9 @@ public final class Numbers
 	 * @param second The second start val
 	 * @return The Fibonnaci numbers
 	 */
-	public static EnhancedLongIterator fibonacci(final int first, final int second)
+	public static LongIterator fibonacci(final int first, final int second)
 	{
-		return new AbstractEnhancedLongIterator(OptionalInt.empty()) {
+		return new AbstractLongIterator(OptionalInt.empty()) {
 			long x1 = first, x2 = second;
 			int count = 0;
 

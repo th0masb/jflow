@@ -1,14 +1,14 @@
 package com.github.maumay.jflow.iterators.impl;
 
 import com.gihub.maumay.jflow.iterators.misc.Optionals;
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author ThomasB
@@ -73,14 +73,14 @@ public final class DropIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
-		private final EnhancedLongIterator src;
+		private final LongIterator src;
 		private final int dropCount;
 
 		private boolean dropped = false;
 
-		public OfLong(final EnhancedLongIterator src, final int dropCount)
+		public OfLong(final LongIterator src, final int dropCount)
 		{
 			super(Optionals.map(n -> Math.max(0, n - dropCount), src.size()));
 			if (dropCount < 0) {
@@ -126,14 +126,14 @@ public final class DropIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
-		private final EnhancedIntIterator src;
+		private final IntIterator src;
 		private final int dropCount;
 
 		private boolean dropped = false;
 
-		public OfInt(final EnhancedIntIterator src, final int dropCount)
+		public OfInt(final IntIterator src, final int dropCount)
 		{
 			super(Optionals.map(n -> Math.max(0, n - dropCount), src.size()));
 			if (dropCount < 0) {
@@ -179,14 +179,14 @@ public final class DropIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
-		private final EnhancedDoubleIterator src;
+		private final DoubleIterator src;
 		private final int dropCount;
 
 		private boolean dropped = false;
 
-		public OfDouble(final EnhancedDoubleIterator src, final int dropCount)
+		public OfDouble(final DoubleIterator src, final int dropCount)
 		{
 			super(Optionals.map(n -> Math.max(0, n - dropCount), src.size()));
 			if (dropCount < 0) {

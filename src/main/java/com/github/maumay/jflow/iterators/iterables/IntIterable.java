@@ -5,18 +5,18 @@ package com.github.maumay.jflow.iterators.iterables;
 
 import java.util.function.IntConsumer;
 
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 
 /**
  * Abstraction of iterable object which can construct enhanced primitive int
- * iterators ({@link EnhancedIntIterator}).
+ * iterators ({@link IntIterator}).
  *
  * @author t
  */
 @FunctionalInterface
 public interface IntIterable
 {
-	EnhancedIntIterator iter();
+	IntIterator iter();
 
 	default void forEach(final IntConsumer action)
 	{

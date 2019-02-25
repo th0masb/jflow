@@ -7,7 +7,7 @@ import java.util.OptionalInt;
 import java.util.function.IntFunction;
 import java.util.function.IntToDoubleFunction;
 
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 
 /**
  * @author ThomasB
@@ -18,7 +18,7 @@ public final class IntMinMaxConsumption
 	{
 	}
 
-	public static OptionalInt findMin(final EnhancedIntIterator source)
+	public static OptionalInt findMin(final IntIterator source)
 	{
 		boolean found = false;
 		int min = Integer.MAX_VALUE;
@@ -34,7 +34,7 @@ public final class IntMinMaxConsumption
 		return found ? OptionalInt.of(min) : OptionalInt.empty();
 	}
 
-	public static int findMin(final EnhancedIntIterator source, final int defaultVal)
+	public static int findMin(final IntIterator source, final int defaultVal)
 	{
 		boolean found = false;
 		int min = Integer.MAX_VALUE;
@@ -50,7 +50,7 @@ public final class IntMinMaxConsumption
 		return found ? min : defaultVal;
 	}
 
-	public static OptionalInt findMin(final EnhancedIntIterator source,
+	public static OptionalInt findMin(final IntIterator source,
 			final IntToDoubleFunction key)
 	{
 		boolean found = false;
@@ -72,7 +72,7 @@ public final class IntMinMaxConsumption
 		return found ? OptionalInt.of(minKey) : OptionalInt.empty();
 	}
 
-	public static int findMin(final EnhancedIntIterator source, final int defaultVal,
+	public static int findMin(final IntIterator source, final int defaultVal,
 			final IntToDoubleFunction key)
 	{
 		boolean found = false;
@@ -95,7 +95,7 @@ public final class IntMinMaxConsumption
 	}
 
 	public static <C extends Comparable<C>> OptionalInt findMin(
-			final EnhancedIntIterator source, final IntFunction<C> key)
+			final IntIterator source, final IntFunction<C> key)
 	{
 		int minKey = -1;
 		C minVal = null;
@@ -114,7 +114,7 @@ public final class IntMinMaxConsumption
 		return minVal == null ? OptionalInt.empty() : OptionalInt.of(minKey);
 	}
 
-	public static OptionalInt findMax(final EnhancedIntIterator source)
+	public static OptionalInt findMax(final IntIterator source)
 	{
 		boolean found = false;
 		int max = Integer.MIN_VALUE;
@@ -130,7 +130,7 @@ public final class IntMinMaxConsumption
 		return found ? OptionalInt.of(max) : OptionalInt.empty();
 	}
 
-	public static int findMax(final EnhancedIntIterator source, final int defaultVal)
+	public static int findMax(final IntIterator source, final int defaultVal)
 	{
 		boolean found = false;
 		int max = Integer.MIN_VALUE;
@@ -146,7 +146,7 @@ public final class IntMinMaxConsumption
 		return found ? max : defaultVal;
 	}
 
-	public static OptionalInt findMax(final EnhancedIntIterator source,
+	public static OptionalInt findMax(final IntIterator source,
 			final IntToDoubleFunction key)
 	{
 		boolean found = false;
@@ -168,7 +168,7 @@ public final class IntMinMaxConsumption
 		return found ? OptionalInt.of(maxKey) : OptionalInt.empty();
 	}
 
-	public static int findMax(final EnhancedIntIterator source, final int defaultVal,
+	public static int findMax(final IntIterator source, final int defaultVal,
 			final IntToDoubleFunction key)
 	{
 		boolean found = false;
@@ -191,7 +191,7 @@ public final class IntMinMaxConsumption
 	}
 
 	public static <C extends Comparable<C>> OptionalInt findMax(
-			final EnhancedIntIterator source, final IntFunction<C> key)
+			final IntIterator source, final IntFunction<C> key)
 	{
 		int maxKey = -1;
 		C maxVal = null;

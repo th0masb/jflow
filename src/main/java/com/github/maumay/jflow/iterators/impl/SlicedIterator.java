@@ -7,14 +7,14 @@ import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.function.IntUnaryOperator;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author t
@@ -148,9 +148,9 @@ public final class SlicedIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
-		private final EnhancedIntIterator src;
+		private final IntIterator src;
 		private final IntUnaryOperator indexMapping;
 
 		private int indexCount = 0;
@@ -159,7 +159,7 @@ public final class SlicedIterator
 		private int cached = -1;
 		boolean srcExhausted = false, elementCached = false;
 
-		public OfInt(final EnhancedIntIterator src, final IntUnaryOperator indexMapping)
+		public OfInt(final IntIterator src, final IntUnaryOperator indexMapping)
 		{
 			super(OptionalInt.empty());
 			this.src = src;
@@ -269,9 +269,9 @@ public final class SlicedIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
-		private final EnhancedDoubleIterator src;
+		private final DoubleIterator src;
 		private final IntUnaryOperator indexMapping;
 
 		private int indexCount = 0;
@@ -280,7 +280,7 @@ public final class SlicedIterator
 		private double cached = -1;
 		boolean srcExhausted = false, elementCached = false;
 
-		public OfDouble(final EnhancedDoubleIterator src,
+		public OfDouble(final DoubleIterator src,
 				final IntUnaryOperator indexMapping)
 		{
 			super(OptionalInt.empty());
@@ -391,9 +391,9 @@ public final class SlicedIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
-		private final EnhancedLongIterator src;
+		private final LongIterator src;
 		private final IntUnaryOperator indexMapping;
 
 		private int indexCount = 0;
@@ -402,7 +402,7 @@ public final class SlicedIterator
 		private long cached = -1;
 		boolean srcExhausted = false, elementCached = false;
 
-		public OfLong(final EnhancedLongIterator src, final IntUnaryOperator indexMapping)
+		public OfLong(final LongIterator src, final IntUnaryOperator indexMapping)
 		{
 			super(OptionalInt.empty());
 			this.src = src;

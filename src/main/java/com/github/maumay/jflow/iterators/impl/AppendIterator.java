@@ -9,14 +9,14 @@ import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
 import com.gihub.maumay.jflow.iterators.misc.Optionals;
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author ThomasB
@@ -64,12 +64,12 @@ public final class AppendIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
-		private final EnhancedDoubleIterator source;
+		private final DoubleIterator source;
 		private final PrimitiveIterator.OfDouble appended;
 
-		public OfDouble(final EnhancedDoubleIterator source,
+		public OfDouble(final DoubleIterator source,
 				final PrimitiveIterator.OfDouble appended)
 		{
 			super(Optionals.add(source.size(), getSize(appended)));
@@ -100,12 +100,12 @@ public final class AppendIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
-		private final EnhancedLongIterator source;
+		private final LongIterator source;
 		private final PrimitiveIterator.OfLong appended;
 
-		public OfLong(final EnhancedLongIterator source,
+		public OfLong(final LongIterator source,
 				final PrimitiveIterator.OfLong appended)
 		{
 			super(Optionals.add(source.size(), getSize(appended)));
@@ -136,12 +136,12 @@ public final class AppendIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
-		private final EnhancedIntIterator source;
+		private final IntIterator source;
 		private final PrimitiveIterator.OfInt appended;
 
-		public OfInt(final EnhancedIntIterator source,
+		public OfInt(final IntIterator source,
 				final PrimitiveIterator.OfInt appended)
 		{
 			super(Optionals.add(source.size(), getSize(appended)));

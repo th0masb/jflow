@@ -4,10 +4,10 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.LongToDoubleFunction;
 import java.util.function.ToDoubleFunction;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author ThomasB
@@ -18,7 +18,7 @@ public final class DoubleMapIterator
 	{
 	}
 
-	public static class FromObject<E> extends AbstractEnhancedDoubleIterator
+	public static class FromObject<E> extends AbstractDoubleIterator
 	{
 		private final EnhancedIterator<E> sourceFlow;
 		private final ToDoubleFunction<? super E> mappingFunction;
@@ -50,12 +50,12 @@ public final class DoubleMapIterator
 		}
 	}
 
-	public static class FromLong extends AbstractEnhancedDoubleIterator
+	public static class FromLong extends AbstractDoubleIterator
 	{
-		private final EnhancedLongIterator sourceFlow;
+		private final LongIterator sourceFlow;
 		private final LongToDoubleFunction mappingFunction;
 
-		public FromLong(final EnhancedLongIterator src,
+		public FromLong(final LongIterator src,
 				final LongToDoubleFunction mappingFunction)
 		{
 			super(src.size());
@@ -82,12 +82,12 @@ public final class DoubleMapIterator
 		}
 	}
 
-	public static class FromInt extends AbstractEnhancedDoubleIterator
+	public static class FromInt extends AbstractDoubleIterator
 	{
-		private final EnhancedIntIterator sourceFlow;
+		private final IntIterator sourceFlow;
 		private final IntToDoubleFunction mappingFunction;
 
-		public FromInt(final EnhancedIntIterator src,
+		public FromInt(final IntIterator src,
 				final IntToDoubleFunction mappingFunction)
 		{
 			super(src.size());

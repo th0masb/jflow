@@ -3,8 +3,8 @@ package com.github.maumay.jflow.iterators.factories;
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 
 /**
  * Static methods for building primitive number ranges.
@@ -29,7 +29,7 @@ public class IterRange
 	 * 				[0,n)
 	 *         </pre>
 	 */
-	public static EnhancedIntIterator to(int upperBound)
+	public static IntIterator to(int upperBound)
 	{
 		return upperBound > 0 ? Iter.intsByIndexing(i -> i, upperBound) : Iter.emptyInts();
 	}
@@ -49,7 +49,7 @@ public class IterRange
 	 * 				[m,n)
 	 *         </pre>
 	 */
-	public static EnhancedIntIterator between(int low, int high)
+	public static IntIterator between(int low, int high)
 	{
 		return high > low ? Iter.intsByIndexing(i -> i + low, high - low) : Iter.emptyInts();
 	}
@@ -69,7 +69,7 @@ public class IterRange
 	 *         in the half open interval [m, n) whose consecutive difference is
 	 *         equal to the step size.
 	 */
-	public static EnhancedIntIterator between(int start, int end, int step)
+	public static IntIterator between(int start, int end, int step)
 	{
 		int length = end - start;
 		int elementCount = (int) Math.ceil(abs((double) length / step));
@@ -92,7 +92,7 @@ public class IterRange
 	 *         {J_m} and return an iteration over them ordered on proximity to the
 	 *         'start' of the interval J.
 	 */
-	public static EnhancedDoubleIterator partition(double start, double end, int nSubIntervals)
+	public static DoubleIterator partition(double start, double end, int nSubIntervals)
 	{
 		if (nSubIntervals < 1) {
 			throw new IllegalArgumentException();

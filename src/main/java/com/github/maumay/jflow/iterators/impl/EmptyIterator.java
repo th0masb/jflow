@@ -3,13 +3,13 @@ package com.github.maumay.jflow.iterators.impl;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 public final class EmptyIterator
 {
@@ -43,9 +43,9 @@ public final class EmptyIterator
 		}
 	}
 
-	public static final EnhancedLongIterator OF_LONGS = new OfLongs();
+	public static final LongIterator OF_LONGS = new OfLongs();
 
-	private static class OfLongs extends AbstractEnhancedLongIterator
+	private static class OfLongs extends AbstractLongIterator
 	{
 		public OfLongs()
 		{
@@ -71,9 +71,9 @@ public final class EmptyIterator
 		}
 	}
 
-	public static final EnhancedDoubleIterator OF_DOUBLES = new OfDoubles();
+	public static final DoubleIterator OF_DOUBLES = new OfDoubles();
 
-	private static class OfDoubles extends AbstractEnhancedDoubleIterator
+	private static class OfDoubles extends AbstractDoubleIterator
 	{
 		private OfDoubles()
 		{
@@ -99,9 +99,9 @@ public final class EmptyIterator
 		}
 	}
 
-	public static final EnhancedIntIterator OF_INTS = new OfInts();
+	public static final IntIterator OF_INTS = new OfInts();
 
-	private static class OfInts extends AbstractEnhancedIntIterator
+	private static class OfInts extends AbstractIntIterator
 	{
 		private OfInts()
 		{

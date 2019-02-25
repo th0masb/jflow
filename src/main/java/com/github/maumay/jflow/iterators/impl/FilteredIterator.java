@@ -7,14 +7,14 @@ import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author ThomasB
@@ -76,15 +76,15 @@ public class FilteredIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
-		private final EnhancedLongIterator src;
+		private final LongIterator src;
 		private final LongPredicate predicate;
 
 		private boolean nextReady = false;
 		private long cached = -1;
 
-		public OfLong(final EnhancedLongIterator src, final LongPredicate predicate)
+		public OfLong(final LongIterator src, final LongPredicate predicate)
 		{
 			super(OptionalInt.empty());
 			this.src = src;
@@ -135,15 +135,15 @@ public class FilteredIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
-		private final EnhancedIntIterator src;
+		private final IntIterator src;
 		private final IntPredicate predicate;
 
 		private boolean nextReady = false;
 		private int cached = -1;
 
-		public OfInt(final EnhancedIntIterator src, final IntPredicate predicate)
+		public OfInt(final IntIterator src, final IntPredicate predicate)
 		{
 			super(OptionalInt.empty());
 			this.src = src;
@@ -194,15 +194,15 @@ public class FilteredIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
-		private final EnhancedDoubleIterator src;
+		private final DoubleIterator src;
 		private final DoublePredicate predicate;
 
 		private boolean nextReady = false;
 		private double cached = -1;
 
-		public OfDouble(final EnhancedDoubleIterator src, final DoublePredicate predicate)
+		public OfDouble(final DoubleIterator src, final DoublePredicate predicate)
 		{
 			super(OptionalInt.empty());
 			this.src = src;

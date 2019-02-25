@@ -10,10 +10,10 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 
 /**
  * @author t
@@ -68,7 +68,7 @@ public final class FunctionIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
 		private final IntToLongFunction src;
 		private int count = 0;
@@ -106,7 +106,7 @@ public final class FunctionIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
 		private final IntUnaryOperator src;
 		private int count = 0;
@@ -144,7 +144,7 @@ public final class FunctionIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
 		private final IntToDoubleFunction src;
 		private int count = 0;

@@ -308,4 +308,17 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	{
 		return copy(source.sequential().collect(Collectors.toCollection(ArrayList::new)));
 	}
+
+	/**
+	 * Creates a vector of elements from an {@link Iterator} source. The argument
+	 * will be consumed, if the stream produces a null reference then an exception
+	 * will be thrown.
+	 * 
+	 * @param source the source of elements
+	 * @return a vector containing all the elements in the source iterator.
+	 */
+	static <E> Vec<E> fromIterator(Iterator<? extends E> source)
+	{
+		return new VecImpl<>(source);
+	}
 }

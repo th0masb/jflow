@@ -6,7 +6,7 @@ package com.github.maumay.jflow.iterators.impl;
 import java.util.OptionalDouble;
 import java.util.function.DoubleUnaryOperator;
 
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
 
 /**
  * @author ThomasB
@@ -17,7 +17,7 @@ public class DoubleMinMaxConsumption
 	{
 	}
 
-	public static OptionalDouble findMinOption(EnhancedDoubleIterator source)
+	public static OptionalDouble findMinOption(DoubleIterator source)
 	{
 		boolean found = false;
 		double min = Double.POSITIVE_INFINITY;
@@ -33,7 +33,7 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(min) : OptionalDouble.empty();
 	}
 
-	public static double findMin(EnhancedDoubleIterator source)
+	public static double findMin(DoubleIterator source)
 	{
 		boolean found = false;
 		double min = Double.POSITIVE_INFINITY;
@@ -53,7 +53,7 @@ public class DoubleMinMaxConsumption
 		}
 	}
 
-	public static OptionalDouble findMin(EnhancedDoubleIterator source,
+	public static OptionalDouble findMin(DoubleIterator source,
 			DoubleUnaryOperator key)
 	{
 		boolean found = false;
@@ -75,7 +75,7 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(minKey) : OptionalDouble.empty();
 	}
 
-	public static double findMin(EnhancedDoubleIterator source, double defaultVal,
+	public static double findMin(DoubleIterator source, double defaultVal,
 			DoubleUnaryOperator key)
 	{
 		boolean found = false;
@@ -97,7 +97,7 @@ public class DoubleMinMaxConsumption
 		return found ? minKey : defaultVal;
 	}
 
-	public static OptionalDouble findMaxOption(EnhancedDoubleIterator source)
+	public static OptionalDouble findMaxOption(DoubleIterator source)
 	{
 		boolean found = false;
 		double max = Double.NEGATIVE_INFINITY;
@@ -113,7 +113,7 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(max) : OptionalDouble.empty();
 	}
 
-	public static double findMax(EnhancedDoubleIterator source)
+	public static double findMax(DoubleIterator source)
 	{
 		boolean found = false;
 		double max = Double.NEGATIVE_INFINITY;
@@ -133,7 +133,7 @@ public class DoubleMinMaxConsumption
 		}
 	}
 
-	public static OptionalDouble findMaxOption(EnhancedDoubleIterator source,
+	public static OptionalDouble findMaxOption(DoubleIterator source,
 			DoubleUnaryOperator key)
 	{
 		boolean found = false;
@@ -155,7 +155,7 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(maxKey) : OptionalDouble.empty();
 	}
 
-	public static double findMax(EnhancedDoubleIterator source, double defaultVal,
+	public static double findMax(DoubleIterator source, double defaultVal,
 			DoubleUnaryOperator key)
 	{
 		boolean found = false;

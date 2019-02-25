@@ -5,18 +5,18 @@ package com.github.maumay.jflow.iterators.iterables;
 
 import java.util.function.DoubleConsumer;
 
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
 
 /**
  * Abstraction of iterable object which can construct enhanced primitive double
- * iterators ({@link EnhancedDoubleIterator}).
+ * iterators ({@link DoubleIterator}).
  *
  * @author t
  */
 @FunctionalInterface
 public interface DoubleIterable
 {
-	EnhancedDoubleIterator iter();
+	DoubleIterator iter();
 
 	default void forEach(final DoubleConsumer action)
 	{

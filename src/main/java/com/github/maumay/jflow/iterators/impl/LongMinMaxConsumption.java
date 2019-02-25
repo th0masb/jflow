@@ -6,7 +6,7 @@ package com.github.maumay.jflow.iterators.impl;
 import java.util.OptionalLong;
 import java.util.function.LongToDoubleFunction;
 
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author ThomasB
@@ -17,7 +17,7 @@ public final class LongMinMaxConsumption
 	{
 	}
 
-	public static OptionalLong findMin(final EnhancedLongIterator source)
+	public static OptionalLong findMin(final LongIterator source)
 	{
 		boolean found = false;
 		long min = Long.MAX_VALUE;
@@ -33,7 +33,7 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(min) : OptionalLong.empty();
 	}
 
-	public static long findMin(final EnhancedLongIterator source, final long defaultVal)
+	public static long findMin(final LongIterator source, final long defaultVal)
 	{
 		boolean found = false;
 		long min = Long.MAX_VALUE;
@@ -49,7 +49,7 @@ public final class LongMinMaxConsumption
 		return found ? min : defaultVal;
 	}
 
-	public static OptionalLong findMin(final EnhancedLongIterator source,
+	public static OptionalLong findMin(final LongIterator source,
 			final LongToDoubleFunction key)
 	{
 		boolean found = false;
@@ -71,7 +71,7 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(minKey) : OptionalLong.empty();
 	}
 
-	public static long findMin(final EnhancedLongIterator source, final long defaultVal,
+	public static long findMin(final LongIterator source, final long defaultVal,
 			final LongToDoubleFunction key)
 	{
 		boolean found = false;
@@ -93,7 +93,7 @@ public final class LongMinMaxConsumption
 		return found ? minKey : defaultVal;
 	}
 
-	public static OptionalLong findMax(final EnhancedLongIterator source)
+	public static OptionalLong findMax(final LongIterator source)
 	{
 		boolean found = false;
 		long max = Long.MIN_VALUE;
@@ -109,7 +109,7 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(max) : OptionalLong.empty();
 	}
 
-	public static long findMax(final EnhancedLongIterator source, final long defaultVal)
+	public static long findMax(final LongIterator source, final long defaultVal)
 	{
 		boolean found = false;
 		long max = Long.MIN_VALUE;
@@ -125,7 +125,7 @@ public final class LongMinMaxConsumption
 		return found ? max : defaultVal;
 	}
 
-	public static OptionalLong findMax(final EnhancedLongIterator source,
+	public static OptionalLong findMax(final LongIterator source,
 			final LongToDoubleFunction key)
 	{
 		boolean found = false;
@@ -147,7 +147,7 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(maxKey) : OptionalLong.empty();
 	}
 
-	public static long findMax(final EnhancedLongIterator source, final long defaultVal,
+	public static long findMax(final LongIterator source, final long defaultVal,
 			final LongToDoubleFunction key)
 	{
 		boolean found = false;

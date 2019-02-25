@@ -9,10 +9,10 @@ import java.util.function.IntUnaryOperator;
 import java.util.function.LongUnaryOperator;
 import java.util.function.UnaryOperator;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 
 /**
  * @author ThomasB
@@ -56,7 +56,7 @@ public final class ApplicationIterator
 		}
 	}
 
-	public static class OfInts extends AbstractEnhancedIntIterator
+	public static class OfInts extends AbstractIntIterator
 	{
 		private final IntUnaryOperator applicationOperator;
 		private int currentValue;
@@ -89,7 +89,7 @@ public final class ApplicationIterator
 		}
 	}
 
-	public static class OfLongs extends AbstractEnhancedLongIterator
+	public static class OfLongs extends AbstractLongIterator
 	{
 		private final LongUnaryOperator applicationOperator;
 		private long currentValue;
@@ -122,7 +122,7 @@ public final class ApplicationIterator
 		}
 	}
 
-	public static class OfDoubles extends AbstractEnhancedDoubleIterator
+	public static class OfDoubles extends AbstractDoubleIterator
 	{
 		private final DoubleUnaryOperator applicationOperator;
 		private double currentValue;

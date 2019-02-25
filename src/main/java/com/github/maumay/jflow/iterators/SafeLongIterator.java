@@ -8,7 +8,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.LongConsumer;
 
 /**
- * A precursor interface to {@linkplain EnhancedLongIterator}.
+ * A precursor interface to {@linkplain LongIterator}.
  *
  * @author t
  */

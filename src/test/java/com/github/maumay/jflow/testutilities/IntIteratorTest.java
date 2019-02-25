@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 
 /**
  * @author ThomasB
@@ -32,7 +32,7 @@ public interface IntIteratorTest
 	}
 
 	static void assertSizeAsExpected(int[] expectedElements,
-			AbstractEnhancedIntIterator iterator)
+			AbstractIntIterator iterator)
 	{
 		if (iterator.sizeIsKnown()) {
 			assertEquals(expectedElements.length, iterator.size().getAsInt());
@@ -40,14 +40,14 @@ public interface IntIteratorTest
 	}
 
 	static void assertSkippingAsExpected(final int[] expectedElements,
-			final AbstractEnhancedIntIterator iterator)
+			final AbstractIntIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> iterator.skip());
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
 	static void assertNextElementChecksAsExpected(final int[] expectedElements,
-			final AbstractEnhancedIntIterator iterator)
+			final AbstractIntIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> {
 			assertTrue(iterator.hasNext());
@@ -57,7 +57,7 @@ public interface IntIteratorTest
 	}
 
 	static void assertStandardIterationAsExpected(final int[] expectedElements,
-			final AbstractEnhancedIntIterator iterator)
+			final AbstractIntIterator iterator)
 	{
 		final List<Integer> recoveredElements = new ArrayList<>();
 		while (iterator.hasNext()) {
@@ -69,7 +69,7 @@ public interface IntIteratorTest
 	}
 
 	static void assertUncheckedIterationAsExpected(final int[] expectedElements,
-			final AbstractEnhancedIntIterator iterator)
+			final AbstractIntIterator iterator)
 	{
 		final List<Integer> recoveredElements = new ArrayList<>();
 		IntStream.range(0, expectedElements.length)
@@ -81,7 +81,7 @@ public interface IntIteratorTest
 	}
 
 	static void assertAlternatingNextAndSkipCallsAsExpected(final int[] expectedElements,
-			final AbstractEnhancedIntIterator iterator)
+			final AbstractIntIterator iterator)
 	{
 		final List<Integer> expectedOutcome = new ArrayList<>(),
 				recoveredElements = new ArrayList<>();

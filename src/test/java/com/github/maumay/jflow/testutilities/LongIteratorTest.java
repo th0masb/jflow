@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 
 /**
  * @author ThomasB
@@ -32,7 +32,7 @@ public interface LongIteratorTest
 	}
 
 	static void assertSizeAsExpected(long[] expectedElements,
-			AbstractEnhancedLongIterator iterator)
+			AbstractLongIterator iterator)
 	{
 		if (iterator.sizeIsKnown()) {
 			assertEquals(expectedElements.length, iterator.size().getAsInt());
@@ -40,14 +40,14 @@ public interface LongIteratorTest
 	}
 
 	static void assertSkippingAsExpected(final long[] expectedElements,
-			final AbstractEnhancedLongIterator iterator)
+			final AbstractLongIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> iterator.skip());
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
 	static void assertNextElementChecksAsExpected(final long[] expectedElements,
-			final AbstractEnhancedLongIterator iterator)
+			final AbstractLongIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> {
 			assertTrue(iterator.hasNext());
@@ -57,7 +57,7 @@ public interface LongIteratorTest
 	}
 
 	static void assertStandardIterationAsExpected(final long[] expectedElements,
-			final AbstractEnhancedLongIterator iterator)
+			final AbstractLongIterator iterator)
 	{
 		final List<Long> recoveredElements = new ArrayList<>();
 		while (iterator.hasNext()) {
@@ -69,7 +69,7 @@ public interface LongIteratorTest
 	}
 
 	static void assertUncheckedIterationAsExpected(final long[] expectedElements,
-			final AbstractEnhancedLongIterator iterator)
+			final AbstractLongIterator iterator)
 	{
 		final List<Long> recoveredElements = new ArrayList<>();
 		IntStream.range(0, expectedElements.length)
@@ -81,7 +81,7 @@ public interface LongIteratorTest
 	}
 
 	static void assertAlternatingNextAndSkipCallsAsExpected(final long[] expectedElements,
-			final AbstractEnhancedLongIterator iterator)
+			final AbstractLongIterator iterator)
 	{
 		final List<Long> expectedOutcome = new ArrayList<>(),
 				recoveredElements = new ArrayList<>();

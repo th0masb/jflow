@@ -6,7 +6,7 @@ import java.util.function.ToLongFunction;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
@@ -34,7 +34,7 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
 				return src.iterator().mapToLong(mapper);
 			}
@@ -59,7 +59,7 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
 				return src.iter().mapToLong(mapper);
 			}
@@ -84,7 +84,7 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
 				return src.iter().mapToLong(mapper);
 			}

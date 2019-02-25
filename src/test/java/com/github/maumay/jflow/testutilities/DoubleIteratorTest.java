@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 
 /**
  * @author ThomasB
@@ -32,7 +32,7 @@ public interface DoubleIteratorTest
 	}
 
 	static void assertSizeAsExpected(double[] expectedElements,
-			AbstractEnhancedDoubleIterator iterator)
+			AbstractDoubleIterator iterator)
 	{
 		if (iterator.sizeIsKnown()) {
 			assertEquals(expectedElements.length, iterator.size().getAsInt());
@@ -40,14 +40,14 @@ public interface DoubleIteratorTest
 	}
 
 	static void assertSkippingAsExpected(final double[] expectedElements,
-			final AbstractEnhancedDoubleIterator iterator)
+			final AbstractDoubleIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> iterator.skip());
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
 	static void assertNextElementChecksAsExpected(final double[] expectedElements,
-			final AbstractEnhancedDoubleIterator iterator)
+			final AbstractDoubleIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> {
 			assertTrue(iterator.hasNext());
@@ -57,7 +57,7 @@ public interface DoubleIteratorTest
 	}
 
 	static void assertStandardIterationAsExpected(final double[] expectedElements,
-			final AbstractEnhancedDoubleIterator iterator)
+			final AbstractDoubleIterator iterator)
 	{
 		final List<Double> recoveredElements = new ArrayList<>();
 		while (iterator.hasNext()) {
@@ -69,7 +69,7 @@ public interface DoubleIteratorTest
 	}
 
 	static void assertUncheckedIterationAsExpected(final double[] expectedElements,
-			final AbstractEnhancedDoubleIterator iterator)
+			final AbstractDoubleIterator iterator)
 	{
 		final List<Double> recoveredElements = new ArrayList<>();
 		IntStream.range(0, expectedElements.length)
@@ -82,7 +82,7 @@ public interface DoubleIteratorTest
 
 	static void assertAlternatingNextAndSkipCallsAsExpected(
 			final double[] expectedElements,
-			final AbstractEnhancedDoubleIterator iterator)
+			final AbstractDoubleIterator iterator)
 	{
 		final List<Double> expectedOutcome = new ArrayList<>(),
 				recoveredElements = new ArrayList<>();

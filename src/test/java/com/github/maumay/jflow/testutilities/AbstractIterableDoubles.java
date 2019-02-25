@@ -1,6 +1,6 @@
 package com.github.maumay.jflow.testutilities;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.iterables.DoubleIterable;
 
 /**
@@ -10,5 +10,5 @@ import com.github.maumay.jflow.iterators.iterables.DoubleIterable;
 public abstract class AbstractIterableDoubles implements DoubleIterable
 {
 	@Override
-	public abstract AbstractEnhancedDoubleIterator iter();
+	public abstract AbstractDoubleIterator iter();
 }

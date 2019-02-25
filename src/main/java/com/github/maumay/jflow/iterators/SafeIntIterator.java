@@ -8,7 +8,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.IntConsumer;
 
 /**
- * A precursor interface to {@linkplain EnhancedIntIterator}.
+ * A precursor interface to {@linkplain IntIterator}.
  *
  * @author t
  */

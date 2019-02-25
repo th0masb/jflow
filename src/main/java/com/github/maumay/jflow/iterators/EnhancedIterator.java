@@ -31,7 +31,6 @@ import com.gihub.maumay.jflow.iterators.misc.LongWith;
 import com.gihub.maumay.jflow.iterators.misc.Pair;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.vec.Vec;
-import com.github.maumay.jflow.vec.VecImpl;
 
 /**
  * <p>
@@ -68,36 +67,36 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 
 	/**
 	 * Applies a function elementwise to this {@link EnhancedIterator} to make a new
-	 * {@link EnhancedIntIterator}.
+	 * {@link IntIterator}.
 	 *
 	 * @param mappingFunction A mapping function.
-	 * @return A new {@link EnhancedIntIterator} instance whose elements are
+	 * @return A new {@link IntIterator} instance whose elements are
 	 *         obtained by applying the parameter mapping function to each element
 	 *         of this {@link EnhancedIterator} instance in turn.
 	 */
-	EnhancedIntIterator mapToInt(ToIntFunction<? super E> mappingFunction);
+	IntIterator mapToInt(ToIntFunction<? super E> mappingFunction);
 
 	/**
 	 * Applies a function elementwise to this {@link EnhancedIterator} to make a new
-	 * {@link EnhancedDoubleIterator}.
+	 * {@link DoubleIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link EnhancedDoubleIterator} instance whose elements are
+	 * @return A new {@link DoubleIterator} instance whose elements are
 	 *         obtained by applying the parameter mapping function to each element
 	 *         of this {@link EnhancedIterator} instance in turn.
 	 */
-	EnhancedDoubleIterator mapToDouble(ToDoubleFunction<? super E> f);
+	DoubleIterator mapToDouble(ToDoubleFunction<? super E> f);
 
 	/**
 	 * Applies a function elementwise to this {@link EnhancedIterator} to make a new
-	 * {@link EnhancedLongIterator}.
+	 * {@link LongIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link EnhancedLongIterator} instance whose elements are
+	 * @return A new {@link LongIterator} instance whose elements are
 	 *         obtained by applying the parameter mapping function to each element
 	 *         of this {@link EnhancedIterator} instance in turn.
 	 */
-	EnhancedLongIterator mapToLong(ToLongFunction<? super E> f);
+	LongIterator mapToLong(ToLongFunction<? super E> f);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to {@link EnhancedIterator}
@@ -114,43 +113,43 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	<R> EnhancedIterator<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
-	 * Maps elements of this {@link EnhancedIterator} to {@link EnhancedIntIterator}
+	 * Maps elements of this {@link EnhancedIterator} to {@link IntIterator}
 	 * instances before sequentially concatenating them end to end.
 	 *
 	 * @param mapping A function taking elements to instances of
-	 *                {@link EnhancedIntIterator}
-	 * @return A {@link EnhancedIntIterator} obtained by applying the mapping
+	 *                {@link IntIterator}
+	 * @return A {@link IntIterator} obtained by applying the mapping
 	 *         function to each element in turn and sequentially concatenating the
 	 *         results.
 	 */
-	EnhancedIntIterator flatMapToInt(Function<? super E, ? extends EnhancedIntIterator> mapping);
+	IntIterator flatMapToInt(Function<? super E, ? extends IntIterator> mapping);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to
-	 * {@link EnhancedLongIterator} instances before sequentially concatenating them
+	 * {@link LongIterator} instances before sequentially concatenating them
 	 * end to end.
 	 *
 	 * @param mapping A function taking elements to instances of
-	 *                {@link EnhancedLongIterator}
-	 * @return A {@link EnhancedLongIterator} obtained by applying the mapping
+	 *                {@link LongIterator}
+	 * @return A {@link LongIterator} obtained by applying the mapping
 	 *         function to each element in turn and sequentially concatenating the
 	 *         results.
 	 */
-	EnhancedLongIterator flatMapToLong(Function<? super E, ? extends EnhancedLongIterator> mapping);
+	LongIterator flatMapToLong(Function<? super E, ? extends LongIterator> mapping);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to
-	 * {@link EnhancedDoubleIterator} instances before sequentially concatenating
+	 * {@link DoubleIterator} instances before sequentially concatenating
 	 * them end to end.
 	 *
 	 * @param mapping A function taking elements to instances of
-	 *                {@link EnhancedDoubleIterator}
-	 * @return A {@link EnhancedDoubleIterator} obtained by applying the mapping
+	 *                {@link DoubleIterator}
+	 * @return A {@link DoubleIterator} obtained by applying the mapping
 	 *         function to each element in turn and sequentially concatenating the
 	 *         results.
 	 */
-	EnhancedDoubleIterator flatMapToDouble(
-			Function<? super E, ? extends EnhancedDoubleIterator> mapping);
+	DoubleIterator flatMapToDouble(
+			Function<? super E, ? extends DoubleIterator> mapping);
 
 	/**
 	 * Combines this {@link EnhancedIterator} with another iterator to create a new
@@ -511,7 +510,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	default Vec<E> toVec()
 	{
-		return new VecImpl<>(this);
+		return Vec.fromIterator(this);
 	}
 
 	/**

@@ -6,14 +6,14 @@ import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
 import java.util.function.LongBinaryOperator;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author ThomasB
@@ -97,15 +97,15 @@ public final class AccumulationIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
-		private final EnhancedLongIterator src;
+		private final LongIterator src;
 		private final LongBinaryOperator accumulator;
 
 		private long accumulationValue;
 		private boolean initialized;
 
-		public OfLong(final EnhancedLongIterator src, final long id,
+		public OfLong(final LongIterator src, final long id,
 				final LongBinaryOperator accumulator)
 		{
 			super(src.size());
@@ -115,7 +115,7 @@ public final class AccumulationIterator
 			initialized = true;
 		}
 
-		public OfLong(final EnhancedLongIterator src,
+		public OfLong(final LongIterator src,
 				final LongBinaryOperator accumulator)
 		{
 			super(src.size());
@@ -150,15 +150,15 @@ public final class AccumulationIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
-		private final EnhancedIntIterator src;
+		private final IntIterator src;
 		private final IntBinaryOperator accumulator;
 
 		private int accumulationValue;
 		private boolean initialized;
 
-		public OfInt(final EnhancedIntIterator src, final int id,
+		public OfInt(final IntIterator src, final int id,
 				final IntBinaryOperator accumulator)
 		{
 			super(src.size());
@@ -168,7 +168,7 @@ public final class AccumulationIterator
 			initialized = true;
 		}
 
-		public OfInt(final EnhancedIntIterator src, final IntBinaryOperator accumulator)
+		public OfInt(final IntIterator src, final IntBinaryOperator accumulator)
 		{
 			super(src.size());
 			this.src = src;
@@ -202,15 +202,15 @@ public final class AccumulationIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
-		private final EnhancedDoubleIterator src;
+		private final DoubleIterator src;
 		private final DoubleBinaryOperator accumulator;
 
 		private double accumulationValue;
 		private boolean initialized;
 
-		public OfDouble(final EnhancedDoubleIterator src, final double id,
+		public OfDouble(final DoubleIterator src, final double id,
 				final DoubleBinaryOperator accumulator)
 		{
 			super(src.size());
@@ -220,7 +220,7 @@ public final class AccumulationIterator
 			initialized = true;
 		}
 
-		public OfDouble(final EnhancedDoubleIterator src,
+		public OfDouble(final DoubleIterator src,
 				final DoubleBinaryOperator accumulator)
 		{
 			super(src.size());

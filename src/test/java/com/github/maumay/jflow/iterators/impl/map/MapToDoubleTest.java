@@ -9,7 +9,7 @@ import java.util.function.ToDoubleFunction;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
@@ -40,7 +40,7 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
 				return src.iterator().mapToDouble(mapper);
 			}
@@ -65,7 +65,7 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
 				return src.iter().mapToDouble(mapper);
 			}
@@ -90,7 +90,7 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
 				return src.iter().mapToDouble(mapper);
 			}

@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 
 /**
  * @author t
@@ -69,7 +69,7 @@ public final class ReversedSourceIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
 		private final long[] source;
 		private int count;
@@ -106,7 +106,7 @@ public final class ReversedSourceIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
 		private final double[] source;
 		private int count;
@@ -143,7 +143,7 @@ public final class ReversedSourceIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
 		private final int[] source;
 		private int count;

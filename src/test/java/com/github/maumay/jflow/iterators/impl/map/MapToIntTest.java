@@ -6,7 +6,7 @@ import java.util.function.ToIntFunction;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
@@ -37,7 +37,7 @@ public class MapToIntTest extends IteratorExampleProvider implements IteratorTes
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
 				return src.iterator().mapToInt(mapper);
 			}
@@ -62,7 +62,7 @@ public class MapToIntTest extends IteratorExampleProvider implements IteratorTes
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
 				return src.iter().mapToInt(mapper);
 			}
@@ -87,7 +87,7 @@ public class MapToIntTest extends IteratorExampleProvider implements IteratorTes
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
 				return src.iter().mapToInt(mapper);
 			}

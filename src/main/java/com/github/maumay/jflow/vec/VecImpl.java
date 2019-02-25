@@ -36,7 +36,7 @@ import com.github.maumay.jflow.iterators.factories.IterRange;
  *
  * @author ThomasB
  */
-public final class VecImpl<E> implements Vec<E>
+final class VecImpl<E> implements Vec<E>
 {
 	private static final Object[] EMPTY = new Object[0];
 

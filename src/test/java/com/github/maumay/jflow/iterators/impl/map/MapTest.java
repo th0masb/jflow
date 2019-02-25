@@ -9,10 +9,10 @@ import java.util.function.LongUnaryOperator;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
@@ -65,7 +65,7 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
 				return src.iter().map(mapper);
 			}
@@ -90,7 +90,7 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
 				return src.iter().map(mapper);
 			}
@@ -115,7 +115,7 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
 				return src.iter().map(mapper);
 			}

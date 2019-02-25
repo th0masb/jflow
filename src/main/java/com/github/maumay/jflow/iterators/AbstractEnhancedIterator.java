@@ -66,19 +66,19 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractOptionallySize
 	}
 
 	@Override
-	public AbstractEnhancedIntIterator mapToInt(ToIntFunction<? super E> f)
+	public AbstractIntIterator mapToInt(ToIntFunction<? super E> f)
 	{
 		return new IntMapIterator.FromObject<>(this, f);
 	}
 
 	@Override
-	public AbstractEnhancedDoubleIterator mapToDouble(ToDoubleFunction<? super E> f)
+	public AbstractDoubleIterator mapToDouble(ToDoubleFunction<? super E> f)
 	{
 		return new DoubleMapIterator.FromObject<>(this, f);
 	}
 
 	@Override
-	public AbstractEnhancedLongIterator mapToLong(ToLongFunction<? super E> f)
+	public AbstractLongIterator mapToLong(ToLongFunction<? super E> f)
 	{
 		return new LongMapIterator.FromObject<>(this, f);
 	}
@@ -91,22 +91,22 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractOptionallySize
 	}
 
 	@Override
-	public AbstractEnhancedIntIterator flatMapToInt(
-			Function<? super E, ? extends EnhancedIntIterator> mapping)
+	public AbstractIntIterator flatMapToInt(
+			Function<? super E, ? extends IntIterator> mapping)
 	{
 		return new FlattenedIterator.OfInt<>(this, mapping);
 	}
 
 	@Override
-	public AbstractEnhancedLongIterator flatMapToLong(
-			Function<? super E, ? extends EnhancedLongIterator> mapping)
+	public AbstractLongIterator flatMapToLong(
+			Function<? super E, ? extends LongIterator> mapping)
 	{
 		return new FlattenedIterator.OfLong<>(this, mapping);
 	}
 
 	@Override
-	public AbstractEnhancedDoubleIterator flatMapToDouble(
-			Function<? super E, ? extends EnhancedDoubleIterator> mapping)
+	public AbstractDoubleIterator flatMapToDouble(
+			Function<? super E, ? extends DoubleIterator> mapping)
 	{
 		return new FlattenedIterator.OfDouble<>(this, mapping);
 	}

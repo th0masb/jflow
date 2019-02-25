@@ -6,10 +6,10 @@ package com.github.maumay.jflow.testutilities;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 
 /**
  * We provide iterable objects which produce identical iterators. We want
@@ -195,9 +195,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
-				return new AbstractEnhancedLongIterator(
+				return new AbstractLongIterator(
 						OptionalInt.of(Constants.SMALL_LONG_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -231,9 +231,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
-				return new AbstractEnhancedLongIterator(
+				return new AbstractLongIterator(
 						OptionalInt.of(Constants.LONG_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -267,9 +267,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
-				return new AbstractEnhancedLongIterator(
+				return new AbstractLongIterator(
 						OptionalInt.of(Constants.LARGE_LONG_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -303,9 +303,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableLongs() {
 			@Override
-			public AbstractEnhancedLongIterator iter()
+			public AbstractLongIterator iter()
 			{
-				return new AbstractEnhancedLongIterator(OptionalInt.of(0)) {
+				return new AbstractLongIterator(OptionalInt.of(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -332,9 +332,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
-				return new AbstractEnhancedIntIterator(
+				return new AbstractIntIterator(
 						OptionalInt.of(Constants.SMALL_INT_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -368,9 +368,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
-				return new AbstractEnhancedIntIterator(
+				return new AbstractIntIterator(
 						OptionalInt.of(Constants.INT_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -404,9 +404,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
-				return new AbstractEnhancedIntIterator(
+				return new AbstractIntIterator(
 						OptionalInt.of(Constants.LARGE_INT_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -440,9 +440,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableInts() {
 			@Override
-			public AbstractEnhancedIntIterator iter()
+			public AbstractIntIterator iter()
 			{
-				return new AbstractEnhancedIntIterator(OptionalInt.of(0)) {
+				return new AbstractIntIterator(OptionalInt.of(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -469,9 +469,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
-				return new AbstractEnhancedDoubleIterator(
+				return new AbstractDoubleIterator(
 						OptionalInt.of(Constants.SMALL_DOUBLE_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -505,9 +505,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
-				return new AbstractEnhancedDoubleIterator(
+				return new AbstractDoubleIterator(
 						OptionalInt.of(Constants.DOUBLE_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -541,9 +541,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
-				return new AbstractEnhancedDoubleIterator(
+				return new AbstractDoubleIterator(
 						OptionalInt.of(Constants.LARGE_DOUBLE_EXAMPLE_SRC.length)) {
 					int count = 0;
 
@@ -577,9 +577,9 @@ public class IteratorExampleProvider
 	{
 		return new AbstractIterableDoubles() {
 			@Override
-			public AbstractEnhancedDoubleIterator iter()
+			public AbstractDoubleIterator iter()
 			{
-				return new AbstractEnhancedDoubleIterator(OptionalInt.of(0)) {
+				return new AbstractDoubleIterator(OptionalInt.of(0)) {
 					@Override
 					public boolean hasNext()
 					{

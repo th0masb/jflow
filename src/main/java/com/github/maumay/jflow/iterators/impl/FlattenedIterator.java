@@ -5,14 +5,14 @@ import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.function.Function;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.EnhancedLongIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * @author t
@@ -80,15 +80,15 @@ public final class FlattenedIterator
 		}
 	}
 
-	public static class OfLong<E> extends AbstractEnhancedLongIterator
+	public static class OfLong<E> extends AbstractLongIterator
 	{
 		private final EnhancedIterator<E> src;
-		private final Function<? super E, ? extends EnhancedLongIterator> mapping;
+		private final Function<? super E, ? extends LongIterator> mapping;
 
-		private EnhancedLongIterator currentSubFlow;
+		private LongIterator currentSubFlow;
 
 		public OfLong(final EnhancedIterator<E> src,
-				final Function<? super E, ? extends EnhancedLongIterator> mapping)
+				final Function<? super E, ? extends LongIterator> mapping)
 		{
 			super(OptionalInt.empty());
 			this.src = src;
@@ -137,15 +137,15 @@ public final class FlattenedIterator
 		}
 	}
 
-	public static class OfDouble<E> extends AbstractEnhancedDoubleIterator
+	public static class OfDouble<E> extends AbstractDoubleIterator
 	{
 		private final EnhancedIterator<E> src;
-		private final Function<? super E, ? extends EnhancedDoubleIterator> mapping;
+		private final Function<? super E, ? extends DoubleIterator> mapping;
 
-		private EnhancedDoubleIterator currentSubFlow;
+		private DoubleIterator currentSubFlow;
 
 		public OfDouble(final EnhancedIterator<E> src,
-				final Function<? super E, ? extends EnhancedDoubleIterator> mapping)
+				final Function<? super E, ? extends DoubleIterator> mapping)
 		{
 			super(OptionalInt.empty());
 			this.src = src;
@@ -194,15 +194,15 @@ public final class FlattenedIterator
 		}
 	}
 
-	public static class OfInt<E> extends AbstractEnhancedIntIterator
+	public static class OfInt<E> extends AbstractIntIterator
 	{
 		private final EnhancedIterator<E> src;
-		private final Function<? super E, ? extends EnhancedIntIterator> mapping;
+		private final Function<? super E, ? extends IntIterator> mapping;
 
-		private EnhancedIntIterator currentSubFlow;
+		private IntIterator currentSubFlow;
 
 		public OfInt(final EnhancedIterator<E> src,
-				final Function<? super E, ? extends EnhancedIntIterator> mapping)
+				final Function<? super E, ? extends IntIterator> mapping)
 		{
 			super(OptionalInt.empty());
 			this.src = src;

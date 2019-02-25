@@ -8,10 +8,10 @@ import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.Supplier;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIntIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedLongIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
 
 /**
  * @author t
@@ -63,7 +63,7 @@ public final class CyclicIterator
 		}
 	}
 
-	public static class OfLong extends AbstractEnhancedLongIterator
+	public static class OfLong extends AbstractLongIterator
 	{
 		private final Supplier<? extends PrimitiveIterator.OfLong> iteratorSupplier;
 		private PrimitiveIterator.OfLong iter;
@@ -103,7 +103,7 @@ public final class CyclicIterator
 		}
 	}
 
-	public static class OfDouble extends AbstractEnhancedDoubleIterator
+	public static class OfDouble extends AbstractDoubleIterator
 	{
 		private final Supplier<? extends PrimitiveIterator.OfDouble> iteratorSupplier;
 		private PrimitiveIterator.OfDouble iter;
@@ -143,7 +143,7 @@ public final class CyclicIterator
 		}
 	}
 
-	public static class OfInt extends AbstractEnhancedIntIterator
+	public static class OfInt extends AbstractIntIterator
 	{
 		private final Supplier<? extends PrimitiveIterator.OfInt> iteratorSupplier;
 		private PrimitiveIterator.OfInt iter;

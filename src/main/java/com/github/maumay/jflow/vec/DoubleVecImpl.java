@@ -5,14 +5,14 @@ package com.github.maumay.jflow.vec;
 
 import java.util.stream.DoubleStream;
 
-import com.github.maumay.jflow.iterators.EnhancedDoubleIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
 /**
  * @author ThomasB
  *
  */
-public final class DoubleVecImpl implements DoubleVec
+final class DoubleVecImpl implements DoubleVec
 {
 	private static final DoubleVecImpl EMPTY = new DoubleVecImpl(new double[0]);
 
@@ -29,7 +29,7 @@ public final class DoubleVecImpl implements DoubleVec
 	// }
 
 	@Override
-	public EnhancedDoubleIterator iter()
+	public DoubleIterator iter()
 	{
 		return Iter.doubles(src);
 	}
@@ -58,7 +58,7 @@ public final class DoubleVecImpl implements DoubleVec
 	}
 
 	@Override
-	public EnhancedDoubleIterator revIter()
+	public DoubleIterator revIter()
 	{
 		return Iter.reverseDoubles(src);
 	}
