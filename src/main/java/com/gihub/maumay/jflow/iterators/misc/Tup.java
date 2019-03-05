@@ -4,16 +4,22 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * Compact tuple (pair).
+ * Compact two element tuple (pair) inspired by Scala.
  * 
  * @author ThomasB
  */
 public final class Tup<T, U>
 {
-	/** First element of the pair. */
+	/**
+	 * First element of the pair. Note this is the Scala naming convention for
+	 * tuples
+	 */
 	public final T _1;
 
-	/** Second element of the pair. */
+	/**
+	 * Second element of the pair. Note this is the Scala naming convention for
+	 * tuples.
+	 */
 	public final U _2;
 
 	public Tup(T first, U second)
@@ -28,7 +34,10 @@ public final class Tup<T, U>
 	 * character difference).
 	 */
 	/**
-	 * First element of the pair. I use the Scala naming convention.
+	 * Retrieve the first (left) element of the pair. Note this is the Scala naming
+	 * convention for tuples.
+	 * 
+	 * @return The first element in this pair.
 	 */
 	public T _1()
 	{
@@ -36,22 +45,78 @@ public final class Tup<T, U>
 	}
 
 	/**
-	 * Second element of the pair. I use the Scala naming convention.
+	 * Retrieve the second (right) element of the pair. Note this is the Scala
+	 * naming convention for tuples.
+	 * 
+	 * @return The second element in this pair.
 	 */
 	public U _2()
 	{
 		return _2;
 	}
 
-	public <S, R> Tup<S, R> map(Function<? super T, ? extends S> fArg1,
-			Function<? super U, ? extends R> fArg2)
+	/**
+	 * Maps this tuple to a new instance by applying the two mapping functions to
+	 * the left and right elements respectively.
+	 * 
+	 * @param           <S> The left type of the new tuple.
+	 * @param           <R> The right type of the new tuple.
+	 * @param leftFunc  The function to apply to the first (left) element of this
+	 *                  tuple.
+	 * @param rightFunc The function to apply to the second (right) element of this
+	 *                  tuple.
+	 * @return A new tuple whose first (second) element is the image of the first
+	 *         (second) element of this tuple under the left (right) function.
+	 */
+	public <S, R> Tup<S, R> map(Function<? super T, ? extends S> leftFunc,
+			Function<? super U, ? extends R> rightFunc)
 	{
-		return new Tup<>(fArg1.apply(_1), fArg2.apply(_2));
+		return new Tup<>(leftFunc.apply(_1), rightFunc.apply(_2));
 	}
 
-	public static <T, U> Tup<T, U> of(T t, U u)
+	/**
+	 * Maps this tuple to a new instance by applying the given function to the
+	 * second (right) element of this tuple whilst retaining the first (left)
+	 * element.
+	 * 
+	 * @param      <R> The right type of the new tuple.
+	 * @param func The function to apply to the second (right) element of this
+	 *             tuple.
+	 * @returnA new tuple whose left element is the same as this tuple and whose
+	 *          right element is the image of the right element of this tuple under
+	 *          the supplied function.
+	 */
+	public <R> Tup<T, R> rmap(Function<? super U, ? extends R> func)
 	{
-		return new Tup<>(t, u);
+		return map(Function.identity(), func);
+	}
+
+	/**
+	 * Maps this tuple to a new instance by applying the given function to the
+	 * second (right) element of this tuple whilst retaining the first (left)
+	 * element.
+	 * 
+	 * @param      <S> The left type of the new tuple.
+	 * @param func The function to apply to the first (left) element of this tuple.
+	 * @returnA new tuple whose right element is the same as this tuple and whose
+	 *          left element is the image of the left element of this tuple under
+	 *          the supplied function.
+	 */
+	public <S> Tup<S, U> lmap(Function<? super T, ? extends S> func)
+	{
+		return map(func, Function.identity());
+	}
+
+	/**
+	 * Creates a new tuple whose type is inferred by the arguments.
+	 * 
+	 * @param first  The first (left) value of the new tuple.
+	 * @param second The second (right) value of the new tuple.
+	 * @return A new tuple with the given left and right values.
+	 */
+	public static <T, U> Tup<T, U> of(T first, U second)
+	{
+		return new Tup<>(first, second);
 	}
 
 	@Override
