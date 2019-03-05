@@ -185,7 +185,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         return a {@link IntIterator} missing the first
 	 *         {@code min(n, length(F))} elements of {@code F}.
 	 */
-	IntIterator drop(int n);
+	IntIterator skip(int n);
 
 	/**
 	 * Creates a new {@link IntIterator} from this
@@ -199,7 +199,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         {@link IntIterator}. If no element fails the predicate test
 	 *         then a copy of the source is returned.
 	 */
-	IntIterator dropWhile(IntPredicate predicate);
+	IntIterator skipWhile(IntPredicate predicate);
 
 	/**
 	 * Creates a new {@link IntIterator} from this

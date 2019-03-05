@@ -17,7 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
@@ -47,10 +47,10 @@ class AbstractLongIteratorCollectionConsumptionTest
 	@MethodSource("collectToMapTestDataProvider")
 	void testCollectToMap(final AbstractLongIterator iterator,
 			final LongFunction<String> keyMapper, final LongFunction<Long> valueMapper,
-			final List<Pair<String, Long>> expectedMapPairs)
+			final List<Tup<String, Long>> expectedMapPairs)
 	{
 		final Map<String, Long> expectedMap = expectedMapPairs.stream()
-				.collect(toMap(Pair::_1, Pair::_2));
+				.collect(toMap(Tup::_1, Tup::_2));
 		assertEquals(expectedMap, iterator.toMap(keyMapper, valueMapper));
 	}
 
@@ -61,7 +61,7 @@ class AbstractLongIteratorCollectionConsumptionTest
 
 		return Stream.of(
 				Arguments.of(getSmallLongTestIteratorProvider().iter(), keyMapper,
-						valueMapper, asList(Pair.of("10", 10L), Pair.of("11", 11L))),
+						valueMapper, asList(Tup.of("10", 10L), Tup.of("11", 11L))),
 
 				Arguments.of(getEmptyLongTestIteratorProvider().iter(), keyMapper,
 						valueMapper, asList()));
@@ -71,10 +71,10 @@ class AbstractLongIteratorCollectionConsumptionTest
 	@MethodSource("groupByTestDataProvider")
 	void testGroupBy(final AbstractLongIterator iterator,
 			final LongFunction<Integer> classifier,
-			final List<Pair<Integer, long[]>> expectedMapPairs)
+			final List<Tup<Integer, long[]>> expectedMapPairs)
 	{
 		final Map<Integer, long[]> expectedMap = expectedMapPairs.stream()
-				.collect(toMap(Pair::_1, Pair::_2));
+				.collect(toMap(Tup::_1, Tup::_2));
 		final Map<Integer, long[]> actualMap = iterator.groupBy(classifier);
 		assertEquals(expectedMap.keySet(), actualMap.keySet());
 		expectedMap.keySet().stream()
@@ -88,8 +88,8 @@ class AbstractLongIteratorCollectionConsumptionTest
 
 		return Stream.of(
 				Arguments.of(getLongTestIteratorProvider().iter(), classifier,
-						asList(Pair.of(0, new long[] { 0, 2, 4 }),
-								Pair.of(1, new long[] { 1, 3 }))),
+						asList(Tup.of(0, new long[] { 0, 2, 4 }),
+								Tup.of(1, new long[] { 1, 3 }))),
 				Arguments.of(getEmptyLongTestIteratorProvider().iter(), classifier,
 						asList()));
 	}

@@ -12,7 +12,7 @@ import com.gihub.maumay.jflow.iterators.misc.IntPair;
 import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.gihub.maumay.jflow.iterators.misc.LongPair;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 
@@ -25,7 +25,7 @@ public final class ZipIterator
 	{
 	}
 
-	public static class OfObjects<E1, E2> extends AbstractEnhancedIterator<Pair<E1, E2>>
+	public static class OfObjects<E1, E2> extends AbstractEnhancedIterator<Tup<E1, E2>>
 	{
 		private final EnhancedIterator<? extends E1> firstSource;
 		private final Iterator<? extends E2> secondSource;
@@ -45,9 +45,9 @@ public final class ZipIterator
 		}
 
 		@Override
-		public Pair<E1, E2> next()
+		public Tup<E1, E2> next()
 		{
-			return Pair.of(firstSource.next(), secondSource.next());
+			return Tup.of(firstSource.next(), secondSource.next());
 		}
 
 		@Override

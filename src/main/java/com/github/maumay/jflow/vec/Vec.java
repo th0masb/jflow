@@ -16,7 +16,7 @@ import java.util.function.ToLongFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 
@@ -130,14 +130,14 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 *         {@link Vec#takeWhile(Predicate)} and whose second element is a vector
 	 *         of all elements who were not included in the first vector.
 	 */
-	Pair<Vec<E>, Vec<E>> span(Predicate<? super E> predicate);
+	Tup<Vec<E>, Vec<E>> span(Predicate<? super E> predicate);
 
 	/**
 	 * @return A pair of vectors whose first element is all the elements of this
 	 *         vector which pass the given predicate, the second is all the
 	 *         failures. Relative ordering in these subvectors is preserved.
 	 */
-	Pair<Vec<E>, Vec<E>> partition(Predicate<? super E> predicate);
+	Tup<Vec<E>, Vec<E>> partition(Predicate<? super E> predicate);
 
 	/**
 	 * @return A copy of this vector where the elements are ordered according to the

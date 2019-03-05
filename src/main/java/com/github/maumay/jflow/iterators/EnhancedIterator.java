@@ -28,7 +28,7 @@ import java.util.function.ToLongFunction;
 import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
 import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -70,9 +70,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * {@link IntIterator}.
 	 *
 	 * @param mappingFunction A mapping function.
-	 * @return A new {@link IntIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link EnhancedIterator} instance in turn.
+	 * @return A new {@link IntIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link EnhancedIterator} instance in turn.
 	 */
 	IntIterator mapToInt(ToIntFunction<? super E> mappingFunction);
 
@@ -81,9 +81,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * {@link DoubleIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link DoubleIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link EnhancedIterator} instance in turn.
+	 * @return A new {@link DoubleIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link EnhancedIterator} instance in turn.
 	 */
 	DoubleIterator mapToDouble(ToDoubleFunction<? super E> f);
 
@@ -92,9 +92,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * {@link LongIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link LongIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link EnhancedIterator} instance in turn.
+	 * @return A new {@link LongIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link EnhancedIterator} instance in turn.
 	 */
 	LongIterator mapToLong(ToLongFunction<? super E> f);
 
@@ -116,40 +116,33 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * Maps elements of this {@link EnhancedIterator} to {@link IntIterator}
 	 * instances before sequentially concatenating them end to end.
 	 *
-	 * @param mapping A function taking elements to instances of
-	 *                {@link IntIterator}
-	 * @return A {@link IntIterator} obtained by applying the mapping
-	 *         function to each element in turn and sequentially concatenating the
-	 *         results.
+	 * @param mapping A function taking elements to instances of {@link IntIterator}
+	 * @return A {@link IntIterator} obtained by applying the mapping function to
+	 *         each element in turn and sequentially concatenating the results.
 	 */
 	IntIterator flatMapToInt(Function<? super E, ? extends IntIterator> mapping);
 
 	/**
-	 * Maps elements of this {@link EnhancedIterator} to
-	 * {@link LongIterator} instances before sequentially concatenating them
-	 * end to end.
+	 * Maps elements of this {@link EnhancedIterator} to {@link LongIterator}
+	 * instances before sequentially concatenating them end to end.
 	 *
 	 * @param mapping A function taking elements to instances of
 	 *                {@link LongIterator}
-	 * @return A {@link LongIterator} obtained by applying the mapping
-	 *         function to each element in turn and sequentially concatenating the
-	 *         results.
+	 * @return A {@link LongIterator} obtained by applying the mapping function to
+	 *         each element in turn and sequentially concatenating the results.
 	 */
 	LongIterator flatMapToLong(Function<? super E, ? extends LongIterator> mapping);
 
 	/**
-	 * Maps elements of this {@link EnhancedIterator} to
-	 * {@link DoubleIterator} instances before sequentially concatenating
-	 * them end to end.
+	 * Maps elements of this {@link EnhancedIterator} to {@link DoubleIterator}
+	 * instances before sequentially concatenating them end to end.
 	 *
 	 * @param mapping A function taking elements to instances of
 	 *                {@link DoubleIterator}
-	 * @return A {@link DoubleIterator} obtained by applying the mapping
-	 *         function to each element in turn and sequentially concatenating the
-	 *         results.
+	 * @return A {@link DoubleIterator} obtained by applying the mapping function to
+	 *         each element in turn and sequentially concatenating the results.
 	 */
-	DoubleIterator flatMapToDouble(
-			Function<? super E, ? extends DoubleIterator> mapping);
+	DoubleIterator flatMapToDouble(Function<? super E, ? extends DoubleIterator> mapping);
 
 	/**
 	 * Combines this {@link EnhancedIterator} with another iterator to create a new
@@ -169,7 +162,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	<R> EnhancedIterator<Pair<E, R>> zipWith(Iterator<? extends R> other);
+	<R> EnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other);
 
 	/**
 	 * Combines this {@link EnhancedIterator} with another primitive iterator to
@@ -292,7 +285,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         a {@link EnhancedIterator} missing the first
 	 *         {@code min(n, length(F))} elements of {@code F}.
 	 */
-	EnhancedIterator<E> drop(int n);
+	EnhancedIterator<E> skip(int n);
 
 	/**
 	 * Creates a new {@link EnhancedIterator} from this {@link EnhancedIterator} by
@@ -307,7 +300,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         {@link EnhancedIterator}. If no element fails the predicate test then
 	 *         a copy of the source is returned.
 	 */
-	EnhancedIterator<E> dropWhile(Predicate<? super E> predicate);
+	EnhancedIterator<E> skipWhile(Predicate<? super E> predicate);
 
 	/**
 	 * Creates a new {@link EnhancedIterator} from this {@link EnhancedIterator} by
@@ -385,7 +378,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return Nothing if the {@link EnhancedIterator} is empty. Otherwise the
 	 *         minimum element in this {@link EnhancedIterator}.
 	 */
-	Optional<E> min(Comparator<? super E> orderingFunction);
+	Optional<E> minOption(Comparator<? super E> orderingFunction);
 
 	/**
 	 * Calculates the maximum element in this {@link EnhancedIterator} with respect
@@ -396,7 +389,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return Nothing if the {@link EnhancedIterator} is empty. Otherwise the
 	 *         maximum element in this {@link EnhancedIterator}.
 	 */
-	Optional<E> max(Comparator<? super E> orderingFunction);
+	Optional<E> maxOption(Comparator<? super E> orderingFunction);
 
 	/**
 	 * Checks whether every element in this {@link EnhancedIterator} is the same.
@@ -551,6 +544,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	}
 
 	/**
+	 * Caches the elements in this iterator to a Set which is accessible through an
+	 * unmodifiable view.
+	 * 
 	 * @return An immutable view of the result of {@link EnhancedIterator#toSet()}.
 	 */
 	default Set<E> toUnmodifiableSet()
@@ -576,7 +572,11 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	}
 
 	/**
-	 * @return An immutable view of the result of {@link EnhancedIterator#toList()}.
+	 * Caches the elements in this iterator to a List which is accessible through an
+	 * unmodifiable view.
+	 * 
+	 * @return An unmodifiable view of the result of
+	 *         {@link EnhancedIterator#toList()}.
 	 */
 	default List<E> toUnmodifiableList()
 	{
@@ -663,8 +663,8 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * Associates each unique value in this iterator with the result of applying the
 	 * provided function to it. The result is similar to
 	 * {@link #toMap(Function, Function)} with the first argument being the identity
-	 * function. If duplicate elements appear in this iterator then only the first
-	 * is taken for the resultant map.
+	 * function. If duplicate elements appear in this iterator then an exception
+	 * will be thrown.
 	 * 
 	 * @param valueMapper the function which produces the associated values in the
 	 *                    resultant map for each unique element in this iterator.
@@ -677,7 +677,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 		while (hasNext()) {
 			E key = next();
 			if (collected.containsKey(key)) {
-				continue;
+				throw new IllegalStateException();
 			} else {
 				collected.put(key, valueMapper.apply(key));
 			}
@@ -686,6 +686,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	}
 
 	/**
+	 * Caches the elements in this iterator to a Map which is accessible through an
+	 * unmodifiable view.
+	 * 
 	 * @return An immutable view of the result of
 	 *         {@link EnhancedIterator#toMap(Function, Function)}.
 	 */
@@ -723,8 +726,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	}
 
 	/**
-	 * A convenience method for safely manipulating the element type of this
-	 * {@link EnhancedIterator}.
+	 * Safely manipulates the element type of this {@link EnhancedIterator} by
+	 * filtering out elements who cannot be cast to the target type before casting
+	 * the remainder.
 	 *
 	 * @param       <R> The target type
 	 * @param klass A Class instance defining the target type
@@ -788,7 +792,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return the result of zipping this {@link EnhancedIterator} with an iterator
 	 *         created from the parameter iterable.
 	 */
-	default <R> EnhancedIterator<Pair<E, R>> zipWith(Iterable<? extends R> other)
+	default <R> EnhancedIterator<Tup<E, R>> zipWith(Iterable<? extends R> other)
 	{
 		return zipWith(other.iterator());
 	}

@@ -28,7 +28,9 @@ import com.github.maumay.jflow.iterators.EnhancedIterator;
 public interface EnhancedIterable<E> extends Iterable<E>
 {
 	/**
-	 * @return An {@link EnhancedIterator} traversing the elements in this iterable.
+	 * Constructs an iterator traversing the elements encapsulated by this object.
+	 * 
+	 * @return See above.
 	 */
 	EnhancedIterator<E> iter();
 
@@ -51,26 +53,34 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#min(Comparator)} method.
+	 * Finds the minimum element in the iterator created by {@link #iter()}
+	 * according to the given comparator.
+	 * 
+	 * @param orderingFunction the complete ordering of this element type.
+	 * @return see {@link EnhancedIterator#minOption(Comparator)}.
 	 */
-	default Optional<E> min(Comparator<? super E> orderingFunction)
+	default Optional<E> minOption(Comparator<? super E> orderingFunction)
 	{
-		return iter().min(orderingFunction);
+		return iter().minOption(orderingFunction);
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#max(Comparator)} method.
+	 * Finds the maximum element in the iterator created from this iterable by
+	 * {@link #iter()} according to the given comparator.
+	 * 
+	 * @param orderingFunction the complete ordering of this element type.
+	 * @return see {@link EnhancedIterator#maxOption(Comparator)}.
 	 */
-	default Optional<E> max(Comparator<? super E> orderingFunction)
+	default Optional<E> maxOption(Comparator<? super E> orderingFunction)
 	{
-		return iter().max(orderingFunction);
+		return iter().maxOption(orderingFunction);
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#areAllEqual()} method.
+	 * Calculates whether all elements in the iterator created by {@link #iter()}
+	 * are the same according to {@link #equals(Object)}.
+	 * 
+	 * @return True if all elements are equal, false otherwise.
 	 */
 	default boolean areAllEqual()
 	{
@@ -78,8 +88,12 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#allMatch(Predicate)} method.
+	 * Calculates whether every element in the iterator created by {@link #iter()}
+	 * passes the supplied predicate.
+	 * 
+	 * @param condition The predicate test.
+	 * @return true if all elements pass the test or the iterator is empty, false
+	 *         otherwise.
 	 */
 	default boolean allMatch(Predicate<? super E> condition)
 	{
@@ -90,14 +104,25 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * Spawns an enhanced iterator and delegates to its
 	 * {@link EnhancedIterator#anyMatch(Predicate)} method.
 	 */
+	/**
+	 * Calculates at least one element in the iterator created by {@link #iter()}
+	 * passes the supplied predicate.
+	 * 
+	 * @param condition The predicate test.
+	 * @return true if at least one element passes the test, false otherwise.
+	 */
 	default boolean anyMatch(Predicate<? super E> condition)
 	{
 		return iter().anyMatch(condition);
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#noneMatch(Predicate)} method.
+	 * Calculates whether all elements in the iterator created by {@link #iter()}
+	 * fail the supplied predicate.
+	 * 
+	 * @param condition The predicate test.
+	 * @return true if all elements fail the test or the iterator is empty, false
+	 *         otherwise.
 	 */
 	default boolean noneMatch(Predicate<? super E> condition)
 	{
@@ -105,8 +130,11 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#groupBy(Function)} method.
+	 * Groups the elements of the iterator created by {@link #iter()} according to
+	 * some classification function.
+	 * 
+	 * @param classifier The classification function.
+	 * @return see {@link EnhancedIterator#groupBy(Function)}
 	 */
 	default <K> Map<K, List<E>> groupBy(Function<? super E, K> classifier)
 	{
@@ -114,8 +142,15 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#fold(Object, BiFunction)} method.
+	 * Folds the elements of the iterator created by {@link #iter()} into one value
+	 * using a provided reduction operator and a starting value.
+	 * 
+	 * @param         <R> The type of the fold result.
+	 * @param id      The initial value of the fold operation.
+	 * @param reducer The reduction operator governing how two values are combined
+	 *                into one.
+	 * 
+	 * @return see {@link EnhancedIterator#fold(Object, BiFunction)}
 	 */
 	default <R> R fold(R id, BiFunction<R, E, R> reducer)
 	{
@@ -123,8 +158,13 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to its
-	 * {@link EnhancedIterator#foldOption(BinaryOperator)} method.
+	 * Folds the elements of the iterator created by {@link #iter()} into one value
+	 * using a given reduction function making an allowance for a potentially empty
+	 * source.
+	 * 
+	 * @param reducer The reduction operator governing how two values are combined
+	 *                into one.
+	 * @return see {@link EnhancedIterator#foldOption(BinaryOperator)}
 	 */
 	default Optional<E> foldOption(BinaryOperator<E> reducer)
 	{
@@ -132,8 +172,13 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to it's
-	 * {@link EnhancedIterator#fold(BinaryOperator)} method.
+	 * Folds the elements of the iterator created by {@link #iter()} into one value
+	 * using a given reduction function throwing an exception if the source is
+	 * empty.
+	 * 
+	 * @param reducer The reduction operator governing how two values are combined
+	 *                into one.
+	 * @return see {@link EnhancedIterator#fold(BinaryOperator)}
 	 */
 	default E fold(BinaryOperator<E> reducer)
 	{

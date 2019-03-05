@@ -55,7 +55,7 @@ class AbstractEnhancedIteratorSkipTest extends IteratorExampleProvider implement
 			@Override
 			public AbstractEnhancedIterator<T> iter()
 			{
-				return src.iter().drop(skipCount);
+				return src.iter().skip(skipCount);
 			}
 		};
 	}

@@ -42,7 +42,7 @@ public final class Strings
 	 * @param obj An object reference.
 	 * @return the string representation of the parameter object.
 	 */
-	public static String $(Object obj)
+	public static String str(Object obj)
 	{
 		return obj.toString();
 	}
@@ -54,7 +54,7 @@ public final class Strings
 	 * @param x A primitive int.
 	 * @return The String representation of the parameter int.
 	 */
-	public static String $(int x)
+	public static String str(int x)
 	{
 		return Integer.toString(x);
 	}
@@ -66,7 +66,7 @@ public final class Strings
 	 * @param x A primitive double.
 	 * @return The String representation of the parameter double.
 	 */
-	public static String $(double x)
+	public static String str(double x)
 	{
 		return Double.toString(x);
 	}
@@ -78,7 +78,7 @@ public final class Strings
 	 * @param x A primitive long.
 	 * @return The String representation of the parameter long.
 	 */
-	public static String $(long x)
+	public static String str(long x)
 	{
 		return Long.toString(x);
 	}
@@ -90,7 +90,7 @@ public final class Strings
 	 * @param x A primitive char.
 	 * @return The String representation of the parameter char.
 	 */
-	public static String $(char x)
+	public static String str(char x)
 	{
 		return Character.toString(x);
 	}
@@ -102,7 +102,7 @@ public final class Strings
 	 * @param xs An int array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String $(int[] xs)
+	public static String str(int[] xs)
 	{
 		return Arrays.toString(xs);
 	}
@@ -114,7 +114,7 @@ public final class Strings
 	 * @param xs A double array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String $(double[] xs)
+	public static String str(double[] xs)
 	{
 		return Arrays.toString(xs);
 	}
@@ -126,7 +126,7 @@ public final class Strings
 	 * @param xs A long array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String $(long[] xs)
+	public static String str(long[] xs)
 	{
 		return Arrays.toString(xs);
 	}
@@ -138,7 +138,7 @@ public final class Strings
 	 * @param xs A char array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String $(char[] xs)
+	public static String str(char[] xs)
 	{
 		return Arrays.toString(xs);
 	}

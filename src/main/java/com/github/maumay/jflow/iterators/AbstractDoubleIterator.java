@@ -112,13 +112,13 @@ public abstract class AbstractDoubleIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public AbstractDoubleIterator drop(int n)
+	public AbstractDoubleIterator skip(int n)
 	{
 		return new DropIterator.OfDouble(this, n);
 	}
 
 	@Override
-	public AbstractDoubleIterator dropWhile(DoublePredicate predicate)
+	public AbstractDoubleIterator skipWhile(DoublePredicate predicate)
 	{
 		return new DropwhileIterator.OfDouble(this, predicate);
 	}

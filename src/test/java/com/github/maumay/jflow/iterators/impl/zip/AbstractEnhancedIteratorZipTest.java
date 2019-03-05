@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
 import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
@@ -29,16 +29,16 @@ class AbstractEnhancedIteratorZipTest extends IteratorExampleProvider implements
 		final AbstractEnhancedIterable<String> large = getLargeObjectTestIteratorProvider();
 		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		assertObjectIteratorAsExpected(asList(Pair.of("0", "10"), Pair.of("1", "11")),
+		assertObjectIteratorAsExpected(asList(Tup.of("0", "10"), Tup.of("1", "11")),
 				createZipIteratorProviderFrom(mid, small));
 
-		assertObjectIteratorAsExpected(asList(Pair.of("0", "0"), Pair.of("1", "1"),
-				Pair.of("2", "2"), Pair.of("3", "3"), Pair.of("4", "4")),
+		assertObjectIteratorAsExpected(asList(Tup.of("0", "0"), Tup.of("1", "1"),
+				Tup.of("2", "2"), Tup.of("3", "3"), Tup.of("4", "4")),
 				createZipIteratorProviderFrom(mid, mid));
 
 		assertObjectIteratorAsExpected(
-				asList(Pair.of("0", "10"), Pair.of("1", "11"), Pair.of("2", "12"),
-						Pair.of("3", "13"), Pair.of("4", "14")),
+				asList(Tup.of("0", "10"), Tup.of("1", "11"), Tup.of("2", "12"),
+						Tup.of("3", "13"), Tup.of("4", "14")),
 				createZipIteratorProviderFrom(mid, large));
 
 		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(mid, empty));
@@ -46,12 +46,12 @@ class AbstractEnhancedIteratorZipTest extends IteratorExampleProvider implements
 		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(empty, mid));
 	}
 
-	private <E1, E2> AbstractEnhancedIterable<Pair<E1, E2>> createZipIteratorProviderFrom(
+	private <E1, E2> AbstractEnhancedIterable<Tup<E1, E2>> createZipIteratorProviderFrom(
 			final AbstractEnhancedIterable<E1> first, final AbstractEnhancedIterable<E2> second)
 	{
-		return new AbstractEnhancedIterable<Pair<E1, E2>>() {
+		return new AbstractEnhancedIterable<Tup<E1, E2>>() {
 			@Override
-			public AbstractEnhancedIterator<Pair<E1, E2>> iter()
+			public AbstractEnhancedIterator<Tup<E1, E2>> iter()
 			{
 				return first.iter().zipWith(second.iter());
 			}

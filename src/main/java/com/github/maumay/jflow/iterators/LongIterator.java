@@ -187,7 +187,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         return a {@link LongIterator} missing the first
 	 *         {@code min(n, length(F))} elements of {@code F}.
 	 */
-	LongIterator drop(int n);
+	LongIterator skip(int n);
 
 	/**
 	 * Creates a new {@link LongIterator} from this
@@ -201,7 +201,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         source {@link LongIterator}. If no element fails the
 	 *         predicate test then a copy of the source is returned.
 	 */
-	LongIterator dropWhile(LongPredicate predicate);
+	LongIterator skipWhile(LongPredicate predicate);
 
 	/**
 	 * Creates a new {@link LongIterator} from this

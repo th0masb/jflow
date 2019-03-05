@@ -37,8 +37,8 @@ public class AbstractDoubleIteratorSkipTest extends IteratorExampleProvider
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i -> {
 			assertThrows(IllegalArgumentException.class,
-					() -> populated.iter().drop(i));
-			assertThrows(IllegalArgumentException.class, () -> empty.iter().drop(i));
+					() -> populated.iter().skip(i));
+			assertThrows(IllegalArgumentException.class, () -> empty.iter().skip(i));
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i -> {
@@ -56,7 +56,7 @@ public class AbstractDoubleIteratorSkipTest extends IteratorExampleProvider
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return src.iter().drop(skipCount);
+				return src.iter().skip(skipCount);
 			}
 		};
 	}

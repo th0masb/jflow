@@ -14,12 +14,16 @@ import java.util.OptionalInt;
 public interface OptionallySized
 {
 	/**
+	 * Retrieves the size of this object if it is known.
+	 * 
 	 * @return The size of the sequence if it known, otherwise nothing to indicate
 	 *         the value is unknown.
 	 */
 	OptionalInt size();
 
 	/**
+	 * Indicates whether the size of this object is known.
+	 * 
 	 * @return true if the size of this sequence is known, false otherwise.
 	 */
 	default boolean sizeIsKnown()

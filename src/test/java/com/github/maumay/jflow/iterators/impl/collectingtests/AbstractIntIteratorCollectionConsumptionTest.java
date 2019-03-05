@@ -17,7 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
@@ -46,10 +46,10 @@ class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProvid
 	@MethodSource("collectToMapTestDataProvider")
 	void testCollectToMap(final AbstractIntIterator iterator,
 			final IntFunction<String> keyMapper, final IntFunction<Integer> valueMapper,
-			final List<Pair<String, Integer>> expectedMapPairs)
+			final List<Tup<String, Integer>> expectedMapPairs)
 	{
 		final Map<String, Integer> expectedMap = expectedMapPairs.stream()
-				.collect(toMap(Pair::_1, Pair::_2));
+				.collect(toMap(Tup::_1, Tup::_2));
 		assertEquals(expectedMap, iterator.toMap(keyMapper, valueMapper));
 	}
 
@@ -60,7 +60,7 @@ class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProvid
 
 		return Stream.of(
 				Arguments.of(getSmallIntTestIteratorProvider().iter(), keyMapper,
-						valueMapper, asList(Pair.of("10", 10), Pair.of("11", 11))),
+						valueMapper, asList(Tup.of("10", 10), Tup.of("11", 11))),
 
 				Arguments.of(getEmptyIntTestIteratorProvider().iter(), keyMapper,
 						valueMapper, asList()));
@@ -70,10 +70,10 @@ class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProvid
 	@MethodSource("groupByTestDataProvider")
 	void testGroupBy(final AbstractIntIterator iterator,
 			final IntFunction<Integer> classifier,
-			final List<Pair<Integer, int[]>> expectedMapPairs)
+			final List<Tup<Integer, int[]>> expectedMapPairs)
 	{
 		final Map<Integer, int[]> expectedMap = expectedMapPairs.stream()
-				.collect(toMap(Pair::_1, Pair::_2));
+				.collect(toMap(Tup::_1, Tup::_2));
 		final Map<Integer, int[]> actualMap = iterator.groupBy(classifier);
 		assertEquals(expectedMap.keySet(), actualMap.keySet());
 		expectedMap.keySet().stream()
@@ -87,8 +87,8 @@ class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProvid
 
 		return Stream.of(
 				Arguments.of(getIntTestIteratorProvider().iter(), classifier,
-						asList(Pair.of(0, new int[] { 0, 2, 4 }),
-								Pair.of(1, new int[] { 1, 3 }))),
+						asList(Tup.of(0, new int[] { 0, 2, 4 }),
+								Tup.of(1, new int[] { 1, 3 }))),
 				Arguments.of(getEmptyIntTestIteratorProvider().iter(), classifier,
 						asList()));
 	}

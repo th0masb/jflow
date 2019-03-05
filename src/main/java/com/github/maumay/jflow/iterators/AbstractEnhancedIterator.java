@@ -22,7 +22,7 @@ import java.util.function.ToLongFunction;
 import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
 import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
 import com.github.maumay.jflow.iterators.impl.AppendIterator;
@@ -112,7 +112,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractOptionallySize
 	}
 
 	@Override
-	public <R> AbstractEnhancedIterator<Pair<E, R>> zipWith(Iterator<? extends R> other)
+	public <R> AbstractEnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other)
 	{
 		return new ZipIterator.OfObjects<>(this, other);
 	}
@@ -160,13 +160,13 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractOptionallySize
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> drop(int n)
+	public AbstractEnhancedIterator<E> skip(int n)
 	{
 		return new DropIterator.OfObject<>(this, n);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> dropWhile(Predicate<? super E> predicate)
+	public AbstractEnhancedIterator<E> skipWhile(Predicate<? super E> predicate)
 	{
 		return new DropwhileIterator.OfObject<>(this, predicate);
 	}
@@ -202,13 +202,13 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractOptionallySize
 	}
 
 	@Override
-	public Optional<E> min(Comparator<? super E> orderingFunction)
+	public Optional<E> minOption(Comparator<? super E> orderingFunction)
 	{
 		return ObjectMinMaxConsumption.findMin(this, orderingFunction);
 	}
 
 	@Override
-	public Optional<E> max(Comparator<? super E> orderingFunction)
+	public Optional<E> maxOption(Comparator<? super E> orderingFunction)
 	{
 		return ObjectMinMaxConsumption.findMax(this, orderingFunction);
 	}

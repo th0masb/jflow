@@ -7,7 +7,7 @@ import java.util.function.DoublePredicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
@@ -25,10 +25,10 @@ class AbstractDoubleIteratorSkipwhileTest extends IteratorExampleProvider
 		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
 
-		final List<Pair<double[], DoublePredicate>> testData = asList(
-				Pair.of(new double[] { 0, 1, 2, 3, 4 }, x -> x < -0.1),
-				Pair.of(new double[] { 4 }, x -> x < 3.1),
-				Pair.of(new double[] {}, x -> x < 5));
+		final List<Tup<double[], DoublePredicate>> testData = asList(
+				Tup.of(new double[] { 0, 1, 2, 3, 4 }, x -> x < -0.1),
+				Tup.of(new double[] { 4 }, x -> x < 3.1),
+				Tup.of(new double[] {}, x -> x < 5));
 
 		testData.stream().forEach(testCase -> {
 			assertDoubleIteratorAsExpected(testCase._1(),
@@ -45,7 +45,7 @@ class AbstractDoubleIteratorSkipwhileTest extends IteratorExampleProvider
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return src.iter().dropWhile(predicate);
+				return src.iter().skipWhile(predicate);
 			}
 		};
 	}

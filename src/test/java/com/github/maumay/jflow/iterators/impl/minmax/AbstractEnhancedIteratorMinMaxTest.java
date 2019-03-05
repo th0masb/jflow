@@ -30,12 +30,12 @@ class AbstractEnhancedIteratorMinMaxTest extends IteratorExampleProvider
 	void testMinByKey(final Comparator<String> key, final String expectedPopulatedResult)
 	{
 		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iterator().min(key);
+		final Optional<String> result = populated.iterator().minOption(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
 		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		assertFalse(empty.iterator().min(key).isPresent());
+		assertFalse(empty.iterator().minOption(key).isPresent());
 	}
 
 	static Stream<Arguments> minByKeyTestDataProvider()
@@ -54,12 +54,12 @@ class AbstractEnhancedIteratorMinMaxTest extends IteratorExampleProvider
 	void testMax(final Comparator<String> key, final String expectedPopulatedResult)
 	{
 		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iterator().max(key);
+		final Optional<String> result = populated.iterator().maxOption(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
 		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		assertFalse(empty.iterator().max(key).isPresent());
+		assertFalse(empty.iterator().maxOption(key).isPresent());
 	}
 
 	static Stream<Arguments> maxByKeyTestDataProvider()

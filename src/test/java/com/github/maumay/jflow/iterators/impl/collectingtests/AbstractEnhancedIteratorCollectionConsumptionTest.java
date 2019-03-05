@@ -22,7 +22,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
@@ -61,10 +61,10 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 	void testCollectToMap(final AbstractEnhancedIterator<String> iterator,
 			final UnaryOperator<String> keyMapper,
 			final Function<String, Integer> valueMapper,
-			final List<Pair<String, Integer>> expectedMapPairs)
+			final List<Tup<String, Integer>> expectedMapPairs)
 	{
 		final Map<String, Integer> expectedMap = expectedMapPairs.stream()
-				.collect(toMap(Pair::_1, Pair::_2));
+				.collect(toMap(Tup::_1, Tup::_2));
 		assertEquals(expectedMap, iterator.toMap(keyMapper, valueMapper));
 	}
 
@@ -74,7 +74,7 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 				Arguments.of(getSmallObjectTestIteratorProvider().iterator(),
 						(UnaryOperator<String>) x -> x + x,
 						(Function<String, Integer>) Integer::parseInt,
-						asList(Pair.of("1010", 10), Pair.of("1111", 11))),
+						asList(Tup.of("1010", 10), Tup.of("1111", 11))),
 
 				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
 						(UnaryOperator<String>) x -> x + x,
@@ -85,10 +85,10 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 	@MethodSource("groupByTestDataProvider")
 	void testGroupBy(final AbstractEnhancedIterator<String> iterator,
 			final Function<String, Integer> classifier,
-			final List<Pair<Integer, List<String>>> expectedMapPairs)
+			final List<Tup<Integer, List<String>>> expectedMapPairs)
 	{
 		final Map<Integer, List<String>> expectedMap = expectedMapPairs.stream()
-				.collect(toMap(Pair::_1, Pair::_2));
+				.collect(toMap(Tup::_1, Tup::_2));
 		assertEquals(expectedMap, iterator.groupBy(classifier));
 	}
 
@@ -97,8 +97,8 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 		return Stream.of(
 				Arguments.of(getObjectTestIteratorProvider().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2,
-						asList(Pair.of(0, asList("0", "2", "4")),
-								Pair.of(1, asList("1", "3")))),
+						asList(Tup.of(0, asList("0", "2", "4")),
+								Tup.of(1, asList("1", "3")))),
 
 				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2, asList()));

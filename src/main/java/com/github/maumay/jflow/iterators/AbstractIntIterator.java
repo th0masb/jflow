@@ -109,13 +109,13 @@ public abstract class AbstractIntIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public AbstractIntIterator drop(int n)
+	public AbstractIntIterator skip(int n)
 	{
 		return new DropIterator.OfInt(this, n);
 	}
 
 	@Override
-	public AbstractIntIterator dropWhile(IntPredicate predicate)
+	public AbstractIntIterator skipWhile(IntPredicate predicate)
 	{
 		return new DropwhileIterator.OfInt(this, predicate);
 	}

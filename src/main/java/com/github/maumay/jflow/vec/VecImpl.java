@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.factories.IterRange;
@@ -316,18 +316,18 @@ final class VecImpl<E> implements Vec<E>
 		else if (n >= size())
 			return new VecImpl<>();
 		else
-			return new VecImpl<>(iterator().drop(n));
+			return new VecImpl<>(iterator().skip(n));
 	}
 
 	@Override
 	public Vec<E> dropWhile(Predicate<? super E> predicate)
 	{
-		return new VecImpl<>(iterator().dropWhile(predicate), size());
+		return new VecImpl<>(iterator().skipWhile(predicate), size());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Pair<Vec<E>, Vec<E>> span(Predicate<? super E> predicate)
+	public Tup<Vec<E>, Vec<E>> span(Predicate<? super E> predicate)
 	{
 		int split = 0;
 		for (Object o : data) {
@@ -340,12 +340,12 @@ final class VecImpl<E> implements Vec<E>
 		Object[] first = new Object[split], second = new Object[data.length - split];
 		System.arraycopy(data, 0, first, 0, first.length);
 		System.arraycopy(data, first.length, second, 0, second.length);
-		return Pair.of(new VecImpl<>(first), new VecImpl<>(second));
+		return Tup.of(new VecImpl<>(first), new VecImpl<>(second));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Pair<Vec<E>, Vec<E>> partition(Predicate<? super E> predicate)
+	public Tup<Vec<E>, Vec<E>> partition(Predicate<? super E> predicate)
 	{
 		int n = size();
 		Object[] tmp = new Object[size()];
@@ -362,7 +362,7 @@ final class VecImpl<E> implements Vec<E>
 			passed[i] = tmp[i];
 		for (int i = 0; i < falseIndex; i++)
 			failed[i] = tmp[tmp.length - 1 - i];
-		return Pair.of(new VecImpl<>(passed), new VecImpl<>(failed));
+		return Tup.of(new VecImpl<>(passed), new VecImpl<>(failed));
 	}
 
 	@SuppressWarnings("unchecked")

@@ -17,7 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
@@ -49,7 +49,7 @@ class AbstractDoubleIteratorCollectionConsumptionTest
 	void testCollectToMap(final AbstractDoubleIterator iterator,
 			final DoubleFunction<String> keyMapper,
 			final DoubleFunction<Double> valueMapper,
-			final List<Pair<String, Double>> expectedMapPairs)
+			final List<Tup<String, Double>> expectedMapPairs)
 	{
 		final Map<String, Double> expectedMap = expectedMapPairs.stream()
 				.collect(toMap(x -> x._1, x -> x._2));
@@ -64,7 +64,7 @@ class AbstractDoubleIteratorCollectionConsumptionTest
 		return Stream.of(
 				Arguments.of(getSmallDoubleTestIteratorProvider().iter(), keyMapper,
 						valueMapper,
-						asList(Pair.of("10.0", 10.0), Pair.of("11.0", 11.0))),
+						asList(Tup.of("10.0", 10.0), Tup.of("11.0", 11.0))),
 
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(), keyMapper,
 						valueMapper, asList()));
@@ -74,10 +74,10 @@ class AbstractDoubleIteratorCollectionConsumptionTest
 	@MethodSource("groupByTestDataProvider")
 	void testGroupBy(final AbstractDoubleIterator iterator,
 			final DoubleFunction<Integer> classifier,
-			final List<Pair<Integer, double[]>> expectedMapPairs)
+			final List<Tup<Integer, double[]>> expectedMapPairs)
 	{
 		final Map<Integer, double[]> expectedMap = expectedMapPairs.stream()
-				.collect(toMap(Pair::_1, Pair::_2));
+				.collect(toMap(Tup::_1, Tup::_2));
 		final Map<Integer, double[]> actualMap = iterator.groupBy(classifier);
 		assertEquals(expectedMap.keySet(), actualMap.keySet());
 		expectedMap.keySet().stream()
@@ -91,8 +91,8 @@ class AbstractDoubleIteratorCollectionConsumptionTest
 
 		return Stream.of(
 				Arguments.of(getDoubleTestIteratorProvider().iter(), classifier,
-						asList(Pair.of(0, new double[] { 0, 2, 4 }),
-								Pair.of(1, new double[] { 1, 3 }))),
+						asList(Tup.of(0, new double[] { 0, 2, 4 }),
+								Tup.of(1, new double[] { 1, 3 }))),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(), classifier,
 						asList()));
 	}

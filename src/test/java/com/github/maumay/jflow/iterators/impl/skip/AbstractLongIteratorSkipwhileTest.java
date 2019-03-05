@@ -7,7 +7,7 @@ import java.util.function.LongPredicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
@@ -25,10 +25,10 @@ class AbstractLongIteratorSkipwhileTest extends IteratorExampleProvider
 		final AbstractIterableLongs populated = getLongTestIteratorProvider();
 		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
-		final List<Pair<long[], LongPredicate>> testData = asList(
-				Pair.of(new long[] { 0, 1, 2, 3, 4 }, x -> x < -0.1),
-				Pair.of(new long[] { 4 }, x -> x < 3.1),
-				Pair.of(new long[] {}, x -> x < 5));
+		final List<Tup<long[], LongPredicate>> testData = asList(
+				Tup.of(new long[] { 0, 1, 2, 3, 4 }, x -> x < -0.1),
+				Tup.of(new long[] { 4 }, x -> x < 3.1),
+				Tup.of(new long[] {}, x -> x < 5));
 
 		testData.stream().forEach(testCase -> {
 			assertLongIteratorAsExpected(testCase._1(),
@@ -45,7 +45,7 @@ class AbstractLongIteratorSkipwhileTest extends IteratorExampleProvider
 			@Override
 			public AbstractLongIterator iter()
 			{
-				return src.iter().dropWhile(predicate);
+				return src.iter().skipWhile(predicate);
 			}
 		};
 	}

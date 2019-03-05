@@ -14,7 +14,7 @@ import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import com.gihub.maumay.jflow.iterators.misc.Exceptions;
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
@@ -173,9 +173,9 @@ public final class Iter
 	 * @param src the map encapsulating the entries to traverse.
 	 * @return an iterator traversing the key, value pairs of the map.
 	 */
-	public static <K, V> EnhancedIterator<Pair<K, V>> entries(Map<K, V> src)
+	public static <K, V> EnhancedIterator<Tup<K, V>> entries(Map<K, V> src)
 	{
-		return Iter.over(src.entrySet()).map(entry -> Pair.of(entry.getKey(), entry.getValue()));
+		return Iter.over(src.entrySet()).map(entry -> Tup.of(entry.getKey(), entry.getValue()));
 	}
 
 	// Ints

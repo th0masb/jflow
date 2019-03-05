@@ -16,9 +16,20 @@ import com.github.maumay.jflow.iterators.DoubleIterator;
 @FunctionalInterface
 public interface DoubleIterable
 {
+	/**
+	 * Constructs an enhanced double iterator traversing the elements encapsulated
+	 * by this object.
+	 * 
+	 * @return an enhanced iterator traversing the encapsulated elements.
+	 */
 	DoubleIterator iter();
 
-	default void forEach(final DoubleConsumer action)
+	/**
+	 * Consumes this iterator by applying some action to each element in turn.
+	 * 
+	 * @param action the action to apply to each element in this iterator.
+	 */
+	default void forEach(DoubleConsumer action)
 	{
 		iter().forEach(action);
 	}

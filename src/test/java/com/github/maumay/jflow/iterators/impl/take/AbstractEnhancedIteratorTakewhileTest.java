@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.Pair;
+import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
@@ -29,10 +29,10 @@ public class AbstractEnhancedIteratorTakewhileTest extends IteratorExampleProvid
 		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
 		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		final List<Pair<List<String>, Predicate<String>>> testData = asList(
-				Pair.of(asList(), string -> !string.equals("0")),
-				Pair.of(asList("0", "1", "2"), string -> !string.equals("3")),
-				Pair.of(asList("0", "1", "2", "3", "4"), string -> !string.equals("5")));
+		final List<Tup<List<String>, Predicate<String>>> testData = asList(
+				Tup.of(asList(), string -> !string.equals("0")),
+				Tup.of(asList("0", "1", "2"), string -> !string.equals("3")),
+				Tup.of(asList("0", "1", "2", "3", "4"), string -> !string.equals("5")));
 
 		testData.stream().forEach(testCase -> {
 			assertObjectIteratorAsExpected(testCase._1(),
