@@ -79,8 +79,7 @@ public final class ArrayUtils
 	 *         <li>{@code sizeOf(zs) = min(xs.length, ys.length)}</li>
 	 *         </ul>
 	 */
-	public static double[] combine(DoubleBinaryOperator combiner, double[] xs,
-			double[] ys)
+	public static double[] combine(DoubleBinaryOperator combiner, double[] xs, double[] ys)
 	{
 		int newLength = Math.min(xs.length, ys.length);
 		double[] combined = new double[newLength];
@@ -297,14 +296,14 @@ public final class ArrayUtils
 	 * Sequentially applies a mapping function elementwise to an finite input
 	 * collection to produce a double array.
 	 *
+	 * @param    <E> The source element type.
 	 * @param f  The function defining the mapping.
 	 * @param xs The source collection.
 	 * @return An double array of the same length as the source containing the
 	 *         mapped values of the source elements with order retained if the input
 	 *         has a defined order.
 	 */
-	public static <E> double[] doubleMap(ToDoubleFunction<? super E> f,
-			Collection<? extends E> xs)
+	public static <E> double[] doubleMap(ToDoubleFunction<? super E> f, Collection<? extends E> xs)
 	{
 		double[] dest = new double[xs.size()];
 		int counter = 0;
@@ -372,6 +371,7 @@ public final class ArrayUtils
 	 * Sequentially applies a mapping function elementwise to an finite input
 	 * collection to produce a int array.
 	 *
+	 * @param    <E> The source element type.
 	 * @param f  The function defining the mapping.
 	 * @param xs The source collection.
 	 * @return An int array of the same length as the source containing the mapped
@@ -446,14 +446,14 @@ public final class ArrayUtils
 	 * Sequentially applies a mapping function elementwise to an finite input
 	 * collection to produce a long array.
 	 *
+	 * @param    <E> The source element type.
 	 * @param f  The function defining the mapping.
 	 * @param xs The source collection.
 	 * @return An long array of the same length as the source containing the mapped
 	 *         values of the source elements with order retained if the input has a
 	 *         defined order.
 	 */
-	public static <E> long[] longMap(ToLongFunction<? super E> f,
-			Collection<? extends E> xs)
+	public static <E> long[] longMap(ToLongFunction<? super E> f, Collection<? extends E> xs)
 	{
 		long[] dest = new long[xs.size()];
 		int counter = 0;

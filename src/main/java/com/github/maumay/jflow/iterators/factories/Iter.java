@@ -16,8 +16,8 @@ import java.util.function.IntUnaryOperator;
 import com.gihub.maumay.jflow.iterators.misc.Exceptions;
 import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.impl.EmptyIterator;
 import com.github.maumay.jflow.iterators.impl.FunctionIterator;
@@ -78,6 +78,11 @@ public final class Iter
 
 	/**
 	 * Construct an Iterator traversing over all values in the given enumeration.
+	 * 
+	 * @param           <E> The enum type to traverse the values of.
+	 * @param enumclass The class of the enum type to traverse the values of.
+	 * @return An enhanced iterator traversing over all values of the given enum
+	 *         type.
 	 */
 	public static <E extends Enum<E>> EnhancedIterator<E> over(Class<E> enumclass)
 	{
@@ -136,6 +141,7 @@ public final class Iter
 	 * single element Iterator containing that element else an empty Iterator is
 	 * returned.
 	 * 
+	 * @param     <E> The type of element wrapped by the optional.
 	 * @param src the optional value to convert into an iterator.
 	 * @return a single element iterator wrapping the wrapped element if it exists,
 	 *         an empty iterator otherwise.
@@ -148,6 +154,7 @@ public final class Iter
 	/**
 	 * Creates an enhanced iterator traversing the values of some {@link Map}
 	 * 
+	 * @param     <V> The type of the values in the given Map.
 	 * @param src the map encapsulating the values to traverse.
 	 * @return an iterator traversing the input values.
 	 */
@@ -159,6 +166,7 @@ public final class Iter
 	/**
 	 * Creates an enhanced iterator traversing the keys of some {@link Map}
 	 * 
+	 * @param     <K> The type of the keys in the given Map.
 	 * @param src the map encapsulating the keys to traverse.
 	 * @return an iterator traversing the input keys.
 	 */
@@ -170,6 +178,8 @@ public final class Iter
 	/**
 	 * Creates an enhanced iterator traversing the entry pairs of some {@link Map}
 	 * 
+	 * @param     <K> The type of the keys in the source map.
+	 * @param     <V> the type of the values in the source map.
 	 * @param src the map encapsulating the entries to traverse.
 	 * @return an iterator traversing the key, value pairs of the map.
 	 */
@@ -224,8 +234,7 @@ public final class Iter
 	 * @return A IntEnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static IntIterator intsByIndexing(IntUnaryOperator indexingFunction,
-			int indexBound)
+	public static IntIterator intsByIndexing(IntUnaryOperator indexingFunction, int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
 		return new FunctionIterator.OfInt(indexingFunction, indexBound);
@@ -330,8 +339,7 @@ public final class Iter
 	 * @return A LongEnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static LongIterator longsByIndexing(IntToLongFunction indexingFunction,
-			int indexBound)
+	public static LongIterator longsByIndexing(IntToLongFunction indexingFunction, int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
 		return new FunctionIterator.OfLong(indexingFunction, indexBound);
@@ -341,6 +349,7 @@ public final class Iter
 	 * Wraps an existing iterator in a EnhancedIterator to enable use of all extra
 	 * functionality.
 	 *
+	 * @param     <E> The type of elements traversed by the source iterator.
 	 * @param src The iterator to wrap.
 	 * @return A flow wrapping the provided iterator.
 	 */

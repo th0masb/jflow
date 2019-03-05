@@ -78,7 +78,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 
 	/**
 	 * Calculates whether all elements in the iterator created by {@link #iter()}
-	 * are the same according to {@link #equals(Object)}.
+	 * are the same according to {@link Object#equals(Object)}.
 	 * 
 	 * @return True if all elements are equal, false otherwise.
 	 */
@@ -133,6 +133,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * Groups the elements of the iterator created by {@link #iter()} according to
 	 * some classification function.
 	 * 
+	 * @param            <K> The type of the classification values.
 	 * @param classifier The classification function.
 	 * @return see {@link EnhancedIterator#groupBy(Function)}
 	 */
@@ -186,8 +187,14 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to it's
-	 * {@link EnhancedIterator#toMap(Function, Function)} method.
+	 * Builds a Map from the elements in the iterator created by {@link #iter()} by
+	 * applying two functions to each value.
+	 * 
+	 * @param          <K> The type of the keys in the constructed map.
+	 * @param          <V> The type of the values in the constructed map
+	 * @param keyMap   The function determining the map keys.
+	 * @param valueMap The function determining the map values.
+	 * @return see {@link EnhancedIterator#toMap(Function, Function)}
 	 */
 	default <K, V> Map<K, V> toMap(Function<? super E, ? extends K> keyMap,
 			Function<? super E, ? extends V> valueMap)
@@ -196,8 +203,12 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to it's
-	 * {@link EnhancedIterator#associate(Function)} method.
+	 * Builds a Map from the elements in the iterator created by {@link #iter()} by
+	 * associating each with it's image under the provided function.
+	 * 
+	 * @param          <V> the type of the values in the constructed map.
+	 * @param valueMap The function determining the map values.
+	 * @return see {@link EnhancedIterator#associate(Function)}
 	 */
 	default <V> Map<E, V> associate(Function<? super E, ? extends V> valueMap)
 	{
@@ -205,8 +216,10 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to it's
-	 * {@link EnhancedIterator#toList()} method.
+	 * Builds an ArrayList from the elements in the iterator created by
+	 * {@link #iter()}.
+	 * 
+	 * @return see {@link EnhancedIterator#toList()}
 	 */
 	default List<E> toList()
 	{
@@ -214,8 +227,10 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to it's
-	 * {@link EnhancedIterator#toSet()} method.
+	 * Builds an HashSet from the elements in the iterator created by
+	 * {@link #iter()}.
+	 * 
+	 * @return see {@link EnhancedIterator#toSet()}
 	 */
 	default Set<E> toSet()
 	{
@@ -223,8 +238,13 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
-	 * Spawns an enhanced iterator and delegates to it's
-	 * {@link EnhancedIterator#toCollection(Supplier)} method.
+	 * Builds a collection from the elements in the iterator created by
+	 * {@link #iter()}.
+	 * 
+	 * @param                   <C> The type of collection to build
+	 * @param collectionFactory A supplier of empty, mutable instances of the
+	 *                          required collection type.
+	 * @return see {@link EnhancedIterator#toCollection(Supplier)}
 	 */
 	default <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
 	{
