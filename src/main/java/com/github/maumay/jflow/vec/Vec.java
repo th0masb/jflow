@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 import com.github.maumay.jflow.iterables.EnhancedIterable;
@@ -369,25 +370,16 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 		return new VecImpl<>(iterable.iterator());
 	}
 
+	/**
+	 * Create a new {@link Collector} instance which can be used to convert a
+	 * {@link Stream} of elements to a vector.
+	 * 
+	 * @return A Collector used to convert a Stream to a vector.
+	 */
 	static <E> VecCollector<E> collector()
 	{
 		return new VecCollector<>();
 	}
-
-	// /**
-	// * Creates a vector of elements from a Stream source. The argument will be
-	// * consumed, if the stream produces a null reference then an exception will be
-	// * thrown.
-	// *
-	// * @param <E> The element type of the new vector.
-	// * @param source the source of elements
-	// * @return a vector containing all the elements in the source stream.
-	// */
-	// static <E> Vec<E> fromStream(Stream<? extends E> source)
-	// {
-	// return
-	// copy(source.sequential().collect(Collectors.toCollection(ArrayList::new)));
-	// }
 
 	/**
 	 * Creates a vector of elements from an {@link Iterator} source. The argument

@@ -4,6 +4,7 @@ apply(plugin: 'eclipse')
 sourceCompatibility = 1.8
 version = '0.4'
 
+println("Starting")
 jar {
     manifest {
         attributes('Implementation-Title': 'JFlow')
@@ -14,29 +15,18 @@ jar {
 }
 
 sourceSets {
-	main {
-		java {
-			srcDirs = ["src/main/java"]
-		}
-	}
-	
-	test {
-		java {
-			srcDirs = ["src/test/java"]
-		}
-	}
+	main
+	test
 	
 	examples {
-		java {
-			srcDirs = ["src/examples/java"]
-		}
+		compileClasspath += main.output
+		runtimeClasspath += main.output
 	}
 }
 
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
 	testCompile('org.junit.platform:junit-platform-launcher:1.1.1')
