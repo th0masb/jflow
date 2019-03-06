@@ -17,6 +17,7 @@ import java.util.PrimitiveIterator;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
@@ -761,9 +762,14 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return The output of the supplied function applied to this
 	 *         {@link EnhancedIterator}.
 	 */
-	default <R> R collect(Function<? super EnhancedIterator<? extends E>, ? extends R> builder)
+	default <R> R collect(Function<? super EnhancedIterator<E>, ? extends R> builder)
 	{
 		return builder.apply(this);
+	}
+
+	default void consume(Consumer<? super EnhancedIterator<E>> consumptionProcedure)
+	{
+		consumptionProcedure.accept(this);
 	}
 
 	/**

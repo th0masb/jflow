@@ -44,7 +44,7 @@ public final class IteratorAsFunctionParameter
 			this.height = height;
 		}
 
-		static Optional<BoundsXY> pointsCollector(Iterator<? extends Point> source)
+		static Optional<BoundsXY> enclosing(Iterator<? extends Point> source)
 		{
 			if (!source.hasNext()) {
 				return Option.empty();
@@ -116,13 +116,11 @@ public final class IteratorAsFunctionParameter
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws ClassNotFoundException
 	{
-		IteratorAsFunctionParameter.class.getClassLoader()
-				.loadClass("com.github.maumay.jflow.iterators.DoubleIterator");
 		Vec<Point> points = Vec.of(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
 		Optional<BoundsXY> enclosing = points.iter().map(p -> new Point(p.x + 1, p.y + 1))
-				.collect(BoundsXY::pointsCollector);
+				.collect(BoundsXY::enclosing);
 
 		// With our stream version
 		Optional<BoundsXY> enclosing2 = points.stream().map(p -> new Point(p.x + 1, p.y + 1))
