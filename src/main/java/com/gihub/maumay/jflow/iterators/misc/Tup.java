@@ -82,9 +82,9 @@ public final class Tup<T, U>
 	 * @param      <R> The right type of the new tuple.
 	 * @param func The function to apply to the second (right) element of this
 	 *             tuple.
-	 * @returnA new tuple whose left element is the same as this tuple and whose
-	 *          right element is the image of the right element of this tuple under
-	 *          the supplied function.
+	 * @return A new tuple whose left element is the same as this tuple and whose
+	 *         right element is the image of the right element of this tuple under
+	 *         the supplied function.
 	 */
 	public <R> Tup<T, R> rmap(Function<? super U, ? extends R> func)
 	{
@@ -98,9 +98,9 @@ public final class Tup<T, U>
 	 * 
 	 * @param      <S> The left type of the new tuple.
 	 * @param func The function to apply to the first (left) element of this tuple.
-	 * @returnA new tuple whose right element is the same as this tuple and whose
-	 *          left element is the image of the left element of this tuple under
-	 *          the supplied function.
+	 * @return A new tuple whose right element is the same as this tuple and whose
+	 *         left element is the image of the left element of this tuple under the
+	 *         supplied function.
 	 */
 	public <S> Tup<S, U> lmap(Function<? super T, ? extends S> func)
 	{

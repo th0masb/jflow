@@ -5,6 +5,7 @@ import java.util.Objects;
 /**
  * Compact composition of a primitive int value and an object reference.
  * 
+ * @param <T> The type of the object reference in this tuple.
  * @author ThomasB
  * @since 20 Apr 2018
  */
@@ -29,6 +30,7 @@ public final class IntWith<T>
 	/**
 	 * Creates a new pair.
 	 * 
+	 * @param         <T> The type of the object reference in the new pair.
 	 * @param intVal  The primitive int element of the new pair.
 	 * @param element The object reference element of the new pair.
 	 * @return The new pair.

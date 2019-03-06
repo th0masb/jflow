@@ -5,6 +5,7 @@ import java.util.Objects;
 /**
  * Compact composition of a primitive long value and an object reference.
  * 
+ * @param <T> The type of the object reference in this tuple.
  * @author ThomasB
  * @since 20 Apr 2018
  */
@@ -29,6 +30,7 @@ public final class LongWith<T>
 	/**
 	 * Creates a new pair.
 	 * 
+	 * @param         <T> The type of the object reference in the new pair.
 	 * @param longVal The primitive long element of the new pair.
 	 * @param element The object reference element of the new pair.
 	 * @return The new pair.

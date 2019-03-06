@@ -72,6 +72,8 @@ public final class Option
 	 * Performs a 'safe-cast' of a source object to a type specified by the given
 	 * class parameter.
 	 * 
+	 * @param            <R> The type which we will attempt to cast the object
+	 *                   reference to.
 	 * @param src        The object to cast.
 	 * @param targetType The type to attempt to cast to.
 	 * @return The result of the cast if the given object is an instance of the
@@ -90,6 +92,7 @@ public final class Option
 	/**
 	 * Wraps a value in an optional.
 	 *
+	 * @param   <T> The type of the wrapped object reference.
 	 * @param t The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
@@ -101,6 +104,7 @@ public final class Option
 	/**
 	 * Creates an empty optional.
 	 * 
+	 * @param <T> The inferred type parameterisation of the returned optional.
 	 * @return an empty optional.
 	 */
 	public static <T> Optional<T> empty()
@@ -215,6 +219,7 @@ public final class Option
 	 * Given an optional value this method attempts to retrieve the value contained
 	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
 	 *
+	 * @param   <T> The type of the value wrapped by the passed optional.
 	 * @param x The optional to extract a value from.
 	 * @return The value inside the optional if it exists.
 	 */
