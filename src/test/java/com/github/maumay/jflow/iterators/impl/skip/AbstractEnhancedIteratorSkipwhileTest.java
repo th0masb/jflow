@@ -21,10 +21,10 @@ class AbstractEnhancedIteratorSkipwhileTest extends IteratorExampleProvider impl
 	@Test
 	void test()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		final List<Tup<List<String>, Predicate<String>>> testData = asList(
+		List<Tup<List<String>, Predicate<String>>> testData = asList(
 				Tup.of(asList(), string -> !string.equals("5")),
 				Tup.of(asList("3", "4"), string -> !string.equals("3")),
 				Tup.of(asList("0", "1", "2", "3", "4"), string -> !string.equals("0")));

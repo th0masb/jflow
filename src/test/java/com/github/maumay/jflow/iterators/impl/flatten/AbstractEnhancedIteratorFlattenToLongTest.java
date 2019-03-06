@@ -25,17 +25,17 @@ class AbstractEnhancedIteratorFlattenToLongTest extends IteratorExampleProvider
 	@Test
 	void test()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		final Function<String, AbstractLongIterator> flattenMapping1 = string -> repeat(
+		Function<String, AbstractLongIterator> flattenMapping1 = string -> repeat(
 				Long.parseLong(string), 2 * (Integer.parseInt(string) % 2));
 		assertLongIteratorAsExpected(new long[] { 1, 1, 3, 3 },
 				createFlattenToLongsIteratorProviderFrom(populated, flattenMapping1));
 		assertLongIteratorAsExpected(new long[0],
 				createFlattenToLongsIteratorProviderFrom(empty, flattenMapping1));
 
-		final Function<String, AbstractLongIterator> flattenMapping2 = string -> repeat(
+		Function<String, AbstractLongIterator> flattenMapping2 = string -> repeat(
 				Long.parseLong(string), 2 * ((Integer.parseInt(string) + 1) % 2));
 		assertLongIteratorAsExpected(new long[] { 0, 0, 2, 2, 4, 4 },
 				createFlattenToLongsIteratorProviderFrom(populated, flattenMapping2));
@@ -43,7 +43,7 @@ class AbstractEnhancedIteratorFlattenToLongTest extends IteratorExampleProvider
 				createFlattenToLongsIteratorProviderFrom(empty, flattenMapping2));
 	}
 
-	private AbstractLongIterator repeat(final long element, final int nTimes)
+	private AbstractLongIterator repeat(long element, int nTimes)
 	{
 		return new AbstractLongIterator(OptionalInt.of(nTimes)) {
 			int count = 0;
@@ -72,8 +72,8 @@ class AbstractEnhancedIteratorFlattenToLongTest extends IteratorExampleProvider
 	}
 
 	private <E> AbstractIterableLongs createFlattenToLongsIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source,
-			final Function<? super E, ? extends LongIterator> flattenMapping)
+			AbstractEnhancedIterable<E> source,
+			Function<? super E, ? extends LongIterator> flattenMapping)
 	{
 		return new AbstractIterableLongs() {
 			@Override

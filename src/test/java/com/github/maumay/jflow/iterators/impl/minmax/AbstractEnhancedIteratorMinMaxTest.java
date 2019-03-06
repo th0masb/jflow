@@ -4,6 +4,7 @@
 package com.github.maumay.jflow.iterators.impl.minmax;
 
 import static java.lang.Double.parseDouble;
+import static java.util.Comparator.comparingDouble;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,49 +28,41 @@ class AbstractEnhancedIteratorMinMaxTest extends IteratorExampleProvider
 {
 	@ParameterizedTest
 	@MethodSource("minByKeyTestDataProvider")
-	void testMinByKey(final Comparator<String> key, final String expectedPopulatedResult)
+	void testMinByKey(Comparator<String> key, String expectedPopulatedResult)
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iterator().minOption(key);
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		Optional<String> result = populated.iterator().minOption(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		assertFalse(empty.iterator().minOption(key).isPresent());
 	}
 
 	static Stream<Arguments> minByKeyTestDataProvider()
 	{
-		return Stream.of(
-				Arguments.of(Comparator.comparingDouble((String s) -> -parseDouble(s)),
-						"4"),
-				Arguments.of(Comparator
-						.comparingDouble((String s) -> Double.POSITIVE_INFINITY), "0"),
-				Arguments.of(Comparator
-						.comparingDouble((String s) -> Double.NEGATIVE_INFINITY), "0"));
+		return Stream.of(Arguments.of(comparingDouble((String s) -> -parseDouble(s)), "4"),
+				Arguments.of(comparingDouble((String s) -> Double.POSITIVE_INFINITY), "0"),
+				Arguments.of(comparingDouble((String s) -> Double.NEGATIVE_INFINITY), "0"));
 	}
 
 	@ParameterizedTest
 	@MethodSource("maxByKeyTestDataProvider")
-	void testMax(final Comparator<String> key, final String expectedPopulatedResult)
+	void testMax(Comparator<String> key, String expectedPopulatedResult)
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final Optional<String> result = populated.iterator().maxOption(key);
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		Optional<String> result = populated.iterator().maxOption(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		assertFalse(empty.iterator().maxOption(key).isPresent());
 	}
 
 	static Stream<Arguments> maxByKeyTestDataProvider()
 	{
-		return Stream.of(
-				Arguments.of(Comparator.comparingDouble((String s) -> -parseDouble(s)),
-						"0"),
-				Arguments.of(Comparator
-						.comparingDouble((String s) -> Double.POSITIVE_INFINITY), "0"),
-				Arguments.of(Comparator
-						.comparingDouble((String s) -> Double.NEGATIVE_INFINITY), "0"));
+		return Stream.of(Arguments.of(comparingDouble((String s) -> -parseDouble(s)), "0"),
+				Arguments.of(comparingDouble((String s) -> Double.POSITIVE_INFINITY), "0"),
+				Arguments.of(comparingDouble((String s) -> Double.NEGATIVE_INFINITY), "0"));
 	}
 }

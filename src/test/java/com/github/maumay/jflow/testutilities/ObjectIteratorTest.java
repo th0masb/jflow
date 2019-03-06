@@ -18,16 +18,15 @@ import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
  */
 public interface ObjectIteratorTest
 {
-	default <T> void assertObjectIteratorAsExpected(final List<T> expectedElements,
-			final AbstractEnhancedIterable<T> iteratorProvider)
+	default <T> void assertObjectIteratorAsExpected(List<T> expectedElements,
+			AbstractEnhancedIterable<T> iteratorProvider)
 	{
 		assertSizeAsExpected(expectedElements, iteratorProvider.iterator());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
 		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
-		assertAlternatingNextAndSkipCallsAsExpected(expectedElements,
-				iteratorProvider.iterator());
+		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
 	}
 
 	static <T> void assertSizeAsExpected(List<T> expectedElements,
@@ -38,15 +37,15 @@ public interface ObjectIteratorTest
 		}
 	}
 
-	static <T> void assertSkippingAsExpected(final List<T> expectedElements,
-			final AbstractEnhancedIterator<T> iterator)
+	static <T> void assertSkippingAsExpected(List<T> expectedElements,
+			AbstractEnhancedIterator<T> iterator)
 	{
 		IntStream.range(0, expectedElements.size()).forEach(i -> iterator.skip());
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
-	static <T> void assertNextElementChecksAsExpected(final List<T> expectedElements,
-			final AbstractEnhancedIterator<T> iterator)
+	static <T> void assertNextElementChecksAsExpected(List<T> expectedElements,
+			AbstractEnhancedIterator<T> iterator)
 	{
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			assertTrue(iterator.hasNext());
@@ -55,10 +54,10 @@ public interface ObjectIteratorTest
 		assertFalse(iterator.hasNext());
 	}
 
-	static <T> void assertStandardIterationAsExpected(final List<T> expectedElements,
-			final AbstractEnhancedIterator<T> iterator)
+	static <T> void assertStandardIterationAsExpected(List<T> expectedElements,
+			AbstractEnhancedIterator<T> iterator)
 	{
-		final List<T> recoveredElements = new ArrayList<>();
+		List<T> recoveredElements = new ArrayList<>();
 		while (iterator.hasNext()) {
 			recoveredElements.add(iterator.next());
 		}
@@ -67,10 +66,10 @@ public interface ObjectIteratorTest
 		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static <T> void assertUncheckedIterationAsExpected(final List<T> expectedElements,
-			final AbstractEnhancedIterator<T> iterator)
+	static <T> void assertUncheckedIterationAsExpected(List<T> expectedElements,
+			AbstractEnhancedIterator<T> iterator)
 	{
-		final List<T> recoveredElements = new ArrayList<>();
+		List<T> recoveredElements = new ArrayList<>();
 		IntStream.range(0, expectedElements.size())
 				.forEach(i -> recoveredElements.add(iterator.next()));
 
@@ -79,11 +78,10 @@ public interface ObjectIteratorTest
 		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static <T> void assertAlternatingNextAndSkipCallsAsExpected(
-			final List<T> expectedElements, final AbstractEnhancedIterator<T> iterator)
+	static <T> void assertAlternatingNextAndSkipCallsAsExpected(List<T> expectedElements,
+			AbstractEnhancedIterator<T> iterator)
 	{
-		final List<T> expectedOutcome = new ArrayList<>(),
-				recoveredElements = new ArrayList<>();
+		List<T> expectedOutcome = new ArrayList<>(), recoveredElements = new ArrayList<>();
 
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			if (i % 2 == 0) {

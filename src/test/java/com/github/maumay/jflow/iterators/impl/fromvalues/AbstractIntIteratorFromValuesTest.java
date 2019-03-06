@@ -21,10 +21,9 @@ class AbstractIntIteratorFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final int[] source)
+	void testCreationAsExpected(int[] source)
 	{
-		assertIntIteratorAsExpected(source,
-				getCreationFromValuesIteratorProvider(source));
+		assertIntIteratorAsExpected(source, getCreationFromValuesIteratorProvider(source));
 	}
 
 	static Stream<Arguments> creationTestDataProvider()
@@ -32,7 +31,7 @@ class AbstractIntIteratorFromValuesTest implements IteratorTest
 		return Stream.of(Arguments.of(new int[0]), Arguments.of(new int[] { 1, 2 }));
 	}
 
-	AbstractIterableInts getCreationFromValuesIteratorProvider(final int[] source)
+	AbstractIterableInts getCreationFromValuesIteratorProvider(int[] source)
 	{
 		return new AbstractIterableInts() {
 			@Override

@@ -19,9 +19,9 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	@Test
 	public void testAbstractFlowMapToLong()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		final ToLongFunction<String> mapper = Long::parseLong;
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		ToLongFunction<String> mapper = Long::parseLong;
 
 		assertLongIteratorAsExpected(new long[] { 0, 1, 2, 3, 4 },
 				createMapToLongIteratorProviderFrom(populated, mapper));
@@ -30,7 +30,7 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	}
 
 	private <T> AbstractIterableLongs createMapToLongIteratorProviderFrom(
-			final AbstractEnhancedIterable<T> src, final ToLongFunction<T> mapper)
+			AbstractEnhancedIterable<T> src, ToLongFunction<T> mapper)
 	{
 		return new AbstractIterableLongs() {
 			@Override
@@ -44,9 +44,9 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	@Test
 	public void testAbstractIntFlowMapToLong()
 	{
-		final AbstractIterableInts populated = getIntTestIteratorProvider();
+		AbstractIterableInts populated = getIntTestIteratorProvider();
 		AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		final IntToLongFunction mapper = x -> (long) x + 1;
+		IntToLongFunction mapper = x -> (long) x + 1;
 
 		assertLongIteratorAsExpected(new long[] { 1, 2, 3, 4, 5 },
 				createIntMapToLongIteratorProviderFrom(populated, mapper));
@@ -54,8 +54,8 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 				createIntMapToLongIteratorProviderFrom(empty, mapper));
 	}
 
-	private AbstractIterableLongs createIntMapToLongIteratorProviderFrom(
-			AbstractIterableInts src, IntToLongFunction mapper)
+	private AbstractIterableLongs createIntMapToLongIteratorProviderFrom(AbstractIterableInts src,
+			IntToLongFunction mapper)
 	{
 		return new AbstractIterableLongs() {
 			@Override
@@ -69,9 +69,9 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	@Test
 	public void testAbstractDoubleFlowMapToLong()
 	{
-		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		final DoubleToLongFunction mapper = x -> (long) (x + 1.6);
+		AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
+		AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
+		DoubleToLongFunction mapper = x -> (long) (x + 1.6);
 
 		assertLongIteratorAsExpected(new long[] { 1, 2, 3, 4, 5 },
 				createDoubleMapToLongIteratorProviderFrom(populated, mapper));

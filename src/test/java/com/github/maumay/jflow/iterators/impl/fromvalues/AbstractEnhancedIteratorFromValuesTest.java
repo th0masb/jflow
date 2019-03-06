@@ -20,7 +20,7 @@ class AbstractEnhancedIteratorFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final String[] source)
+	void testCreationAsExpected(String[] source)
 	{
 		assertObjectIteratorAsExpected(asList(source),
 				getCreationFromValuesIteratorProvider(source));
@@ -32,7 +32,7 @@ class AbstractEnhancedIteratorFromValuesTest implements IteratorTest
 				Arguments.of(new Object[] { new String[] { "1", "1" } }));
 	}
 
-	<E> AbstractEnhancedIterable<E> getCreationFromValuesIteratorProvider(final E[] source)
+	<E> AbstractEnhancedIterable<E> getCreationFromValuesIteratorProvider(E[] source)
 	{
 		return new AbstractEnhancedIterable<E>() {
 			@Override

@@ -16,19 +16,17 @@ import com.github.maumay.jflow.utils.Tup;
 /**
  * @author t
  */
-class AbstractDoubleIteratorSkipwhileTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractDoubleIteratorSkipwhileTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
+		AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
+		AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
 
-		final List<Tup<double[], DoublePredicate>> testData = asList(
+		List<Tup<double[], DoublePredicate>> testData = asList(
 				Tup.of(new double[] { 0, 1, 2, 3, 4 }, x -> x < -0.1),
-				Tup.of(new double[] { 4 }, x -> x < 3.1),
-				Tup.of(new double[] {}, x -> x < 5));
+				Tup.of(new double[] { 4 }, x -> x < 3.1), Tup.of(new double[] {}, x -> x < 5));
 
 		testData.stream().forEach(testCase -> {
 			assertDoubleIteratorAsExpected(testCase._1(),
@@ -38,8 +36,8 @@ class AbstractDoubleIteratorSkipwhileTest extends IteratorExampleProvider
 		});
 	}
 
-	private AbstractIterableDoubles createSkipwhileIteratorProviderFrom(
-			AbstractIterableDoubles src, DoublePredicate predicate)
+	private AbstractIterableDoubles createSkipwhileIteratorProviderFrom(AbstractIterableDoubles src,
+			DoublePredicate predicate)
 	{
 		return new AbstractIterableDoubles() {
 			@Override

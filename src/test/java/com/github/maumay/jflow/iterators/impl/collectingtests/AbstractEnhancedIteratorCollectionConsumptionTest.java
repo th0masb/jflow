@@ -34,19 +34,16 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 {
 	@ParameterizedTest
 	@MethodSource("collectToCollectionTestDataProvider")
-	void testCollectToCollection(final AbstractEnhancedIterator<String> iterator,
-			final Supplier<Collection<String>> containerConstructor,
-			final Collection<String> expectedResult)
+	void testCollectToCollection(AbstractEnhancedIterator<String> iterator,
+			Supplier<Collection<String>> containerConstructor, Collection<String> expectedResult)
 	{
 		assertEquals(expectedResult, iterator.toCollection(containerConstructor));
 	}
 
 	static Stream<Arguments> collectToCollectionTestDataProvider()
 	{
-		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
-						(Supplier<Collection<String>>) ArrayList::new,
-						asList("0", "1", "2", "3", "4")),
+		return Stream.of(Arguments.of(getObjectTestIteratorProvider().iterator(),
+				(Supplier<Collection<String>>) ArrayList::new, asList("0", "1", "2", "3", "4")),
 				Arguments.of(getObjectTestIteratorProvider().iterator(),
 						(Supplier<Collection<String>>) HashSet::new,
 						new HashSet<>(asList("0", "1", "2", "3", "4"))),
@@ -58,23 +55,20 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 
 	@ParameterizedTest
 	@MethodSource("collectToMapTestDataProvider")
-	void testCollectToMap(final AbstractEnhancedIterator<String> iterator,
-			final UnaryOperator<String> keyMapper,
-			final Function<String, Integer> valueMapper,
-			final List<Tup<String, Integer>> expectedMapPairs)
+	void testCollectToMap(AbstractEnhancedIterator<String> iterator,
+			UnaryOperator<String> keyMapper, Function<String, Integer> valueMapper,
+			List<Tup<String, Integer>> expectedMapPairs)
 	{
-		final Map<String, Integer> expectedMap = expectedMapPairs.stream()
+		Map<String, Integer> expectedMap = expectedMapPairs.stream()
 				.collect(toMap(Tup::_1, Tup::_2));
 		assertEquals(expectedMap, iterator.toMap(keyMapper, valueMapper));
 	}
 
 	static Stream<Arguments> collectToMapTestDataProvider()
 	{
-		return Stream.of(
-				Arguments.of(getSmallObjectTestIteratorProvider().iterator(),
-						(UnaryOperator<String>) x -> x + x,
-						(Function<String, Integer>) Integer::parseInt,
-						asList(Tup.of("1010", 10), Tup.of("1111", 11))),
+		return Stream.of(Arguments.of(getSmallObjectTestIteratorProvider().iterator(),
+				(UnaryOperator<String>) x -> x + x, (Function<String, Integer>) Integer::parseInt,
+				asList(Tup.of("1010", 10), Tup.of("1111", 11))),
 
 				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
 						(UnaryOperator<String>) x -> x + x,
@@ -83,11 +77,10 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 
 	@ParameterizedTest
 	@MethodSource("groupByTestDataProvider")
-	void testGroupBy(final AbstractEnhancedIterator<String> iterator,
-			final Function<String, Integer> classifier,
-			final List<Tup<Integer, List<String>>> expectedMapPairs)
+	void testGroupBy(AbstractEnhancedIterator<String> iterator,
+			Function<String, Integer> classifier, List<Tup<Integer, List<String>>> expectedMapPairs)
 	{
-		final Map<Integer, List<String>> expectedMap = expectedMapPairs.stream()
+		Map<Integer, List<String>> expectedMap = expectedMapPairs.stream()
 				.collect(toMap(Tup::_1, Tup::_2));
 		assertEquals(expectedMap, iterator.groupBy(classifier));
 	}
@@ -97,8 +90,7 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 		return Stream.of(
 				Arguments.of(getObjectTestIteratorProvider().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2,
-						asList(Tup.of(0, asList("0", "2", "4")),
-								Tup.of(1, asList("1", "3")))),
+						asList(Tup.of(0, asList("0", "2", "4")), Tup.of(1, asList("1", "3")))),
 
 				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2, asList()));

@@ -24,8 +24,7 @@ class AbstractLongIteratorPredicateConsumptionTest extends IteratorExampleProvid
 {
 	@ParameterizedTest
 	@MethodSource("allEqualTestDataProvider")
-	void testAllEqual(final AbstractLongIterator iterator,
-			final Boolean expectedResult)
+	void testAllEqual(AbstractLongIterator iterator, Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual());
 	}
@@ -34,8 +33,7 @@ class AbstractLongIteratorPredicateConsumptionTest extends IteratorExampleProvid
 	{
 		return Stream.of(Arguments.of(getAllEqualFlow(), Boolean.TRUE),
 				Arguments.of(getLongTestIteratorProvider().iter(), Boolean.FALSE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(),
-						Boolean.TRUE));
+				Arguments.of(getEmptyLongTestIteratorProvider().iter(), Boolean.TRUE));
 	}
 
 	private static AbstractLongIterator getAllEqualFlow()
@@ -68,8 +66,8 @@ class AbstractLongIteratorPredicateConsumptionTest extends IteratorExampleProvid
 
 	@ParameterizedTest
 	@MethodSource("allMatchTestDataProvider")
-	void testAllMatch(final AbstractLongIterator iterator,
-			final LongPredicate predicate, final Boolean expectedResult)
+	void testAllMatch(AbstractLongIterator iterator, LongPredicate predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate));
 	}
@@ -77,20 +75,20 @@ class AbstractLongIteratorPredicateConsumptionTest extends IteratorExampleProvid
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x > -1, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x < 3, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x > -1, Boolean.TRUE));
+				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3,
+						Boolean.FALSE),
+				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1,
+						Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3,
+						Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1,
+						Boolean.TRUE));
 	}
 
 	@ParameterizedTest
 	@MethodSource("anyMatchTestDataProvider")
-	void testAnyMatch(final AbstractLongIterator iterator,
-			final LongPredicate predicate, final Boolean expectedResult)
+	void testAnyMatch(AbstractLongIterator iterator, LongPredicate predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate));
 	}
@@ -98,20 +96,20 @@ class AbstractLongIteratorPredicateConsumptionTest extends IteratorExampleProvid
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x < -1, Boolean.FALSE),
-				Arguments.of(getLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x > 3, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x > -1, Boolean.FALSE));
+				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x < -1,
+						Boolean.FALSE),
+				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > 3,
+						Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3,
+						Boolean.FALSE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1,
+						Boolean.FALSE));
 	}
 
 	@ParameterizedTest
 	@MethodSource("noneMatchTestDataProvider")
-	void testNoneMatch(final AbstractLongIterator iterator,
-			final LongPredicate predicate, final Boolean expectedResult)
+	void testNoneMatch(AbstractLongIterator iterator, LongPredicate predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate));
 	}
@@ -119,13 +117,13 @@ class AbstractLongIteratorPredicateConsumptionTest extends IteratorExampleProvid
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x < -1, Boolean.TRUE),
-				Arguments.of(getLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x > 3, Boolean.FALSE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x < 3, Boolean.TRUE),
-				Arguments.of(getEmptyLongTestIteratorProvider().iter(),
-						(LongPredicate) x -> x > -1, Boolean.TRUE));
+				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x < -1,
+						Boolean.TRUE),
+				Arguments.of(getLongTestIteratorProvider().iter(), (LongPredicate) x -> x > 3,
+						Boolean.FALSE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x < 3,
+						Boolean.TRUE),
+				Arguments.of(getEmptyLongTestIteratorProvider().iter(), (LongPredicate) x -> x > -1,
+						Boolean.TRUE));
 	}
 }

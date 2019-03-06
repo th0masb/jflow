@@ -20,13 +20,11 @@ import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 /**
  * @author ThomasB
  */
-class AbstractDoubleIteratorPredicateConsumptionTest
-		extends IteratorExampleProvider
+class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProvider
 {
 	@ParameterizedTest
 	@MethodSource("allEqualTestDataProvider")
-	void testAllEqual(final AbstractDoubleIterator iterator,
-			final Boolean expectedResult)
+	void testAllEqual(AbstractDoubleIterator iterator, Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual());
 	}
@@ -35,8 +33,7 @@ class AbstractDoubleIteratorPredicateConsumptionTest
 	{
 		return Stream.of(Arguments.of(getAllEqualFlow(), Boolean.TRUE),
 				Arguments.of(getDoubleTestIteratorProvider().iter(), Boolean.FALSE),
-				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
-						Boolean.TRUE));
+				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(), Boolean.TRUE));
 	}
 
 	private static AbstractDoubleIterator getAllEqualFlow()
@@ -69,8 +66,8 @@ class AbstractDoubleIteratorPredicateConsumptionTest
 
 	@ParameterizedTest
 	@MethodSource("allMatchTestDataProvider")
-	void testAllMatch(final AbstractDoubleIterator iterator,
-			final DoublePredicate predicate, final Boolean expectedResult)
+	void testAllMatch(AbstractDoubleIterator iterator, DoublePredicate predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate));
 	}
@@ -78,10 +75,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x > -1, Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < 3,
+						Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > -1,
+						Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
@@ -90,8 +87,8 @@ class AbstractDoubleIteratorPredicateConsumptionTest
 
 	@ParameterizedTest
 	@MethodSource("anyMatchTestDataProvider")
-	void testAnyMatch(final AbstractDoubleIterator iterator,
-			final DoublePredicate predicate, final Boolean expectedResult)
+	void testAnyMatch(AbstractDoubleIterator iterator, DoublePredicate predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate));
 	}
@@ -99,10 +96,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x < -1, Boolean.FALSE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x > 3, Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < -1,
+						Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > 3,
+						Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.FALSE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
@@ -111,8 +108,8 @@ class AbstractDoubleIteratorPredicateConsumptionTest
 
 	@ParameterizedTest
 	@MethodSource("noneMatchTestDataProvider")
-	void testNoneMatch(final AbstractDoubleIterator iterator,
-			final DoublePredicate predicate, final Boolean expectedResult)
+	void testNoneMatch(AbstractDoubleIterator iterator, DoublePredicate predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate));
 	}
@@ -120,10 +117,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x < -1, Boolean.TRUE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x > 3, Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < -1,
+						Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > 3,
+						Boolean.FALSE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),

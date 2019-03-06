@@ -21,10 +21,9 @@ class AbstractIntIteratorReverseFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final int[] source)
+	void testCreationAsExpected(int[] source)
 	{
-		assertIntIteratorAsExpected(reverse(source),
-				getCreationFromValuesIteratorProvider(source));
+		assertIntIteratorAsExpected(reverse(source), getCreationFromValuesIteratorProvider(source));
 	}
 
 	static Stream<Arguments> creationTestDataProvider()
@@ -32,16 +31,16 @@ class AbstractIntIteratorReverseFromValuesTest implements IteratorTest
 		return Stream.of(Arguments.of(new int[0]), Arguments.of(new int[] { 1, 2 }));
 	}
 
-	int[] reverse(final int[] toReverse)
+	int[] reverse(int[] toReverse)
 	{
-		final int[] reversed = new int[toReverse.length];
+		int[] reversed = new int[toReverse.length];
 		for (int i = 0; i < toReverse.length; i++) {
 			reversed[i] = toReverse[toReverse.length - 1 - i];
 		}
 		return reversed;
 	}
 
-	AbstractIterableInts getCreationFromValuesIteratorProvider(final int[] source)
+	AbstractIterableInts getCreationFromValuesIteratorProvider(int[] source)
 	{
 		return new AbstractIterableInts() {
 			@Override

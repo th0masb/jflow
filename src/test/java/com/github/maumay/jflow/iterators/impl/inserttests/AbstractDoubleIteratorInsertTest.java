@@ -13,15 +13,14 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
 /**
  * @author ThomasB
  */
-class AbstractDoubleIteratorInsertTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractDoubleIteratorInsertTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-		final AbstractIterableDoubles small = getSmallDoubleTestIteratorProvider();
+		AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
+		AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
+		AbstractIterableDoubles small = getSmallDoubleTestIteratorProvider();
 
 		assertDoubleIteratorAsExpected(new double[] { 10, 11, 0, 1, 2, 3, 4 },
 				createInsertIteratorProviderFrom(populated, small));
@@ -34,8 +33,8 @@ class AbstractDoubleIteratorInsertTest extends IteratorExampleProvider
 				createInsertIteratorProviderFrom(empty, empty));
 	}
 
-	private AbstractIterableDoubles createInsertIteratorProviderFrom(
-			final AbstractIterableDoubles source, final AbstractIterableDoubles toInsert)
+	private AbstractIterableDoubles createInsertIteratorProviderFrom(AbstractIterableDoubles source,
+			AbstractIterableDoubles toInsert)
 	{
 		return new AbstractIterableDoubles() {
 			@Override

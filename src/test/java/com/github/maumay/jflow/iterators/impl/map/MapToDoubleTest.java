@@ -25,9 +25,9 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	@Test
 	public void testAbstractFlowMapToDouble()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		final ToDoubleFunction<String> mapper = Double::parseDouble;
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		ToDoubleFunction<String> mapper = Double::parseDouble;
 
 		assertDoubleIteratorAsExpected(new double[] { 0, 1, 2, 3, 4 },
 				createMapToDoubleIteratorProviderFrom(populated, mapper));
@@ -36,7 +36,7 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	}
 
 	private <T> AbstractIterableDoubles createMapToDoubleIteratorProviderFrom(
-			final AbstractEnhancedIterable<T> src, final ToDoubleFunction<T> mapper)
+			AbstractEnhancedIterable<T> src, ToDoubleFunction<T> mapper)
 	{
 		return new AbstractIterableDoubles() {
 			@Override
@@ -50,9 +50,9 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	@Test
 	public void testAbstractLongFlowMapToDouble()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
-		final LongToDoubleFunction mapper = x -> x + 3.2;
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		LongToDoubleFunction mapper = x -> x + 3.2;
 
 		assertDoubleIteratorAsExpected(new double[] { 3.2, 4.2, 5.2, 6.2, 7.2 },
 				createLongMapToDoubleIteratorProviderFrom(populated, mapper));
@@ -75,9 +75,9 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	@Test
 	public void testAbstractIntFlowMapToDouble()
 	{
-		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		final IntToDoubleFunction mapper = x -> x + 1.6;
+		AbstractIterableInts populated = getIntTestIteratorProvider();
+		AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
+		IntToDoubleFunction mapper = x -> x + 1.6;
 
 		assertDoubleIteratorAsExpected(new double[] { 1.6, 2.6, 3.6, 4.6, 5.6 },
 				createIntMapToDoubleIteratorProviderFrom(populated, mapper));

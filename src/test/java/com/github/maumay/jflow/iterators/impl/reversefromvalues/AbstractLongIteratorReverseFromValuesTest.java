@@ -21,7 +21,7 @@ class AbstractLongIteratorReverseFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final long[] source)
+	void testCreationAsExpected(long[] source)
 	{
 		assertLongIteratorAsExpected(reverse(source),
 				getCreationFromValuesIteratorProvider(source));
@@ -32,16 +32,16 @@ class AbstractLongIteratorReverseFromValuesTest implements IteratorTest
 		return Stream.of(Arguments.of(new long[0]), Arguments.of(new long[] { 1, 2 }));
 	}
 
-	long[] reverse(final long[] toReverse)
+	long[] reverse(long[] toReverse)
 	{
-		final long[] reversed = new long[toReverse.length];
+		long[] reversed = new long[toReverse.length];
 		for (int i = 0; i < toReverse.length; i++) {
 			reversed[i] = toReverse[toReverse.length - 1 - i];
 		}
 		return reversed;
 	}
 
-	AbstractIterableLongs getCreationFromValuesIteratorProvider(final long[] source)
+	AbstractIterableLongs getCreationFromValuesIteratorProvider(long[] source)
 	{
 		return new AbstractIterableLongs() {
 			@Override

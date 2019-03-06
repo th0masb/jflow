@@ -23,22 +23,22 @@ class AbstractEnhancedIteratorSliceTest extends IteratorExampleProvider implemen
 	@Test
 	void test()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		final IntUnaryOperator allSlicedOperator = i -> i;
+		IntUnaryOperator allSlicedOperator = i -> i;
 		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4"),
 				createSlicedIteratorProviderFrom(populated, allSlicedOperator));
 		assertObjectIteratorAsExpected(asList(),
 				createSlicedIteratorProviderFrom(empty, allSlicedOperator));
 
-		final IntUnaryOperator someSlicedOperator = i -> 2 * i;
+		IntUnaryOperator someSlicedOperator = i -> 2 * i;
 		assertObjectIteratorAsExpected(asList("0", "2", "4"),
 				createSlicedIteratorProviderFrom(populated, someSlicedOperator));
 		assertObjectIteratorAsExpected(asList(),
 				createSlicedIteratorProviderFrom(empty, someSlicedOperator));
 
-		final IntUnaryOperator noneSlicedOperator = i -> i + 5;
+		IntUnaryOperator noneSlicedOperator = i -> i + 5;
 		assertObjectIteratorAsExpected(asList(),
 				createSlicedIteratorProviderFrom(populated, noneSlicedOperator));
 		assertObjectIteratorAsExpected(asList(),
@@ -46,7 +46,7 @@ class AbstractEnhancedIteratorSliceTest extends IteratorExampleProvider implemen
 	}
 
 	private <E> AbstractEnhancedIterable<E> createSlicedIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source, final IntUnaryOperator slicemap)
+			AbstractEnhancedIterable<E> source, IntUnaryOperator slicemap)
 	{
 		return new AbstractEnhancedIterable<E>() {
 			@Override

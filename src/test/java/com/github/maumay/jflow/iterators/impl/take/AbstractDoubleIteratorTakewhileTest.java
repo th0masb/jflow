@@ -16,16 +16,15 @@ import com.github.maumay.jflow.utils.Tup;
 /**
  * @author t
  */
-class AbstractDoubleIteratorTakewhileTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractDoubleIteratorTakewhileTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
+		AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
+		AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
 
-		final List<Tup<double[], DoublePredicate>> testData = asList(
+		List<Tup<double[], DoublePredicate>> testData = asList(
 				Tup.of(new double[] {}, x -> x < -0.1),
 				Tup.of(new double[] { 0, 1, 2, 3 }, x -> x < 3.1),
 				Tup.of(new double[] { 0, 1, 2, 3, 4 }, x -> x < 5));
@@ -38,8 +37,8 @@ class AbstractDoubleIteratorTakewhileTest extends IteratorExampleProvider
 		});
 	}
 
-	private AbstractIterableDoubles createTakewhileIteratorProviderFrom(
-			AbstractIterableDoubles src, DoublePredicate predicate)
+	private AbstractIterableDoubles createTakewhileIteratorProviderFrom(AbstractIterableDoubles src,
+			DoublePredicate predicate)
 	{
 		return new AbstractIterableDoubles() {
 			@Override

@@ -15,24 +15,22 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
 /**
  * @author ThomasB
  */
-class AbstractIntIteratorAccumulationTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractIntIteratorAccumulationTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void testAccumulationWithoutId()
 	{
-		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
+		AbstractIterableInts populated = getIntTestIteratorProvider();
+		AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
 
 		assertIntIteratorAsExpected(new int[] { 0, 1, 3, 6, 10 },
-				createAccumulationWithoutIdIteratorProviderFrom(populated,
-						(a, b) -> a + b));
+				createAccumulationWithoutIdIteratorProviderFrom(populated, (a, b) -> a + b));
 		assertIntIteratorAsExpected(new int[] {},
 				createAccumulationWithoutIdIteratorProviderFrom(empty, (a, b) -> a + b));
 	}
 
 	private AbstractIterableInts createAccumulationWithoutIdIteratorProviderFrom(
-			final AbstractIterableInts source, final IntBinaryOperator accumulator)
+			AbstractIterableInts source, IntBinaryOperator accumulator)
 	{
 		return new AbstractIterableInts() {
 			@Override
@@ -46,19 +44,17 @@ class AbstractIntIteratorAccumulationTest extends IteratorExampleProvider
 	@Test
 	void testAccumulationWithId()
 	{
-		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
+		AbstractIterableInts populated = getIntTestIteratorProvider();
+		AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
 
 		assertIntIteratorAsExpected(new int[] { 5, 6, 8, 11, 15 },
-				createAccumulationWithIdIteratorProviderFrom(populated, 5,
-						(a, b) -> a + b));
+				createAccumulationWithIdIteratorProviderFrom(populated, 5, (a, b) -> a + b));
 		assertIntIteratorAsExpected(new int[] {},
 				createAccumulationWithIdIteratorProviderFrom(empty, 5, (a, b) -> a + b));
 	}
 
 	private AbstractIterableInts createAccumulationWithIdIteratorProviderFrom(
-			final AbstractIterableInts source, final int id,
-			final IntBinaryOperator accumulator)
+			AbstractIterableInts source, int id, IntBinaryOperator accumulator)
 	{
 		return new AbstractIterableInts() {
 			@Override

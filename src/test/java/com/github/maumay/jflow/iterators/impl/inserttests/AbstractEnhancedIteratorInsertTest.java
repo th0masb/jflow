@@ -17,9 +17,9 @@ class AbstractEnhancedIteratorInsertTest extends IteratorExampleProvider impleme
 	@Test
 	void test()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> small = getSmallObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> small = getSmallObjectTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList("10", "11", "0", "1", "2", "3", "4"),
 				createinsertIteratorProviderFrom(populated, small));
@@ -32,7 +32,7 @@ class AbstractEnhancedIteratorInsertTest extends IteratorExampleProvider impleme
 	}
 
 	private <E> AbstractEnhancedIterable<E> createinsertIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source, final AbstractEnhancedIterable<E> toInsert)
+			AbstractEnhancedIterable<E> source, AbstractEnhancedIterable<E> toInsert)
 	{
 		return new AbstractEnhancedIterable<E>() {
 			@Override

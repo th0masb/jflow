@@ -20,22 +20,22 @@ class AbstractEnhancedIteratorFilterTest extends IteratorExampleProvider impleme
 	@Test
 	void test()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		final Predicate<String> allFilteredPredicate = string -> parseInt(string) < 0;
+		Predicate<String> allFilteredPredicate = string -> parseInt(string) < 0;
 		assertObjectIteratorAsExpected(asList(),
 				createFilterIteratorProviderFrom(populated, allFilteredPredicate));
 		assertObjectIteratorAsExpected(asList(),
 				createFilterIteratorProviderFrom(empty, allFilteredPredicate));
 
-		final Predicate<String> someFilteredPredicate = string -> parseInt(string) < 3;
+		Predicate<String> someFilteredPredicate = string -> parseInt(string) < 3;
 		assertObjectIteratorAsExpected(asList("0", "1", "2"),
 				createFilterIteratorProviderFrom(populated, someFilteredPredicate));
 		assertObjectIteratorAsExpected(asList(),
 				createFilterIteratorProviderFrom(empty, someFilteredPredicate));
 
-		final Predicate<String> noneFilteredPredicate = string -> parseInt(string) < 5;
+		Predicate<String> noneFilteredPredicate = string -> parseInt(string) < 5;
 		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4"),
 				createFilterIteratorProviderFrom(populated, noneFilteredPredicate));
 		assertObjectIteratorAsExpected(asList(),
@@ -43,7 +43,7 @@ class AbstractEnhancedIteratorFilterTest extends IteratorExampleProvider impleme
 	}
 
 	private <E> AbstractEnhancedIterable<E> createFilterIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source, final Predicate<? super E> predicate)
+			AbstractEnhancedIterable<E> source, Predicate<? super E> predicate)
 	{
 		return new AbstractEnhancedIterable<E>() {
 			@Override

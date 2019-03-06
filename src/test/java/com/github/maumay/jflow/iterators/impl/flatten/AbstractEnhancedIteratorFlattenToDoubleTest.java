@@ -25,17 +25,17 @@ class AbstractEnhancedIteratorFlattenToDoubleTest extends IteratorExampleProvide
 	@Test
 	void test()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		final Function<String, AbstractDoubleIterator> flattenMapping1 = string -> repeat(
+		Function<String, AbstractDoubleIterator> flattenMapping1 = string -> repeat(
 				Double.parseDouble(string), 2 * (Integer.parseInt(string) % 2));
 		assertDoubleIteratorAsExpected(new double[] { 1, 1, 3, 3 },
 				createFlattenToDoublesIteratorProviderFrom(populated, flattenMapping1));
 		assertDoubleIteratorAsExpected(new double[0],
 				createFlattenToDoublesIteratorProviderFrom(empty, flattenMapping1));
 
-		final Function<String, AbstractDoubleIterator> flattenMapping2 = string -> repeat(
+		Function<String, AbstractDoubleIterator> flattenMapping2 = string -> repeat(
 				Double.parseDouble(string), 2 * ((Integer.parseInt(string) + 1) % 2));
 		assertDoubleIteratorAsExpected(new double[] { 0, 0, 2, 2, 4, 4 },
 				createFlattenToDoublesIteratorProviderFrom(populated, flattenMapping2));
@@ -43,7 +43,7 @@ class AbstractEnhancedIteratorFlattenToDoubleTest extends IteratorExampleProvide
 				createFlattenToDoublesIteratorProviderFrom(empty, flattenMapping2));
 	}
 
-	private AbstractDoubleIterator repeat(final double element, final int nTimes)
+	private AbstractDoubleIterator repeat(double element, int nTimes)
 	{
 		return new AbstractDoubleIterator(OptionalInt.of(nTimes)) {
 			int count = 0;
@@ -72,8 +72,8 @@ class AbstractEnhancedIteratorFlattenToDoubleTest extends IteratorExampleProvide
 	}
 
 	private <E> AbstractIterableDoubles createFlattenToDoublesIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source,
-			final Function<? super E, ? extends DoubleIterator> flattenMapping)
+			AbstractEnhancedIterable<E> source,
+			Function<? super E, ? extends DoubleIterator> flattenMapping)
 	{
 		return new AbstractIterableDoubles() {
 			@Override

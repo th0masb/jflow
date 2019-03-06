@@ -13,15 +13,14 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
 /**
  * @author ThomasB
  */
-class AbstractLongIteratorAppendTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractLongIteratorAppendTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
-		final AbstractIterableLongs small = getSmallLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs small = getSmallLongTestIteratorProvider();
 
 		assertLongIteratorAsExpected(new long[] { 0, 1, 2, 3, 4, 10, 11 },
 				createAppendIteratorProviderFrom(populated, small));
@@ -30,12 +29,11 @@ class AbstractLongIteratorAppendTest extends IteratorExampleProvider
 
 		assertLongIteratorAsExpected(new long[] { 10, 11 },
 				createAppendIteratorProviderFrom(empty, small));
-		assertLongIteratorAsExpected(new long[0],
-				createAppendIteratorProviderFrom(empty, empty));
+		assertLongIteratorAsExpected(new long[0], createAppendIteratorProviderFrom(empty, empty));
 	}
 
-	private AbstractIterableLongs createAppendIteratorProviderFrom(
-			final AbstractIterableLongs source, final AbstractIterableLongs toAppend)
+	private AbstractIterableLongs createAppendIteratorProviderFrom(AbstractIterableLongs source,
+			AbstractIterableLongs toAppend)
 	{
 		return new AbstractIterableLongs() {
 			@Override

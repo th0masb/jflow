@@ -13,15 +13,14 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
 /**
  * @author ThomasB
  */
-class AbstractLongIteratorInsertTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractLongIteratorInsertTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
-		final AbstractIterableLongs small = getSmallLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs small = getSmallLongTestIteratorProvider();
 
 		assertLongIteratorAsExpected(new long[] { 10, 11, 0, 1, 2, 3, 4 },
 				createInsertIteratorProviderFrom(populated, small));
@@ -30,12 +29,11 @@ class AbstractLongIteratorInsertTest extends IteratorExampleProvider
 
 		assertLongIteratorAsExpected(new long[] { 10, 11 },
 				createInsertIteratorProviderFrom(empty, small));
-		assertLongIteratorAsExpected(new long[0],
-				createInsertIteratorProviderFrom(empty, empty));
+		assertLongIteratorAsExpected(new long[0], createInsertIteratorProviderFrom(empty, empty));
 	}
 
-	private AbstractIterableLongs createInsertIteratorProviderFrom(
-			final AbstractIterableLongs source, final AbstractIterableLongs toInsert)
+	private AbstractIterableLongs createInsertIteratorProviderFrom(AbstractIterableLongs source,
+			AbstractIterableLongs toInsert)
 	{
 		return new AbstractIterableLongs() {
 			@Override

@@ -21,19 +21,17 @@ class AbstractDoubleIteratorFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final double[] source)
+	void testCreationAsExpected(double[] source)
 	{
-		assertDoubleIteratorAsExpected(source,
-				getCreationFromValuesIteratorProvider(source));
+		assertDoubleIteratorAsExpected(source, getCreationFromValuesIteratorProvider(source));
 	}
 
 	static Stream<Arguments> creationTestDataProvider()
 	{
-		return Stream.of(Arguments.of(new double[0]),
-				Arguments.of(new double[] { 1, 2 }));
+		return Stream.of(Arguments.of(new double[0]), Arguments.of(new double[] { 1, 2 }));
 	}
 
-	AbstractIterableDoubles getCreationFromValuesIteratorProvider(final double[] source)
+	AbstractIterableDoubles getCreationFromValuesIteratorProvider(double[] source)
 	{
 		return new AbstractIterableDoubles() {
 			@Override

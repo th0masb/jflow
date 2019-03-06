@@ -26,8 +26,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 {
 	@ParameterizedTest
 	@MethodSource("allEqualTestDataProvider")
-	void testAllEqual(final AbstractEnhancedIterator<String> iterator,
-			final Boolean expectedResult)
+	void testAllEqual(AbstractEnhancedIterator<String> iterator, Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual());
 	}
@@ -36,8 +35,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 	{
 		return Stream.of(Arguments.of(getAllEqualFlow(), Boolean.TRUE),
 				Arguments.of(getObjectTestIteratorProvider().iterator(), Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
-						Boolean.TRUE));
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), Boolean.TRUE));
 	}
 
 	private static AbstractEnhancedIterator<String> getAllEqualFlow()
@@ -70,8 +68,8 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("allMatchTestDataProvider")
-	void testAllMatch(final AbstractEnhancedIterator<String> iterator,
-			final Predicate<String> predicate, final Boolean expectedResult)
+	void testAllMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate));
 	}
@@ -91,8 +89,8 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("anyMatchTestDataProvider")
-	void testAnyMatch(final AbstractEnhancedIterator<String> iterator,
-			final Predicate<String> predicate, final Boolean expectedResult)
+	void testAnyMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate));
 	}
@@ -112,8 +110,8 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("noneMatchTestDataProvider")
-	void testNoneMatch(final AbstractEnhancedIterator<String> iterator,
-			final Predicate<String> predicate, final Boolean expectedResult)
+	void testNoneMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
+			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate));
 	}

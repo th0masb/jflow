@@ -25,17 +25,14 @@ class AbstractLongIteratorReductionConsumptionTest extends IteratorExampleProvid
 {
 	@ParameterizedTest
 	@MethodSource("reductionWithoutIdTestDataProvider")
-	void testReductionWithoutId(final LongBinaryOperator reducer,
-			final Long expectedPopulatedResult)
+	void testReductionWithoutId(LongBinaryOperator reducer, Long expectedPopulatedResult)
 	{
-		final AbstractLongIterator populated = getLongTestIteratorProvider()
-				.iter();
-		final OptionalLong reduction = populated.foldOption(reducer);
+		AbstractLongIterator populated = getLongTestIteratorProvider().iter();
+		OptionalLong reduction = populated.foldOption(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult.longValue(), reduction.getAsLong());
 
-		final AbstractLongIterator empty = getEmptyLongTestIteratorProvider()
-				.iter();
+		AbstractLongIterator empty = getEmptyLongTestIteratorProvider().iter();
 		assertFalse(empty.foldOption(reducer).isPresent());
 	}
 
@@ -46,16 +43,13 @@ class AbstractLongIteratorReductionConsumptionTest extends IteratorExampleProvid
 
 	@ParameterizedTest
 	@MethodSource("reductionWithIdTestDataProvider")
-	void testReductionWithId(final Long id, final LongBinaryOperator reducer,
-			final Long expectedPopulatedResult)
+	void testReductionWithId(Long id, LongBinaryOperator reducer, Long expectedPopulatedResult)
 	{
-		final AbstractLongIterator populated = getLongTestIteratorProvider()
-				.iter();
-		final long reduction = populated.fold(id.longValue(), reducer);
+		AbstractLongIterator populated = getLongTestIteratorProvider().iter();
+		long reduction = populated.fold(id.longValue(), reducer);
 		assertEquals(expectedPopulatedResult.longValue(), reduction);
 
-		final AbstractLongIterator empty = getEmptyLongTestIteratorProvider()
-				.iter();
+		AbstractLongIterator empty = getEmptyLongTestIteratorProvider().iter();
 		assertEquals(id.longValue(), empty.fold(id.longValue(), reducer));
 	}
 
@@ -66,8 +60,7 @@ class AbstractLongIteratorReductionConsumptionTest extends IteratorExampleProvid
 
 	@ParameterizedTest
 	@MethodSource("countReductionTestDataProvider")
-	void testCounting(final AbstractLongIterator iterator,
-			final Integer expectedCount)
+	void testCounting(AbstractLongIterator iterator, Integer expectedCount)
 	{
 		assertEquals(expectedCount.longValue(), iterator.count());
 	}

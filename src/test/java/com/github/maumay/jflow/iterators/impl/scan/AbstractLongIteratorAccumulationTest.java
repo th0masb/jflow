@@ -15,24 +15,22 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
 /**
  * @author ThomasB
  */
-class AbstractLongIteratorAccumulationTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractLongIteratorAccumulationTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void testAccumulationWithoutId()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
 		assertLongIteratorAsExpected(new long[] { 0, 1, 3, 6, 10 },
-				createAccumulationWithoutIdIteratorProviderFrom(populated,
-						(a, b) -> a + b));
+				createAccumulationWithoutIdIteratorProviderFrom(populated, (a, b) -> a + b));
 		assertLongIteratorAsExpected(new long[] {},
 				createAccumulationWithoutIdIteratorProviderFrom(empty, (a, b) -> a + b));
 	}
 
 	private AbstractIterableLongs createAccumulationWithoutIdIteratorProviderFrom(
-			final AbstractIterableLongs source, final LongBinaryOperator accumulator)
+			AbstractIterableLongs source, LongBinaryOperator accumulator)
 	{
 		return new AbstractIterableLongs() {
 			@Override
@@ -46,19 +44,17 @@ class AbstractLongIteratorAccumulationTest extends IteratorExampleProvider
 	@Test
 	void testAccumulationWithId()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
 		assertLongIteratorAsExpected(new long[] { 5, 6, 8, 11, 15 },
-				createAccumulationWithIdIteratorProviderFrom(populated, 5,
-						(a, b) -> a + b));
+				createAccumulationWithIdIteratorProviderFrom(populated, 5, (a, b) -> a + b));
 		assertLongIteratorAsExpected(new long[] {},
 				createAccumulationWithIdIteratorProviderFrom(empty, 5, (a, b) -> a + b));
 	}
 
 	private AbstractIterableLongs createAccumulationWithIdIteratorProviderFrom(
-			final AbstractIterableLongs source, final long id,
-			final LongBinaryOperator accumulator)
+			AbstractIterableLongs source, long id, LongBinaryOperator accumulator)
 	{
 		return new AbstractIterableLongs() {
 			@Override

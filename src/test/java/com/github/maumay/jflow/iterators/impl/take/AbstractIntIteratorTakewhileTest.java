@@ -13,17 +13,15 @@ import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.Tup;
 
-class AbstractIntIteratorTakewhileTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractIntIteratorTakewhileTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
+		AbstractIterableInts populated = getIntTestIteratorProvider();
+		AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
 
-		final List<Tup<int[], IntPredicate>> testData = asList(
-				Tup.of(new int[] {}, x -> x < -0.1),
+		List<Tup<int[], IntPredicate>> testData = asList(Tup.of(new int[] {}, x -> x < -0.1),
 				Tup.of(new int[] { 0, 1, 2, 3 }, x -> x < 3.1),
 				Tup.of(new int[] { 0, 1, 2, 3, 4 }, x -> x < 5));
 
@@ -35,8 +33,8 @@ class AbstractIntIteratorTakewhileTest extends IteratorExampleProvider
 		});
 	}
 
-	private AbstractIterableInts createTakewhileIteratorProviderFrom(
-			AbstractIterableInts src, IntPredicate predicate)
+	private AbstractIterableInts createTakewhileIteratorProviderFrom(AbstractIterableInts src,
+			IntPredicate predicate)
 	{
 		return new AbstractIterableInts() {
 			@Override

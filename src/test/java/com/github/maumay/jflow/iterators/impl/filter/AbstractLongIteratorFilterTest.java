@@ -12,36 +12,35 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
 /**
  * @author ThomasB
  */
-class AbstractLongIteratorFilterTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractLongIteratorFilterTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
-		final LongPredicate allFilteredPredicate = x -> x < 0;
+		LongPredicate allFilteredPredicate = x -> x < 0;
 		assertLongIteratorAsExpected(new long[0],
 				createFilterIteratorProviderFrom(populated, allFilteredPredicate));
 		assertLongIteratorAsExpected(new long[0],
 				createFilterIteratorProviderFrom(empty, allFilteredPredicate));
 
-		final LongPredicate someFilteredPredicate = x -> x < 3;
+		LongPredicate someFilteredPredicate = x -> x < 3;
 		assertLongIteratorAsExpected(new long[] { 0, 1, 2 },
 				createFilterIteratorProviderFrom(populated, someFilteredPredicate));
 		assertLongIteratorAsExpected(new long[0],
 				createFilterIteratorProviderFrom(empty, someFilteredPredicate));
 
-		final LongPredicate noneFilteredPredicate = x -> x < 5;
+		LongPredicate noneFilteredPredicate = x -> x < 5;
 		assertLongIteratorAsExpected(new long[] { 0, 1, 2, 3, 4 },
 				createFilterIteratorProviderFrom(populated, noneFilteredPredicate));
 		assertLongIteratorAsExpected(new long[0],
 				createFilterIteratorProviderFrom(empty, noneFilteredPredicate));
 	}
 
-	private AbstractIterableLongs createFilterIteratorProviderFrom(
-			final AbstractIterableLongs source, final LongPredicate predicate)
+	private AbstractIterableLongs createFilterIteratorProviderFrom(AbstractIterableLongs source,
+			LongPredicate predicate)
 	{
 		return new AbstractIterableLongs() {
 			@Override

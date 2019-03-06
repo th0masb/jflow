@@ -25,17 +25,14 @@ class AbstractIntIteratorReductionConsumptionTest extends IteratorExampleProvide
 {
 	@ParameterizedTest
 	@MethodSource("reductionWithoutIdTestDataProvider")
-	void testReductionWithoutId(final IntBinaryOperator reducer,
-			final Integer expectedPopulatedResult)
+	void testReductionWithoutId(IntBinaryOperator reducer, Integer expectedPopulatedResult)
 	{
-		final AbstractIntIterator populated = getIntTestIteratorProvider()
-				.iter();
-		final OptionalInt reduction = populated.foldOption(reducer);
+		AbstractIntIterator populated = getIntTestIteratorProvider().iter();
+		OptionalInt reduction = populated.foldOption(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult.intValue(), reduction.getAsInt());
 
-		final AbstractIntIterator empty = getEmptyIntTestIteratorProvider()
-				.iter();
+		AbstractIntIterator empty = getEmptyIntTestIteratorProvider().iter();
 		assertFalse(empty.foldOption(reducer).isPresent());
 	}
 
@@ -46,16 +43,13 @@ class AbstractIntIteratorReductionConsumptionTest extends IteratorExampleProvide
 
 	@ParameterizedTest
 	@MethodSource("reductionWithIdTestDataProvider")
-	void testReductionWithId(final Integer id, final IntBinaryOperator reducer,
-			final Integer expectedPopulatedResult)
+	void testReductionWithId(Integer id, IntBinaryOperator reducer, Integer expectedPopulatedResult)
 	{
-		final AbstractIntIterator populated = getIntTestIteratorProvider()
-				.iter();
-		final int reduction = populated.fold(id.intValue(), reducer);
+		AbstractIntIterator populated = getIntTestIteratorProvider().iter();
+		int reduction = populated.fold(id.intValue(), reducer);
 		assertEquals(expectedPopulatedResult.intValue(), reduction);
 
-		final AbstractIntIterator empty = getEmptyIntTestIteratorProvider()
-				.iter();
+		AbstractIntIterator empty = getEmptyIntTestIteratorProvider().iter();
 		assertEquals(id.intValue(), empty.fold(id.intValue(), reducer));
 	}
 
@@ -66,8 +60,7 @@ class AbstractIntIteratorReductionConsumptionTest extends IteratorExampleProvide
 
 	@ParameterizedTest
 	@MethodSource("countReductionTestDataProvider")
-	void testCounting(final AbstractIntIterator iterator,
-			final Integer expectedCount)
+	void testCounting(AbstractIntIterator iterator, Integer expectedCount)
 	{
 		assertEquals(expectedCount.intValue(), iterator.count());
 	}

@@ -22,7 +22,7 @@ class AbstractEnhancedIteratorReverseFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final List<String> source)
+	void testCreationAsExpected(List<String> source)
 	{
 		assertObjectIteratorAsExpected(reverse(source),
 				getReverseFromValuesIteratorProvider(source));
@@ -33,16 +33,16 @@ class AbstractEnhancedIteratorReverseFromValuesTest implements IteratorTest
 		return Stream.of(Arguments.of(asList()), Arguments.of(asList("1", "2")));
 	}
 
-	<E> List<E> reverse(final List<E> toReverse)
+	<E> List<E> reverse(List<E> toReverse)
 	{
-		final List<E> reversed = new ArrayList<>(toReverse.size());
+		List<E> reversed = new ArrayList<>(toReverse.size());
 		for (int i = toReverse.size() - 1; i > -1; i--) {
 			reversed.add(toReverse.get(i));
 		}
 		return reversed;
 	}
 
-	<E> AbstractEnhancedIterable<E> getReverseFromValuesIteratorProvider(final List<E> source)
+	<E> AbstractEnhancedIterable<E> getReverseFromValuesIteratorProvider(List<E> source)
 	{
 		return new AbstractEnhancedIterable<E>() {
 			@Override

@@ -25,8 +25,8 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 	@Test
 	void testAccumulationWithoutId()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList("0", "01", "012", "0123", "01234"),
 				createAccumlationWithoutIdIteratorProviderFrom(populated, String::concat));
@@ -35,7 +35,7 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 	}
 
 	private <E> AbstractEnhancedIterable<E> createAccumlationWithoutIdIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source, final BinaryOperator<E> accumulator)
+			AbstractEnhancedIterable<E> source, BinaryOperator<E> accumulator)
 	{
 		return new AbstractEnhancedIterable<E>() {
 			@Override
@@ -49,8 +49,8 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 	@Test
 	void testAccumulationWithId()
 	{
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList("x0", "x01", "x012", "x0123", "x01234"),
 				createAccumlationWithIdIteratorProviderFrom(populated, "x", String::concat));
@@ -59,8 +59,7 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 	}
 
 	private <E, R> AbstractEnhancedIterable<R> createAccumlationWithIdIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source, final R id,
-			final BiFunction<R, E, R> accumulator)
+			AbstractEnhancedIterable<E> source, R id, BiFunction<R, E, R> accumulator)
 	{
 		return new AbstractEnhancedIterable<R>() {
 			@Override

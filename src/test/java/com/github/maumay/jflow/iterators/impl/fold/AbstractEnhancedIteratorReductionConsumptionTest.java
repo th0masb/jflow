@@ -24,39 +24,32 @@ class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExamplePr
 {
 	@ParameterizedTest
 	@MethodSource("singleTypeReductionTestDataProvider")
-	void testSingleTypeReduction(final BinaryOperator<String> reducer,
-			final String expectedPopulatedResult)
+	void testSingleTypeReduction(BinaryOperator<String> reducer, String expectedPopulatedResult)
 	{
-		final AbstractEnhancedIterator<String> populated = getObjectTestIteratorProvider()
-				.iterator();
-		final Optional<String> reduction = populated.foldOption(reducer);
+		AbstractEnhancedIterator<String> populated = getObjectTestIteratorProvider().iterator();
+		Optional<String> reduction = populated.foldOption(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult, reduction.get());
 
-		final AbstractEnhancedIterator<String> empty = getEmptyObjectTestIteratorProvider()
-				.iterator();
+		AbstractEnhancedIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
 		assertFalse(empty.foldOption(reducer).isPresent());
 	}
 
 	static Stream<Arguments> singleTypeReductionTestDataProvider()
 	{
-		return Stream
-				.of(Arguments.of((BinaryOperator<String>) (s1, s2) -> s1 + s2, "01234"));
+		return Stream.of(Arguments.of((BinaryOperator<String>) (s1, s2) -> s1 + s2, "01234"));
 	}
 
 	@ParameterizedTest
 	@MethodSource("twoTypeReductionTestDataProvider")
-	void testTwoTypeReduction(final Double id,
-			final BiFunction<Double, String, Double> reducer,
-			final Double expectedPopulatedResult)
+	void testTwoTypeReduction(Double id, BiFunction<Double, String, Double> reducer,
+			Double expectedPopulatedResult)
 	{
-		final AbstractEnhancedIterator<String> populated = getObjectTestIteratorProvider()
-				.iterator();
-		final Double reduction = populated.fold(id, reducer);
+		AbstractEnhancedIterator<String> populated = getObjectTestIteratorProvider().iterator();
+		Double reduction = populated.fold(id, reducer);
 		assertEquals(expectedPopulatedResult, reduction);
 
-		final AbstractEnhancedIterator<String> empty = getEmptyObjectTestIteratorProvider()
-				.iterator();
+		AbstractEnhancedIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
 		assertEquals(id, empty.fold(id, reducer));
 	}
 
@@ -68,8 +61,7 @@ class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("countReductionTestDataProvider")
-	void testCounting(final AbstractEnhancedIterator<String> iterator,
-			final Integer expectedCount)
+	void testCounting(AbstractEnhancedIterator<String> iterator, Integer expectedCount)
 	{
 		assertEquals(expectedCount.intValue(), iterator.count());
 	}

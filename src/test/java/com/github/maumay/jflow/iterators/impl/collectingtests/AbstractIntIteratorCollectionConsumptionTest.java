@@ -28,8 +28,7 @@ class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProvid
 {
 	@ParameterizedTest
 	@MethodSource("collectToArrayTestDataProvider")
-	void testCollectToArray(final AbstractIntIterator iterator,
-			final int[] expectedResult)
+	void testCollectToArray(AbstractIntIterator iterator, int[] expectedResult)
 	{
 		assertArrayEquals(expectedResult, iterator.toArray());
 	}
@@ -37,59 +36,53 @@ class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProvid
 	static Stream<Arguments> collectToArrayTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getIntTestIteratorProvider().iter(),
-						new int[] { 0, 1, 2, 3, 4 }),
+				Arguments.of(getIntTestIteratorProvider().iter(), new int[] { 0, 1, 2, 3, 4 }),
 				Arguments.of(getEmptyIntTestIteratorProvider().iter(), new int[0]));
 	}
 
 	@ParameterizedTest
 	@MethodSource("collectToMapTestDataProvider")
-	void testCollectToMap(final AbstractIntIterator iterator,
-			final IntFunction<String> keyMapper, final IntFunction<Integer> valueMapper,
-			final List<Tup<String, Integer>> expectedMapPairs)
+	void testCollectToMap(AbstractIntIterator iterator, IntFunction<String> keyMapper,
+			IntFunction<Integer> valueMapper, List<Tup<String, Integer>> expectedMapPairs)
 	{
-		final Map<String, Integer> expectedMap = expectedMapPairs.stream()
+		Map<String, Integer> expectedMap = expectedMapPairs.stream()
 				.collect(toMap(Tup::_1, Tup::_2));
 		assertEquals(expectedMap, iterator.toMap(keyMapper, valueMapper));
 	}
 
 	static Stream<Arguments> collectToMapTestDataProvider()
 	{
-		final IntFunction<String> keyMapper = Integer::toString;
-		final IntFunction<Integer> valueMapper = Integer::valueOf;
+		IntFunction<String> keyMapper = Integer::toString;
+		IntFunction<Integer> valueMapper = Integer::valueOf;
 
 		return Stream.of(
-				Arguments.of(getSmallIntTestIteratorProvider().iter(), keyMapper,
-						valueMapper, asList(Tup.of("10", 10), Tup.of("11", 11))),
+				Arguments.of(getSmallIntTestIteratorProvider().iter(), keyMapper, valueMapper,
+						asList(Tup.of("10", 10), Tup.of("11", 11))),
 
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), keyMapper,
-						valueMapper, asList()));
+				Arguments.of(getEmptyIntTestIteratorProvider().iter(), keyMapper, valueMapper,
+						asList()));
 	}
 
 	@ParameterizedTest
 	@MethodSource("groupByTestDataProvider")
-	void testGroupBy(final AbstractIntIterator iterator,
-			final IntFunction<Integer> classifier,
-			final List<Tup<Integer, int[]>> expectedMapPairs)
+	void testGroupBy(AbstractIntIterator iterator, IntFunction<Integer> classifier,
+			List<Tup<Integer, int[]>> expectedMapPairs)
 	{
-		final Map<Integer, int[]> expectedMap = expectedMapPairs.stream()
+		Map<Integer, int[]> expectedMap = expectedMapPairs.stream()
 				.collect(toMap(Tup::_1, Tup::_2));
-		final Map<Integer, int[]> actualMap = iterator.groupBy(classifier);
+		Map<Integer, int[]> actualMap = iterator.groupBy(classifier);
 		assertEquals(expectedMap.keySet(), actualMap.keySet());
-		expectedMap.keySet().stream()
-				.forEach(key -> assertArrayEquals(expectedMap.get(key),
-						actualMap.get(key), key.toString()));
+		expectedMap.keySet().stream().forEach(
+				key -> assertArrayEquals(expectedMap.get(key), actualMap.get(key), key.toString()));
 	}
 
 	static Stream<Arguments> groupByTestDataProvider()
 	{
-		final IntFunction<Integer> classifier = x -> (x) % 2;
+		IntFunction<Integer> classifier = x -> (x) % 2;
 
 		return Stream.of(
 				Arguments.of(getIntTestIteratorProvider().iter(), classifier,
-						asList(Tup.of(0, new int[] { 0, 2, 4 }),
-								Tup.of(1, new int[] { 1, 3 }))),
-				Arguments.of(getEmptyIntTestIteratorProvider().iter(), classifier,
-						asList()));
+						asList(Tup.of(0, new int[] { 0, 2, 4 }), Tup.of(1, new int[] { 1, 3 }))),
+				Arguments.of(getEmptyIntTestIteratorProvider().iter(), classifier, asList()));
 	}
 }

@@ -16,19 +16,17 @@ import com.github.maumay.jflow.utils.Tup;
 /**
  * @author t
  */
-class AbstractLongIteratorSkipwhileTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractLongIteratorSkipwhileTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
-		final List<Tup<long[], LongPredicate>> testData = asList(
+		List<Tup<long[], LongPredicate>> testData = asList(
 				Tup.of(new long[] { 0, 1, 2, 3, 4 }, x -> x < -0.1),
-				Tup.of(new long[] { 4 }, x -> x < 3.1),
-				Tup.of(new long[] {}, x -> x < 5));
+				Tup.of(new long[] { 4 }, x -> x < 3.1), Tup.of(new long[] {}, x -> x < 5));
 
 		testData.stream().forEach(testCase -> {
 			assertLongIteratorAsExpected(testCase._1(),
@@ -38,8 +36,8 @@ class AbstractLongIteratorSkipwhileTest extends IteratorExampleProvider
 		});
 	}
 
-	private AbstractIterableLongs createSkipwhileIteratorProviderFrom(
-			AbstractIterableLongs src, LongPredicate predicate)
+	private AbstractIterableLongs createSkipwhileIteratorProviderFrom(AbstractIterableLongs src,
+			LongPredicate predicate)
 	{
 		return new AbstractIterableLongs() {
 			@Override

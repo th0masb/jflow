@@ -16,17 +16,15 @@ import com.github.maumay.jflow.utils.Tup;
 /**
  * @author t
  */
-class AbstractLongIteratorTakewhileTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractLongIteratorTakewhileTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
-		final List<Tup<long[], LongPredicate>> testData = asList(
-				Tup.of(new long[] {}, x -> x != 0),
+		List<Tup<long[], LongPredicate>> testData = asList(Tup.of(new long[] {}, x -> x != 0),
 				Tup.of(new long[] { 0, 1, 2 }, x -> x != 3),
 				Tup.of(new long[] { 0, 1, 2, 3, 4 }, x -> x != 5));
 
@@ -38,8 +36,8 @@ class AbstractLongIteratorTakewhileTest extends IteratorExampleProvider
 		});
 	}
 
-	private AbstractIterableLongs createTakewhileIteratorProviderFrom(
-			AbstractIterableLongs src, LongPredicate predicate)
+	private AbstractIterableLongs createTakewhileIteratorProviderFrom(AbstractIterableLongs src,
+			LongPredicate predicate)
 	{
 		return new AbstractIterableLongs() {
 			@Override

@@ -30,18 +30,17 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 {
 	@ParameterizedTest
 	@MethodSource
-	void newTest(final Map<String, AbstractEnhancedIterable<String>> testMapping,
-			final AbstractEnhancedIterable<String> iteratorProvider,
-			final List<String> expectedOutput)
+	void newTest(Map<String, AbstractEnhancedIterable<String>> testMapping,
+			AbstractEnhancedIterable<String> iteratorProvider, List<String> expectedOutput)
 	{
-		final Function<String, AbstractEnhancedIterator<String>> flattenMapping = string -> testMapping
+		Function<String, AbstractEnhancedIterator<String>> flattenMapping = string -> testMapping
 				.getOrDefault(string, repeat("", 0)).iter();
-		final AbstractEnhancedIterable<String> flattenedIteratorProvider = createFlattenIteratorProviderFrom(
+		AbstractEnhancedIterable<String> flattenedIteratorProvider = createFlattenIteratorProviderFrom(
 				iteratorProvider, flattenMapping);
 		assertObjectIteratorAsExpected(expectedOutput, flattenedIteratorProvider);
 	}
 
-	private static <E> AbstractEnhancedIterable<E> repeat(final E element, final int nTimes)
+	private static <E> AbstractEnhancedIterable<E> repeat(E element, int nTimes)
 	{
 		return new AbstractEnhancedIterable<E>() {
 
@@ -77,8 +76,8 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 	}
 
 	private <E, R> AbstractEnhancedIterable<R> createFlattenIteratorProviderFrom(
-			final AbstractEnhancedIterable<E> source,
-			final Function<? super E, ? extends EnhancedIterator<R>> flattenMapping)
+			AbstractEnhancedIterable<E> source,
+			Function<? super E, ? extends EnhancedIterator<R>> flattenMapping)
 	{
 		return new AbstractEnhancedIterable<R>() {
 			@Override
@@ -97,64 +96,64 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 		 */
 		// ---
 		// Case 0: All empty
-		final Map<String, AbstractEnhancedIterable<String>> testMapping0 = new HashMap<>();
-		final AbstractEnhancedIterable<String> iteratorProvider0 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput0 = Arrays.asList();
+		Map<String, AbstractEnhancedIterable<String>> testMapping0 = new HashMap<>();
+		AbstractEnhancedIterable<String> iteratorProvider0 = getObjectTestIteratorProvider();
+		List<String> expectedOutput0 = Arrays.asList();
 		// ---
 		// Case 1: Left boundary set
-		final Map<String, AbstractEnhancedIterable<String>> testMapping1 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping1 = new HashMap<>();
 		testMapping1.put("0", repeat("0", 2));
-		final AbstractEnhancedIterable<String> iteratorProvider1 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput1 = Arrays.asList("0", "0");
+		AbstractEnhancedIterable<String> iteratorProvider1 = getObjectTestIteratorProvider();
+		List<String> expectedOutput1 = Arrays.asList("0", "0");
 		// ---
 		// Case 2: Interior set
-		final Map<String, AbstractEnhancedIterable<String>> testMapping2 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping2 = new HashMap<>();
 		testMapping2.put("1", repeat("1", 2));
-		final AbstractEnhancedIterable<String> iteratorProvider2 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput2 = Arrays.asList("1", "1");
+		AbstractEnhancedIterable<String> iteratorProvider2 = getObjectTestIteratorProvider();
+		List<String> expectedOutput2 = Arrays.asList("1", "1");
 		// ---
 		// Case 3: Right boundary set
-		final Map<String, AbstractEnhancedIterable<String>> testMapping3 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping3 = new HashMap<>();
 		testMapping3.put("4", repeat("4", 3));
-		final AbstractEnhancedIterable<String> iteratorProvider3 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput3 = Arrays.asList("4", "4", "4");
+		AbstractEnhancedIterable<String> iteratorProvider3 = getObjectTestIteratorProvider();
+		List<String> expectedOutput3 = Arrays.asList("4", "4", "4");
 		// ---
 		// Case 4: Left boundary and interior set.
-		final Map<String, AbstractEnhancedIterable<String>> testMapping4 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping4 = new HashMap<>();
 		testMapping4.put("0", repeat("0", 1));
 		testMapping4.put("1", repeat("1", 1));
-		final AbstractEnhancedIterable<String> iteratorProvider4 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput4 = Arrays.asList("0", "1");
+		AbstractEnhancedIterable<String> iteratorProvider4 = getObjectTestIteratorProvider();
+		List<String> expectedOutput4 = Arrays.asList("0", "1");
 		// ---
 		// Case 5: Interior and right boundary set.
-		final Map<String, AbstractEnhancedIterable<String>> testMapping5 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping5 = new HashMap<>();
 		testMapping5.put("1", repeat("1", 1));
 		testMapping5.put("4", repeat("4", 2));
-		final AbstractEnhancedIterable<String> iteratorProvider5 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput5 = Arrays.asList("1", "4", "4");
+		AbstractEnhancedIterable<String> iteratorProvider5 = getObjectTestIteratorProvider();
+		List<String> expectedOutput5 = Arrays.asList("1", "4", "4");
 		// ---
 		// Case 6: left and right boundary set.
-		final Map<String, AbstractEnhancedIterable<String>> testMapping6 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping6 = new HashMap<>();
 		testMapping6.put("0", repeat("0", 1));
 		testMapping6.put("4", repeat("4", 2));
-		final AbstractEnhancedIterable<String> iteratorProvider6 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput6 = Arrays.asList("0", "4", "4");
+		AbstractEnhancedIterable<String> iteratorProvider6 = getObjectTestIteratorProvider();
+		List<String> expectedOutput6 = Arrays.asList("0", "4", "4");
 		// ---
 		// Case 7: all set.
-		final Map<String, AbstractEnhancedIterable<String>> testMapping7 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping7 = new HashMap<>();
 		testMapping7.put("0", repeat("0", 1));
 		testMapping7.put("2", repeat("2", 1));
 		testMapping7.put("4", repeat("4", 2));
-		final AbstractEnhancedIterable<String> iteratorProvider7 = getObjectTestIteratorProvider();
-		final List<String> expectedOutput7 = Arrays.asList("0", "2", "4", "4");
+		AbstractEnhancedIterable<String> iteratorProvider7 = getObjectTestIteratorProvider();
+		List<String> expectedOutput7 = Arrays.asList("0", "2", "4", "4");
 		// ---
 		// Case 8: Degenerate case.
-		final Map<String, AbstractEnhancedIterable<String>> testMapping8 = new HashMap<>();
+		Map<String, AbstractEnhancedIterable<String>> testMapping8 = new HashMap<>();
 		testMapping8.put("0", repeat("0", 1));
 		testMapping8.put("2", repeat("2", 1));
 		testMapping8.put("4", repeat("4", 2));
-		final AbstractEnhancedIterable<String> iteratorProvider8 = getEmptyObjectTestIteratorProvider();
-		final List<String> expectedOutput8 = Arrays.asList();
+		AbstractEnhancedIterable<String> iteratorProvider8 = getEmptyObjectTestIteratorProvider();
+		List<String> expectedOutput8 = Arrays.asList();
 
 		return Stream.of(Arguments.of(testMapping0, iteratorProvider0, expectedOutput0),
 				Arguments.of(testMapping1, iteratorProvider1, expectedOutput1),

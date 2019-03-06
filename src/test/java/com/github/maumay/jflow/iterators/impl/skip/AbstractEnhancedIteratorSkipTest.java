@@ -21,14 +21,14 @@ class AbstractEnhancedIteratorSkipTest extends IteratorExampleProvider implement
 	@Test
 	void test()
 	{
-		final List<List<String>> expectedOutcomesForDifferentIndexArguments = asList(
+		List<List<String>> expectedOutcomesForDifferentIndexArguments = asList(
 				asList("0", "1", "2", "3", "4"), asList("1", "2", "3", "4"), asList("2", "3", "4"),
 				asList("3", "4"), asList("4"), asList());
 
-		final int nArgs = expectedOutcomesForDifferentIndexArguments.size();
+		int nArgs = expectedOutcomesForDifferentIndexArguments.size();
 
-		final AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		IntStream.range(0, nArgs).forEach(i -> {
 			assertObjectIteratorAsExpected(expectedOutcomesForDifferentIndexArguments.get(i),

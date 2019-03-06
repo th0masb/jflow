@@ -16,36 +16,35 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
  * @author ThomasB
  *
  */
-class AbstractLongIteratorSliceTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractLongIteratorSliceTest extends IteratorExampleProvider implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
+		AbstractIterableLongs populated = getLongTestIteratorProvider();
+		AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
-		final IntUnaryOperator allSlicedOperator = i -> i;
+		IntUnaryOperator allSlicedOperator = i -> i;
 		assertLongIteratorAsExpected(new long[] { 0, 1, 2, 3, 4 },
 				createSlicedIteratorProviderFrom(populated, allSlicedOperator));
 		assertLongIteratorAsExpected(new long[] {},
 				createSlicedIteratorProviderFrom(empty, allSlicedOperator));
 
-		final IntUnaryOperator someSlicedOperator = i -> 2 * i;
+		IntUnaryOperator someSlicedOperator = i -> 2 * i;
 		assertLongIteratorAsExpected(new long[] { 0, 2, 4 },
 				createSlicedIteratorProviderFrom(populated, someSlicedOperator));
 		assertLongIteratorAsExpected(new long[] {},
 				createSlicedIteratorProviderFrom(empty, someSlicedOperator));
 
-		final IntUnaryOperator noneSlicedOperator = i -> i + 5;
+		IntUnaryOperator noneSlicedOperator = i -> i + 5;
 		assertLongIteratorAsExpected(new long[] {},
 				createSlicedIteratorProviderFrom(populated, noneSlicedOperator));
 		assertLongIteratorAsExpected(new long[] {},
 				createSlicedIteratorProviderFrom(empty, noneSlicedOperator));
 	}
 
-	private AbstractIterableLongs createSlicedIteratorProviderFrom(
-			final AbstractIterableLongs src, final IntUnaryOperator indexMapping)
+	private AbstractIterableLongs createSlicedIteratorProviderFrom(AbstractIterableLongs src,
+			IntUnaryOperator indexMapping)
 	{
 		return new AbstractIterableLongs() {
 			@Override

@@ -21,10 +21,9 @@ class AbstractLongIteratorFromValuesTest implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
-	void testCreationAsExpected(final long[] source)
+	void testCreationAsExpected(long[] source)
 	{
-		assertLongIteratorAsExpected(source,
-				getCreationFromValuesIteratorProvider(source));
+		assertLongIteratorAsExpected(source, getCreationFromValuesIteratorProvider(source));
 	}
 
 	static Stream<Arguments> creationTestDataProvider()
@@ -32,7 +31,7 @@ class AbstractLongIteratorFromValuesTest implements IteratorTest
 		return Stream.of(Arguments.of(new long[0]), Arguments.of(new long[] { 1, 2 }));
 	}
 
-	AbstractIterableLongs getCreationFromValuesIteratorProvider(final long[] source)
+	AbstractIterableLongs getCreationFromValuesIteratorProvider(long[] source)
 	{
 		return new AbstractIterableLongs() {
 			@Override

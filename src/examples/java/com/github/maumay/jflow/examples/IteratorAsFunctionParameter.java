@@ -120,19 +120,12 @@ public final class IteratorAsFunctionParameter
 		// .loadClass("com.github.maumay.jflow.vec.Vec");
 		Vec<Point> points = Vec.of(new Point(0, 0), new Point(1, 1));
 
-		// // With our iterator version
-		// Optional<BoundsXY> enclosing = points.iter().map(p -> new Point(p.x + 1, p.y
-		// + 1))
-		// .collect(BoundsXY::pointsCollector);
-		//
-		// // With our stream version
-		// Optional<BoundsXY> enclosing2 = points.stream().map(p -> new Point(p.x + 1,
-		// p.y + 1))
-		// .collect(BoundsXY.pointsCollector());
+		// With our iterator version
+		Optional<BoundsXY> enclosing = points.iter().map(p -> new Point(p.x + 1, p.y + 1))
+				.collect(BoundsXY::pointsCollector);
 
-		Function<Iterator<? extends Point>, ?> x = BoundsXY::pointsCollector;
-		Function<Iterator<? extends Point>, ?> y = BoundsXY::pointsCollector;
-
-		System.out.println(x == y);
+		// With our stream version
+		Optional<BoundsXY> enclosing2 = points.stream().map(p -> new Point(p.x + 1, p.y + 1))
+				.collect(BoundsXY.pointsCollector());
 	}
 }

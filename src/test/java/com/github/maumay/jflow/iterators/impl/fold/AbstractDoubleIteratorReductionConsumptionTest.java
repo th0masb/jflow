@@ -21,22 +21,18 @@ import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 /**
  * @author ThomasB
  */
-class AbstractDoubleIteratorReductionConsumptionTest
-		extends IteratorExampleProvider
+class AbstractDoubleIteratorReductionConsumptionTest extends IteratorExampleProvider
 {
 	@ParameterizedTest
 	@MethodSource("reductionWithoutIdTestDataProvider")
-	void testReductionWithoutId(final DoubleBinaryOperator reducer,
-			final Double expectedPopulatedResult)
+	void testReductionWithoutId(DoubleBinaryOperator reducer, Double expectedPopulatedResult)
 	{
-		final AbstractDoubleIterator populated = getDoubleTestIteratorProvider()
-				.iter();
-		final OptionalDouble reduction = populated.foldOption(reducer);
+		AbstractDoubleIterator populated = getDoubleTestIteratorProvider().iter();
+		OptionalDouble reduction = populated.foldOption(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult.doubleValue(), reduction.getAsDouble());
 
-		final AbstractDoubleIterator empty = getEmptyDoubleTestIteratorProvider()
-				.iter();
+		AbstractDoubleIterator empty = getEmptyDoubleTestIteratorProvider().iter();
 		assertFalse(empty.foldOption(reducer).isPresent());
 	}
 
@@ -47,29 +43,25 @@ class AbstractDoubleIteratorReductionConsumptionTest
 
 	@ParameterizedTest
 	@MethodSource("reductionWithIdTestDataProvider")
-	void testReductionWithId(final Double id, final DoubleBinaryOperator reducer,
-			final Double expectedPopulatedResult)
+	void testReductionWithId(Double id, DoubleBinaryOperator reducer,
+			Double expectedPopulatedResult)
 	{
-		final AbstractDoubleIterator populated = getDoubleTestIteratorProvider()
-				.iter();
-		final double reduction = populated.fold(id.doubleValue(), reducer);
+		AbstractDoubleIterator populated = getDoubleTestIteratorProvider().iter();
+		double reduction = populated.fold(id.doubleValue(), reducer);
 		assertEquals(expectedPopulatedResult.doubleValue(), reduction);
 
-		final AbstractDoubleIterator empty = getEmptyDoubleTestIteratorProvider()
-				.iter();
+		AbstractDoubleIterator empty = getEmptyDoubleTestIteratorProvider().iter();
 		assertEquals(id.doubleValue(), empty.fold(id.doubleValue(), reducer));
 	}
 
 	static Stream<Arguments> reductionWithIdTestDataProvider()
 	{
-		return Stream
-				.of(Arguments.of(0.0, (DoubleBinaryOperator) (x1, x2) -> x1 + x2, 10.0));
+		return Stream.of(Arguments.of(0.0, (DoubleBinaryOperator) (x1, x2) -> x1 + x2, 10.0));
 	}
 
 	@ParameterizedTest
 	@MethodSource("countReductionTestDataProvider")
-	void testCounting(final AbstractDoubleIterator iterator,
-			final Integer expectedCount)
+	void testCounting(AbstractDoubleIterator iterator, Integer expectedCount)
 	{
 		assertEquals(expectedCount.intValue(), iterator.count());
 	}

@@ -19,35 +19,32 @@ import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
  */
 public interface DoubleIteratorTest
 {
-	default void assertDoubleIteratorAsExpected(final double[] expectedElements,
-			final AbstractIterableDoubles iteratorProvider)
+	default void assertDoubleIteratorAsExpected(double[] expectedElements,
+			AbstractIterableDoubles iteratorProvider)
 	{
 		assertSizeAsExpected(expectedElements, iteratorProvider.iter());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
 		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
-		assertAlternatingNextAndSkipCallsAsExpected(expectedElements,
-				iteratorProvider.iter());
+		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
 	}
 
-	static void assertSizeAsExpected(double[] expectedElements,
-			AbstractDoubleIterator iterator)
+	static void assertSizeAsExpected(double[] expectedElements, AbstractDoubleIterator iterator)
 	{
 		if (iterator.sizeIsKnown()) {
 			assertEquals(expectedElements.length, iterator.size().getAsInt());
 		}
 	}
 
-	static void assertSkippingAsExpected(final double[] expectedElements,
-			final AbstractDoubleIterator iterator)
+	static void assertSkippingAsExpected(double[] expectedElements, AbstractDoubleIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> iterator.skip());
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
-	static void assertNextElementChecksAsExpected(final double[] expectedElements,
-			final AbstractDoubleIterator iterator)
+	static void assertNextElementChecksAsExpected(double[] expectedElements,
+			AbstractDoubleIterator iterator)
 	{
 		IntStream.range(0, expectedElements.length).forEach(i -> {
 			assertTrue(iterator.hasNext());
@@ -56,10 +53,10 @@ public interface DoubleIteratorTest
 		assertFalse(iterator.hasNext());
 	}
 
-	static void assertStandardIterationAsExpected(final double[] expectedElements,
-			final AbstractDoubleIterator iterator)
+	static void assertStandardIterationAsExpected(double[] expectedElements,
+			AbstractDoubleIterator iterator)
 	{
-		final List<Double> recoveredElements = new ArrayList<>();
+		List<Double> recoveredElements = new ArrayList<>();
 		while (iterator.hasNext()) {
 			recoveredElements.add(iterator.nextDouble());
 		}
@@ -68,10 +65,10 @@ public interface DoubleIteratorTest
 		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
 	}
 
-	static void assertUncheckedIterationAsExpected(final double[] expectedElements,
-			final AbstractDoubleIterator iterator)
+	static void assertUncheckedIterationAsExpected(double[] expectedElements,
+			AbstractDoubleIterator iterator)
 	{
-		final List<Double> recoveredElements = new ArrayList<>();
+		List<Double> recoveredElements = new ArrayList<>();
 		IntStream.range(0, expectedElements.length)
 				.forEach(i -> recoveredElements.add(iterator.nextDouble()));
 
@@ -80,12 +77,10 @@ public interface DoubleIteratorTest
 		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
 	}
 
-	static void assertAlternatingNextAndSkipCallsAsExpected(
-			final double[] expectedElements,
-			final AbstractDoubleIterator iterator)
+	static void assertAlternatingNextAndSkipCallsAsExpected(double[] expectedElements,
+			AbstractDoubleIterator iterator)
 	{
-		final List<Double> expectedOutcome = new ArrayList<>(),
-				recoveredElements = new ArrayList<>();
+		List<Double> expectedOutcome = new ArrayList<>(), recoveredElements = new ArrayList<>();
 
 		IntStream.range(0, expectedElements.length).forEach(i -> {
 			if (i % 2 == 0) {
@@ -102,7 +97,7 @@ public interface DoubleIteratorTest
 		assertEquals(expectedOutcome, recoveredElements);
 	}
 
-	static double[] convertFromBoxed(final List<Double> boxedDoubles)
+	static double[] convertFromBoxed(List<Double> boxedDoubles)
 	{
 		return boxedDoubles.stream().mapToDouble(i -> i).toArray();
 	}

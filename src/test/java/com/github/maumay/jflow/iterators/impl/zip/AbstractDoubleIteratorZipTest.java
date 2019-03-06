@@ -24,10 +24,10 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 	@Test
 	void testZipWithDouble()
 	{
-		final AbstractIterableDoubles small = getSmallDoubleTestIteratorProvider();
-		final AbstractIterableDoubles mid = getDoubleTestIteratorProvider();
-		final AbstractIterableDoubles large = getLargeDoubleTestIteratorProvider();
-		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
+		AbstractIterableDoubles small = getSmallDoubleTestIteratorProvider();
+		AbstractIterableDoubles mid = getDoubleTestIteratorProvider();
+		AbstractIterableDoubles large = getLargeDoubleTestIteratorProvider();
+		AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(
 				asList(DoubleTup.of(0, 0), DoubleTup.of(1, 1), DoubleTup.of(2, 2),
@@ -48,7 +48,7 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 	}
 
 	private AbstractEnhancedIterable<DoubleTup> createZipIteratorProviderFrom(
-			final AbstractIterableDoubles first, final AbstractIterableDoubles second)
+			AbstractIterableDoubles first, AbstractIterableDoubles second)
 	{
 		return new AbstractEnhancedIterable<DoubleTup>() {
 			@Override
@@ -62,13 +62,13 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 	@Test
 	void testZipWithObject()
 	{
-		final AbstractIterableDoubles populatedDoubles = getDoubleTestIteratorProvider();
-		final AbstractIterableDoubles emptyDoubles = getEmptyDoubleTestIteratorProvider();
+		AbstractIterableDoubles populatedDoubles = getDoubleTestIteratorProvider();
+		AbstractIterableDoubles emptyDoubles = getEmptyDoubleTestIteratorProvider();
 
-		final AbstractEnhancedIterable<String> smallObjects = getSmallObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> midObjects = getObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> largeObjects = getLargeObjectTestIteratorProvider();
-		final AbstractEnhancedIterable<String> emptyObjects = getEmptyObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> smallObjects = getSmallObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> midObjects = getObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> largeObjects = getLargeObjectTestIteratorProvider();
+		AbstractEnhancedIterable<String> emptyObjects = getEmptyObjectTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList(DoubleWith.of(0, "10"), DoubleWith.of(1, "11")),
 				createZipIteratorProviderFrom(populatedDoubles, smallObjects));
@@ -90,7 +90,7 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 	}
 
 	private <E> AbstractEnhancedIterable<DoubleWith<E>> createZipIteratorProviderFrom(
-			final AbstractIterableDoubles first, final AbstractEnhancedIterable<E> second)
+			AbstractIterableDoubles first, AbstractEnhancedIterable<E> second)
 	{
 		return new AbstractEnhancedIterable<DoubleWith<E>>() {
 			@Override
