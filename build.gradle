@@ -1,4 +1,5 @@
 apply(plugin: 'java')
+apply(plugin: 'eclipse')
 
 sourceCompatibility = 1.8
 version = '0.4'
@@ -8,6 +9,28 @@ jar {
         attributes('Implementation-Title': 'JFlow')
         attributes('Implementation-Version': version)
     }
+	
+	exclude("src/examples/**")
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src/main/java"]
+		}
+	}
+	
+	test {
+		java {
+			srcDirs = ["src/test/java"]
+		}
+	}
+	
+	examples {
+		java {
+			srcDirs = ["src/examples/java"]
+		}
+	}
 }
 
 repositories {
@@ -21,12 +44,6 @@ dependencies {
     testCompile('org.junit.jupiter:junit-jupiter-api:5.1.0')
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
-
-task printThis {
-	println(this)
-}
-
-javadoc.failOnError = false
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier = 'sources'

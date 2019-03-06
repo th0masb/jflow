@@ -761,7 +761,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return The output of the supplied function applied to this
 	 *         {@link EnhancedIterator}.
 	 */
-	default <R> R build(Function<? super EnhancedIterator<? extends E>, ? extends R> builder)
+	default <R> R collect(Function<? super EnhancedIterator<? extends E>, ? extends R> builder)
 	{
 		return builder.apply(this);
 	}
