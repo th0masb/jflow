@@ -26,8 +26,8 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.termination.IteratorCollector;
 import com.github.maumay.jflow.iterators.termination.IteratorConsumer;
-import com.github.maumay.jflow.iterators.termination.IteratorTransformer;
 import com.github.maumay.jflow.utils.DoubleWith;
 import com.github.maumay.jflow.utils.IntWith;
 import com.github.maumay.jflow.utils.LongWith;
@@ -764,9 +764,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return The output of the supplied function applied to this
 	 *         {@link EnhancedIterator}.
 	 */
-	default <R> R collect(IteratorTransformer<E, R> transformer)
+	default <R> R collect(IteratorCollector<E, R> transformer)
 	{
-		return transformer.transform(() -> this);
+		return transformer.collect(this);
 	}
 
 	/**

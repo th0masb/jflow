@@ -3,12 +3,14 @@
  */
 package com.github.maumay.jflow.iterators.termination;
 
+import java.util.Iterator;
+
 /**
  * @author t
  *
  */
 @FunctionalInterface
-public interface IteratorTransformer<E, R>
+public interface IteratorCollector<E, R>
 {
-	R transform(Iterable<E> source);
+	R collect(Iterator<E> source);
 }

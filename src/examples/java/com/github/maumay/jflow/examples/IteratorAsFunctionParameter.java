@@ -3,12 +3,12 @@
  */
 package com.github.maumay.jflow.examples;
 
+import static com.github.maumay.jflow.utils.Exceptions.require;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
 
 import java.util.EnumSet;
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -16,7 +16,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
@@ -48,26 +47,28 @@ public final class IteratorAsFunctionParameter
 			this.height = height;
 		}
 
-		static <P extends Point> Optional<BoundsXY> enclosing(Iterable<P> source)
+		public <P extends Point> BoundsXY(Iterable<P> source)
 		{
-			Iterator<P> sourceIter = source.iterator();
-			if (!sourceIter.hasNext()) {
-				return Option.empty();
-			}
+			this(source.iterator());
+		}
+
+		public <P extends Point> BoundsXY(Iterator<P> source)
+		{
+			require(source.hasNext());
 			double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 			double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
-			while (sourceIter.hasNext()) {
-				Point next = sourceIter.next();
+			while (source.hasNext()) {
+				Point next = source.next();
 				minx = Math.min(minx, next.x);
 				maxx = Math.max(maxx, next.x);
 				miny = Math.min(miny, next.y);
 				maxy = Math.max(maxy, next.y);
 			}
-			if (maxx - minx > 0 && maxy - miny > 0) {
-				return Option.of(new BoundsXY(minx, miny, maxx - minx, maxy - miny));
-			} else {
-				return Option.empty();
-			}
+			x = minx;
+			y = miny;
+			width = maxx - minx;
+			height = maxy - miny;
+			require(width >= 0 && height >= 0);
 		}
 
 		static PointsToBoundsCollector pointsCollector()
@@ -78,7 +79,7 @@ public final class IteratorAsFunctionParameter
 
 	// Stream version
 	static class PointsToBoundsCollector
-			implements Collector<Point, CollectionContainer, Optional<BoundsXY>>
+			implements Collector<Point, CollectionContainer, BoundsXY>
 	{
 		@Override
 		public BiConsumer<CollectionContainer, Point> accumulator()
@@ -99,7 +100,7 @@ public final class IteratorAsFunctionParameter
 		}
 
 		@Override
-		public Function<CollectionContainer, Optional<BoundsXY>> finisher()
+		public Function<CollectionContainer, BoundsXY> finisher()
 		{
 			return CollectionContainer::finish;
 		}
@@ -134,17 +135,12 @@ public final class IteratorAsFunctionParameter
 			return result;
 		}
 
-		Optional<BoundsXY> finish()
+		BoundsXY finish()
 		{
-			if (Double.isInfinite(minx)) {
-				return Option.empty();
-			}
-			double xdiff = maxx - minx, ydiff = maxy - miny;
-			if (xdiff > 0 && ydiff > 0) {
-				return Option.of(new BoundsXY(minx, miny, xdiff, ydiff));
-			} else {
-				return Option.empty();
-			}
+			require(Double.isFinite(minx));
+			double width = maxx - minx, height = maxy - miny;
+			require(width >= 0 && height >= 0);
+			return new BoundsXY(minx, miny, width, height);
 		}
 	}
 
@@ -154,15 +150,15 @@ public final class IteratorAsFunctionParameter
 		Vec<Point> points = Vec.of(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
-		Optional<BoundsXY> withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))
-				.collect(BoundsXY::enclosing);
+		BoundsXY withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))
+				.collect(BoundsXY::new);
 
-		Optional<BoundsXY> withIterator2 = BoundsXY.enclosing(points);
-		Optional<BoundsXY> withIterator3 = BoundsXY.enclosing(points.toList());
-		Optional<BoundsXY> withIterator4 = BoundsXY.enclosing(points.toSet());
+		BoundsXY withIterator2 = new BoundsXY(points);
+		BoundsXY withIterator3 = new BoundsXY(points.toList());
+		BoundsXY withIterator4 = new BoundsXY(points.toSet());
 
 		// With our stream version
-		Optional<BoundsXY> withStream = points.stream().map(p -> new Point(p.x, p.y + 1))
+		BoundsXY withStream = points.stream().map(p -> new Point(p.x, p.y + 1))
 				.collect(BoundsXY.pointsCollector());
 
 		// withIterator.equals(withStream)
