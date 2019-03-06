@@ -3,6 +3,10 @@
  */
 package com.github.maumay.jflow.examples;
 
+import static java.lang.Double.NEGATIVE_INFINITY;
+import static java.lang.Double.POSITIVE_INFINITY;
+
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
@@ -49,8 +53,8 @@ public final class IteratorAsFunctionParameter
 			if (!source.hasNext()) {
 				return Option.empty();
 			}
-			double minx = Double.POSITIVE_INFINITY, maxx = Double.NEGATIVE_INFINITY;
-			double miny = Double.POSITIVE_INFINITY, maxy = Double.NEGATIVE_INFINITY;
+			double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
+			double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
 			while (source.hasNext()) {
 				Point next = source.next();
 				minx = Math.min(minx, next.x);
@@ -72,58 +76,90 @@ public final class IteratorAsFunctionParameter
 	}
 
 	// Stream version
-	static class BoundsCollectorContainer
-	{
-		double minx = Double.POSITIVE_INFINITY, maxx = Double.NEGATIVE_INFINITY;
-		double miny = Double.POSITIVE_INFINITY, maxy = Double.NEGATIVE_INFINITY;
-	}
-
-	// Implementation omitted
 	static class PointsToBoundsCollector
-			implements Collector<Point, BoundsCollectorContainer, Optional<BoundsXY>>
+			implements Collector<Point, CollectionContainer, Optional<BoundsXY>>
 	{
 		@Override
-		public BiConsumer<BoundsCollectorContainer, Point> accumulator()
+		public BiConsumer<CollectionContainer, Point> accumulator()
 		{
-			throw new RuntimeException("Not yet implemented");
+			return CollectionContainer::accumulate;
 		}
 
 		@Override
 		public Set<Characteristics> characteristics()
 		{
-			throw new RuntimeException("Not yet implemented");
+			return EnumSet.noneOf(Characteristics.class);
 		}
 
 		@Override
-		public BinaryOperator<BoundsCollectorContainer> combiner()
+		public BinaryOperator<CollectionContainer> combiner()
 		{
-			throw new RuntimeException("Not yet implemented");
+			return CollectionContainer::combine;
 		}
 
 		@Override
-		public Function<BoundsCollectorContainer, Optional<BoundsXY>> finisher()
+		public Function<CollectionContainer, Optional<BoundsXY>> finisher()
 		{
-			throw new RuntimeException("Not yet implemented");
+			return CollectionContainer::finish;
 		}
 
 		@Override
-		public Supplier<BoundsCollectorContainer> supplier()
+		public Supplier<CollectionContainer> supplier()
 		{
-			throw new RuntimeException("Not yet implemented");
+			return CollectionContainer::new;
+		}
+	}
+
+	static class CollectionContainer
+	{
+		private double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
+		private double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
+
+		void accumulate(Point other)
+		{
+			minx = Math.min(minx, other.x);
+			maxx = Math.max(maxx, other.x);
+			miny = Math.min(miny, other.y);
+			maxy = Math.max(maxy, other.y);
+		}
+
+		CollectionContainer combine(CollectionContainer other)
+		{
+			CollectionContainer result = new CollectionContainer();
+			result.minx = Math.min(minx, other.minx);
+			result.maxx = Math.max(maxx, other.maxx);
+			result.miny = Math.min(miny, other.miny);
+			result.maxy = Math.max(maxy, other.maxy);
+			return result;
+		}
+
+		Optional<BoundsXY> finish()
+		{
+			if (Double.isInfinite(minx)) {
+				return Option.empty();
+			}
+			double xdiff = maxx - minx, ydiff = maxy - miny;
+			if (xdiff > 0 && ydiff > 0) {
+				return Option.of(new BoundsXY(minx, miny, xdiff, ydiff));
+			} else {
+				return Option.empty();
+			}
 		}
 	}
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args) throws ClassNotFoundException
+	public static void main(String[] args)
 	{
 		Vec<Point> points = Vec.of(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
-		Optional<BoundsXY> enclosing = points.iter().map(p -> new Point(p.x + 1, p.y + 1))
+		Optional<BoundsXY> withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))
 				.collect(BoundsXY::enclosing);
 
 		// With our stream version
-		Optional<BoundsXY> enclosing2 = points.stream().map(p -> new Point(p.x + 1, p.y + 1))
+		Optional<BoundsXY> withStream = points.stream().map(p -> new Point(p.x, p.y + 1))
 				.collect(BoundsXY.pointsCollector());
+
+		// withIterator.equals(withStream)
 	}
 }

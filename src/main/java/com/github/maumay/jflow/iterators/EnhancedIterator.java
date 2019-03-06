@@ -111,7 +111,8 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return A {@link EnhancedIterator} obtained by applying the mapping function
 	 *         to each element in turn and sequentially concatenating the results.
 	 */
-	<R> EnhancedIterator<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
+	<R> EnhancedIterator<R> flatMap(
+			Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to {@link IntIterator}
@@ -765,6 +766,11 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	default <R> R collect(Function<? super EnhancedIterator<E>, ? extends R> builder)
 	{
 		return builder.apply(this);
+	}
+
+	default <R> R collect2(IteratorCollector<E, R> collector)
+	{
+		return collector.collect(this);
 	}
 
 	default void consume(Consumer<? super EnhancedIterator<E>> consumptionProcedure)
