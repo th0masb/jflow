@@ -26,6 +26,7 @@ public final class Option
 	/**
 	 * Boxes this primitive optional value.
 	 * 
+	 * @param x The primitive optional value to be boxed.
 	 * @return a boxed version of the wrapped primitive if it exists, nothing
 	 *         otherwise.
 	 */
@@ -41,6 +42,7 @@ public final class Option
 	/**
 	 * Boxes this primitive optional value.
 	 * 
+	 * @param x The primitive optional value to be boxed.
 	 * @return a boxed version of the wrapped primitive if it exists, nothing
 	 *         otherwise.
 	 */
@@ -56,6 +58,7 @@ public final class Option
 	/**
 	 * Boxes this primitive optional value.
 	 * 
+	 * @param x The primitive optional value to be boxed.
 	 * @return a boxed version of the wrapped primitive if it exists, nothing
 	 *         otherwise.
 	 */
@@ -219,8 +222,10 @@ public final class Option
 	 * Given an optional value this method attempts to retrieve the value contained
 	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
 	 *
-	 * @param   <T> The type of the value wrapped by the passed optional.
-	 * @param x The optional to extract a value from.
+	 * @param              <T> The type of the value wrapped by the passed optional.
+	 * @param errorMessage The message to pass to the exception if the extraction
+	 *                     fails.
+	 * @param x            The optional to extract a value from.
 	 * @return The value inside the optional if it exists.
 	 */
 	public static <T> T extract(Optional<? extends T> x, String errorMessage)
@@ -232,7 +237,9 @@ public final class Option
 	 * Given an optional value this method attempts to retrieve the value contained
 	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
 	 *
-	 * @param x The optional to extract a value from.
+	 * @param x            The optional to extract a value from.
+	 * @param errorMessage The message to pass to the exception if the extraction
+	 *                     fails.
 	 * @return The value inside the optional if it exists.
 	 */
 	public static int extract(OptionalInt x, String errorMessage)
@@ -244,7 +251,9 @@ public final class Option
 	 * Given an optional value this method attempts to retrieve the value contained
 	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
 	 *
-	 * @param x The optional to extract a value from.
+	 * @param x            The optional to extract a value from.
+	 * @param errorMessage The message to pass to the exception if the extraction
+	 *                     fails.
 	 * @return The value inside the optional if it exists.
 	 */
 	public static double extract(OptionalDouble x, String errorMessage)
@@ -256,7 +265,9 @@ public final class Option
 	 * Given an optional value this method attempts to retrieve the value contained
 	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
 	 *
-	 * @param x The optional to extract a value from.
+	 * @param x            The optional to extract a value from.
+	 * @param errorMessage The message to pass to the exception if the extraction
+	 *                     fails.
 	 * @return The value inside the optional if it exists.
 	 */
 	public static double extract(OptionalLong x, String errorMessage)
@@ -311,6 +322,9 @@ public final class Option
 
 	/**
 	 * Runs a given procedure if the given optional is empty.
+	 * 
+	 * @param optional  The optional used to test the absence of an element.
+	 * @param procedure The procedure to execute if the absence test returns true.
 	 */
 	public static void ifAbsent(Optional<?> optional, Runnable procedure)
 	{

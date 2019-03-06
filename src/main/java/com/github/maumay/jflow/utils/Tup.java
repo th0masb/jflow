@@ -110,6 +110,8 @@ public final class Tup<T, U>
 	/**
 	 * Creates a new tuple whose type is inferred by the arguments.
 	 * 
+	 * @param        <T> The type of the first (left) element in the new tuple.
+	 * @param        <U> The type of the second (right) element in the new tuple.
 	 * @param first  The first (left) value of the new tuple.
 	 * @param second The second (right) value of the new tuple.
 	 * @return A new tuple with the given left and right values.
