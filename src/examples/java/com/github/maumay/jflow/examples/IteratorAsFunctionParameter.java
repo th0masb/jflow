@@ -48,15 +48,16 @@ public final class IteratorAsFunctionParameter
 			this.height = height;
 		}
 
-		static Optional<BoundsXY> enclosing(Iterator<? extends Point> source)
+		static <P extends Point> Optional<BoundsXY> enclosing(Iterable<P> source)
 		{
-			if (!source.hasNext()) {
+			Iterator<P> sourceIter = source.iterator();
+			if (!sourceIter.hasNext()) {
 				return Option.empty();
 			}
 			double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 			double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
-			while (source.hasNext()) {
-				Point next = source.next();
+			while (sourceIter.hasNext()) {
+				Point next = sourceIter.next();
 				minx = Math.min(minx, next.x);
 				maxx = Math.max(maxx, next.x);
 				miny = Math.min(miny, next.y);
@@ -155,6 +156,10 @@ public final class IteratorAsFunctionParameter
 		// With our iterator version
 		Optional<BoundsXY> withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))
 				.collect(BoundsXY::enclosing);
+
+		Optional<BoundsXY> withIterator2 = BoundsXY.enclosing(points);
+		Optional<BoundsXY> withIterator3 = BoundsXY.enclosing(points.toList());
+		Optional<BoundsXY> withIterator4 = BoundsXY.enclosing(points.toSet());
 
 		// With our stream version
 		Optional<BoundsXY> withStream = points.stream().map(p -> new Point(p.x, p.y + 1))

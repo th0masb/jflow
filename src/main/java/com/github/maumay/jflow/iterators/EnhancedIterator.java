@@ -17,7 +17,6 @@ import java.util.PrimitiveIterator;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
@@ -27,6 +26,8 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.termination.IteratorConsumer;
+import com.github.maumay.jflow.iterators.termination.IteratorTransformer;
 import com.github.maumay.jflow.utils.DoubleWith;
 import com.github.maumay.jflow.utils.IntWith;
 import com.github.maumay.jflow.utils.LongWith;
@@ -763,19 +764,25 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return The output of the supplied function applied to this
 	 *         {@link EnhancedIterator}.
 	 */
-	default <R> R collect(Function<? super EnhancedIterator<E>, ? extends R> builder)
+	default <R> R collect(IteratorTransformer<E, R> transformer)
 	{
-		return builder.apply(this);
+		return transformer.transform(() -> this);
 	}
 
-	default <R> R collect2(IteratorCollector<E, R> collector)
+	/**
+	 * Returns the image of this iterator under a supplied function. This method is
+	 * potentially (depending on the supplied function) a 'consuming method', i.e.
+	 * it will iterate through this {@link EnhancedIterator}.
+	 *
+	 * @param         <R> The target type of the builder function.
+	 * @param builder A function whose input encompasses {@link EnhancedIterator}
+	 *                instances of this element type.
+	 * @return The output of the supplied function applied to this
+	 *         {@link EnhancedIterator}.
+	 */
+	default void consume(IteratorConsumer<E> consumer)
 	{
-		return collector.collect(this);
-	}
-
-	default void consume(Consumer<? super EnhancedIterator<E>> consumptionProcedure)
-	{
-		consumptionProcedure.accept(this);
+		consumer.consume(() -> this);
 	}
 
 	/**
