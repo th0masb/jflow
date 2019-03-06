@@ -22,9 +22,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author ThomasB

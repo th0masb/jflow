@@ -12,8 +12,6 @@ import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.DoubleTup;
-import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
@@ -34,6 +32,8 @@ import com.github.maumay.jflow.iterators.impl.SlicedIterator;
 import com.github.maumay.jflow.iterators.impl.TakeIterator;
 import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
 import com.github.maumay.jflow.iterators.impl.ZipIterator;
+import com.github.maumay.jflow.utils.DoubleTup;
+import com.github.maumay.jflow.utils.DoubleWith;
 
 /**
  * A skeletal implementation of DoubleFlow, users writing custom DoubleFlows

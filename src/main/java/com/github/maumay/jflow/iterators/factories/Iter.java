@@ -13,8 +13,6 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.Exceptions;
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
@@ -24,6 +22,8 @@ import com.github.maumay.jflow.iterators.impl.FunctionIterator;
 import com.github.maumay.jflow.iterators.impl.ReversedSourceIterator;
 import com.github.maumay.jflow.iterators.impl.SourceIterator;
 import com.github.maumay.jflow.iterators.impl.WrappingIterator;
+import com.github.maumay.jflow.utils.Exceptions;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * Static methods for building finite EnhancedIterator instances.

@@ -7,11 +7,11 @@ import java.util.function.DoublePredicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author t

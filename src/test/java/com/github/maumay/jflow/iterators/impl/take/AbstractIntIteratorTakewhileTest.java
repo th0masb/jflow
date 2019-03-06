@@ -7,11 +7,11 @@ import java.util.function.IntPredicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.utils.Tup;
 
 class AbstractIntIteratorTakewhileTest extends IteratorExampleProvider
 		implements IteratorTest

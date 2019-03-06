@@ -25,11 +25,11 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
-import com.gihub.maumay.jflow.iterators.misc.IntWith;
-import com.gihub.maumay.jflow.iterators.misc.LongWith;
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.utils.DoubleWith;
+import com.github.maumay.jflow.utils.IntWith;
+import com.github.maumay.jflow.utils.LongWith;
+import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
 /**

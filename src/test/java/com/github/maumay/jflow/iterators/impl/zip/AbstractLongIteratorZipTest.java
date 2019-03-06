@@ -7,13 +7,13 @@ import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.LongTup;
-import com.gihub.maumay.jflow.iterators.misc.LongWith;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.utils.LongTup;
+import com.github.maumay.jflow.utils.LongWith;
 
 /**
  * @author ThomasB

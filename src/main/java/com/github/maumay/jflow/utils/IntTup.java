@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.gihub.maumay.jflow.iterators.misc;
+package com.github.maumay.jflow.utils;
 
 /**
  * Compact two element tuple (pair) of primitive doubles inspired by Scala.

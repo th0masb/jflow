@@ -13,9 +13,9 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.LongTup;
-import com.gihub.maumay.jflow.iterators.misc.LongWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.utils.LongTup;
+import com.github.maumay.jflow.utils.LongWith;
 
 /**
  * <p>

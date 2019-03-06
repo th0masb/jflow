@@ -19,10 +19,6 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
-import com.gihub.maumay.jflow.iterators.misc.IntWith;
-import com.gihub.maumay.jflow.iterators.misc.LongWith;
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
 import com.github.maumay.jflow.iterators.impl.AppendIterator;
@@ -42,6 +38,10 @@ import com.github.maumay.jflow.iterators.impl.SlicedIterator;
 import com.github.maumay.jflow.iterators.impl.TakeIterator;
 import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
 import com.github.maumay.jflow.iterators.impl.ZipIterator;
+import com.github.maumay.jflow.utils.DoubleWith;
+import com.github.maumay.jflow.utils.IntWith;
+import com.github.maumay.jflow.utils.LongWith;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * A skeletal implementation of a Flow, users writing custom Flows should

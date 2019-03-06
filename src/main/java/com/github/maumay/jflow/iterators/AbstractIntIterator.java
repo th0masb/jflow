@@ -10,8 +10,6 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.IntTup;
-import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
@@ -32,6 +30,8 @@ import com.github.maumay.jflow.iterators.impl.SlicedIterator;
 import com.github.maumay.jflow.iterators.impl.TakeIterator;
 import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
 import com.github.maumay.jflow.iterators.impl.ZipIterator;
+import com.github.maumay.jflow.utils.IntTup;
+import com.github.maumay.jflow.utils.IntWith;
 
 /**
  * A skeletal implementation of a IntFlow, users writing custom IntFlows should

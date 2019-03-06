@@ -6,15 +6,15 @@ package com.github.maumay.jflow.iterators.impl;
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
-import com.gihub.maumay.jflow.iterators.misc.DoubleTup;
-import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
-import com.gihub.maumay.jflow.iterators.misc.IntTup;
-import com.gihub.maumay.jflow.iterators.misc.IntWith;
-import com.gihub.maumay.jflow.iterators.misc.LongTup;
-import com.gihub.maumay.jflow.iterators.misc.LongWith;
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.utils.DoubleTup;
+import com.github.maumay.jflow.utils.DoubleWith;
+import com.github.maumay.jflow.utils.IntTup;
+import com.github.maumay.jflow.utils.IntWith;
+import com.github.maumay.jflow.utils.LongTup;
+import com.github.maumay.jflow.utils.LongWith;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author ThomasB

@@ -16,9 +16,9 @@ import java.util.function.ToLongFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * <p>

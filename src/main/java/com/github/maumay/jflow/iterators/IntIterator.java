@@ -12,9 +12,9 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.IntTup;
-import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.utils.IntTup;
+import com.github.maumay.jflow.utils.IntWith;
 
 /**
  * <p>

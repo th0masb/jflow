@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gihub.maumay.jflow.iterators.misc;
+package com.github.maumay.jflow.utils;
 
 import java.util.Arrays;
 import java.util.Collection;

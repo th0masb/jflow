@@ -7,11 +7,11 @@ import java.util.function.LongPredicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author t

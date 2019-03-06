@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.gihub.maumay.jflow.iterators.misc;
+package com.github.maumay.jflow.utils;
 
 import static java.lang.Character.isWhitespace;
 

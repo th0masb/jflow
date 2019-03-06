@@ -20,10 +20,10 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.factories.IterRange;
+import com.github.maumay.jflow.utils.Tup;
 
 /**
  * An immutable implementation of {@link Vec} which stores only non null
