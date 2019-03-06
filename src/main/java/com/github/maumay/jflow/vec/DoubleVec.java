@@ -49,7 +49,7 @@ public interface DoubleVec extends DoubleIterable
 	DoubleStream stream();
 
 	/**
-	 * Creates a vector wrapper around the given arguments. Note that no defensive
+	 * Creates a vector wrapper around the given arguments, <b>no</b> defensive
 	 * copying takes place.
 	 * 
 	 * @param xs the elements to wrap inside a vector.

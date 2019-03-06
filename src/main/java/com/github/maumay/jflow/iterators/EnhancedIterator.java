@@ -751,10 +751,9 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	}
 
 	/**
-	 * A convenience method for applying a global function onto this
-	 * {@link EnhancedIterator}. This method is potentially (depending on the
-	 * supplied function) a 'consuming method', i.e. it will iterate through this
-	 * {@link EnhancedIterator}.
+	 * Returns the image of this iterator under a supplied function. This method is
+	 * potentially (depending on the supplied function) a 'consuming method', i.e.
+	 * it will iterate through this {@link EnhancedIterator}.
 	 *
 	 * @param         <R> The target type of the builder function.
 	 * @param builder A function whose input encompasses {@link EnhancedIterator}

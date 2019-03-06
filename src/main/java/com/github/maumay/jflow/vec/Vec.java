@@ -325,11 +325,9 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	}
 
 	/**
-	 * Note that this method is only designed for varargs. If it is passed an array
-	 * it won't make a copy and therefore immutability is compromised, this is the
-	 * only way to make a mutable instance of this class and it is <b>not</b>
-	 * advised. If a null reference is passed as an argument then an exception will
-	 * be thrown.
+	 * Creates a new vector wrapping the given elements, <b>no</b> defensive copying
+	 * takes place if an array is passed. If a null reference is passed as an
+	 * argument then an exception will be thrown.
 	 * 
 	 * @param          <E> The element type of the new vector.
 	 * @param elements the elements which will populate the resulting vector.
