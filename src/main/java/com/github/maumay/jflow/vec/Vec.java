@@ -30,72 +30,111 @@ import com.github.maumay.jflow.utils.Tup;
  * stored inside this data structure.
  * </p>
  * 
+ * @param <E> The element type of this Vec.
+ * 
  * @author ThomasB
  */
 public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 {
 	/**
-	 * @return An iteration of the elements in this vector in reverse order.
+	 * Creates an iterator traversing the elements in this vector in reverse order.
+	 * 
+	 * @return An iterator traversing the elements in this vector in reverse order.
 	 */
 	EnhancedIterator<E> revIter();
 
 	/**
+	 * Creates a sequential stream over the elements in this vector.
+	 * 
 	 * @return A sequential stream over the elements of this vector in order.
 	 */
 	Stream<E> stream();
 
 	/**
-	 * @return A new vector obtains by mapping this vector elementwise by the
+	 * Creates a new vector by applying a function element-wise to this vector.
+	 * 
+	 * @param         <R> The element type of the new vector.
+	 * @param mapFunc The function to apply to each element of this vector.
+	 * @return A new vector obtains by mapping this vector element-wise by the
 	 *         parameter function.
 	 */
-	<R> Vec<R> map(Function<? super E, ? extends R> mappingFunction);
+	<R> Vec<R> map(Function<? super E, ? extends R> mapFunc);
 
 	/**
-	 * @return A flattened vector obtained by concatenating the images of the
-	 *         parameter function applied elementwise to this vector.
+	 * Creates a new vector by applying a function element-wise to this vector
+	 * before flattening the images.
+	 * 
+	 * @param         <R> The element type of the new vector.
+	 * @param mapFunc The function to apply to each element of this vector.
+	 * @return A new vector obtained by concatenating the images of the parameter
+	 *         function applied element-wise to this vector.
 	 */
-	<R> Vec<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
+	<R> Vec<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapFunc);
 
 	/**
-	 * @return A vector contained the elements of this vector which pass the
+	 * Creates a new vector by applying a filter to the elements in this vector.
+	 * 
+	 * @param predicate The predicate test to filter elements with.
+	 * @return A new vector contained the elements of this vector which pass the
 	 *         supplied predicate with their relative order preserved.
 	 */
 	Vec<E> filter(Predicate<? super E> predicate);
 
 	/**
-	 * @return A vector with the required parameterisation containing the elements
-	 *         of this vector which can be cast to the given type with their
-	 *         relative order preserved.
+	 * Creates a new vector by safely manipulating the element type of this vector.
+	 * 
+	 * @param       <R> The element type of the new vector.
+	 * @param klass A class defining the element type of the new vector.
+	 * @return A new vector with the required parameterisation containing the
+	 *         elements of this vector which can be cast to the given type with
+	 *         their relative order preserved.
 	 */
 	<R> Vec<R> cast(Class<R> klass);
 
 	/**
-	 * @return A vector containing the elements of this vector with order retained
-	 *         followed by the elements of the parameter iterable whose order is
-	 *         defined by the iterator it produces.
+	 * Creates a new vector by appending the contents of an Iterable to this vector.
+	 * 
+	 * @param other The source of the elements to append.
+	 * @return A new vector containing the elements of this vector with order
+	 *         retained followed by the elements of the parameter iterable whose
+	 *         order is defined by the iterator it produces.
 	 */
 	Vec<E> append(Iterable<? extends E> other);
 
 	/**
-	 * @return A vector containing the elements of this vector with order preserved
-	 *         followed by the parameter element.
+	 * Creates a new vector by appending a single element to this vector.
+	 * 
+	 * @param other The element to append.
+	 * @return A new vector containing the elements of this vector with order
+	 *         preserved followed by the parameter element.
 	 */
 	Vec<E> append(E other);
 
 	/**
-	 * @return A vector containing the elements of the parameter iterable whose
+	 * Creates a new vector by inserting the contents of an Iterable at the start of
+	 * this vector.
+	 * 
+	 * @param other The source of the elements to insert.
+	 * @return A new vector containing the elements of the parameter iterable whose
 	 *         order is determined by the iterator it produces followed by the
 	 *         elements of this vector whose relative order is preserved.
 	 */
 	Vec<E> insert(Iterable<? extends E> other);
 
 	/**
+	 * Creates a new vector by inserting a single element at the start of this
+	 * vector.
+	 * 
+	 * @param other the element to insert.
 	 * @return A vector containing the parameter element followed by the elements of
 	 *         this vector whose relative order is preserved.
 	 */
 	Vec<E> insert(E other);
 
 	/**
+	 * Creates a new vector by taking n elements from the start of this vector.
+	 * 
+	 * @param n The number of elements to take, must be non-negative.
 	 * @return A vector consisting of the first n elements of this vector with their
 	 *         relative order retained. If the requested number of elements is
 	 *         larger than the size of this vector then we will just return this
@@ -104,6 +143,10 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	Vec<E> take(int n);
 
 	/**
+	 * Creates a new vector by taking elements from the start of this vector until
+	 * the given predicate fails.
+	 * 
+	 * @param predicate The predicate test.
 	 * @return A vector consisting of the elements taken from the head of this
 	 *         vector until an element fails the given predicate. The first failure
 	 *         <b>is not</b> included.
@@ -111,21 +154,33 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	Vec<E> takeWhile(Predicate<? super E> predicate);
 
 	/**
+	 * Creates a new vector by skipping n elements from the start of this vector and
+	 * keeping the remainder.
+	 * 
+	 * @param n The number of elements to skip.
 	 * @return A vector consisting of all but the first n elements of this vector
 	 *         with their relative order retained. If the requested number of
 	 *         elements is 0 then we just return this vector, if it is less than
 	 *         zero an exception will be thrown.
 	 */
-	Vec<E> drop(int n);
+	Vec<E> skip(int n);
 
 	/**
+	 * Creates a new vector by skipping elements from the start of this vector until
+	 * the given predicate fails and keeping the rest.
+	 * 
+	 * @param predicate The predicate test.
 	 * @return A vector consisting of the elements in this vector which occur after
 	 *         the first element which fails the predicate. This first failure
 	 *         <b>is</b> included.
 	 */
-	Vec<E> dropWhile(Predicate<? super E> predicate);
+	Vec<E> skipWhile(Predicate<? super E> predicate);
 
 	/**
+	 * Partitions this vector into two new vectors by applying a predicate test
+	 * element-wise starting from the head until it fails.
+	 * 
+	 * @param predicate The predicate test.
 	 * @return A pair of vectors whose first element is the result of
 	 *         {@link Vec#takeWhile(Predicate)} and whose second element is a vector
 	 *         of all elements who were not included in the first vector.
@@ -133,6 +188,10 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	Tup<Vec<E>, Vec<E>> span(Predicate<? super E> predicate);
 
 	/**
+	 * Partitions this vector into two new vectors according to whether elements
+	 * pass or fail a given predicate test.
+	 * 
+	 * @param predicate The predicate test.
 	 * @return A pair of vectors whose first element is all the elements of this
 	 *         vector which pass the given predicate, the second is all the
 	 *         failures. Relative ordering in these subvectors is preserved.
@@ -140,14 +199,20 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	Tup<Vec<E>, Vec<E>> partition(Predicate<? super E> predicate);
 
 	/**
+	 * Creates a new vector by sorting the elements of this vector according to the
+	 * given ordering.
+	 * 
+	 * @param ordering The total ordering on the element type.
 	 * @return A copy of this vector where the elements are ordered according to the
 	 *         supplied comparator.
 	 */
-	Vec<E> sorted(Comparator<? super E> orderingFunction);
+	Vec<E> sorted(Comparator<? super E> ordering);
 
 	// Default methods
 
 	/**
+	 * Performs a linear search to check if this vector contains the given element.
+	 * 
 	 * @param element The instance to check for membership.
 	 * @return true if the given element is in this vector, false otherwise.
 	 */
@@ -157,6 +222,8 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	}
 
 	/**
+	 * Creates a parallel stream over the elements of this vector.
+	 * 
 	 * @return A parallel stream over the elements of this vector.
 	 */
 	default Stream<E> parstream()
@@ -177,8 +244,8 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	}
 
 	/**
-	 * Attempts to get the head (first element) of this vector in an unsafe manner.
-	 * If this vector is empty then an exception will be thrown.
+	 * Gets the head (first element) of this vector in an unsafe manner. If this
+	 * vector is empty then an exception will be thrown.
 	 * 
 	 * @return the head of this vector.
 	 */
@@ -199,8 +266,8 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	}
 
 	/**
-	 * Attempts to get the last element of this vector in an unsafe manner. If this
-	 * vector is empty then an exception will be thrown.
+	 * Gets the last element of this vector in an unsafe manner. If this vector is
+	 * empty then an exception will be thrown.
 	 * 
 	 * @return the last element of this vector.
 	 */
@@ -210,7 +277,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	}
 
 	/**
-	 * Attempts to get the last element of this vector in an safe manner.
+	 * Gets the last element of this vector in an safe manner.
 	 * 
 	 * @return the last element of this vector if it is non-empty, nothing
 	 *         otherwise.
@@ -220,14 +287,18 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 		return size() > 0 ? Optional.of(last()) : Optional.empty();
 	}
 
-	default DoubleVec mapToDouble(ToDoubleFunction<? super E> mappingFunction)
+	/**
+	 * Creates a new primitive vector by applying the given function element-wise to
+	 * this vector.
+	 * 
+	 * @param mappingFunc The mapping function.
+	 * @return A new primitive vector of the same size as this vector whose ith
+	 *         element is the image of the ith element of this vector under the
+	 *         given function.
+	 */
+	default DoubleVec mapToDouble(ToDoubleFunction<? super E> mappingFunc)
 	{
-		return DoubleVec.of(mapToDoubleArray(mappingFunction));
-	}
-
-	default double[] mapToDoubleArray(ToDoubleFunction<? super E> mappingFunction)
-	{
-		return iter().mapToDouble(mappingFunction).toArray();
+		return iter().mapToDouble(mappingFunc).toVec();
 	}
 
 	default int[] mapToIntArray(ToIntFunction<? super E> mappingFunction)
@@ -243,6 +314,9 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	// Static factories
 
 	/**
+	 * Creates an empty vector.
+	 * 
+	 * @param <E> The inferred type of the new empty vector.
 	 * @return An empty vector
 	 */
 	static <E> Vec<E> empty()
@@ -257,6 +331,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 * advised. If a null reference is passed as an argument then an exception will
 	 * be thrown.
 	 * 
+	 * @param          <E> The element type of the new vector.
 	 * @param elements the elements which will populate the resulting vector.
 	 * @return a vector wrapping the arguments.
 	 */
@@ -272,6 +347,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 * If the passed collection contains a null reference then an exception will be
 	 * thrown.
 	 * 
+	 * @param            <E> The element type of the new vector.
 	 * @param collection the collection to copy the contents of.
 	 * @return a vector containing all the elements contained in the argument.
 	 */
@@ -286,6 +362,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 * thrown if the source iterable produces an iterator containing a null
 	 * reference.
 	 * 
+	 * @param          <E> The element type of the new vector.
 	 * @param iterable the source of the elements which will be stored in the
 	 *                 resultant vector.
 	 * @return a vector containing all the elements in the iterator produced by the
@@ -301,6 +378,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 * consumed, if the stream produces a null reference then an exception will be
 	 * thrown.
 	 * 
+	 * @param        <E> The element type of the new vector.
 	 * @param source the source of elements
 	 * @return a vector containing all the elements in the source stream.
 	 */
@@ -314,6 +392,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 * will be consumed, if the stream produces a null reference then an exception
 	 * will be thrown.
 	 * 
+	 * @param        <E> The element type of the new vector.
 	 * @param source the source of elements
 	 * @return a vector containing all the elements in the source iterator.
 	 */

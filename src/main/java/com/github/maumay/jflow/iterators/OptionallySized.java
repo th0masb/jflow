@@ -14,7 +14,7 @@ import java.util.OptionalInt;
 public interface OptionallySized
 {
 	/**
-	 * Retrieves the size of this object if it is known.
+	 * Retrieves the (possibly unknown) size of this object.
 	 * 
 	 * @return The size of the sequence if it known, otherwise nothing to indicate
 	 *         the value is unknown.

@@ -309,7 +309,7 @@ final class VecImpl<E> implements Vec<E>
 	}
 
 	@Override
-	public Vec<E> drop(int n)
+	public Vec<E> skip(int n)
 	{
 		if (n == 0)
 			return this;
@@ -320,7 +320,7 @@ final class VecImpl<E> implements Vec<E>
 	}
 
 	@Override
-	public Vec<E> dropWhile(Predicate<? super E> predicate)
+	public Vec<E> skipWhile(Predicate<? super E> predicate)
 	{
 		return new VecImpl<>(iterator().skipWhile(predicate), size());
 	}
