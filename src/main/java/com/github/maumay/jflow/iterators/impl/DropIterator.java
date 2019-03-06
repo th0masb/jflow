@@ -1,6 +1,6 @@
 package com.github.maumay.jflow.iterators.impl;
 
-import com.gihub.maumay.jflow.iterators.misc.Optionals;
+import com.gihub.maumay.jflow.iterators.misc.Option;
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
@@ -29,7 +29,7 @@ public final class DropIterator
 
 		public OfObject(final EnhancedIterator<T> src, final int dropCount)
 		{
-			super(Optionals.map(n -> Math.max(0, n - dropCount), src.size()));
+			super(Option.map(n -> Math.max(0, n - dropCount), src.size()));
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -82,7 +82,7 @@ public final class DropIterator
 
 		public OfLong(final LongIterator src, final int dropCount)
 		{
-			super(Optionals.map(n -> Math.max(0, n - dropCount), src.size()));
+			super(Option.map(n -> Math.max(0, n - dropCount), src.size()));
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -135,7 +135,7 @@ public final class DropIterator
 
 		public OfInt(final IntIterator src, final int dropCount)
 		{
-			super(Optionals.map(n -> Math.max(0, n - dropCount), src.size()));
+			super(Option.map(n -> Math.max(0, n - dropCount), src.size()));
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -188,7 +188,7 @@ public final class DropIterator
 
 		public OfDouble(final DoubleIterator src, final int dropCount)
 		{
-			super(Optionals.map(n -> Math.max(0, n - dropCount), src.size()));
+			super(Option.map(n -> Math.max(0, n - dropCount), src.size()));
 			if (dropCount < 0) {
 				throw new IllegalArgumentException();
 			}

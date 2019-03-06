@@ -7,7 +7,7 @@ import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.LongPair;
+import com.gihub.maumay.jflow.iterators.misc.LongTup;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
@@ -29,16 +29,16 @@ class AbstractLongIteratorZipTest extends IteratorExampleProvider implements Ite
 		final AbstractIterableLongs large = getLargeLongTestIteratorProvider();
 		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
 
-		assertObjectIteratorAsExpected(asList(LongPair.of(0, 0), LongPair.of(1, 1),
-				LongPair.of(2, 2), LongPair.of(3, 3), LongPair.of(4, 4)),
+		assertObjectIteratorAsExpected(asList(LongTup.of(0, 0), LongTup.of(1, 1),
+				LongTup.of(2, 2), LongTup.of(3, 3), LongTup.of(4, 4)),
 				createZipIteratorProviderFrom(mid, mid));
 
 		assertObjectIteratorAsExpected(
-				asList(LongPair.of(0, 10), LongPair.of(1, 11), LongPair.of(2, 12),
-						LongPair.of(3, 13), LongPair.of(4, 14)),
+				asList(LongTup.of(0, 10), LongTup.of(1, 11), LongTup.of(2, 12),
+						LongTup.of(3, 13), LongTup.of(4, 14)),
 				createZipIteratorProviderFrom(mid, large));
 
-		assertObjectIteratorAsExpected(asList(LongPair.of(0, 10), LongPair.of(1, 11)),
+		assertObjectIteratorAsExpected(asList(LongTup.of(0, 10), LongTup.of(1, 11)),
 				createZipIteratorProviderFrom(mid, small));
 
 		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(mid, empty));
@@ -46,12 +46,12 @@ class AbstractLongIteratorZipTest extends IteratorExampleProvider implements Ite
 		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(empty, mid));
 	}
 
-	private AbstractEnhancedIterable<LongPair> createZipIteratorProviderFrom(
+	private AbstractEnhancedIterable<LongTup> createZipIteratorProviderFrom(
 			final AbstractIterableLongs first, final AbstractIterableLongs second)
 	{
-		return new AbstractEnhancedIterable<LongPair>() {
+		return new AbstractEnhancedIterable<LongTup>() {
 			@Override
-			public AbstractEnhancedIterator<LongPair> iter()
+			public AbstractEnhancedIterator<LongTup> iter()
 			{
 				return first.iter().zipWith(second.iter());
 			}

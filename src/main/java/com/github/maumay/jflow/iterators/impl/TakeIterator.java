@@ -2,7 +2,7 @@ package com.github.maumay.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
 
-import com.gihub.maumay.jflow.iterators.misc.Optionals;
+import com.gihub.maumay.jflow.iterators.misc.Option;
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
@@ -31,7 +31,7 @@ public final class TakeIterator
 
 		public OfObject(final EnhancedIterator<E> src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
+			super(Option.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -75,7 +75,7 @@ public final class TakeIterator
 
 		public OfLong(final LongIterator src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
+			super(Option.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -119,7 +119,7 @@ public final class TakeIterator
 
 		public OfInt(final IntIterator src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
+			super(Option.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}
@@ -163,7 +163,7 @@ public final class TakeIterator
 
 		public OfDouble(final DoubleIterator src, final int takeCount)
 		{
-			super(Optionals.map(n -> Math.min(takeCount, n), src.size()));
+			super(Option.map(n -> Math.min(takeCount, n), src.size()));
 			if (takeCount < 0) {
 				throw new IllegalArgumentException();
 			}

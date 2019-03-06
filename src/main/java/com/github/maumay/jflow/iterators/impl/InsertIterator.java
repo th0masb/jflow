@@ -8,7 +8,7 @@ import static com.github.maumay.jflow.iterators.impl.ImplUtils.getSize;
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
-import com.gihub.maumay.jflow.iterators.misc.Optionals;
+import com.gihub.maumay.jflow.iterators.misc.Option;
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
@@ -35,7 +35,7 @@ public final class InsertIterator
 		public OfObject(final EnhancedIterator<E> source,
 				final Iterator<? extends E> inserted)
 		{
-			super(Optionals.add(source.size(), getSize(inserted)));
+			super(Option.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -71,7 +71,7 @@ public final class InsertIterator
 		public OfDouble(final DoubleIterator source,
 				final PrimitiveIterator.OfDouble inserted)
 		{
-			super(Optionals.add(source.size(), getSize(inserted)));
+			super(Option.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -107,7 +107,7 @@ public final class InsertIterator
 		public OfLong(final LongIterator source,
 				final PrimitiveIterator.OfLong inserted)
 		{
-			super(Optionals.add(source.size(), getSize(inserted)));
+			super(Option.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}
@@ -143,7 +143,7 @@ public final class InsertIterator
 		public OfInt(final IntIterator source,
 				final PrimitiveIterator.OfInt inserted)
 		{
-			super(Optionals.add(source.size(), getSize(inserted)));
+			super(Option.add(source.size(), getSize(inserted)));
 			this.source = source;
 			this.inserted = inserted;
 		}

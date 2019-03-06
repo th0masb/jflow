@@ -29,10 +29,18 @@ public final class Strings
 	{
 	}
 
+	/**
+	 * Checks whether a string is in a trimmed state (according to
+	 * {@link String#trim()}).
+	 * 
+	 * @param text The string to test.
+	 * @return True if the string has no leading or trailing whitespace characters,
+	 *         false otherwise.
+	 */
 	public static boolean isTrimmed(String text)
 	{
-		return text.isEmpty() || (!isWhitespace(text.charAt(0))
-				&& !isWhitespace(text.charAt(text.length() - 1)));
+		return text.isEmpty()
+				|| (!isWhitespace(text.charAt(0)) && !isWhitespace(text.charAt(text.length() - 1)));
 	}
 
 	/**
@@ -180,13 +188,14 @@ public final class Strings
 	}
 
 	/**
-	 * Builds a lazy Flow over all the matches of a provided regular expression in
-	 * the given source string. Escaping backslashes are required in the regex.
+	 * Builds an iterator traversing over all the matches of a provided regular
+	 * expression in the given source string. Escaping backslashes are required in
+	 * the regex.
 	 * 
 	 * @param source The string in which to search for the regular expression.
 	 * @param regex  The regular expression to search for.
 	 * 
-	 * @return A Flow over all matches.
+	 * @return An iterator traversing all regex matches.
 	 */
 	public static EnhancedIterator<String> allMatches(String source, String regex)
 	{
@@ -287,7 +296,7 @@ public final class Strings
 			while (allMatches.hasNext()) {
 				curr = allMatches.next();
 			}
-			return Optional.of(curr);
+			return Option.of(curr);
 		} else {
 			return Optional.empty();
 		}

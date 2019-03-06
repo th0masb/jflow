@@ -29,8 +29,8 @@ public final class Tup<T, U>
 	}
 
 	/*
-	 * I provide getters so that e.g Pair::_1 can be used instead of a lambda x ->
-	 * x._1 (mainly for compatibility with existing code, there is only one
+	 * I provide getters so that e.g Tup::_1 can be used instead of a lambda x ->
+	 * x._1 (mainly for compatibility with existing code, there is only two
 	 * character difference).
 	 */
 	/**
@@ -65,8 +65,8 @@ public final class Tup<T, U>
 	 *                  tuple.
 	 * @param rightFunc The function to apply to the second (right) element of this
 	 *                  tuple.
-	 * @return A new tuple whose first (second) element is the image of the first
-	 *         (second) element of this tuple under the left (right) function.
+	 * @return A new tuple whose first/second element is the image of the
+	 *         first/second element of this tuple under the left/right function.
 	 */
 	public <S, R> Tup<S, R> map(Function<? super T, ? extends S> leftFunc,
 			Function<? super U, ? extends R> rightFunc)

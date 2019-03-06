@@ -1,30 +1,58 @@
 package com.gihub.maumay.jflow.iterators.misc;
 
+import java.util.Objects;
+
 /**
+ * Compact composition of a primitive int value and an object reference.
+ * 
  * @author ThomasB
  * @since 20 Apr 2018
  */
 public final class IntWith<T>
 {
+	/**
+	 * The primitive int component of this pairing
+	 */
 	public final int _i;
+
+	/**
+	 * The object component of this pairing
+	 */
 	public final T _o;
 
-	private IntWith(int integer, T element)
+	private IntWith(int intval, T element)
 	{
-		this._i = integer;
-		this._o = element;
+		this._i = intval;
+		this._o = Objects.requireNonNull(element);
 	}
 
-	public static <T> IntWith<T> of(int index, T element)
+	/**
+	 * Creates a new pair.
+	 * 
+	 * @param intVal  The primitive int element of the new pair.
+	 * @param element The object reference element of the new pair.
+	 * @return The new pair.
+	 */
+	public static <T> IntWith<T> of(int intVal, T element)
 	{
-		return new IntWith<>(index, element);
+		return new IntWith<>(intVal, element);
 	}
 
+	/**
+	 * Retrieve the primitive int value contained in this pairing.
+	 * 
+	 * @return The primitive int element of this pair.
+	 */
 	public int _i()
 	{
 		return _i;
 	}
 
+	/**
+	 * Retrieve the object reference value contained in this pairing.
+	 * 
+	 * @return The object reference element of this pair.
+	 */
 	public T _o()
 	{
 		return _o;
@@ -33,8 +61,8 @@ public final class IntWith<T>
 	@Override
 	public String toString()
 	{
-		return new StringBuilder("(").append(_i).append(", ").append(_o.toString())
-				.append(")").toString();
+		return new StringBuilder("(").append(_i).append(", ").append(_o.toString()).append(")")
+				.toString();
 	}
 
 	@Override
@@ -56,8 +84,7 @@ public final class IntWith<T>
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		@SuppressWarnings("rawtypes")
-		final IntWith other = (IntWith) obj;
+		IntWith<?> other = (IntWith<?>) obj;
 		if (_o == null) {
 			if (other._o != null)
 				return false;

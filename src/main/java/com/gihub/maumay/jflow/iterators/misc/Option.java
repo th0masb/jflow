@@ -13,13 +13,13 @@ import java.util.function.IntUnaryOperator;
 import java.util.function.LongUnaryOperator;
 
 /**
- * Static methods for working with optional values.
+ * Static utility methods for working with optional values.
  *
  * @author ThomasB
  */
-public final class Optionals
+public final class Option
 {
-	private Optionals()
+	private Option()
 	{
 	}
 
@@ -67,7 +67,6 @@ public final class Optionals
 			return Optional.empty();
 		}
 	}
-	// public static Flow<T> iter()
 
 	/**
 	 * Performs a 'safe-cast' of a source object to a type specified by the given
@@ -89,7 +88,7 @@ public final class Optionals
 	}
 
 	/**
-	 * Static factory for wrapping values in optional instances.
+	 * Wraps a value in an optional.
 	 *
 	 * @param t The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
@@ -100,7 +99,17 @@ public final class Optionals
 	}
 
 	/**
-	 * Static factory for wrapping values in optional instances.
+	 * Creates an empty optional.
+	 * 
+	 * @return an empty optional.
+	 */
+	public static <T> Optional<T> empty()
+	{
+		return Optional.empty();
+	}
+
+	/**
+	 * Wraps a value in an optional.
 	 *
 	 * @param x The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
@@ -111,18 +120,38 @@ public final class Optionals
 	}
 
 	/**
-	 * Static factory for wrapping values in optional instances.
+	 * Creates an empty optional.
+	 * 
+	 * @return an empty optional.
+	 */
+	public static OptionalInt emptyInt()
+	{
+		return OptionalInt.empty();
+	}
+
+	/**
+	 * Wraps a value in an optional.
 	 *
 	 * @param x The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
-	public static OptionalDouble ofInt(double x)
+	public static OptionalDouble ofDouble(double x)
 	{
 		return OptionalDouble.of(x);
 	}
 
 	/**
-	 * Static factory for wrapping values in optional instances.
+	 * Creates an empty optional.
+	 * 
+	 * @return an empty optional.
+	 */
+	public static OptionalDouble emptyDouble()
+	{
+		return OptionalDouble.empty();
+	}
+
+	/**
+	 * Wraps a value in an optional.
 	 *
 	 * @param x The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
@@ -130,6 +159,16 @@ public final class Optionals
 	public static OptionalLong ofLong(int x)
 	{
 		return OptionalLong.of(x);
+	}
+
+	/**
+	 * Creates an empty optional.
+	 * 
+	 * @return an empty optional.
+	 */
+	public static OptionalLong emptyLong()
+	{
+		return OptionalLong.empty();
 	}
 
 	/**

@@ -12,7 +12,7 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.IntPair;
+import com.gihub.maumay.jflow.iterators.misc.IntTup;
 import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
@@ -116,7 +116,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<IntPair> zipWith(PrimitiveIterator.OfInt other);
+	EnhancedIterator<IntTup> zipWith(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Creates a new Iterator by mapping each element in this source
@@ -130,7 +130,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         <li>{@code length(G) = length(F)}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<IntPair> enumerate();
+	EnhancedIterator<IntTup> enumerate();
 
 	/**
 	 * Creates a new {@link IntIterator} from this

@@ -7,7 +7,7 @@ import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.Test;
 
-import com.gihub.maumay.jflow.iterators.misc.DoublePair;
+import com.gihub.maumay.jflow.iterators.misc.DoubleTup;
 import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
@@ -30,16 +30,16 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 		final AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(
-				asList(DoublePair.of(0, 0), DoublePair.of(1, 1), DoublePair.of(2, 2),
-						DoublePair.of(3, 3), DoublePair.of(4, 4)),
+				asList(DoubleTup.of(0, 0), DoubleTup.of(1, 1), DoubleTup.of(2, 2),
+						DoubleTup.of(3, 3), DoubleTup.of(4, 4)),
 				createZipIteratorProviderFrom(mid, mid));
 
 		assertObjectIteratorAsExpected(
-				asList(DoublePair.of(0, 10), DoublePair.of(1, 11), DoublePair.of(2, 12),
-						DoublePair.of(3, 13), DoublePair.of(4, 14)),
+				asList(DoubleTup.of(0, 10), DoubleTup.of(1, 11), DoubleTup.of(2, 12),
+						DoubleTup.of(3, 13), DoubleTup.of(4, 14)),
 				createZipIteratorProviderFrom(mid, large));
 
-		assertObjectIteratorAsExpected(asList(DoublePair.of(0, 10), DoublePair.of(1, 11)),
+		assertObjectIteratorAsExpected(asList(DoubleTup.of(0, 10), DoubleTup.of(1, 11)),
 				createZipIteratorProviderFrom(mid, small));
 
 		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(mid, empty));
@@ -47,12 +47,12 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(empty, mid));
 	}
 
-	private AbstractEnhancedIterable<DoublePair> createZipIteratorProviderFrom(
+	private AbstractEnhancedIterable<DoubleTup> createZipIteratorProviderFrom(
 			final AbstractIterableDoubles first, final AbstractIterableDoubles second)
 	{
-		return new AbstractEnhancedIterable<DoublePair>() {
+		return new AbstractEnhancedIterable<DoubleTup>() {
 			@Override
-			public AbstractEnhancedIterator<DoublePair> iter()
+			public AbstractEnhancedIterator<DoubleTup> iter()
 			{
 				return first.iter().zipWith(second.iter());
 			}

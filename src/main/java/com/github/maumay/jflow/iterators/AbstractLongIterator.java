@@ -15,7 +15,7 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.LongPair;
+import com.gihub.maumay.jflow.iterators.misc.LongTup;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
@@ -89,7 +89,7 @@ public abstract class AbstractLongIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public AbstractEnhancedIterator<LongPair> zipWith(OfLong other)
+	public AbstractEnhancedIterator<LongTup> zipWith(OfLong other)
 	{
 		return new ZipIterator.OfLongPair(this, other);
 	}

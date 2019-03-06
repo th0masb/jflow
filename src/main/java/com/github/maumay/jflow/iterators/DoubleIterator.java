@@ -14,7 +14,7 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.DoublePair;
+import com.gihub.maumay.jflow.iterators.misc.DoubleTup;
 import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.vec.DoubleVec;
@@ -118,7 +118,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<DoublePair> zipWith(PrimitiveIterator.OfDouble other);
+	EnhancedIterator<DoubleTup> zipWith(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Creates a new Iterator by mapping each element in this source

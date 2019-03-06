@@ -1,30 +1,58 @@
 package com.gihub.maumay.jflow.iterators.misc;
 
+import java.util.Objects;
+
 /**
+ * Compact composition of a primitive long value and an object reference.
+ * 
  * @author ThomasB
  * @since 20 Apr 2018
  */
 public final class LongWith<T>
 {
-	public final long _L;
+	/**
+	 * The primitive long component of this pairing
+	 */
+	public final long _l;
+
+	/**
+	 * The object component of this pairing
+	 */
 	public final T _o;
 
-	public LongWith(long longVal, T element)
+	private LongWith(long longval, T element)
 	{
-		this._L = longVal;
-		this._o = element;
+		this._l = longval;
+		this._o = Objects.requireNonNull(element);
 	}
 
+	/**
+	 * Creates a new pair.
+	 * 
+	 * @param longVal The primitive long element of the new pair.
+	 * @param element The object reference element of the new pair.
+	 * @return The new pair.
+	 */
 	public static <T> LongWith<T> of(long longVal, T element)
 	{
 		return new LongWith<>(longVal, element);
 	}
 
-	public long _L()
+	/**
+	 * Retrieve the primitive long value contained in this pairing.
+	 * 
+	 * @return The primitive long element of this pair.
+	 */
+	public long _i()
 	{
-		return _L;
+		return _l;
 	}
 
+	/**
+	 * Retrieve the object reference value contained in this pairing.
+	 * 
+	 * @return The object reference element of this pair.
+	 */
 	public T _o()
 	{
 		return _o;
@@ -33,8 +61,8 @@ public final class LongWith<T>
 	@Override
 	public String toString()
 	{
-		return new StringBuilder("(").append(_L).append(", ").append(_o.toString())
-				.append(")").toString();
+		return new StringBuilder("(").append(_l).append(", ").append(_o.toString()).append(")")
+				.toString();
 	}
 
 	@Override
@@ -43,7 +71,7 @@ public final class LongWith<T>
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((_o == null) ? 0 : _o.hashCode());
-		result = prime * result + (int) (_L ^ (_L >>> 32));
+		result = prime * result + (int) (_l ^ (_l >>> 32));
 		return result;
 	}
 
@@ -63,7 +91,7 @@ public final class LongWith<T>
 				return false;
 		} else if (!_o.equals(other._o))
 			return false;
-		if (_L != other._L)
+		if (_l != other._l)
 			return false;
 		return true;
 	}

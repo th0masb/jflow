@@ -10,7 +10,7 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.IntPair;
+import com.gihub.maumay.jflow.iterators.misc.IntTup;
 import com.gihub.maumay.jflow.iterators.misc.IntWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
@@ -85,13 +85,13 @@ public abstract class AbstractIntIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public AbstractEnhancedIterator<IntPair> zipWith(OfInt other)
+	public AbstractEnhancedIterator<IntTup> zipWith(OfInt other)
 	{
 		return new ZipIterator.OfIntPair(this, other);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<IntPair> enumerate()
+	public AbstractEnhancedIterator<IntTup> enumerate()
 	{
 		return zipWith(Numbers.natural());
 	}

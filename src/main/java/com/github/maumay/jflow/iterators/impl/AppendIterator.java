@@ -8,7 +8,7 @@ import static com.github.maumay.jflow.iterators.impl.ImplUtils.getSize;
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
-import com.gihub.maumay.jflow.iterators.misc.Optionals;
+import com.gihub.maumay.jflow.iterators.misc.Option;
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
@@ -36,7 +36,7 @@ public final class AppendIterator
 		public OfObject(final EnhancedIterator<E> source,
 				final Iterator<? extends E> appended)
 		{
-			super(Optionals.add(source.size(), getSize(appended)));
+			super(Option.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}
@@ -72,7 +72,7 @@ public final class AppendIterator
 		public OfDouble(final DoubleIterator source,
 				final PrimitiveIterator.OfDouble appended)
 		{
-			super(Optionals.add(source.size(), getSize(appended)));
+			super(Option.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}
@@ -108,7 +108,7 @@ public final class AppendIterator
 		public OfLong(final LongIterator source,
 				final PrimitiveIterator.OfLong appended)
 		{
-			super(Optionals.add(source.size(), getSize(appended)));
+			super(Option.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}
@@ -144,7 +144,7 @@ public final class AppendIterator
 		public OfInt(final IntIterator source,
 				final PrimitiveIterator.OfInt appended)
 		{
-			super(Optionals.add(source.size(), getSize(appended)));
+			super(Option.add(source.size(), getSize(appended)));
 			this.source = source;
 			this.appended = appended;
 		}

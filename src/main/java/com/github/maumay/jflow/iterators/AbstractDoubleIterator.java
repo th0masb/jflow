@@ -12,7 +12,7 @@ import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.DoublePair;
+import com.gihub.maumay.jflow.iterators.misc.DoubleTup;
 import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
@@ -88,7 +88,7 @@ public abstract class AbstractDoubleIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public AbstractEnhancedIterator<DoublePair> zipWith(OfDouble other)
+	public AbstractEnhancedIterator<DoubleTup> zipWith(OfDouble other)
 	{
 		return new ZipIterator.OfDoublePair(this, other);
 	}

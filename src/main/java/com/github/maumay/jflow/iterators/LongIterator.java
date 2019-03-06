@@ -13,7 +13,7 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import com.gihub.maumay.jflow.iterators.misc.LongPair;
+import com.gihub.maumay.jflow.iterators.misc.LongTup;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
@@ -118,7 +118,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<LongPair> zipWith(PrimitiveIterator.OfLong other);
+	EnhancedIterator<LongTup> zipWith(PrimitiveIterator.OfLong other);
 
 	/**
 	 * Creates a new {@link EnhancedIterator} by mapping each element in this source

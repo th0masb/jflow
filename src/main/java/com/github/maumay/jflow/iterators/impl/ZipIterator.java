@@ -6,11 +6,11 @@ package com.github.maumay.jflow.iterators.impl;
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
-import com.gihub.maumay.jflow.iterators.misc.DoublePair;
+import com.gihub.maumay.jflow.iterators.misc.DoubleTup;
 import com.gihub.maumay.jflow.iterators.misc.DoubleWith;
-import com.gihub.maumay.jflow.iterators.misc.IntPair;
+import com.gihub.maumay.jflow.iterators.misc.IntTup;
 import com.gihub.maumay.jflow.iterators.misc.IntWith;
-import com.gihub.maumay.jflow.iterators.misc.LongPair;
+import com.gihub.maumay.jflow.iterators.misc.LongTup;
 import com.gihub.maumay.jflow.iterators.misc.LongWith;
 import com.gihub.maumay.jflow.iterators.misc.Tup;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
@@ -158,7 +158,7 @@ public final class ZipIterator
 		}
 	}
 
-	public static class OfIntPair extends AbstractEnhancedIterator<IntPair>
+	public static class OfIntPair extends AbstractEnhancedIterator<IntTup>
 	{
 		private final PrimitiveIterator.OfInt firstIntSource;
 		private final PrimitiveIterator.OfInt secondIntSource;
@@ -178,9 +178,9 @@ public final class ZipIterator
 		}
 
 		@Override
-		public IntPair next()
+		public IntTup next()
 		{
-			return IntPair.of(firstIntSource.nextInt(), secondIntSource.nextInt());
+			return IntTup.of(firstIntSource.nextInt(), secondIntSource.nextInt());
 		}
 
 		@Override
@@ -191,7 +191,7 @@ public final class ZipIterator
 		}
 	}
 
-	public static class OfDoublePair extends AbstractEnhancedIterator<DoublePair>
+	public static class OfDoublePair extends AbstractEnhancedIterator<DoubleTup>
 	{
 		private final PrimitiveIterator.OfDouble firstDoubleSource;
 		private final PrimitiveIterator.OfDouble secondDoubleSource;
@@ -211,9 +211,9 @@ public final class ZipIterator
 		}
 
 		@Override
-		public DoublePair next()
+		public DoubleTup next()
 		{
-			return DoublePair.of(firstDoubleSource.nextDouble(),
+			return DoubleTup.of(firstDoubleSource.nextDouble(),
 					secondDoubleSource.nextDouble());
 		}
 
@@ -225,7 +225,7 @@ public final class ZipIterator
 		}
 	}
 
-	public static class OfLongPair extends AbstractEnhancedIterator<LongPair>
+	public static class OfLongPair extends AbstractEnhancedIterator<LongTup>
 	{
 		private final PrimitiveIterator.OfLong firstLongSource;
 		private final PrimitiveIterator.OfLong secondLongSource;
@@ -245,9 +245,9 @@ public final class ZipIterator
 		}
 
 		@Override
-		public LongPair next()
+		public LongTup next()
 		{
-			return LongPair.of(firstLongSource.nextLong(), secondLongSource.nextLong());
+			return LongTup.of(firstLongSource.nextLong(), secondLongSource.nextLong());
 		}
 
 		@Override
