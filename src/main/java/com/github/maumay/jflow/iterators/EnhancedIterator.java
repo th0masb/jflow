@@ -630,6 +630,8 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * Note that if this iterator is empty then a {@link HashMap} will be returned
 	 * instead.
 	 * 
+	 * @param             <K> The type of key in the resulting map.
+	 * @param             <V> The type of value in the resulting map.
 	 * @param keyMapper   see {@link #toMap(Function, Function)}
 	 * @param valueMapper see {@link #toMap(Function, Function)}
 	 * @return see {@link #toMap(Function, Function)}
@@ -666,6 +668,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * function. If duplicate elements appear in this iterator then an exception
 	 * will be thrown.
 	 * 
+	 * @param             <V> The type of values in the resulting map.
 	 * @param valueMapper the function which produces the associated values in the
 	 *                    resultant map for each unique element in this iterator.
 	 * @return a map associating the unique elements of this iterator with the
@@ -686,9 +689,15 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	}
 
 	/**
-	 * Caches the elements in this iterator to a Map which is accessible through an
-	 * unmodifiable view.
+	 * Constructs a Map from the elements of this iterator which is accessible
+	 * through an unmodifiable view.
 	 * 
+	 * @param             <K> The type of the keys in the resulting map.
+	 * @param             <V> The type of the values in the resulting map.
+	 * @param keyMapper   The function mapping the elements of this iterator to the
+	 *                    keys of the resulting map.
+	 * @param valueMapper The function mapping the elements of this iterator to the
+	 *                    values of the resulting map.
 	 * @return An immutable view of the result of
 	 *         {@link EnhancedIterator#toMap(Function, Function)}.
 	 */
@@ -787,7 +796,8 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	/**
 	 * Convenience method which delegates to
 	 * {@link EnhancedIterator#zipWith(Iterator)}.
-	 *
+	 * 
+	 * @param       <R> The element type of the iterable element source.
 	 * @param other Some iterable object.
 	 * @return the result of zipping this {@link EnhancedIterator} with an iterator
 	 *         created from the parameter iterable.
