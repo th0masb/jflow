@@ -3,6 +3,7 @@
  */
 package com.github.maumay.jflow.vec;
 
+import java.util.Arrays;
 import java.util.stream.LongStream;
 
 import com.github.maumay.jflow.iterators.LongIterator;
@@ -16,35 +17,35 @@ final class LongVecImpl implements LongVec
 {
 	private static final LongVecImpl EMPTY = new LongVecImpl(new long[0]);
 
-	private final long[] src;
+	private final long[] data;
 
 	LongVecImpl(long[] src)
 	{
-		this.src = src;
+		this.data = src;
 	}
 
 	@Override
 	public LongIterator iter()
 	{
-		return Iter.longs(src);
+		return Iter.longs(data);
 	}
 
 	@Override
 	public LongStream stream()
 	{
-		return LongStream.of(src);
+		return LongStream.of(data);
 	}
 
 	@Override
 	public long get(int index)
 	{
-		return src[index];
+		return data[index];
 	}
 
 	@Override
 	public int size()
 	{
-		return src.length;
+		return data.length;
 	}
 
 	public static LongVecImpl empty()
@@ -55,16 +56,30 @@ final class LongVecImpl implements LongVec
 	@Override
 	public LongIterator revIter()
 	{
-		return Iter.reverseLongs(src);
+		return Iter.reverseLongs(data);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof LongVec) {
+			LongVec other = (LongVec) obj;
+			return size() == other.size()
+					&& Iter.until(size()).allMatch(i -> get(i) == other.get(i));
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Arrays.hashCode(data);
+	}
+
+	@Override
+	public String toString()
+	{
+		return Arrays.toString(data);
 	}
 }
-
-/*
- * ---------------------------------------------------------------------* This
- * software is the confidential and proprietary information of Lhasa Limited
- * Granary Wharf House, 2 Canal Wharf, Leeds LS11 5PS --- No part of this
- * confidential information shall be disclosed and it shall be used only in
- * accordance with the terms of a written license agreement entered into by
- * holder of the information with LHASA Ltd.
- * ---------------------------------------------------------------------
- */

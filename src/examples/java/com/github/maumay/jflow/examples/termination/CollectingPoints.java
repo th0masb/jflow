@@ -15,6 +15,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.StreamSupport;
 
 import com.github.maumay.jflow.examples.termination.Base.Bounds;
 import com.github.maumay.jflow.examples.termination.Base.Point;
@@ -53,6 +54,11 @@ public final class CollectingPoints
 	static PointsToBoundsCollector pointsCollector()
 	{
 		return new PointsToBoundsCollector();
+	}
+
+	static Bounds fromIterable2(Iterable<? extends Point> source)
+	{
+		return StreamSupport.stream(source.spliterator(), false).collect(pointsCollector());
 	}
 
 	static class PointsToBoundsCollector implements Collector<Point, CollectionContainer, Bounds>
@@ -123,7 +129,7 @@ public final class CollectingPoints
 	@SuppressWarnings("unused")
 	public static void main(String[] args)
 	{
-		Vec<Point> points = Vec.of(new Point(0, 0), new Point(1, 1));
+		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
 		Bounds withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))

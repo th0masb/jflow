@@ -4,7 +4,7 @@
 package com.github.maumay.jflow.utils;
 
 /**
- * Static methods for throwing exceptions.
+ * Static utility methods for throwing exceptions.
  * 
  * @author ThomasB
  */

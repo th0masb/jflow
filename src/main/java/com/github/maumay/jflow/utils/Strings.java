@@ -19,7 +19,7 @@ import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
 /**
- * Static methods for operations on strings, e.g. regex pattern matching.
+ * Static utility methods for working with strings.
  * 
  * @author t
  */

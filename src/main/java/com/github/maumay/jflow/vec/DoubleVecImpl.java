@@ -3,6 +3,7 @@
  */
 package com.github.maumay.jflow.vec;
 
+import java.util.Arrays;
 import java.util.stream.DoubleStream;
 
 import com.github.maumay.jflow.iterators.DoubleIterator;
@@ -16,35 +17,35 @@ final class DoubleVecImpl implements DoubleVec
 {
 	private static final DoubleVecImpl EMPTY = new DoubleVecImpl(new double[0]);
 
-	private final double[] src;
+	private final double[] data;
 
 	DoubleVecImpl(double[] src)
 	{
-		this.src = src;
+		this.data = src;
 	}
 
 	@Override
 	public DoubleIterator iter()
 	{
-		return Iter.doubles(src);
+		return Iter.doubles(data);
 	}
 
 	@Override
 	public DoubleStream stream()
 	{
-		return DoubleStream.of(src);
+		return DoubleStream.of(data);
 	}
 
 	@Override
 	public double get(int index)
 	{
-		return src[index];
+		return data[index];
 	}
 
 	@Override
 	public int size()
 	{
-		return src.length;
+		return data.length;
 	}
 
 	public static DoubleVecImpl empty()
@@ -55,7 +56,31 @@ final class DoubleVecImpl implements DoubleVec
 	@Override
 	public DoubleIterator revIter()
 	{
-		return Iter.reverseDoubles(src);
+		return Iter.reverseDoubles(data);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof DoubleVec) {
+			DoubleVec other = (DoubleVec) obj;
+			return size() == other.size()
+					&& Iter.until(size()).allMatch(i -> Double.compare(get(i), other.get(i)) == 0);
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Arrays.hashCode(data);
+	}
+
+	@Override
+	public String toString()
+	{
+		return Arrays.toString(data);
 	}
 }
 

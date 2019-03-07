@@ -252,6 +252,15 @@ public interface EnhancedIterable<E> extends Iterable<E>
 		return iter().toCollection(collectionFactory);
 	}
 
+	/**
+	 * Creates a new instance of the given type by applying the given collector to
+	 * the iterator returned by {@link #iter()}.
+	 * 
+	 * @param                   <R> The target type of the transformation.
+	 * @param iteratorCollector The collector which determines how this vector will
+	 *                          be transformed.
+	 * @return The image of the transformation under the supplied collector.
+	 */
 	default <R> R transform(IteratorCollector<E, R> iteratorCollector)
 	{
 		return iter().collect(iteratorCollector);

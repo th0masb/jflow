@@ -121,7 +121,7 @@ public final class Option
 	 * @param x The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
-	public static OptionalInt ofInt(int x)
+	public static OptionalInt of(int x)
 	{
 		return OptionalInt.of(x);
 	}
@@ -142,7 +142,7 @@ public final class Option
 	 * @param x The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
-	public static OptionalDouble ofDouble(double x)
+	public static OptionalDouble of(double x)
 	{
 		return OptionalDouble.of(x);
 	}
@@ -163,7 +163,7 @@ public final class Option
 	 * @param x The value to wrap in an optional.
 	 * @return An optional wrapping the parameter value.
 	 */
-	public static OptionalLong ofLong(int x)
+	public static OptionalLong of(long x)
 	{
 		return OptionalLong.of(x);
 	}

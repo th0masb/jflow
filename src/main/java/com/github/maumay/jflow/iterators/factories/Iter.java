@@ -387,7 +387,7 @@ public final class Iter
 	 * 				[0,n)
 	 *         </pre>
 	 */
-	public static IntIterator to(int upperBound)
+	public static IntIterator until(int upperBound)
 	{
 		return upperBound > 0 ? Iter.intsByIndexing(i -> i, upperBound) : Iter.emptyInts();
 	}
@@ -456,6 +456,6 @@ public final class Iter
 			throw new IllegalArgumentException();
 		}
 		double step = (end - start) / nSubIntervals;
-		return to(nSubIntervals + 1).mapToDouble(i -> start + i * step);
+		return until(nSubIntervals + 1).mapToDouble(i -> start + i * step);
 	}
 }

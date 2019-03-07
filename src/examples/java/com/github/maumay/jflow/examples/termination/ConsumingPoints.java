@@ -40,7 +40,7 @@ public final class ConsumingPoints
 
 	public static void main(String[] args)
 	{
-		Vec<Point> points = Vec.of(new Point(0, 0), new Point(1, 0), new Point(1, 1));
+		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 0), new Point(1, 1));
 		GraphicsContext gc = null; // Dummy
 
 		points.iter().map(p -> new Point(p.x + 2, p.y - 3)).consume(drawPolygon(gc));

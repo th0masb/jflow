@@ -33,8 +33,9 @@ import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
+ * Static methods for working with primitive arrays.
+ * 
  * @author ThomasB
- *
  */
 public final class ArrayUtils
 {

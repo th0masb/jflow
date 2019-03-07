@@ -4,7 +4,6 @@ apply(plugin: 'eclipse')
 sourceCompatibility = 1.8
 version = '0.4'
 
-println("Starting")
 jar {
     manifest {
         attributes('Implementation-Title': 'JFlow')

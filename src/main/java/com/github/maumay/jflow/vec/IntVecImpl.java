@@ -3,6 +3,7 @@
  */
 package com.github.maumay.jflow.vec;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import com.github.maumay.jflow.iterators.IntIterator;
@@ -16,35 +17,35 @@ final class IntVecImpl implements IntVec
 {
 	private static final IntVecImpl EMPTY = new IntVecImpl(new int[0]);
 
-	private final int[] src;
+	private final int[] data;
 
 	IntVecImpl(int[] src)
 	{
-		this.src = src;
+		this.data = src;
 	}
 
 	@Override
 	public IntIterator iter()
 	{
-		return Iter.ints(src);
+		return Iter.ints(data);
 	}
 
 	@Override
 	public IntStream stream()
 	{
-		return IntStream.of(src);
+		return IntStream.of(data);
 	}
 
 	@Override
 	public int get(int index)
 	{
-		return src[index];
+		return data[index];
 	}
 
 	@Override
 	public int size()
 	{
-		return src.length;
+		return data.length;
 	}
 
 	public static IntVecImpl empty()
@@ -55,16 +56,30 @@ final class IntVecImpl implements IntVec
 	@Override
 	public IntIterator revIter()
 	{
-		return Iter.reverseInts(src);
+		return Iter.reverseInts(data);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof IntVec) {
+			IntVec other = (IntVec) obj;
+			return size() == other.size()
+					&& Iter.until(size()).allMatch(i -> get(i) == other.get(i));
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Arrays.hashCode(data);
+	}
+
+	@Override
+	public String toString()
+	{
+		return Arrays.toString(data);
 	}
 }
-
-/*
- * ---------------------------------------------------------------------* This
- * software is the confidential and proprietary information of Lhasa Limited
- * Granary Wharf House, 2 Canal Wharf, Leeds LS11 5PS --- No part of this
- * confidential information shall be disclosed and it shall be used only in
- * accordance with the terms of a written license agreement entered into by
- * holder of the information with LHASA Ltd.
- * ---------------------------------------------------------------------
- */
