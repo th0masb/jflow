@@ -1,6 +1,7 @@
 package com.github.maumay.jflow.examples.convenient;
 
 import static com.github.maumay.jflow.vec.Vec.vec;
+import static java.util.Arrays.asList;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,13 +36,26 @@ public final class IterIsUseful
 		assert Iter.reverse(Arrays.asList(1, 2, 3)).toVec().equals(vec(3, 2, 1));
 		assert Iter.over(new HashSet<>(Arrays.asList(1, 2, 3))).fold((a, b) -> a + b) == 6;
 
+		// *****************************************************************************************
 		// Construct from enumerated types
 		assert Iter.over(MyEnum.class).toVec().equals(vec(MyEnum.A, MyEnum.B, MyEnum.C));
 
+		// *****************************************************************************************
 		// Construct from optionals
 		assert Iter.option(Option.empty()).toVec().equals(vec());
 		assert Iter.option(Option.of("a")).toVec().equals(vec("a"));
 
+		// main usage
+		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::option)
+				.toVec().equals(vec("a", "b"));
+
+		// *****************************************************************************************
+		// Flatten stacked collections
+		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(), vec("b"));
+		assert Iter.flatten(stacked).toVec().equals(vec("a", "b"));
+		assert Iter.flatten(stacked).anyMatch(s -> s.equals("a"));
+
+		// *****************************************************************************************
 		// Construct from maps
 		Map<Integer, Integer> map = new HashMap<>();
 		map.put(1, 10);
@@ -52,11 +66,13 @@ public final class IterIsUseful
 		assert Iter.values(map).fold(sum) == 30;
 		assert Iter.entries(map).map(pair -> pair._1 * pair._2).fold(sum) == 50;
 
+		// *****************************************************************************************
 		// Construct primitive iterators
 		assert Iter.ints(1, 2, 3).anyMatch(n -> n == 2);
 		assert Iter.doubles(1.0, 2.0, 3.0).allMatch(n -> n > 0);
 		assert Iter.longs(1, 2, 3).noneMatch(n -> n > 3);
 
+		// *****************************************************************************************
 		// Construct primitive number ranges
 		assert Iter.until(5).toVec().equals(IntVec.of(0, 1, 2, 3, 4));
 		assert Iter.between(1, 4).toVec().equals(IntVec.of(1, 2, 3));

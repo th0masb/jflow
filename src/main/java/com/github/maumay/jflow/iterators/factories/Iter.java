@@ -191,8 +191,20 @@ public final class Iter
 		return Iter.over(src.entrySet()).map(entry -> Tup.of(entry.getKey(), entry.getValue()));
 	}
 
-	// Ints
+	/**
+	 * Flattens a sequence of stacked sequences by returning an iterator traversing
+	 * all elements of every sequence.
+	 * 
+	 * @param source A sequence of sequences.
+	 * @return An iterator traversing all elements contained in each element in the
+	 *         source
+	 */
+	public static <E> EnhancedIterator<E> flatten(Iterable<? extends Iterable<? extends E>> source)
+	{
+		return Iter.wrap(source).flatMap(Iter::wrap);
+	}
 
+	// Ints
 	/**
 	 * Creates an empty IntEnhancedIterator.
 	 *
