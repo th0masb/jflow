@@ -22,7 +22,7 @@ import java.util.stream.StreamSupport;
 
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.factories.IterRange;
+import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
@@ -112,7 +112,7 @@ final class VecImpl<E> implements Vec<E>
 		if (obj instanceof Vec<?>) {
 			final Vec<?> other = (Vec<?>) obj;
 			if (other.size() == size()) {
-				return IterRange.to(size()).allMatch(i -> data[i].equals(other.get(i)));
+				return Iter.to(size()).allMatch(i -> data[i].equals(other.get(i)));
 			} else {
 				return false;
 			}

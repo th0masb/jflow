@@ -154,7 +154,7 @@ public class Repeatedly
 	 * @return An infinite IntEnhancedIterator built from apply the indexing
 	 *         function to each natural number in turn.
 	 */
-	public static IntIterator indexInts(final IntUnaryOperator indexingFunction)
+	public static IntIterator indexInts(IntUnaryOperator indexingFunction)
 	{
 		return new FunctionIterator.OfInt(indexingFunction, -1);
 	}

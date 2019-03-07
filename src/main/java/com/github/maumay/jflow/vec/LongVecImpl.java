@@ -3,40 +3,40 @@
  */
 package com.github.maumay.jflow.vec;
 
-import java.util.stream.DoubleStream;
+import java.util.stream.LongStream;
 
-import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
 /**
  * @author ThomasB
  *
  */
-final class DoubleVecImpl implements DoubleVec
+final class LongVecImpl implements LongVec
 {
-	private static final DoubleVecImpl EMPTY = new DoubleVecImpl(new double[0]);
+	private static final LongVecImpl EMPTY = new LongVecImpl(new long[0]);
 
-	private final double[] src;
+	private final long[] src;
 
-	DoubleVecImpl(double[] src)
+	LongVecImpl(long[] src)
 	{
 		this.src = src;
 	}
 
 	@Override
-	public DoubleIterator iter()
+	public LongIterator iter()
 	{
-		return Iter.doubles(src);
+		return Iter.longs(src);
 	}
 
 	@Override
-	public DoubleStream stream()
+	public LongStream stream()
 	{
-		return DoubleStream.of(src);
+		return LongStream.of(src);
 	}
 
 	@Override
-	public double get(int index)
+	public long get(int index)
 	{
 		return src[index];
 	}
@@ -47,15 +47,15 @@ final class DoubleVecImpl implements DoubleVec
 		return src.length;
 	}
 
-	public static DoubleVecImpl empty()
+	public static LongVecImpl empty()
 	{
 		return EMPTY;
 	}
 
 	@Override
-	public DoubleIterator revIter()
+	public LongIterator revIter()
 	{
-		return Iter.reverseDoubles(src);
+		return Iter.reverseLongs(src);
 	}
 }
 

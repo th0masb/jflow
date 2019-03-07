@@ -15,6 +15,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.termination.IteratorCollector;
 
 /**
  * Abstraction of iterable object which can construct enhanced iterators
@@ -249,5 +250,10 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	default <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
 	{
 		return iter().toCollection(collectionFactory);
+	}
+
+	default <R> R transform(IteratorCollector<E, R> iteratorCollector)
+	{
+		return iter().collect(iteratorCollector);
 	}
 }

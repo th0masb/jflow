@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.examples;
+package com.github.maumay.jflow.examples.termination;
 
 import static com.github.maumay.jflow.utils.Exceptions.require;
 import static java.lang.Double.NEGATIVE_INFINITY;
@@ -16,70 +16,46 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
+import com.github.maumay.jflow.examples.termination.Base.Bounds;
+import com.github.maumay.jflow.examples.termination.Base.Point;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
  * @author thomasb
- *
  */
-public final class IteratorAsFunctionParameter
+public final class CollectingPoints
 {
-	static class Point
+	// Iterator version
+	public static Bounds fromIterator(Iterator<? extends Point> source)
 	{
-		final double x, y;
-
-		Point(double x, double y)
-		{
-			this.x = x;
-			this.y = y;
+		require(source.hasNext());
+		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
+		double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
+		while (source.hasNext()) {
+			Point next = source.next();
+			minx = Math.min(minx, next.x);
+			maxx = Math.max(maxx, next.x);
+			miny = Math.min(miny, next.y);
+			maxy = Math.max(maxy, next.y);
 		}
+		double width = maxx - minx;
+		double height = maxy - miny;
+		require(width >= 0 && height >= 0);
+		return new Bounds(minx, miny, width, height);
 	}
 
-	static class BoundsXY
+	public static Bounds fromIterable(Iterable<? extends Point> source)
 	{
-		final double x, y, width, height;
-
-		public BoundsXY(double x, double y, double width, double height)
-		{
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
-		}
-
-		public <P extends Point> BoundsXY(Iterable<P> source)
-		{
-			this(source.iterator());
-		}
-
-		public <P extends Point> BoundsXY(Iterator<P> source)
-		{
-			require(source.hasNext());
-			double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
-			double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
-			while (source.hasNext()) {
-				Point next = source.next();
-				minx = Math.min(minx, next.x);
-				maxx = Math.max(maxx, next.x);
-				miny = Math.min(miny, next.y);
-				maxy = Math.max(maxy, next.y);
-			}
-			x = minx;
-			y = miny;
-			width = maxx - minx;
-			height = maxy - miny;
-			require(width >= 0 && height >= 0);
-		}
-
-		static PointsToBoundsCollector pointsCollector()
-		{
-			return new PointsToBoundsCollector();
-		}
+		return fromIterator(source.iterator());
 	}
 
 	// Stream version
-	static class PointsToBoundsCollector
-			implements Collector<Point, CollectionContainer, BoundsXY>
+	static PointsToBoundsCollector pointsCollector()
+	{
+		return new PointsToBoundsCollector();
+	}
+
+	static class PointsToBoundsCollector implements Collector<Point, CollectionContainer, Bounds>
 	{
 		@Override
 		public BiConsumer<CollectionContainer, Point> accumulator()
@@ -100,7 +76,7 @@ public final class IteratorAsFunctionParameter
 		}
 
 		@Override
-		public Function<CollectionContainer, BoundsXY> finisher()
+		public Function<CollectionContainer, Bounds> finisher()
 		{
 			return CollectionContainer::finish;
 		}
@@ -117,7 +93,7 @@ public final class IteratorAsFunctionParameter
 		private double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 		private double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
 
-		void accumulate(Point other)
+		void accumulate(Base.Point other)
 		{
 			minx = Math.min(minx, other.x);
 			maxx = Math.max(maxx, other.x);
@@ -135,12 +111,12 @@ public final class IteratorAsFunctionParameter
 			return result;
 		}
 
-		BoundsXY finish()
+		Bounds finish()
 		{
 			require(Double.isFinite(minx));
 			double width = maxx - minx, height = maxy - miny;
 			require(width >= 0 && height >= 0);
-			return new BoundsXY(minx, miny, width, height);
+			return new Base.Bounds(minx, miny, width, height);
 		}
 	}
 
@@ -150,16 +126,18 @@ public final class IteratorAsFunctionParameter
 		Vec<Point> points = Vec.of(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
-		BoundsXY withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))
-				.collect(BoundsXY::new);
+		Bounds withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))
+				.collect(CollectingPoints::fromIterator);
 
-		BoundsXY withIterator2 = new BoundsXY(points);
-		BoundsXY withIterator3 = new BoundsXY(points.toList());
-		BoundsXY withIterator4 = new BoundsXY(points.toSet());
+		Bounds withIterator2 = CollectingPoints.fromIterable(points);
+		Bounds withIterator3 = CollectingPoints.fromIterable(points.toList());
+		Bounds withIterator4 = CollectingPoints.fromIterable(points.toSet());
 
 		// With our stream version
-		BoundsXY withStream = points.stream().map(p -> new Point(p.x, p.y + 1))
-				.collect(BoundsXY.pointsCollector());
+		Bounds withStream = points.stream().map(p -> new Point(p.x, p.y + 1))
+				.collect(CollectingPoints.pointsCollector());
+
+		Bounds withStream2 = points.toList().stream().collect(CollectingPoints.pointsCollector());
 
 		// withIterator.equals(withStream)
 	}

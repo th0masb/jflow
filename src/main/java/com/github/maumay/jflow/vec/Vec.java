@@ -374,6 +374,9 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 * Create a new {@link Collector} instance which can be used to convert a
 	 * {@link Stream} of elements to a vector.
 	 * 
+	 * <E> The type of elements this collector can collect. It is inferred at the
+	 * point of calling this method.
+	 * 
 	 * @return A Collector used to convert a Stream to a vector.
 	 */
 	static <E> VecCollector<E> collector()

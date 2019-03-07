@@ -112,8 +112,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return A {@link EnhancedIterator} obtained by applying the mapping function
 	 *         to each element in turn and sequentially concatenating the results.
 	 */
-	<R> EnhancedIterator<R> flatMap(
-			Function<? super E, ? extends Iterator<? extends R>> mapping);
+	<R> EnhancedIterator<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
 	 * Maps elements of this {@link EnhancedIterator} to {@link IntIterator}
@@ -754,35 +753,28 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	}
 
 	/**
-	 * Returns the image of this iterator under a supplied function. This method is
-	 * potentially (depending on the supplied function) a 'consuming method', i.e.
-	 * it will iterate through this {@link EnhancedIterator}.
-	 *
-	 * @param         <R> The target type of the builder function.
-	 * @param builder A function whose input encompasses {@link EnhancedIterator}
-	 *                instances of this element type.
-	 * @return The output of the supplied function applied to this
+	 * Consumes this iterator using the supplied collection function to create a new
+	 * instance of the given type.
+	 * 
+	 * @param           <R> The type of the collection result..
+	 * @param collector The collection function which is used to consume this
+	 *                  iterator.
+	 * @return The result of the collection function applied to this
 	 *         {@link EnhancedIterator}.
 	 */
-	default <R> R collect(IteratorCollector<E, R> transformer)
+	default <R> R collect(IteratorCollector<E, R> collector)
 	{
-		return transformer.collect(this);
+		return collector.collect(this);
 	}
 
 	/**
-	 * Returns the image of this iterator under a supplied function. This method is
-	 * potentially (depending on the supplied function) a 'consuming method', i.e.
-	 * it will iterate through this {@link EnhancedIterator}.
-	 *
-	 * @param         <R> The target type of the builder function.
-	 * @param builder A function whose input encompasses {@link EnhancedIterator}
-	 *                instances of this element type.
-	 * @return The output of the supplied function applied to this
-	 *         {@link EnhancedIterator}.
+	 * Consumes this iterator via some state-changing procedure.
+	 * 
+	 * @param consumer The procedure which will be used to consume this iterator.
 	 */
 	default void consume(IteratorConsumer<E> consumer)
 	{
-		consumer.consume(() -> this);
+		consumer.consume(this);
 	}
 
 	/**
