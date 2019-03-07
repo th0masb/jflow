@@ -167,7 +167,7 @@ public abstract class AbstractLongIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public OptionalLong min()
+	public OptionalLong minOption()
 	{
 		return LongMinMaxConsumption.findMin(this);
 	}
@@ -179,7 +179,7 @@ public abstract class AbstractLongIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public OptionalLong max()
+	public OptionalLong maxOption()
 	{
 		return LongMinMaxConsumption.findMax(this);
 	}

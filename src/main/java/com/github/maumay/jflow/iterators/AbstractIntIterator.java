@@ -163,7 +163,7 @@ public abstract class AbstractIntIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public OptionalInt min()
+	public OptionalInt minOption()
 	{
 		return IntMinMaxConsumption.findMin(this);
 	}
@@ -193,7 +193,7 @@ public abstract class AbstractIntIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public OptionalInt max()
+	public OptionalInt maxOption()
 	{
 		return IntMinMaxConsumption.findMax(this);
 	}

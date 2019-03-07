@@ -24,12 +24,12 @@ class AbstractLongIteratorMinMaxTest extends IteratorExampleProvider
 	void testMin()
 	{
 		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final OptionalLong minimum = populated.iter().min();
+		final OptionalLong minimum = populated.iter().minOption();
 		assertTrue(minimum.isPresent());
 		assertEquals(0, minimum.getAsLong());
 
 		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
-		assertFalse(empty.iter().min().isPresent());
+		assertFalse(empty.iter().minOption().isPresent());
 	}
 
 	@Test
@@ -47,12 +47,12 @@ class AbstractLongIteratorMinMaxTest extends IteratorExampleProvider
 	void testMax()
 	{
 		final AbstractIterableLongs populated = getLongTestIteratorProvider();
-		final OptionalLong maximum = populated.iter().max();
+		final OptionalLong maximum = populated.iter().maxOption();
 		assertTrue(maximum.isPresent());
 		assertEquals(4, maximum.getAsLong());
 
 		final AbstractIterableLongs empty = getEmptyLongTestIteratorProvider();
-		assertFalse(empty.iter().max().isPresent());
+		assertFalse(empty.iter().maxOption().isPresent());
 	}
 
 	@Test

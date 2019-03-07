@@ -11,7 +11,6 @@ import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
-import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.factories.Iter;
@@ -40,19 +39,19 @@ import com.github.maumay.jflow.vec.DoubleVec;
 public interface DoubleIterator extends SafeDoubleIterator
 {
 	/**
-	 * Applies a function elementwise to this {@link DoubleIterator} to make
-	 * new {@link DoubleIterator}.
+	 * Applies a function elementwise to this {@link DoubleIterator} to make new
+	 * {@link DoubleIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link DoubleIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link DoubleIterator} instance in turn.
+	 * @return A new {@link DoubleIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link DoubleIterator} instance in turn.
 	 */
 	DoubleIterator map(DoubleUnaryOperator f);
 
 	/**
-	 * Applies a function elementwise to this {@link DoubleIterator} to make
-	 * new Iterator.
+	 * Applies a function elementwise to this {@link DoubleIterator} to make new
+	 * Iterator.
 	 *
 	 * @param   <E> The target type of the mapping function.
 	 * @param f A mapping function.
@@ -63,37 +62,37 @@ public interface DoubleIterator extends SafeDoubleIterator
 	<E> EnhancedIterator<E> mapToObject(DoubleFunction<? extends E> f);
 
 	/**
-	 * Applies a function elementwise to this {@link DoubleIterator} to make
-	 * new {@link LongIterator}.
+	 * Applies a function elementwise to this {@link DoubleIterator} to make new
+	 * {@link LongIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link LongIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link DoubleIterator} instance in turn.
+	 * @return A new {@link LongIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link DoubleIterator} instance in turn.
 	 */
 	LongIterator mapToLong(DoubleToLongFunction f);
 
 	/**
-	 * Applies a function elementwise to this {@link DoubleIterator} to make
-	 * a new {@link IntIterator}.
+	 * Applies a function elementwise to this {@link DoubleIterator} to make a new
+	 * {@link IntIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link IntIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link DoubleIterator} instance in turn.
+	 * @return A new {@link IntIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link DoubleIterator} instance in turn.
 	 */
 	IntIterator mapToInt(DoubleToIntFunction f);
 
 	/**
-	 * Combines this {@link DoubleIterator} with another iterator to create
-	 * a new Iterator consisting of pairs of elements with the same index in their
+	 * Combines this {@link DoubleIterator} with another iterator to create a new
+	 * Iterator consisting of pairs of elements with the same index in their
 	 * respective origins.
 	 *
 	 * @param       <E> The upper type bound on the parameter Iterator.
 	 * @param other The Iterator to zip this source Iterator with.
 	 *
-	 * @return Denote this source {@link DoubleIterator} by {@code F} with
-	 *         the parameter Iterator denoted by {@code I}. We return a new Iterator
+	 * @return Denote this source {@link DoubleIterator} by {@code F} with the
+	 *         parameter Iterator denoted by {@code I}. We return a new Iterator
 	 *         instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
@@ -103,16 +102,16 @@ public interface DoubleIterator extends SafeDoubleIterator
 	<E> EnhancedIterator<DoubleWith<E>> zipWith(Iterator<? extends E> other);
 
 	/**
-	 * Combines this {@link DoubleIterator} with another primitive iterator
-	 * to create a new Iterator consisting of pairs of elements with the same index
-	 * in their respective origins.
+	 * Combines this {@link DoubleIterator} with another primitive iterator to
+	 * create a new Iterator consisting of pairs of elements with the same index in
+	 * their respective origins.
 	 *
-	 * @param other The primitive iterator to zip this source
-	 *              {@link DoubleIterator} with.
+	 * @param other The primitive iterator to zip this source {@link DoubleIterator}
+	 *              with.
 	 *
-	 * @return Denote this source {@link DoubleIterator} by {@code F} with
-	 *         the parameter primitive iterator denoted by {@code I}. We return a
-	 *         new Iterator instance {@code G} defined by:
+	 * @return Denote this source {@link DoubleIterator} by {@code F} with the
+	 *         parameter primitive iterator denoted by {@code I}. We return a new
+	 *         Iterator instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -122,11 +121,11 @@ public interface DoubleIterator extends SafeDoubleIterator
 
 	/**
 	 * Creates a new Iterator by mapping each element in this source
-	 * {@link DoubleIterator} to a pair consisting of the element and the
-	 * index it appears.
+	 * {@link DoubleIterator} to a pair consisting of the element and the index it
+	 * appears.
 	 *
-	 * @return Denote this source {@link DoubleIterator} by {@code F}. We
-	 *         return a new Iterator instance {@code G} defined by:
+	 * @return Denote this source {@link DoubleIterator} by {@code F}. We return a
+	 *         new Iterator instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], j)}</li>
 	 *         <li>{@code length(G) = length(F)}</li>
@@ -135,9 +134,8 @@ public interface DoubleIterator extends SafeDoubleIterator
 	EnhancedIterator<DoubleWith<Integer>> enumerate();
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by selecting elements with indices defined by
-	 * the parameter index mapping.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * selecting elements with indices defined by the parameter index mapping.
 	 *
 	 * @param indexMap A strictly monotonically increasing function
 	 *                 {@code f: N -> N}
@@ -152,124 +150,119 @@ public interface DoubleIterator extends SafeDoubleIterator
 	DoubleIterator slice(IntUnaryOperator indexMap);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by selecting the first n elements.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * selecting the first n elements.
 	 *
 	 * @param n A non-negative integer.
 	 * @throws IllegalArgumentException If parameter is negative.
-	 * @return Let {@code F} denote this source {@link DoubleIterator}. We
-	 *         return a {@link DoubleIterator} consisting of the first
+	 * @return Let {@code F} denote this source {@link DoubleIterator}. We return a
+	 *         {@link DoubleIterator} consisting of the first
 	 *         {@code max(n, length(F))} elements of {@code F}.
 	 */
 	DoubleIterator take(int n);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by selecting elements until an element fails
-	 * the supplied test, the first failure is not selected.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * selecting elements until an element fails the supplied test, the first
+	 * failure is not selected.
 	 *
 	 * @param predicate A DoublePredicate.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a
-	 *         {@link DoubleIterator} consisting of the first {@code n}
-	 *         elements of this source {@link DoubleIterator}. If no element
-	 *         fails the predicate test then a copy of the source is returned.
+	 *         {@link DoubleIterator} consisting of the first {@code n} elements of
+	 *         this source {@link DoubleIterator}. If no element fails the predicate
+	 *         test then a copy of the source is returned.
 	 */
 	DoubleIterator takeWhile(DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by removing the first n elements.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * removing the first n elements.
 	 *
 	 * @param n A non-negative integer.
 	 * @throws IllegalArgumentException If parameter is negative.
-	 * @return Let {@code F} denote this source {@link DoubleIterator}. We
-	 *         return a {@link DoubleIterator} missing the first
-	 *         {@code min(n, length(F))} elements of {@code F}.
+	 * @return Let {@code F} denote this source {@link DoubleIterator}. We return a
+	 *         {@link DoubleIterator} missing the first {@code min(n, length(F))}
+	 *         elements of {@code F}.
 	 */
 	DoubleIterator skip(int n);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by removing elements until an element fails
-	 * the supplied test, the first failure is the first element of the result.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * removing elements until an element fails the supplied test, the first failure
+	 * is the first element of the result.
 	 *
 	 * @param predicate A DoublePredicate.
 	 * @return Let {@code n} be the index of the first element that the parameter
 	 *         predicate fails for. Then this method returns a
-	 *         {@link DoubleIterator} missing {@code n} elements of this
-	 *         source {@link DoubleIterator}. If no element fails the
-	 *         predicate test then a copy of the source is returned.
+	 *         {@link DoubleIterator} missing {@code n} elements of this source
+	 *         {@link DoubleIterator}. If no element fails the predicate test then a
+	 *         copy of the source is returned.
 	 */
 	DoubleIterator skipWhile(DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by removing any element which fails the
-	 * supplied predicate test.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * removing any element which fails the supplied predicate test.
 	 *
 	 * @param predicate A DoublePredicate.
-	 * @return A {@link DoubleIterator} containing only those elements of
-	 *         this source {@link DoubleIterator} which pass the test
-	 *         defined by the parameter predicate. The relative ordering of elements
-	 *         is retained.
+	 * @return A {@link DoubleIterator} containing only those elements of this
+	 *         source {@link DoubleIterator} which pass the test defined by the
+	 *         parameter predicate. The relative ordering of elements is retained.
 	 */
 	DoubleIterator filter(DoublePredicate predicate);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by adding each element of the supplied
-	 * primitive iterator to its end in order.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * adding each element of the supplied primitive iterator to its end in order.
 	 *
 	 * @param other A primitive iterator.
-	 * @return A {@link DoubleIterator} consisting of the elements of this
-	 *         source {@link DoubleIterator} followed by the elements of the
-	 *         parameter PrimitiveIterator.OfDouble.
+	 * @return A {@link DoubleIterator} consisting of the elements of this source
+	 *         {@link DoubleIterator} followed by the elements of the parameter
+	 *         PrimitiveIterator.OfDouble.
 	 */
 	DoubleIterator append(PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this
-	 * {@link DoubleIterator} by adding each element of the supplied varargs
-	 * array to its end in order.
+	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
+	 * adding each element of the supplied varargs array to its end in order.
 	 *
 	 * @param other - A varargs double array
-	 * @return A {@link DoubleIterator} consisting of the elements of the
-	 *         source {@link DoubleIterator} followed by the elements in the
-	 *         parameter array.
+	 * @return A {@link DoubleIterator} consisting of the elements of the source
+	 *         {@link DoubleIterator} followed by the elements in the parameter
+	 *         array.
 	 */
 	DoubleIterator append(double... other);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this Iterator by adding
-	 * each element to the end of the supplied primitive iterator in order.
+	 * Creates a new {@link DoubleIterator} from this Iterator by adding each
+	 * element to the end of the supplied primitive iterator in order.
 	 *
 	 * @param other A primitive iterator.
-	 * @return a {@link DoubleIterator} consisting of the elements of the
-	 *         parameter primitive iterator followed by the elements of this source
+	 * @return a {@link DoubleIterator} consisting of the elements of the parameter
+	 *         primitive iterator followed by the elements of this source
 	 *         {@link DoubleIterator}.
 	 */
 	DoubleIterator insert(PrimitiveIterator.OfDouble other);
 
 	/**
-	 * Creates a new {@link DoubleIterator} from this Iterator by adding
-	 * each element to the end of the supplied varargs array in order.
+	 * Creates a new {@link DoubleIterator} from this Iterator by adding each
+	 * element to the end of the supplied varargs array in order.
 	 *
 	 * @param other - A varargs double array
-	 * @return an {@link DoubleIterator} consisting of the elements in the
-	 *         parameter array followed by the elements of the source
-	 *         {@link DoubleIterator}.
+	 * @return an {@link DoubleIterator} consisting of the elements in the parameter
+	 *         array followed by the elements of the source {@link DoubleIterator}.
 	 */
 	DoubleIterator insert(double... other);
 
 	/**
-	 * Applies an accumulation operation to this {@link DoubleIterator} to
-	 * produce a new {@link DoubleIterator}.
+	 * Applies an accumulation operation to this {@link DoubleIterator} to produce a
+	 * new {@link DoubleIterator}.
 	 *
 	 * @param accumulator The accumulation function.
-	 * @return Let {@code F} denote this source {@link DoubleIterator} and
-	 *         {@code g} denote the accumulation function. Then the
-	 *         {@link DoubleIterator} returned is of the form:
+	 * @return Let {@code F} denote this source {@link DoubleIterator} and {@code g}
+	 *         denote the accumulation function. Then the {@link DoubleIterator}
+	 *         returned is of the form:
 	 *         <ul>
 	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
 	 *         </ul>
@@ -277,14 +270,14 @@ public interface DoubleIterator extends SafeDoubleIterator
 	DoubleIterator accumulate(DoubleBinaryOperator accumulator);
 
 	/**
-	 * Applies an accumulation operation to this {@link DoubleIterator} to
-	 * produce a new {@link DoubleIterator}.
+	 * Applies an accumulation operation to this {@link DoubleIterator} to produce a
+	 * new {@link DoubleIterator}.
 	 *
 	 * @param id          The identity element in the accumulation.
 	 * @param accumulator The accumulator function.
-	 * @return Let {@code F} denote this source {@link DoubleIterator} and
-	 *         {@code g} denote the accumulation function. Then the
-	 *         {@link DoubleIterator} returned is of the form:
+	 * @return Let {@code F} denote this source {@link DoubleIterator} and {@code g}
+	 *         denote the accumulation function. Then the {@link DoubleIterator}
+	 *         returned is of the form:
 	 *         <ul>
 	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 *         </ul>
@@ -303,8 +296,8 @@ public interface DoubleIterator extends SafeDoubleIterator
 	OptionalDouble minOption();
 
 	/**
-	 * Calculates the minimum value in this {@link DoubleIterator}, throws
-	 * an {@link IllegalStateException} if this flow is empty.
+	 * Calculates the minimum value in this {@link DoubleIterator}, throws an
+	 * {@link IllegalStateException} if this flow is empty.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
@@ -325,8 +318,8 @@ public interface DoubleIterator extends SafeDoubleIterator
 	OptionalDouble maxOption();
 
 	/**
-	 * Calculates the maximum value in this {@link DoubleIterator}, throws
-	 * an {@link IllegalStateException} if this flow is empty.
+	 * Calculates the maximum value in this {@link DoubleIterator}, throws an
+	 * {@link IllegalStateException} if this flow is empty.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
@@ -336,20 +329,19 @@ public interface DoubleIterator extends SafeDoubleIterator
 	double max();
 
 	/**
-	 * Checks whether every element in this {@link DoubleIterator} is the
-	 * same.
+	 * Checks whether every element in this {@link DoubleIterator} is the same.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
 	 *
-	 * @return True is every element of this {@link DoubleIterator} is
-	 *         equal, false otherwise.
+	 * @return True is every element of this {@link DoubleIterator} is equal, false
+	 *         otherwise.
 	 */
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@link DoubleIterator} passes
-	 * the supplied DoublePredicate test.
+	 * Checks whether every element in this {@link DoubleIterator} passes the
+	 * supplied DoublePredicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
@@ -361,8 +353,8 @@ public interface DoubleIterator extends SafeDoubleIterator
 	boolean allMatch(DoublePredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@link DoubleIterator} passes the
-	 * supplied DoublePredicate test.
+	 * Checks whether any element in this {@link DoubleIterator} passes the supplied
+	 * DoublePredicate test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
@@ -387,16 +379,16 @@ public interface DoubleIterator extends SafeDoubleIterator
 	boolean noneMatch(DoublePredicate predicate);
 
 	/**
-	 * Reduces this {@link DoubleIterator} to a single value via some
-	 * reduction function and an initial value
+	 * Reduces this {@link DoubleIterator} to a single value via some reduction
+	 * function and an initial value
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
 	 *
 	 * @param id      The identity of the reduction operation
 	 * @param reducer The reduction function
-	 * @return If we denote this source {@link DoubleIterator} by {@code F},
-	 *         the length of {@code F} by {@code n} and the reduction function by
+	 * @return If we denote this source {@link DoubleIterator} by {@code F}, the
+	 *         length of {@code F} by {@code n} and the reduction function by
 	 *         {@code f} then the result is equal to: <br>
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
@@ -404,34 +396,32 @@ public interface DoubleIterator extends SafeDoubleIterator
 	double fold(double id, DoubleBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@link DoubleIterator} to a single value via some
-	 * reduction function. Throws exception if empty flow.
+	 * Reduces this {@link DoubleIterator} to a single value via some reduction
+	 * function. Throws exception if empty flow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
 	 *
 	 * @param reducer The reduction function
-	 * @return Let us denote this source {@link DoubleIterator} by
-	 *         {@code F}, the length of {@code F} by {@code n} and the reduction
-	 *         function by {@code f}. If {@code n == 0} we return nothing, else we
-	 *         return: <br>
+	 * @return Let us denote this source {@link DoubleIterator} by {@code F}, the
+	 *         length of {@code F} by {@code n} and the reduction function by
+	 *         {@code f}. If {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
 	double fold(DoubleBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@link DoubleIterator} to a single value via some
-	 * reduction function. Returns nothing if empty flow.
+	 * Reduces this {@link DoubleIterator} to a single value via some reduction
+	 * function. Returns nothing if empty flow.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
 	 *
 	 * @param reducer The reduction function
-	 * @return Let us denote this source {@link DoubleIterator} by
-	 *         {@code F}, the length of {@code F} by {@code n} and the reduction
-	 *         function by {@code f}. If {@code n == 0} we return nothing, else we
-	 *         return: <br>
+	 * @return Let us denote this source {@link DoubleIterator} by {@code F}, the
+	 *         length of {@code F} by {@code n} and the reduction function by
+	 *         {@code f}. If {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
@@ -448,14 +438,13 @@ public interface DoubleIterator extends SafeDoubleIterator
 	long count();
 
 	/**
-	 * Caches the values in this {@link DoubleIterator} to a
-	 * {@link DoubleVec}.
+	 * Caches the values in this {@link DoubleIterator} to a {@link DoubleVec}.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
 	 *
-	 * @return A vector containing all elements of this
-	 *         {@link DoubleIterator} with their ordering retained.
+	 * @return A vector containing all elements of this {@link DoubleIterator} with
+	 *         their ordering retained.
 	 */
 	default DoubleVec toVec()
 	{
@@ -468,14 +457,14 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
 	 *
-	 * @return A double array containing all elements of this
-	 *         {@link DoubleIterator} with their ordering retained.
+	 * @return A double array containing all elements of this {@link DoubleIterator}
+	 *         with their ordering retained.
 	 */
 	double[] toArray();
 
 	/**
-	 * Builds a Map using the elements in this {@link DoubleIterator} via
-	 * two supplied functions.
+	 * Builds a Map using the elements in this {@link DoubleIterator} via two
+	 * supplied functions.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
@@ -485,9 +474,8 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @param keyMapper   A function mapping doubles to elements of the key type.
 	 * @param valueMapper A function mapping doubles to elements of the value type.
 	 *
-	 * @throws IllegalStateException If two elements of this
-	 *                               {@link DoubleIterator} map to the same
-	 *                               key.
+	 * @throws IllegalStateException If two elements of this {@link DoubleIterator}
+	 *                               map to the same key.
 	 *
 	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
 	 *         with the elements in this source {@link DoubleIterator}. More
@@ -496,14 +484,14 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li>
 	 *         </ul>
-	 *         an element of this source {@link DoubleIterator}, say
-	 *         {@code e}, is associated to the key value pair {@code (k(e), v(e))}.
+	 *         an element of this source {@link DoubleIterator}, say {@code e}, is
+	 *         associated to the key value pair {@code (k(e), v(e))}.
 	 */
 	<K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper, DoubleFunction<V> valueMapper);
 
 	/**
-	 * Groups elements in this {@link DoubleIterator} via their image under
-	 * some supplied classification function.
+	 * Groups elements in this {@link DoubleIterator} via their image under some
+	 * supplied classification function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.
@@ -512,40 +500,41 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *
 	 * @param classifier A function defining the different groups of elements.
 	 * @return A Map instance whose keys partition the elements of this source
-	 *         {@link DoubleIterator} via the classification function.
-	 *         Elements in this source {@link DoubleIterator} who have equal
-	 *         (under .equals() contract) images under the classification function
-	 *         are grouped together in a double array accessed by their shared
-	 *         classification key.
+	 *         {@link DoubleIterator} via the classification function. Elements in
+	 *         this source {@link DoubleIterator} who have equal (under .equals()
+	 *         contract) images under the classification function are grouped
+	 *         together in a double array accessed by their shared classification
+	 *         key.
 	 */
 	<K> Map<K, double[]> groupBy(DoubleFunction<K> classifier);
 
-	/**
-	 * A convenience method for applying a global function onto this
-	 * {@link DoubleIterator}.
-	 *
-	 * This method is potentially (depending on the supplied function) a 'consuming
-	 * method', i.e. it will iterate through this {@link DoubleIterator}.
-	 *
-	 * A convenience method for applying a global function onto this
-	 * {@link DoubleIterator}.
-	 *
-	 * @param         <C> The target type of the build function.
-	 * @param builder A function whose input encompasses
-	 *                {@link DoubleIterator} instances of this element type.
-	 * @return the output of the supplied function applied to this
-	 *         {@link DoubleIterator}.
-	 */
-	default <C> C build(Function<? super DoubleIterator, C> builder)
-	{
-		return builder.apply(this);
-	}
+	// /**
+	// * A convenience method for applying a global function onto this
+	// * {@link DoubleIterator}.
+	// *
+	// * This method is potentially (depending on the supplied function) a
+	// 'consuming
+	// * method', i.e. it will iterate through this {@link DoubleIterator}.
+	// *
+	// * A convenience method for applying a global function onto this
+	// * {@link DoubleIterator}.
+	// *
+	// * @param <C> The target type of the build function.
+	// * @param builder A function whose input encompasses
+	// * {@link DoubleIterator} instances of this element type.
+	// * @return the output of the supplied function applied to this
+	// * {@link DoubleIterator}.
+	// */
+	// default <C> C build(Function<? super DoubleIterator, C> builder)
+	// {
+	// return builder.apply(this);
+	// }
 
 	/**
 	 * Boxes the primitive double values in this {@link DoubleIterator}.
 	 *
-	 * @return a copy of this source {@link DoubleIterator} as a Iterator of
-	 *         boxed Double instances.
+	 * @return a copy of this source {@link DoubleIterator} as a Iterator of boxed
+	 *         Double instances.
 	 */
 	default EnhancedIterator<Double> boxed()
 	{

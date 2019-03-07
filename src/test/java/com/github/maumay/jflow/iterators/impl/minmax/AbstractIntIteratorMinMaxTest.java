@@ -25,12 +25,12 @@ class AbstractIntIteratorMinMaxTest extends IteratorExampleProvider
 	void testMin()
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt minimum = populated.iter().min();
+		final OptionalInt minimum = populated.iter().minOption();
 		assertTrue(minimum.isPresent());
 		assertEquals(0, minimum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().min().isPresent());
+		assertFalse(empty.iter().minOption().isPresent());
 	}
 
 	@Test
@@ -110,12 +110,12 @@ class AbstractIntIteratorMinMaxTest extends IteratorExampleProvider
 	void testMax()
 	{
 		final AbstractIterableInts populated = getIntTestIteratorProvider();
-		final OptionalInt maximum = populated.iter().max();
+		final OptionalInt maximum = populated.iter().maxOption();
 		assertTrue(maximum.isPresent());
 		assertEquals(4, maximum.getAsInt());
 
 		final AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
-		assertFalse(empty.iter().max().isPresent());
+		assertFalse(empty.iter().maxOption().isPresent());
 	}
 
 	@Test

@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
-import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongFunction;
@@ -16,6 +15,7 @@ import java.util.function.LongUnaryOperator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.LongTup;
 import com.github.maumay.jflow.utils.LongWith;
+import com.github.maumay.jflow.vec.LongVec;
 
 /**
  * <p>
@@ -38,19 +38,19 @@ import com.github.maumay.jflow.utils.LongWith;
 public interface LongIterator extends SafeLongIterator
 {
 	/**
-	 * Applies a function elementwise to this {@link LongIterator} to make
-	 * new {@link LongIterator}.
+	 * Applies a function elementwise to this {@link LongIterator} to make new
+	 * {@link LongIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link LongIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link LongIterator} instance in turn.
+	 * @return A new {@link LongIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link LongIterator} instance in turn.
 	 */
 	LongIterator map(LongUnaryOperator f);
 
 	/**
-	 * Applies a function elementwise to this {@link LongIterator} to make
-	 * new {@link EnhancedIterator}.
+	 * Applies a function elementwise to this {@link LongIterator} to make new
+	 * {@link EnhancedIterator}.
 	 *
 	 * @param   <E> The target type of the mapping function.
 	 * @param f A mapping function.
@@ -61,31 +61,31 @@ public interface LongIterator extends SafeLongIterator
 	<E> EnhancedIterator<E> mapToObject(LongFunction<? extends E> f);
 
 	/**
-	 * Applies a function elementwise to this {@link LongIterator} to make a
-	 * new {@link DoubleIterator}.
+	 * Applies a function elementwise to this {@link LongIterator} to make a new
+	 * {@link DoubleIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link DoubleIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link LongIterator} instance in turn.
+	 * @return A new {@link DoubleIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link LongIterator} instance in turn.
 	 */
 	DoubleIterator mapToDouble(LongToDoubleFunction f);
 
 	/**
-	 * Applies a function elementwise to this {@link LongIterator} to make a
-	 * new {@link IntIterator}.
+	 * Applies a function elementwise to this {@link LongIterator} to make a new
+	 * {@link IntIterator}.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link IntIterator} instance whose elements are
-	 *         obtained by applying the parameter mapping function to each element
-	 *         of this {@link LongIterator} instance in turn.
+	 * @return A new {@link IntIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
+	 *         {@link LongIterator} instance in turn.
 	 */
 	IntIterator mapToInt(LongToIntFunction f);
 
 	/**
-	 * Combines this {@link LongIterator} with another iterator to create a
-	 * new {@link EnhancedIterator} consisting of pairs of elements with the same
-	 * index in their respective origins.
+	 * Combines this {@link LongIterator} with another iterator to create a new
+	 * {@link EnhancedIterator} consisting of pairs of elements with the same index
+	 * in their respective origins.
 	 *
 	 * @param       <E> The upper type bound on the parameter
 	 *              {@link EnhancedIterator}.
@@ -103,12 +103,12 @@ public interface LongIterator extends SafeLongIterator
 	<E> EnhancedIterator<LongWith<E>> zipWith(Iterator<? extends E> other);
 
 	/**
-	 * Combines this {@link LongIterator} with another primitive iterator to
-	 * create a new {@link EnhancedIterator} consisting of pairs of elements with
-	 * the same index in their respective origins.
+	 * Combines this {@link LongIterator} with another primitive iterator to create
+	 * a new {@link EnhancedIterator} consisting of pairs of elements with the same
+	 * index in their respective origins.
 	 *
-	 * @param other The primitive iterator to zip this source
-	 *              {@link LongIterator} with.
+	 * @param other The primitive iterator to zip this source {@link LongIterator}
+	 *              with.
 	 *
 	 * @return Denote this source {@link LongIterator} by {@code F} with the
 	 *         parameter primitive iterator denoted by {@code I}. We return a new
@@ -122,11 +122,11 @@ public interface LongIterator extends SafeLongIterator
 
 	/**
 	 * Creates a new {@link EnhancedIterator} by mapping each element in this source
-	 * {@link LongIterator} to a pair consisting of the element and the
-	 * index it appears.
+	 * {@link LongIterator} to a pair consisting of the element and the index it
+	 * appears.
 	 *
-	 * @return Denote this source {@link LongIterator} by {@code F}. We
-	 *         return a new {@link EnhancedIterator} instance {@code G} defined by:
+	 * @return Denote this source {@link LongIterator} by {@code F}. We return a new
+	 *         {@link EnhancedIterator} instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], j)}</li>
 	 *         <li>{@code length(G) = length(F)}</li>
@@ -135,9 +135,8 @@ public interface LongIterator extends SafeLongIterator
 	EnhancedIterator<LongWith<Integer>> enumerate();
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by selecting elements with indices defined by
-	 * the parameter index mapping.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by
+	 * selecting elements with indices defined by the parameter index mapping.
 	 *
 	 * @param indexMap A strictly monotonically increasing function
 	 *                 {@code f: N -> N}
@@ -152,125 +151,118 @@ public interface LongIterator extends SafeLongIterator
 	LongIterator slice(IntUnaryOperator indexMap);
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by selecting the first n elements.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by
+	 * selecting the first n elements.
 	 *
 	 * @param n A non-negative integer.
 	 * @throws IllegalArgumentException If parameter is negative.
-	 * @return Let {@code F} denote this source {@link LongIterator}. We
-	 *         return a {@link LongIterator} consisting of the first
+	 * @return Let {@code F} denote this source {@link LongIterator}. We return a
+	 *         {@link LongIterator} consisting of the first
 	 *         {@code max(n, length(F))} elements of {@code F}.
 	 */
 	LongIterator take(int n);
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by selecting elements until an element fails the
-	 * supplied test, the first failure is not selected.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by
+	 * selecting elements until an element fails the supplied test, the first
+	 * failure is not selected.
 	 *
 	 * @param predicate A {@link LongPredicate}.
 	 * @return Let {@code n} be the index of the first element that the parameter
-	 *         predicate fails for. Then this method returns a
-	 *         {@link LongIterator} consisting of the first {@code n}
-	 *         elements of this source {@link LongIterator}. If no element
-	 *         fails the predicate test then a copy of the source is returned.
+	 *         predicate fails for. Then this method returns a {@link LongIterator}
+	 *         consisting of the first {@code n} elements of this source
+	 *         {@link LongIterator}. If no element fails the predicate test then a
+	 *         copy of the source is returned.
 	 */
 	LongIterator takeWhile(LongPredicate predicate);
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by removing the first n elements.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by removing
+	 * the first n elements.
 	 *
 	 * @param n A non-negative integer.
 	 * @throws IllegalArgumentException If parameter is negative.
-	 * @return Let {@code F} denote this source {@link LongIterator}. We
-	 *         return a {@link LongIterator} missing the first
-	 *         {@code min(n, length(F))} elements of {@code F}.
+	 * @return Let {@code F} denote this source {@link LongIterator}. We return a
+	 *         {@link LongIterator} missing the first {@code min(n, length(F))}
+	 *         elements of {@code F}.
 	 */
 	LongIterator skip(int n);
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by removing elements until an element fails the
-	 * supplied test, the first failure is the first element of the result.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by removing
+	 * elements until an element fails the supplied test, the first failure is the
+	 * first element of the result.
 	 *
 	 * @param predicate A {@link LongPredicate}.
 	 * @return Let {@code n} be the index of the first element that the parameter
-	 *         predicate fails for. Then this method returns a
-	 *         {@link LongIterator} missing {@code n} elements of this
-	 *         source {@link LongIterator}. If no element fails the
-	 *         predicate test then a copy of the source is returned.
+	 *         predicate fails for. Then this method returns a {@link LongIterator}
+	 *         missing {@code n} elements of this source {@link LongIterator}. If no
+	 *         element fails the predicate test then a copy of the source is
+	 *         returned.
 	 */
 	LongIterator skipWhile(LongPredicate predicate);
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by removing any element which fails the supplied
-	 * predicate test.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by removing
+	 * any element which fails the supplied predicate test.
 	 *
 	 * @param predicate A {@link LongPredicate}.
-	 * @return A {@link LongIterator} containing only those elements of this
-	 *         source {@link LongIterator} which pass the test defined by
-	 *         the parameter predicate. The relative ordering of elements is
-	 *         retained.
+	 * @return A {@link LongIterator} containing only those elements of this source
+	 *         {@link LongIterator} which pass the test defined by the parameter
+	 *         predicate. The relative ordering of elements is retained.
 	 */
 	LongIterator filter(LongPredicate predicate);
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by adding each element of the supplied primitive
-	 * iterator to its end in order.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by adding
+	 * each element of the supplied primitive iterator to its end in order.
 	 *
 	 * @param other A primitive iterator.
-	 * @return A {@link LongIterator} consisting of the elements of this
-	 *         source {@link LongIterator} followed by the elements of the
-	 *         parameter primitive iterator.
+	 * @return A {@link LongIterator} consisting of the elements of this source
+	 *         {@link LongIterator} followed by the elements of the parameter
+	 *         primitive iterator.
 	 */
 	LongIterator append(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Creates a new {@link LongIterator} from this
-	 * {@link LongIterator} by adding each element of the supplied varargs
-	 * array to its end in order.
+	 * Creates a new {@link LongIterator} from this {@link LongIterator} by adding
+	 * each element of the supplied varargs array to its end in order.
 	 *
 	 * @param other - A varargs long array
-	 * @return A {@link LongIterator} consisting of the elements of the
-	 *         source {@link LongIterator} followed by the elements in the
-	 *         parameter array.
+	 * @return A {@link LongIterator} consisting of the elements of the source
+	 *         {@link LongIterator} followed by the elements in the parameter array.
 	 */
 	LongIterator append(long... other);
 
 	/**
-	 * Creates a new {@link LongIterator} from this {@link EnhancedIterator}
-	 * by adding each element to the end of the supplied primitive iterator in
-	 * order.
+	 * Creates a new {@link LongIterator} from this {@link EnhancedIterator} by
+	 * adding each element to the end of the supplied primitive iterator in order.
 	 *
 	 * @param other A primitive iterator.
-	 * @return a {@link LongIterator} consisting of the elements of the
-	 *         parameter primitive iterator followed by the elements of this source
+	 * @return a {@link LongIterator} consisting of the elements of the parameter
+	 *         primitive iterator followed by the elements of this source
 	 *         {@link LongIterator}.
 	 */
 	LongIterator insert(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Creates a new {@link LongIterator} from this {@link EnhancedIterator}
-	 * by adding each element to the end of the supplied varargs array in order.
+	 * Creates a new {@link LongIterator} from this {@link EnhancedIterator} by
+	 * adding each element to the end of the supplied varargs array in order.
 	 *
 	 * @param other - A varargs long array
-	 * @return an {@link LongIterator} consisting of the elements in the
-	 *         parameter array followed by the elements of the source
-	 *         {@link LongIterator}.
+	 * @return an {@link LongIterator} consisting of the elements in the parameter
+	 *         array followed by the elements of the source {@link LongIterator}.
 	 */
 	LongIterator insert(long... other);
 
 	/**
-	 * Applies an accumulation operation to this {@link LongIterator} to
-	 * produce a new {@link LongIterator}.
+	 * Applies an accumulation operation to this {@link LongIterator} to produce a
+	 * new {@link LongIterator}.
 	 *
 	 * @param accumulator The accumulation function.
-	 * @return Let {@code F} denote this source {@link LongIterator} and
-	 *         {@code g} denote the accumulation function. Then the
-	 *         {@link LongIterator} returned is of the form:
+	 * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
+	 *         denote the accumulation function. Then the {@link LongIterator}
+	 *         returned is of the form:
 	 *         <ul>
 	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
 	 *         </ul>
@@ -278,14 +270,14 @@ public interface LongIterator extends SafeLongIterator
 	LongIterator scan(LongBinaryOperator accumulator);
 
 	/**
-	 * Applies an accumulation operation to this {@link LongIterator} to
-	 * produce a new {@link LongIterator}.
+	 * Applies an accumulation operation to this {@link LongIterator} to produce a
+	 * new {@link LongIterator}.
 	 *
 	 * @param id          The identity element in the accumulation.
 	 * @param accumulator The accumulator function.
-	 * @return Let {@code F} denote this source {@link LongIterator} and
-	 *         {@code g} denote the accumulation function. Then the
-	 *         {@link LongIterator} returned is of the form:
+	 * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
+	 *         denote the accumulation function. Then the {@link LongIterator}
+	 *         returned is of the form:
 	 *         <ul>
 	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 *         </ul>
@@ -301,7 +293,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return an {@link OptionalLong} wrapping the smallest element in this
 	 *         {@link LongIterator} or nothing if the iteration is empty.
 	 */
-	OptionalLong min();
+	OptionalLong minOption();
 
 	/**
 	 * Calculates the minimum value in this {@link LongIterator}.
@@ -312,8 +304,8 @@ public interface LongIterator extends SafeLongIterator
 	 * @param defaultValue - The value which will be returned if the source is
 	 *                     empty.
 	 *
-	 * @return the smallest element in this {@link LongIterator} or the
-	 *         default value if the iteration is empty.
+	 * @return the smallest element in this {@link LongIterator} or the default
+	 *         value if the iteration is empty.
 	 */
 	long min(long defaultValue);
 
@@ -326,7 +318,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return an {@link OptionalLong} wrapping the largest element in this
 	 *         {@link LongIterator} or nothing if the iteration is empty.
 	 */
-	OptionalLong max();
+	OptionalLong maxOption();
 
 	/**
 	 * Calculates the maximum value in this {@link LongIterator}.
@@ -337,26 +329,25 @@ public interface LongIterator extends SafeLongIterator
 	 * @param defaultValue - The value which will be returned if the source is
 	 *                     empty.
 	 *
-	 * @return The largest element in this {@link LongIterator} or the
-	 *         default value if the iteration is empty.
+	 * @return The largest element in this {@link LongIterator} or the default value
+	 *         if the iteration is empty.
 	 */
 	long max(long defaultValue);
 
 	/**
-	 * Checks whether every element in this {@link LongIterator} is the
-	 * same.
+	 * Checks whether every element in this {@link LongIterator} is the same.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
 	 *
-	 * @return True is every element of this {@link LongIterator} is equal,
-	 *         false otherwise.
+	 * @return True is every element of this {@link LongIterator} is equal, false
+	 *         otherwise.
 	 */
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@link LongIterator} passes the
-	 * supplied {@linkplain LongPredicate} test.
+	 * Checks whether every element in this {@link LongIterator} passes the supplied
+	 * {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
@@ -368,8 +359,8 @@ public interface LongIterator extends SafeLongIterator
 	boolean allMatch(LongPredicate predicate);
 
 	/**
-	 * Checks whether any element in this {@link LongIterator} passes the
-	 * supplied {@linkplain LongPredicate} test.
+	 * Checks whether any element in this {@link LongIterator} passes the supplied
+	 * {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
@@ -381,8 +372,8 @@ public interface LongIterator extends SafeLongIterator
 	boolean anyMatch(LongPredicate predicate);
 
 	/**
-	 * Checks whether every element in this {@link LongIterator} fails the
-	 * supplied {@linkplain LongPredicate} test.
+	 * Checks whether every element in this {@link LongIterator} fails the supplied
+	 * {@linkplain LongPredicate} test.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
@@ -394,16 +385,16 @@ public interface LongIterator extends SafeLongIterator
 	boolean noneMatch(LongPredicate predicate);
 
 	/**
-	 * Reduces this {@link LongIterator} to a single value via some
-	 * reduction function and an initial value.
+	 * Reduces this {@link LongIterator} to a single value via some reduction
+	 * function and an initial value.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
 	 *
 	 * @param id      The identity of the reduction operation
 	 * @param reducer The reduction function
-	 * @return If we denote this source {@link LongIterator} by {@code F},
-	 *         the length of {@code F} by {@code n} and the reduction function by
+	 * @return If we denote this source {@link LongIterator} by {@code F}, the
+	 *         length of {@code F} by {@code n} and the reduction function by
 	 *         {@code f} then the result is equal to: <br>
 	 *         <br>
 	 *         {@code f(...f(f(id, F[0]), F[1])..., F[n - 1])}
@@ -411,15 +402,15 @@ public interface LongIterator extends SafeLongIterator
 	long fold(long id, LongBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@link LongIterator} to a single value via some
-	 * reduction function. Throws an exception if empty iterator.
+	 * Reduces this {@link LongIterator} to a single value via some reduction
+	 * function. Throws an exception if empty iterator.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
 	 *
 	 * @param reducer The reduction function
-	 * @return Let us denote this source {@link LongIterator} by {@code F},
-	 *         the length of {@code F} by {@code n} and the reduction function by
+	 * @return Let us denote this source {@link LongIterator} by {@code F}, the
+	 *         length of {@code F} by {@code n} and the reduction function by
 	 *         {@code f}. If {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
@@ -427,15 +418,15 @@ public interface LongIterator extends SafeLongIterator
 	long fold(LongBinaryOperator reducer);
 
 	/**
-	 * Reduces this {@link LongIterator} to a single value via some
-	 * reduction function. Return nothing if empty iterator.
+	 * Reduces this {@link LongIterator} to a single value via some reduction
+	 * function. Return nothing if empty iterator.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
 	 *
 	 * @param reducer The reduction function
-	 * @return Let us denote this source {@link LongIterator} by {@code F},
-	 *         the length of {@code F} by {@code n} and the reduction function by
+	 * @return Let us denote this source {@link LongIterator} by {@code F}, the
+	 *         length of {@code F} by {@code n} and the reduction function by
 	 *         {@code f}. If {@code n == 0} we return nothing, else we return: <br>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
@@ -453,19 +444,33 @@ public interface LongIterator extends SafeLongIterator
 	long count();
 
 	/**
+	 * Caches the values in this {@link LongIterator} to a {@link LongVec}.
+	 *
+	 * This method is a 'consuming method', i.e. it will iterate through this
+	 * {@link LongIterator}.
+	 *
+	 * @return A vector containing all elements of this {@link LongIterator} with
+	 *         their ordering retained.
+	 */
+	default LongVec toVec()
+	{
+		return LongVec.of(toArray());
+	}
+
+	/**
 	 * Caches the values in this {@link LongIterator} to an array.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
 	 *
-	 * @return A long array containing all elements of this
-	 *         {@link LongIterator} with their ordering retained.
+	 * @return A long array containing all elements of this {@link LongIterator}
+	 *         with their ordering retained.
 	 */
 	long[] toArray();
 
 	/**
-	 * Builds a {@linkplain Map} using the elements in this
-	 * {@link LongIterator} via two supplied functions.
+	 * Builds a {@linkplain Map} using the elements in this {@link LongIterator} via
+	 * two supplied functions.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
@@ -475,9 +480,8 @@ public interface LongIterator extends SafeLongIterator
 	 * @param keyMapper   A function mapping longs to elements of the key type.
 	 * @param valueMapper A function mapping longs to elements of the value type.
 	 *
-	 * @throws IllegalStateException If two elements of this
-	 *                               {@link LongIterator} map to the same
-	 *                               key.
+	 * @throws IllegalStateException If two elements of this {@link LongIterator}
+	 *                               map to the same key.
 	 *
 	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
 	 *         with the elements in this source {@link LongIterator}. More
@@ -486,14 +490,14 @@ public interface LongIterator extends SafeLongIterator
 	 *         <li>{@code k} denotes the key mapping function</li>
 	 *         <li>{@code v} denotes the value mapping function</li>
 	 *         </ul>
-	 *         an element of this source {@link LongIterator}, say
-	 *         {@code e}, is associated to the key value pair {@code (k(e), v(e))}.
+	 *         an element of this source {@link LongIterator}, say {@code e}, is
+	 *         associated to the key value pair {@code (k(e), v(e))}.
 	 */
 	<K, V> Map<K, V> toMap(LongFunction<K> keyMapper, LongFunction<V> valueMapper);
 
 	/**
-	 * Groups elements in this {@link LongIterator} via their image under
-	 * some supplied classification function.
+	 * Groups elements in this {@link LongIterator} via their image under some
+	 * supplied classification function.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
@@ -502,34 +506,34 @@ public interface LongIterator extends SafeLongIterator
 	 *
 	 * @param classifier A function defining the different groups of elements.
 	 * @return A Map instance whose keys partition the elements of this source
-	 *         {@link LongIterator} via the classification function.
-	 *         Elements in this source {@link LongIterator} who have equal
-	 *         (under .equals() contract) images under the classification function
-	 *         are grouped together in a long array accessed by their shared
-	 *         classification key.
+	 *         {@link LongIterator} via the classification function. Elements in
+	 *         this source {@link LongIterator} who have equal (under .equals()
+	 *         contract) images under the classification function are grouped
+	 *         together in a long array accessed by their shared classification key.
 	 */
 	<K> Map<K, long[]> groupBy(LongFunction<K> classifier);
 
-	/**
-	 * A convenience method for applying a global function onto this
-	 * {@link LongIterator}.
-	 *
-	 * This method is potentially (depending on the supplied function) a 'consuming
-	 * method', i.e. it will iterate through this {@link LongIterator}.
-	 *
-	 * A convenience method for applying a global function onto this
-	 * {@link LongIterator}.
-	 *
-	 * @param         <C> The target type of the build function.
-	 * @param builder - a function whose input encompasses
-	 *                {@link LongIterator} instances of this element type.
-	 * @return the output of the supplied function applied to this
-	 *         {@link LongIterator}.
-	 */
-	default <C> C build(Function<? super LongIterator, C> builder)
-	{
-		return builder.apply(this);
-	}
+	// /**
+	// * A convenience method for applying a global function onto this
+	// * {@link LongIterator}.
+	// *
+	// * This method is potentially (depending on the supplied function) a
+	// 'consuming
+	// * method', i.e. it will iterate through this {@link LongIterator}.
+	// *
+	// * A convenience method for applying a global function onto this
+	// * {@link LongIterator}.
+	// *
+	// * @param <C> The target type of the build function.
+	// * @param builder - a function whose input encompasses {@link LongIterator}
+	// * instances of this element type.
+	// * @return the output of the supplied function applied to this
+	// * {@link LongIterator}.
+	// */
+	// default <C> C build(Function<? super LongIterator, C> builder)
+	// {
+	// return builder.apply(this);
+	// }
 
 	/**
 	 * Boxes the primitive long values in this {@link LongIterator}.
