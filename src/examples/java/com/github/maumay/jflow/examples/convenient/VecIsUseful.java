@@ -17,7 +17,7 @@ import com.github.maumay.jflow.vec.Vec;
  * @author thomasb
  *
  */
-public class VecIsFun
+public class VecIsUseful
 {
 	@SuppressWarnings("unused")
 	public static void main(String[] args)
@@ -93,7 +93,11 @@ public class VecIsFun
 		System.out.println("All assertions passed.");
 	}
 
-	static IteratorCollector<Integer, String> join(String prefix, String joiner, String postfix)
+	/**
+	 * Creates a collector which consumes an iterator by joining all the elements
+	 * together in a string with the given prefix, join string and postfix.
+	 */
+	static IteratorCollector<Object, String> join(String prefix, String joiner, String postfix)
 	{
 		return iter -> {
 			StringBuilder builder = new StringBuilder(prefix);

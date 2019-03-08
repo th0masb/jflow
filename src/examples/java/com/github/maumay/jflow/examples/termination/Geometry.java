@@ -4,12 +4,13 @@
 package com.github.maumay.jflow.examples.termination;
 
 /**
+ * Problem: I would like to be able to take a sequence of points and compute the
+ * minimal bounding box surrounding them.
+ * 
  * @author thomasb
- *
  */
-public class Base
+public class Geometry
 {
-
 	static class Point
 	{
 		final double x, y;
@@ -18,6 +19,11 @@ public class Base
 		{
 			this.x = x;
 			this.y = y;
+		}
+
+		Point translate(double dx, double dy)
+		{
+			return new Point(x + dx, y + dy);
 		}
 	}
 
@@ -32,7 +38,5 @@ public class Base
 			this.width = width;
 			this.height = height;
 		}
-
 	}
-
 }

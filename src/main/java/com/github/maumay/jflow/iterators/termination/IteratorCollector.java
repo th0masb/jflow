@@ -24,5 +24,5 @@ public interface IteratorCollector<E, R>
 	 * @param source The iterator to collect and consume.
 	 * @return The result of the collection operation.
 	 */
-	R collect(Iterator<E> source);
+	R collect(Iterator<? extends E> source);
 }

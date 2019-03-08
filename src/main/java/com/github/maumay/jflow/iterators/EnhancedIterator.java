@@ -762,7 +762,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return The result of the collection function applied to this
 	 *         {@link EnhancedIterator}.
 	 */
-	default <R> R collect(IteratorCollector<E, R> collector)
+	default <R> R collect(IteratorCollector<? super E, ? extends R> collector)
 	{
 		return collector.collect(this);
 	}
@@ -772,7 +772,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * 
 	 * @param consumer The procedure which will be used to consume this iterator.
 	 */
-	default void consume(IteratorConsumer<E> consumer)
+	default void consume(IteratorConsumer<? super E> consumer)
 	{
 		consumer.consume(this);
 	}

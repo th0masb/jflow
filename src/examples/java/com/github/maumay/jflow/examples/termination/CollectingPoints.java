@@ -17,8 +17,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.StreamSupport;
 
-import com.github.maumay.jflow.examples.termination.Base.Bounds;
-import com.github.maumay.jflow.examples.termination.Base.Point;
+import com.github.maumay.jflow.examples.termination.Geometry.Bounds;
+import com.github.maumay.jflow.examples.termination.Geometry.Point;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
@@ -26,39 +26,10 @@ import com.github.maumay.jflow.vec.Vec;
  */
 public final class CollectingPoints
 {
-	// Iterator version
-	public static Bounds fromIterator(Iterator<? extends Point> source)
-	{
-		require(source.hasNext());
-		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
-		double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
-		while (source.hasNext()) {
-			Point next = source.next();
-			minx = Math.min(minx, next.x);
-			maxx = Math.max(maxx, next.x);
-			miny = Math.min(miny, next.y);
-			maxy = Math.max(maxy, next.y);
-		}
-		double width = maxx - minx;
-		double height = maxy - miny;
-		require(width >= 0 && height >= 0);
-		return new Bounds(minx, miny, width, height);
-	}
-
-	public static Bounds fromIterable(Iterable<? extends Point> source)
-	{
-		return fromIterator(source.iterator());
-	}
-
 	// Stream version
 	static PointsToBoundsCollector pointsCollector()
 	{
 		return new PointsToBoundsCollector();
-	}
-
-	static Bounds fromIterable2(Iterable<? extends Point> source)
-	{
-		return StreamSupport.stream(source.spliterator(), false).collect(pointsCollector());
 	}
 
 	static class PointsToBoundsCollector implements Collector<Point, CollectionContainer, Bounds>
@@ -99,7 +70,7 @@ public final class CollectingPoints
 		private double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 		private double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
 
-		void accumulate(Base.Point other)
+		void accumulate(Geometry.Point other)
 		{
 			minx = Math.min(minx, other.x);
 			maxx = Math.max(maxx, other.x);
@@ -122,8 +93,37 @@ public final class CollectingPoints
 			require(Double.isFinite(minx));
 			double width = maxx - minx, height = maxy - miny;
 			require(width >= 0 && height >= 0);
-			return new Base.Bounds(minx, miny, width, height);
+			return new Geometry.Bounds(minx, miny, width, height);
 		}
+	}
+
+	// Iterator version
+	public static Bounds fromIterator(Iterator<? extends Point> source)
+	{
+		require(source.hasNext());
+		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
+		double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
+		while (source.hasNext()) {
+			Point next = source.next();
+			minx = Math.min(minx, next.x);
+			maxx = Math.max(maxx, next.x);
+			miny = Math.min(miny, next.y);
+			maxy = Math.max(maxy, next.y);
+		}
+		double width = maxx - minx;
+		double height = maxy - miny;
+		require(width >= 0 && height >= 0);
+		return new Bounds(minx, miny, width, height);
+	}
+
+	public static Bounds fromIterable(Iterable<? extends Point> source)
+	{
+		return fromIterator(source.iterator());
+	}
+
+	static Bounds fromIterable2(Iterable<? extends Point> source)
+	{
+		return StreamSupport.stream(source.spliterator(), false).collect(pointsCollector());
 	}
 
 	@SuppressWarnings("unused")
@@ -132,18 +132,12 @@ public final class CollectingPoints
 		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
-		Bounds withIterator = points.iter().map(p -> new Point(p.x, p.y + 1))
+		Bounds withIterator = points.iter().map(p -> p.translate(0, 1))
 				.collect(CollectingPoints::fromIterator);
 
-		Bounds withIterator2 = CollectingPoints.fromIterable(points);
-		Bounds withIterator3 = CollectingPoints.fromIterable(points.toList());
-		Bounds withIterator4 = CollectingPoints.fromIterable(points.toSet());
-
 		// With our stream version
-		Bounds withStream = points.stream().map(p -> new Point(p.x, p.y + 1))
+		Bounds withStream = points.stream().map(p -> p.translate(0, 1))
 				.collect(CollectingPoints.pointsCollector());
-
-		Bounds withStream2 = points.toList().stream().collect(CollectingPoints.pointsCollector());
 
 		// withIterator.equals(withStream)
 	}

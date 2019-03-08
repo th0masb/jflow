@@ -3,7 +3,9 @@
  */
 package com.github.maumay.jflow.examples.termination;
 
-import com.github.maumay.jflow.examples.termination.Base.Point;
+import static com.github.maumay.jflow.vec.Vec.vec;
+
+import com.github.maumay.jflow.examples.termination.Geometry.Point;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.termination.IteratorConsumer;
 import com.github.maumay.jflow.vec.Vec;
@@ -21,7 +23,7 @@ public final class ConsumingPoints
 		Iter.wrap(source).consume(drawPolygon(gc));
 	}
 
-	static <P extends Point> IteratorConsumer<P> drawPolygon(GraphicsContext gc)
+	static IteratorConsumer<Point> drawPolygon(GraphicsContext gc)
 	{
 		return iter -> {
 			gc.beginPath();
@@ -40,10 +42,10 @@ public final class ConsumingPoints
 
 	public static void main(String[] args)
 	{
-		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 0), new Point(1, 1));
+		Vec<Point> points = vec(new Point(0, 0), new Point(1, 0), new Point(1, 1));
 		GraphicsContext gc = null; // Dummy
 
-		points.iter().map(p -> new Point(p.x + 2, p.y - 3)).consume(drawPolygon(gc));
+		points.iter().map(p -> p.translate(0, 1)).consume(drawPolygon(gc));
 
 		drawPolygon(gc, points);
 		drawPolygon(gc, points.toList());

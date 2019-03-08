@@ -261,7 +261,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 *                          be transformed.
 	 * @return The image of the transformation under the supplied collector.
 	 */
-	default <R> R transform(IteratorCollector<E, R> iteratorCollector)
+	default <R> R transform(IteratorCollector<? super E, R> iteratorCollector)
 	{
 		return iter().collect(iteratorCollector);
 	}

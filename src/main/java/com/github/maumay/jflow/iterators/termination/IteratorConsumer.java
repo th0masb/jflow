@@ -20,5 +20,5 @@ public interface IteratorConsumer<E>
 	 * 
 	 * @param source the iterator to collect and consume.
 	 */
-	void consume(Iterator<E> source);
+	void consume(Iterator<? extends E> source);
 }
