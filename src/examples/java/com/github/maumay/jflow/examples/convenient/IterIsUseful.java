@@ -45,7 +45,7 @@ public final class IterIsUseful
 		assert Iter.option(Option.empty()).toVec().equals(vec());
 		assert Iter.option(Option.of("a")).toVec().equals(vec("a"));
 
-		// main usage
+		// Example usage
 		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::option)
 				.toVec().equals(vec("a", "b"));
 

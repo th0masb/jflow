@@ -58,4 +58,14 @@ public interface IntVec extends IntIterable
 	{
 		return new IntVecImpl(xs);
 	}
+
+	/**
+	 * Retrieves the empty int vector.
+	 * 
+	 * @return The empty int vector.
+	 */
+	static IntVec empty()
+	{
+		return IntVecImpl.empty();
+	}
 }

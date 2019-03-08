@@ -59,4 +59,14 @@ public interface DoubleVec extends DoubleIterable
 	{
 		return new DoubleVecImpl(xs);
 	}
+
+	/**
+	 * Retrieves the empty double vector.
+	 * 
+	 * @return The empty double vector.
+	 */
+	static DoubleVec empty()
+	{
+		return DoubleVecImpl.empty();
+	}
 }

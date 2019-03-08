@@ -108,6 +108,17 @@ public final class Tup<T, U>
 	}
 
 	/**
+	 * Creates a new tuple by swapping the argument order of this tuple.
+	 * 
+	 * @return A tuple whose first element is this tuples second and whose second
+	 *         element is this tuples first.
+	 */
+	public Tup<U, T> flip()
+	{
+		return Tup.of(_2, _1);
+	}
+
+	/**
 	 * Creates a new tuple whose type is inferred by the arguments.
 	 * 
 	 * @param        <T> The type of the first (left) element in the new tuple.

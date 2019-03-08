@@ -58,4 +58,14 @@ public interface LongVec extends LongIterable
 	{
 		return new LongVecImpl(xs);
 	}
+
+	/**
+	 * Retrieves the empty long vector.
+	 * 
+	 * @return The empty long vector.
+	 */
+	static LongVec empty()
+	{
+		return LongVecImpl.empty();
+	}
 }
