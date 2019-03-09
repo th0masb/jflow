@@ -333,6 +333,21 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 * @return a vector wrapping the arguments.
 	 */
 	@SafeVarargs
+	static <E> Vec<E> of(E... elements)
+	{
+		return new VecImpl<>(elements);
+	}
+
+	/**
+	 * Creates a new vector wrapping the given elements, <b>no</b> defensive copying
+	 * takes place if an array is passed. If a null reference is passed as an
+	 * argument then an exception will be thrown.
+	 * 
+	 * @param          <E> The element type of the new vector.
+	 * @param elements the elements which will populate the resulting vector.
+	 * @return a vector wrapping the arguments.
+	 */
+	@SafeVarargs
 	static <E> Vec<E> vec(E... elements)
 	{
 		return new VecImpl<>(elements);
