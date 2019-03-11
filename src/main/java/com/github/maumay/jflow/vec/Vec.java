@@ -300,14 +300,32 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 		return iter().mapToDouble(mappingFunc).toVec();
 	}
 
-	default int[] mapToIntArray(ToIntFunction<? super E> mappingFunction)
+	/**
+	 * Creates a new primitive vector by applying the given function element-wise to
+	 * this vector.
+	 * 
+	 * @param mappingFunc The mapping function.
+	 * @return A new primitive vector of the same size as this vector whose ith
+	 *         element is the image of the ith element of this vector under the
+	 *         given function.
+	 */
+	default IntVec mapToInt(ToIntFunction<? super E> mappingFunction)
 	{
-		return iter().mapToInt(mappingFunction).toArray();
+		return iter().mapToInt(mappingFunction).toVec();
 	}
 
-	default long[] mapToLongArray(ToLongFunction<? super E> mappingFunction)
+	/**
+	 * Creates a new primitive vector by applying the given function element-wise to
+	 * this vector.
+	 * 
+	 * @param mappingFunc The mapping function.
+	 * @return A new primitive vector of the same size as this vector whose ith
+	 *         element is the image of the ith element of this vector under the
+	 *         given function.
+	 */
+	default LongVec mapToLong(ToLongFunction<? super E> mappingFunction)
 	{
-		return iter().mapToLong(mappingFunction).toArray();
+		return iter().mapToLong(mappingFunction).toVec();
 	}
 
 	// Static factories

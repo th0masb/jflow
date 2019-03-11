@@ -383,6 +383,20 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	Optional<E> minOption(Comparator<? super E> orderingFunction);
 
 	/**
+	 * Calculates the minimum element in this {@link EnhancedIterator} with respect
+	 * to the ordering specified by the parameter throwing an exception if this
+	 * iterator is empty.
+	 *
+	 * @param orderingFunction This function defines the ordering on this element
+	 *                         type.
+	 * @return The minimum element in this {@link EnhancedIterator}.
+	 */
+	default E min(Comparator<? super E> orderingFunction)
+	{
+		return minOption(orderingFunction).get();
+	}
+
+	/**
 	 * Calculates the maximum element in this {@link EnhancedIterator} with respect
 	 * to the ordering specified by the parameter.
 	 *
@@ -392,6 +406,20 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         maximum element in this {@link EnhancedIterator}.
 	 */
 	Optional<E> maxOption(Comparator<? super E> orderingFunction);
+
+	/**
+	 * Calculates the maximum element in this {@link EnhancedIterator} with respect
+	 * to the ordering specified by the parameter throwing an exception if this
+	 * iterator is empty.
+	 *
+	 * @param orderingFunction This function defines the ordering on this element
+	 *                         type.
+	 * @return The maximum element in this {@link EnhancedIterator}.
+	 */
+	default E max(Comparator<? super E> orderingFunction)
+	{
+		return maxOption(orderingFunction).get();
+	}
 
 	/**
 	 * Checks whether every element in this {@link EnhancedIterator} is the same.

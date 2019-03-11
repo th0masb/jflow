@@ -48,7 +48,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * @return The first element to pass the predicate test if there is one, nothing
 	 *         otherwise.
 	 */
-	default Optional<E> findFirst(Predicate<? super E> predicate)
+	default Optional<E> find(Predicate<? super E> predicate)
 	{
 		return iter().filter(predicate).nextOption();
 	}
@@ -66,6 +66,19 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	}
 
 	/**
+	 * Finds the minimum element in the iterator created by {@link #iter()}
+	 * according to the given comparator throwing an exception if the iterator is
+	 * empty.
+	 * 
+	 * @param orderingFunction the complete ordering of this element type.
+	 * @return see {@link EnhancedIterator#minOption(Comparator)}.
+	 */
+	default E min(Comparator<? super E> orderingFunction)
+	{
+		return iter().min(orderingFunction);
+	}
+
+	/**
 	 * Finds the maximum element in the iterator created from this iterable by
 	 * {@link #iter()} according to the given comparator.
 	 * 
@@ -75,6 +88,19 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	default Optional<E> maxOption(Comparator<? super E> orderingFunction)
 	{
 		return iter().maxOption(orderingFunction);
+	}
+
+	/**
+	 * Finds the maximum element in the iterator created by {@link #iter()}
+	 * according to the given comparator throwing an exception if the iterator is
+	 * empty.
+	 * 
+	 * @param orderingFunction the complete ordering of this element type.
+	 * @return see {@link EnhancedIterator#maxOption(Comparator)}.
+	 */
+	default E max(Comparator<? super E> orderingFunction)
+	{
+		return iter().max(orderingFunction);
 	}
 
 	/**

@@ -4,12 +4,15 @@ import static com.github.maumay.jflow.vec.Vec.vec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.github.maumay.jflow.iterators.termination.IteratorCollector;
-import com.github.maumay.jflow.utils.Option;
+import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
@@ -17,12 +20,14 @@ import com.github.maumay.jflow.vec.Vec;
  * @author thomasb
  *
  */
-public class VecIsUseful
+public class VecExamples
 {
 	@SuppressWarnings("unused")
 	public static void main(String[] args)
 	{
+		// Factory method designed for importing statically
 		Vec<Integer> ints = vec(1, 2, 3);
+		// or can use ints = Vec.of(1, 2, 3);
 
 		// *****************************************************************************************
 		// Easy to make enhanced iterators and streams
@@ -44,22 +49,48 @@ public class VecIsUseful
 		assert ints.filter(n -> n > 3).equals(vec());
 
 		// *****************************************************************************************
-		// Predicate match
+		// Take, skip
+		assert ints.take(1).equals(vec(1));
+		assert ints.skip(2).equals(vec(3));
+
+		assert ints.takeWhile(n -> n % 2 == 1).equals(vec(1));
+		assert ints.skipWhile(n -> n % 2 == 1).equals(vec(2, 3));
+
+		// *****************************************************************************************
+		// Predicate matching
 		assert ints.anyMatch(n -> n > 2);
 		assert ints.allMatch(n -> n > 0);
 		assert ints.noneMatch(n -> n > 3);
+		assert ints.find(n -> n > 3).equals(Optional.empty());
+
+		// *****************************************************************************************
+		// Min/max
+
+		// Safe versions (returns nothing if vector is empty)
+		assert ints.minOption(Comparator.naturalOrder()).equals(Optional.of(1));
+		assert ints.maxOption(Comparator.naturalOrder()).equals(Optional.of(3));
+
+		// Unsafe versions (throws exception if the vector is empty)
+		assert ints.min(Comparator.naturalOrder()).equals(1);
+		assert ints.max(Comparator.naturalOrder()).equals(3);
 
 		// *****************************************************************************************
 		// Safe indexing
-		assert ints.headOption().equals(Option.of((Integer) 1));
-		assert ints.lastOption().equals(Option.of((Integer) 3));
+		assert ints.headOption().get().equals(1);
+		assert ints.lastOption().get().equals(3);
 		assert !ints.getOption(6).isPresent();
 
 		// *****************************************************************************************
-		// unsafe indexing
+		// Unsafe indexing
 		assert ints.head() == 1;
 		assert ints.last() == 3;
 		assert ints.get(1) == 2;
+
+		try {
+			Integer seventh = ints.get(7);
+			assert false;
+		} catch (IndexOutOfBoundsException ex) {
+		}
 
 		// *****************************************************************************************
 		// Easy type manipulation
@@ -67,11 +98,13 @@ public class VecIsUseful
 
 		// *****************************************************************************************
 		// Easy to convert to/from other collection types
-		assert ints.toList().equals(Arrays.asList(1, 2, 3));
-		assert ints.toSet().equals(new HashSet<>(Arrays.asList(1, 2, 3)));
-		assert ints.toCollection(ArrayList::new).equals(Arrays.asList(1, 2, 3));
+		List<Integer> intsInList = Arrays.asList(1, 2, 3);
 
-		assert ints.equals(Vec.copy(Arrays.asList(1, 2, 3)));
+		assert ints.toList().equals(intsInList);
+		assert ints.toSet().equals(new HashSet<>(intsInList));
+		assert ints.toCollection(ArrayList::new).equals(intsInList);
+
+		assert ints.equals(Vec.copy(intsInList));
 
 		// *****************************************************************************************
 		// Easy to convert to maps
@@ -86,9 +119,21 @@ public class VecIsUseful
 		assert map1.equals(expected) && map2.equals(expected);
 
 		// *****************************************************************************************
-		// Easy to transform arbitrarily using iterators
-		assert "[1, 2, 3]".equals(ints.transform(join("[", ", ", "]")));
-		assert "$$ 1 | 2 | 3 $$".equals(ints.transform(join("$$ ", " | ", " $$")));
+		// Vec splitting
+		Tup<Vec<Integer>, Vec<Integer>> partitioned = ints.partition(n -> n % 2 == 0);
+
+		// note the Scala inspired tuple.
+		assert partitioned._1.equals(vec(2));
+		assert partitioned._2.equals(vec(1, 3));
+
+		// *****************************************************************************************
+		// Fold vectors
+		assert ints.fold((a, b) -> a | b).equals(0b11);
+
+		// *****************************************************************************************
+		// Can transform arbitrarily using iterators
+		assert ints.transform(join("[", ", ", "]")).equals("[1, 2, 3]");
+		assert ints.transform(join("$$ ", " | ", " $$")).equals("$$ 1 | 2 | 3 $$");
 
 		System.out.println("All assertions passed.");
 	}
@@ -111,5 +156,4 @@ public class VecIsUseful
 			return builder.toString();
 		};
 	}
-
 }
