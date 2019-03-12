@@ -8,12 +8,12 @@ import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
@@ -33,8 +33,7 @@ public class FilteredIterator
 
 		private T cached = null;
 
-		public OfObject(final EnhancedIterator<T> src,
-				final Predicate<? super T> predicate)
+		public OfObject(EnhancedIterator<T> src, Predicate<? super T> predicate)
 		{
 			super(OptionalInt.empty());
 			this.src = src;
@@ -45,7 +44,7 @@ public class FilteredIterator
 		public boolean hasNext()
 		{
 			while (cached == null && src.hasNext()) {
-				final T next = src.next();
+				T next = src.next();
 				if (predicate.test(next)) {
 					cached = next;
 				}
@@ -57,7 +56,7 @@ public class FilteredIterator
 		public T next()
 		{
 			if (hasNext()) {
-				final T tmp = cached;
+				T tmp = cached;
 				cached = null;
 				return tmp;
 			} else {

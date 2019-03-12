@@ -14,9 +14,9 @@ import com.github.maumay.jflow.utils.Option;
  * @author ThomasB
  * @since 25 Apr 2018
  */
-public final class DropIterator
+public final class SkipIterator
 {
-	private DropIterator()
+	private SkipIterator()
 	{
 	}
 

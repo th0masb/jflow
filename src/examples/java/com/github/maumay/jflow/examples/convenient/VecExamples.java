@@ -126,6 +126,11 @@ public class VecExamples
 		assert partitioned._1.equals(vec(2));
 		assert partitioned._2.equals(vec(1, 3));
 
+		Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.skip(1));
+
+		assert headTail._1.equals(1);
+		assert headTail._2.equals(vec(2, 3));
+
 		// *****************************************************************************************
 		// Fold vectors
 		assert ints.fold((a, b) -> a | b).equals(0b11);

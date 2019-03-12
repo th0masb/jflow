@@ -15,6 +15,20 @@ public final class Exceptions
 	}
 
 	/**
+	 * Checks that a given Iterable is reusable, i.e. calling
+	 * {@link Iterable#iterator()} multiple times results in different iterators. If
+	 * the iterable is not reusable then an exception will be thrown.
+	 * 
+	 * @param iterable The input iterable.
+	 */
+	public static void requireResuable(Iterable<?> iterable)
+	{
+		if (iterable.iterator() == iterable.iterator()) {
+			throw new RuntimeException("The given iterable is not reusable.");
+		}
+	}
+
+	/**
 	 * Checks a given condition is true, if it is then nothing happens otherwise a
 	 * {@linkplain RuntimeException} with no message is thrown.
 	 * 

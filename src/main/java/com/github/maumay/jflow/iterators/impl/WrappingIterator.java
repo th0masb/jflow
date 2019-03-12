@@ -10,8 +10,8 @@ import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
 
 /**
@@ -27,13 +27,13 @@ public final class WrappingIterator
 	{
 		private final Iterator<? extends E> iterator;
 
-		public OfObject(final Iterator<? extends E> src)
+		public OfObject(Iterator<? extends E> src)
 		{
 			super(getSize(src));
 			this.iterator = src;
 		}
 
-		public OfObject(final Iterator<? extends E> src, int size)
+		public OfObject(Iterator<? extends E> src, int size)
 		{
 			super(size < 0 ? OptionalInt.empty() : OptionalInt.of(size));
 			this.iterator = src;

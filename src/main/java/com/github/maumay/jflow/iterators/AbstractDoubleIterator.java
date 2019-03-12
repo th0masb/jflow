@@ -20,8 +20,8 @@ import com.github.maumay.jflow.iterators.impl.DoubleCollectionConsumption;
 import com.github.maumay.jflow.iterators.impl.DoubleMinMaxConsumption;
 import com.github.maumay.jflow.iterators.impl.DoublePredicateConsumption;
 import com.github.maumay.jflow.iterators.impl.DoubleReductionConsumption;
-import com.github.maumay.jflow.iterators.impl.DropIterator;
-import com.github.maumay.jflow.iterators.impl.DropwhileIterator;
+import com.github.maumay.jflow.iterators.impl.SkipIterator;
+import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.FilteredIterator;
 import com.github.maumay.jflow.iterators.impl.InsertIterator;
 import com.github.maumay.jflow.iterators.impl.IntMapIterator;
@@ -114,13 +114,13 @@ public abstract class AbstractDoubleIterator extends AbstractOptionallySized
 	@Override
 	public AbstractDoubleIterator skip(int n)
 	{
-		return new DropIterator.OfDouble(this, n);
+		return new SkipIterator.OfDouble(this, n);
 	}
 
 	@Override
 	public AbstractDoubleIterator skipWhile(DoublePredicate predicate)
 	{
-		return new DropwhileIterator.OfDouble(this, predicate);
+		return new SkipwhileIterator.OfDouble(this, predicate);
 	}
 
 	@Override

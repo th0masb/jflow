@@ -23,10 +23,10 @@ import com.github.maumay.jflow.iterators.LongIterator;
  * @author t
  *
  */
-public class DropwhileIterator
+public class SkipwhileIterator
 {
 
-	private DropwhileIterator()
+	private SkipwhileIterator()
 	{
 	}
 

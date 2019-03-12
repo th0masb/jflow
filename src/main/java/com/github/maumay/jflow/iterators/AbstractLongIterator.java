@@ -20,8 +20,8 @@ import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
 import com.github.maumay.jflow.iterators.impl.AppendIterator;
 import com.github.maumay.jflow.iterators.impl.DoubleMapIterator;
-import com.github.maumay.jflow.iterators.impl.DropIterator;
-import com.github.maumay.jflow.iterators.impl.DropwhileIterator;
+import com.github.maumay.jflow.iterators.impl.SkipIterator;
+import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.FilteredIterator;
 import com.github.maumay.jflow.iterators.impl.InsertIterator;
 import com.github.maumay.jflow.iterators.impl.IntMapIterator;
@@ -115,13 +115,13 @@ public abstract class AbstractLongIterator extends AbstractOptionallySized
 	@Override
 	public AbstractLongIterator skip(int n)
 	{
-		return new DropIterator.OfLong(this, n);
+		return new SkipIterator.OfLong(this, n);
 	}
 
 	@Override
 	public AbstractLongIterator skipWhile(LongPredicate predicate)
 	{
-		return new DropwhileIterator.OfLong(this, predicate);
+		return new SkipwhileIterator.OfLong(this, predicate);
 	}
 
 	@Override
