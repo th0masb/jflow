@@ -14,6 +14,8 @@ JFlow is a lightweight Java library which complements the stream library by simp
 
 The rest of this file along will provide more detail and justification for the points above which will hopefully demonstrate the value which I believe is offered by this library. This will be communicated via a mixture of simple API examples as well as longer and more in-depth code examples.
 
+
+
 ---
 #### API examples
 
@@ -31,3 +33,12 @@ Learning by example is always a useful method, below are some links to files whi
 
 ---
 #### Acknowledgements
+
+---
+#### A note on performance
+
+An aim of this library is that the use of an enhanced iterator over a sequential stream should not negatively affect the runtime performance. Many operations which terminate a lazy sequence of data (such as predicate matching) essentially just boil down to a single loop and so the difference between using the two data structures is negligible. Others (such as collecting the elements into some collection) can be optimized when the number of elements in the sequence is known. It is very common to construct an iterator from a source whose size is known and then apply some common transformations from which the size of the new iterator can be calculated exactly (e.g. mapping, appending). 
+
+One aspect of the iterator enhancement (hidden to the user) has been to add a notion of 'optional sizing', that is the number of elements may be finite and known, infinite or unknown. Transforming an iterator manipulates this size as appropriate so that the knowledge can be taken advantage of when it comes to terminating the sequence. This could be improved further by adding size bounds when we cannot calculate the size exactly. For example if you start with an iterator of known size and apply a filter operation the size of the new iterator cannot be known exactly (because of laziness) but we have an upper bound from which we can optimize certain terminal operations. This is a feature for a future version.
+
+Anecdotally I replaced all usage of `Stream` and `List` in the chess engine I wrote with `EnhancedIterator` and `Vec` and noticed no performance difference. I also use this library extensively in the applications I write at work and have not noticed any performance impact. I would like to write some benchmarks to get some empirical evidence but have not found the time yet.
