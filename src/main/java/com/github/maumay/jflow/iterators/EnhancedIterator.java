@@ -25,9 +25,9 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import com.github.maumay.jflow.iterators.custom.IteratorCollector;
+import com.github.maumay.jflow.iterators.custom.IteratorConsumer;
 import com.github.maumay.jflow.iterators.factories.Iter;
-import com.github.maumay.jflow.iterators.termination.IteratorCollector;
-import com.github.maumay.jflow.iterators.termination.IteratorConsumer;
 import com.github.maumay.jflow.utils.DoubleWith;
 import com.github.maumay.jflow.utils.IntWith;
 import com.github.maumay.jflow.utils.LongWith;

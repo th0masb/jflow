@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.termination;
+package com.github.maumay.jflow.iterators.custom;
 
-import java.util.Iterator;
+import com.github.maumay.jflow.iterators.EnhancedIterator;
 
 /**
  * An object which can terminate an iterator data piping chain by aggregating
@@ -24,5 +24,5 @@ public interface IteratorCollector<E, R>
 	 * @param source The iterator to collect and consume.
 	 * @return The result of the collection operation.
 	 */
-	R collect(Iterator<? extends E> source);
+	R collect(EnhancedIterator<? extends E> source);
 }

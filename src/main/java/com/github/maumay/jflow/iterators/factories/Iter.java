@@ -16,6 +16,7 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
+import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
@@ -201,7 +202,7 @@ public final class Iter
 	 */
 	public static <E> EnhancedIterator<E> flatten(Iterable<? extends Iterable<? extends E>> source)
 	{
-		return Iter.wrap(source).flatMap(Iter::wrap);
+		return Iter.wrap(source.iterator()).flatMap(Iterable::iterator);
 	}
 
 	// Ints
@@ -374,17 +375,17 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a EnhancedIterator which wraps an iterator provided from an
-	 * existing iterable object.
+	 * Construct an enhanced iterable which produces wrapped iterators sourced from
+	 * an existing iterable object.
 	 *
 	 * @param     <E> The upper bound on the source iterable element type.
 	 * @param src An object which can construct an iterator over it's elements.
-	 * @return A EnhancedIterator instance wrapping an iterator constructed from the
-	 *         source sequence.
+	 * @return A enhanced iterable instance producing wrapped iterators sourced from
+	 *         the input iterable.
 	 */
-	public static <E> EnhancedIterator<E> wrap(Iterable<? extends E> src)
+	public static <E> EnhancedIterable<E> wrap(Iterable<? extends E> src)
 	{
-		return wrap(src.iterator());
+		return () -> wrap(src.iterator());
 	}
 
 	/**

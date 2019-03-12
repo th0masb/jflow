@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.github.maumay.jflow.iterators.termination.IteratorCollector;
+import com.github.maumay.jflow.iterators.custom.IteratorCollector;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
