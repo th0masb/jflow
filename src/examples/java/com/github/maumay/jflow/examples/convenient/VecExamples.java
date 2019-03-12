@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.github.maumay.jflow.iterators.custom.IteratorCollector;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -135,30 +134,26 @@ public class VecExamples
 		// Fold vectors
 		assert ints.fold((a, b) -> a | b).equals(0b11);
 
-		// *****************************************************************************************
-		// Can transform arbitrarily using iterators
-		assert ints.transform(join("[", ", ", "]")).equals("[1, 2, 3]");
-		assert ints.transform(join("$$ ", " | ", " $$")).equals("$$ 1 | 2 | 3 $$");
-
 		System.out.println("All assertions passed.");
 	}
 
-	/**
-	 * Creates a collector which consumes an iterator by joining all the elements
-	 * together in a string with the given prefix, join string and postfix.
-	 */
-	static IteratorCollector<Object, String> join(String prefix, String joiner, String postfix)
-	{
-		return iter -> {
-			StringBuilder builder = new StringBuilder(prefix);
-			while (iter.hasNext()) {
-				builder.append(iter.next());
-				if (iter.hasNext()) {
-					builder.append(joiner);
-				}
-			}
-			builder.append(postfix);
-			return builder.toString();
-		};
-	}
+	// /**
+	// * Creates a collector which consumes an iterator by joining all the elements
+	// * together in a string with the given prefix, join string and postfix.
+	// */
+	// static IteratorCollector<Object, String> join(String prefix, String joiner,
+	// String postfix)
+	// {
+	// return iter -> {
+	// StringBuilder builder = new StringBuilder(prefix);
+	// while (iter.hasNext()) {
+	// builder.append(iter.next());
+	// if (iter.hasNext()) {
+	// builder.append(joiner);
+	// }
+	// }
+	// builder.append(postfix);
+	// return builder.toString();
+	// };
+	// }
 }

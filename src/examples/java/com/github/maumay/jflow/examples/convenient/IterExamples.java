@@ -19,7 +19,7 @@ import com.github.maumay.jflow.vec.IntVec;
  * 
  * @author thomasb
  */
-public final class IterIsUseful
+public final class IterExamples
 {
 	enum MyEnum
 	{
@@ -34,7 +34,6 @@ public final class IterIsUseful
 		// Construct from existing collections
 		assert Iter.over(Arrays.asList(1, 2, 3)).toVec().equals(vec(1, 2, 3));
 		assert Iter.reverse(Arrays.asList(1, 2, 3)).toVec().equals(vec(3, 2, 1));
-		assert Iter.over(new HashSet<>(Arrays.asList(1, 2, 3))).fold((a, b) -> a + b) == 6;
 
 		// *****************************************************************************************
 		// Construct from enumerated types
@@ -45,7 +44,7 @@ public final class IterIsUseful
 		assert Iter.option(Option.empty()).toVec().equals(vec());
 		assert Iter.option(Option.of("a")).toVec().equals(vec("a"));
 
-		// Example usage
+		// Example usage is flattening a sequence of optional values
 		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::option)
 				.toVec().equals(vec("a", "b"));
 
