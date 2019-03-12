@@ -309,9 +309,9 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 *         element is the image of the ith element of this vector under the
 	 *         given function.
 	 */
-	default IntVec mapToInt(ToIntFunction<? super E> mappingFunction)
+	default IntVec mapToInt(ToIntFunction<? super E> mappingFunc)
 	{
-		return iter().mapToInt(mappingFunction).toVec();
+		return iter().mapToInt(mappingFunc).toVec();
 	}
 
 	/**
@@ -323,9 +323,9 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 *         element is the image of the ith element of this vector under the
 	 *         given function.
 	 */
-	default LongVec mapToLong(ToLongFunction<? super E> mappingFunction)
+	default LongVec mapToLong(ToLongFunction<? super E> mappingFunc)
 	{
-		return iter().mapToLong(mappingFunction).toVec();
+		return iter().mapToLong(mappingFunc).toVec();
 	}
 
 	// Static factories
