@@ -130,7 +130,7 @@ public abstract class AbstractEnhancedIterator<E> implements EnhancedIterator<E>
 	public <R> AbstractEnhancedIterator<R> flatMap(
 			Function<? super E, ? extends Iterator<? extends R>> mapping)
 	{
-		throw new RuntimeException();
+		return new FlatmapAdapter<>(this, mapping);
 	}
 
 	@Override
