@@ -10,8 +10,8 @@ import java.util.function.Supplier;
 
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 
 /**
  * @author t

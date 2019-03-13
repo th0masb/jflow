@@ -7,10 +7,10 @@ import java.util.function.DoubleFunction;
 import java.util.function.IntFunction;
 import java.util.function.LongFunction;
 
-import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 
 /**
  * @author ThomasB

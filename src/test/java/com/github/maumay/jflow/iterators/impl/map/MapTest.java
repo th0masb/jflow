@@ -10,9 +10,9 @@ import java.util.function.LongUnaryOperator;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;

@@ -30,6 +30,7 @@ import com.github.maumay.jflow.iterators.impl.SlicedIterator;
 import com.github.maumay.jflow.iterators.impl.TakeIterator;
 import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
 import com.github.maumay.jflow.iterators.impl.ZipIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 import com.github.maumay.jflow.utils.IntTup;
 import com.github.maumay.jflow.utils.IntWith;
 

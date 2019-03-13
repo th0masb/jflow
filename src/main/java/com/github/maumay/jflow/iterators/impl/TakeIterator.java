@@ -4,12 +4,12 @@ import java.util.NoSuchElementException;
 
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 import com.github.maumay.jflow.utils.Option;
 
 /**

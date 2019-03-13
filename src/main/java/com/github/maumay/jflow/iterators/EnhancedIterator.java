@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -566,11 +565,13 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	default Set<E> toSet()
 	{
-		Set<E> set = sizeIsKnown() ? new HashSet<>(size().getAsInt()) : new HashSet<>();
-		while (hasNext()) {
-			set.add(next());
-		}
-		return set;
+		throw new RuntimeException();
+		// Set<E> set = sizeIsKnown() ? new HashSet<>(size().getAsInt()) : new
+		// HashSet<>();
+		// while (hasNext()) {
+		// set.add(next());
+		// }
+		// return set;
 	}
 
 	/**
@@ -594,11 +595,12 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	default List<E> toList()
 	{
-		List<E> xs = new ArrayList<>(size().orElse(10));
-		while (hasNext()) {
-			xs.add(next());
-		}
-		return xs;
+		throw new RuntimeException();
+		// List<E> xs = new ArrayList<>(size().orElse(10));
+		// while (hasNext()) {
+		// xs.add(next());
+		// }
+		// return xs;
 	}
 
 	/**

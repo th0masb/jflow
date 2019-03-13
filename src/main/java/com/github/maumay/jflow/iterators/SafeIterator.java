@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  *
  * @author t
  */
-public interface SafeIterator<E> extends Iterator<E>, Skippable, OptionallySized
+public interface SafeIterator<E> extends Iterator<E>, Skippable// , OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link Iterator#next()} method.

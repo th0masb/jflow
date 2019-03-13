@@ -1,12 +1,11 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterators.impl2;
 
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.PrimitiveIterator.OfInt;
 import java.util.PrimitiveIterator.OfLong;
@@ -19,25 +18,17 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterators.factories.Numbers;
-import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
-import com.github.maumay.jflow.iterators.impl.AppendIterator;
-import com.github.maumay.jflow.iterators.impl.DoubleMapIterator;
-import com.github.maumay.jflow.iterators.impl.SkipIterator;
-import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
-import com.github.maumay.jflow.iterators.impl.FilteredIterator;
-import com.github.maumay.jflow.iterators.impl.FlattenedIterator;
-import com.github.maumay.jflow.iterators.impl.InsertIterator;
-import com.github.maumay.jflow.iterators.impl.IntMapIterator;
-import com.github.maumay.jflow.iterators.impl.LongMapIterator;
-import com.github.maumay.jflow.iterators.impl.MapIterator;
+import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.AbstractIntIterator;
+import com.github.maumay.jflow.iterators.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.IntIterator;
+import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.impl.ObjectMinMaxConsumption;
 import com.github.maumay.jflow.iterators.impl.ObjectPredicateConsumption;
 import com.github.maumay.jflow.iterators.impl.ObjectReductionConsumption;
-import com.github.maumay.jflow.iterators.impl.SlicedIterator;
-import com.github.maumay.jflow.iterators.impl.TakeIterator;
-import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
-import com.github.maumay.jflow.iterators.impl.ZipIterator;
+import com.github.maumay.jflow.iterators.size.AbstractIteratorSize;
 import com.github.maumay.jflow.utils.DoubleWith;
 import com.github.maumay.jflow.utils.IntWith;
 import com.github.maumay.jflow.utils.LongWith;
@@ -51,154 +42,201 @@ import com.github.maumay.jflow.utils.Tup;
  *
  * @author ThomasB
  */
-public abstract class AbstractEnhancedIterator<E> extends AbstractOptionallySized
-		implements EnhancedIterator<E>
+public abstract class AbstractEnhancedIterator<E> implements EnhancedIterator<E>
 {
-	public AbstractEnhancedIterator(OptionalInt size)
+	/**
+	 * The sizing information for this iterator
+	 */
+	private final AbstractIteratorSize size;
+
+	/**
+	 * Flag indicating whether this iterator has ownership over its {@link #next()}
+	 * and {@link #skip()} methods. If it does not possess ownership (in the case it
+	 * has been adapted) then calling these methods will throw an exception.
+	 */
+	private boolean hasOwnership;
+
+	public AbstractEnhancedIterator(AbstractIteratorSize size)
 	{
-		super(size);
+		this.size = size;
+		this.hasOwnership = true;
+	}
+
+	protected final AbstractIteratorSize getSize()
+	{
+		return size;
+	}
+
+	final void removeOwnership()
+	{
+		hasOwnership = false;
 	}
 
 	@Override
+	public final E next()
+	{
+		if (hasOwnership) {
+			size.decrement();
+			return nextImpl();
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	@Override
+	public final void skip()
+	{
+		if (hasOwnership) {
+			size.decrement();
+			skipImpl();
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	protected abstract E nextImpl();
+
+	protected abstract void skipImpl();
+
+	// EnhancedIterator API
+	@Override
 	public <R> AbstractEnhancedIterator<R> map(Function<? super E, ? extends R> f)
 	{
-		return new MapIterator.OfObject<>(this, f);
+		return new MapAdapter<>(this, f);
 	}
 
 	@Override
 	public AbstractIntIterator mapToInt(ToIntFunction<? super E> f)
 	{
-		return new IntMapIterator.FromObject<>(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractDoubleIterator mapToDouble(ToDoubleFunction<? super E> f)
 	{
-		return new DoubleMapIterator.FromObject<>(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator mapToLong(ToLongFunction<? super E> f)
 	{
-		return new LongMapIterator.FromObject<>(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public <R> AbstractEnhancedIterator<R> flatMap(
 			Function<? super E, ? extends Iterator<? extends R>> mapping)
 	{
-		return new FlattenedIterator.OfObject<>(this, mapping);
+		throw new RuntimeException();
 	}
 
 	@Override
-	public AbstractIntIterator flatMapToInt(
-			Function<? super E, ? extends IntIterator> mapping)
+	public AbstractIntIterator flatMapToInt(Function<? super E, ? extends IntIterator> mapping)
 	{
-		return new FlattenedIterator.OfInt<>(this, mapping);
+		throw new RuntimeException();
 	}
 
 	@Override
-	public AbstractLongIterator flatMapToLong(
-			Function<? super E, ? extends LongIterator> mapping)
+	public AbstractLongIterator flatMapToLong(Function<? super E, ? extends LongIterator> mapping)
 	{
-		return new FlattenedIterator.OfLong<>(this, mapping);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractDoubleIterator flatMapToDouble(
 			Function<? super E, ? extends DoubleIterator> mapping)
 	{
-		return new FlattenedIterator.OfDouble<>(this, mapping);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public <R> AbstractEnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other)
 	{
-		return new ZipIterator.OfObjects<>(this, other);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<IntWith<E>> zipWith(OfInt other)
 	{
-		return new ZipIterator.OfObjectAndInt<>(this, other);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<DoubleWith<E>> zipWith(OfDouble other)
 	{
-		return new ZipIterator.OfObjectAndDouble<>(this, other);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<LongWith<E>> zipWith(OfLong other)
 	{
-		return new ZipIterator.OfObjectAndLong<>(this, other);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<IntWith<E>> enumerate()
 	{
-		return zipWith(Numbers.natural());
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> slice(IntUnaryOperator f)
 	{
-		return new SlicedIterator.OfObject<>(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> take(int n)
 	{
-		return new TakeIterator.OfObject<>(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> takeWhile(Predicate<? super E> predicate)
 	{
-		return new TakewhileIterator.OfObject<>(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> skip(int n)
 	{
-		return new SkipIterator.OfObject<>(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> skipWhile(Predicate<? super E> predicate)
 	{
-		return new SkipwhileIterator.OfObject<>(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> filter(Predicate<? super E> predicate)
 	{
-		return new FilteredIterator.OfObject<>(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> append(Iterator<? extends E> other)
 	{
-		return new AppendIterator.OfObject<>(this, other);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> insert(Iterator<? extends E> other)
 	{
-		return new InsertIterator.OfObject<>(this, other);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> scan(BinaryOperator<E> accumulator)
 	{
-		return new AccumulationIterator.OfObject<>(this, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public <R> AbstractEnhancedIterator<R> scan(R id, BiFunction<R, E, R> accumulator)
 	{
-		return new AccumulationIterator.OfObjectWithMixedTypes<>(this, id, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override

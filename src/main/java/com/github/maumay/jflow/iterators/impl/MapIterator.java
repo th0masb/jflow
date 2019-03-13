@@ -10,12 +10,12 @@ import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractAdapterIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 
 /**
  * @author ThomasB
@@ -27,35 +27,33 @@ public class MapIterator
 	{
 	}
 
-	public static class OfObject<E, R> extends AbstractEnhancedIterator<R>
+	public static class OfObject<E, R> extends AbstractAdapterIterator<E, R>
 	{
-		private final EnhancedIterator<E> sourceFlow;
 		private final Function<? super E, ? extends R> mappingFunction;
 
-		public OfObject(EnhancedIterator<E> sourceFlow,
+		public OfObject(AbstractEnhancedIterator<E> source,
 				Function<? super E, ? extends R> mappingFunction)
 		{
-			super(sourceFlow.size());
-			this.sourceFlow = sourceFlow;
+			super(source.getSize(), source);
 			this.mappingFunction = mappingFunction;
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			return sourceFlow.hasNext();
+			return getSource().hasNext();
 		}
 
 		@Override
-		public R next()
+		protected R nextImpl()
 		{
-			return mappingFunction.apply(sourceFlow.next());
+			return mappingFunction.apply(getSource().ne)
 		}
 
 		@Override
-		public void skip()
+		protected void skipImpl()
 		{
-			sourceFlow.skip();
+			throw new RuntimeException("Not yet implemented");
 		}
 	}
 
