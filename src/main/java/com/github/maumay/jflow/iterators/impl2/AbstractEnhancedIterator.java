@@ -18,9 +18,6 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
@@ -30,7 +27,6 @@ import com.github.maumay.jflow.iterators.impl.ObjectPredicateConsumption;
 import com.github.maumay.jflow.iterators.impl.ObjectReductionConsumption;
 import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
 import com.github.maumay.jflow.utils.DoubleWith;
-import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.IntWith;
 import com.github.maumay.jflow.utils.LongWith;
 import com.github.maumay.jflow.utils.Tup;
@@ -43,63 +39,26 @@ import com.github.maumay.jflow.utils.Tup;
  *
  * @author ThomasB
  */
-public abstract class AbstractEnhancedIterator<E> implements EnhancedIterator<E>
+public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
+		implements EnhancedIterator<E>
 {
-	/**
-	 * The sizing information for this iterator
-	 */
-	private final AbstractIteratorSize size;
-
-	/**
-	 * Flag indicating whether this iterator has ownership over its {@link #next()}
-	 * and {@link #skip()} methods. If it does not possess ownership (in the case it
-	 * has been adapted) then calling these methods will throw an exception.
-	 */
-	private boolean hasOwnership;
-
 	public AbstractEnhancedIterator(AbstractIteratorSize size)
 	{
-		this.size = size;
-		this.hasOwnership = true;
-	}
-
-	public final AbstractIteratorSize getSize()
-	{
-		return size;
-	}
-
-	final void relinquishOwnership()
-	{
-		// Can't relinquish ownership twice!
-		Exceptions.require(hasOwnership);
-		hasOwnership = false;
+		super(size);
 	}
 
 	@Override
 	public final E next()
 	{
-		if (hasOwnership) {
-			size.decrement();
+		if (hasOwnership()) {
+			getSize().decrement();
 			return nextImpl();
 		} else {
 			throw new RuntimeException();
 		}
 	}
 
-	@Override
-	public final void skip()
-	{
-		if (hasOwnership) {
-			size.decrement();
-			skipImpl();
-		} else {
-			throw new RuntimeException();
-		}
-	}
-
 	public abstract E nextImpl();
-
-	public abstract void skipImpl();
 
 	// EnhancedIterator API
 	@Override
@@ -215,7 +174,7 @@ public abstract class AbstractEnhancedIterator<E> implements EnhancedIterator<E>
 	@Override
 	public AbstractEnhancedIterator<E> filter(Predicate<? super E> predicate)
 	{
-		return new FilterAdapter<>(this, predicate);
+		return new FilterAdapter.OfObject<>(this, predicate);
 	}
 
 	@Override

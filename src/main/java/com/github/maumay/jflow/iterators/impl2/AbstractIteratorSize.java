@@ -37,6 +37,10 @@ public abstract class AbstractIteratorSize
 		return type.isKnown() ? Option.of(((KnownSize) this).getValue()) : Option.emptyInt();
 	}
 
+	public abstract OptionalInt getUpperBound();
+
+	public abstract OptionalInt getLowerBound();
+
 	abstract void decrement();
 
 	public static AbstractIteratorSize combine(AbstractIteratorSize... sizes)
@@ -75,6 +79,7 @@ public abstract class AbstractIteratorSize
 				throw new AssertionError();
 			}
 		}
+		assert lo <= hi;
 
 		boolean finiteUpper = Double.isFinite(hi);
 		if (lo == hi) {
@@ -90,5 +95,12 @@ public abstract class AbstractIteratorSize
 		} else {
 			return new LowerBound(lo);
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		double x = Double.POSITIVE_INFINITY;
+		x += 5;
+		System.out.println(x);
 	}
 }

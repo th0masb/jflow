@@ -7,9 +7,9 @@ import java.util.function.DoubleToLongFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 
 /**

@@ -3,13 +3,13 @@ package com.github.maumay.jflow.iterators.impl;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 
-import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractIntIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractLongIterator;
 
 public final class EmptyIterator
 {

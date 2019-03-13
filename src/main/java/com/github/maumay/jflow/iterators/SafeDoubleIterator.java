@@ -12,7 +12,7 @@ import java.util.function.DoubleConsumer;
  *
  * @author t
  */
-public interface SafeDoubleIterator extends OfDouble, Skippable, OptionallySized
+public interface SafeDoubleIterator extends OfDouble, Skippable// , OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextDouble()} method.
@@ -41,7 +41,6 @@ public interface SafeDoubleIterator extends OfDouble, Skippable, OptionallySized
 	@Deprecated
 	default Double next()
 	{
-		throw new UnsupportedOperationException(
-				"Boxing using this method is banned for Flows!!");
+		throw new UnsupportedOperationException("Boxing using this method is banned for Flows!!");
 	}
 }

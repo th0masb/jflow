@@ -1,9 +1,8 @@
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterators.impl2;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalDouble;
-import java.util.OptionalInt;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
@@ -12,6 +11,7 @@ import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntUnaryOperator;
 
+import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
@@ -20,19 +20,18 @@ import com.github.maumay.jflow.iterators.impl.DoubleCollectionConsumption;
 import com.github.maumay.jflow.iterators.impl.DoubleMinMaxConsumption;
 import com.github.maumay.jflow.iterators.impl.DoublePredicateConsumption;
 import com.github.maumay.jflow.iterators.impl.DoubleReductionConsumption;
-import com.github.maumay.jflow.iterators.impl.SkipIterator;
-import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.FilteredIterator;
 import com.github.maumay.jflow.iterators.impl.InsertIterator;
 import com.github.maumay.jflow.iterators.impl.IntMapIterator;
 import com.github.maumay.jflow.iterators.impl.LongMapIterator;
 import com.github.maumay.jflow.iterators.impl.MapIterator;
 import com.github.maumay.jflow.iterators.impl.ObjectMapIterator;
+import com.github.maumay.jflow.iterators.impl.SkipIterator;
+import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.SlicedIterator;
 import com.github.maumay.jflow.iterators.impl.TakeIterator;
 import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
 import com.github.maumay.jflow.iterators.impl.ZipIterator;
-import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.utils.DoubleWith;
 
@@ -43,14 +42,27 @@ import com.github.maumay.jflow.utils.DoubleWith;
  * @author ThomasB
  * @since 23 Apr 2018
  */
-public abstract class AbstractDoubleIterator extends AbstractOptionallySized
-		implements DoubleIterator
+public abstract class AbstractDoubleIterator extends AbstractIterator implements DoubleIterator
 {
-	public AbstractDoubleIterator(OptionalInt size)
+	public AbstractDoubleIterator(AbstractIteratorSize size)
 	{
 		super(size);
 	}
 
+	@Override
+	public final double nextDouble()
+	{
+		if (hasOwnership()) {
+			getSize().decrement();
+			return nextDoubleImpl();
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	public abstract double nextDoubleImpl();
+
+	// DoubleIterator API
 	@Override
 	public AbstractDoubleIterator slice(IntUnaryOperator indexMapping)
 	{
@@ -82,8 +94,7 @@ public abstract class AbstractDoubleIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public <E> AbstractEnhancedIterator<DoubleWith<E>> zipWith(
-			Iterator<? extends E> other)
+	public <E> AbstractEnhancedIterator<DoubleWith<E>> zipWith(Iterator<? extends E> other)
 	{
 		return new ZipIterator.OfObjectAndDouble<>(other, this);
 	}
@@ -161,8 +172,7 @@ public abstract class AbstractDoubleIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public AbstractDoubleIterator accumulate(double id,
-			DoubleBinaryOperator accumulator)
+	public AbstractDoubleIterator accumulate(double id, DoubleBinaryOperator accumulator)
 	{
 		return new AccumulationIterator.OfDouble(this, id, accumulator);
 	}
@@ -246,8 +256,7 @@ public abstract class AbstractDoubleIterator extends AbstractOptionallySized
 	}
 
 	@Override
-	public <K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper,
-			DoubleFunction<V> valueMapper)
+	public <K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper, DoubleFunction<V> valueMapper)
 	{
 		return DoubleCollectionConsumption.toMap(this, keyMapper, valueMapper);
 	}

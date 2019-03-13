@@ -14,7 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.iterators.AbstractIntIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractIntIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
 /**

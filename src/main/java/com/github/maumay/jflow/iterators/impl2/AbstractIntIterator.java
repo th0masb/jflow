@@ -1,4 +1,4 @@
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterators.impl2;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -10,13 +10,12 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
+import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
 import com.github.maumay.jflow.iterators.impl.AppendIterator;
 import com.github.maumay.jflow.iterators.impl.DoubleMapIterator;
-import com.github.maumay.jflow.iterators.impl.SkipIterator;
-import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.FilteredIterator;
 import com.github.maumay.jflow.iterators.impl.InsertIterator;
 import com.github.maumay.jflow.iterators.impl.IntCollectionConsumption;
@@ -26,11 +25,12 @@ import com.github.maumay.jflow.iterators.impl.IntReductionConsumption;
 import com.github.maumay.jflow.iterators.impl.LongMapIterator;
 import com.github.maumay.jflow.iterators.impl.MapIterator;
 import com.github.maumay.jflow.iterators.impl.ObjectMapIterator;
+import com.github.maumay.jflow.iterators.impl.SkipIterator;
+import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.SlicedIterator;
 import com.github.maumay.jflow.iterators.impl.TakeIterator;
 import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
 import com.github.maumay.jflow.iterators.impl.ZipIterator;
-import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 import com.github.maumay.jflow.utils.IntTup;
 import com.github.maumay.jflow.utils.IntWith;
 
@@ -41,13 +41,27 @@ import com.github.maumay.jflow.utils.IntWith;
  * @author ThomasB
  * @since 23 Apr 2018
  */
-public abstract class AbstractIntIterator extends AbstractOptionallySized
-		implements IntIterator
+public abstract class AbstractIntIterator extends AbstractIterator implements IntIterator
 {
-	public AbstractIntIterator(OptionalInt size)
+	public AbstractIntIterator(AbstractIteratorSize size)
 	{
 		super(size);
 	}
+
+	@Override
+	public final int nextInt()
+	{
+		if (hasOwnership()) {
+			getSize().decrement();
+			return nextIntImpl();
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	public abstract int nextIntImpl();
+
+	// IntIterator API
 
 	@Override
 	public AbstractIntIterator slice(IntUnaryOperator sliceMap)

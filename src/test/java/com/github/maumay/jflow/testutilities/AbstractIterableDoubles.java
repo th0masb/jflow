@@ -1,7 +1,7 @@
 package com.github.maumay.jflow.testutilities;
 
 import com.github.maumay.jflow.iterables.DoubleIterable;
-import com.github.maumay.jflow.iterators.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractDoubleIterator;
 
 /**
  * @author ThomasB

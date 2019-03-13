@@ -1,11 +1,10 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterators.impl2;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
@@ -15,13 +14,12 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
+import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.impl.AccumulationIterator;
 import com.github.maumay.jflow.iterators.impl.AppendIterator;
 import com.github.maumay.jflow.iterators.impl.DoubleMapIterator;
-import com.github.maumay.jflow.iterators.impl.SkipIterator;
-import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.FilteredIterator;
 import com.github.maumay.jflow.iterators.impl.InsertIterator;
 import com.github.maumay.jflow.iterators.impl.IntMapIterator;
@@ -31,11 +29,12 @@ import com.github.maumay.jflow.iterators.impl.LongPredicateConsumption;
 import com.github.maumay.jflow.iterators.impl.LongReductionConsumption;
 import com.github.maumay.jflow.iterators.impl.MapIterator;
 import com.github.maumay.jflow.iterators.impl.ObjectMapIterator;
+import com.github.maumay.jflow.iterators.impl.SkipIterator;
+import com.github.maumay.jflow.iterators.impl.SkipwhileIterator;
 import com.github.maumay.jflow.iterators.impl.SlicedIterator;
 import com.github.maumay.jflow.iterators.impl.TakeIterator;
 import com.github.maumay.jflow.iterators.impl.TakewhileIterator;
 import com.github.maumay.jflow.iterators.impl.ZipIterator;
-import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 import com.github.maumay.jflow.utils.LongTup;
 import com.github.maumay.jflow.utils.LongWith;
 
@@ -45,14 +44,27 @@ import com.github.maumay.jflow.utils.LongWith;
  *
  * @author ThomasB
  */
-public abstract class AbstractLongIterator extends AbstractOptionallySized
-		implements LongIterator
+public abstract class AbstractLongIterator extends AbstractIterator implements LongIterator
 {
-	public AbstractLongIterator(OptionalInt size)
+	public AbstractLongIterator(AbstractIteratorSize size)
 	{
 		super(size);
 	}
 
+	@Override
+	public final long nextLong()
+	{
+		if (hasOwnership()) {
+			getSize().decrement();
+			return nextLongImpl();
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	public abstract long nextLongImpl();
+
+	// LongIterator API
 	@Override
 	public AbstractLongIterator slice(IntUnaryOperator indexMapping)
 	{

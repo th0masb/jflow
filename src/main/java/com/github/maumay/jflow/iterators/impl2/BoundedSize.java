@@ -3,7 +3,10 @@
  */
 package com.github.maumay.jflow.iterators.impl2;
 
+import java.util.OptionalInt;
+
 import com.github.maumay.jflow.utils.Exceptions;
+import com.github.maumay.jflow.utils.Option;
 
 /**
  * @author thomasb
@@ -36,5 +39,17 @@ public final class BoundedSize extends AbstractIteratorSize
 	{
 		lo--;
 		hi--;
+	}
+
+	@Override
+	public OptionalInt getUpperBound()
+	{
+		return Option.of(hi);
+	}
+
+	@Override
+	public OptionalInt getLowerBound()
+	{
+		return Option.of(lo);
 	}
 }
