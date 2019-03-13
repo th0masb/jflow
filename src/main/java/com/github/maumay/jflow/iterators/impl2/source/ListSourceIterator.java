@@ -1,13 +1,15 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.impl2;
+package com.github.maumay.jflow.iterators.impl2.source;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import com.github.maumay.jflow.iterators.size.KnownSize;
+import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractSourceIterator;
+import com.github.maumay.jflow.iterators.impl2.KnownSize;
 import com.github.maumay.jflow.utils.Option;
 
 /**
@@ -31,13 +33,13 @@ public final class ListSourceIterator<E> extends AbstractSourceIterator<E>
 	}
 
 	@Override
-	protected E nextImpl()
+	public E nextImpl()
 	{
 		return source.next();
 	}
 
 	@Override
-	protected void skipImpl()
+	public void skipImpl()
 	{
 		source.next();
 	}

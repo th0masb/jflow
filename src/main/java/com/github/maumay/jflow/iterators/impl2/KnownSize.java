@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.size;
+package com.github.maumay.jflow.iterators.impl2;
 
 /**
  * @author thomasb

@@ -53,6 +53,8 @@ import com.github.maumay.jflow.vec.Vec;
  */
 public interface EnhancedIterator<E> extends SafeIterator<E>
 {
+	// AbstractIteratorSize getSize();
+
 	/**
 	 * Applies a function elementwise to this {@link EnhancedIterator} to make a new
 	 * {@link EnhancedIterator}.

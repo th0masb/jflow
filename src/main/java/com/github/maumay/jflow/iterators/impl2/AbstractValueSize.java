@@ -1,9 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.size;
-
-import com.github.maumay.jflow.utils.Exceptions;
+package com.github.maumay.jflow.iterators.impl2;
 
 /**
  * @author thomasb
@@ -19,18 +17,13 @@ public abstract class AbstractValueSize extends AbstractIteratorSize
 		this.value = requireNonNegative(value);
 	}
 
-	static int requireNonNegative(int input)
-	{
-		Exceptions.require(input >= 0);
-		return input;
-	}
-
 	public int getValue()
 	{
 		return value;
 	}
 
-	public void decrement()
+	@Override
+	void decrement()
 	{
 		value--;
 	}

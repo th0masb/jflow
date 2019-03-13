@@ -3,8 +3,6 @@
  */
 package com.github.maumay.jflow.iterators.impl2;
 
-import com.github.maumay.jflow.iterators.size.AbstractIteratorSize;
-
 /**
  * @author thomasb
  *

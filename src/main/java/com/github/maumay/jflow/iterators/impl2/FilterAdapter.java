@@ -6,11 +6,6 @@ package com.github.maumay.jflow.iterators.impl2;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-import com.github.maumay.jflow.iterators.size.AbstractIteratorSize;
-import com.github.maumay.jflow.iterators.size.KnownSize;
-import com.github.maumay.jflow.iterators.size.UnknownSize;
-import com.github.maumay.jflow.iterators.size.UpperBound;
-
 /**
  * @author thomasb
  *
@@ -54,7 +49,7 @@ public final class FilterAdapter<E> extends AbstractIteratorAdapter<E, E>
 	}
 
 	@Override
-	protected E nextImpl()
+	public E nextImpl()
 	{
 		if (hasNext()) {
 			E tmp = cached;
@@ -66,7 +61,7 @@ public final class FilterAdapter<E> extends AbstractIteratorAdapter<E, E>
 	}
 
 	@Override
-	protected void skipImpl()
+	public void skipImpl()
 	{
 		if (hasNext()) {
 			cached = null;

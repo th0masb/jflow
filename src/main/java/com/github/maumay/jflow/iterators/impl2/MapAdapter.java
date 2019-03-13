@@ -25,13 +25,13 @@ public final class MapAdapter<E, R> extends AbstractIteratorAdapter<E, R>
 	}
 
 	@Override
-	protected R nextImpl()
+	public R nextImpl()
 	{
 		return map.apply(getSource().nextImpl());
 	}
 
 	@Override
-	protected void skipImpl()
+	public void skipImpl()
 	{
 		getSource().skipImpl();
 	}

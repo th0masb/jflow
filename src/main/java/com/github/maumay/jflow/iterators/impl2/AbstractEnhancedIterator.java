@@ -28,8 +28,9 @@ import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.impl.ObjectMinMaxConsumption;
 import com.github.maumay.jflow.iterators.impl.ObjectPredicateConsumption;
 import com.github.maumay.jflow.iterators.impl.ObjectReductionConsumption;
-import com.github.maumay.jflow.iterators.size.AbstractIteratorSize;
+import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
 import com.github.maumay.jflow.utils.DoubleWith;
+import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.IntWith;
 import com.github.maumay.jflow.utils.LongWith;
 import com.github.maumay.jflow.utils.Tup;
@@ -62,13 +63,15 @@ public abstract class AbstractEnhancedIterator<E> implements EnhancedIterator<E>
 		this.hasOwnership = true;
 	}
 
-	protected final AbstractIteratorSize getSize()
+	public final AbstractIteratorSize getSize()
 	{
 		return size;
 	}
 
-	final void removeOwnership()
+	final void relinquishOwnership()
 	{
+		// Can't relinquish ownership twice!
+		Exceptions.require(hasOwnership);
 		hasOwnership = false;
 	}
 
@@ -94,9 +97,9 @@ public abstract class AbstractEnhancedIterator<E> implements EnhancedIterator<E>
 		}
 	}
 
-	protected abstract E nextImpl();
+	public abstract E nextImpl();
 
-	protected abstract void skipImpl();
+	public abstract void skipImpl();
 
 	// EnhancedIterator API
 	@Override
@@ -212,19 +215,27 @@ public abstract class AbstractEnhancedIterator<E> implements EnhancedIterator<E>
 	@Override
 	public AbstractEnhancedIterator<E> filter(Predicate<? super E> predicate)
 	{
-		throw new RuntimeException();
+		return new FilterAdapter<>(this, predicate);
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> append(Iterator<? extends E> other)
 	{
-		throw new RuntimeException();
+		if (other instanceof AbstractEnhancedIterator<?>) {
+			return new ConcatenationAdapter<>(this, (AbstractEnhancedIterator<? extends E>) other);
+		} else {
+			return new ConcatenationAdapter<>(this, new IteratorWrapper<>(other));
+		}
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> insert(Iterator<? extends E> other)
 	{
-		throw new RuntimeException();
+		if (other instanceof AbstractEnhancedIterator<?>) {
+			return new ConcatenationAdapter<>((AbstractEnhancedIterator<? extends E>) other, this);
+		} else {
+			return new ConcatenationAdapter<>(new IteratorWrapper<>(other), this);
+		}
 	}
 
 	@Override
