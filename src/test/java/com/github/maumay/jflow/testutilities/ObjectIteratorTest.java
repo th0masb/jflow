@@ -22,6 +22,7 @@ public interface ObjectIteratorTest
 			AbstractEnhancedIterable<T> iteratorProvider)
 	{
 		assertSizeAsExpected(expectedElements, iteratorProvider.iterator());
+		assertSizeDecreasesAsExpected(iteratorProvider.iterator());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
@@ -34,6 +35,24 @@ public interface ObjectIteratorTest
 	{
 		if (iterator.sizeIsKnown()) {
 			assertEquals(expectedElements.size(), iterator.size().getAsInt());
+		}
+	}
+
+	static void assertSizeDecreasesAsExpected(AbstractEnhancedIterator<?> iterator)
+	{
+		if (iterator.sizeIsKnown()) {
+			int expectedSize = iterator.size().getAsInt();
+			while (iterator.hasNext()) {
+				expectedSize--;
+				iterator.next();
+				assertTrue(iterator.sizeIsKnown());
+				assertEquals(expectedSize, iterator.size().getAsInt());
+			}
+		} else {
+			while (iterator.hasNext()) {
+				iterator.next();
+				assertFalse(iterator.sizeIsKnown());
+			}
 		}
 	}
 

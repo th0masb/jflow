@@ -23,6 +23,7 @@ import java.util.stream.StreamSupport;
 import com.github.maumay.jflow.iterators.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
@@ -47,7 +48,7 @@ final class VecImpl<E> implements Vec<E>
 		data = EMPTY;
 	}
 
-	public VecImpl(Object[] cache)
+	VecImpl(Object[] cache)
 	{
 		this.data = cache;
 	}
@@ -60,6 +61,7 @@ final class VecImpl<E> implements Vec<E>
 			while (src.hasNext()) {
 				data[index++] = Objects.requireNonNull(src.next());
 			}
+			Exceptions.require(index == size);
 		} else {
 			List<E> mut = new ArrayList<>(10);
 			while (src.hasNext()) {

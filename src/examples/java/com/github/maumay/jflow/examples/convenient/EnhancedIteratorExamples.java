@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.utils.Option;
@@ -77,12 +78,16 @@ public class EnhancedIteratorExamples
 		assert strings.iter().noneMatch(s -> s.equals("0"));
 
 		// *****************************************************************************************
-		// Fine grained control over recovering the next element
+		// Fine grained control over consuming an iterator
 		EnhancedIterator<String> iter = strings.iter();
 		assert iter.next().equals("a");
 		assert iter.nextOption().equals(Option.of("b"));
 		assert !iter.hasNext();
 		assert iter.nextOption().equals(Option.empty());
+		try {
+			System.out.println(iter.next());
+		} catch (NoSuchElementException ex) {
+		}
 
 		// ...
 		// with great power comes great responsibility

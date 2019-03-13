@@ -23,6 +23,7 @@ public interface IntIteratorTest
 			AbstractIterableInts iteratorProvider)
 	{
 		assertSizeAsExpected(expectedElements, iteratorProvider.iter());
+		assertSizeDecreasesAsExpected(iteratorProvider.iter());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
 		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
@@ -34,6 +35,24 @@ public interface IntIteratorTest
 	{
 		if (iterator.sizeIsKnown()) {
 			assertEquals(expectedElements.length, iterator.size().getAsInt());
+		}
+	}
+
+	static void assertSizeDecreasesAsExpected(AbstractIntIterator iterator)
+	{
+		if (iterator.sizeIsKnown()) {
+			int expectedSize = iterator.size().getAsInt();
+			while (iterator.hasNext()) {
+				expectedSize--;
+				iterator.nextInt();
+				assertTrue(iterator.sizeIsKnown());
+				assertEquals(expectedSize, iterator.size().getAsInt());
+			}
+		} else {
+			while (iterator.hasNext()) {
+				iterator.nextInt();
+				assertFalse(iterator.sizeIsKnown());
+			}
 		}
 	}
 
