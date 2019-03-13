@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * @author thomasb
  */
-public final class MapAdapter<E, R> extends AbstractAdapterIterator<E, R>
+public final class MapAdapter<E, R> extends AbstractIteratorAdapter<E, R>
 {
 	private final Function<? super E, ? extends R> map;
 

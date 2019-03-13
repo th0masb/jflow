@@ -9,11 +9,11 @@ import com.github.maumay.jflow.iterators.size.AbstractIteratorSize;
  * @author thomasb
  *
  */
-public abstract class AbstractAdapterIterator<E, R> extends AbstractEnhancedIterator<R>
+public abstract class AbstractIteratorAdapter<E, R> extends AbstractEnhancedIterator<R>
 {
 	private final AbstractEnhancedIterator<E> source;
 
-	public AbstractAdapterIterator(AbstractIteratorSize size, AbstractEnhancedIterator<E> source)
+	public AbstractIteratorAdapter(AbstractIteratorSize size, AbstractEnhancedIterator<E> source)
 	{
 		super(size);
 		this.source = source;
