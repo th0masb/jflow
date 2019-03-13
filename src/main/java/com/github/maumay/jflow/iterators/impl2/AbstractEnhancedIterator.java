@@ -64,7 +64,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public <R> AbstractEnhancedIterator<R> map(Function<? super E, ? extends R> f)
 	{
-		return new MapAdapter<>(this, f);
+		return new MapAdapter.OfObject<>(this, f);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	public <R> AbstractEnhancedIterator<R> flatMap(
 			Function<? super E, ? extends Iterator<? extends R>> mapping)
 	{
-		return new FlatmapAdapter<>(this, mapping);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -181,9 +181,10 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	public AbstractEnhancedIterator<E> append(Iterator<? extends E> other)
 	{
 		if (other instanceof AbstractEnhancedIterator<?>) {
-			return new ConcatenationAdapter<>(this, (AbstractEnhancedIterator<? extends E>) other);
+			return new ConcatenationAdapter.OfObject<>(this,
+					(AbstractEnhancedIterator<? extends E>) other);
 		} else {
-			return new ConcatenationAdapter<>(this, new IteratorWrapper<>(other));
+			return new ConcatenationAdapter.OfObject<>(this, new IteratorWrapper<>(other));
 		}
 	}
 
@@ -191,9 +192,10 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	public AbstractEnhancedIterator<E> insert(Iterator<? extends E> other)
 	{
 		if (other instanceof AbstractEnhancedIterator<?>) {
-			return new ConcatenationAdapter<>((AbstractEnhancedIterator<? extends E>) other, this);
+			return new ConcatenationAdapter.OfObject<>(
+					(AbstractEnhancedIterator<? extends E>) other, this);
 		} else {
-			return new ConcatenationAdapter<>(new IteratorWrapper<>(other), this);
+			return new ConcatenationAdapter.OfObject<>(new IteratorWrapper<>(other), this);
 		}
 	}
 

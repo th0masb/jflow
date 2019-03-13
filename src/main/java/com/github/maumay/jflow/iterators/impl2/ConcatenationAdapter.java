@@ -7,34 +7,137 @@ package com.github.maumay.jflow.iterators.impl2;
  * @author thomasb
  *
  */
-public final class ConcatenationAdapter<E> extends AbstractIteratorBiAdapter<E, E, E>
+public final class ConcatenationAdapter
 {
-	public ConcatenationAdapter(AbstractEnhancedIterator<? extends E> sourceOne,
-			AbstractEnhancedIterator<? extends E> sourceTwo)
+	private ConcatenationAdapter()
 	{
-		super(AbstractIteratorSize.combine(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
-				sourceTwo);
 	}
 
-	@Override
-	public boolean hasNext()
+	public static final class OfObject<E> extends AbstractIteratorBiAdapters.OfObject<E, E, E>
 	{
-		return getSourceOne().hasNext() || getSourceTwo().hasNext();
+		public OfObject(AbstractEnhancedIterator<? extends E> sourceOne,
+				AbstractEnhancedIterator<? extends E> sourceTwo)
+		{
+			super(AbstractIteratorSize.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+					sourceTwo);
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return getSourceOne().hasNext() || getSourceTwo().hasNext();
+		}
+
+		@Override
+		public E nextImpl()
+		{
+			return getSourceOne().hasNext() ? getSourceOne().nextImpl() : getSourceTwo().nextImpl();
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			if (getSourceOne().hasNext()) {
+				getSourceOne().skipImpl();
+			} else {
+				getSourceTwo().skipImpl();
+			}
+		}
 	}
 
-	@Override
-	public E nextImpl()
+	public static final class OfInt extends AbstractIteratorBiAdapters.OfInt
 	{
-		return getSourceOne().hasNext() ? getSourceOne().nextImpl() : getSourceTwo().nextImpl();
+		public OfInt(AbstractIntIterator sourceOne, AbstractIntIterator sourceTwo)
+		{
+			super(AbstractIteratorSize.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+					sourceTwo);
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return getSourceOne().hasNext() || getSourceTwo().hasNext();
+		}
+
+		@Override
+		public int nextIntImpl()
+		{
+			return getSourceOne().hasNext() ? getSourceOne().nextIntImpl()
+					: getSourceTwo().nextIntImpl();
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			if (getSourceOne().hasNext()) {
+				getSourceOne().skipImpl();
+			} else {
+				getSourceTwo().skipImpl();
+			}
+		}
 	}
 
-	@Override
-	public void skipImpl()
+	public static final class OfLong extends AbstractIteratorBiAdapters.OfLong
 	{
-		if (getSourceOne().hasNext()) {
-			getSourceOne().skipImpl();
-		} else {
-			getSourceTwo().skipImpl();
+		public OfLong(AbstractLongIterator sourceOne, AbstractLongIterator sourceTwo)
+		{
+			super(AbstractIteratorSize.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+					sourceTwo);
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return getSourceOne().hasNext() || getSourceTwo().hasNext();
+		}
+
+		@Override
+		public long nextLongImpl()
+		{
+			return getSourceOne().hasNext() ? getSourceOne().nextLongImpl()
+					: getSourceTwo().nextLongImpl();
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			if (getSourceOne().hasNext()) {
+				getSourceOne().skipImpl();
+			} else {
+				getSourceTwo().skipImpl();
+			}
+		}
+	}
+
+	public static final class OfDouble extends AbstractIteratorBiAdapters.OfDouble
+	{
+		public OfDouble(AbstractDoubleIterator sourceOne, AbstractDoubleIterator sourceTwo)
+		{
+			super(AbstractIteratorSize.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+					sourceTwo);
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return getSourceOne().hasNext() || getSourceTwo().hasNext();
+		}
+
+		@Override
+		public double nextDoubleImpl()
+		{
+			return getSourceOne().hasNext() ? getSourceOne().nextDoubleImpl()
+					: getSourceTwo().nextDoubleImpl();
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			if (getSourceOne().hasNext()) {
+				getSourceOne().skipImpl();
+			} else {
+				getSourceTwo().skipImpl();
+			}
 		}
 	}
 }

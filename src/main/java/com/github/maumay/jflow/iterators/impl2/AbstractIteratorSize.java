@@ -43,7 +43,7 @@ public abstract class AbstractIteratorSize
 
 	abstract void decrement();
 
-	public static AbstractIteratorSize combine(AbstractIteratorSize... sizes)
+	public static AbstractIteratorSize sum(AbstractIteratorSize... sizes)
 	{
 		int lo = 0;
 		double hi = 0;
@@ -79,7 +79,6 @@ public abstract class AbstractIteratorSize
 				throw new AssertionError();
 			}
 		}
-		assert lo <= hi;
 
 		boolean finiteUpper = Double.isFinite(hi);
 		if (lo == hi) {
