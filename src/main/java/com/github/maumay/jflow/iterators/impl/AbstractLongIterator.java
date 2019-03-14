@@ -102,7 +102,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator takeWhile(LongPredicate predicate)
 	{
-		throw new RuntimeException();
+		return new TakewhileAdapter.OfLong(this, predicate);
 	}
 
 	@Override

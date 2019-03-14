@@ -100,7 +100,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator takeWhile(IntPredicate predicate)
 	{
-		throw new RuntimeException();
+		return new TakewhileAdapter.OfInt(this, predicate);
 	}
 
 	@Override

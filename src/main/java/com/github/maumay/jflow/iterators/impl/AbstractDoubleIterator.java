@@ -100,7 +100,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public AbstractDoubleIterator takeWhile(DoublePredicate predicate)
 	{
-		throw new RuntimeException();
+		return new TakewhileAdapter.OfDouble(this, predicate);
 	}
 
 	@Override

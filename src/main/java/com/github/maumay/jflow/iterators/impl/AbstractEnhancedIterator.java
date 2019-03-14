@@ -112,7 +112,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractEnhancedIterator<E> takeWhile(Predicate<? super E> predicate)
 	{
-		throw new RuntimeException();
+		return new TakewhileAdapter.OfObject<>(this, predicate);
 	}
 
 	@Override
