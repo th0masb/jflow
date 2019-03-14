@@ -10,25 +10,13 @@ import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.factories.Numbers;
-import com.github.maumay.jflow.iterators.implOld.AccumulationIterator;
-import com.github.maumay.jflow.iterators.implOld.AppendIterator;
-import com.github.maumay.jflow.iterators.implOld.DoubleMapIterator;
-import com.github.maumay.jflow.iterators.implOld.FilteredIterator;
-import com.github.maumay.jflow.iterators.implOld.InsertIterator;
+import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
+import com.github.maumay.jflow.iterators.impl2.source.VarargsSource;
 import com.github.maumay.jflow.iterators.implOld.IntCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntReductionConsumption;
-import com.github.maumay.jflow.iterators.implOld.LongMapIterator;
-import com.github.maumay.jflow.iterators.implOld.ObjectMapIterator;
-import com.github.maumay.jflow.iterators.implOld.SkipIterator;
-import com.github.maumay.jflow.iterators.implOld.SkipwhileIterator;
-import com.github.maumay.jflow.iterators.implOld.SlicedIterator;
-import com.github.maumay.jflow.iterators.implOld.TakeIterator;
-import com.github.maumay.jflow.iterators.implOld.TakewhileIterator;
-import com.github.maumay.jflow.iterators.implOld.ZipIterator;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
@@ -63,7 +51,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator slice(IntUnaryOperator sliceMap)
 	{
-		return new SlicedIterator.OfInt(this, sliceMap);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -75,25 +63,25 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public <E> AbstractEnhancedIterator<E> mapToObject(IntFunction<? extends E> f)
 	{
-		return new ObjectMapIterator.FromInt<>(this, f);
+		return new MapToObjectAdapter.FromInt<>(this, f);
 	}
 
 	@Override
 	public AbstractDoubleIterator mapToDouble(IntToDoubleFunction f)
 	{
-		return new DoubleMapIterator.FromInt(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator mapToLong(IntToLongFunction f)
 	{
-		return new LongMapIterator.FromInt(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<IntTup> zipWith(OfInt other)
 	{
-		return new ZipIterator.OfIntPair(this, other);
+		return new ZipAdapter.OfInts(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
@@ -105,67 +93,67 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator take(int n)
 	{
-		return new TakeIterator.OfInt(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractIntIterator takeWhile(IntPredicate predicate)
 	{
-		return new TakewhileIterator.OfInt(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractIntIterator skip(int n)
 	{
-		return new SkipIterator.OfInt(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractIntIterator skipWhile(IntPredicate predicate)
 	{
-		return new SkipwhileIterator.OfInt(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractIntIterator filter(IntPredicate predicate)
 	{
-		return new FilteredIterator.OfInt(this, predicate);
+		return new FilterAdapter.OfInt(this, predicate);
 	}
 
 	@Override
 	public AbstractIntIterator append(OfInt other)
 	{
-		return new AppendIterator.OfInt(this, other);
+		return new ConcatenationAdapter.OfInt(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
 	public AbstractIntIterator append(int... xs)
 	{
-		return append(Iter.ints(xs));
+		return append(new VarargsSource.OfInt(xs));
 	}
 
 	@Override
 	public AbstractIntIterator insert(OfInt other)
 	{
-		return new InsertIterator.OfInt(this, other);
+		return new ConcatenationAdapter.OfInt(IteratorWrapper.wrap(other), this);
 	}
 
 	@Override
 	public AbstractIntIterator insert(int... xs)
 	{
-		return insert(Iter.ints(xs));
+		return insert(new VarargsSource.OfInt(xs));
 	}
 
 	@Override
 	public AbstractIntIterator scan(IntBinaryOperator accumulator)
 	{
-		return new AccumulationIterator.OfInt(this, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractIntIterator scan(int id, IntBinaryOperator accumulator)
 	{
-		return new AccumulationIterator.OfInt(this, id, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -179,18 +167,6 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	{
 		return IntMinMaxConsumption.findMin(this, defaultValue);
 	}
-
-	// @Override
-	// public int minByKey(int defaultValue, IntToDoubleFunction key)
-	// {
-	// return IntMinMaxConsumption.findMin(this, defaultValue, key);
-	// }
-	//
-	// @Override
-	// public OptionalInt minByKey(IntToDoubleFunction key)
-	// {
-	// return IntMinMaxConsumption.findMin(this, key);
-	// }
 
 	@Override
 	public <C extends Comparable<C>> OptionalInt minByKey(IntFunction<C> key)
@@ -209,18 +185,6 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	{
 		return IntMinMaxConsumption.findMax(this, defaultValue);
 	}
-
-	// @Override
-	// public int maxByKey(int defaultValue, IntToDoubleFunction key)
-	// {
-	// return IntMinMaxConsumption.findMax(this, defaultValue, key);
-	// }
-	//
-	// @Override
-	// public OptionalInt maxByKey(IntToDoubleFunction key)
-	// {
-	// return IntMinMaxConsumption.findMax(this, key);
-	// }
 
 	@Override
 	public <C extends Comparable<C>> OptionalInt maxByKey(IntFunction<C> key)

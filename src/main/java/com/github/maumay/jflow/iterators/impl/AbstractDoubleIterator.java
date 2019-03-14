@@ -62,7 +62,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public <E> AbstractEnhancedIterator<E> mapToObject(DoubleFunction<? extends E> f)
 	{
-		throw new RuntimeException();
+		return new MapToObjectAdapter.FromDouble<>(this, f);
 	}
 
 	@Override

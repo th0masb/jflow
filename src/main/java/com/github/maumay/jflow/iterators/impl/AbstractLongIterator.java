@@ -14,23 +14,12 @@ import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.factories.Iter;
-import com.github.maumay.jflow.iterators.implOld.AccumulationIterator;
-import com.github.maumay.jflow.iterators.implOld.AppendIterator;
-import com.github.maumay.jflow.iterators.implOld.DoubleMapIterator;
-import com.github.maumay.jflow.iterators.implOld.FilteredIterator;
-import com.github.maumay.jflow.iterators.implOld.InsertIterator;
+import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
+import com.github.maumay.jflow.iterators.impl2.source.VarargsSource;
 import com.github.maumay.jflow.iterators.implOld.LongCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongReductionConsumption;
-import com.github.maumay.jflow.iterators.implOld.ObjectMapIterator;
-import com.github.maumay.jflow.iterators.implOld.SkipIterator;
-import com.github.maumay.jflow.iterators.implOld.SkipwhileIterator;
-import com.github.maumay.jflow.iterators.implOld.SlicedIterator;
-import com.github.maumay.jflow.iterators.implOld.TakeIterator;
-import com.github.maumay.jflow.iterators.implOld.TakewhileIterator;
-import com.github.maumay.jflow.iterators.implOld.ZipIterator;
 import com.github.maumay.jflow.utils.LongTup;
 
 /**
@@ -63,7 +52,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator slice(IntUnaryOperator indexMapping)
 	{
-		return new SlicedIterator.OfLong(this, indexMapping);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -75,13 +64,13 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public <E> AbstractEnhancedIterator<E> mapToObject(LongFunction<? extends E> f)
 	{
-		return new ObjectMapIterator.FromLong<>(this, f);
+		return new MapToObjectAdapter.FromLong<>(this, f);
 	}
 
 	@Override
 	public AbstractDoubleIterator mapToDouble(LongToDoubleFunction f)
 	{
-		return new DoubleMapIterator.FromLong(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -93,7 +82,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractEnhancedIterator<LongTup> zipWith(OfLong other)
 	{
-		return new ZipIterator.OfLongPair(this, other);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -105,73 +94,73 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator take(int n)
 	{
-		return new TakeIterator.OfLong(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator takeWhile(LongPredicate predicate)
 	{
-		return new TakewhileIterator.OfLong(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator skip(int n)
 	{
-		return new SkipIterator.OfLong(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator skipWhile(LongPredicate predicate)
 	{
-		return new SkipwhileIterator.OfLong(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator filter(LongPredicate predicate)
 	{
-		return new FilteredIterator.OfLong(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator append(OfLong other)
 	{
-		return new AppendIterator.OfLong(this, other);
+		return new ConcatenationAdapter.OfLong(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
 	public AbstractLongIterator append(long... xs)
 	{
-		return append(Iter.longs(xs));
+		return append(new VarargsSource.OfLong(xs));
 	}
 
 	@Override
 	public AbstractLongIterator insert(OfLong other)
 	{
-		return new InsertIterator.OfLong(this, other);
+		return new ConcatenationAdapter.OfLong(IteratorWrapper.wrap(other), this);
 	}
 
 	@Override
 	public AbstractLongIterator insert(long... xs)
 	{
-		return insert(Iter.longs(xs));
+		return insert(new VarargsSource.OfLong(xs));
 	}
 
 	@Override
 	public AbstractLongIterator scan(LongBinaryOperator accumulator)
 	{
-		return new AccumulationIterator.OfLong(this, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator scan(long id, LongBinaryOperator accumulator)
 	{
-		return new AccumulationIterator.OfLong(this, id, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public OptionalLong minOption()
 	{
-		return LongMinMaxConsumption.findMin(this);
+		throw new RuntimeException();
 	}
 
 	@Override
