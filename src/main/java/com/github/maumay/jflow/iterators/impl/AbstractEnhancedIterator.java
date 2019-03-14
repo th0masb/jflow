@@ -98,7 +98,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractEnhancedIterator<E> slice(IntUnaryOperator f)
 	{
-		throw new RuntimeException();
+		return new SliceAdapter.OfObject<>(this, f);
 	}
 
 	@Override

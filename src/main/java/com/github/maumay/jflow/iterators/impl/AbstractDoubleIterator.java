@@ -51,7 +51,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 	@Override
 	public AbstractDoubleIterator slice(IntUnaryOperator indexMapping)
 	{
-		throw new RuntimeException();
+		return new SliceAdapter.OfDouble(this, indexMapping);
 	}
 
 	@Override

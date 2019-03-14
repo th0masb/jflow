@@ -53,7 +53,7 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	@Override
 	public AbstractLongIterator slice(IntUnaryOperator indexMapping)
 	{
-		throw new RuntimeException();
+		return new SliceAdapter.OfLong(this, indexMapping);
 	}
 
 	@Override

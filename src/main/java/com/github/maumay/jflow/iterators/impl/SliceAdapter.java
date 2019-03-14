@@ -3,11 +3,10 @@
  */
 package com.github.maumay.jflow.iterators.impl;
 
-import java.util.NoSuchElementException;
-import java.util.OptionalInt;
-import java.util.function.IntUnaryOperator;
+import static com.github.maumay.jflow.iterators.impl.IteratorImplUtils.requireNonNegative;
 
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import java.util.NoSuchElementException;
+import java.util.function.IntUnaryOperator;
 
 /**
  * @author t
@@ -24,29 +23,24 @@ public class SliceAdapter
 	{
 		private final IntUnaryOperator indexMapping;
 
-		private int indexCount = 0;
-		private int checkpoint = -1;
-		private int iteratorCount = 0;
+		private int indexCount, checkpoint, iteratorCount;
+		private boolean elementCached;
+		private E cached;
 
-		private E cached = null;
-		boolean srcExhausted = false;
-
-		public OfObject(EnhancedIterator<E> src, IntUnaryOperator indexMapping)
+		public OfObject(AbstractEnhancedIterator<E> src, IntUnaryOperator indexMapping)
 		{
-			super(OptionalInt.empty());
-			this.src = src;
+			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
 			this.indexMapping = indexMapping;
-		}
-
-		private void init()
-		{
-			updateCheckpoint(indexMapping.applyAsInt(indexCount));
-			cacheNextElement();
+			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
+			this.indexCount = 1;
+			this.iteratorCount = 0;
+			this.cached = null;
+			this.elementCached = false;
 		}
 
 		private void updateCheckpoint(int newCheckpoint)
 		{
-			if (newCheckpoint < checkpoint) {
+			if (newCheckpoint <= checkpoint) {
 				throw new IllegalStateException();
 			}
 			checkpoint = newCheckpoint;
@@ -54,25 +48,23 @@ public class SliceAdapter
 
 		private boolean cacheNextElement()
 		{
-			assert !srcExhausted && cached == null;
 			AbstractEnhancedIterator<E> src = getSource();
 			while (iteratorCount < checkpoint) {
 				if (src.hasNext()) {
 					src.skipImpl();
 					iteratorCount++;
 				} else {
-					srcExhausted = true;
 					return false;
 				}
 			}
 
 			if (src.hasNext()) {
+				elementCached = true;
 				cached = src.nextImpl();
 				iteratorCount++;
 				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
 				return true;
 			} else {
-				srcExhausted = true;
 				return false;
 			}
 		}
@@ -80,65 +72,284 @@ public class SliceAdapter
 		@Override
 		public boolean hasNext()
 		{
-			if (checkpoint < 0) {
-				init();
-			}
-
-			if (srcExhausted) {
-				return false;
-			} else if (cached == null) {
-				return cacheNextElement();
-			} else {
-				return true;
-			}
+			return elementCached || cacheNextElement();
 		}
 
 		@Override
 		public E nextImpl()
 		{
-			if (checkpoint < 0) {
-				init();
-			}
-
-			if (srcExhausted) {
-				throw new NoSuchElementException();
-			} else if (cached == null) {
-				if (cacheNextElement()) {
-					return returnCacheAndErase();
-				} else {
-					throw new NoSuchElementException();
-				}
+			if (elementCached || cacheNextElement()) {
+				return consumeCache();
 			} else {
-				return returnCacheAndErase();
+				throw new NoSuchElementException();
 			}
 		}
 
 		@Override
 		public void skipImpl()
 		{
-			if (checkpoint < 0) {
-				init();
-			}
-
-			if (srcExhausted) {
-				throw new NoSuchElementException();
-			} else if (cached == null) {
-				if (cacheNextElement()) {
-					returnCacheAndErase();
-				} else {
-					throw new NoSuchElementException();
-				}
+			if (elementCached || cacheNextElement()) {
+				consumeCache();
 			} else {
-				returnCacheAndErase();
+				throw new NoSuchElementException();
 			}
 		}
 
-		private E returnCacheAndErase()
+		private E consumeCache()
 		{
-			assert cached != null;
-			final E tmp = cached;
-			cached = null;
-			return tmp;
+			elementCached = false;
+			return cached;
+		}
+	}
+
+	public static class OfInt extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
+	{
+		private final IntUnaryOperator indexMapping;
+
+		private int indexCount, checkpoint, iteratorCount;
+		private boolean elementCached;
+		private int cached;
+
+		public OfInt(AbstractIntIterator src, IntUnaryOperator indexMapping)
+		{
+			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
+			this.indexMapping = indexMapping;
+			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
+			this.indexCount = 1;
+			this.iteratorCount = 0;
+			this.cached = 0;
+			this.elementCached = false;
+		}
+
+		private void updateCheckpoint(int newCheckpoint)
+		{
+			if (newCheckpoint <= checkpoint) {
+				throw new IllegalStateException();
+			}
+			checkpoint = newCheckpoint;
+		}
+
+		private boolean cacheNextElement()
+		{
+			AbstractIntIterator src = getSource();
+			while (iteratorCount < checkpoint) {
+				if (src.hasNext()) {
+					src.skipImpl();
+					iteratorCount++;
+				} else {
+					return false;
+				}
+			}
+
+			if (src.hasNext()) {
+				elementCached = true;
+				cached = src.nextIntImpl();
+				iteratorCount++;
+				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return elementCached || cacheNextElement();
+		}
+
+		@Override
+		public int nextIntImpl()
+		{
+			if (elementCached || cacheNextElement()) {
+				return consumeCache();
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			if (elementCached || cacheNextElement()) {
+				consumeCache();
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+
+		private int consumeCache()
+		{
+			elementCached = false;
+			return cached;
+		}
+	}
+
+	public static class OfLong
+			extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
+	{
+		private final IntUnaryOperator indexMapping;
+
+		private int indexCount, checkpoint, iteratorCount;
+		private boolean elementCached;
+		private long cached;
+
+		public OfLong(AbstractLongIterator src, IntUnaryOperator indexMapping)
+		{
+			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
+			this.indexMapping = indexMapping;
+			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
+			this.indexCount = 1;
+			this.iteratorCount = 0;
+			this.cached = 0;
+			this.elementCached = false;
+		}
+
+		private void updateCheckpoint(int newCheckpoint)
+		{
+			if (newCheckpoint <= checkpoint) {
+				throw new IllegalStateException();
+			}
+			checkpoint = newCheckpoint;
+		}
+
+		private boolean cacheNextElement()
+		{
+			AbstractLongIterator src = getSource();
+			while (iteratorCount < checkpoint) {
+				if (src.hasNext()) {
+					src.skipImpl();
+					iteratorCount++;
+				} else {
+					return false;
+				}
+			}
+
+			if (src.hasNext()) {
+				elementCached = true;
+				cached = src.nextLongImpl();
+				iteratorCount++;
+				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return elementCached || cacheNextElement();
+		}
+
+		@Override
+		public long nextLongImpl()
+		{
+			if (elementCached || cacheNextElement()) {
+				return consumeCache();
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			if (elementCached || cacheNextElement()) {
+				consumeCache();
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+
+		private long consumeCache()
+		{
+			elementCached = false;
+			return cached;
+		}
+	}
+
+	public static class OfDouble
+			extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
+	{
+		private final IntUnaryOperator indexMapping;
+
+		private int indexCount, checkpoint, iteratorCount;
+		private boolean elementCached;
+		private double cached;
+
+		public OfDouble(AbstractDoubleIterator src, IntUnaryOperator indexMapping)
+		{
+			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
+			this.indexMapping = indexMapping;
+			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
+			this.indexCount = 1;
+			this.iteratorCount = 0;
+			this.cached = 0;
+			this.elementCached = false;
+		}
+
+		private void updateCheckpoint(int newCheckpoint)
+		{
+			if (newCheckpoint <= checkpoint) {
+				throw new IllegalStateException();
+			}
+			checkpoint = newCheckpoint;
+		}
+
+		private boolean cacheNextElement()
+		{
+			AbstractDoubleIterator src = getSource();
+			while (iteratorCount < checkpoint) {
+				if (src.hasNext()) {
+					src.skipImpl();
+					iteratorCount++;
+				} else {
+					return false;
+				}
+			}
+
+			if (src.hasNext()) {
+				elementCached = true;
+				cached = src.nextDoubleImpl();
+				iteratorCount++;
+				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return elementCached || cacheNextElement();
+		}
+
+		@Override
+		public double nextDoubleImpl()
+		{
+			if (elementCached || cacheNextElement()) {
+				return consumeCache();
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			if (elementCached || cacheNextElement()) {
+				consumeCache();
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+
+		private double consumeCache()
+		{
+			elementCached = false;
+			return cached;
 		}
 	}
 }

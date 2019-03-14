@@ -50,7 +50,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator slice(IntUnaryOperator sliceMap)
 	{
-		throw new RuntimeException();
+		return new SliceAdapter.OfInt(this, sliceMap);
 	}
 
 	@Override
