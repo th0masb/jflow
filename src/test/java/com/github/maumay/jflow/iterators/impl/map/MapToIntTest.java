@@ -6,7 +6,7 @@ import java.util.function.ToIntFunction;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.impl2.AbstractIntIterator;
+import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;

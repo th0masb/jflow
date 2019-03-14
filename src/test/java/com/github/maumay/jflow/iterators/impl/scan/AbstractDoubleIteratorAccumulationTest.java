@@ -7,7 +7,7 @@ import java.util.function.DoubleBinaryOperator;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.impl2.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;

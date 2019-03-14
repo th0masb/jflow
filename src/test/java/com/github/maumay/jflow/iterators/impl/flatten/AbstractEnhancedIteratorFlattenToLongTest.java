@@ -10,7 +10,7 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.impl2.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;

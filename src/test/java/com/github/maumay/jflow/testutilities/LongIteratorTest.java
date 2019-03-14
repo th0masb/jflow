@@ -12,8 +12,8 @@ import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
-import com.github.maumay.jflow.iterators.impl2.AbstractIteratorSize;
-import com.github.maumay.jflow.iterators.impl2.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.impl.AbstractIteratorSize;
+import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
 
 /**
  * @author ThomasB

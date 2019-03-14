@@ -22,7 +22,7 @@ import java.util.stream.StreamSupport;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
-import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 

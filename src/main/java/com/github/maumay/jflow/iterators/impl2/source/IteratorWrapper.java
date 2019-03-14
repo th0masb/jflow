@@ -5,8 +5,8 @@ package com.github.maumay.jflow.iterators.impl2.source;
 
 import java.util.Iterator;
 
-import com.github.maumay.jflow.iterators.impl2.AbstractSourceIterator;
-import com.github.maumay.jflow.iterators.impl2.UnknownSize;
+import com.github.maumay.jflow.iterators.impl.AbstractSourceIterator;
+import com.github.maumay.jflow.iterators.impl.UnknownSize;
 
 /**
  * @author thomasb

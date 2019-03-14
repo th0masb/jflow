@@ -21,11 +21,11 @@ import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.impl.EmptyIterator;
-import com.github.maumay.jflow.iterators.impl.FunctionIterator;
-import com.github.maumay.jflow.iterators.impl.ReversedSourceIterator;
-import com.github.maumay.jflow.iterators.impl.SourceIterator;
-import com.github.maumay.jflow.iterators.impl.WrappingIterator;
+import com.github.maumay.jflow.iterators.implOld.EmptyIterator;
+import com.github.maumay.jflow.iterators.implOld.FunctionIterator;
+import com.github.maumay.jflow.iterators.implOld.ReversedSourceIterator;
+import com.github.maumay.jflow.iterators.implOld.SourceIterator;
+import com.github.maumay.jflow.iterators.implOld.WrappingIterator;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 

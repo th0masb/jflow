@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.impl2.AbstractSourceIterator;
-import com.github.maumay.jflow.iterators.impl2.KnownSize;
+import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl.AbstractSourceIterator;
+import com.github.maumay.jflow.iterators.impl.KnownSize;
 import com.github.maumay.jflow.utils.Option;
 
 /**

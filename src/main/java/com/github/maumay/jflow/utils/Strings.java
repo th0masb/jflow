@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
-import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
 
 /**
  * Static utility methods for working with strings.

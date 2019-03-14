@@ -23,9 +23,9 @@ import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.impl.ApplicationIterator;
-import com.github.maumay.jflow.iterators.impl.CyclicIterator;
-import com.github.maumay.jflow.iterators.impl.FunctionIterator;
+import com.github.maumay.jflow.iterators.implOld.ApplicationIterator;
+import com.github.maumay.jflow.iterators.implOld.CyclicIterator;
+import com.github.maumay.jflow.iterators.implOld.FunctionIterator;
 
 /**
  * Static methods for building infinite {@link EnhancedIterator}s.
