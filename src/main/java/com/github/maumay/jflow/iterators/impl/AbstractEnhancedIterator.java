@@ -67,13 +67,13 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractDoubleIterator mapToDouble(ToDoubleFunction<? super E> f)
 	{
-		throw new RuntimeException();
+		return new MapToDoubleAdapter.FromObject<>(this, f);
 	}
 
 	@Override
 	public AbstractLongIterator mapToLong(ToLongFunction<? super E> f)
 	{
-		throw new RuntimeException();
+		return new MapToLongAdapter.FromObject<>(this, f);
 	}
 
 	@Override

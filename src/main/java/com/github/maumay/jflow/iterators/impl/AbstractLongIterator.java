@@ -14,8 +14,8 @@ import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterators.impl2.source.ArraySource;
 import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
-import com.github.maumay.jflow.iterators.impl2.source.VarargsSource;
 import com.github.maumay.jflow.iterators.implOld.LongCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongPredicateConsumption;
@@ -70,7 +70,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractDoubleIterator mapToDouble(LongToDoubleFunction f)
 	{
-		throw new RuntimeException();
+		return new MapToDoubleAdapter.FromLong(this, f);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator append(long... xs)
 	{
-		return append(new VarargsSource.OfLong(xs));
+		return append(new ArraySource.OfLong(xs));
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator insert(long... xs)
 	{
-		return insert(new VarargsSource.OfLong(xs));
+		return insert(new ArraySource.OfLong(xs));
 	}
 
 	@Override

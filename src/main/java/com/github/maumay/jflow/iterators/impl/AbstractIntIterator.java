@@ -11,8 +11,8 @@ import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.factories.Numbers;
+import com.github.maumay.jflow.iterators.impl2.source.ArraySource;
 import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
-import com.github.maumay.jflow.iterators.impl2.source.VarargsSource;
 import com.github.maumay.jflow.iterators.implOld.IntCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntPredicateConsumption;
@@ -69,13 +69,13 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractDoubleIterator mapToDouble(IntToDoubleFunction f)
 	{
-		throw new RuntimeException();
+		return new MapToDoubleAdapter.FromInt(this, f);
 	}
 
 	@Override
 	public AbstractLongIterator mapToLong(IntToLongFunction f)
 	{
-		throw new RuntimeException();
+		return new MapToLongAdapter.FromInt(this, f);
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator append(int... xs)
 	{
-		return append(new VarargsSource.OfInt(xs));
+		return append(new ArraySource.OfInt(xs));
 	}
 
 	@Override
@@ -141,7 +141,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator insert(int... xs)
 	{
-		return insert(new VarargsSource.OfInt(xs));
+		return insert(new ArraySource.OfInt(xs));
 	}
 
 	@Override

@@ -15,9 +15,9 @@ import com.github.maumay.jflow.iterators.impl.KnownSize;
  * @author thomasb
  *
  */
-public final class VarargsSource
+public final class ArraySource
 {
-	private VarargsSource()
+	private ArraySource()
 	{
 	}
 
