@@ -16,7 +16,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.impl2.source.IteratorWrappers;
+import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
 import com.github.maumay.jflow.iterators.implOld.ObjectMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.ObjectPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.ObjectReductionConsumption;
@@ -86,7 +86,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public <R> AbstractEnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other)
 	{
-		return new ZipAdapter.OfObjects<>(this, IteratorWrappers.wrap(other));
+		return new ZipAdapter.OfObjects<>(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
@@ -134,13 +134,13 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractEnhancedIterator<E> append(Iterator<? extends E> other)
 	{
-		return new ConcatenationAdapter.OfObject<>(this, IteratorWrappers.wrap(other));
+		return new ConcatenationAdapter.OfObject<>(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> insert(Iterator<? extends E> other)
 	{
-		return new ConcatenationAdapter.OfObject<>(IteratorWrappers.wrap(other), this);
+		return new ConcatenationAdapter.OfObject<>(IteratorWrapper.wrap(other), this);
 	}
 
 	@Override

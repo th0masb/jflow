@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractSourceIterator;
 import com.github.maumay.jflow.iterators.impl.KnownSize;
 import com.github.maumay.jflow.utils.Option;
 
@@ -17,11 +16,11 @@ import com.github.maumay.jflow.utils.Option;
  * @author thomasb
  *
  */
-public final class CollectionSourceIterator<E> extends AbstractSourceIterator<E>
+public final class CollectionSource<E> extends AbstractEnhancedIterator<E>
 {
 	private final Iterator<? extends E> source;
 
-	public CollectionSourceIterator(Collection<? extends E> source)
+	public CollectionSource(Collection<? extends E> source)
 	{
 		super(new KnownSize(source.size()));
 		this.source = source.iterator();
@@ -49,7 +48,7 @@ public final class CollectionSourceIterator<E> extends AbstractSourceIterator<E>
 	{
 		List<String> strings = Arrays.asList("s");
 
-		CollectionSourceIterator<String> start = new CollectionSourceIterator<>(strings);
+		CollectionSource<String> start = new CollectionSource<>(strings);
 
 		AbstractEnhancedIterator<String> adapted = start.map(s -> "");
 

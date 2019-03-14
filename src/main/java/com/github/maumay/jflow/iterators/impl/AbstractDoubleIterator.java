@@ -11,25 +11,12 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.factories.Iter;
-import com.github.maumay.jflow.iterators.factories.Numbers;
-import com.github.maumay.jflow.iterators.implOld.AccumulationIterator;
-import com.github.maumay.jflow.iterators.implOld.AppendIterator;
+import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
+import com.github.maumay.jflow.iterators.impl2.source.VarargsSource;
 import com.github.maumay.jflow.iterators.implOld.DoubleCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.DoubleMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.DoublePredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.DoubleReductionConsumption;
-import com.github.maumay.jflow.iterators.implOld.FilteredIterator;
-import com.github.maumay.jflow.iterators.implOld.InsertIterator;
-import com.github.maumay.jflow.iterators.implOld.IntMapIterator;
-import com.github.maumay.jflow.iterators.implOld.LongMapIterator;
-import com.github.maumay.jflow.iterators.implOld.ObjectMapIterator;
-import com.github.maumay.jflow.iterators.implOld.SkipIterator;
-import com.github.maumay.jflow.iterators.implOld.SkipwhileIterator;
-import com.github.maumay.jflow.iterators.implOld.SlicedIterator;
-import com.github.maumay.jflow.iterators.implOld.TakeIterator;
-import com.github.maumay.jflow.iterators.implOld.TakewhileIterator;
-import com.github.maumay.jflow.iterators.implOld.ZipIterator;
 import com.github.maumay.jflow.utils.DoubleTup;
 
 /**
@@ -63,7 +50,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public AbstractDoubleIterator slice(IntUnaryOperator indexMapping)
 	{
-		return new SlicedIterator.OfDouble(this, indexMapping);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -75,25 +62,25 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public <E> AbstractEnhancedIterator<E> mapToObject(DoubleFunction<? extends E> f)
 	{
-		return new ObjectMapIterator.FromDouble<>(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractLongIterator mapToLong(DoubleToLongFunction f)
 	{
-		return new LongMapIterator.FromDouble(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractIntIterator mapToInt(DoubleToIntFunction f)
 	{
-		return new IntMapIterator.FromDouble(this, f);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractEnhancedIterator<DoubleTup> zipWith(OfDouble other)
 	{
-		return new ZipIterator.OfDoublePair(this, other);
+		return new ZipAdapter.OfDoubles(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
@@ -105,67 +92,67 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public AbstractDoubleIterator take(int n)
 	{
-		return new TakeIterator.OfDouble(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractDoubleIterator takeWhile(DoublePredicate predicate)
 	{
-		return new TakewhileIterator.OfDouble(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractDoubleIterator skip(int n)
 	{
-		return new SkipIterator.OfDouble(this, n);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractDoubleIterator skipWhile(DoublePredicate predicate)
 	{
-		return new SkipwhileIterator.OfDouble(this, predicate);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractDoubleIterator filter(DoublePredicate predicate)
 	{
-		return new FilteredIterator.OfDouble(this, predicate);
+		return new FilterAdapter.OfDouble(this, predicate);
 	}
 
 	@Override
 	public AbstractDoubleIterator append(OfDouble other)
 	{
-		return new AppendIterator.OfDouble(this, other);
+		return new ConcatenationAdapter.OfDouble(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
 	public AbstractDoubleIterator append(double... xs)
 	{
-		return append(Iter.doubles(xs));
+		return append(new VarargsSource.OfDouble(xs));
 	}
 
 	@Override
 	public AbstractDoubleIterator insert(OfDouble other)
 	{
-		return new InsertIterator.OfDouble(this, other);
+		return new ConcatenationAdapter.OfDouble(IteratorWrapper.wrap(other), this);
 	}
 
 	@Override
 	public AbstractDoubleIterator insert(double... xs)
 	{
-		return insert(Iter.doubles(xs));
+		return insert(new VarargsSource.OfDouble(xs));
 	}
 
 	@Override
 	public AbstractDoubleIterator accumulate(DoubleBinaryOperator accumulator)
 	{
-		return new AccumulationIterator.OfDouble(this, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override
 	public AbstractDoubleIterator accumulate(double id, DoubleBinaryOperator accumulator)
 	{
-		return new AccumulationIterator.OfDouble(this, id, accumulator);
+		throw new RuntimeException();
 	}
 
 	@Override

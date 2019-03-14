@@ -10,16 +10,15 @@ import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractSourceIterator;
 import com.github.maumay.jflow.iterators.impl.UnknownSize;
 
 /**
  * @author thomasb
  *
  */
-public final class IteratorWrappers
+public final class IteratorWrapper
 {
-	private IteratorWrappers()
+	private IteratorWrapper()
 	{
 	}
 
@@ -59,7 +58,7 @@ public final class IteratorWrappers
 		}
 	}
 
-	private static class OfObject<E> extends AbstractSourceIterator<E>
+	private static class OfObject<E> extends AbstractEnhancedIterator<E>
 	{
 		private final Iterator<? extends E> source;
 
