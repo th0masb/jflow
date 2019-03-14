@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.iterators;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
@@ -14,7 +13,6 @@ import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.LongTup;
-import com.github.maumay.jflow.utils.LongWith;
 import com.github.maumay.jflow.vec.LongVec;
 
 /**
@@ -83,26 +81,6 @@ public interface LongIterator extends SafeLongIterator
 	IntIterator mapToInt(LongToIntFunction f);
 
 	/**
-	 * Combines this {@link LongIterator} with another iterator to create a new
-	 * {@link EnhancedIterator} consisting of pairs of elements with the same index
-	 * in their respective origins.
-	 *
-	 * @param       <E> The upper type bound on the parameter
-	 *              {@link EnhancedIterator}.
-	 * @param other The {@link EnhancedIterator} to zip this source
-	 *              {@link EnhancedIterator} with.
-	 *
-	 * @return Denote this source {@link LongIterator} by {@code F} with the
-	 *         parameter {@link EnhancedIterator} denoted by {@code I}. We return a
-	 *         new {@link EnhancedIterator} instance {@code G} defined by:
-	 *         <ul>
-	 *         <li>{@code G[j] = (F[j], I[j])}</li>
-	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
-	 *         </ul>
-	 */
-	<E> EnhancedIterator<LongWith<E>> zipWith(Iterator<? extends E> other);
-
-	/**
 	 * Combines this {@link LongIterator} with another primitive iterator to create
 	 * a new {@link EnhancedIterator} consisting of pairs of elements with the same
 	 * index in their respective origins.
@@ -132,7 +110,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         <li>{@code length(G) = length(F)}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<LongWith<Integer>> enumerate();
+	EnhancedIterator<LongTup> enumerate();
 
 	/**
 	 * Creates a new {@link LongIterator} from this {@link LongIterator} by

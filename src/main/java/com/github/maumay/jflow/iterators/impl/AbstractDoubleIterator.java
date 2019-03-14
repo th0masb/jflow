@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.iterators.impl;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalDouble;
 import java.util.function.DoubleBinaryOperator;
@@ -32,7 +31,6 @@ import com.github.maumay.jflow.iterators.implOld.TakeIterator;
 import com.github.maumay.jflow.iterators.implOld.TakewhileIterator;
 import com.github.maumay.jflow.iterators.implOld.ZipIterator;
 import com.github.maumay.jflow.utils.DoubleTup;
-import com.github.maumay.jflow.utils.DoubleWith;
 
 /**
  * A skeletal implementation of DoubleFlow, users writing custom DoubleFlows
@@ -93,21 +91,15 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public <E> AbstractEnhancedIterator<DoubleWith<E>> zipWith(Iterator<? extends E> other)
-	{
-		return new ZipIterator.OfObjectAndDouble<>(other, this);
-	}
-
-	@Override
 	public AbstractEnhancedIterator<DoubleTup> zipWith(OfDouble other)
 	{
 		return new ZipIterator.OfDoublePair(this, other);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<DoubleWith<Integer>> enumerate()
+	public AbstractEnhancedIterator<DoubleTup> enumerate()
 	{
-		return zipWith(Numbers.natural());
+		throw new RuntimeException();
 	}
 
 	@Override

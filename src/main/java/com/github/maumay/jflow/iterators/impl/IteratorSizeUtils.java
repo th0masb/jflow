@@ -11,7 +11,6 @@ import com.github.maumay.jflow.utils.Exceptions;
  */
 final class IteratorSizeUtils
 {
-
 	public static AbstractIteratorSize min(AbstractIteratorSize... sizes)
 	{
 		Exceptions.require(sizes.length > 0);
@@ -30,10 +29,12 @@ final class IteratorSizeUtils
 				BoundedSize x = (BoundedSize) size;
 				lo = Math.min(lo, x.lowerBound());
 				hi = Math.min(hi, x.upperBound());
+				break;
 			}
 			case UPPER_BOUND: {
 				UpperBound x = (UpperBound) size;
 				hi = Math.min(hi, x.getValue());
+				lo = 0;
 				break;
 			}
 			case LOWER_BOUND: {
@@ -42,6 +43,7 @@ final class IteratorSizeUtils
 				break;
 			}
 			case UNKNOWN: {
+				lo = 0;
 				break;
 			}
 			default:

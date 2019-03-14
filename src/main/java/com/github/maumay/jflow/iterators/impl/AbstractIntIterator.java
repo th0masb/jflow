@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.iterators.impl;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.function.IntBinaryOperator;
@@ -31,7 +30,6 @@ import com.github.maumay.jflow.iterators.implOld.TakeIterator;
 import com.github.maumay.jflow.iterators.implOld.TakewhileIterator;
 import com.github.maumay.jflow.iterators.implOld.ZipIterator;
 import com.github.maumay.jflow.utils.IntTup;
-import com.github.maumay.jflow.utils.IntWith;
 
 /**
  * A skeletal implementation of a IntFlow, users writing custom IntFlows should
@@ -90,12 +88,6 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	public AbstractLongIterator mapToLong(IntToLongFunction f)
 	{
 		return new LongMapIterator.FromInt(this, f);
-	}
-
-	@Override
-	public <E> AbstractEnhancedIterator<IntWith<E>> zipWith(Iterator<? extends E> other)
-	{
-		return new ZipIterator.OfObjectAndInt<>(other, this);
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.iterators;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
@@ -15,7 +14,6 @@ import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.DoubleTup;
-import com.github.maumay.jflow.utils.DoubleWith;
 import com.github.maumay.jflow.vec.DoubleVec;
 
 /**
@@ -84,24 +82,6 @@ public interface DoubleIterator extends SafeDoubleIterator
 	IntIterator mapToInt(DoubleToIntFunction f);
 
 	/**
-	 * Combines this {@link DoubleIterator} with another iterator to create a new
-	 * Iterator consisting of pairs of elements with the same index in their
-	 * respective origins.
-	 *
-	 * @param       <E> The upper type bound on the parameter Iterator.
-	 * @param other The Iterator to zip this source Iterator with.
-	 *
-	 * @return Denote this source {@link DoubleIterator} by {@code F} with the
-	 *         parameter Iterator denoted by {@code I}. We return a new Iterator
-	 *         instance {@code G} defined by:
-	 *         <ul>
-	 *         <li>{@code G[j] = (F[j], I[j])}</li>
-	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
-	 *         </ul>
-	 */
-	<E> EnhancedIterator<DoubleWith<E>> zipWith(Iterator<? extends E> other);
-
-	/**
 	 * Combines this {@link DoubleIterator} with another primitive iterator to
 	 * create a new Iterator consisting of pairs of elements with the same index in
 	 * their respective origins.
@@ -131,7 +111,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <li>{@code length(G) = length(F)}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<DoubleWith<Integer>> enumerate();
+	EnhancedIterator<DoubleTup> enumerate();
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by

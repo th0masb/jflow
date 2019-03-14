@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.PrimitiveIterator;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
@@ -27,9 +26,6 @@ import java.util.function.ToLongFunction;
 import com.github.maumay.jflow.iterators.custom.IteratorCollector;
 import com.github.maumay.jflow.iterators.custom.IteratorConsumer;
 import com.github.maumay.jflow.iterators.factories.Iter;
-import com.github.maumay.jflow.utils.DoubleWith;
-import com.github.maumay.jflow.utils.IntWith;
-import com.github.maumay.jflow.utils.LongWith;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -134,60 +130,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	<R> EnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other);
 
 	/**
-	 * Combines this {@link EnhancedIterator} with another primitive iterator to
-	 * create a new {@link EnhancedIterator} consisting of pairs of elements with
-	 * the same index in their respective origins.
-	 *
-	 * @param other The primitive iterator to zip this source
-	 *              {@link EnhancedIterator} with.
-	 *
-	 * @return Denote this source {@link EnhancedIterator} by {@code F} with the
-	 *         parameter primitive iterator denoted by {@code I}. We return a new
-	 *         {@link EnhancedIterator} instance {@code G} defined by:
-	 *         <ul>
-	 *         <li>{@code G[j] = (F[j], I[j])}</li>
-	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
-	 *         </ul>
-	 */
-	EnhancedIterator<IntWith<E>> zipWith(PrimitiveIterator.OfInt other);
-
-	/**
-	 * Combines this {@link EnhancedIterator} with another primitive iterator to
-	 * create a new {@link EnhancedIterator} consisting of pairs of elements with
-	 * the same index in their respective origins.
-	 *
-	 * @param other The primitive iterator to zip this source
-	 *              {@link EnhancedIterator} with.
-	 *
-	 * @return Denote this source {@link EnhancedIterator} by {@code F} with the
-	 *         parameter primitive iterator denoted by {@code I}. We return a new
-	 *         {@link EnhancedIterator} instance {@code G} defined by:
-	 *         <ul>
-	 *         <li>{@code G[j] = (F[j], I[j])}</li>
-	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
-	 *         </ul>
-	 */
-	EnhancedIterator<DoubleWith<E>> zipWith(PrimitiveIterator.OfDouble other);
-
-	/**
-	 * Combines this {@link EnhancedIterator} with another primitive iterator to
-	 * create a new {@link EnhancedIterator} consisting of pairs of elements with
-	 * the same index in their respective origins.
-	 *
-	 * @param other The primitive iterator to zip this source
-	 *              {@link EnhancedIterator} with.
-	 *
-	 * @return Denote this source {@link EnhancedIterator} by {@code F} with the
-	 *         parameter primitive iterator denoted by {@code I}. We return a new
-	 *         {@link EnhancedIterator} instance {@code G} defined by:
-	 *         <ul>
-	 *         <li>{@code G[j] = (F[j], I[j])}</li>
-	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
-	 *         </ul>
-	 */
-	EnhancedIterator<LongWith<E>> zipWith(PrimitiveIterator.OfLong other);
-
-	/**
 	 * Creates a new {@link EnhancedIterator} by mapping each element in this source
 	 * {@link EnhancedIterator} to a pair consisting of the element and the index it
 	 * appears.
@@ -199,7 +141,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         <li>{@code length(G) = length(F)}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<IntWith<E>> enumerate();
+	EnhancedIterator<Tup<Integer, E>> enumerate();
 
 	/**
 	 * Creates a new {@link EnhancedIterator} from this {@link EnhancedIterator} by

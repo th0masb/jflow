@@ -45,7 +45,7 @@ public final class ConcatenationAdapter
 		}
 	}
 
-	public static final class OfInt extends AbstractIteratorBiAdapters.OfInt
+	public static final class OfInt extends AbstractIteratorBiAdapters.BinaryInt
 	{
 		public OfInt(AbstractIntIterator sourceOne, AbstractIntIterator sourceTwo)
 		{
@@ -77,7 +77,7 @@ public final class ConcatenationAdapter
 		}
 	}
 
-	public static final class OfLong extends AbstractIteratorBiAdapters.OfLong
+	public static final class OfLong extends AbstractIteratorBiAdapters.BinaryLong
 	{
 		public OfLong(AbstractLongIterator sourceOne, AbstractLongIterator sourceTwo)
 		{
@@ -109,7 +109,7 @@ public final class ConcatenationAdapter
 		}
 	}
 
-	public static final class OfDouble extends AbstractIteratorBiAdapters.OfDouble
+	public static final class OfDouble extends AbstractIteratorBiAdapters.BinaryDouble
 	{
 		public OfDouble(AbstractDoubleIterator sourceOne, AbstractDoubleIterator sourceTwo)
 		{

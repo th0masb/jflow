@@ -6,9 +6,6 @@ package com.github.maumay.jflow.iterators.impl;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.PrimitiveIterator.OfDouble;
-import java.util.PrimitiveIterator.OfInt;
-import java.util.PrimitiveIterator.OfLong;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -19,13 +16,10 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
+import com.github.maumay.jflow.iterators.impl2.source.IteratorWrappers;
 import com.github.maumay.jflow.iterators.implOld.ObjectMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.ObjectPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.ObjectReductionConsumption;
-import com.github.maumay.jflow.utils.DoubleWith;
-import com.github.maumay.jflow.utils.IntWith;
-import com.github.maumay.jflow.utils.LongWith;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
@@ -92,29 +86,11 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public <R> AbstractEnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other)
 	{
-		throw new RuntimeException();
+		return new ZipAdapter.OfObjects<>(this, IteratorWrappers.wrap(other));
 	}
 
 	@Override
-	public AbstractEnhancedIterator<IntWith<E>> zipWith(OfInt other)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractEnhancedIterator<DoubleWith<E>> zipWith(OfDouble other)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractEnhancedIterator<LongWith<E>> zipWith(OfLong other)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractEnhancedIterator<IntWith<E>> enumerate()
+	public AbstractEnhancedIterator<Tup<Integer, E>> enumerate()
 	{
 		throw new RuntimeException();
 	}
@@ -158,23 +134,13 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractEnhancedIterator<E> append(Iterator<? extends E> other)
 	{
-		if (other instanceof AbstractEnhancedIterator<?>) {
-			return new ConcatenationAdapter.OfObject<>(this,
-					(AbstractEnhancedIterator<? extends E>) other);
-		} else {
-			return new ConcatenationAdapter.OfObject<>(this, new IteratorWrapper<>(other));
-		}
+		return new ConcatenationAdapter.OfObject<>(this, IteratorWrappers.wrap(other));
 	}
 
 	@Override
 	public AbstractEnhancedIterator<E> insert(Iterator<? extends E> other)
 	{
-		if (other instanceof AbstractEnhancedIterator<?>) {
-			return new ConcatenationAdapter.OfObject<>(
-					(AbstractEnhancedIterator<? extends E>) other, this);
-		} else {
-			return new ConcatenationAdapter.OfObject<>(new IteratorWrapper<>(other), this);
-		}
+		return new ConcatenationAdapter.OfObject<>(IteratorWrappers.wrap(other), this);
 	}
 
 	@Override

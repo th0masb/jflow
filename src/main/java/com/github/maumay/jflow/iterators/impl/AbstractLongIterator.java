@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.iterators.impl;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.OptionalLong;
 import java.util.function.IntUnaryOperator;
@@ -16,7 +15,6 @@ import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
-import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.iterators.implOld.AccumulationIterator;
 import com.github.maumay.jflow.iterators.implOld.AppendIterator;
 import com.github.maumay.jflow.iterators.implOld.DoubleMapIterator;
@@ -35,7 +33,6 @@ import com.github.maumay.jflow.iterators.implOld.TakeIterator;
 import com.github.maumay.jflow.iterators.implOld.TakewhileIterator;
 import com.github.maumay.jflow.iterators.implOld.ZipIterator;
 import com.github.maumay.jflow.utils.LongTup;
-import com.github.maumay.jflow.utils.LongWith;
 
 /**
  * A skeletal implementation of a LongFlow, users writing custom LongFlows
@@ -95,21 +92,15 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public <E> AbstractEnhancedIterator<LongWith<E>> zipWith(Iterator<? extends E> other)
-	{
-		return new ZipIterator.OfObjectAndLong<>(other, this);
-	}
-
-	@Override
 	public AbstractEnhancedIterator<LongTup> zipWith(OfLong other)
 	{
 		return new ZipIterator.OfLongPair(this, other);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<LongWith<Integer>> enumerate()
+	public AbstractEnhancedIterator<LongTup> enumerate()
 	{
-		return zipWith(Numbers.natural());
+		throw new RuntimeException();
 	}
 
 	@Override

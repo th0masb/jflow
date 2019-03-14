@@ -3,6 +3,9 @@
  */
 package com.github.maumay.jflow.iterators.impl;
 
+import com.github.maumay.jflow.utils.DoubleTup;
+import com.github.maumay.jflow.utils.IntTup;
+import com.github.maumay.jflow.utils.LongTup;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
@@ -15,7 +18,7 @@ public final class ZipAdapter
 	{
 	}
 
-	public static class OfObjects<E1, E2>
+	public static final class OfObjects<E1, E2>
 			extends AbstractIteratorBiAdapters.OfObject<E1, E2, Tup<E1, E2>>
 	{
 		public OfObjects(AbstractEnhancedIterator<? extends E1> sourceOne,
@@ -28,19 +31,104 @@ public final class ZipAdapter
 		@Override
 		public boolean hasNext()
 		{
-			throw new RuntimeException("Not yet implemented");
+			return getSourceOne().hasNext() && getSourceTwo().hasNext();
 		}
 
 		@Override
 		public Tup<E1, E2> nextImpl()
 		{
-			throw new RuntimeException("Not yet implemented");
+			return Tup.of(getSourceOne().nextImpl(), getSourceTwo().nextImpl());
 		}
 
 		@Override
 		public void skipImpl()
 		{
-			throw new RuntimeException("Not yet implemented");
+			getSourceOne().skipImpl();
+			getSourceTwo().skipImpl();
+		}
+	}
+
+	public static final class OfInts extends AbstractIteratorBiAdapters.IntToObject<IntTup>
+	{
+		public OfInts(AbstractIntIterator sourceOne, AbstractIntIterator sourceTwo)
+		{
+			super(IteratorSizeUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+					sourceTwo);
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return getSourceOne().hasNext() && getSourceTwo().hasNext();
+		}
+
+		@Override
+		public IntTup nextImpl()
+		{
+			return IntTup.of(getSourceOne().nextIntImpl(), getSourceTwo().nextIntImpl());
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			getSourceOne().skipImpl();
+			getSourceTwo().skipImpl();
+		}
+	}
+
+	public static final class OfLongs extends AbstractIteratorBiAdapters.LongToObject<LongTup>
+	{
+		public OfLongs(AbstractLongIterator sourceOne, AbstractLongIterator sourceTwo)
+		{
+			super(IteratorSizeUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+					sourceTwo);
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return getSourceOne().hasNext() && getSourceTwo().hasNext();
+		}
+
+		@Override
+		public LongTup nextImpl()
+		{
+			return LongTup.of(getSourceOne().nextLongImpl(), getSourceTwo().nextLongImpl());
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			getSourceOne().skipImpl();
+			getSourceTwo().skipImpl();
+		}
+	}
+
+	public static final class OfDoubles extends AbstractIteratorBiAdapters.DoubleToObject<DoubleTup>
+	{
+		public OfDoubles(AbstractDoubleIterator sourceOne, AbstractDoubleIterator sourceTwo)
+		{
+			super(IteratorSizeUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+					sourceTwo);
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return getSourceOne().hasNext() && getSourceTwo().hasNext();
+		}
+
+		@Override
+		public DoubleTup nextImpl()
+		{
+			return DoubleTup.of(getSourceOne().nextDoubleImpl(), getSourceTwo().nextDoubleImpl());
+		}
+
+		@Override
+		public void skipImpl()
+		{
+			getSourceOne().skipImpl();
+			getSourceTwo().skipImpl();
 		}
 	}
 }
