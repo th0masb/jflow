@@ -18,8 +18,8 @@ public final class ZipAdapter
 	{
 	}
 
-	public static final class OfObjects<E1, E2>
-			extends AbstractIteratorBiAdapters.OfObject<E1, E2, Tup<E1, E2>>
+	public static final class OfObjects<E1, E2> extends
+			AbstractIteratorBiAdapters.OfObject<AbstractEnhancedIterator<? extends E1>, AbstractEnhancedIterator<? extends E2>, Tup<E1, E2>>
 	{
 		public OfObjects(AbstractEnhancedIterator<? extends E1> sourceOne,
 				AbstractEnhancedIterator<? extends E2> sourceTwo)
@@ -48,7 +48,8 @@ public final class ZipAdapter
 		}
 	}
 
-	public static final class OfInts extends AbstractIteratorBiAdapters.IntToObject<IntTup>
+	public static final class OfInts extends
+			AbstractIteratorBiAdapters.OfObject<AbstractIntIterator, AbstractIntIterator, IntTup>
 	{
 		public OfInts(AbstractIntIterator sourceOne, AbstractIntIterator sourceTwo)
 		{
@@ -76,7 +77,8 @@ public final class ZipAdapter
 		}
 	}
 
-	public static final class OfLongs extends AbstractIteratorBiAdapters.LongToObject<LongTup>
+	public static final class OfLongs extends
+			AbstractIteratorBiAdapters.OfObject<AbstractLongIterator, AbstractLongIterator, LongTup>
 	{
 		public OfLongs(AbstractLongIterator sourceOne, AbstractLongIterator sourceTwo)
 		{
@@ -104,7 +106,8 @@ public final class ZipAdapter
 		}
 	}
 
-	public static final class OfDoubles extends AbstractIteratorBiAdapters.DoubleToObject<DoubleTup>
+	public static final class OfDoubles extends
+			AbstractIteratorBiAdapters.OfObject<AbstractDoubleIterator, AbstractDoubleIterator, DoubleTup>
 	{
 		public OfDoubles(AbstractDoubleIterator sourceOne, AbstractDoubleIterator sourceTwo)
 		{

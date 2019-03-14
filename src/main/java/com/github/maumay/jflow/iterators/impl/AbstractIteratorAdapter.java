@@ -7,17 +7,18 @@ package com.github.maumay.jflow.iterators.impl;
  * @author thomasb
  *
  */
-public final class AbstractIteratorAdapter
+public class AbstractIteratorAdapter
 {
 	private AbstractIteratorAdapter()
 	{
 	}
 
-	public static abstract class OfObject<E, R> extends AbstractEnhancedIterator<R>
+	public static abstract class OfObject<S extends AbstractIterator, R>
+			extends AbstractEnhancedIterator<R>
 	{
-		private final AbstractEnhancedIterator<? extends E> source;
+		private final S source;
 
-		public OfObject(AbstractIteratorSize size, AbstractEnhancedIterator<? extends E> source)
+		public OfObject(AbstractIteratorSize size, S source)
 		{
 			super(size);
 			this.source = source;
@@ -27,17 +28,17 @@ public final class AbstractIteratorAdapter
 			source.relinquishOwnership();
 		}
 
-		protected final AbstractEnhancedIterator<? extends E> getSource()
+		protected final S getSource()
 		{
 			return source;
 		}
 	}
 
-	public static abstract class OfInt extends AbstractIntIterator
+	public static abstract class OfInt<S extends AbstractIterator> extends AbstractIntIterator
 	{
-		private final AbstractIntIterator source;
+		private final S source;
 
-		public OfInt(AbstractIteratorSize size, AbstractIntIterator source)
+		public OfInt(AbstractIteratorSize size, S source)
 		{
 			super(size);
 			this.source = source;
@@ -47,17 +48,17 @@ public final class AbstractIteratorAdapter
 			source.relinquishOwnership();
 		}
 
-		protected final AbstractIntIterator getSource()
+		protected final S getSource()
 		{
 			return source;
 		}
 	}
 
-	public static abstract class OfLong extends AbstractLongIterator
+	public static abstract class OfLong<S extends AbstractIterator> extends AbstractLongIterator
 	{
-		private final AbstractLongIterator source;
+		private final S source;
 
-		public OfLong(AbstractIteratorSize size, AbstractLongIterator source)
+		public OfLong(AbstractIteratorSize size, S source)
 		{
 			super(size);
 			this.source = source;
@@ -67,17 +68,17 @@ public final class AbstractIteratorAdapter
 			source.relinquishOwnership();
 		}
 
-		protected final AbstractLongIterator getSource()
+		protected final S getSource()
 		{
 			return source;
 		}
 	}
 
-	public static abstract class OfDouble extends AbstractDoubleIterator
+	public static abstract class OfDouble<S extends AbstractIterator> extends AbstractDoubleIterator
 	{
-		private final AbstractDoubleIterator source;
+		private final S source;
 
-		public OfDouble(AbstractIteratorSize size, AbstractDoubleIterator source)
+		public OfDouble(AbstractIteratorSize size, S source)
 		{
 			super(size);
 			this.source = source;
@@ -87,7 +88,7 @@ public final class AbstractIteratorAdapter
 			source.relinquishOwnership();
 		}
 
-		protected final AbstractDoubleIterator getSource()
+		protected final S getSource()
 		{
 			return source;
 		}

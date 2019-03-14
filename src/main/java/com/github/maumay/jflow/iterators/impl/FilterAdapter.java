@@ -31,7 +31,8 @@ public final class FilterAdapter
 		}
 	}
 
-	static final class OfObject<E> extends AbstractIteratorAdapter.OfObject<E, E>
+	static final class OfObject<E>
+			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
 	{
 		private final Predicate<? super E> predicate;
 
@@ -80,7 +81,7 @@ public final class FilterAdapter
 		}
 	}
 
-	static final class OfInt extends AbstractIteratorAdapter.OfInt
+	static final class OfInt extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
 	{
 		private final IntPredicate predicate;
 
@@ -129,7 +130,7 @@ public final class FilterAdapter
 		}
 	}
 
-	static final class OfLong extends AbstractIteratorAdapter.OfLong
+	static final class OfLong extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
 	{
 		private final LongPredicate predicate;
 
@@ -178,7 +179,7 @@ public final class FilterAdapter
 		}
 	}
 
-	static final class OfDouble extends AbstractIteratorAdapter.OfDouble
+	static final class OfDouble extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
 	{
 		private final DoublePredicate predicate;
 

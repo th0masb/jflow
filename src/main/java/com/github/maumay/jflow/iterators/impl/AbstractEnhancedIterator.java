@@ -61,7 +61,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractIntIterator mapToInt(ToIntFunction<? super E> f)
 	{
-		throw new RuntimeException();
+		return new MapToIntAdapter.FromObject<>(this, f);
 	}
 
 	@Override

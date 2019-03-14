@@ -15,13 +15,13 @@ public class AbstractIteratorBiAdapters
 	{
 	}
 
-	public static abstract class OfObject<E1, E2, R> extends AbstractEnhancedIterator<R>
+	public static abstract class OfObject<S1 extends AbstractIterator, S2 extends AbstractIterator, R>
+			extends AbstractEnhancedIterator<R>
 	{
-		private final AbstractEnhancedIterator<? extends E1> sourceOne;
-		private final AbstractEnhancedIterator<? extends E2> sourceTwo;
+		private final S1 sourceOne;
+		private final S2 sourceTwo;
 
-		public OfObject(AbstractIteratorSize size, AbstractEnhancedIterator<? extends E1> sourceOne,
-				AbstractEnhancedIterator<? extends E2> sourceTwo)
+		public OfObject(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
 			this.sourceOne = Objects.requireNonNull(sourceOne);
@@ -30,23 +30,24 @@ public class AbstractIteratorBiAdapters
 			sourceTwo.relinquishOwnership();
 		}
 
-		protected AbstractEnhancedIterator<? extends E1> getSourceOne()
+		protected S1 getSourceOne()
 		{
 			return sourceOne;
 		}
 
-		protected AbstractEnhancedIterator<? extends E2> getSourceTwo()
+		protected S2 getSourceTwo()
 		{
 			return sourceTwo;
 		}
 	}
 
-	public static abstract class BinaryInt extends AbstractIntIterator
+	public static abstract class OfInt<S1 extends AbstractIterator, S2 extends AbstractIterator>
+			extends AbstractIntIterator
 	{
-		private final AbstractIntIterator sourceOne, sourceTwo;
+		private final S1 sourceOne;
+		private final S2 sourceTwo;
 
-		public BinaryInt(AbstractIteratorSize size, AbstractIntIterator sourceOne,
-				AbstractIntIterator sourceTwo)
+		public OfInt(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
 			this.sourceOne = Objects.requireNonNull(sourceOne);
@@ -55,23 +56,24 @@ public class AbstractIteratorBiAdapters
 			sourceTwo.relinquishOwnership();
 		}
 
-		protected AbstractIntIterator getSourceOne()
+		protected S1 getSourceOne()
 		{
 			return sourceOne;
 		}
 
-		protected AbstractIntIterator getSourceTwo()
+		protected S2 getSourceTwo()
 		{
 			return sourceTwo;
 		}
 	}
 
-	public static abstract class IntToObject<R> extends AbstractEnhancedIterator<R>
+	public static abstract class OfLong<S1 extends AbstractIterator, S2 extends AbstractIterator>
+			extends AbstractLongIterator
 	{
-		private final AbstractIntIterator sourceOne, sourceTwo;
+		private final S1 sourceOne;
+		private final S2 sourceTwo;
 
-		public IntToObject(AbstractIteratorSize size, AbstractIntIterator sourceOne,
-				AbstractIntIterator sourceTwo)
+		public OfLong(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
 			this.sourceOne = Objects.requireNonNull(sourceOne);
@@ -80,23 +82,24 @@ public class AbstractIteratorBiAdapters
 			sourceTwo.relinquishOwnership();
 		}
 
-		protected AbstractIntIterator getSourceOne()
+		protected S1 getSourceOne()
 		{
 			return sourceOne;
 		}
 
-		protected AbstractIntIterator getSourceTwo()
+		protected S2 getSourceTwo()
 		{
 			return sourceTwo;
 		}
 	}
 
-	public static abstract class BinaryLong extends AbstractLongIterator
+	public static abstract class OfDouble<S1 extends AbstractIterator, S2 extends AbstractIterator>
+			extends AbstractDoubleIterator
 	{
-		private final AbstractLongIterator sourceOne, sourceTwo;
+		private final S1 sourceOne;
+		private final S2 sourceTwo;
 
-		public BinaryLong(AbstractIteratorSize size, AbstractLongIterator sourceOne,
-				AbstractLongIterator sourceTwo)
+		public OfDouble(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
 			this.sourceOne = Objects.requireNonNull(sourceOne);
@@ -105,89 +108,15 @@ public class AbstractIteratorBiAdapters
 			sourceTwo.relinquishOwnership();
 		}
 
-		protected AbstractLongIterator getSourceOne()
+		protected S1 getSourceOne()
 		{
 			return sourceOne;
 		}
 
-		protected AbstractLongIterator getSourceTwo()
+		protected S2 getSourceTwo()
 		{
 			return sourceTwo;
 		}
 	}
 
-	public static abstract class LongToObject<R> extends AbstractEnhancedIterator<R>
-	{
-		private final AbstractLongIterator sourceOne, sourceTwo;
-
-		public LongToObject(AbstractIteratorSize size, AbstractLongIterator sourceOne,
-				AbstractLongIterator sourceTwo)
-		{
-			super(size);
-			this.sourceOne = Objects.requireNonNull(sourceOne);
-			this.sourceTwo = Objects.requireNonNull(sourceTwo);
-			sourceOne.relinquishOwnership();
-			sourceTwo.relinquishOwnership();
-		}
-
-		protected AbstractLongIterator getSourceOne()
-		{
-			return sourceOne;
-		}
-
-		protected AbstractLongIterator getSourceTwo()
-		{
-			return sourceTwo;
-		}
-	}
-
-	public static abstract class BinaryDouble extends AbstractDoubleIterator
-	{
-		private final AbstractDoubleIterator sourceOne, sourceTwo;
-
-		public BinaryDouble(AbstractIteratorSize size, AbstractDoubleIterator sourceOne,
-				AbstractDoubleIterator sourceTwo)
-		{
-			super(size);
-			this.sourceOne = Objects.requireNonNull(sourceOne);
-			this.sourceTwo = Objects.requireNonNull(sourceTwo);
-			sourceOne.relinquishOwnership();
-			sourceTwo.relinquishOwnership();
-		}
-
-		protected AbstractDoubleIterator getSourceOne()
-		{
-			return sourceOne;
-		}
-
-		protected AbstractDoubleIterator getSourceTwo()
-		{
-			return sourceTwo;
-		}
-	}
-
-	public static abstract class DoubleToObject<R> extends AbstractEnhancedIterator<R>
-	{
-		private final AbstractDoubleIterator sourceOne, sourceTwo;
-
-		public DoubleToObject(AbstractIteratorSize size, AbstractDoubleIterator sourceOne,
-				AbstractDoubleIterator sourceTwo)
-		{
-			super(size);
-			this.sourceOne = Objects.requireNonNull(sourceOne);
-			this.sourceTwo = Objects.requireNonNull(sourceTwo);
-			sourceOne.relinquishOwnership();
-			sourceTwo.relinquishOwnership();
-		}
-
-		protected AbstractDoubleIterator getSourceOne()
-		{
-			return sourceOne;
-		}
-
-		protected AbstractDoubleIterator getSourceTwo()
-		{
-			return sourceTwo;
-		}
-	}
 }

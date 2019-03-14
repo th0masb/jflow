@@ -19,7 +19,8 @@ public class MapAdapter
 	{
 	}
 
-	public static final class OfObject<E, R> extends AbstractIteratorAdapter.OfObject<E, R>
+	public static final class OfObject<E, R>
+			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, R>
 	{
 		private final Function<? super E, ? extends R> map;
 
@@ -48,7 +49,7 @@ public class MapAdapter
 		}
 	}
 
-	public static final class OfInt extends AbstractIteratorAdapter.OfInt
+	public static final class OfInt extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
 	{
 		private final IntUnaryOperator map;
 
@@ -77,7 +78,7 @@ public class MapAdapter
 		}
 	}
 
-	public static final class OfLong extends AbstractIteratorAdapter.OfLong
+	public static final class OfLong extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
 	{
 		private final LongUnaryOperator map;
 
@@ -106,7 +107,8 @@ public class MapAdapter
 		}
 	}
 
-	public static final class OfDouble extends AbstractIteratorAdapter.OfDouble
+	public static final class OfDouble
+			extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
 	{
 		private final DoubleUnaryOperator map;
 

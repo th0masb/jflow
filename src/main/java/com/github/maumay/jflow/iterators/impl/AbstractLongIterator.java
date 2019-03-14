@@ -20,7 +20,6 @@ import com.github.maumay.jflow.iterators.implOld.AppendIterator;
 import com.github.maumay.jflow.iterators.implOld.DoubleMapIterator;
 import com.github.maumay.jflow.iterators.implOld.FilteredIterator;
 import com.github.maumay.jflow.iterators.implOld.InsertIterator;
-import com.github.maumay.jflow.iterators.implOld.IntMapIterator;
 import com.github.maumay.jflow.iterators.implOld.LongCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongPredicateConsumption;
@@ -88,7 +87,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractIntIterator mapToInt(LongToIntFunction f)
 	{
-		return new IntMapIterator.FromLong(this, f);
+		return new MapToIntAdapter.FromLong(this, f);
 	}
 
 	@Override

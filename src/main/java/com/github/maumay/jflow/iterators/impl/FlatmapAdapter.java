@@ -11,7 +11,8 @@ import java.util.function.Function;
  * @author thomasb
  *
  */
-public final class FlatmapAdapter<E, R> extends AbstractIteratorAdapter.OfObject<E, R>
+public final class FlatmapAdapter<E, R>
+		extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<? extends E>, R>
 {
 	private final Function<? super E, ? extends Iterator<? extends R>> map;
 

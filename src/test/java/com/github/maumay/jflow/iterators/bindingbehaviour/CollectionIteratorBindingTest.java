@@ -46,14 +46,6 @@ class CollectionIteratorBindingTest
 		assertThrows(ConcurrentModificationException.class, () -> iter2.next());
 	}
 
-	static Stream<Arguments> emptyCollectionSupplier()
-	{
-		return Stream.of(Arguments.of(new ArrayList<String>()),
-				Arguments.of(new LinkedList<String>()), Arguments.of(new Vector<String>()),
-				Arguments.of(new Stack<String>()), Arguments.of(new HashSet<String>()),
-				Arguments.of(new TreeSet<String>()));
-	}
-
 	@ParameterizedTest
 	@MethodSource("emptyCollectionSupplier")
 	void testEmptyCollections(Collection<String> xs)
@@ -67,4 +59,13 @@ class CollectionIteratorBindingTest
 		} catch (ConcurrentModificationException | NoSuchElementException ex) {
 		}
 	}
+
+	static Stream<Arguments> emptyCollectionSupplier()
+	{
+		return Stream.of(Arguments.of(new ArrayList<String>()),
+				Arguments.of(new LinkedList<String>()), Arguments.of(new Vector<String>()),
+				Arguments.of(new Stack<String>()), Arguments.of(new HashSet<String>()),
+				Arguments.of(new TreeSet<String>()));
+	}
+
 }

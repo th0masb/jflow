@@ -74,7 +74,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public AbstractIntIterator mapToInt(DoubleToIntFunction f)
 	{
-		throw new RuntimeException();
+		return new MapToIntAdapter.FromDouble(this, f);
 	}
 
 	@Override
