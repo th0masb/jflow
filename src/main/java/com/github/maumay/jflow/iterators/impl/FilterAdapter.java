@@ -25,7 +25,7 @@ public final class FilterAdapter
 	{
 		OptionalInt upperBoundOption = sourceSize.getUpperBound();
 		if (upperBoundOption.isPresent()) {
-			return new UpperBound(upperBoundOption.getAsInt());
+			return new BoundedSize(0, upperBoundOption.getAsInt());
 		} else {
 			return UnknownSize.instance();
 		}

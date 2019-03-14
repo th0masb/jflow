@@ -10,7 +10,7 @@ package com.github.maumay.jflow.iterators.impl;
 public enum SizeType
 {
 	EXACT(KnownSize.class), BOUNDED(BoundedSize.class), LOWER_BOUND(LowerBound.class),
-	UPPER_BOUND(UpperBound.class), UNKNOWN(UnknownSize.class);
+	UNKNOWN(UnknownSize.class);
 
 	@SuppressWarnings("unused")
 	private final Class<? extends AbstractIteratorSize> associatedClass;

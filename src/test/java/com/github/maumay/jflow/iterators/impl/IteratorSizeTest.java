@@ -30,11 +30,11 @@ class IteratorSizeTest
 	static Stream<Arguments> testSum()
 	{
 		// Case 1
-		List<AbstractIteratorSize> input1 = Arrays.asList(new KnownSize(5), new UpperBound(10));
+		List<AbstractIteratorSize> input1 = Arrays.asList(new KnownSize(5), new BoundedSize(0, 10));
 		AbstractIteratorSize expected1 = new BoundedSize(5, 15);
 
 		// Case 2
-		List<AbstractIteratorSize> input2 = Arrays.asList(new LowerBound(6), new UpperBound(5));
+		List<AbstractIteratorSize> input2 = Arrays.asList(new LowerBound(6), new BoundedSize(0, 5));
 		AbstractIteratorSize expected2 = new LowerBound(6);
 
 		// Case 3
@@ -55,16 +55,16 @@ class IteratorSizeTest
 	static Stream<Arguments> testMin()
 	{
 		// Case 1
-		List<AbstractIteratorSize> input1 = Arrays.asList(new KnownSize(5), new UpperBound(10));
-		AbstractIteratorSize expected1 = new UpperBound(5);
+		List<AbstractIteratorSize> input1 = Arrays.asList(new KnownSize(5), new BoundedSize(0, 10));
+		AbstractIteratorSize expected1 = new BoundedSize(0, 5);
 
 		// Case 2
-		List<AbstractIteratorSize> input2 = Arrays.asList(new LowerBound(6), new UpperBound(5));
-		AbstractIteratorSize expected2 = new UpperBound(5);
+		List<AbstractIteratorSize> input2 = Arrays.asList(new LowerBound(6), new BoundedSize(0, 5));
+		AbstractIteratorSize expected2 = new BoundedSize(0, 5);
 
 		// Case 3
 		List<AbstractIteratorSize> input3 = Arrays.asList(UnknownSize.instance(), new KnownSize(5));
-		AbstractIteratorSize expected3 = new UpperBound(5);
+		AbstractIteratorSize expected3 = new BoundedSize(0, 5);
 
 		// Case 4
 		List<AbstractIteratorSize> input4 = Arrays.asList(new BoundedSize(3, 6), new KnownSize(5));

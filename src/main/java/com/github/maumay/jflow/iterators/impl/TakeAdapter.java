@@ -22,10 +22,6 @@ public class TakeAdapter
 			KnownSize x = (KnownSize) size;
 			return new KnownSize(Math.max(0, x.getValue() - takeCount));
 		}
-		case UPPER_BOUND: {
-			UpperBound x = (UpperBound) size;
-			return new UpperBound(Math.min(x.getValue(), takeCount));
-		}
 		case LOWER_BOUND: {
 			LowerBound x = (LowerBound) size;
 			return x.getValue() >= takeCount ? new KnownSize(takeCount)
@@ -37,7 +33,7 @@ public class TakeAdapter
 					: new BoundedSize(x.lowerBound(), Math.min(takeCount, x.upperBound()));
 		}
 		case UNKNOWN:
-			return new UpperBound(takeCount);
+			return new BoundedSize(0, takeCount);
 		default:
 			throw new RuntimeException();
 		}

@@ -31,12 +31,6 @@ final class IteratorSizeUtils
 				hi = Math.min(hi, x.upperBound());
 				break;
 			}
-			case UPPER_BOUND: {
-				UpperBound x = (UpperBound) size;
-				hi = Math.min(hi, x.getValue());
-				lo = 0;
-				break;
-			}
 			case LOWER_BOUND: {
 				LowerBound x = (LowerBound) size;
 				lo = Math.min(lo, x.getValue());
@@ -72,10 +66,6 @@ final class IteratorSizeUtils
 				BoundedSize x = (BoundedSize) size;
 				lo += x.lowerBound();
 				hi += x.upperBound();
-			}
-			case UPPER_BOUND: {
-				UpperBound x = (UpperBound) size;
-				hi += x.getValue();
 				break;
 			}
 			case LOWER_BOUND: {
@@ -98,17 +88,12 @@ final class IteratorSizeUtils
 
 	static AbstractIteratorSize createSize(int lowerBound, double upperBound)
 	{
-		boolean finiteUpper = Double.isFinite(upperBound);
 		if (lowerBound == upperBound) {
 			return new KnownSize(lowerBound);
-		} else if (lowerBound == 0) {
-			if (finiteUpper) {
-				return new UpperBound((int) upperBound);
-			} else {
-				return UnknownSize.instance();
-			}
-		} else if (finiteUpper) {
+		} else if (Double.isFinite(upperBound)) {
 			return new BoundedSize(lowerBound, (int) upperBound);
+		} else if (lowerBound == 0) {
+			return UnknownSize.instance();
 		} else {
 			return new LowerBound(lowerBound);
 		}
