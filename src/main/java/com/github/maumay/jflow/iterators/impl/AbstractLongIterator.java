@@ -20,6 +20,7 @@ import com.github.maumay.jflow.iterators.implOld.LongCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongReductionConsumption;
+import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.LongTup;
 
 /**
@@ -82,7 +83,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractEnhancedIterator<LongTup> zipWith(OfLong other)
 	{
-		throw new RuntimeException();
+		return new ZipAdapter.OfLongs(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
@@ -94,7 +95,8 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator take(int n)
 	{
-		throw new RuntimeException();
+		Exceptions.require(n >= 0);
+		return new TakeAdapter.OfLong(this, n);
 	}
 
 	@Override
@@ -118,7 +120,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator filter(LongPredicate predicate)
 	{
-		throw new RuntimeException();
+		return new FilterAdapter.OfLong(this, predicate);
 	}
 
 	@Override

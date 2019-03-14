@@ -17,6 +17,7 @@ import com.github.maumay.jflow.iterators.implOld.IntCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntReductionConsumption;
+import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
@@ -47,7 +48,6 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	public abstract int nextIntImpl();
 
 	// IntIterator API
-
 	@Override
 	public AbstractIntIterator slice(IntUnaryOperator sliceMap)
 	{
@@ -93,7 +93,8 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator take(int n)
 	{
-		throw new RuntimeException();
+		Exceptions.require(n >= 0);
+		return new TakeAdapter.OfInt(this, n);
 	}
 
 	@Override

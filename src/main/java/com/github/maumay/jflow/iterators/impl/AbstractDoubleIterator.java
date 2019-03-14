@@ -18,6 +18,7 @@ import com.github.maumay.jflow.iterators.implOld.DoubleMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.DoublePredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.DoubleReductionConsumption;
 import com.github.maumay.jflow.utils.DoubleTup;
+import com.github.maumay.jflow.utils.Exceptions;
 
 /**
  * A skeletal implementation of DoubleFlow, users writing custom DoubleFlows
@@ -92,7 +93,8 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public AbstractDoubleIterator take(int n)
 	{
-		throw new RuntimeException();
+		Exceptions.require(n >= 0);
+		return new TakeAdapter.OfDouble(this, n);
 	}
 
 	@Override

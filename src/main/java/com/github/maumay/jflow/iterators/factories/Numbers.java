@@ -1,10 +1,9 @@
 package com.github.maumay.jflow.iterators.factories;
 
-import java.util.OptionalInt;
-
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.impl.UnknownSize;
 
 /**
  * Static methods for building Flows of common number sets.
@@ -43,12 +42,12 @@ public final class Numbers
 	 */
 	public static LongIterator fibonacci(final int first, final int second)
 	{
-		return new AbstractLongIterator(OptionalInt.empty()) {
+		return new AbstractLongIterator(UnknownSize.instance()) {
 			long x1 = first, x2 = second;
 			int count = 0;
 
 			@Override
-			public void skip()
+			public void skipImpl()
 			{
 				nextLong();
 			}
@@ -60,7 +59,7 @@ public final class Numbers
 			}
 
 			@Override
-			public long nextLong()
+			public long nextLongImpl()
 			{
 				if (count < 2) {
 					count++;

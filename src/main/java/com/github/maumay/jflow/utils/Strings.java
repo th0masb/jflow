@@ -10,13 +10,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl.UnknownSize;
 
 /**
  * Static utility methods for working with strings.
@@ -213,7 +213,7 @@ public final class Strings
 	 */
 	public static EnhancedIterator<String> allMatches(String source, Pattern pattern)
 	{
-		return new AbstractEnhancedIterator<String>(OptionalInt.empty()) {
+		return new AbstractEnhancedIterator<String>(UnknownSize.instance()) {
 			Matcher matcher = pattern.matcher(source);
 			String current;
 
@@ -233,7 +233,7 @@ public final class Strings
 			}
 
 			@Override
-			public String next()
+			public String nextImpl()
 			{
 				if (hasNext()) {
 					String next = current;
@@ -245,7 +245,7 @@ public final class Strings
 			}
 
 			@Override
-			public void skip()
+			public void skipImpl()
 			{
 				next();
 			}
