@@ -13,13 +13,13 @@ import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.DoubleTup;
-import com.github.maumay.jflow.utils.DoubleWith;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements IteratorTest
+class AbstractDoubleIteratorZipTest extends IteratorExampleProvider
+		implements IteratorTest
 {
 	@Test
 	void testZipWithDouble()
@@ -42,9 +42,12 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 		assertObjectIteratorAsExpected(asList(DoubleTup.of(0, 10), DoubleTup.of(1, 11)),
 				createZipIteratorProviderFrom(mid, small));
 
-		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(mid, empty));
-		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(empty, empty));
-		assertObjectIteratorAsExpected(asList(), createZipIteratorProviderFrom(empty, mid));
+		assertObjectIteratorAsExpected(asList(),
+				createZipIteratorProviderFrom(mid, empty));
+		assertObjectIteratorAsExpected(asList(),
+				createZipIteratorProviderFrom(empty, empty));
+		assertObjectIteratorAsExpected(asList(),
+				createZipIteratorProviderFrom(empty, mid));
 	}
 
 	private AbstractEnhancedIterable<DoubleTup> createZipIteratorProviderFrom(
@@ -59,45 +62,52 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider implements I
 		};
 	}
 
-	@Test
-	void testZipWithObject()
-	{
-		AbstractIterableDoubles populatedDoubles = getDoubleTestIteratorProvider();
-		AbstractIterableDoubles emptyDoubles = getEmptyDoubleTestIteratorProvider();
-
-		AbstractEnhancedIterable<String> smallObjects = getSmallObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> midObjects = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> largeObjects = getLargeObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> emptyObjects = getEmptyObjectTestIteratorProvider();
-
-		assertObjectIteratorAsExpected(asList(DoubleWith.of(0, "10"), DoubleWith.of(1, "11")),
-				createZipIteratorProviderFrom(populatedDoubles, smallObjects));
-
-		assertObjectIteratorAsExpected(
-				asList(DoubleWith.of(0, "0"), DoubleWith.of(1, "1"), DoubleWith.of(2, "2"),
-						DoubleWith.of(3, "3"), DoubleWith.of(4, "4")),
-				createZipIteratorProviderFrom(populatedDoubles, midObjects));
-
-		assertObjectIteratorAsExpected(
-				asList(DoubleWith.of(0, "10"), DoubleWith.of(1, "11"), DoubleWith.of(2, "12"),
-						DoubleWith.of(3, "13"), DoubleWith.of(4, "14")),
-				createZipIteratorProviderFrom(populatedDoubles, largeObjects));
-
-		assertObjectIteratorAsExpected(asList(),
-				createZipIteratorProviderFrom(emptyDoubles, emptyObjects));
-		assertObjectIteratorAsExpected(asList(),
-				createZipIteratorProviderFrom(emptyDoubles, smallObjects));
-	}
-
-	private <E> AbstractEnhancedIterable<DoubleWith<E>> createZipIteratorProviderFrom(
-			AbstractIterableDoubles first, AbstractEnhancedIterable<E> second)
-	{
-		return new AbstractEnhancedIterable<DoubleWith<E>>() {
-			@Override
-			public AbstractEnhancedIterator<DoubleWith<E>> iter()
-			{
-				return first.iter().zipWith(second.iter());
-			}
-		};
-	}
+	// @Test
+	// void testZipWithObject()
+	// {
+	// AbstractIterableDoubles populatedDoubles = getDoubleTestIteratorProvider();
+	// AbstractIterableDoubles emptyDoubles = getEmptyDoubleTestIteratorProvider();
+	//
+	// AbstractEnhancedIterable<String> smallObjects =
+	// getSmallObjectTestIteratorProvider();
+	// AbstractEnhancedIterable<String> midObjects =
+	// getObjectTestIteratorProvider();
+	// AbstractEnhancedIterable<String> largeObjects =
+	// getLargeObjectTestIteratorProvider();
+	// AbstractEnhancedIterable<String> emptyObjects =
+	// getEmptyObjectTestIteratorProvider();
+	//
+	// assertObjectIteratorAsExpected(asList(DoubleWith.of(0, "10"),
+	// DoubleWith.of(1, "11")),
+	// createZipIteratorProviderFrom(populatedDoubles, smallObjects));
+	//
+	// assertObjectIteratorAsExpected(
+	// asList(DoubleWith.of(0, "0"), DoubleWith.of(1, "1"), DoubleWith.of(2, "2"),
+	// DoubleWith.of(3, "3"), DoubleWith.of(4, "4")),
+	// createZipIteratorProviderFrom(populatedDoubles, midObjects));
+	//
+	// assertObjectIteratorAsExpected(
+	// asList(DoubleWith.of(0, "10"), DoubleWith.of(1, "11"), DoubleWith.of(2,
+	// "12"),
+	// DoubleWith.of(3, "13"), DoubleWith.of(4, "14")),
+	// createZipIteratorProviderFrom(populatedDoubles, largeObjects));
+	//
+	// assertObjectIteratorAsExpected(asList(),
+	// createZipIteratorProviderFrom(emptyDoubles, emptyObjects));
+	// assertObjectIteratorAsExpected(asList(),
+	// createZipIteratorProviderFrom(emptyDoubles, smallObjects));
+	// }
+	//
+	// private <E> AbstractEnhancedIterable<DoubleWith<E>>
+	// createZipIteratorProviderFrom(
+	// AbstractIterableDoubles first, AbstractEnhancedIterable<E> second)
+	// {
+	// return new AbstractEnhancedIterable<DoubleWith<E>>() {
+	// @Override
+	// public AbstractEnhancedIterator<DoubleWith<E>> iter()
+	// {
+	// return first.iter().zipWith(second.iter());
+	// }
+	// };
+	// }
 }

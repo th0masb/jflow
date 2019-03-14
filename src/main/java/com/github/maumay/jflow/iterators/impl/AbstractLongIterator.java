@@ -14,8 +14,8 @@ import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.impl2.source.ArraySource;
-import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
+import com.github.maumay.jflow.iterators.impl.source.ArraySource;
+import com.github.maumay.jflow.iterators.impl.source.IteratorWrapper;
 import com.github.maumay.jflow.iterators.implOld.LongCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongPredicateConsumption;

@@ -22,7 +22,7 @@ public final class BoundedSize extends AbstractIteratorSize
 		super(SizeType.BOUNDED);
 		this.lo = IteratorImplUtils.requireNonNegative(lo);
 		this.hi = IteratorImplUtils.requireNonNegative(hi);
-		Exceptions.require(lo < hi);
+		Exceptions.require(lo <= hi);
 	}
 
 	public int upperBound()

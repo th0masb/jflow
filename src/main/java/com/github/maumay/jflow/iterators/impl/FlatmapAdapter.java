@@ -27,7 +27,8 @@ public final class FlatmapAdapter<E, R>
 
 	private void init()
 	{
-		while ((currentIterator == null || !currentIterator.hasNext()) && getSource().hasNext()) {
+		while ((currentIterator == null || !currentIterator.hasNext())
+				&& getSource().hasNext()) {
 			currentIterator = map.apply(getSource().nextImpl());
 		}
 	}
@@ -47,7 +48,7 @@ public final class FlatmapAdapter<E, R>
 		if (hasNext()) {
 			R next = currentIterator.next();
 			while (!currentIterator.hasNext() && getSource().hasNext()) {
-				currentIterator = map.apply(getSource().next());
+				currentIterator = map.apply(getSource().nextImpl());
 			}
 			return next;
 		} else {

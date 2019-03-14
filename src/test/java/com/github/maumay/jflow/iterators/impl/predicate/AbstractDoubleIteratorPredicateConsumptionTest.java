@@ -6,7 +6,6 @@ package com.github.maumay.jflow.iterators.impl.predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.NoSuchElementException;
-import java.util.OptionalInt;
 import java.util.function.DoublePredicate;
 import java.util.stream.Stream;
 
@@ -15,6 +14,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.impl.KnownSize;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
 /**
@@ -38,7 +38,7 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 
 	private static AbstractDoubleIterator getAllEqualFlow()
 	{
-		return new AbstractDoubleIterator(OptionalInt.of(3)) {
+		return new AbstractDoubleIterator(new KnownSize(3)) {
 			int count = 0;
 
 			@Override
@@ -48,7 +48,7 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 			}
 
 			@Override
-			public double nextDouble()
+			public double nextDoubleImpl()
 			{
 				if (count++ >= 3) {
 					throw new NoSuchElementException();
@@ -57,7 +57,7 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 			}
 
 			@Override
-			public void skip()
+			public void skipImpl()
 			{
 				nextDouble();
 			}
@@ -75,10 +75,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < 3,
-						Boolean.FALSE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > -1,
-						Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(),
+						(DoublePredicate) x -> x < 3, Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(),
+						(DoublePredicate) x -> x > -1, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
@@ -96,10 +96,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < -1,
-						Boolean.FALSE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > 3,
-						Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(),
+						(DoublePredicate) x -> x < -1, Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(),
+						(DoublePredicate) x -> x > 3, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.FALSE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
@@ -117,10 +117,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < -1,
-						Boolean.TRUE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > 3,
-						Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(),
+						(DoublePredicate) x -> x < -1, Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(),
+						(DoublePredicate) x -> x > 3, Boolean.FALSE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),

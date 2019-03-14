@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.impl2.source;
+package com.github.maumay.jflow.iterators.impl.source;
 
 import java.util.NoSuchElementException;
 

@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.implOld.SourceIterator;
+import com.github.maumay.jflow.iterators.impl.source.ArraySource;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -23,12 +23,14 @@ class AbstractDoubleIteratorFromValuesTest implements IteratorTest
 	@MethodSource("creationTestDataProvider")
 	void testCreationAsExpected(double[] source)
 	{
-		assertDoubleIteratorAsExpected(source, getCreationFromValuesIteratorProvider(source));
+		assertDoubleIteratorAsExpected(source,
+				getCreationFromValuesIteratorProvider(source));
 	}
 
 	static Stream<Arguments> creationTestDataProvider()
 	{
-		return Stream.of(Arguments.of(new double[0]), Arguments.of(new double[] { 1, 2 }));
+		return Stream.of(Arguments.of(new double[0]),
+				Arguments.of(new double[] { 1, 2 }));
 	}
 
 	AbstractIterableDoubles getCreationFromValuesIteratorProvider(double[] source)
@@ -37,7 +39,7 @@ class AbstractDoubleIteratorFromValuesTest implements IteratorTest
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return new SourceIterator.OfDouble(source);
+				return new ArraySource.OfDouble(source);
 			}
 		};
 	}

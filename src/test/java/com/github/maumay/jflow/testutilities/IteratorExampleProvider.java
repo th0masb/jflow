@@ -48,7 +48,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						next();
+						nextImpl();
 					}
 				};
 			}
@@ -84,7 +84,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						next();
+						nextImpl();
 					}
 				};
 			}
@@ -120,7 +120,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						next();
+						nextImpl();
 					}
 				};
 			}
@@ -155,7 +155,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						next();
+						nextImpl();
 					}
 				};
 			}
@@ -184,7 +184,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						next();
+						nextImpl();
 					}
 				};
 			}
@@ -220,7 +220,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextInt();
+						nextIntImpl();
 					}
 				};
 			}
@@ -256,7 +256,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextInt();
+						nextIntImpl();
 					}
 				};
 			}
@@ -292,7 +292,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextInt();
+						nextIntImpl();
 					}
 				};
 			}
@@ -321,7 +321,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextInt();
+						nextIntImpl();
 					}
 				};
 			}
@@ -357,7 +357,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextDouble();
+						nextDoubleImpl();
 					}
 				};
 			}
@@ -393,7 +393,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextDouble();
+						nextDoubleImpl();
 					}
 				};
 			}
@@ -429,7 +429,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextDouble();
+						nextDoubleImpl();
 					}
 				};
 			}
@@ -458,7 +458,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextDouble();
+						nextDoubleImpl();
 					}
 				};
 			}
@@ -494,7 +494,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextLong();
+						nextLongImpl();
 					}
 				};
 			}
@@ -530,7 +530,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextLong();
+						nextLongImpl();
 					}
 				};
 			}
@@ -566,7 +566,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextLong();
+						nextLongImpl();
 					}
 				};
 			}
@@ -595,7 +595,7 @@ public class IteratorExampleProvider
 					@Override
 					public void skipImpl()
 					{
-						nextLong();
+						nextLongImpl();
 					}
 				};
 			}

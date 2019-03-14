@@ -11,8 +11,8 @@ import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.factories.Numbers;
-import com.github.maumay.jflow.iterators.impl2.source.ArraySource;
-import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
+import com.github.maumay.jflow.iterators.impl.source.ArraySource;
+import com.github.maumay.jflow.iterators.impl.source.IteratorWrapper;
 import com.github.maumay.jflow.iterators.implOld.IntCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntPredicateConsumption;

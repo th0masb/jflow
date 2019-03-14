@@ -11,8 +11,8 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.impl2.source.ArraySource;
-import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
+import com.github.maumay.jflow.iterators.impl.source.ArraySource;
+import com.github.maumay.jflow.iterators.impl.source.IteratorWrapper;
 import com.github.maumay.jflow.iterators.implOld.DoubleCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.DoubleMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.DoublePredicateConsumption;

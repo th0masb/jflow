@@ -7,8 +7,8 @@ import static java.lang.Double.parseDouble;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.NoSuchElementException;
-import java.util.OptionalInt;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl.KnownSize;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
 /**
@@ -35,12 +36,13 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 	{
 		return Stream.of(Arguments.of(getAllEqualFlow(), Boolean.TRUE),
 				Arguments.of(getObjectTestIteratorProvider().iterator(), Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), Boolean.TRUE));
+				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+						Boolean.TRUE));
 	}
 
 	private static AbstractEnhancedIterator<String> getAllEqualFlow()
 	{
-		return new AbstractEnhancedIterator<String>(OptionalInt.of(3)) {
+		return new AbstractEnhancedIterator<String>(new KnownSize(3)) {
 			int count = 0;
 
 			@Override
@@ -50,7 +52,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 			}
 
 			@Override
-			public String next()
+			public String nextImpl()
 			{
 				if (count++ >= 3) {
 					throw new NoSuchElementException();
@@ -59,7 +61,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 			}
 
 			@Override
-			public void skip()
+			public void skipImpl()
 			{
 				next();
 			}
@@ -68,29 +70,31 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("allMatchTestDataProvider")
-	void testAllMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
-			Boolean expectedResult)
+	void testAllMatch(AbstractEnhancedIterator<String> iterator,
+			Predicate<String> predicate, Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate));
 	}
 
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
+		Supplier<AbstractEnhancedIterator<String>> iterSupplier = () -> getObjectTestIteratorProvider()
+				.iter();
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(iterSupplier.get(),
 						(Predicate<String>) s -> parseDouble(s) < 3, Boolean.FALSE),
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(iterSupplier.get(),
 						(Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(iterSupplier.get(),
 						(Predicate<String>) s -> parseDouble(s) < 3, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(iterSupplier.get(),
 						(Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE));
 	}
 
 	@ParameterizedTest
 	@MethodSource("anyMatchTestDataProvider")
-	void testAnyMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
-			Boolean expectedResult)
+	void testAnyMatch(AbstractEnhancedIterator<String> iterator,
+			Predicate<String> predicate, Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate));
 	}
@@ -110,8 +114,8 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("noneMatchTestDataProvider")
-	void testNoneMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
-			Boolean expectedResult)
+	void testNoneMatch(AbstractEnhancedIterator<String> iterator,
+			Predicate<String> predicate, Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate));
 	}

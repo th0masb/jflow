@@ -62,7 +62,7 @@ public class SliceAdapter
 				elementCached = true;
 				cached = src.nextImpl();
 				iteratorCount++;
-				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
+				updateCheckpoint(indexMapping.applyAsInt(indexCount++));
 				return true;
 			} else {
 				return false;
@@ -145,7 +145,7 @@ public class SliceAdapter
 				elementCached = true;
 				cached = src.nextIntImpl();
 				iteratorCount++;
-				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
+				updateCheckpoint(indexMapping.applyAsInt(indexCount++));
 				return true;
 			} else {
 				return false;
@@ -229,7 +229,7 @@ public class SliceAdapter
 				elementCached = true;
 				cached = src.nextLongImpl();
 				iteratorCount++;
-				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
+				updateCheckpoint(indexMapping.applyAsInt(indexCount++));
 				return true;
 			} else {
 				return false;
@@ -313,7 +313,7 @@ public class SliceAdapter
 				elementCached = true;
 				cached = src.nextDoubleImpl();
 				iteratorCount++;
-				updateCheckpoint(indexMapping.applyAsInt(++indexCount));
+				updateCheckpoint(indexMapping.applyAsInt(indexCount++));
 				return true;
 			} else {
 				return false;

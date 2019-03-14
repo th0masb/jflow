@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -18,6 +17,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.iterators.impl.KnownSize;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
@@ -26,12 +26,14 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implements IteratorTest
+class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider
+		implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource
 	void newTest(Map<String, AbstractEnhancedIterable<String>> testMapping,
-			AbstractEnhancedIterable<String> iteratorProvider, List<String> expectedOutput)
+			AbstractEnhancedIterable<String> iteratorProvider,
+			List<String> expectedOutput)
 	{
 		Function<String, AbstractEnhancedIterator<String>> flattenMapping = string -> testMapping
 				.getOrDefault(string, repeat("", 0)).iter();
@@ -47,7 +49,7 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 			@Override
 			public AbstractEnhancedIterator<E> iter()
 			{
-				return new AbstractEnhancedIterator<E>(OptionalInt.of(nTimes)) {
+				return new AbstractEnhancedIterator<E>(new KnownSize(nTimes)) {
 					int count = 0;
 
 					@Override
@@ -57,7 +59,7 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 					}
 
 					@Override
-					public E next()
+					public E nextImpl()
 					{
 						if (count++ >= nTimes) {
 							throw new NoSuchElementException();
@@ -66,7 +68,7 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						next();
 					}

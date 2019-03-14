@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.implOld.SourceIterator;
+import com.github.maumay.jflow.iterators.impl.source.ArraySource;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -23,7 +23,8 @@ class AbstractIntIteratorFromValuesTest implements IteratorTest
 	@MethodSource("creationTestDataProvider")
 	void testCreationAsExpected(int[] source)
 	{
-		assertIntIteratorAsExpected(source, getCreationFromValuesIteratorProvider(source));
+		assertIntIteratorAsExpected(source,
+				getCreationFromValuesIteratorProvider(source));
 	}
 
 	static Stream<Arguments> creationTestDataProvider()
@@ -37,7 +38,7 @@ class AbstractIntIteratorFromValuesTest implements IteratorTest
 			@Override
 			public AbstractIntIterator iter()
 			{
-				return new SourceIterator.OfInt(source);
+				return new ArraySource.OfInt(source);
 			}
 		};
 	}
