@@ -122,7 +122,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractEnhancedIterator<E> skipWhile(Predicate<? super E> predicate)
 	{
-		throw new RuntimeException();
+		return new SkipwhileAdapter.OfObject<>(this, predicate);
 	}
 
 	@Override

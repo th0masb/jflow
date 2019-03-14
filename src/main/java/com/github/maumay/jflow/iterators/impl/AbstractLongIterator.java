@@ -28,7 +28,8 @@ import com.github.maumay.jflow.utils.LongTup;
  *
  * @author ThomasB
  */
-public abstract class AbstractLongIterator extends AbstractIterator implements LongIterator
+public abstract class AbstractLongIterator extends AbstractIterator
+		implements LongIterator
 {
 	public AbstractLongIterator(AbstractIteratorSize size)
 	{
@@ -112,7 +113,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator skipWhile(LongPredicate predicate)
 	{
-		throw new RuntimeException();
+		return new SkipwhileAdapter.OfLong(this, predicate);
 	}
 
 	@Override

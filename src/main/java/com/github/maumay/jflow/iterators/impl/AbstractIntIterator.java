@@ -110,7 +110,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator skipWhile(IntPredicate predicate)
 	{
-		throw new RuntimeException();
+		return new SkipwhileAdapter.OfInt(this, predicate);
 	}
 
 	@Override

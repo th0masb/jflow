@@ -26,7 +26,8 @@ import com.github.maumay.jflow.utils.DoubleTup;
  * @author ThomasB
  * @since 23 Apr 2018
  */
-public abstract class AbstractDoubleIterator extends AbstractIterator implements DoubleIterator
+public abstract class AbstractDoubleIterator extends AbstractIterator
+		implements DoubleIterator
 {
 	public AbstractDoubleIterator(AbstractIteratorSize size)
 	{
@@ -110,7 +111,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public AbstractDoubleIterator skipWhile(DoublePredicate predicate)
 	{
-		throw new RuntimeException();
+		return new SkipwhileAdapter.OfDouble(this, predicate);
 	}
 
 	@Override
@@ -234,7 +235,8 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public <K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper, DoubleFunction<V> valueMapper)
+	public <K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper,
+			DoubleFunction<V> valueMapper)
 	{
 		return DoubleCollectionConsumption.toMap(this, keyMapper, valueMapper);
 	}
