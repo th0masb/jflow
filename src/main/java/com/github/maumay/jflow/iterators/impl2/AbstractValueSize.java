@@ -25,6 +25,6 @@ public abstract class AbstractValueSize extends AbstractIteratorSize
 	@Override
 	void decrement()
 	{
-		value--;
+		value = Math.max(0, value - 1);
 	}
 }

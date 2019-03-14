@@ -9,9 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import com.github.maumay.jflow.iterators.impl2.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterators.impl2.AbstractIteratorSize;
 
 /**
  * @author ThomasB
@@ -33,26 +35,30 @@ public interface DoubleIteratorTest
 
 	static void assertSizeAsExpected(double[] expectedElements, AbstractDoubleIterator iterator)
 	{
-		if (iterator.sizeIsKnown()) {
-			assertEquals(expectedElements.length, iterator.size().getAsInt());
-		}
+		iterator.getSize().getExactSize().ifPresent(n -> {
+			assertEquals(expectedElements.length, n);
+		});
+		iterator.getSize().getUpperBound().ifPresent(n -> {
+			assertTrue(expectedElements.length <= n);
+		});
+		iterator.getSize().getLowerBound().ifPresent(n -> {
+			assertTrue(n <= expectedElements.length);
+		});
 	}
 
 	static void assertSizeDecreasesAsExpected(AbstractDoubleIterator iterator)
 	{
-		if (iterator.sizeIsKnown()) {
-			int expectedSize = iterator.size().getAsInt();
-			while (iterator.hasNext()) {
-				expectedSize--;
-				iterator.nextDouble();
-				assertTrue(iterator.sizeIsKnown());
-				assertEquals(expectedSize, iterator.size().getAsInt());
-			}
-		} else {
-			while (iterator.hasNext()) {
-				iterator.nextDouble();
-				assertFalse(iterator.sizeIsKnown());
-			}
+		AbstractIteratorSize size = iterator.getSize();
+		OptionalInt lower = size.getLowerBound(), exact = size.getExactSize(),
+				upper = size.getUpperBound();
+
+		int count = 0;
+		while (iterator.hasNext()) {
+			count++;
+			iterator.nextDouble();
+			assertEquals(size.getLowerBound(), Utils.subtractSize(lower, count));
+			assertEquals(size.getUpperBound(), Utils.subtractSize(upper, count));
+			assertEquals(size.getExactSize(), Utils.subtractSize(exact, count));
 		}
 	}
 

@@ -4,12 +4,12 @@
 package com.github.maumay.jflow.testutilities;
 
 import java.util.NoSuchElementException;
-import java.util.OptionalInt;
 
 import com.github.maumay.jflow.iterators.impl2.AbstractDoubleIterator;
 import com.github.maumay.jflow.iterators.impl2.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.impl2.AbstractIntIterator;
 import com.github.maumay.jflow.iterators.impl2.AbstractLongIterator;
+import com.github.maumay.jflow.iterators.impl2.KnownSize;
 
 /**
  * We provide iterable objects which produce identical iterators. We want
@@ -25,28 +25,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractEnhancedIterator<String> iter()
 			{
-				return new AbstractEnhancedIterator<String>(
-						OptionalInt.of(Constants.SMALL_OBJECT_EXAMPLE_SRC.length)) {
+				int size = Utils.SMALL_OBJECT_EXAMPLE_SRC.length;
+				return new AbstractEnhancedIterator<String>(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < size.getAsInt();
+						return count < size;
 					}
 
 					@Override
-					public String next()
+					public String nextImpl()
 					{
 						if (hasNext()) {
-							return Constants.SMALL_OBJECT_EXAMPLE_SRC[count++];
+							return Utils.SMALL_OBJECT_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						next();
 					}
@@ -61,28 +61,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractEnhancedIterator<String> iter()
 			{
-				return new AbstractEnhancedIterator<String>(
-						OptionalInt.of(Constants.OBJECT_EXAMPLE_SRC.length)) {
+				int size = Utils.OBJECT_EXAMPLE_SRC.length;
+				return new AbstractEnhancedIterator<String>(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.OBJECT_EXAMPLE_SRC.length;
+						return count < size;
 					}
 
 					@Override
-					public String next()
+					public String nextImpl()
 					{
 						if (hasNext()) {
-							return Constants.OBJECT_EXAMPLE_SRC[count++];
+							return Utils.OBJECT_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						next();
 					}
@@ -97,28 +97,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractEnhancedIterator<String> iter()
 			{
-				return new AbstractEnhancedIterator<String>(
-						OptionalInt.of(Constants.LARGE_OBJECT_EXAMPLE_SRC.length)) {
+				int size = Utils.LARGE_OBJECT_EXAMPLE_SRC.length;
+				return new AbstractEnhancedIterator<String>(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.LARGE_OBJECT_EXAMPLE_SRC.length;
+						return count < size;
 					}
 
 					@Override
-					public String next()
+					public String nextImpl()
 					{
 						if (hasNext()) {
-							return Constants.LARGE_OBJECT_EXAMPLE_SRC[count++];
+							return Utils.LARGE_OBJECT_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						next();
 					}
@@ -133,7 +133,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractEnhancedIterator<String> iter()
 			{
-				return new AbstractEnhancedIterator<String>(OptionalInt.of(1)) {
+				return new AbstractEnhancedIterator<String>(new KnownSize(1)) {
 					int count = 0;
 
 					@Override
@@ -143,17 +143,17 @@ public class IteratorExampleProvider
 					}
 
 					@Override
-					public String next()
+					public String nextImpl()
 					{
 						if (count++ == 0) {
-							return Constants.SINGLETON_OBJECT_EXAMPLE_SRC[0];
+							return Utils.SINGLETON_OBJECT_EXAMPLE_SRC[0];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						next();
 					}
@@ -168,7 +168,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractEnhancedIterator<String> iter()
 			{
-				return new AbstractEnhancedIterator<String>(OptionalInt.of(0)) {
+				return new AbstractEnhancedIterator<String>(new KnownSize(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -176,152 +176,15 @@ public class IteratorExampleProvider
 					}
 
 					@Override
-					public String next()
+					public String nextImpl()
 					{
 						throw new NoSuchElementException();
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						next();
-					}
-				};
-			}
-		};
-	}
-
-	public static AbstractIterableLongs getSmallLongTestIteratorProvider()
-	{
-		return new AbstractIterableLongs() {
-			@Override
-			public AbstractLongIterator iter()
-			{
-				return new AbstractLongIterator(
-						OptionalInt.of(Constants.SMALL_LONG_EXAMPLE_SRC.length)) {
-					int count = 0;
-
-					@Override
-					public boolean hasNext()
-					{
-						return count < Constants.SMALL_LONG_EXAMPLE_SRC.length;
-					}
-
-					@Override
-					public long nextLong()
-					{
-						if (hasNext()) {
-							return Constants.SMALL_LONG_EXAMPLE_SRC[count++];
-						} else {
-							throw new NoSuchElementException();
-						}
-					}
-
-					@Override
-					public void skip()
-					{
-						nextLong();
-					}
-				};
-			}
-		};
-	}
-
-	public static AbstractIterableLongs getLongTestIteratorProvider()
-	{
-		return new AbstractIterableLongs() {
-			@Override
-			public AbstractLongIterator iter()
-			{
-				return new AbstractLongIterator(
-						OptionalInt.of(Constants.LONG_EXAMPLE_SRC.length)) {
-					int count = 0;
-
-					@Override
-					public boolean hasNext()
-					{
-						return count < Constants.LONG_EXAMPLE_SRC.length;
-					}
-
-					@Override
-					public long nextLong()
-					{
-						if (hasNext()) {
-							return Constants.LONG_EXAMPLE_SRC[count++];
-						} else {
-							throw new NoSuchElementException();
-						}
-					}
-
-					@Override
-					public void skip()
-					{
-						nextLong();
-					}
-				};
-			}
-		};
-	}
-
-	public static AbstractIterableLongs getLargeLongTestIteratorProvider()
-	{
-		return new AbstractIterableLongs() {
-			@Override
-			public AbstractLongIterator iter()
-			{
-				return new AbstractLongIterator(
-						OptionalInt.of(Constants.LARGE_LONG_EXAMPLE_SRC.length)) {
-					int count = 0;
-
-					@Override
-					public boolean hasNext()
-					{
-						return count < Constants.LARGE_LONG_EXAMPLE_SRC.length;
-					}
-
-					@Override
-					public long nextLong()
-					{
-						if (hasNext()) {
-							return Constants.LARGE_LONG_EXAMPLE_SRC[count++];
-						} else {
-							throw new NoSuchElementException();
-						}
-					}
-
-					@Override
-					public void skip()
-					{
-						nextLong();
-					}
-				};
-			}
-		};
-	}
-
-	public static AbstractIterableLongs getEmptyLongTestIteratorProvider()
-	{
-		return new AbstractIterableLongs() {
-			@Override
-			public AbstractLongIterator iter()
-			{
-				return new AbstractLongIterator(OptionalInt.of(0)) {
-					@Override
-					public boolean hasNext()
-					{
-						return false;
-					}
-
-					@Override
-					public long nextLong()
-					{
-						throw new NoSuchElementException();
-					}
-
-					@Override
-					public void skip()
-					{
-						nextLong();
 					}
 				};
 			}
@@ -334,28 +197,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntIterator iter()
 			{
-				return new AbstractIntIterator(
-						OptionalInt.of(Constants.SMALL_INT_EXAMPLE_SRC.length)) {
+				int size = Utils.SMALL_INT_EXAMPLE_SRC.length;
+				return new AbstractIntIterator(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.SMALL_INT_EXAMPLE_SRC.length;
+						return count < Utils.SMALL_INT_EXAMPLE_SRC.length;
 					}
 
 					@Override
-					public int nextInt()
+					public int nextIntImpl()
 					{
 						if (hasNext()) {
-							return Constants.SMALL_INT_EXAMPLE_SRC[count++];
+							return Utils.SMALL_INT_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextInt();
 					}
@@ -370,28 +233,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntIterator iter()
 			{
-				return new AbstractIntIterator(
-						OptionalInt.of(Constants.INT_EXAMPLE_SRC.length)) {
+				int size = Utils.INT_EXAMPLE_SRC.length;
+				return new AbstractIntIterator(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.INT_EXAMPLE_SRC.length;
+						return count < size;
 					}
 
 					@Override
-					public int nextInt()
+					public int nextIntImpl()
 					{
 						if (hasNext()) {
-							return Constants.INT_EXAMPLE_SRC[count++];
+							return Utils.INT_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextInt();
 					}
@@ -406,28 +269,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntIterator iter()
 			{
-				return new AbstractIntIterator(
-						OptionalInt.of(Constants.LARGE_INT_EXAMPLE_SRC.length)) {
+				int size = Utils.LARGE_INT_EXAMPLE_SRC.length;
+				return new AbstractIntIterator(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.LARGE_INT_EXAMPLE_SRC.length;
+						return count < size;
 					}
 
 					@Override
-					public int nextInt()
+					public int nextIntImpl()
 					{
 						if (hasNext()) {
-							return Constants.LARGE_INT_EXAMPLE_SRC[count++];
+							return Utils.LARGE_INT_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextInt();
 					}
@@ -442,7 +305,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntIterator iter()
 			{
-				return new AbstractIntIterator(OptionalInt.of(0)) {
+				return new AbstractIntIterator(new KnownSize(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -450,13 +313,13 @@ public class IteratorExampleProvider
 					}
 
 					@Override
-					public int nextInt()
+					public int nextIntImpl()
 					{
 						throw new NoSuchElementException();
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextInt();
 					}
@@ -471,28 +334,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return new AbstractDoubleIterator(
-						OptionalInt.of(Constants.SMALL_DOUBLE_EXAMPLE_SRC.length)) {
+				int size = Utils.SMALL_DOUBLE_EXAMPLE_SRC.length;
+				return new AbstractDoubleIterator(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.SMALL_DOUBLE_EXAMPLE_SRC.length;
+						return count < Utils.SMALL_DOUBLE_EXAMPLE_SRC.length;
 					}
 
 					@Override
-					public double nextDouble()
+					public double nextDoubleImpl()
 					{
 						if (hasNext()) {
-							return Constants.SMALL_DOUBLE_EXAMPLE_SRC[count++];
+							return Utils.SMALL_DOUBLE_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextDouble();
 					}
@@ -507,28 +370,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return new AbstractDoubleIterator(
-						OptionalInt.of(Constants.DOUBLE_EXAMPLE_SRC.length)) {
+				int size = Utils.DOUBLE_EXAMPLE_SRC.length;
+				return new AbstractDoubleIterator(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.DOUBLE_EXAMPLE_SRC.length;
+						return count < size;
 					}
 
 					@Override
-					public double nextDouble()
+					public double nextDoubleImpl()
 					{
 						if (hasNext()) {
-							return Constants.DOUBLE_EXAMPLE_SRC[count++];
+							return Utils.DOUBLE_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextDouble();
 					}
@@ -543,28 +406,28 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return new AbstractDoubleIterator(
-						OptionalInt.of(Constants.LARGE_DOUBLE_EXAMPLE_SRC.length)) {
+				int size = Utils.LARGE_DOUBLE_EXAMPLE_SRC.length;
+				return new AbstractDoubleIterator(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
 					public boolean hasNext()
 					{
-						return count < Constants.LARGE_DOUBLE_EXAMPLE_SRC.length;
+						return count < size;
 					}
 
 					@Override
-					public double nextDouble()
+					public double nextDoubleImpl()
 					{
 						if (hasNext()) {
-							return Constants.LARGE_DOUBLE_EXAMPLE_SRC[count++];
+							return Utils.LARGE_DOUBLE_EXAMPLE_SRC[count++];
 						} else {
 							throw new NoSuchElementException();
 						}
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextDouble();
 					}
@@ -579,7 +442,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return new AbstractDoubleIterator(OptionalInt.of(0)) {
+				return new AbstractDoubleIterator(new KnownSize(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -587,13 +450,13 @@ public class IteratorExampleProvider
 					}
 
 					@Override
-					public double nextDouble()
+					public double nextDoubleImpl()
 					{
 						throw new NoSuchElementException();
 					}
 
 					@Override
-					public void skip()
+					public void skipImpl()
 					{
 						nextDouble();
 					}
@@ -601,4 +464,142 @@ public class IteratorExampleProvider
 			}
 		};
 	}
+
+	public static AbstractIterableLongs getSmallLongTestIteratorProvider()
+	{
+		return new AbstractIterableLongs() {
+			@Override
+			public AbstractLongIterator iter()
+			{
+				int size = Utils.SMALL_LONG_EXAMPLE_SRC.length;
+				return new AbstractLongIterator(new KnownSize(size)) {
+					int count = 0;
+
+					@Override
+					public boolean hasNext()
+					{
+						return count < Utils.SMALL_LONG_EXAMPLE_SRC.length;
+					}
+
+					@Override
+					public long nextLongImpl()
+					{
+						if (hasNext()) {
+							return Utils.SMALL_LONG_EXAMPLE_SRC[count++];
+						} else {
+							throw new NoSuchElementException();
+						}
+					}
+
+					@Override
+					public void skipImpl()
+					{
+						nextLong();
+					}
+				};
+			}
+		};
+	}
+
+	public static AbstractIterableLongs getLongTestIteratorProvider()
+	{
+		return new AbstractIterableLongs() {
+			@Override
+			public AbstractLongIterator iter()
+			{
+				int size = Utils.LONG_EXAMPLE_SRC.length;
+				return new AbstractLongIterator(new KnownSize(size)) {
+					int count = 0;
+
+					@Override
+					public boolean hasNext()
+					{
+						return count < size;
+					}
+
+					@Override
+					public long nextLongImpl()
+					{
+						if (hasNext()) {
+							return Utils.LONG_EXAMPLE_SRC[count++];
+						} else {
+							throw new NoSuchElementException();
+						}
+					}
+
+					@Override
+					public void skipImpl()
+					{
+						nextLong();
+					}
+				};
+			}
+		};
+	}
+
+	public static AbstractIterableLongs getLargeLongTestIteratorProvider()
+	{
+		return new AbstractIterableLongs() {
+			@Override
+			public AbstractLongIterator iter()
+			{
+				int size = Utils.LARGE_LONG_EXAMPLE_SRC.length;
+				return new AbstractLongIterator(new KnownSize(size)) {
+					int count = 0;
+
+					@Override
+					public boolean hasNext()
+					{
+						return count < size;
+					}
+
+					@Override
+					public long nextLongImpl()
+					{
+						if (hasNext()) {
+							return Utils.LARGE_LONG_EXAMPLE_SRC[count++];
+						} else {
+							throw new NoSuchElementException();
+						}
+					}
+
+					@Override
+					public void skipImpl()
+					{
+						nextLong();
+					}
+				};
+			}
+		};
+	}
+
+	public static AbstractIterableLongs getEmptyLongTestIteratorProvider()
+	{
+		return new AbstractIterableLongs() {
+			@Override
+			public AbstractLongIterator iter()
+			{
+				return new AbstractLongIterator(new KnownSize(0)) {
+					@Override
+					public boolean hasNext()
+					{
+						return false;
+					}
+
+					@Override
+					public long nextLongImpl()
+					{
+						throw new NoSuchElementException();
+					}
+
+					@Override
+					public void skipImpl()
+					{
+						nextLong();
+					}
+				};
+			}
+		};
+	}
+
 }

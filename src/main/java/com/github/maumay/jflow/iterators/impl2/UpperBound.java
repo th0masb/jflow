@@ -29,4 +29,10 @@ public class UpperBound extends AbstractValueSize
 	{
 		return Option.emptyInt();
 	}
+
+	@Override
+	public OptionalInt getExactSize()
+	{
+		return OptionalInt.empty();
+	}
 }

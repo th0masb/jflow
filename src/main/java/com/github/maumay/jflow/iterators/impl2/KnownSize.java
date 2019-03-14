@@ -29,4 +29,10 @@ public final class KnownSize extends AbstractValueSize
 	{
 		return Option.of(getValue());
 	}
+
+	@Override
+	public OptionalInt getExactSize()
+	{
+		return Option.of(getValue());
+	}
 }

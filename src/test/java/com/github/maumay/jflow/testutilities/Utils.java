@@ -1,9 +1,13 @@
 package com.github.maumay.jflow.testutilities;
 
+import java.util.OptionalInt;
+
+import com.github.maumay.jflow.utils.Option;
+
 /**
  * @author ThomasB
  */
-final class Constants
+final class Utils
 {
 	static final int ITERATION_UPPER_BOUND = 100;
 
@@ -25,7 +29,16 @@ final class Constants
 
 	static final String[] SINGLETON_OBJECT_EXAMPLE_SRC = { "1" };
 
-	private Constants()
+	static OptionalInt subtractSize(OptionalInt size, int subtraction)
+	{
+		if (size.isPresent()) {
+			return Option.of(Math.max(0, size.getAsInt() - subtraction));
+		} else {
+			return size;
+		}
+	}
+
+	private Utils()
 	{
 	}
 }

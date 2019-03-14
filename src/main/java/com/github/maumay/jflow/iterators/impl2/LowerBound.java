@@ -29,4 +29,10 @@ public final class LowerBound extends AbstractValueSize
 	{
 		return Option.of(getValue());
 	}
+
+	@Override
+	public OptionalInt getExactSize()
+	{
+		return OptionalInt.empty();
+	}
 }

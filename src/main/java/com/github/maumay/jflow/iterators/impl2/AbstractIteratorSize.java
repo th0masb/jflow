@@ -6,7 +6,6 @@ package com.github.maumay.jflow.iterators.impl2;
 import java.util.OptionalInt;
 
 import com.github.maumay.jflow.utils.Exceptions;
-import com.github.maumay.jflow.utils.Option;
 
 /**
  * @author thomasb
@@ -32,10 +31,7 @@ public abstract class AbstractIteratorSize
 		return type;
 	}
 
-	public final OptionalInt getExactSize()
-	{
-		return type.isKnown() ? Option.of(((KnownSize) this).getValue()) : Option.emptyInt();
-	}
+	public abstract OptionalInt getExactSize();
 
 	public abstract OptionalInt getUpperBound();
 

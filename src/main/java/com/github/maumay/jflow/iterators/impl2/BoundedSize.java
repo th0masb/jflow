@@ -37,7 +37,7 @@ public final class BoundedSize extends AbstractIteratorSize
 	@Override
 	void decrement()
 	{
-		lo--;
+		lo = Math.max(0, lo - 1);
 		hi--;
 	}
 
@@ -51,5 +51,11 @@ public final class BoundedSize extends AbstractIteratorSize
 	public OptionalInt getLowerBound()
 	{
 		return Option.of(lo);
+	}
+
+	@Override
+	public OptionalInt getExactSize()
+	{
+		return OptionalInt.empty();
 	}
 }

@@ -42,4 +42,10 @@ public class UnknownSize extends AbstractIteratorSize
 	{
 		return Option.emptyInt();
 	}
+
+	@Override
+	public OptionalInt getExactSize()
+	{
+		return Option.emptyInt();
+	}
 }

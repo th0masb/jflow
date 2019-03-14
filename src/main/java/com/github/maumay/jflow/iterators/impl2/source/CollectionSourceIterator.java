@@ -4,6 +4,7 @@
 package com.github.maumay.jflow.iterators.impl2.source;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,11 +17,11 @@ import com.github.maumay.jflow.utils.Option;
  * @author thomasb
  *
  */
-public final class ListSourceIterator<E> extends AbstractSourceIterator<E>
+public final class CollectionSourceIterator<E> extends AbstractSourceIterator<E>
 {
 	private final Iterator<? extends E> source;
 
-	public ListSourceIterator(List<? extends E> source)
+	public CollectionSourceIterator(Collection<? extends E> source)
 	{
 		super(new KnownSize(source.size()));
 		this.source = source.iterator();
@@ -48,7 +49,7 @@ public final class ListSourceIterator<E> extends AbstractSourceIterator<E>
 	{
 		List<String> strings = Arrays.asList("s");
 
-		ListSourceIterator<String> start = new ListSourceIterator<>(strings);
+		CollectionSourceIterator<String> start = new CollectionSourceIterator<>(strings);
 
 		AbstractEnhancedIterator<String> adapted = start.map(s -> "");
 

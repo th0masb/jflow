@@ -18,10 +18,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.iterators.impl.ObjectMinMaxConsumption;
 import com.github.maumay.jflow.iterators.impl.ObjectPredicateConsumption;
 import com.github.maumay.jflow.iterators.impl.ObjectReductionConsumption;
@@ -89,26 +86,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	public <R> AbstractEnhancedIterator<R> flatMap(
 			Function<? super E, ? extends Iterator<? extends R>> mapping)
 	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractIntIterator flatMapToInt(Function<? super E, ? extends IntIterator> mapping)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractLongIterator flatMapToLong(Function<? super E, ? extends LongIterator> mapping)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractDoubleIterator flatMapToDouble(
-			Function<? super E, ? extends DoubleIterator> mapping)
-	{
-		throw new RuntimeException();
+		return new FlatmapAdapter<>(this, mapping);
 	}
 
 	@Override

@@ -53,8 +53,6 @@ import com.github.maumay.jflow.vec.Vec;
  */
 public interface EnhancedIterator<E> extends SafeIterator<E>
 {
-	// AbstractIteratorSize getSize();
-
 	/**
 	 * Applies a function elementwise to this {@link EnhancedIterator} to make a new
 	 * {@link EnhancedIterator}.
@@ -114,38 +112,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         to each element in turn and sequentially concatenating the results.
 	 */
 	<R> EnhancedIterator<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
-
-	/**
-	 * Maps elements of this {@link EnhancedIterator} to {@link IntIterator}
-	 * instances before sequentially concatenating them end to end.
-	 *
-	 * @param mapping A function taking elements to instances of {@link IntIterator}
-	 * @return A {@link IntIterator} obtained by applying the mapping function to
-	 *         each element in turn and sequentially concatenating the results.
-	 */
-	IntIterator flatMapToInt(Function<? super E, ? extends IntIterator> mapping);
-
-	/**
-	 * Maps elements of this {@link EnhancedIterator} to {@link LongIterator}
-	 * instances before sequentially concatenating them end to end.
-	 *
-	 * @param mapping A function taking elements to instances of
-	 *                {@link LongIterator}
-	 * @return A {@link LongIterator} obtained by applying the mapping function to
-	 *         each element in turn and sequentially concatenating the results.
-	 */
-	LongIterator flatMapToLong(Function<? super E, ? extends LongIterator> mapping);
-
-	/**
-	 * Maps elements of this {@link EnhancedIterator} to {@link DoubleIterator}
-	 * instances before sequentially concatenating them end to end.
-	 *
-	 * @param mapping A function taking elements to instances of
-	 *                {@link DoubleIterator}
-	 * @return A {@link DoubleIterator} obtained by applying the mapping function to
-	 *         each element in turn and sequentially concatenating the results.
-	 */
-	DoubleIterator flatMapToDouble(Function<? super E, ? extends DoubleIterator> mapping);
 
 	/**
 	 * Combines this {@link EnhancedIterator} with another iterator to create a new
