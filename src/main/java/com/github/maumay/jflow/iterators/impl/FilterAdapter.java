@@ -5,7 +5,6 @@ package com.github.maumay.jflow.iterators.impl;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.OptionalInt;
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
@@ -21,16 +20,6 @@ public final class FilterAdapter
 	{
 	}
 
-	private static AbstractIteratorSize computeNewSize(AbstractIteratorSize sourceSize)
-	{
-		OptionalInt upperBoundOption = sourceSize.getUpperBound();
-		if (upperBoundOption.isPresent()) {
-			return new BoundedSize(0, upperBoundOption.getAsInt());
-		} else {
-			return UnknownSize.instance();
-		}
-	}
-
 	static final class OfObject<E>
 			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
 	{
@@ -41,7 +30,7 @@ public final class FilterAdapter
 
 		public OfObject(AbstractEnhancedIterator<E> source, Predicate<? super E> predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 
@@ -90,7 +79,7 @@ public final class FilterAdapter
 
 		public OfInt(AbstractIntIterator source, IntPredicate predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 
@@ -139,7 +128,7 @@ public final class FilterAdapter
 
 		public OfLong(AbstractLongIterator source, LongPredicate predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 
@@ -188,7 +177,7 @@ public final class FilterAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 

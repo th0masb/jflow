@@ -20,25 +20,6 @@ public class TakewhileAdapter
 	{
 	}
 
-	static AbstractIteratorSize computeNewSize(AbstractIteratorSize size)
-	{
-		switch (size.getType()) {
-		case EXACT: {
-			KnownSize x = (KnownSize) size;
-			return new BoundedSize(0, x.getValue());
-		}
-		case BOUNDED: {
-			BoundedSize x = (BoundedSize) size;
-			return new BoundedSize(0, x.upperBound());
-		}
-		case LOWER_BOUND:
-		case UNKNOWN:
-			return UnknownSize.instance();
-		default:
-			throw new RuntimeException();
-		}
-	}
-
 	public static final class OfObject<E>
 			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
 	{
@@ -49,7 +30,7 @@ public class TakewhileAdapter
 
 		public OfObject(AbstractEnhancedIterator<E> source, Predicate<? super E> predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 			this.cached = null;
 			this.iteratorExhausted = false;
@@ -123,7 +104,7 @@ public class TakewhileAdapter
 
 		public OfInt(AbstractIntIterator source, IntPredicate predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 			this.cached = 0;
 			this.iteratorExhausted = false;
@@ -197,7 +178,7 @@ public class TakewhileAdapter
 
 		public OfLong(AbstractLongIterator source, LongPredicate predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 			this.cached = 0;
 			this.iteratorExhausted = false;
@@ -272,7 +253,7 @@ public class TakewhileAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
 		{
-			super(computeNewSize(source.getSize()), source);
+			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = predicate;
 			this.cached = 0;
 			this.iteratorExhausted = false;
