@@ -15,30 +15,6 @@ public class TakeAdapter
 	{
 	}
 
-	static AbstractIteratorSize computeNextSize(AbstractIteratorSize size, int takeCount)
-	{
-		switch (size.getType()) {
-		case EXACT: {
-			KnownSize x = (KnownSize) size;
-			return new KnownSize(Math.max(0, x.getValue() - takeCount));
-		}
-		case LOWER_BOUND: {
-			LowerBound x = (LowerBound) size;
-			return x.getValue() >= takeCount ? new KnownSize(takeCount)
-					: new BoundedSize(x.getValue(), takeCount);
-		}
-		case BOUNDED: {
-			BoundedSize x = (BoundedSize) size;
-			return x.lowerBound() >= takeCount ? new KnownSize(takeCount)
-					: new BoundedSize(x.lowerBound(), Math.min(takeCount, x.upperBound()));
-		}
-		case UNKNOWN:
-			return new BoundedSize(0, takeCount);
-		default:
-			throw new RuntimeException();
-		}
-	}
-
 	public static final class OfObject<E>
 			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
 	{
@@ -47,8 +23,8 @@ public class TakeAdapter
 
 		public OfObject(AbstractEnhancedIterator<E> source, int takeCount)
 		{
-			super(computeNextSize(source.getSize(), takeCount), source);
-			this.takeCount = takeCount;
+			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}
 
@@ -86,8 +62,8 @@ public class TakeAdapter
 
 		public OfInt(AbstractIntIterator source, int takeCount)
 		{
-			super(computeNextSize(source.getSize(), takeCount), source);
-			this.takeCount = takeCount;
+			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}
 
@@ -125,8 +101,8 @@ public class TakeAdapter
 
 		public OfLong(AbstractLongIterator source, int takeCount)
 		{
-			super(computeNextSize(source.getSize(), takeCount), source);
-			this.takeCount = takeCount;
+			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}
 
@@ -165,8 +141,8 @@ public class TakeAdapter
 
 		public OfDouble(AbstractDoubleIterator source, int takeCount)
 		{
-			super(computeNextSize(source.getSize(), takeCount), source);
-			this.takeCount = takeCount;
+			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}
 

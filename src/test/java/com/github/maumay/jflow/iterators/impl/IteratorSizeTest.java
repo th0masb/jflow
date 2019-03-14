@@ -24,7 +24,7 @@ class IteratorSizeTest
 	@MethodSource
 	void testSum(AbstractIteratorSize expected, List<AbstractIteratorSize> sizes)
 	{
-		assertEquals(expected, IteratorSizeUtils.sum((AbstractIteratorSize[]) sizes.toArray()));
+		assertEquals(expected, IteratorImplUtils.sum((AbstractIteratorSize[]) sizes.toArray()));
 	}
 
 	static Stream<Arguments> testSum()
@@ -49,7 +49,7 @@ class IteratorSizeTest
 	@MethodSource
 	void testMin(AbstractIteratorSize expected, List<AbstractIteratorSize> sizes)
 	{
-		assertEquals(expected, IteratorSizeUtils.min((AbstractIteratorSize[]) sizes.toArray()));
+		assertEquals(expected, IteratorImplUtils.min((AbstractIteratorSize[]) sizes.toArray()));
 	}
 
 	static Stream<Arguments> testMin()

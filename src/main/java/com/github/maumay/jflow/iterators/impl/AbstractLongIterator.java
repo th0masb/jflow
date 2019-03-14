@@ -20,7 +20,6 @@ import com.github.maumay.jflow.iterators.implOld.LongCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.LongReductionConsumption;
-import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.LongTup;
 
 /**
@@ -95,7 +94,6 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator take(int n)
 	{
-		Exceptions.require(n >= 0);
 		return new TakeAdapter.OfLong(this, n);
 	}
 
@@ -108,7 +106,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractLongIterator skip(int n)
 	{
-		throw new RuntimeException();
+		return new SkipAdapter.OfLong(this, n);
 	}
 
 	@Override
@@ -162,7 +160,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public OptionalLong minOption()
 	{
-		throw new RuntimeException();
+		return LongMinMaxConsumption.findMin(this);
 	}
 
 	@Override

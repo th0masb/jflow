@@ -15,7 +15,7 @@ public final class KnownSize extends AbstractValueSize
 {
 	public KnownSize(int size)
 	{
-		super(SizeType.EXACT, requireNonNegative(size));
+		super(SizeType.EXACT, IteratorImplUtils.requireNonNegative(size));
 	}
 
 	@Override

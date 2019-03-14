@@ -24,7 +24,7 @@ public final class ZipAdapter
 		public OfObjects(AbstractEnhancedIterator<? extends E1> sourceOne,
 				AbstractEnhancedIterator<? extends E2> sourceTwo)
 		{
-			super(IteratorSizeUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorImplUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 
@@ -53,7 +53,7 @@ public final class ZipAdapter
 	{
 		public OfInts(AbstractIntIterator sourceOne, AbstractIntIterator sourceTwo)
 		{
-			super(IteratorSizeUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorImplUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 
@@ -82,7 +82,7 @@ public final class ZipAdapter
 	{
 		public OfLongs(AbstractLongIterator sourceOne, AbstractLongIterator sourceTwo)
 		{
-			super(IteratorSizeUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorImplUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 
@@ -111,7 +111,7 @@ public final class ZipAdapter
 	{
 		public OfDoubles(AbstractDoubleIterator sourceOne, AbstractDoubleIterator sourceTwo)
 		{
-			super(IteratorSizeUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorImplUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 

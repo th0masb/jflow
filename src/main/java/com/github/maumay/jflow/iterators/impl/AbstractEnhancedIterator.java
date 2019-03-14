@@ -20,7 +20,6 @@ import com.github.maumay.jflow.iterators.impl2.source.IteratorWrapper;
 import com.github.maumay.jflow.iterators.implOld.ObjectMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.ObjectPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.ObjectReductionConsumption;
-import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
@@ -105,7 +104,6 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractEnhancedIterator<E> take(int n)
 	{
-		Exceptions.require(n >= 0);
 		return new TakeAdapter.OfObject<>(this, n);
 	}
 
@@ -118,7 +116,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public AbstractEnhancedIterator<E> skip(int n)
 	{
-		throw new RuntimeException();
+		return new SkipAdapter.OfObject<>(this, n);
 	}
 
 	@Override

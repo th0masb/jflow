@@ -17,7 +17,6 @@ import com.github.maumay.jflow.iterators.implOld.IntCollectionConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntMinMaxConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntPredicateConsumption;
 import com.github.maumay.jflow.iterators.implOld.IntReductionConsumption;
-import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
@@ -93,7 +92,6 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator take(int n)
 	{
-		Exceptions.require(n >= 0);
 		return new TakeAdapter.OfInt(this, n);
 	}
 
@@ -106,7 +104,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator skip(int n)
 	{
-		throw new RuntimeException();
+		return new SkipAdapter.OfInt(this, n);
 	}
 
 	@Override

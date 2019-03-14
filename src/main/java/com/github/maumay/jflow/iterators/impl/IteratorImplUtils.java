@@ -9,7 +9,7 @@ import com.github.maumay.jflow.utils.Exceptions;
  * @author thomasb
  *
  */
-final class IteratorSizeUtils
+final class IteratorImplUtils
 {
 	public static AbstractIteratorSize min(AbstractIteratorSize... sizes)
 	{
@@ -96,6 +96,38 @@ final class IteratorSizeUtils
 			return UnknownSize.instance();
 		} else {
 			return new LowerBound(lowerBound);
+		}
+	}
+
+	public static int requireNonNegative(int input)
+	{
+		if (input < 0) {
+			throw new IllegalArgumentException("Non negative number is required");
+		}
+		return input;
+	}
+
+	static AbstractIteratorSize subtract(AbstractIteratorSize size, int subtraction)
+	{
+		switch (size.getType()) {
+		case EXACT: {
+			KnownSize x = (KnownSize) size;
+			return new KnownSize(Math.max(0, x.getValue() - subtraction));
+		}
+		case LOWER_BOUND: {
+			LowerBound x = (LowerBound) size;
+			return x.getValue() >= subtraction ? new KnownSize(subtraction)
+					: new BoundedSize(x.getValue(), subtraction);
+		}
+		case BOUNDED: {
+			BoundedSize x = (BoundedSize) size;
+			return x.lowerBound() >= subtraction ? new KnownSize(subtraction)
+					: new BoundedSize(x.lowerBound(), Math.min(subtraction, x.upperBound()));
+		}
+		case UNKNOWN:
+			return new BoundedSize(0, subtraction);
+		default:
+			throw new RuntimeException();
 		}
 	}
 }
