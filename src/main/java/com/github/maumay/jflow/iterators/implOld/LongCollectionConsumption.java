@@ -9,6 +9,8 @@ import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.LongFunction;
 
+import com.github.maumay.jflow.iterators.impl.ArrayAccumulators;
+
 /**
  * @author ThomasB
  *
@@ -30,7 +32,7 @@ public final class LongCollectionConsumption
 			}
 			return cache;
 		} else {
-			final ArrayAccumulators.OfLong accumulater = ArrayAccumulators.createLong();
+			final ArrayAccumulators.OfLong accumulater = ArrayAccumulators.createLongAccumulator();
 			while (iterator.hasNext()) {
 				accumulater.add(iterator.nextLong());
 			}
@@ -61,7 +63,7 @@ public final class LongCollectionConsumption
 		while (iterator.hasNext()) {
 			final long next = iterator.nextLong();
 			final K key = classifier.apply(next);
-			accumulationMap.putIfAbsent(key, ArrayAccumulators.createLong());
+			accumulationMap.putIfAbsent(key, ArrayAccumulators.createLongAccumulator());
 			accumulationMap.get(key).add(next);
 		}
 		final Map<K, long[]> grouped = new HashMap<>(accumulationMap.size());

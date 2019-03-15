@@ -9,6 +9,8 @@ import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.IntFunction;
 
+import com.github.maumay.jflow.iterators.impl.ArrayAccumulators;
+
 /**
  * @author ThomasB
  *

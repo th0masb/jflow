@@ -9,6 +9,8 @@ import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.DoubleFunction;
 
+import com.github.maumay.jflow.iterators.impl.ArrayAccumulators;
+
 /**
  * @author ThomasB
  *
@@ -31,7 +33,7 @@ public final class DoubleCollectionConsumption
 			return cache;
 		} else {
 			final ArrayAccumulators.OfDouble accumulater = ArrayAccumulators
-					.createDouble();
+					.createDoubleAccumulator();
 			while (iterator.hasNext()) {
 				accumulater.add(iterator.nextDouble());
 			}
@@ -62,7 +64,7 @@ public final class DoubleCollectionConsumption
 		while (iterator.hasNext()) {
 			final double next = iterator.nextDouble();
 			final K key = classifier.apply(next);
-			accumulationMap.putIfAbsent(key, ArrayAccumulators.createDouble());
+			accumulationMap.putIfAbsent(key, ArrayAccumulators.createDoubleAccumulator());
 			accumulationMap.get(key).add(next);
 		}
 		final Map<K, double[]> grouped = new HashMap<>(accumulationMap.size());
