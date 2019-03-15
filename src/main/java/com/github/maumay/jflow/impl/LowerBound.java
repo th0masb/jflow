@@ -35,4 +35,10 @@ public final class LowerBound extends AbstractValueSize
 	{
 		return OptionalInt.empty();
 	}
+
+	@Override
+	public LowerBound copy()
+	{
+		return new LowerBound(getValue());
+	}
 }

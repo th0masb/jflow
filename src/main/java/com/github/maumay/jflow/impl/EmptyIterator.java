@@ -15,6 +15,25 @@ public class EmptyIterator
 	{
 	}
 
+	private static final OfDouble EMPTY_DOUBLE = new OfDouble();
+	private static final OfInt EMPTY_INT = new OfInt();
+	private static final OfLong EMPTY_LONG = new OfLong();
+
+	public static OfInt ofInt()
+	{
+		return EMPTY_INT;
+	}
+
+	public static OfLong ofLong()
+	{
+		return EMPTY_LONG;
+	}
+
+	public static OfDouble ofDouble()
+	{
+		return EMPTY_DOUBLE;
+	}
+
 	public static final class OfObject<E> extends AbstractEnhancedIterator<E>
 	{
 		public OfObject()
@@ -43,7 +62,7 @@ public class EmptyIterator
 
 	public static final class OfInt extends AbstractIntIterator
 	{
-		public OfInt()
+		OfInt()
 		{
 			super(new KnownSize(0));
 		}
@@ -69,7 +88,7 @@ public class EmptyIterator
 
 	public static final class OfLong extends AbstractLongIterator
 	{
-		public OfLong()
+		OfLong()
 		{
 			super(new KnownSize(0));
 		}
@@ -95,7 +114,7 @@ public class EmptyIterator
 
 	public static final class OfDouble extends AbstractDoubleIterator
 	{
-		public OfDouble()
+		OfDouble()
 		{
 			super(new KnownSize(0));
 		}

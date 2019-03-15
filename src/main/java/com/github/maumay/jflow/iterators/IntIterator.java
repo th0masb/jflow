@@ -232,34 +232,34 @@ public interface IntIterator extends SafeIntIterator
 	 */
 	IntIterator insert(int... other);
 
-	/**
-	 * Applies an accumulation operation to this {@link IntIterator} to produce a
-	 * new {@link IntIterator}.
-	 *
-	 * @param accumulator The accumulation function.
-	 * @return Let {@code F} denote this source {@link IntIterator} and {@code g}
-	 *         denote the accumulation function. Then the {@link IntIterator}
-	 *         returned is of the form:
-	 *         <ul>
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
-	 *         </ul>
-	 */
-	IntIterator scan(IntBinaryOperator accumulator);
-
-	/**
-	 * Applies an accumulation operation to this {@link IntIterator} to produce a
-	 * new {@link IntIterator}.
-	 *
-	 * @param id          The identity element in the accumulation.
-	 * @param accumulator The accumulator function.
-	 * @return Let {@code F} denote this source {@link IntIterator} and {@code g}
-	 *         denote the accumulation function. Then the {@link IntIterator}
-	 *         returned is of the form:
-	 *         <ul>
-	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
-	 *         </ul>
-	 */
-	IntIterator scan(int id, IntBinaryOperator accumulator);
+	// /**
+	// * Applies an accumulation operation to this {@link IntIterator} to produce a
+	// * new {@link IntIterator}.
+	// *
+	// * @param accumulator The accumulation function.
+	// * @return Let {@code F} denote this source {@link IntIterator} and {@code g}
+	// * denote the accumulation function. Then the {@link IntIterator}
+	// * returned is of the form:
+	// * <ul>
+	// * <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
+	// * </ul>
+	// */
+	// IntIterator scan(IntBinaryOperator accumulator);
+	//
+	// /**
+	// * Applies an accumulation operation to this {@link IntIterator} to produce a
+	// * new {@link IntIterator}.
+	// *
+	// * @param id The identity element in the accumulation.
+	// * @param accumulator The accumulator function.
+	// * @return Let {@code F} denote this source {@link IntIterator} and {@code g}
+	// * denote the accumulation function. Then the {@link IntIterator}
+	// * returned is of the form:
+	// * <ul>
+	// * <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
+	// * </ul>
+	// */
+	// IntIterator scan(int id, IntBinaryOperator accumulator);
 
 	/**
 	 * Calculates the minimum value in this {@link IntIterator}.

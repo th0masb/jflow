@@ -8,7 +8,6 @@ import static java.lang.Math.signum;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.IntFunction;
@@ -17,15 +16,15 @@ import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.impl.ArraySource;
+import com.github.maumay.jflow.impl.CollectionSource;
+import com.github.maumay.jflow.impl.EmptyIterator;
+import com.github.maumay.jflow.impl.FunctionSource;
+import com.github.maumay.jflow.impl.IteratorWrapper;
 import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.implOld.EmptyIterator;
-import com.github.maumay.jflow.iterators.implOld.FunctionIterator;
-import com.github.maumay.jflow.iterators.implOld.ReversedSourceIterator;
-import com.github.maumay.jflow.iterators.implOld.WrappingIterator;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 
@@ -49,7 +48,7 @@ public final class Iter
 	 */
 	public static <E> EnhancedIterator<E> empty()
 	{
-		return new EmptyIterator.OfObjects<>();
+		return new EmptyIterator.OfObject<>();
 	}
 
 	/**
@@ -63,7 +62,7 @@ public final class Iter
 	 */
 	public static <E> EnhancedIterator<E> over(Collection<? extends E> src)
 	{
-		return new WrappingIterator.OfObject<>(src.iterator(), src.size());
+		return new CollectionSource<>(src);
 	}
 
 	/**
@@ -93,18 +92,18 @@ public final class Iter
 		return Iter.over(enumclass.getEnumConstants());
 	}
 
-	/**
-	 * Build a EnhancedIterator reverse iterating over a List.
-	 *
-	 * @param        <E> The upper type bound on the elements in the source.
-	 * @param source The source List
-	 * @return A EnhancedIterator reversing over the source starting with the last
-	 *         element.
-	 */
-	public static <E> EnhancedIterator<E> reverse(List<? extends E> source)
-	{
-		return new ReversedSourceIterator.OfObject<>(source);
-	}
+	// /**
+	// * Build a EnhancedIterator reverse iterating over a List.
+	// *
+	// * @param <E> The upper type bound on the elements in the source.
+	// * @param source The source List
+	// * @return A EnhancedIterator reversing over the source starting with the last
+	// * element.
+	// */
+	// public static <E> EnhancedIterator<E> reverse(List<? extends E> source)
+	// {
+	// return new ReversedSourceIterator.OfObject<>(source);
+	// }
 
 	/**
 	 * Construct a EnhancedIterator reverse iterating over varargs elements.
@@ -118,7 +117,7 @@ public final class Iter
 	@SafeVarargs
 	public static <E> EnhancedIterator<E> reverse(E... elements)
 	{
-		return new ReversedSourceIterator.OfObject<>(elements);
+		return new ArraySource.OfObjectReversed<>(elements);
 	}
 
 	/**
@@ -137,7 +136,7 @@ public final class Iter
 			int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionIterator.OfObject<>(indexingFunction, indexBound);
+		return new FunctionSource.OfObject<>(indexingFunction, indexBound);
 	}
 
 	/**
@@ -189,8 +188,7 @@ public final class Iter
 	 */
 	public static <K, V> EnhancedIterator<Tup<K, V>> entries(Map<K, V> src)
 	{
-		return Iter.over(src.entrySet())
-				.map(entry -> Tup.of(entry.getKey(), entry.getValue()));
+		return Iter.over(src.entrySet()).map(entry -> Tup.of(entry.getKey(), entry.getValue()));
 	}
 
 	/**
@@ -201,8 +199,7 @@ public final class Iter
 	 * @return An iterator traversing all elements contained in each element in the
 	 *         source
 	 */
-	public static <E> EnhancedIterator<E> flatten(
-			Iterable<? extends Iterable<? extends E>> source)
+	public static <E> EnhancedIterator<E> flatten(Iterable<? extends Iterable<? extends E>> source)
 	{
 		return Iter.wrap(source.iterator()).flatMap(Iterable::iterator);
 	}
@@ -215,7 +212,7 @@ public final class Iter
 	 */
 	public static IntIterator emptyInts()
 	{
-		return EmptyIterator.OF_INTS;
+		return EmptyIterator.ofInt();
 	}
 
 	/**
@@ -238,7 +235,7 @@ public final class Iter
 	 */
 	public static IntIterator reverseInts(int... elements)
 	{
-		return new ReversedSourceIterator.OfInt(elements);
+		return new ArraySource.OfIntReversed(elements);
 	}
 
 	/**
@@ -252,11 +249,10 @@ public final class Iter
 	 * @return A IntEnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static IntIterator intsByIndexing(IntUnaryOperator indexingFunction,
-			int indexBound)
+	public static IntIterator intsByIndexing(IntUnaryOperator indexingFunction, int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionIterator.OfInt(indexingFunction, indexBound);
+		return new FunctionSource.OfInt(indexingFunction, indexBound);
 	}
 
 	// Doubles
@@ -268,7 +264,7 @@ public final class Iter
 	 */
 	public static DoubleIterator emptyDoubles()
 	{
-		return EmptyIterator.OF_DOUBLES;
+		return EmptyIterator.ofDouble();
 	}
 
 	/**
@@ -291,7 +287,7 @@ public final class Iter
 	 */
 	public static DoubleIterator reverseDoubles(double... elements)
 	{
-		return new ReversedSourceIterator.OfDouble(elements);
+		return new ArraySource.OfDoubleReversed(elements);
 	}
 
 	/**
@@ -309,7 +305,7 @@ public final class Iter
 			int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionIterator.OfDouble(indexingFunction, indexBound);
+		return new FunctionSource.OfDouble(indexingFunction, indexBound);
 	}
 
 	// Longs
@@ -321,7 +317,7 @@ public final class Iter
 	 */
 	public static LongIterator emptyLongs()
 	{
-		return EmptyIterator.OF_LONGS;
+		return EmptyIterator.ofLong();
 	}
 
 	/**
@@ -344,7 +340,7 @@ public final class Iter
 	 */
 	public static LongIterator reverseLongs(long... elements)
 	{
-		return new ReversedSourceIterator.OfLong(elements);
+		return new ArraySource.OfLongReversed(elements);
 	}
 
 	/**
@@ -358,11 +354,10 @@ public final class Iter
 	 * @return A LongEnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static LongIterator longsByIndexing(IntToLongFunction indexingFunction,
-			int indexBound)
+	public static LongIterator longsByIndexing(IntToLongFunction indexingFunction, int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionIterator.OfLong(indexingFunction, indexBound);
+		return new FunctionSource.OfLong(indexingFunction, indexBound);
 	}
 
 	/**
@@ -375,7 +370,7 @@ public final class Iter
 	 */
 	public static <E> EnhancedIterator<E> wrap(Iterator<? extends E> src)
 	{
-		return new WrappingIterator.OfObject<>(src);
+		return new IteratorWrapper.OfObject<>(src);
 	}
 
 	/**
@@ -406,8 +401,7 @@ public final class Iter
 	 */
 	public static IntIterator until(int upperBound)
 	{
-		return upperBound > 0 ? Iter.intsByIndexing(i -> i, upperBound)
-				: Iter.emptyInts();
+		return upperBound > 0 ? Iter.intsByIndexing(i -> i, upperBound) : Iter.emptyInts();
 	}
 
 	/**
@@ -427,8 +421,7 @@ public final class Iter
 	 */
 	public static IntIterator between(int low, int high)
 	{
-		return high > low ? Iter.intsByIndexing(i -> i + low, high - low)
-				: Iter.emptyInts();
+		return high > low ? Iter.intsByIndexing(i -> i + low, high - low) : Iter.emptyInts();
 	}
 
 	/**

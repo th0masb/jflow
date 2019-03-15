@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -257,20 +258,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * Applies a scanning operation to this {@link EnhancedIterator} to produce a
 	 * new {@link EnhancedIterator}.
 	 *
-	 * @param accumulator The accumulation function.
-	 * @return Let {@code F} denote this source {@link EnhancedIterator} and
-	 *         {@code g} denote the accumulation function. Then the
-	 *         {@link EnhancedIterator} returned is of the form:
-	 *         <ul>
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
-	 *         </ul>
-	 */
-	EnhancedIterator<E> scan(BinaryOperator<E> accumulator);
-
-	/**
-	 * Applies a scanning operation to this {@link EnhancedIterator} to produce a
-	 * new {@link EnhancedIterator}.
-	 *
 	 * @param             <R> The target element type of the accumulation.
 	 *
 	 * @param id          The identity element in the accumulation.
@@ -489,13 +476,11 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	default Set<E> toSet()
 	{
-		throw new RuntimeException();
-		// Set<E> set = sizeIsKnown() ? new HashSet<>(size().getAsInt()) : new
-		// HashSet<>();
-		// while (hasNext()) {
-		// set.add(next());
-		// }
-		// return set;
+		Set<E> set = new HashSet<>();
+		while (hasNext()) {
+			set.add(next());
+		}
+		return set;
 	}
 
 	/**
@@ -519,12 +504,11 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	default List<E> toList()
 	{
-		throw new RuntimeException();
-		// List<E> xs = new ArrayList<>(size().orElse(10));
-		// while (hasNext()) {
-		// xs.add(next());
-		// }
-		// return xs;
+		List<E> xs = new ArrayList<>();
+		while (hasNext()) {
+			xs.add(next());
+		}
+		return xs;
 	}
 
 	/**
@@ -741,17 +725,4 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 		return insert(Iter.over(e));
 	}
 
-	/**
-	 * Convenience method which delegates to
-	 * {@link EnhancedIterator#zipWith(Iterator)}.
-	 * 
-	 * @param       <R> The element type of the iterable element source.
-	 * @param other Some iterable object.
-	 * @return the result of zipping this {@link EnhancedIterator} with an iterator
-	 *         created from the parameter iterable.
-	 */
-	// EnhancedIterator<Tup<E, R>> zipWith(Iterable<? extends R> other)
-	// {
-	// return zipWith(other.iterator());
-	// }
 }

@@ -26,7 +26,7 @@ public class MapAdapter
 
 		public OfObject(AbstractEnhancedIterator<E> source, Function<? super E, ? extends R> map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = Objects.requireNonNull(map);
 		}
 
@@ -55,7 +55,7 @@ public class MapAdapter
 
 		public OfInt(AbstractIntIterator source, IntUnaryOperator map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = Objects.requireNonNull(map);
 		}
 
@@ -84,7 +84,7 @@ public class MapAdapter
 
 		public OfLong(AbstractLongIterator source, LongUnaryOperator map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = Objects.requireNonNull(map);
 		}
 
@@ -114,7 +114,7 @@ public class MapAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoubleUnaryOperator map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = Objects.requireNonNull(map);
 		}
 

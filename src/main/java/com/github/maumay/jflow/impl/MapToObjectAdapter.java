@@ -24,7 +24,7 @@ public class MapToObjectAdapter
 
 		public FromInt(AbstractIntIterator source, IntFunction<? extends R> map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 
@@ -54,7 +54,7 @@ public class MapToObjectAdapter
 
 		public FromLong(AbstractLongIterator source, LongFunction<? extends R> map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 
@@ -84,7 +84,7 @@ public class MapToObjectAdapter
 
 		public FromDouble(AbstractDoubleIterator source, DoubleFunction<? extends R> map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 

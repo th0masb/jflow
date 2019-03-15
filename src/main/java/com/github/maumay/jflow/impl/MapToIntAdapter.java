@@ -24,7 +24,7 @@ public final class MapToIntAdapter
 
 		public FromObject(AbstractEnhancedIterator<E> source, ToIntFunction<? super E> map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 
@@ -54,7 +54,7 @@ public final class MapToIntAdapter
 
 		public FromDouble(AbstractDoubleIterator source, DoubleToIntFunction map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 
@@ -83,7 +83,7 @@ public final class MapToIntAdapter
 
 		public FromLong(AbstractLongIterator source, LongToIntFunction map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 

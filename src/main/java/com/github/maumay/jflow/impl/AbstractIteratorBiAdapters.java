@@ -24,6 +24,10 @@ public class AbstractIteratorBiAdapters
 		public OfObject(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceOne.getSize() : "Must not share size instance";
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceTwo.getSize() : "Must not share size instance";
 			this.sourceOne = Objects.requireNonNull(sourceOne);
 			this.sourceTwo = Objects.requireNonNull(sourceTwo);
 			sourceOne.relinquishOwnership();
@@ -50,6 +54,10 @@ public class AbstractIteratorBiAdapters
 		public OfInt(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceOne.getSize() : "Must not share size instance";
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceTwo.getSize() : "Must not share size instance";
 			this.sourceOne = Objects.requireNonNull(sourceOne);
 			this.sourceTwo = Objects.requireNonNull(sourceTwo);
 			sourceOne.relinquishOwnership();
@@ -76,6 +84,10 @@ public class AbstractIteratorBiAdapters
 		public OfLong(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceOne.getSize() : "Must not share size instance";
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceTwo.getSize() : "Must not share size instance";
 			this.sourceOne = Objects.requireNonNull(sourceOne);
 			this.sourceTwo = Objects.requireNonNull(sourceTwo);
 			sourceOne.relinquishOwnership();
@@ -102,6 +114,10 @@ public class AbstractIteratorBiAdapters
 		public OfDouble(AbstractIteratorSize size, S1 sourceOne, S2 sourceTwo)
 		{
 			super(size);
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceOne.getSize() : "Must not share size instance";
+			assert size.getType() == SizeType.UNKNOWN
+					|| size != sourceTwo.getSize() : "Must not share size instance";
 			this.sourceOne = Objects.requireNonNull(sourceOne);
 			this.sourceTwo = Objects.requireNonNull(sourceTwo);
 			sourceOne.relinquishOwnership();

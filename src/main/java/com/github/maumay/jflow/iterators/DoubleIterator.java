@@ -235,34 +235,38 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 */
 	DoubleIterator insert(double... other);
 
-	/**
-	 * Applies an accumulation operation to this {@link DoubleIterator} to produce a
-	 * new {@link DoubleIterator}.
-	 *
-	 * @param accumulator The accumulation function.
-	 * @return Let {@code F} denote this source {@link DoubleIterator} and {@code g}
-	 *         denote the accumulation function. Then the {@link DoubleIterator}
-	 *         returned is of the form:
-	 *         <ul>
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
-	 *         </ul>
-	 */
-	DoubleIterator accumulate(DoubleBinaryOperator accumulator);
-
-	/**
-	 * Applies an accumulation operation to this {@link DoubleIterator} to produce a
-	 * new {@link DoubleIterator}.
-	 *
-	 * @param id          The identity element in the accumulation.
-	 * @param accumulator The accumulator function.
-	 * @return Let {@code F} denote this source {@link DoubleIterator} and {@code g}
-	 *         denote the accumulation function. Then the {@link DoubleIterator}
-	 *         returned is of the form:
-	 *         <ul>
-	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
-	 *         </ul>
-	 */
-	DoubleIterator accumulate(double id, DoubleBinaryOperator accumulator);
+	// /**
+	// * Applies an accumulation operation to this {@link DoubleIterator} to produce
+	// a
+	// * new {@link DoubleIterator}.
+	// *
+	// * @param accumulator The accumulation function.
+	// * @return Let {@code F} denote this source {@link DoubleIterator} and {@code
+	// g}
+	// * denote the accumulation function. Then the {@link DoubleIterator}
+	// * returned is of the form:
+	// * <ul>
+	// * <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
+	// * </ul>
+	// */
+	// DoubleIterator accumulate(DoubleBinaryOperator accumulator);
+	//
+	// /**
+	// * Applies an accumulation operation to this {@link DoubleIterator} to produce
+	// a
+	// * new {@link DoubleIterator}.
+	// *
+	// * @param id The identity element in the accumulation.
+	// * @param accumulator The accumulator function.
+	// * @return Let {@code F} denote this source {@link DoubleIterator} and {@code
+	// g}
+	// * denote the accumulation function. Then the {@link DoubleIterator}
+	// * returned is of the form:
+	// * <ul>
+	// * <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
+	// * </ul>
+	// */
+	// DoubleIterator accumulate(double id, DoubleBinaryOperator accumulator);
 
 	/**
 	 * Calculates the minimum value in this {@link DoubleIterator}.

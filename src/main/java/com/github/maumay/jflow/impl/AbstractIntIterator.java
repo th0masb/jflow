@@ -138,18 +138,6 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public AbstractIntIterator scan(IntBinaryOperator accumulator)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractIntIterator scan(int id, IntBinaryOperator accumulator)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
 	public OptionalInt minOption()
 	{
 		return IntMinMaxConsumption.findMinOption(this);

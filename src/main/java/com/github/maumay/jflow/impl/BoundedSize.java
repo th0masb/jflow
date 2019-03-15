@@ -76,4 +76,10 @@ public final class BoundedSize extends AbstractIteratorSize
 	{
 		return Objects.hash(lo, hi);
 	}
+
+	@Override
+	public BoundedSize copy()
+	{
+		return new BoundedSize(lowerBound(), upperBound());
+	}
 }

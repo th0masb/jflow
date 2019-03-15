@@ -107,6 +107,28 @@ final class IteratorImplUtils
 		return input;
 	}
 
+	static AbstractIteratorSize add(AbstractIteratorSize size, int addition)
+	{
+		switch (size.getType()) {
+		case EXACT: {
+			KnownSize x = (KnownSize) size;
+			return new KnownSize(x.getValue() + addition);
+		}
+		case LOWER_BOUND: {
+			LowerBound x = (LowerBound) size;
+			return new LowerBound(x.getValue() + addition);
+		}
+		case BOUNDED: {
+			BoundedSize x = (BoundedSize) size;
+			return new BoundedSize(x.lowerBound() + addition, x.upperBound() + addition);
+		}
+		case UNKNOWN:
+			return UnknownSize.instance();
+		default:
+			throw new RuntimeException();
+		}
+	}
+
 	static AbstractIteratorSize subtract(AbstractIteratorSize size, int subtraction)
 	{
 		switch (size.getType()) {
@@ -116,16 +138,18 @@ final class IteratorImplUtils
 		}
 		case LOWER_BOUND: {
 			LowerBound x = (LowerBound) size;
-			return x.getValue() >= subtraction ? new KnownSize(subtraction)
-					: new BoundedSize(x.getValue(), subtraction);
+			return x.getValue() > subtraction ? new LowerBound(x.getValue() - subtraction)
+					: UnknownSize.instance();
 		}
 		case BOUNDED: {
 			BoundedSize x = (BoundedSize) size;
-			return x.lowerBound() >= subtraction ? new KnownSize(subtraction)
-					: new BoundedSize(x.lowerBound(), Math.min(subtraction, x.upperBound()));
+			int lo = x.lowerBound(), hi = x.upperBound();
+			return hi > subtraction
+					? new BoundedSize(Math.max(0, lo - subtraction), hi - subtraction)
+					: new KnownSize(0);
 		}
 		case UNKNOWN:
-			return new BoundedSize(0, subtraction);
+			return UnknownSize.instance();
 		default:
 			throw new RuntimeException();
 		}

@@ -233,34 +233,34 @@ public interface LongIterator extends SafeLongIterator
 	 */
 	LongIterator insert(long... other);
 
-	/**
-	 * Applies an accumulation operation to this {@link LongIterator} to produce a
-	 * new {@link LongIterator}.
-	 *
-	 * @param accumulator The accumulation function.
-	 * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
-	 *         denote the accumulation function. Then the {@link LongIterator}
-	 *         returned is of the form:
-	 *         <ul>
-	 *         <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
-	 *         </ul>
-	 */
-	LongIterator scan(LongBinaryOperator accumulator);
-
-	/**
-	 * Applies an accumulation operation to this {@link LongIterator} to produce a
-	 * new {@link LongIterator}.
-	 *
-	 * @param id          The identity element in the accumulation.
-	 * @param accumulator The accumulator function.
-	 * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
-	 *         denote the accumulation function. Then the {@link LongIterator}
-	 *         returned is of the form:
-	 *         <ul>
-	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
-	 *         </ul>
-	 */
-	LongIterator scan(long id, LongBinaryOperator accumulator);
+	// /**
+	// * Applies an accumulation operation to this {@link LongIterator} to produce a
+	// * new {@link LongIterator}.
+	// *
+	// * @param accumulator The accumulation function.
+	// * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
+	// * denote the accumulation function. Then the {@link LongIterator}
+	// * returned is of the form:
+	// * <ul>
+	// * <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
+	// * </ul>
+	// */
+	// LongIterator scan(LongBinaryOperator accumulator);
+	//
+	// /**
+	// * Applies an accumulation operation to this {@link LongIterator} to produce a
+	// * new {@link LongIterator}.
+	// *
+	// * @param id The identity element in the accumulation.
+	// * @param accumulator The accumulator function.
+	// * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
+	// * denote the accumulation function. Then the {@link LongIterator}
+	// * returned is of the form:
+	// * <ul>
+	// * <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
+	// * </ul>
+	// */
+	// LongIterator scan(long id, LongBinaryOperator accumulator);
 
 	/**
 	 * Calculates the minimum value in this {@link LongIterator}.

@@ -6,7 +6,6 @@ package com.github.maumay.jflow.iterators.impl.scan;
 import static java.util.Arrays.asList;
 
 import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,29 +21,6 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
 class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 		implements IteratorTest
 {
-	@Test
-	void testAccumulationWithoutId()
-	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
-
-		assertObjectIteratorAsExpected(asList("0", "01", "012", "0123", "01234"),
-				createAccumlationWithoutIdIteratorProviderFrom(populated, String::concat));
-		assertObjectIteratorAsExpected(asList(),
-				createAccumlationWithoutIdIteratorProviderFrom(empty, String::concat));
-	}
-
-	private <E> AbstractEnhancedIterable<E> createAccumlationWithoutIdIteratorProviderFrom(
-			AbstractEnhancedIterable<E> source, BinaryOperator<E> accumulator)
-	{
-		return new AbstractEnhancedIterable<E>() {
-			@Override
-			public AbstractEnhancedIterator<E> iter()
-			{
-				return source.iter().scan(accumulator);
-			}
-		};
-	}
 
 	@Test
 	void testAccumulationWithId()
@@ -52,9 +28,9 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
 		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
-		assertObjectIteratorAsExpected(asList("x0", "x01", "x012", "x0123", "x01234"),
+		assertObjectIteratorAsExpected(asList("x", "x0", "x01", "x012", "x0123", "x01234"),
 				createAccumlationWithIdIteratorProviderFrom(populated, "x", String::concat));
-		assertObjectIteratorAsExpected(asList(),
+		assertObjectIteratorAsExpected(asList("x"),
 				createAccumlationWithIdIteratorProviderFrom(empty, "x", String::concat));
 	}
 

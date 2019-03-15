@@ -52,7 +52,7 @@ public final class IteratorWrapper
 		}
 	}
 
-	private static class OfObject<E> extends AbstractEnhancedIterator<E>
+	public static class OfObject<E> extends AbstractEnhancedIterator<E>
 	{
 		private final Iterator<? extends E> source;
 

@@ -24,7 +24,7 @@ public final class MapToLongAdapter
 
 		public FromObject(AbstractEnhancedIterator<E> source, ToLongFunction<? super E> map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 
@@ -53,7 +53,7 @@ public final class MapToLongAdapter
 
 		public FromInt(AbstractIntIterator source, IntToLongFunction map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 
@@ -83,7 +83,7 @@ public final class MapToLongAdapter
 
 		public FromDouble(AbstractDoubleIterator source, DoubleToLongFunction map)
 		{
-			super(source.getSize(), source);
+			super(source.getSize().copy(), source);
 			this.map = map;
 		}
 

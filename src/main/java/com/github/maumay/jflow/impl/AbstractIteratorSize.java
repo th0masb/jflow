@@ -29,5 +29,7 @@ public abstract class AbstractIteratorSize
 
 	public abstract OptionalInt getLowerBound();
 
+	public abstract AbstractIteratorSize copy();
+
 	abstract void decrement();
 }

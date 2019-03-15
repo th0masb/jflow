@@ -138,18 +138,6 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public AbstractDoubleIterator accumulate(DoubleBinaryOperator accumulator)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractDoubleIterator accumulate(double id, DoubleBinaryOperator accumulator)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
 	public OptionalDouble minOption()
 	{
 		return DoubleMinMaxConsumption.findMinOption(this);

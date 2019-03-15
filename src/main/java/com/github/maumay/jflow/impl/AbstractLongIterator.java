@@ -140,18 +140,6 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public AbstractLongIterator scan(LongBinaryOperator accumulator)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public AbstractLongIterator scan(long id, LongBinaryOperator accumulator)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
 	public OptionalLong minOption()
 	{
 		return LongMinMaxConsumption.findMinOption(this);

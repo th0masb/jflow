@@ -48,4 +48,11 @@ public class UnknownSize extends AbstractIteratorSize
 	{
 		return Option.emptyInt();
 	}
+
+	@Override
+	public UnknownSize copy()
+	{
+		// Don't need to copy here since it is a singleton.
+		return this;
+	}
 }

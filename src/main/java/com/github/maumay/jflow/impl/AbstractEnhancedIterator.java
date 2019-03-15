@@ -142,15 +142,9 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> scan(BinaryOperator<E> accumulator)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
 	public <R> AbstractEnhancedIterator<R> scan(R id, BiFunction<R, E, R> accumulator)
 	{
-		throw new RuntimeException();
+		return new ScanAdapter.OfObject<>(this, id, accumulator);
 	}
 
 	@Override
@@ -216,8 +210,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	@Override
 	public VecImpl<E> toVec()
 	{
-		E[] arrayResult = ArrayAccumulators.consume(this);
-		return new VecImpl<>(arrayResult);
+		return new VecImpl<>(ArrayAccumulators.consume(this));
 	}
 
 	@Override

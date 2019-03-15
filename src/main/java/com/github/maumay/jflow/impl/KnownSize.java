@@ -35,4 +35,10 @@ public final class KnownSize extends AbstractValueSize
 	{
 		return Option.of(getValue());
 	}
+
+	@Override
+	public KnownSize copy()
+	{
+		return new KnownSize(getValue());
+	}
 }
