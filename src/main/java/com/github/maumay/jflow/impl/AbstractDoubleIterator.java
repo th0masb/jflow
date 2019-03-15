@@ -138,6 +138,12 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
+	public AbstractDoubleIterator scan(double id, DoubleBinaryOperator accumulator)
+	{
+		return new ScanAdapter.OfDouble(this, id, accumulator);
+	}
+
+	@Override
 	public OptionalDouble minOption()
 	{
 		return DoubleMinMaxConsumption.findMinOption(this);

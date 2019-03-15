@@ -17,6 +17,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.custom.IteratorAdapter;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -145,6 +146,12 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	public <R> AbstractEnhancedIterator<R> scan(R id, BiFunction<R, E, R> accumulator)
 	{
 		return new ScanAdapter.OfObject<>(this, id, accumulator);
+	}
+
+	@Override
+	public <R> EnhancedIterator<R> adapt(IteratorAdapter<? super E, R> adapter)
+	{
+		return adapter.adapt(this);
 	}
 
 	@Override

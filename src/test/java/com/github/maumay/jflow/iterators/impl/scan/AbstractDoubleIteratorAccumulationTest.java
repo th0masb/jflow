@@ -3,6 +3,12 @@
  */
 package com.github.maumay.jflow.iterators.impl.scan;
 
+import java.util.function.DoubleBinaryOperator;
+
+import org.junit.jupiter.api.Test;
+
+import com.github.maumay.jflow.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -36,27 +42,27 @@ class AbstractDoubleIteratorAccumulationTest extends IteratorExampleProvider imp
 	// };
 	// }
 	//
-	// @Test
-	// void testAccumulationWithId()
-	// {
-	// AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
-	// AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
-	//
-	// assertDoubleIteratorAsExpected(new double[] { 5, 6, 8, 11, 15 },
-	// createAccumulationWithIdIteratorProviderFrom(populated, 5, (a, b) -> a + b));
-	// assertDoubleIteratorAsExpected(new double[] {},
-	// createAccumulationWithIdIteratorProviderFrom(empty, 5, (a, b) -> a + b));
-	// }
-	//
-	// private AbstractIterableDoubles createAccumulationWithIdIteratorProviderFrom(
-	// AbstractIterableDoubles source, double id, DoubleBinaryOperator accumulator)
-	// {
-	// return new AbstractIterableDoubles() {
-	// @Override
-	// public AbstractDoubleIterator iter()
-	// {
-	// return source.iter().accumulate(id, accumulator);
-	// }
-	// };
-	// }
+	@Test
+	void testAccumulationWithId()
+	{
+		AbstractIterableDoubles populated = getDoubleTestIteratorProvider();
+		AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
+
+		assertDoubleIteratorAsExpected(new double[] { 5, 5, 6, 8, 11, 15 },
+				createScanIteratorProviderFrom(populated, 5, (a, b) -> a + b));
+		assertDoubleIteratorAsExpected(new double[] { 5 },
+				createScanIteratorProviderFrom(empty, 5, (a, b) -> a + b));
+	}
+
+	private AbstractIterableDoubles createScanIteratorProviderFrom(AbstractIterableDoubles source,
+			double id, DoubleBinaryOperator accumulator)
+	{
+		return new AbstractIterableDoubles() {
+			@Override
+			public AbstractDoubleIterator iter()
+			{
+				return source.iter().scan(id, accumulator);
+			}
+		};
+	}
 }

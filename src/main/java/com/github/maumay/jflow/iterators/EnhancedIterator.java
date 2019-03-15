@@ -24,6 +24,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import com.github.maumay.jflow.iterators.custom.IteratorAdapter;
 import com.github.maumay.jflow.iterators.custom.IteratorCollector;
 import com.github.maumay.jflow.iterators.custom.IteratorConsumer;
 import com.github.maumay.jflow.iterators.factories.Iter;
@@ -270,6 +271,8 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         </ul>
 	 */
 	<R> EnhancedIterator<R> scan(R id, BiFunction<R, E, R> accumulator);
+
+	<R> EnhancedIterator<R> adapt(IteratorAdapter<? super E, R> adapter);
 
 	/**
 	 * Safely manipulates the element type of this {@link EnhancedIterator} by
