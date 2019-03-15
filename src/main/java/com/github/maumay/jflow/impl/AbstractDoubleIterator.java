@@ -11,10 +11,6 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.implOld.DoubleCollectionConsumption;
-import com.github.maumay.jflow.iterators.implOld.DoubleMinMaxConsumption;
-import com.github.maumay.jflow.iterators.implOld.DoublePredicateConsumption;
-import com.github.maumay.jflow.iterators.implOld.DoubleReductionConsumption;
 import com.github.maumay.jflow.utils.DoubleTup;
 
 /**
@@ -228,7 +224,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public double[] toArray()
 	{
-		return DoubleCollectionConsumption.toArray(this);
+		return ArrayAccumulators.consume(this);
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators.implOld;
+package com.github.maumay.jflow.impl;
 
 import java.util.OptionalDouble;
 import java.util.function.DoubleUnaryOperator;
 
-import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.utils.Exceptions;
 
 /**
  * @author ThomasB
@@ -17,12 +17,13 @@ public class DoubleMinMaxConsumption
 	{
 	}
 
-	public static OptionalDouble findMinOption(DoubleIterator source)
+	public static OptionalDouble findMinOption(AbstractDoubleIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double min = Double.POSITIVE_INFINITY;
 		while (source.hasNext()) {
-			double next = source.nextDouble();
+			double next = source.nextDoubleImpl();
 			if (!found && !Double.isNaN(next)) {
 				found = true;
 				min = next;
@@ -33,12 +34,13 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(min) : OptionalDouble.empty();
 	}
 
-	public static double findMin(DoubleIterator source)
+	public static double findMin(AbstractDoubleIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double min = Double.POSITIVE_INFINITY;
 		while (source.hasNext()) {
-			double next = source.nextDouble();
+			double next = source.nextDoubleImpl();
 			if (!found && !Double.isNaN(next)) {
 				found = true;
 				min = next;
@@ -53,14 +55,14 @@ public class DoubleMinMaxConsumption
 		}
 	}
 
-	public static OptionalDouble findMin(DoubleIterator source,
-			DoubleUnaryOperator key)
+	public static OptionalDouble findMin(AbstractDoubleIterator source, DoubleUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double minKey = -1;
 		double minVal = Double.POSITIVE_INFINITY;
 		while (source.hasNext()) {
-			double nextKey = source.nextDouble();
+			double nextKey = source.nextDoubleImpl();
 			double nextVal = key.applyAsDouble(nextKey);
 
 			if (!found && !Double.isNaN(nextVal)) {
@@ -75,14 +77,15 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(minKey) : OptionalDouble.empty();
 	}
 
-	public static double findMin(DoubleIterator source, double defaultVal,
+	public static double findMin(AbstractDoubleIterator source, double defaultVal,
 			DoubleUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double minKey = -1;
 		double minVal = Double.POSITIVE_INFINITY;
 		while (source.hasNext()) {
-			double nextKey = source.nextDouble();
+			double nextKey = source.nextDoubleImpl();
 			double nextVal = key.applyAsDouble(nextKey);
 
 			if (!found && !Double.isNaN(nextVal)) {
@@ -97,12 +100,13 @@ public class DoubleMinMaxConsumption
 		return found ? minKey : defaultVal;
 	}
 
-	public static OptionalDouble findMaxOption(DoubleIterator source)
+	public static OptionalDouble findMaxOption(AbstractDoubleIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double max = Double.NEGATIVE_INFINITY;
 		while (source.hasNext()) {
-			double next = source.nextDouble();
+			double next = source.nextDoubleImpl();
 			if (!found && !Double.isNaN(next)) {
 				found = true;
 				max = next;
@@ -113,12 +117,13 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(max) : OptionalDouble.empty();
 	}
 
-	public static double findMax(DoubleIterator source)
+	public static double findMax(AbstractDoubleIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double max = Double.NEGATIVE_INFINITY;
 		while (source.hasNext()) {
-			double next = source.nextDouble();
+			double next = source.nextDoubleImpl();
 			if (!found && !Double.isNaN(next)) {
 				found = true;
 				max = next;
@@ -133,14 +138,15 @@ public class DoubleMinMaxConsumption
 		}
 	}
 
-	public static OptionalDouble findMaxOption(DoubleIterator source,
+	public static OptionalDouble findMaxOption(AbstractDoubleIterator source,
 			DoubleUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double maxKey = -1;
 		double maxVal = Double.NEGATIVE_INFINITY;
 		while (source.hasNext()) {
-			double nextKey = source.nextDouble();
+			double nextKey = source.nextDoubleImpl();
 			double nextVal = key.applyAsDouble(nextKey);
 
 			if (!found && !Double.isNaN(nextVal)) {
@@ -155,14 +161,15 @@ public class DoubleMinMaxConsumption
 		return found ? OptionalDouble.of(maxKey) : OptionalDouble.empty();
 	}
 
-	public static double findMax(DoubleIterator source, double defaultVal,
+	public static double findMax(AbstractDoubleIterator source, double defaultVal,
 			DoubleUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		double maxKey = -1;
 		double maxVal = Double.NEGATIVE_INFINITY;
 		while (source.hasNext()) {
-			double nextKey = source.nextDouble();
+			double nextKey = source.nextDoubleImpl();
 			double nextVal = key.applyAsDouble(nextKey);
 
 			if (!found && !Double.isNaN(nextVal)) {

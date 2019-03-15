@@ -10,8 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.implOld.ReversedSourceIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -44,12 +42,13 @@ class AbstractEnhancedIteratorReverseFromValuesTest implements IteratorTest
 
 	<E> AbstractEnhancedIterable<E> getReverseFromValuesIteratorProvider(List<E> source)
 	{
-		return new AbstractEnhancedIterable<E>() {
-			@Override
-			public AbstractEnhancedIterator<E> iter()
-			{
-				return new ReversedSourceIterator.OfObject<>(source);
-			}
-		};
+		throw new RuntimeException();
+		// return new AbstractEnhancedIterable<E>() {
+		// @Override
+		// public AbstractEnhancedIterator<E> iter()
+		// {
+		// return new ArraySource.OfObjectReversed<E>(source);
+		// }
+		// };
 	}
 }

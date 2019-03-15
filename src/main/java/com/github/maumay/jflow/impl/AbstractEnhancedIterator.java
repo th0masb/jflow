@@ -17,9 +17,6 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.implOld.ObjectMinMaxConsumption;
-import com.github.maumay.jflow.iterators.implOld.ObjectPredicateConsumption;
-import com.github.maumay.jflow.iterators.implOld.ObjectReductionConsumption;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 

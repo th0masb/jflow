@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.implOld.ReversedSourceIterator;
+import com.github.maumay.jflow.impl.ArraySource;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -47,7 +47,7 @@ class AbstractDoubleIteratorReverseFromValuesTest implements IteratorTest
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return new ReversedSourceIterator.OfDouble(source);
+				return new ArraySource.OfDoubleReversed(source);
 			}
 		};
 	}

@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.iterators.implOld.ReversedSourceIterator;
+import com.github.maumay.jflow.impl.ArraySource;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -47,7 +47,7 @@ class AbstractLongIteratorReverseFromValuesTest implements IteratorTest
 			@Override
 			public AbstractLongIterator iter()
 			{
-				return new ReversedSourceIterator.OfLong(source);
+				return new ArraySource.OfLongReversed(source);
 			}
 		};
 	}

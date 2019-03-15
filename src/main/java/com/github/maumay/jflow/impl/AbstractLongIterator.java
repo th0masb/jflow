@@ -14,10 +14,6 @@ import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.implOld.LongCollectionConsumption;
-import com.github.maumay.jflow.iterators.implOld.LongMinMaxConsumption;
-import com.github.maumay.jflow.iterators.implOld.LongPredicateConsumption;
-import com.github.maumay.jflow.iterators.implOld.LongReductionConsumption;
 import com.github.maumay.jflow.utils.LongTup;
 
 /**
@@ -158,25 +154,25 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public OptionalLong minOption()
 	{
-		return LongMinMaxConsumption.findMin(this);
+		return LongMinMaxConsumption.findMinOption(this);
 	}
 
 	@Override
 	public long min(long defaultValue)
 	{
-		return LongMinMaxConsumption.findMin(this, defaultValue);
+		return LongMinMaxConsumption.findMin(this, defaultValue, n -> n);
 	}
 
 	@Override
 	public OptionalLong maxOption()
 	{
-		return LongMinMaxConsumption.findMax(this);
+		return LongMinMaxConsumption.findMaxOption(this);
 	}
 
 	@Override
 	public long max(long defaultValue)
 	{
-		return LongMinMaxConsumption.findMax(this, defaultValue);
+		return LongMinMaxConsumption.findMax(this, defaultValue, n -> n);
 	}
 
 	@Override
@@ -230,7 +226,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public long[] toArray()
 	{
-		return LongCollectionConsumption.toArray(this);
+		return ArrayAccumulators.consume(this);
 	}
 
 	@Override

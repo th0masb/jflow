@@ -131,6 +131,30 @@ final class IteratorImplUtils
 		}
 	}
 
+	static AbstractIteratorSize min(AbstractIteratorSize size, int other)
+	{
+		switch (size.getType()) {
+		case EXACT: {
+			KnownSize x = (KnownSize) size;
+			return new KnownSize(Math.min(x.getValue(), other));
+		}
+		case LOWER_BOUND: {
+			LowerBound x = (LowerBound) size;
+			return x.getValue() >= other ? new KnownSize(other)
+					: new BoundedSize(x.getValue(), other);
+		}
+		case BOUNDED: {
+			BoundedSize x = (BoundedSize) size;
+			return x.lowerBound() >= other ? new KnownSize(other)
+					: new BoundedSize(x.lowerBound(), Math.min(other, x.upperBound()));
+		}
+		case UNKNOWN:
+			return new BoundedSize(0, other);
+		default:
+			throw new RuntimeException();
+		}
+	}
+
 	static AbstractIteratorSize dropLowerBound(AbstractIteratorSize size)
 	{
 		switch (size.getType()) {

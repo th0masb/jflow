@@ -23,7 +23,7 @@ public class TakeAdapter
 
 		public OfObject(AbstractEnhancedIterator<E> source, int takeCount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			super(IteratorImplUtils.min(source.getSize(), takeCount), source);
 			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}
@@ -62,7 +62,7 @@ public class TakeAdapter
 
 		public OfInt(AbstractIntIterator source, int takeCount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			super(IteratorImplUtils.min(source.getSize(), takeCount), source);
 			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}
@@ -101,7 +101,7 @@ public class TakeAdapter
 
 		public OfLong(AbstractLongIterator source, int takeCount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			super(IteratorImplUtils.min(source.getSize(), takeCount), source);
 			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}
@@ -141,7 +141,7 @@ public class TakeAdapter
 
 		public OfDouble(AbstractDoubleIterator source, int takeCount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), takeCount), source);
+			super(IteratorImplUtils.min(source.getSize(), takeCount), source);
 			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);
 			this.count = 0;
 		}

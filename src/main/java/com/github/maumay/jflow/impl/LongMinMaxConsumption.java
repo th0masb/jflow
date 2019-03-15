@@ -1,28 +1,29 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators.implOld;
+package com.github.maumay.jflow.impl;
 
 import java.util.OptionalLong;
-import java.util.function.LongToDoubleFunction;
+import java.util.function.LongUnaryOperator;
 
-import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.utils.Exceptions;
 
 /**
  * @author ThomasB
  */
-public final class LongMinMaxConsumption
+public class LongMinMaxConsumption
 {
 	private LongMinMaxConsumption()
 	{
 	}
 
-	public static OptionalLong findMin(final LongIterator source)
+	public static OptionalLong findMinOption(AbstractLongIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long min = Long.MAX_VALUE;
 		while (source.hasNext()) {
-			final long next = source.nextLong();
+			long next = source.nextLongImpl();
 			if (!found) {
 				found = true;
 				min = next;
@@ -33,12 +34,13 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(min) : OptionalLong.empty();
 	}
 
-	public static long findMin(final LongIterator source, final long defaultVal)
+	public static long findMin(AbstractLongIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long min = Long.MAX_VALUE;
 		while (source.hasNext()) {
-			final long next = source.nextLong();
+			long next = source.nextLongImpl();
 			if (!found) {
 				found = true;
 				min = next;
@@ -46,20 +48,24 @@ public final class LongMinMaxConsumption
 				min = next;
 			}
 		}
-		return found ? min : defaultVal;
+		if (found) {
+			return min;
+		} else {
+			throw new IllegalStateException();
+		}
 	}
 
-	public static OptionalLong findMin(final LongIterator source,
-			final LongToDoubleFunction key)
+	public static OptionalLong findMin(AbstractLongIterator source, LongUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long minKey = -1;
-		double minVal = Double.POSITIVE_INFINITY;
+		long minVal = Long.MAX_VALUE;
 		while (source.hasNext()) {
-			final long nextKey = source.nextLong();
-			final double nextVal = key.applyAsDouble(nextKey);
+			long nextKey = source.nextLongImpl();
+			long nextVal = key.applyAsLong(nextKey);
 
-			if (!found && !Double.isNaN(nextVal)) {
+			if (!found) {
 				found = true;
 				minKey = nextKey;
 				minVal = nextVal;
@@ -71,17 +77,17 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(minKey) : OptionalLong.empty();
 	}
 
-	public static long findMin(final LongIterator source, final long defaultVal,
-			final LongToDoubleFunction key)
+	public static long findMin(AbstractLongIterator source, long defaultVal, LongUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long minKey = -1;
-		double minVal = Double.POSITIVE_INFINITY;
+		long minVal = Long.MAX_VALUE;
 		while (source.hasNext()) {
-			final long nextKey = source.nextLong();
-			final double nextVal = key.applyAsDouble(nextKey);
+			long nextKey = source.nextLongImpl();
+			long nextVal = key.applyAsLong(nextKey);
 
-			if (!found && !Double.isNaN(nextVal)) {
+			if (!found) {
 				found = true;
 				minKey = nextKey;
 				minVal = nextVal;
@@ -93,12 +99,13 @@ public final class LongMinMaxConsumption
 		return found ? minKey : defaultVal;
 	}
 
-	public static OptionalLong findMax(final LongIterator source)
+	public static OptionalLong findMaxOption(AbstractLongIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long max = Long.MIN_VALUE;
 		while (source.hasNext()) {
-			final long next = source.nextLong();
+			long next = source.nextLongImpl();
 			if (!found) {
 				found = true;
 				max = next;
@@ -109,12 +116,13 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(max) : OptionalLong.empty();
 	}
 
-	public static long findMax(final LongIterator source, final long defaultVal)
+	public static long findMax(AbstractLongIterator source)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long max = Long.MIN_VALUE;
 		while (source.hasNext()) {
-			final long next = source.nextLong();
+			long next = source.nextLongImpl();
 			if (!found) {
 				found = true;
 				max = next;
@@ -122,20 +130,24 @@ public final class LongMinMaxConsumption
 				max = next;
 			}
 		}
-		return found ? max : defaultVal;
+		if (found) {
+			return max;
+		} else {
+			throw new IllegalStateException();
+		}
 	}
 
-	public static OptionalLong findMax(final LongIterator source,
-			final LongToDoubleFunction key)
+	public static OptionalLong findMaxOption(AbstractLongIterator source, LongUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long maxKey = -1;
-		double maxVal = Double.NEGATIVE_INFINITY;
+		long maxVal = Long.MIN_VALUE;
 		while (source.hasNext()) {
-			final long nextKey = source.nextLong();
-			final double nextVal = key.applyAsDouble(nextKey);
+			long nextKey = source.nextLongImpl();
+			long nextVal = key.applyAsLong(nextKey);
 
-			if (!found && !Double.isNaN(nextVal)) {
+			if (!found) {
 				found = true;
 				maxKey = nextKey;
 				maxVal = nextVal;
@@ -147,17 +159,17 @@ public final class LongMinMaxConsumption
 		return found ? OptionalLong.of(maxKey) : OptionalLong.empty();
 	}
 
-	public static long findMax(final LongIterator source, final long defaultVal,
-			final LongToDoubleFunction key)
+	public static long findMax(AbstractLongIterator source, long defaultVal, LongUnaryOperator key)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean found = false;
 		long maxKey = -1;
-		double maxVal = Double.NEGATIVE_INFINITY;
+		long maxVal = Long.MIN_VALUE;
 		while (source.hasNext()) {
-			final long nextKey = source.nextLong();
-			final double nextVal = key.applyAsDouble(nextKey);
+			long nextKey = source.nextLongImpl();
+			long nextVal = key.applyAsLong(nextKey);
 
-			if (!found && !Double.isNaN(nextVal)) {
+			if (!found) {
 				found = true;
 				maxKey = nextKey;
 				maxVal = nextVal;

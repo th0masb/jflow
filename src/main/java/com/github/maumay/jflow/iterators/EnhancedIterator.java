@@ -285,6 +285,19 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	<R> EnhancedIterator<R> scan(R id, BiFunction<R, E, R> accumulator);
 
 	/**
+	 * Safely manipulates the element type of this {@link EnhancedIterator} by
+	 * filtering out elements who cannot be cast to the target type before casting
+	 * the remainder.
+	 *
+	 * @param       <R> The target type
+	 * @param klass A Class instance defining the target type
+	 * @return A new {@link EnhancedIterator} with element type given by the
+	 *         supplied target type, containing only the elements of the source
+	 *         which are of the target type.
+	 */
+	<R> EnhancedIterator<R> cast(Class<R> klass);
+
+	/**
 	 * Calculates the minimum element in this {@link EnhancedIterator} with respect
 	 * to the ordering specified by the parameter.
 	 *
@@ -676,22 +689,6 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 		}
 		return collected;
 	}
-
-	/**
-	 * Safely manipulates the element type of this {@link EnhancedIterator} by
-	 * filtering out elements who cannot be cast to the target type before casting
-	 * the remainder.
-	 *
-	 * @param       <R> The target type
-	 * @param klass A Class instance defining the target type
-	 * @return A new {@link EnhancedIterator} with element type given by the
-	 *         supplied target type, containing only the elements of the source
-	 *         which are of the target type.
-	 */
-	<R> EnhancedIterator<R> cast(Class<R> klass);
-	// {
-	// return filter(klass::isInstance).map(klass::cast);
-	// }
 
 	/**
 	 * Consumes this iterator using the supplied collection function to create a new

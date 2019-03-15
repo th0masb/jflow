@@ -11,10 +11,6 @@ import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.factories.Numbers;
-import com.github.maumay.jflow.iterators.implOld.IntCollectionConsumption;
-import com.github.maumay.jflow.iterators.implOld.IntMinMaxConsumption;
-import com.github.maumay.jflow.iterators.implOld.IntPredicateConsumption;
-import com.github.maumay.jflow.iterators.implOld.IntReductionConsumption;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
@@ -156,37 +152,37 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public OptionalInt minOption()
 	{
-		return IntMinMaxConsumption.findMin(this);
+		return IntMinMaxConsumption.findMinOption(this);
 	}
 
 	@Override
 	public int min(int defaultValue)
 	{
-		return IntMinMaxConsumption.findMin(this, defaultValue);
+		return IntMinMaxConsumption.findMin(this, defaultValue, n -> n);
 	}
 
 	@Override
 	public <C extends Comparable<C>> OptionalInt minByKey(IntFunction<C> key)
 	{
-		return IntMinMaxConsumption.findMin(this, key);
+		return IntMinMaxConsumption.findMinOption(this, key);
 	}
 
 	@Override
 	public OptionalInt maxOption()
 	{
-		return IntMinMaxConsumption.findMax(this);
+		return IntMinMaxConsumption.findMaxOption(this);
 	}
 
 	@Override
 	public int max(int defaultValue)
 	{
-		return IntMinMaxConsumption.findMax(this, defaultValue);
+		return IntMinMaxConsumption.findMax(this, defaultValue, n -> n);
 	}
 
 	@Override
 	public <C extends Comparable<C>> OptionalInt maxByKey(IntFunction<C> key)
 	{
-		return IntMinMaxConsumption.findMax(this, key);
+		return IntMinMaxConsumption.findMaxOption(this, key);
 	}
 
 	@Override
@@ -240,7 +236,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public int[] toArray()
 	{
-		return IntCollectionConsumption.toArray(this);
+		return ArrayAccumulators.consume(this);
 	}
 
 	@Override

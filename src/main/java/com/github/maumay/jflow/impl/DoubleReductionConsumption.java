@@ -1,14 +1,13 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators.implOld;
+package com.github.maumay.jflow.impl;
 
 import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
-import java.util.PrimitiveIterator;
 import java.util.function.DoubleBinaryOperator;
 
-import com.github.maumay.jflow.iterators.Skippable;
+import com.github.maumay.jflow.utils.Exceptions;
 
 /**
  * @author ThomasB
@@ -19,34 +18,34 @@ public final class DoubleReductionConsumption
 	{
 	}
 
-	public static OptionalDouble foldOption(PrimitiveIterator.OfDouble source,
+	public static OptionalDouble foldOption(AbstractDoubleIterator source,
 			DoubleBinaryOperator reducer)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean reductionUninitialised = true;
 		double reduction = -1L;
 		while (source.hasNext()) {
 			if (reductionUninitialised) {
-				reduction = source.nextDouble();
+				reduction = source.nextDoubleImpl();
 				reductionUninitialised = false;
 			} else {
-				reduction = reducer.applyAsDouble(reduction, source.nextDouble());
+				reduction = reducer.applyAsDouble(reduction, source.nextDoubleImpl());
 			}
 		}
-		return reductionUninitialised ? OptionalDouble.empty()
-				: OptionalDouble.of(reduction);
+		return reductionUninitialised ? OptionalDouble.empty() : OptionalDouble.of(reduction);
 	}
 
-	public static double fold(PrimitiveIterator.OfDouble source,
-			DoubleBinaryOperator reducer)
+	public static double fold(AbstractDoubleIterator source, DoubleBinaryOperator reducer)
 	{
+		Exceptions.require(source.hasOwnership());
 		boolean reductionUninitialised = true;
 		double reduction = -1L;
 		while (source.hasNext()) {
 			if (reductionUninitialised) {
-				reduction = source.nextDouble();
+				reduction = source.nextDoubleImpl();
 				reductionUninitialised = false;
 			} else {
-				reduction = reducer.applyAsDouble(reduction, source.nextDouble());
+				reduction = reducer.applyAsDouble(reduction, source.nextDoubleImpl());
 			}
 		}
 		if (reductionUninitialised) {
@@ -56,26 +55,23 @@ public final class DoubleReductionConsumption
 		}
 	}
 
-	public static double fold(PrimitiveIterator.OfDouble source, double id,
+	public static double fold(AbstractDoubleIterator source, double id,
 			DoubleBinaryOperator reducer)
 	{
+		Exceptions.require(source.hasOwnership());
 		double reduction = id;
 		while (source.hasNext()) {
-			reduction = reducer.applyAsDouble(reduction, source.nextDouble());
+			reduction = reducer.applyAsDouble(reduction, source.nextDoubleImpl());
 		}
 		return reduction;
 	}
 
-	public static long count(PrimitiveIterator.OfDouble source)
+	public static long count(AbstractDoubleIterator source)
 	{
-		boolean sourceSkippable = source instanceof Skippable;
+		Exceptions.require(source.hasOwnership());
 		int count = 0;
 		while (source.hasNext()) {
-			if (sourceSkippable) {
-				((Skippable) source).skip();
-			} else {
-				source.nextDouble();
-			}
+			source.skipImpl();
 			count++;
 		}
 		return count;

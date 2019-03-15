@@ -30,7 +30,7 @@ public class SkipAdapter
 		{
 			AbstractEnhancedIterator<E> src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skip();
+				src.skipImpl();
 			}
 			skipped = true;
 		}
@@ -79,7 +79,7 @@ public class SkipAdapter
 		{
 			AbstractIntIterator src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skip();
+				src.skipImpl();
 			}
 			skipped = true;
 		}
@@ -128,7 +128,7 @@ public class SkipAdapter
 		{
 			AbstractLongIterator src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skip();
+				src.skipImpl();
 			}
 			skipped = true;
 		}
@@ -178,7 +178,7 @@ public class SkipAdapter
 		{
 			AbstractDoubleIterator src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skip();
+				src.skipImpl();
 			}
 			skipped = true;
 		}
