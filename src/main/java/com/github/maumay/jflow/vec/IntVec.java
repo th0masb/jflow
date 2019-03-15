@@ -5,6 +5,8 @@ package com.github.maumay.jflow.vec;
 
 import java.util.stream.IntStream;
 
+import com.github.maumay.jflow.impl.ArraySource;
+import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.iterables.IntIterable;
 import com.github.maumay.jflow.iterators.IntIterator;
 
@@ -56,7 +58,7 @@ public interface IntVec extends IntIterable
 	 */
 	static IntVec of(int... xs)
 	{
-		return new IntVecImpl(xs);
+		return new ArraySource.OfInt(xs).toVec();
 	}
 
 	/**
@@ -66,6 +68,6 @@ public interface IntVec extends IntIterable
 	 */
 	static IntVec empty()
 	{
-		return IntVecImpl.empty();
+		return new EmptyIterator.OfInt().toVec();
 	}
 }

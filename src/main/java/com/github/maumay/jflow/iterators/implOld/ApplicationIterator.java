@@ -9,10 +9,10 @@ import java.util.function.IntUnaryOperator;
 import java.util.function.LongUnaryOperator;
 import java.util.function.UnaryOperator;
 
-import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
+import com.github.maumay.jflow.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractIntIterator;
+import com.github.maumay.jflow.impl.AbstractLongIterator;
 
 /**
  * @author ThomasB

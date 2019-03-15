@@ -5,6 +5,8 @@ package com.github.maumay.jflow.vec;
 
 import java.util.stream.DoubleStream;
 
+import com.github.maumay.jflow.impl.ArraySource;
+import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.iterables.DoubleIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 
@@ -57,7 +59,7 @@ public interface DoubleVec extends DoubleIterable
 	 */
 	static DoubleVec of(double... xs)
 	{
-		return new DoubleVecImpl(xs);
+		return new ArraySource.OfDouble(xs).toVec();
 	}
 
 	/**
@@ -67,6 +69,6 @@ public interface DoubleVec extends DoubleIterable
 	 */
 	static DoubleVec empty()
 	{
-		return DoubleVecImpl.empty();
+		return new EmptyIterator.OfDouble().toVec();
 	}
 }

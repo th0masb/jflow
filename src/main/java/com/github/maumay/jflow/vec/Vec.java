@@ -15,6 +15,10 @@ import java.util.function.ToLongFunction;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
+import com.github.maumay.jflow.impl.ArraySource;
+import com.github.maumay.jflow.impl.CollectionSource;
+import com.github.maumay.jflow.impl.EmptyIterator;
+import com.github.maumay.jflow.impl.VecCollector;
 import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.utils.Tup;
@@ -100,6 +104,8 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 */
 	Vec<E> append(Iterable<? extends E> other);
 
+	Vec<E> append(Collection<? extends E> other);
+
 	/**
 	 * Creates a new vector by appending a single element to this vector.
 	 * 
@@ -119,6 +125,8 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 *         elements of this vector whose relative order is preserved.
 	 */
 	Vec<E> insert(Iterable<? extends E> other);
+
+	Vec<E> insert(Collection<? extends E> other);
 
 	/**
 	 * Creates a new vector by inserting a single element at the start of this
@@ -207,6 +215,39 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 */
 	Vec<E> sorted(Comparator<? super E> ordering);
 
+	/**
+	 * Creates a new primitive vector by applying the given function element-wise to
+	 * this vector.
+	 * 
+	 * @param mappingFunc The mapping function.
+	 * @return A new primitive vector of the same size as this vector whose ith
+	 *         element is the image of the ith element of this vector under the
+	 *         given function.
+	 */
+	DoubleVec mapToDouble(ToDoubleFunction<? super E> mappingFunc);
+
+	/**
+	 * Creates a new primitive vector by applying the given function element-wise to
+	 * this vector.
+	 * 
+	 * @param mappingFunc The mapping function.
+	 * @return A new primitive vector of the same size as this vector whose ith
+	 *         element is the image of the ith element of this vector under the
+	 *         given function.
+	 */
+	IntVec mapToInt(ToIntFunction<? super E> mappingFunc);
+
+	/**
+	 * Creates a new primitive vector by applying the given function element-wise to
+	 * this vector.
+	 * 
+	 * @param mappingFunc The mapping function.
+	 * @return A new primitive vector of the same size as this vector whose ith
+	 *         element is the image of the ith element of this vector under the
+	 *         given function.
+	 */
+	LongVec mapToLong(ToLongFunction<? super E> mappingFunc);
+
 	// Default methods
 
 	/**
@@ -286,48 +327,6 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 		return size() > 0 ? Optional.of(last()) : Optional.empty();
 	}
 
-	/**
-	 * Creates a new primitive vector by applying the given function element-wise to
-	 * this vector.
-	 * 
-	 * @param mappingFunc The mapping function.
-	 * @return A new primitive vector of the same size as this vector whose ith
-	 *         element is the image of the ith element of this vector under the
-	 *         given function.
-	 */
-	default DoubleVec mapToDouble(ToDoubleFunction<? super E> mappingFunc)
-	{
-		return iter().mapToDouble(mappingFunc).toVec();
-	}
-
-	/**
-	 * Creates a new primitive vector by applying the given function element-wise to
-	 * this vector.
-	 * 
-	 * @param mappingFunc The mapping function.
-	 * @return A new primitive vector of the same size as this vector whose ith
-	 *         element is the image of the ith element of this vector under the
-	 *         given function.
-	 */
-	default IntVec mapToInt(ToIntFunction<? super E> mappingFunc)
-	{
-		return iter().mapToInt(mappingFunc).toVec();
-	}
-
-	/**
-	 * Creates a new primitive vector by applying the given function element-wise to
-	 * this vector.
-	 * 
-	 * @param mappingFunc The mapping function.
-	 * @return A new primitive vector of the same size as this vector whose ith
-	 *         element is the image of the ith element of this vector under the
-	 *         given function.
-	 */
-	default LongVec mapToLong(ToLongFunction<? super E> mappingFunc)
-	{
-		return iter().mapToLong(mappingFunc).toVec();
-	}
-
 	// Static factories
 
 	/**
@@ -338,7 +337,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 */
 	static <E> Vec<E> empty()
 	{
-		return new VecImpl<>();
+		return new EmptyIterator.OfObject<E>().toVec();
 	}
 
 	/**
@@ -353,7 +352,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	@SafeVarargs
 	static <E> Vec<E> of(E... elements)
 	{
-		return new VecImpl<>(elements);
+		return new ArraySource.OfObject<>(elements).toVec();
 	}
 
 	/**
@@ -368,7 +367,7 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	@SafeVarargs
 	static <E> Vec<E> vec(E... elements)
 	{
-		return new VecImpl<>(elements);
+		return new ArraySource.OfObject<>(elements).toVec();
 	}
 
 	/**
@@ -383,24 +382,8 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	 */
 	static <E> Vec<E> copy(Collection<? extends E> collection)
 	{
-		return new VecImpl<>(collection);
-	}
-
-	/**
-	 * Creates a vector of elements described by the iterator returned by
-	 * {@link Iterable#iterator()} applied to the parameter. An exception will be
-	 * thrown if the source iterable produces an iterator containing a null
-	 * reference.
-	 * 
-	 * @param          <E> The element type of the new vector.
-	 * @param iterable the source of the elements which will be stored in the
-	 *                 resultant vector.
-	 * @return a vector containing all the elements in the iterator produced by the
-	 *         source iterable.
-	 */
-	static <E> Vec<E> copy(Iterable<? extends E> iterable)
-	{
-		return new VecImpl<>(iterable.iterator());
+		CollectionSource<E> iter = new CollectionSource<>(collection);
+		return iter.toVec();
 	}
 
 	/**
@@ -415,19 +398,5 @@ public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
 	static <E> VecCollector<E> collector()
 	{
 		return new VecCollector<>();
-	}
-
-	/**
-	 * Creates a vector of elements from an {@link Iterator} source. The argument
-	 * will be consumed, if the stream produces a null reference then an exception
-	 * will be thrown.
-	 * 
-	 * @param        <E> The element type of the new vector.
-	 * @param source the source of elements
-	 * @return a vector containing all the elements in the source iterator.
-	 */
-	static <E> Vec<E> fromIterator(Iterator<? extends E> source)
-	{
-		return new VecImpl<>(source);
 	}
 }

@@ -5,6 +5,8 @@ package com.github.maumay.jflow.vec;
 
 import java.util.stream.LongStream;
 
+import com.github.maumay.jflow.impl.ArraySource;
+import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.iterables.LongIterable;
 import com.github.maumay.jflow.iterators.LongIterator;
 
@@ -56,7 +58,7 @@ public interface LongVec extends LongIterable
 	 */
 	static LongVec of(long... xs)
 	{
-		return new LongVecImpl(xs);
+		return new ArraySource.OfLong(xs).toVec();
 	}
 
 	/**
@@ -66,6 +68,6 @@ public interface LongVec extends LongIterable
 	 */
 	static LongVec empty()
 	{
-		return LongVecImpl.empty();
+		return new EmptyIterator.OfLong().toVec();
 	}
 }

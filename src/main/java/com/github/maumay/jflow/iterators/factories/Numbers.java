@@ -1,9 +1,9 @@
 package com.github.maumay.jflow.iterators.factories;
 
+import com.github.maumay.jflow.impl.AbstractLongIterator;
+import com.github.maumay.jflow.impl.UnknownSize;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
-import com.github.maumay.jflow.iterators.impl.UnknownSize;
 
 /**
  * Static methods for building Flows of common number sets.

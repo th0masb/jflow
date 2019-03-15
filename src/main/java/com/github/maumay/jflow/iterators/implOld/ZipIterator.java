@@ -6,8 +6,8 @@ package com.github.maumay.jflow.iterators.implOld;
 import java.util.Iterator;
 import java.util.PrimitiveIterator;
 
+import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.utils.DoubleWith;
 import com.github.maumay.jflow.utils.IntTup;

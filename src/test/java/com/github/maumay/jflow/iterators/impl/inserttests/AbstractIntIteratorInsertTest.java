@@ -5,7 +5,7 @@ package com.github.maumay.jflow.iterators.impl.inserttests;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
+import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;

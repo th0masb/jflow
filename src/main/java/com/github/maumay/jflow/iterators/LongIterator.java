@@ -430,10 +430,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return A vector containing all elements of this {@link LongIterator} with
 	 *         their ordering retained.
 	 */
-	default LongVec toVec()
-	{
-		return LongVec.of(toArray());
-	}
+	LongVec toVec();
 
 	/**
 	 * Caches the values in this {@link LongIterator} to an array.

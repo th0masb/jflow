@@ -16,12 +16,12 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
+import com.github.maumay.jflow.impl.ArraySource;
 import com.github.maumay.jflow.iterables.EnhancedIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.impl.source.ArraySource;
 import com.github.maumay.jflow.iterators.implOld.EmptyIterator;
 import com.github.maumay.jflow.iterators.implOld.FunctionIterator;
 import com.github.maumay.jflow.iterators.implOld.ReversedSourceIterator;

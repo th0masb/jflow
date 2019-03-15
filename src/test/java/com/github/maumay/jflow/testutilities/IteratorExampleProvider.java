@@ -5,11 +5,11 @@ package com.github.maumay.jflow.testutilities;
 
 import java.util.NoSuchElementException;
 
-import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
-import com.github.maumay.jflow.iterators.impl.KnownSize;
+import com.github.maumay.jflow.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractIntIterator;
+import com.github.maumay.jflow.impl.AbstractLongIterator;
+import com.github.maumay.jflow.impl.KnownSize;
 
 /**
  * We provide iterable objects which produce identical iterators. We want

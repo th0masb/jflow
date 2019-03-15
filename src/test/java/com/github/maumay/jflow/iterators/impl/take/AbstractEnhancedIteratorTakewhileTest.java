@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;

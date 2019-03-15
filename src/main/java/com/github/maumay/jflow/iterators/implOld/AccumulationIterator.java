@@ -6,14 +6,14 @@ import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntBinaryOperator;
 import java.util.function.LongBinaryOperator;
 
+import com.github.maumay.jflow.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractIntIterator;
+import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.EnhancedIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
-import com.github.maumay.jflow.iterators.impl.AbstractLongIterator;
 
 /**
  * @author ThomasB

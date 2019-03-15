@@ -1,7 +1,7 @@
 package com.github.maumay.jflow.testutilities;
 
+import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.iterables.IntIterable;
-import com.github.maumay.jflow.iterators.impl.AbstractIntIterator;
 
 /**
  * @author ThomasB

@@ -426,10 +426,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @return A vector containing all elements of this {@link DoubleIterator} with
 	 *         their ordering retained.
 	 */
-	default DoubleVec toVec()
-	{
-		return DoubleVec.of(toArray());
-	}
+	DoubleVec toVec();
 
 	/**
 	 * Caches the values in this {@link DoubleIterator} to an array.

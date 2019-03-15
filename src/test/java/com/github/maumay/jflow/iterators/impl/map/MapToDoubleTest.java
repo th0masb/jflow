@@ -9,7 +9,7 @@ import java.util.function.ToDoubleFunction;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.impl.AbstractDoubleIterator;
 import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;

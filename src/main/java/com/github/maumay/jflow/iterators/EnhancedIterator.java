@@ -129,6 +129,10 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 */
 	<R> EnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other);
 
+	<R> EnhancedIterator<Tup<E, R>> zipWith(List<? extends R> other);
+
+	<R> EnhancedIterator<Tup<E, R>> zipWith(Vec<? extends R> other);
+
 	/**
 	 * Creates a new {@link EnhancedIterator} by mapping each element in this source
 	 * {@link EnhancedIterator} to a pair consisting of the element and the index it
@@ -440,10 +444,7 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return A Vec containing all elements of this source {@link EnhancedIterator}
 	 *         in the order that they appeared in the iteration.
 	 */
-	default Vec<E> toVec()
-	{
-		return Vec.fromIterator(this);
-	}
+	Vec<E> toVec();
 
 	/**
 	 * Caches the elements in this {@link EnhancedIterator}. This method is a
@@ -687,10 +688,10 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 *         supplied target type, containing only the elements of the source
 	 *         which are of the target type.
 	 */
-	default <R> EnhancedIterator<R> cast(Class<R> klass)
-	{
-		return filter(klass::isInstance).map(klass::cast);
-	}
+	<R> EnhancedIterator<R> cast(Class<R> klass);
+	// {
+	// return filter(klass::isInstance).map(klass::cast);
+	// }
 
 	/**
 	 * Consumes this iterator using the supplied collection function to create a new
@@ -752,8 +753,8 @@ public interface EnhancedIterator<E> extends SafeIterator<E>
 	 * @return the result of zipping this {@link EnhancedIterator} with an iterator
 	 *         created from the parameter iterable.
 	 */
-	default <R> EnhancedIterator<Tup<E, R>> zipWith(Iterable<? extends R> other)
-	{
-		return zipWith(other.iterator());
-	}
+	// EnhancedIterator<Tup<E, R>> zipWith(Iterable<? extends R> other)
+	// {
+	// return zipWith(other.iterator());
+	// }
 }

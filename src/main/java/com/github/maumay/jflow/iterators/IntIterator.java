@@ -463,10 +463,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return A vector containing all elements of this {@link IntIterator} with
 	 *         their ordering retained.
 	 */
-	default IntVec toVec()
-	{
-		return IntVec.of(toArray());
-	}
+	IntVec toVec();
 
 	/**
 	 * Caches the values in this {@link IntIterator} to an array.
@@ -524,28 +521,6 @@ public interface IntIterator extends SafeIntIterator
 	 *         long array accessed by their shared classification key.
 	 */
 	<K> Map<K, int[]> groupBy(IntFunction<? extends K> classifier);
-
-	// /**
-	// * A convenience method for applying a global function onto this
-	// * {@link IntIterator}.
-	// *
-	// * This method is potentially (depending on the supplied function) a
-	// 'consuming
-	// * method', i.e. it will iterate through this {@link IntIterator}.
-	// *
-	// * A convenience method for applying a global function onto this
-	// * {@link IntIterator}.
-	// *
-	// * @param <C> The target type of the build function.
-	// * @param builder - a function whose input encompasses {@link IntIterator}
-	// * instances of this element type.
-	// * @return the output of the supplied function applied to this
-	// * {@link IntIterator}.
-	// */
-	// default <C> C build(Function<? super IntIterator, C> builder)
-	// {
-	// return builder.apply(this);
-	// }
 
 	/**
 	 * Boxes the primitive long values in this {@link IntIterator}.
