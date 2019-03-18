@@ -19,10 +19,10 @@ public final class ZipAdapter
 	}
 
 	public static final class OfObjects<E1, E2> extends
-			AbstractIteratorBiAdapters.OfObject<AbstractEnhancedIterator<? extends E1>, AbstractEnhancedIterator<? extends E2>, Tup<E1, E2>>
+			AbstractIteratorBiAdapters.OfObject<AbstractRichIterator<? extends E1>, AbstractRichIterator<? extends E2>, Tup<E1, E2>>
 	{
-		public OfObjects(AbstractEnhancedIterator<? extends E1> sourceOne,
-				AbstractEnhancedIterator<? extends E2> sourceTwo)
+		public OfObjects(AbstractRichIterator<? extends E1> sourceOne,
+				AbstractRichIterator<? extends E2> sourceTwo)
 		{
 			super(IteratorImplUtils.min(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);

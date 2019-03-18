@@ -18,11 +18,11 @@ public final class MapToIntAdapter
 	}
 
 	public static final class FromObject<E>
-			extends AbstractIteratorAdapter.OfInt<AbstractEnhancedIterator<E>>
+			extends AbstractIteratorAdapter.OfInt<AbstractRichIterator<E>>
 	{
 		private final ToIntFunction<? super E> map;
 
-		public FromObject(AbstractEnhancedIterator<E> source, ToIntFunction<? super E> map)
+		public FromObject(AbstractRichIterator<E> source, ToIntFunction<? super E> map)
 		{
 			super(source.getSize().copy(), source);
 			this.map = map;

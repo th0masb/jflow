@@ -16,7 +16,7 @@ public final class ArraySource
 	{
 	}
 
-	public static class OfObject<E> extends AbstractEnhancedIterator<E>
+	public static class OfObject<E> extends AbstractRichIterator<E>
 	{
 		private final Object[] data;
 		private int count = 0;
@@ -54,7 +54,7 @@ public final class ArraySource
 		}
 	}
 
-	public static class OfObjectReversed<E> extends AbstractEnhancedIterator<E>
+	public static class OfObjectReversed<E> extends AbstractRichIterator<E>
 	{
 		private final Object[] data;
 		private int count, size;

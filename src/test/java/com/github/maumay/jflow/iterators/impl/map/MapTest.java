@@ -10,10 +10,10 @@ import java.util.function.LongUnaryOperator;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
@@ -25,8 +25,8 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 	@Test
 	public void testAbstractObjectFlowMap()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		Function<String, String> mapper = string -> string + string;
 
 		assertObjectIteratorAsExpected(asList("00", "11", "22", "33", "44"),
@@ -34,12 +34,12 @@ public class MapTest extends IteratorExampleProvider implements IteratorTest
 		assertObjectIteratorAsExpected(asList(), createMapIteratorProviderFrom(empty, mapper));
 	}
 
-	private <T, R> AbstractEnhancedIterable<R> createMapIteratorProviderFrom(
-			AbstractEnhancedIterable<T> src, Function<T, R> mapper)
+	private <T, R> AbstractRichIterable<R> createMapIteratorProviderFrom(
+			AbstractRichIterable<T> src, Function<T, R> mapper)
 	{
-		return new AbstractEnhancedIterable<R>() {
+		return new AbstractRichIterable<R>() {
 			@Override
-			public AbstractEnhancedIterator<R> iter()
+			public AbstractRichIterator<R> iter()
 			{
 				return src.iterator().map(mapper);
 			}

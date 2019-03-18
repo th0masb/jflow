@@ -4,8 +4,8 @@ import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -17,9 +17,9 @@ class AbstractEnhancedIteratorInsertTest extends IteratorExampleProvider impleme
 	@Test
 	void test()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> small = getSmallObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> small = getSmallObjectTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList("10", "11", "0", "1", "2", "3", "4"),
 				createinsertIteratorProviderFrom(populated, small));
@@ -31,12 +31,12 @@ class AbstractEnhancedIteratorInsertTest extends IteratorExampleProvider impleme
 		assertObjectIteratorAsExpected(asList(), createinsertIteratorProviderFrom(empty, empty));
 	}
 
-	private <E> AbstractEnhancedIterable<E> createinsertIteratorProviderFrom(
-			AbstractEnhancedIterable<E> source, AbstractEnhancedIterable<E> toInsert)
+	private <E> AbstractRichIterable<E> createinsertIteratorProviderFrom(
+			AbstractRichIterable<E> source, AbstractRichIterable<E> toInsert)
 	{
-		return new AbstractEnhancedIterable<E>() {
+		return new AbstractRichIterable<E>() {
 			@Override
-			public AbstractEnhancedIterator<E> iter()
+			public AbstractRichIterator<E> iter()
 			{
 				return source.iter().insert(toInsert.iter());
 			}

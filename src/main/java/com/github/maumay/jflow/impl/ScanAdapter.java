@@ -18,14 +18,14 @@ public final class ScanAdapter
 	}
 
 	public static class OfObject<E, R>
-			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, R>
+			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, R>
 	{
 		private final BiFunction<R, E, R> accumulator;
 
 		private R accumulationValue;
 		private boolean initialValueConsumed;
 
-		public OfObject(AbstractEnhancedIterator<E> src, R id, BiFunction<R, E, R> accumulator)
+		public OfObject(AbstractRichIterator<E> src, R id, BiFunction<R, E, R> accumulator)
 		{
 			super(IteratorImplUtils.add(src.getSize(), 1), src);
 			this.accumulator = Objects.requireNonNull(accumulator);

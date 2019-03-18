@@ -55,7 +55,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         parameter mapping function to each element of this
 	 *         {@link IntIterator} instance in turn.
 	 */
-	<E> EnhancedIterator<E> mapToObject(IntFunction<? extends E> f);
+	<E> RichIterator<E> mapToObject(IntFunction<? extends E> f);
 
 	/**
 	 * Applies a function elementwise to this {@link IntIterator} to make a new
@@ -95,7 +95,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<IntTup> zipWith(PrimitiveIterator.OfInt other);
+	RichIterator<IntTup> zipWith(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Creates a new Iterator by mapping each element in this source
@@ -109,7 +109,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         <li>{@code length(G) = length(F)}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<IntTup> enumerate();
+	RichIterator<IntTup> enumerate();
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by selecting
@@ -528,7 +528,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return a copy of this source {@link IntIterator} as a Iterator of boxed
 	 *         {@linkplain Integer} instances.
 	 */
-	default EnhancedIterator<Integer> boxed()
+	default RichIterator<Integer> boxed()
 	{
 		return mapToObject(x -> x);
 	}

@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -20,8 +20,8 @@ class AbstractEnhancedIteratorFilterTest extends IteratorExampleProvider impleme
 	@Test
 	void test()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		Predicate<String> allFilteredPredicate = string -> parseInt(string) < 0;
 		assertObjectIteratorAsExpected(asList(),
@@ -42,12 +42,12 @@ class AbstractEnhancedIteratorFilterTest extends IteratorExampleProvider impleme
 				createFilterIteratorProviderFrom(empty, noneFilteredPredicate));
 	}
 
-	private <E> AbstractEnhancedIterable<E> createFilterIteratorProviderFrom(
-			AbstractEnhancedIterable<E> source, Predicate<? super E> predicate)
+	private <E> AbstractRichIterable<E> createFilterIteratorProviderFrom(
+			AbstractRichIterable<E> source, Predicate<? super E> predicate)
 	{
-		return new AbstractEnhancedIterable<E>() {
+		return new AbstractRichIterable<E>() {
 			@Override
-			public AbstractEnhancedIterator<E> iter()
+			public AbstractRichIterator<E> iter()
 			{
 				return source.iter().filter(predicate);
 			}

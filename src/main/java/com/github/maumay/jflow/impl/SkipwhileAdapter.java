@@ -20,14 +20,14 @@ public class SkipwhileAdapter
 	}
 
 	public static final class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
+			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
 	{
 		private final Predicate<? super E> predicate;
 
 		private E firstFailure;
 		private boolean firstFailureInitialised, firstFailureConsumed;
 
-		public OfObject(AbstractEnhancedIterator<E> source,
+		public OfObject(AbstractRichIterator<E> source,
 				Predicate<? super E> predicate)
 		{
 			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
@@ -43,7 +43,7 @@ public class SkipwhileAdapter
 			if (firstFailureInitialised) {
 				return !firstFailureConsumed || getSource().hasNext();
 			} else {
-				AbstractEnhancedIterator<E> src = getSource();
+				AbstractRichIterator<E> src = getSource();
 				while (src.hasNext()) {
 					E next = src.nextImpl();
 					if (!predicate.test(next)) {

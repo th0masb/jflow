@@ -48,15 +48,15 @@ public interface LongIterator extends SafeLongIterator
 
 	/**
 	 * Applies a function elementwise to this {@link LongIterator} to make new
-	 * {@link EnhancedIterator}.
+	 * {@link RichIterator}.
 	 *
 	 * @param   <E> The target type of the mapping function.
 	 * @param f A mapping function.
-	 * @return A new {@link EnhancedIterator} instance whose elements are obtained
+	 * @return A new {@link RichIterator} instance whose elements are obtained
 	 *         by applying the parameter mapping function to each element of this
 	 *         {@link LongIterator} instance in turn.
 	 */
-	<E> EnhancedIterator<E> mapToObject(LongFunction<? extends E> f);
+	<E> RichIterator<E> mapToObject(LongFunction<? extends E> f);
 
 	/**
 	 * Applies a function elementwise to this {@link LongIterator} to make a new
@@ -82,7 +82,7 @@ public interface LongIterator extends SafeLongIterator
 
 	/**
 	 * Combines this {@link LongIterator} with another primitive iterator to create
-	 * a new {@link EnhancedIterator} consisting of pairs of elements with the same
+	 * a new {@link RichIterator} consisting of pairs of elements with the same
 	 * index in their respective origins.
 	 *
 	 * @param other The primitive iterator to zip this source {@link LongIterator}
@@ -90,27 +90,27 @@ public interface LongIterator extends SafeLongIterator
 	 *
 	 * @return Denote this source {@link LongIterator} by {@code F} with the
 	 *         parameter primitive iterator denoted by {@code I}. We return a new
-	 *         {@link EnhancedIterator} instance {@code G} defined by:
+	 *         {@link RichIterator} instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<LongTup> zipWith(PrimitiveIterator.OfLong other);
+	RichIterator<LongTup> zipWith(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Creates a new {@link EnhancedIterator} by mapping each element in this source
+	 * Creates a new {@link RichIterator} by mapping each element in this source
 	 * {@link LongIterator} to a pair consisting of the element and the index it
 	 * appears.
 	 *
 	 * @return Denote this source {@link LongIterator} by {@code F}. We return a new
-	 *         {@link EnhancedIterator} instance {@code G} defined by:
+	 *         {@link RichIterator} instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], j)}</li>
 	 *         <li>{@code length(G) = length(F)}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<LongTup> enumerate();
+	RichIterator<LongTup> enumerate();
 
 	/**
 	 * Creates a new {@link LongIterator} from this {@link LongIterator} by
@@ -213,7 +213,7 @@ public interface LongIterator extends SafeLongIterator
 	LongIterator append(long... other);
 
 	/**
-	 * Creates a new {@link LongIterator} from this {@link EnhancedIterator} by
+	 * Creates a new {@link LongIterator} from this {@link RichIterator} by
 	 * adding each element to the end of the supplied primitive iterator in order.
 	 *
 	 * @param other A primitive iterator.
@@ -224,7 +224,7 @@ public interface LongIterator extends SafeLongIterator
 	LongIterator insert(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Creates a new {@link LongIterator} from this {@link EnhancedIterator} by
+	 * Creates a new {@link LongIterator} from this {@link RichIterator} by
 	 * adding each element to the end of the supplied varargs array in order.
 	 *
 	 * @param other - A varargs long array
@@ -514,9 +514,9 @@ public interface LongIterator extends SafeLongIterator
 	 * Boxes the primitive long values in this {@link LongIterator}.
 	 *
 	 * @return a copy of this source {@link LongIterator} as a
-	 *         {@link EnhancedIterator} of boxed {@linkplain Long} instances.
+	 *         {@link RichIterator} of boxed {@linkplain Long} instances.
 	 */
-	default EnhancedIterator<Long> boxed()
+	default RichIterator<Long> boxed()
 	{
 		return mapToObject(x -> x);
 	}

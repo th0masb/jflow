@@ -10,7 +10,7 @@ import java.util.function.ToDoubleFunction;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
@@ -25,8 +25,8 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	@Test
 	public void testAbstractFlowMapToDouble()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		ToDoubleFunction<String> mapper = Double::parseDouble;
 
 		assertDoubleIteratorAsExpected(new double[] { 0, 1, 2, 3, 4 },
@@ -36,7 +36,7 @@ public class MapToDoubleTest extends IteratorExampleProvider implements Iterator
 	}
 
 	private <T> AbstractIterableDoubles createMapToDoubleIteratorProviderFrom(
-			AbstractEnhancedIterable<T> src, ToDoubleFunction<T> mapper)
+			AbstractRichIterable<T> src, ToDoubleFunction<T> mapper)
 	{
 		return new AbstractIterableDoubles() {
 			@Override

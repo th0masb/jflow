@@ -12,13 +12,13 @@ import java.util.function.Function;
  *
  */
 public final class FlatmapAdapter<E, R>
-		extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<? extends E>, R>
+		extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<? extends E>, R>
 {
 	private final Function<? super E, ? extends Iterator<? extends R>> map;
 
 	private Iterator<? extends R> currentIterator;
 
-	public FlatmapAdapter(AbstractEnhancedIterator<? extends E> source,
+	public FlatmapAdapter(AbstractRichIterator<? extends E> source,
 			Function<? super E, ? extends Iterator<? extends R>> map)
 	{
 		super(UnknownSize.instance(), source);

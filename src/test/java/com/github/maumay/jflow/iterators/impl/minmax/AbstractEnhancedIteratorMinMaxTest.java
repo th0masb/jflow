@@ -17,7 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
 /**
@@ -30,12 +30,12 @@ class AbstractEnhancedIteratorMinMaxTest extends IteratorExampleProvider
 	@MethodSource("minByKeyTestDataProvider")
 	void testMinByKey(Comparator<String> key, String expectedPopulatedResult)
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
 		Optional<String> result = populated.iterator().minOption(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		assertFalse(empty.iterator().minOption(key).isPresent());
 	}
 
@@ -50,12 +50,12 @@ class AbstractEnhancedIteratorMinMaxTest extends IteratorExampleProvider
 	@MethodSource("maxByKeyTestDataProvider")
 	void testMax(Comparator<String> key, String expectedPopulatedResult)
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
 		Optional<String> result = populated.iterator().maxOption(key);
 		assertTrue(result.isPresent());
 		assertEquals(expectedPopulatedResult, result.get());
 
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		assertFalse(empty.iterator().maxOption(key).isPresent());
 	}
 

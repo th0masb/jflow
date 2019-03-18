@@ -54,7 +54,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public <E> AbstractEnhancedIterator<E> mapToObject(IntFunction<? extends E> f)
+	public <E> AbstractRichIterator<E> mapToObject(IntFunction<? extends E> f)
 	{
 		return new MapToObjectAdapter.FromInt<>(this, f);
 	}
@@ -72,13 +72,13 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public AbstractEnhancedIterator<IntTup> zipWith(OfInt other)
+	public AbstractRichIterator<IntTup> zipWith(OfInt other)
 	{
 		return new ZipAdapter.OfInts(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractEnhancedIterator<IntTup> enumerate()
+	public AbstractRichIterator<IntTup> enumerate()
 	{
 		return zipWith(Numbers.natural());
 	}

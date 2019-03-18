@@ -54,7 +54,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public <E> AbstractEnhancedIterator<E> mapToObject(DoubleFunction<? extends E> f)
+	public <E> AbstractRichIterator<E> mapToObject(DoubleFunction<? extends E> f)
 	{
 		return new MapToObjectAdapter.FromDouble<>(this, f);
 	}
@@ -72,13 +72,13 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public AbstractEnhancedIterator<DoubleTup> zipWith(OfDouble other)
+	public AbstractRichIterator<DoubleTup> zipWith(OfDouble other)
 	{
 		return new ZipAdapter.OfDoubles(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractEnhancedIterator<DoubleTup> enumerate()
+	public AbstractRichIterator<DoubleTup> enumerate()
 	{
 		throw new RuntimeException();
 	}

@@ -15,7 +15,7 @@ public final class ApplicationSource
 	{
 	}
 
-	public static class OfObject<E> extends AbstractEnhancedIterator<E>
+	public static class OfObject<E> extends AbstractRichIterator<E>
 	{
 		private final UnaryOperator<E> applicationOperator;
 		private E currentValue;

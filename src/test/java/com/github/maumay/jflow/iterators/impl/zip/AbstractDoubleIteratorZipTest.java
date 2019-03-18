@@ -7,8 +7,8 @@ import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
@@ -50,12 +50,12 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProvider
 				createZipIteratorProviderFrom(empty, mid));
 	}
 
-	private AbstractEnhancedIterable<DoubleTup> createZipIteratorProviderFrom(
+	private AbstractRichIterable<DoubleTup> createZipIteratorProviderFrom(
 			AbstractIterableDoubles first, AbstractIterableDoubles second)
 	{
-		return new AbstractEnhancedIterable<DoubleTup>() {
+		return new AbstractRichIterable<DoubleTup>() {
 			@Override
-			public AbstractEnhancedIterator<DoubleTup> iter()
+			public AbstractRichIterator<DoubleTup> iter()
 			{
 				return first.iter().zipWith(second.iter());
 			}

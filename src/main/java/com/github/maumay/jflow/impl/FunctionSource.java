@@ -19,7 +19,7 @@ public final class FunctionSource
 	{
 	}
 
-	public static class OfObject<E> extends AbstractEnhancedIterator<E>
+	public static class OfObject<E> extends AbstractRichIterator<E>
 	{
 		private final IntFunction<? extends E> src;
 		private final boolean infiniteSize;

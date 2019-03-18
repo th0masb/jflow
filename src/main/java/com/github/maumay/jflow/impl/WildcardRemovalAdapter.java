@@ -10,9 +10,9 @@ import com.github.maumay.jflow.impl.AbstractIteratorAdapter.OfObject;
  *
  */
 public final class WildcardRemovalAdapter<E>
-		extends OfObject<AbstractEnhancedIterator<? extends E>, E>
+		extends OfObject<AbstractRichIterator<? extends E>, E>
 {
-	public WildcardRemovalAdapter(AbstractEnhancedIterator<? extends E> source)
+	public WildcardRemovalAdapter(AbstractRichIterator<? extends E> source)
 	{
 		super(source.getSize().copy(), source);
 	}

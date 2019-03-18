@@ -9,8 +9,8 @@ import java.util.function.BiFunction;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -25,8 +25,8 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 	@Test
 	void testAccumulationWithId()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList("x", "x0", "x01", "x012", "x0123", "x01234"),
 				createAccumlationWithIdIteratorProviderFrom(populated, "x", String::concat));
@@ -34,12 +34,12 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProvider
 				createAccumlationWithIdIteratorProviderFrom(empty, "x", String::concat));
 	}
 
-	private <E, R> AbstractEnhancedIterable<R> createAccumlationWithIdIteratorProviderFrom(
-			AbstractEnhancedIterable<E> source, R id, BiFunction<R, E, R> accumulator)
+	private <E, R> AbstractRichIterable<R> createAccumlationWithIdIteratorProviderFrom(
+			AbstractRichIterable<E> source, R id, BiFunction<R, E, R> accumulator)
 	{
-		return new AbstractEnhancedIterable<R>() {
+		return new AbstractRichIterable<R>() {
 			@Override
-			public AbstractEnhancedIterator<R> iter()
+			public AbstractRichIterator<R> iter()
 			{
 				return source.iter().scan(id, accumulator);
 			}

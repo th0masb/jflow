@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.DoubleVec;
 import com.github.maumay.jflow.vec.IntVec;
@@ -79,7 +79,7 @@ public class EnhancedIteratorExamples
 
 		// *****************************************************************************************
 		// Fine grained control over consuming an iterator
-		EnhancedIterator<String> iter = strings.iter();
+		RichIterator<String> iter = strings.iter();
 		assert iter.next().equals("a");
 		assert iter.nextOption().equals(Option.of("b"));
 		assert !iter.hasNext();

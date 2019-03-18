@@ -3,7 +3,7 @@
  */
 package com.github.maumay.jflow.iterators.custom;
 
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 
 /**
  * An object which can terminate an iterator data piping chain by aggregating
@@ -24,5 +24,5 @@ public interface IteratorCollector<E, R>
 	 * @param source The iterator to collect and consume.
 	 * @return The result of the collection operation.
 	 */
-	R collect(EnhancedIterator<? extends E> source);
+	R collect(AbstractRichIterator<? extends E> source);
 }

@@ -57,7 +57,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         parameter mapping function to each element of this
 	 *         {@link DoubleIterator} instance in turn.
 	 */
-	<E> EnhancedIterator<E> mapToObject(DoubleFunction<? extends E> f);
+	<E> RichIterator<E> mapToObject(DoubleFunction<? extends E> f);
 
 	/**
 	 * Applies a function elementwise to this {@link DoubleIterator} to make new
@@ -97,7 +97,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<DoubleTup> zipWith(PrimitiveIterator.OfDouble other);
+	RichIterator<DoubleTup> zipWith(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Creates a new Iterator by mapping each element in this source
@@ -111,7 +111,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <li>{@code length(G) = length(F)}</li>
 	 *         </ul>
 	 */
-	EnhancedIterator<DoubleTup> enumerate();
+	RichIterator<DoubleTup> enumerate();
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
@@ -515,7 +515,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @return a copy of this source {@link DoubleIterator} as a Iterator of boxed
 	 *         Double instances.
 	 */
-	default EnhancedIterator<Double> boxed()
+	default RichIterator<Double> boxed()
 	{
 		return mapToObject(x -> x);
 	}

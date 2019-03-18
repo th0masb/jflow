@@ -14,7 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
 /**
@@ -26,12 +26,12 @@ class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExamplePr
 	@MethodSource("singleTypeReductionTestDataProvider")
 	void testSingleTypeReduction(BinaryOperator<String> reducer, String expectedPopulatedResult)
 	{
-		AbstractEnhancedIterator<String> populated = getObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> populated = getObjectTestIteratorProvider().iterator();
 		Optional<String> reduction = populated.foldOption(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult, reduction.get());
 
-		AbstractEnhancedIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
 		assertFalse(empty.foldOption(reducer).isPresent());
 	}
 
@@ -45,11 +45,11 @@ class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExamplePr
 	void testTwoTypeReduction(Double id, BiFunction<Double, String, Double> reducer,
 			Double expectedPopulatedResult)
 	{
-		AbstractEnhancedIterator<String> populated = getObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> populated = getObjectTestIteratorProvider().iterator();
 		Double reduction = populated.fold(id, reducer);
 		assertEquals(expectedPopulatedResult, reduction);
 
-		AbstractEnhancedIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
 		assertEquals(id, empty.fold(id, reducer));
 	}
 
@@ -61,7 +61,7 @@ class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("countReductionTestDataProvider")
-	void testCounting(AbstractEnhancedIterator<String> iterator, Integer expectedCount)
+	void testCounting(AbstractRichIterator<String> iterator, Integer expectedCount)
 	{
 		assertEquals(expectedCount.intValue(), iterator.count());
 	}

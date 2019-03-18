@@ -18,7 +18,7 @@ import java.util.stream.StreamSupport;
 
 import com.github.maumay.jflow.examples.termination.Geometry.Bounds;
 import com.github.maumay.jflow.examples.termination.Geometry.Point;
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -99,7 +99,7 @@ public final class CollectingPoints
 	}
 
 	// Iterator version
-	public static Bounds fromIterator(EnhancedIterator<? extends Point> source)
+	public static Bounds fromIterator(RichIterator<? extends Point> source)
 	{
 		require(source.hasNext());
 		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;

@@ -16,7 +16,7 @@ public class AbstractIteratorBiAdapters
 	}
 
 	public static abstract class OfObject<S1 extends AbstractIterator, S2 extends AbstractIterator, R>
-			extends AbstractEnhancedIterator<R>
+			extends AbstractRichIterator<R>
 	{
 		private final S1 sourceOne;
 		private final S2 sourceTwo;

@@ -21,14 +21,14 @@ public class TakewhileAdapter
 	}
 
 	public static final class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
+			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
 	{
 		private final Predicate<? super E> predicate;
 
 		private E cached;
 		private boolean iteratorExhausted, nextReady;
 
-		public OfObject(AbstractEnhancedIterator<E> source, Predicate<? super E> predicate)
+		public OfObject(AbstractRichIterator<E> source, Predicate<? super E> predicate)
 		{
 			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);

@@ -13,9 +13,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.UnknownSize;
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
 /**
@@ -158,7 +158,7 @@ public final class Strings
 	 * 
 	 * @return The concatenated string.
 	 */
-	public static String concat(EnhancedIterator<String> source)
+	public static String concat(RichIterator<String> source)
 	{
 		return source.fold(new StringBuilder(), (b, s) -> b.append(s)).toString();
 	}
@@ -197,7 +197,7 @@ public final class Strings
 	 * 
 	 * @return An iterator traversing all regex matches.
 	 */
-	public static EnhancedIterator<String> allMatches(String source, String regex)
+	public static RichIterator<String> allMatches(String source, String regex)
 	{
 		return allMatches(source, Pattern.compile(regex));
 	}
@@ -211,9 +211,9 @@ public final class Strings
 	 * 
 	 * @return A Flow over all matches.
 	 */
-	public static EnhancedIterator<String> allMatches(String source, Pattern pattern)
+	public static RichIterator<String> allMatches(String source, Pattern pattern)
 	{
-		return new AbstractEnhancedIterator<String>(UnknownSize.instance()) {
+		return new AbstractRichIterator<String>(UnknownSize.instance()) {
 			Matcher matcher = pattern.matcher(source);
 			String current;
 

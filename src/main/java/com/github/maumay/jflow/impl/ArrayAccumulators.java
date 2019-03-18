@@ -21,7 +21,7 @@ public final class ArrayAccumulators
 	static final int GROWTH_FACTOR = 2;
 
 	@SuppressWarnings("unchecked")
-	static <E> E[] consume(AbstractEnhancedIterator<? extends E> src)
+	static <E> E[] consume(AbstractRichIterator<? extends E> src)
 	{
 		Exceptions.require(src.hasOwnership());
 		switch (src.getSize().getType()) {

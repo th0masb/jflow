@@ -9,8 +9,8 @@ import java.util.function.IntUnaryOperator;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -23,8 +23,8 @@ class AbstractEnhancedIteratorSliceTest extends IteratorExampleProvider implemen
 	@Test
 	void test()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		IntUnaryOperator allSlicedOperator = i -> i;
 		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4"),
@@ -45,12 +45,12 @@ class AbstractEnhancedIteratorSliceTest extends IteratorExampleProvider implemen
 				createSlicedIteratorProviderFrom(empty, noneSlicedOperator));
 	}
 
-	private <E> AbstractEnhancedIterable<E> createSlicedIteratorProviderFrom(
-			AbstractEnhancedIterable<E> source, IntUnaryOperator slicemap)
+	private <E> AbstractRichIterable<E> createSlicedIteratorProviderFrom(
+			AbstractRichIterable<E> source, IntUnaryOperator slicemap)
 	{
-		return new AbstractEnhancedIterable<E>() {
+		return new AbstractRichIterable<E>() {
 			@Override
-			public AbstractEnhancedIterator<E> iter()
+			public AbstractRichIterator<E> iter()
 			{
 				return source.iter().slice(slicemap);
 			}

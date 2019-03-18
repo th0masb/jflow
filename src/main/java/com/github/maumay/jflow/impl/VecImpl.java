@@ -20,7 +20,7 @@ import java.util.function.ToLongFunction;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.IntVec;
@@ -30,7 +30,7 @@ import com.github.maumay.jflow.vec.Vec;
 /**
  * An immutable implementation of {@link Vec} which stores only non null
  * references. This class is very space efficient as it simply wraps a single
- * Object array. When combined with {@link EnhancedIterator} instances one can
+ * Object array. When combined with {@link RichIterator} instances one can
  * write very clean, efficient and safe code code without ever needing to
  * reference this type directly.
  *
@@ -116,14 +116,14 @@ final class VecImpl<E> implements Vec<E>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public AbstractEnhancedIterator<E> revIter()
+	public AbstractRichIterator<E> revIter()
 	{
 		return new ArraySource.OfObjectReversed<>((E[]) data);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public AbstractEnhancedIterator<E> iter()
+	public AbstractRichIterator<E> iter()
 	{
 		return new ArraySource.OfObject<E>((E[]) data);
 	}

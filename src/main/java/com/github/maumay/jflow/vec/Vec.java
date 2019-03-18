@@ -19,15 +19,15 @@ import com.github.maumay.jflow.impl.ArraySource;
 import com.github.maumay.jflow.impl.CollectionSource;
 import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.impl.VecCollector;
-import com.github.maumay.jflow.iterables.EnhancedIterable;
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterables.RichIterable;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * <p>
  * A Vec (vector) is an <b>immutable</b> wrapper around an object array which
  * provides a myriad of higher order methods for operating on the elements using
- * enhanced sequential iterators (see {@link EnhancedIterator}). The
+ * enhanced sequential iterators (see {@link RichIterator}). The
  * immutability guarantee means we can also construct streams which are well
  * suited for parallelising operations. Null values are not permitted to be
  * stored inside this data structure.
@@ -37,14 +37,14 @@ import com.github.maumay.jflow.utils.Tup;
  * 
  * @author ThomasB
  */
-public interface Vec<E> extends EnhancedIterable<E>, Indexable<E>
+public interface Vec<E> extends RichIterable<E>, Indexable<E>
 {
 	/**
 	 * Creates an iterator traversing the elements in this vector in reverse order.
 	 * 
 	 * @return An iterator traversing the elements in this vector in reverse order.
 	 */
-	EnhancedIterator<E> revIter();
+	RichIterator<E> revIter();
 
 	/**
 	 * Creates a sequential stream over the elements in this vector.

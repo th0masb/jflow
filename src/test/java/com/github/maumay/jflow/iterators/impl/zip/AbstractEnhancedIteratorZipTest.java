@@ -4,8 +4,8 @@ import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.Tup;
@@ -19,10 +19,10 @@ class AbstractEnhancedIteratorZipTest extends IteratorExampleProvider
 	@Test
 	void testZipWithObject()
 	{
-		AbstractEnhancedIterable<String> small = getSmallObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> mid = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> large = getLargeObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> small = getSmallObjectTestIteratorProvider();
+		AbstractRichIterable<String> mid = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> large = getLargeObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList(Tup.of("0", "10"), Tup.of("1", "11")),
 				createZipIteratorProviderFrom(mid, small));
@@ -45,12 +45,12 @@ class AbstractEnhancedIteratorZipTest extends IteratorExampleProvider
 				createZipIteratorProviderFrom(empty, mid));
 	}
 
-	private <E1, E2> AbstractEnhancedIterable<Tup<E1, E2>> createZipIteratorProviderFrom(
-			AbstractEnhancedIterable<E1> first, AbstractEnhancedIterable<E2> second)
+	private <E1, E2> AbstractRichIterable<Tup<E1, E2>> createZipIteratorProviderFrom(
+			AbstractRichIterable<E1> first, AbstractRichIterable<E2> second)
 	{
-		return new AbstractEnhancedIterable<Tup<E1, E2>>() {
+		return new AbstractRichIterable<Tup<E1, E2>>() {
 			@Override
-			public AbstractEnhancedIterator<Tup<E1, E2>> iter()
+			public AbstractRichIterator<Tup<E1, E2>> iter()
 			{
 				return first.iter().zipWith(second.iter());
 			}

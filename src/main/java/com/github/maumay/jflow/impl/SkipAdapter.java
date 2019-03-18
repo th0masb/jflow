@@ -14,12 +14,12 @@ public class SkipAdapter
 	}
 
 	public static final class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
+			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
 	{
 		private final int skipCount;
 		private boolean skipped;
 
-		public OfObject(AbstractEnhancedIterator<E> source, int skipcount)
+		public OfObject(AbstractRichIterator<E> source, int skipcount)
 		{
 			super(IteratorImplUtils.subtract(source.getSize(), skipcount), source);
 			this.skipCount = IteratorImplUtils.requireNonNegative(skipcount);
@@ -28,7 +28,7 @@ public class SkipAdapter
 
 		private void performSkip()
 		{
-			AbstractEnhancedIterator<E> src = getSource();
+			AbstractRichIterator<E> src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
 				src.skipImpl();
 			}

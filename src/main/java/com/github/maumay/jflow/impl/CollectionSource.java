@@ -10,7 +10,7 @@ import java.util.Iterator;
  * @author thomasb
  *
  */
-public final class CollectionSource<E> extends AbstractEnhancedIterator<E>
+public final class CollectionSource<E> extends AbstractRichIterator<E>
 {
 	private final Iterator<? extends E> source;
 

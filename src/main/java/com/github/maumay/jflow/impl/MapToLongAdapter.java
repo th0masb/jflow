@@ -18,11 +18,11 @@ public final class MapToLongAdapter
 	}
 
 	public static final class FromObject<E>
-			extends AbstractIteratorAdapter.OfLong<AbstractEnhancedIterator<E>>
+			extends AbstractIteratorAdapter.OfLong<AbstractRichIterator<E>>
 	{
 		private final ToLongFunction<? super E> map;
 
-		public FromObject(AbstractEnhancedIterator<E> source, ToLongFunction<? super E> map)
+		public FromObject(AbstractRichIterator<E> source, ToLongFunction<? super E> map)
 		{
 			super(source.getSize().copy(), source);
 			this.map = map;

@@ -20,11 +20,11 @@ public class MapAdapter
 	}
 
 	public static final class OfObject<E, R>
-			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, R>
+			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, R>
 	{
 		private final Function<? super E, ? extends R> map;
 
-		public OfObject(AbstractEnhancedIterator<E> source, Function<? super E, ? extends R> map)
+		public OfObject(AbstractRichIterator<E> source, Function<? super E, ? extends R> map)
 		{
 			super(source.getSize().copy(), source);
 			this.map = Objects.requireNonNull(map);

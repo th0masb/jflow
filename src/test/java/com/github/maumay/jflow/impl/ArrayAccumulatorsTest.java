@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.ArrayAccumulators;
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
 /**
@@ -33,7 +33,7 @@ class ArrayAccumulatorsTest
 		assertArrayEquals(expected, acc.compress());
 	}
 
-	static EnhancedIterator<Arguments> testIntAccumulation()
+	static RichIterator<Arguments> testIntAccumulation()
 	{
 		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(39),
 				Arguments.of(12009));
@@ -54,7 +54,7 @@ class ArrayAccumulatorsTest
 		assertArrayEquals(expected, acc.compress());
 	}
 
-	static EnhancedIterator<Arguments> testDoubleAccumulation()
+	static RichIterator<Arguments> testDoubleAccumulation()
 	{
 		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(39),
 				Arguments.of(10239));
@@ -75,7 +75,7 @@ class ArrayAccumulatorsTest
 		assertArrayEquals(expected, acc.compress());
 	}
 
-	static EnhancedIterator<Arguments> testLongAccumulation()
+	static RichIterator<Arguments> testLongAccumulation()
 	{
 		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(284),
 				Arguments.of(9375));
@@ -96,7 +96,7 @@ class ArrayAccumulatorsTest
 		assertArrayEquals(expected, acc.compress());
 	}
 
-	static EnhancedIterator<Arguments> testObjectAccumulation()
+	static RichIterator<Arguments> testObjectAccumulation()
 	{
 		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(284),
 				Arguments.of(9375));

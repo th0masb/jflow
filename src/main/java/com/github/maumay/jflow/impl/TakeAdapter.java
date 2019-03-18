@@ -16,12 +16,12 @@ public class TakeAdapter
 	}
 
 	public static final class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
+			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
 	{
 		private final int takeCount;
 		private int count;
 
-		public OfObject(AbstractEnhancedIterator<E> source, int takeCount)
+		public OfObject(AbstractRichIterator<E> source, int takeCount)
 		{
 			super(IteratorImplUtils.min(source.getSize(), takeCount), source);
 			this.takeCount = IteratorImplUtils.requireNonNegative(takeCount);

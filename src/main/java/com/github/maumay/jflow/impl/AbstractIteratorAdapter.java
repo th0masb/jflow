@@ -14,7 +14,7 @@ public class AbstractIteratorAdapter
 	}
 
 	public static abstract class OfObject<S extends AbstractIterator, R>
-			extends AbstractEnhancedIterator<R>
+			extends AbstractRichIterator<R>
 	{
 		private final S source;
 

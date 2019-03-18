@@ -3,7 +3,7 @@
  */
 package com.github.maumay.jflow.iterators.custom;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 
 /**
  * @author thomasb
@@ -12,5 +12,5 @@ import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
 @FunctionalInterface
 public interface IteratorAdapter<E, R>
 {
-	AbstractEnhancedIterator<R> adapt(AbstractEnhancedIterator<? extends E> source);
+	AbstractRichIterator<R> adapt(AbstractRichIterator<? extends E> source);
 }

@@ -6,7 +6,7 @@ package com.github.maumay.jflow.testutilities;
 import java.util.NoSuchElementException;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.KnownSize;
@@ -19,14 +19,14 @@ import com.github.maumay.jflow.impl.KnownSize;
  */
 public class IteratorExampleProvider
 {
-	public static AbstractEnhancedIterable<String> getSmallObjectTestIteratorProvider()
+	public static AbstractRichIterable<String> getSmallObjectTestIteratorProvider()
 	{
-		return new AbstractEnhancedIterable<String>() {
+		return new AbstractRichIterable<String>() {
 			@Override
-			public AbstractEnhancedIterator<String> iter()
+			public AbstractRichIterator<String> iter()
 			{
 				int size = Utils.SMALL_OBJECT_EXAMPLE_SRC.length;
-				return new AbstractEnhancedIterator<String>(new KnownSize(size)) {
+				return new AbstractRichIterator<String>(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
@@ -55,14 +55,14 @@ public class IteratorExampleProvider
 		};
 	}
 
-	public static AbstractEnhancedIterable<String> getObjectTestIteratorProvider()
+	public static AbstractRichIterable<String> getObjectTestIteratorProvider()
 	{
-		return new AbstractEnhancedIterable<String>() {
+		return new AbstractRichIterable<String>() {
 			@Override
-			public AbstractEnhancedIterator<String> iter()
+			public AbstractRichIterator<String> iter()
 			{
 				int size = Utils.OBJECT_EXAMPLE_SRC.length;
-				return new AbstractEnhancedIterator<String>(new KnownSize(size)) {
+				return new AbstractRichIterator<String>(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
@@ -91,14 +91,14 @@ public class IteratorExampleProvider
 		};
 	}
 
-	public static AbstractEnhancedIterable<String> getLargeObjectTestIteratorProvider()
+	public static AbstractRichIterable<String> getLargeObjectTestIteratorProvider()
 	{
-		return new AbstractEnhancedIterable<String>() {
+		return new AbstractRichIterable<String>() {
 			@Override
-			public AbstractEnhancedIterator<String> iter()
+			public AbstractRichIterator<String> iter()
 			{
 				int size = Utils.LARGE_OBJECT_EXAMPLE_SRC.length;
-				return new AbstractEnhancedIterator<String>(new KnownSize(size)) {
+				return new AbstractRichIterator<String>(new KnownSize(size)) {
 					int count = 0;
 
 					@Override
@@ -127,13 +127,13 @@ public class IteratorExampleProvider
 		};
 	}
 
-	public static AbstractEnhancedIterable<String> getSingletonObjectTestIteratorProvider()
+	public static AbstractRichIterable<String> getSingletonObjectTestIteratorProvider()
 	{
-		return new AbstractEnhancedIterable<String>() {
+		return new AbstractRichIterable<String>() {
 			@Override
-			public AbstractEnhancedIterator<String> iter()
+			public AbstractRichIterator<String> iter()
 			{
-				return new AbstractEnhancedIterator<String>(new KnownSize(1)) {
+				return new AbstractRichIterator<String>(new KnownSize(1)) {
 					int count = 0;
 
 					@Override
@@ -162,13 +162,13 @@ public class IteratorExampleProvider
 		};
 	}
 
-	public static AbstractEnhancedIterable<String> getEmptyObjectTestIteratorProvider()
+	public static AbstractRichIterable<String> getEmptyObjectTestIteratorProvider()
 	{
-		return new AbstractEnhancedIterable<String>() {
+		return new AbstractRichIterable<String>() {
 			@Override
-			public AbstractEnhancedIterator<String> iter()
+			public AbstractRichIterator<String> iter()
 			{
-				return new AbstractEnhancedIterator<String>(new KnownSize(0)) {
+				return new AbstractRichIterator<String>(new KnownSize(0)) {
 					@Override
 					public boolean hasNext()
 					{

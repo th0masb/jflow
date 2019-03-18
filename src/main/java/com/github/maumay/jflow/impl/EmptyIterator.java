@@ -34,7 +34,7 @@ public class EmptyIterator
 		return EMPTY_DOUBLE;
 	}
 
-	public static final class OfObject<E> extends AbstractEnhancedIterator<E>
+	public static final class OfObject<E> extends AbstractRichIterator<E>
 	{
 		public OfObject()
 		{

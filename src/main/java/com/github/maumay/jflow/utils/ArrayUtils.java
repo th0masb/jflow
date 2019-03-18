@@ -28,7 +28,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -477,7 +477,7 @@ public final class ArrayUtils
 	 */
 	public static <R> Vec<R> objMap(IntFunction<? extends R> f, int[] xs)
 	{
-		EnhancedIterator<R> intermediate = Iter.ints(xs).mapToObject(f);
+		RichIterator<R> intermediate = Iter.ints(xs).mapToObject(f);
 		return intermediate.toVec();
 	}
 
@@ -494,7 +494,7 @@ public final class ArrayUtils
 	 */
 	public static <R> Vec<R> objMap(DoubleFunction<? extends R> f, double[] xs)
 	{
-		EnhancedIterator<R> intermediate = Iter.doubles(xs).mapToObject(f);
+		RichIterator<R> intermediate = Iter.doubles(xs).mapToObject(f);
 		return intermediate.toVec();
 	}
 
@@ -511,7 +511,7 @@ public final class ArrayUtils
 	 */
 	public static <R> Vec<R> objMap(LongFunction<? extends R> f, long[] xs)
 	{
-		EnhancedIterator<R> intermediate = Iter.longs(xs).mapToObject(f);
+		RichIterator<R> intermediate = Iter.longs(xs).mapToObject(f);
 		return intermediate.toVec();
 	}
 

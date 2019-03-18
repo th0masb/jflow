@@ -14,29 +14,29 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.custom.IteratorCollector;
 
 /**
  * Abstraction of iterable object which can construct enhanced iterators
- * ({@link EnhancedIterator}).
+ * ({@link RichIterator}).
  *
  * @param <E> The type of element this object can iterate over.
  *
  * @author ThomasB
  */
 @FunctionalInterface
-public interface EnhancedIterable<E> extends Iterable<E>
+public interface RichIterable<E> extends Iterable<E>
 {
 	/**
 	 * Constructs an iterator traversing the elements encapsulated by this object.
 	 * 
 	 * @return See above.
 	 */
-	EnhancedIterator<E> iter();
+	RichIterator<E> iter();
 
 	@Override
-	default EnhancedIterator<E> iterator()
+	default RichIterator<E> iterator()
 	{
 		return iter();
 	}
@@ -58,7 +58,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * according to the given comparator.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link EnhancedIterator#minOption(Comparator)}.
+	 * @return see {@link RichIterator#minOption(Comparator)}.
 	 */
 	default Optional<E> minOption(Comparator<? super E> orderingFunction)
 	{
@@ -71,7 +71,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * empty.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link EnhancedIterator#minOption(Comparator)}.
+	 * @return see {@link RichIterator#minOption(Comparator)}.
 	 */
 	default E min(Comparator<? super E> orderingFunction)
 	{
@@ -83,7 +83,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * {@link #iter()} according to the given comparator.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link EnhancedIterator#maxOption(Comparator)}.
+	 * @return see {@link RichIterator#maxOption(Comparator)}.
 	 */
 	default Optional<E> maxOption(Comparator<? super E> orderingFunction)
 	{
@@ -96,7 +96,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * empty.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link EnhancedIterator#maxOption(Comparator)}.
+	 * @return see {@link RichIterator#maxOption(Comparator)}.
 	 */
 	default E max(Comparator<? super E> orderingFunction)
 	{
@@ -162,7 +162,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * 
 	 * @param            <K> The type of the classification values.
 	 * @param classifier The classification function.
-	 * @return see {@link EnhancedIterator#groupBy(Function)}
+	 * @return see {@link RichIterator#groupBy(Function)}
 	 */
 	default <K> Map<K, List<E>> groupBy(Function<? super E, K> classifier)
 	{
@@ -178,7 +178,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * @param reducer The reduction operator governing how two values are combined
 	 *                into one.
 	 * 
-	 * @return see {@link EnhancedIterator#fold(Object, BiFunction)}
+	 * @return see {@link RichIterator#fold(Object, BiFunction)}
 	 */
 	default <R> R fold(R id, BiFunction<R, E, R> reducer)
 	{
@@ -192,7 +192,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * 
 	 * @param reducer The reduction operator governing how two values are combined
 	 *                into one.
-	 * @return see {@link EnhancedIterator#foldOption(BinaryOperator)}
+	 * @return see {@link RichIterator#foldOption(BinaryOperator)}
 	 */
 	default Optional<E> foldOption(BinaryOperator<E> reducer)
 	{
@@ -206,7 +206,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * 
 	 * @param reducer The reduction operator governing how two values are combined
 	 *                into one.
-	 * @return see {@link EnhancedIterator#fold(BinaryOperator)}
+	 * @return see {@link RichIterator#fold(BinaryOperator)}
 	 */
 	default E fold(BinaryOperator<E> reducer)
 	{
@@ -221,7 +221,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * @param          <V> The type of the values in the constructed map
 	 * @param keyMap   The function determining the map keys.
 	 * @param valueMap The function determining the map values.
-	 * @return see {@link EnhancedIterator#toMap(Function, Function)}
+	 * @return see {@link RichIterator#toMap(Function, Function)}
 	 */
 	default <K, V> Map<K, V> toMap(Function<? super E, ? extends K> keyMap,
 			Function<? super E, ? extends V> valueMap)
@@ -235,7 +235,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * 
 	 * @param          <V> the type of the values in the constructed map.
 	 * @param valueMap The function determining the map values.
-	 * @return see {@link EnhancedIterator#associate(Function)}
+	 * @return see {@link RichIterator#associate(Function)}
 	 */
 	default <V> Map<E, V> associate(Function<? super E, ? extends V> valueMap)
 	{
@@ -246,7 +246,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * Builds an ArrayList from the elements in the iterator created by
 	 * {@link #iter()}.
 	 * 
-	 * @return see {@link EnhancedIterator#toList()}
+	 * @return see {@link RichIterator#toList()}
 	 */
 	default List<E> toList()
 	{
@@ -257,7 +257,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * Builds an HashSet from the elements in the iterator created by
 	 * {@link #iter()}.
 	 * 
-	 * @return see {@link EnhancedIterator#toSet()}
+	 * @return see {@link RichIterator#toSet()}
 	 */
 	default Set<E> toSet()
 	{
@@ -271,7 +271,7 @@ public interface EnhancedIterable<E> extends Iterable<E>
 	 * @param                   <C> The type of collection to build
 	 * @param collectionFactory A supplier of empty, mutable instances of the
 	 *                          required collection type.
-	 * @return see {@link EnhancedIterator#toCollection(Supplier)}
+	 * @return see {@link RichIterator#toCollection(Supplier)}
 	 */
 	default <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
 	{

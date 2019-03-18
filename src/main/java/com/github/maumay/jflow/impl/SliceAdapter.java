@@ -19,7 +19,7 @@ public class SliceAdapter
 	}
 
 	public static class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractEnhancedIterator<E>, E>
+			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
 	{
 		private final IntUnaryOperator indexMapping;
 
@@ -27,7 +27,7 @@ public class SliceAdapter
 		private boolean elementCached;
 		private E cached;
 
-		public OfObject(AbstractEnhancedIterator<E> src, IntUnaryOperator indexMapping)
+		public OfObject(AbstractRichIterator<E> src, IntUnaryOperator indexMapping)
 		{
 			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
 			this.indexMapping = indexMapping;
@@ -48,7 +48,7 @@ public class SliceAdapter
 
 		private boolean cacheNextElement()
 		{
-			AbstractEnhancedIterator<E> src = getSource();
+			AbstractRichIterator<E> src = getSource();
 			while (iteratorCount < checkpoint) {
 				if (src.hasNext()) {
 					src.skipImpl();

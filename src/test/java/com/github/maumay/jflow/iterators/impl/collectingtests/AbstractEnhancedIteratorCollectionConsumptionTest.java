@@ -22,7 +22,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.utils.Tup;
 
@@ -34,7 +34,7 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 {
 	@ParameterizedTest
 	@MethodSource("collectToCollectionTestDataProvider")
-	void testCollectToCollection(AbstractEnhancedIterator<String> iterator,
+	void testCollectToCollection(AbstractRichIterator<String> iterator,
 			Supplier<Collection<String>> containerConstructor, Collection<String> expectedResult)
 	{
 		assertEquals(expectedResult, iterator.toCollection(containerConstructor));
@@ -55,7 +55,7 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 
 	@ParameterizedTest
 	@MethodSource("collectToMapTestDataProvider")
-	void testCollectToMap(AbstractEnhancedIterator<String> iterator,
+	void testCollectToMap(AbstractRichIterator<String> iterator,
 			UnaryOperator<String> keyMapper, Function<String, Integer> valueMapper,
 			List<Tup<String, Integer>> expectedMapPairs)
 	{
@@ -77,7 +77,7 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 
 	@ParameterizedTest
 	@MethodSource("groupByTestDataProvider")
-	void testGroupBy(AbstractEnhancedIterator<String> iterator,
+	void testGroupBy(AbstractRichIterator<String> iterator,
 			Function<String, Integer> classifier, List<Tup<Integer, List<String>>> expectedMapPairs)
 	{
 		Map<Integer, List<String>> expectedMap = expectedMapPairs.stream()

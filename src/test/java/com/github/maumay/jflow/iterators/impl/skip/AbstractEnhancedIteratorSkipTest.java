@@ -8,8 +8,8 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
@@ -27,8 +27,8 @@ class AbstractEnhancedIteratorSkipTest extends IteratorExampleProvider implement
 
 		int nArgs = expectedOutcomesForDifferentIndexArguments.size();
 
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		IntStream.range(0, nArgs).forEach(i -> {
 			assertObjectIteratorAsExpected(expectedOutcomesForDifferentIndexArguments.get(i),
@@ -48,12 +48,12 @@ class AbstractEnhancedIteratorSkipTest extends IteratorExampleProvider implement
 
 	}
 
-	private <T> AbstractEnhancedIterable<T> createSkipIteratorProviderFrom(
-			AbstractEnhancedIterable<T> src, int skipCount)
+	private <T> AbstractRichIterable<T> createSkipIteratorProviderFrom(
+			AbstractRichIterable<T> src, int skipCount)
 	{
-		return new AbstractEnhancedIterable<T>() {
+		return new AbstractRichIterable<T>() {
 			@Override
-			public AbstractEnhancedIterator<T> iter()
+			public AbstractRichIterator<T> iter()
 			{
 				return src.iter().skip(skipCount);
 			}

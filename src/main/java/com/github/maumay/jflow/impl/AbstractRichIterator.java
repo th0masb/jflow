@@ -16,8 +16,10 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.custom.IteratorAdapter;
+import com.github.maumay.jflow.iterators.custom.IteratorCollector;
+import com.github.maumay.jflow.iterators.custom.IteratorConsumer;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -29,10 +31,10 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
-		implements EnhancedIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator
+		implements RichIterator<E>
 {
-	public AbstractEnhancedIterator(AbstractIteratorSize size)
+	public AbstractRichIterator(AbstractIteratorSize size)
 	{
 		super(size);
 	}
@@ -52,7 +54,7 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 
 	// EnhancedIterator API
 	@Override
-	public <R> AbstractEnhancedIterator<R> map(Function<? super E, ? extends R> f)
+	public <R> AbstractRichIterator<R> map(Function<? super E, ? extends R> f)
 	{
 		return new MapAdapter.OfObject<>(this, f);
 	}
@@ -76,82 +78,94 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public <R> AbstractEnhancedIterator<R> flatMap(
+	public <R> AbstractRichIterator<R> flatMap(
 			Function<? super E, ? extends Iterator<? extends R>> mapping)
 	{
 		return new FlatmapAdapter<>(this, mapping);
 	}
 
 	@Override
-	public <R> AbstractEnhancedIterator<Tup<E, R>> zipWith(Iterator<? extends R> other)
+	public <R> AbstractRichIterator<Tup<E, R>> zipWith(Iterator<? extends R> other)
 	{
 		return new ZipAdapter.OfObjects<>(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractEnhancedIterator<Tup<Integer, E>> enumerate()
+	public AbstractRichIterator<Tup<Integer, E>> enumerate()
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> slice(IntUnaryOperator f)
+	public AbstractRichIterator<E> slice(IntUnaryOperator f)
 	{
 		return new SliceAdapter.OfObject<>(this, f);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> take(int n)
+	public AbstractRichIterator<E> take(int n)
 	{
 		return new TakeAdapter.OfObject<>(this, n);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> takeWhile(Predicate<? super E> predicate)
+	public AbstractRichIterator<E> takeWhile(Predicate<? super E> predicate)
 	{
 		return new TakewhileAdapter.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> skip(int n)
+	public AbstractRichIterator<E> skip(int n)
 	{
 		return new SkipAdapter.OfObject<>(this, n);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> skipWhile(Predicate<? super E> predicate)
+	public AbstractRichIterator<E> skipWhile(Predicate<? super E> predicate)
 	{
 		return new SkipwhileAdapter.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> filter(Predicate<? super E> predicate)
+	public AbstractRichIterator<E> filter(Predicate<? super E> predicate)
 	{
 		return new FilterAdapter.OfObject<>(this, predicate);
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> append(Iterator<? extends E> other)
+	public AbstractRichIterator<E> append(Iterator<? extends E> other)
 	{
 		return new ConcatenationAdapter.OfObject<>(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractEnhancedIterator<E> insert(Iterator<? extends E> other)
+	public AbstractRichIterator<E> insert(Iterator<? extends E> other)
 	{
 		return new ConcatenationAdapter.OfObject<>(IteratorWrapper.wrap(other), this);
 	}
 
 	@Override
-	public <R> AbstractEnhancedIterator<R> scan(R id, BiFunction<R, E, R> accumulator)
+	public <R> AbstractRichIterator<R> scan(R id, BiFunction<R, E, R> accumulator)
 	{
 		return new ScanAdapter.OfObject<>(this, id, accumulator);
 	}
 
 	@Override
-	public <R> EnhancedIterator<R> adapt(IteratorAdapter<? super E, R> adapter)
+	public <R> RichIterator<R> adapt(IteratorAdapter<? super E, R> adapter)
 	{
 		return adapter.adapt(this);
+	}
+
+	@Override
+	public <R> R collect(IteratorCollector<? super E, ? extends R> collector)
+	{
+		return collector.collect(this);
+	}
+
+	@Override
+	public void consume(IteratorConsumer<? super E> consumer)
+	{
+		consumer.consume(this);
 	}
 
 	@Override
@@ -221,19 +235,19 @@ public abstract class AbstractEnhancedIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public <R> AbstractEnhancedIterator<Tup<E, R>> zipWith(List<? extends R> other)
+	public <R> AbstractRichIterator<Tup<E, R>> zipWith(List<? extends R> other)
 	{
 		return zipWith(new CollectionSource<>(other));
 	}
 
 	@Override
-	public <R> AbstractEnhancedIterator<Tup<E, R>> zipWith(Vec<? extends R> other)
+	public <R> AbstractRichIterator<Tup<E, R>> zipWith(Vec<? extends R> other)
 	{
 		return zipWith(other.iter());
 	}
 
 	@Override
-	public <R> AbstractEnhancedIterator<R> cast(Class<R> klass)
+	public <R> AbstractRichIterator<R> cast(Class<R> klass)
 	{
 		return filter(klass::isInstance).map(klass::cast);
 	}

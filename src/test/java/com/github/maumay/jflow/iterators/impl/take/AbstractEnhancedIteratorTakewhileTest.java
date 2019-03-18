@@ -10,8 +10,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.Tup;
@@ -26,8 +26,8 @@ public class AbstractEnhancedIteratorTakewhileTest extends IteratorExampleProvid
 	@Test
 	void test()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 
 		List<Tup<List<String>, Predicate<String>>> testData = asList(
 				Tup.of(asList(), string -> !string.equals("0")),
@@ -42,12 +42,12 @@ public class AbstractEnhancedIteratorTakewhileTest extends IteratorExampleProvid
 		});
 	}
 
-	private <T> AbstractEnhancedIterable<T> createTakewhileIteratorProviderFrom(
-			AbstractEnhancedIterable<T> src, Predicate<T> predicate)
+	private <T> AbstractRichIterable<T> createTakewhileIteratorProviderFrom(
+			AbstractRichIterable<T> src, Predicate<T> predicate)
 	{
-		return new AbstractEnhancedIterable<T>() {
+		return new AbstractRichIterable<T>() {
 			@Override
-			public AbstractEnhancedIterator<T> iter()
+			public AbstractRichIterator<T> iter()
 			{
 				return src.iter().takeWhile(predicate);
 			}

@@ -18,11 +18,11 @@ public final class MapToDoubleAdapter
 	}
 
 	public static final class FromObject<E>
-			extends AbstractIteratorAdapter.OfDouble<AbstractEnhancedIterator<E>>
+			extends AbstractIteratorAdapter.OfDouble<AbstractRichIterator<E>>
 	{
 		private final ToDoubleFunction<? super E> map;
 
-		public FromObject(AbstractEnhancedIterator<E> source, ToDoubleFunction<? super E> map)
+		public FromObject(AbstractRichIterator<E> source, ToDoubleFunction<? super E> map)
 		{
 			super(source.getSize().copy(), source);
 			this.map = map;

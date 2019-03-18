@@ -20,9 +20,9 @@ import com.github.maumay.jflow.impl.CollectionSource;
 import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.impl.FunctionSource;
 import com.github.maumay.jflow.impl.IteratorWrapper;
-import com.github.maumay.jflow.iterables.EnhancedIterable;
+import com.github.maumay.jflow.iterables.RichIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.EnhancedIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.utils.Exceptions;
@@ -46,7 +46,7 @@ public final class Iter
 	 *        the context of the method call).
 	 * @return An empty EnhancedIterator.
 	 */
-	public static <E> EnhancedIterator<E> empty()
+	public static <E> RichIterator<E> empty()
 	{
 		return new EmptyIterator.OfObject<>();
 	}
@@ -60,7 +60,7 @@ public final class Iter
 	 * @return A EnhancedIterator instance wrapping an iterator constructed from the
 	 *         source sequence.
 	 */
-	public static <E> EnhancedIterator<E> over(Collection<? extends E> src)
+	public static <E> RichIterator<E> over(Collection<? extends E> src)
 	{
 		return new CollectionSource<>(src);
 	}
@@ -74,7 +74,7 @@ public final class Iter
 	 * @return A EnhancedIterator iterating over the given elements.
 	 */
 	@SafeVarargs
-	public static <E> EnhancedIterator<E> over(E... elements)
+	public static <E> RichIterator<E> over(E... elements)
 	{
 		return new ArraySource.OfObject<>(elements);
 	}
@@ -87,7 +87,7 @@ public final class Iter
 	 * @return An enhanced iterator traversing over all values of the given enum
 	 *         type.
 	 */
-	public static <E extends Enum<E>> EnhancedIterator<E> over(Class<E> enumclass)
+	public static <E extends Enum<E>> RichIterator<E> over(Class<E> enumclass)
 	{
 		return Iter.over(enumclass.getEnumConstants());
 	}
@@ -115,7 +115,7 @@ public final class Iter
 	 *         the last element.
 	 */
 	@SafeVarargs
-	public static <E> EnhancedIterator<E> reverse(E... elements)
+	public static <E> RichIterator<E> reverse(E... elements)
 	{
 		return new ArraySource.OfObjectReversed<>(elements);
 	}
@@ -132,7 +132,7 @@ public final class Iter
 	 * @return A EnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static <E> EnhancedIterator<E> byIndexing(IntFunction<E> indexingFunction,
+	public static <E> RichIterator<E> byIndexing(IntFunction<E> indexingFunction,
 			int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
@@ -149,7 +149,7 @@ public final class Iter
 	 * @return a single element iterator wrapping the wrapped element if it exists,
 	 *         an empty iterator otherwise.
 	 */
-	public static <E> EnhancedIterator<E> option(Optional<? extends E> src)
+	public static <E> RichIterator<E> option(Optional<? extends E> src)
 	{
 		return src.isPresent() ? Iter.over(src.get()) : Iter.empty();
 	}
@@ -161,7 +161,7 @@ public final class Iter
 	 * @param src the map encapsulating the values to traverse.
 	 * @return an iterator traversing the input values.
 	 */
-	public static <V> EnhancedIterator<V> values(Map<?, ? extends V> src)
+	public static <V> RichIterator<V> values(Map<?, ? extends V> src)
 	{
 		return Iter.over(src.values());
 	}
@@ -173,7 +173,7 @@ public final class Iter
 	 * @param src the map encapsulating the keys to traverse.
 	 * @return an iterator traversing the input keys.
 	 */
-	public static <K> EnhancedIterator<K> keys(Map<? extends K, ?> src)
+	public static <K> RichIterator<K> keys(Map<? extends K, ?> src)
 	{
 		return Iter.over(src.keySet());
 	}
@@ -186,7 +186,7 @@ public final class Iter
 	 * @param src the map encapsulating the entries to traverse.
 	 * @return an iterator traversing the key, value pairs of the map.
 	 */
-	public static <K, V> EnhancedIterator<Tup<K, V>> entries(Map<K, V> src)
+	public static <K, V> RichIterator<Tup<K, V>> entries(Map<K, V> src)
 	{
 		return Iter.over(src.entrySet()).map(entry -> Tup.of(entry.getKey(), entry.getValue()));
 	}
@@ -199,7 +199,7 @@ public final class Iter
 	 * @return An iterator traversing all elements contained in each element in the
 	 *         source
 	 */
-	public static <E> EnhancedIterator<E> flatten(Iterable<? extends Iterable<? extends E>> source)
+	public static <E> RichIterator<E> flatten(Iterable<? extends Iterable<? extends E>> source)
 	{
 		return Iter.wrap(source.iterator()).flatMap(Iterable::iterator);
 	}
@@ -368,7 +368,7 @@ public final class Iter
 	 * @param src The iterator to wrap.
 	 * @return A flow wrapping the provided iterator.
 	 */
-	public static <E> EnhancedIterator<E> wrap(Iterator<? extends E> src)
+	public static <E> RichIterator<E> wrap(Iterator<? extends E> src)
 	{
 		return new IteratorWrapper.OfObject<>(src);
 	}
@@ -382,7 +382,7 @@ public final class Iter
 	 * @return A enhanced iterable instance producing wrapped iterators sourced from
 	 *         the input iterable.
 	 */
-	public static <E> EnhancedIterable<E> wrap(Iterable<? extends E> src)
+	public static <E> RichIterable<E> wrap(Iterable<? extends E> src)
 	{
 		return () -> wrap(src.iterator());
 	}

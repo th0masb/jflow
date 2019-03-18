@@ -14,10 +14,10 @@ public final class ConcatenationAdapter
 	}
 
 	public static final class OfObject<E> extends
-			AbstractIteratorBiAdapters.OfObject<AbstractEnhancedIterator<? extends E>, AbstractEnhancedIterator<? extends E>, E>
+			AbstractIteratorBiAdapters.OfObject<AbstractRichIterator<? extends E>, AbstractRichIterator<? extends E>, E>
 	{
-		public OfObject(AbstractEnhancedIterator<? extends E> sourceOne,
-				AbstractEnhancedIterator<? extends E> sourceTwo)
+		public OfObject(AbstractRichIterator<? extends E> sourceOne,
+				AbstractRichIterator<? extends E> sourceTwo)
 		{
 			super(IteratorImplUtils.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);

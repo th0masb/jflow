@@ -56,7 +56,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public <E> AbstractEnhancedIterator<E> mapToObject(LongFunction<? extends E> f)
+	public <E> AbstractRichIterator<E> mapToObject(LongFunction<? extends E> f)
 	{
 		return new MapToObjectAdapter.FromLong<>(this, f);
 	}
@@ -74,13 +74,13 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public AbstractEnhancedIterator<LongTup> zipWith(OfLong other)
+	public AbstractRichIterator<LongTup> zipWith(OfLong other)
 	{
 		return new ZipAdapter.OfLongs(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractEnhancedIterator<LongTup> enumerate()
+	public AbstractRichIterator<LongTup> enumerate()
 	{
 		throw new RuntimeException();
 	}

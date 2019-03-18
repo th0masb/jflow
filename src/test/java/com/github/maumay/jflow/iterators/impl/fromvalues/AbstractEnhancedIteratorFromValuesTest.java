@@ -8,9 +8,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.ArraySource;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
@@ -32,11 +32,11 @@ class AbstractEnhancedIteratorFromValuesTest implements IteratorTest
 				Arguments.of(new Object[] { new String[] { "1", "1" } }));
 	}
 
-	<E> AbstractEnhancedIterable<E> getCreationFromValuesIteratorProvider(E[] source)
+	<E> AbstractRichIterable<E> getCreationFromValuesIteratorProvider(E[] source)
 	{
-		return new AbstractEnhancedIterable<E>() {
+		return new AbstractRichIterable<E>() {
 			@Override
-			public AbstractEnhancedIterator<E> iter()
+			public AbstractRichIterator<E> iter()
 			{
 				return new ArraySource.OfObject<>(source);
 			}

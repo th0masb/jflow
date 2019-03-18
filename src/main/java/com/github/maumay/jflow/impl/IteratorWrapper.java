@@ -16,10 +16,10 @@ public final class IteratorWrapper
 	{
 	}
 
-	public static <E> AbstractEnhancedIterator<? extends E> wrap(Iterator<? extends E> src)
+	public static <E> AbstractRichIterator<? extends E> wrap(Iterator<? extends E> src)
 	{
-		if (src instanceof AbstractEnhancedIterator<?>) {
-			return (AbstractEnhancedIterator<? extends E>) src;
+		if (src instanceof AbstractRichIterator<?>) {
+			return (AbstractRichIterator<? extends E>) src;
 		} else {
 			return new OfObject<>(src);
 		}
@@ -52,7 +52,7 @@ public final class IteratorWrapper
 		}
 	}
 
-	public static class OfObject<E> extends AbstractEnhancedIterator<E>
+	public static class OfObject<E> extends AbstractRichIterator<E>
 	{
 		private final Iterator<? extends E> source;
 

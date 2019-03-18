@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * A precursor interface to {@linkplain EnhancedIterator}.
+ * A precursor interface to {@linkplain RichIterator}.
  *
  * @author t
  */

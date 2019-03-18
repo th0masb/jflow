@@ -14,7 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.impl.AbstractEnhancedIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.KnownSize;
 import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
 
@@ -26,7 +26,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 {
 	@ParameterizedTest
 	@MethodSource("allEqualTestDataProvider")
-	void testAllEqual(AbstractEnhancedIterator<String> iterator, Boolean expectedResult)
+	void testAllEqual(AbstractRichIterator<String> iterator, Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.areAllEqual());
 	}
@@ -38,9 +38,9 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), Boolean.TRUE));
 	}
 
-	private static AbstractEnhancedIterator<String> getAllEqualFlow()
+	private static AbstractRichIterator<String> getAllEqualFlow()
 	{
-		return new AbstractEnhancedIterator<String>(new KnownSize(3)) {
+		return new AbstractRichIterator<String>(new KnownSize(3)) {
 			int count = 0;
 
 			@Override
@@ -68,7 +68,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("allMatchTestDataProvider")
-	void testAllMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
+	void testAllMatch(AbstractRichIterator<String> iterator, Predicate<String> predicate,
 			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.allMatch(predicate));
@@ -89,7 +89,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("anyMatchTestDataProvider")
-	void testAnyMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
+	void testAnyMatch(AbstractRichIterator<String> iterator, Predicate<String> predicate,
 			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.anyMatch(predicate));
@@ -110,7 +110,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	@ParameterizedTest
 	@MethodSource("noneMatchTestDataProvider")
-	void testNoneMatch(AbstractEnhancedIterator<String> iterator, Predicate<String> predicate,
+	void testNoneMatch(AbstractRichIterator<String> iterator, Predicate<String> predicate,
 			Boolean expectedResult)
 	{
 		assertEquals(expectedResult.booleanValue(), iterator.noneMatch(predicate));

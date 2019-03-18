@@ -7,7 +7,7 @@ import java.util.function.ToLongFunction;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testutilities.AbstractEnhancedIterable;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
@@ -19,8 +19,8 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	@Test
 	public void testAbstractFlowMapToLong()
 	{
-		AbstractEnhancedIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractEnhancedIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
 		ToLongFunction<String> mapper = Long::parseLong;
 
 		assertLongIteratorAsExpected(new long[] { 0, 1, 2, 3, 4 },
@@ -30,7 +30,7 @@ public class MapToLongTest extends IteratorExampleProvider implements IteratorTe
 	}
 
 	private <T> AbstractIterableLongs createMapToLongIteratorProviderFrom(
-			AbstractEnhancedIterable<T> src, ToLongFunction<T> mapper)
+			AbstractRichIterable<T> src, ToLongFunction<T> mapper)
 	{
 		return new AbstractIterableLongs() {
 			@Override
