@@ -40,6 +40,8 @@ public final class IteratorImplUtils
 				lo = 0;
 				break;
 			}
+			case INFINITE:
+				break;
 			default:
 				throw new AssertionError();
 			}
@@ -92,6 +94,8 @@ public final class IteratorImplUtils
 			return new KnownSize(lowerBound);
 		} else if (Double.isFinite(upperBound)) {
 			return new BoundedSize(lowerBound, (int) upperBound);
+		} else if (Double.isInfinite(upperBound)) {
+			return InfiniteSize.instance();
 		} else if (lowerBound == 0) {
 			return UnknownSize.instance();
 		} else {

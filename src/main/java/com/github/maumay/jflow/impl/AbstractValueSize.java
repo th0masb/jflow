@@ -31,6 +31,12 @@ public abstract class AbstractValueSize extends AbstractIteratorSize
 	}
 
 	@Override
+	public boolean isSingleton()
+	{
+		return false;
+	}
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj instanceof AbstractValueSize) {

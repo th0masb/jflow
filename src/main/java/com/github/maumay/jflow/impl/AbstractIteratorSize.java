@@ -31,5 +31,7 @@ public abstract class AbstractIteratorSize
 
 	public abstract AbstractIteratorSize copy();
 
+	public abstract boolean isSingleton();
+
 	abstract void decrement();
 }

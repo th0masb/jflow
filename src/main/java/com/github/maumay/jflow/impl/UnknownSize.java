@@ -55,4 +55,10 @@ public class UnknownSize extends AbstractIteratorSize
 		// Don't need to copy here since it is a singleton.
 		return this;
 	}
+
+	@Override
+	public boolean isSingleton()
+	{
+		return true;
+	}
 }

@@ -82,4 +82,11 @@ public final class BoundedSize extends AbstractIteratorSize
 	{
 		return new BoundedSize(lowerBound(), upperBound());
 	}
+
+	@Override
+	public boolean isSingleton()
+	{
+		return false;
+	}
+
 }

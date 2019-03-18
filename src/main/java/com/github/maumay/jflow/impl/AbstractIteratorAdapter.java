@@ -21,8 +21,7 @@ public class AbstractIteratorAdapter
 		public OfObject(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.getType() == SizeType.UNKNOWN
-					|| size != source.getSize() : "Must not share size instance";
+			assert size.isSingleton() || size != source.getSize() : "Must not share size instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via
@@ -43,8 +42,7 @@ public class AbstractIteratorAdapter
 		public OfInt(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.getType() == SizeType.UNKNOWN
-					|| size != source.getSize() : "Must not share size instance";
+			assert size.isSingleton() || size != source.getSize() : "Must not share size instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via
@@ -65,8 +63,7 @@ public class AbstractIteratorAdapter
 		public OfLong(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.getType() == SizeType.UNKNOWN
-					|| size != source.getSize() : "Must not share size instance";
+			assert size.isSingleton() || size != source.getSize() : "Must not share size instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via
@@ -87,8 +84,7 @@ public class AbstractIteratorAdapter
 		public OfDouble(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.getType() == SizeType.UNKNOWN
-					|| size != source.getSize() : "Must not share size instance";
+			assert size.isSingleton() || size != source.getSize() : "Must not share size instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via
