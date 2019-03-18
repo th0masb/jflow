@@ -15,17 +15,17 @@ public final class KnownSize extends AbstractValueSize
 {
 	public KnownSize(int size)
 	{
-		super(SizeType.EXACT, IteratorImplUtils.requireNonNegative(size));
+		super(SizeType.EXACT, size);
 	}
 
 	@Override
-	public OptionalInt getUpperBound()
+	public OptionalInt getMinimalUpperBound()
 	{
 		return Option.of(getValue());
 	}
 
 	@Override
-	public OptionalInt getLowerBound()
+	public OptionalInt getMaximalLowerBound()
 	{
 		return Option.of(getValue());
 	}

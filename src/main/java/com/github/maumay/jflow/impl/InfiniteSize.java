@@ -30,13 +30,13 @@ public final class InfiniteSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public OptionalInt getUpperBound()
+	public OptionalInt getMinimalUpperBound()
 	{
 		return OptionalInt.empty();
 	}
 
 	@Override
-	public OptionalInt getLowerBound()
+	public OptionalInt getMaximalLowerBound()
 	{
 		return OptionalInt.empty();
 	}

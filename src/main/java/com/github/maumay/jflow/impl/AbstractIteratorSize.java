@@ -23,11 +23,12 @@ public abstract class AbstractIteratorSize
 		return type;
 	}
 
+	// Do we actually need these three methods?
 	public abstract OptionalInt getExactSize();
 
-	public abstract OptionalInt getUpperBound();
+	public abstract OptionalInt getMinimalUpperBound();
 
-	public abstract OptionalInt getLowerBound();
+	public abstract OptionalInt getMaximalLowerBound();
 
 	public abstract AbstractIteratorSize copy();
 

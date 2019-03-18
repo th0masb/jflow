@@ -19,13 +19,13 @@ public final class LowerBound extends AbstractValueSize
 	}
 
 	@Override
-	public OptionalInt getUpperBound()
+	public OptionalInt getMinimalUpperBound()
 	{
 		return Option.emptyInt();
 	}
 
 	@Override
-	public OptionalInt getLowerBound()
+	public OptionalInt getMaximalLowerBound()
 	{
 		return Option.of(getValue());
 	}

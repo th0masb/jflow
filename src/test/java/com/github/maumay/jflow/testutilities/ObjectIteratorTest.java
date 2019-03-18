@@ -38,10 +38,10 @@ public interface ObjectIteratorTest
 		iterator.getSize().getExactSize().ifPresent(n -> {
 			assertEquals(expectedElements.size(), n);
 		});
-		iterator.getSize().getUpperBound().ifPresent(n -> {
+		iterator.getSize().getMinimalUpperBound().ifPresent(n -> {
 			assertTrue(expectedElements.size() <= n);
 		});
-		iterator.getSize().getLowerBound().ifPresent(n -> {
+		iterator.getSize().getMaximalLowerBound().ifPresent(n -> {
 			assertTrue(n <= expectedElements.size());
 		});
 	}
@@ -49,15 +49,15 @@ public interface ObjectIteratorTest
 	static void assertSizeDecreasesAsExpected(AbstractRichIterator<?> iterator)
 	{
 		AbstractIteratorSize size = iterator.getSize();
-		OptionalInt lower = size.getLowerBound(), exact = size.getExactSize(),
-				upper = size.getUpperBound();
+		OptionalInt lower = size.getMaximalLowerBound(), exact = size.getExactSize(),
+				upper = size.getMinimalUpperBound();
 
 		int count = 0;
 		while (iterator.hasNext()) {
 			count++;
 			iterator.next();
-			assertEquals(size.getLowerBound(), Utils.subtractSize(lower, count));
-			assertEquals(size.getUpperBound(), Utils.subtractSize(upper, count));
+			assertEquals(size.getMaximalLowerBound(), Utils.subtractSize(lower, count));
+			assertEquals(size.getMinimalUpperBound(), Utils.subtractSize(upper, count));
 			assertEquals(size.getExactSize(), Utils.subtractSize(exact, count));
 		}
 	}

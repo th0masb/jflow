@@ -29,19 +29,19 @@ public final class FunctionSource
 
 		public OfObject(IntFunction<? extends E> src, int size)
 		{
-			this(src, new KnownSize(IteratorImplUtils.requireNonNegative(size)));
+			this(src, new KnownSize(size));
 		}
 
 		public OfObject(IntFunction<? extends E> src)
 		{
-			this(src, UnknownSize.instance());
+			this(src, InfiniteSize.instance());
 		}
 
 		private OfObject(IntFunction<? extends E> src, AbstractIteratorSize size)
 		{
 			super(size);
 			this.src = src;
-			this.infiniteSize = size.getType() == SizeType.UNKNOWN;
+			this.infiniteSize = size.getType() == SizeType.INFINITE;
 			this.count = 0;
 			this.size = infiniteSize ? -1 : ((KnownSize) size).getValue();
 		}

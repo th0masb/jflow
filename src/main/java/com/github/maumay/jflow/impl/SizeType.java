@@ -12,7 +12,7 @@ import java.util.Objects;
 public enum SizeType
 {
 	EXACT(KnownSize.class), BOUNDED(BoundedSize.class), LOWER_BOUND(LowerBound.class),
-	INFINITE(null), UNKNOWN(UnknownSize.class);
+	INFINITE(InfiniteSize.class);
 
 	// Just to emphasize that we want to treat this enum as an
 	// algebraic data type like in rust or haskell.

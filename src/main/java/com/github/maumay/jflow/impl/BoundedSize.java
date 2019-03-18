@@ -43,13 +43,13 @@ public final class BoundedSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public OptionalInt getUpperBound()
+	public OptionalInt getMinimalUpperBound()
 	{
 		return Option.of(hi);
 	}
 
 	@Override
-	public OptionalInt getLowerBound()
+	public OptionalInt getMaximalLowerBound()
 	{
 		return Option.of(lo);
 	}

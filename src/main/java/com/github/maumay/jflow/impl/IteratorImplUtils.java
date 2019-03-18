@@ -51,6 +51,49 @@ public final class IteratorImplUtils
 		return createSize(lo, hi);
 	}
 
+	public static void main(String[] args)
+	{
+		System.out.println(Double.NaN - 5);
+		System.out.println(Math.min(Double.NaN, 5));
+	}
+
+	public static AbstractIteratorSize sum2(AbstractIteratorSize... sizes)
+	{
+		Exceptions.require(sizes.length > 0);
+		int lo = 0;
+		double hi = 0;
+		for (AbstractIteratorSize size : sizes) {
+			switch (size.getType()) {
+			case EXACT: {
+				KnownSize x = (KnownSize) size;
+				lo += x.getValue();
+				hi += x.getValue();
+				break;
+			}
+			case BOUNDED: {
+				BoundedSize x = (BoundedSize) size;
+				lo += x.lowerBound();
+				hi += x.upperBound();
+				break;
+			}
+			case LOWER_BOUND: {
+				LowerBound x = (LowerBound) size;
+				lo += x.getValue();
+				hi = Double.POSITIVE_INFINITY;
+				break;
+			}
+			case UNKNOWN: {
+				hi = Double.POSITIVE_INFINITY;
+				break;
+			}
+			default:
+				throw new AssertionError();
+			}
+		}
+
+		return createSize(lo, hi);
+	}
+
 	public static AbstractIteratorSize sum(AbstractIteratorSize... sizes)
 	{
 		Exceptions.require(sizes.length > 0);
@@ -88,6 +131,11 @@ public final class IteratorImplUtils
 		return createSize(lo, hi);
 	}
 
+	static AbstractIteratorSize createSize(SizeType type, int lo, double hi)
+	{
+		throw new RuntimeException();
+	}
+
 	static AbstractIteratorSize createSize(int lowerBound, double upperBound)
 	{
 		if (lowerBound == upperBound) {
@@ -96,8 +144,6 @@ public final class IteratorImplUtils
 			return new BoundedSize(lowerBound, (int) upperBound);
 		} else if (Double.isInfinite(upperBound)) {
 			return InfiniteSize.instance();
-		} else if (lowerBound == 0) {
-			return UnknownSize.instance();
 		} else {
 			return new LowerBound(lowerBound);
 		}
