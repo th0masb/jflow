@@ -16,10 +16,10 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import com.github.maumay.jflow.iterators.IteratorAdapter;
+import com.github.maumay.jflow.iterators.IteratorCollector;
+import com.github.maumay.jflow.iterators.IteratorConsumer;
 import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.custom.IteratorAdapter;
-import com.github.maumay.jflow.iterators.custom.IteratorCollector;
-import com.github.maumay.jflow.iterators.custom.IteratorConsumer;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 

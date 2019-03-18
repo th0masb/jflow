@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.custom;
+package com.github.maumay.jflow.iterators;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 

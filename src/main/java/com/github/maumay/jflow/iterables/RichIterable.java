@@ -14,8 +14,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import com.github.maumay.jflow.iterators.IteratorCollector;
 import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.custom.IteratorCollector;
 
 /**
  * Abstraction of iterable object which can construct enhanced iterators
