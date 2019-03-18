@@ -35,7 +35,7 @@ public abstract class AbstractIterator implements Skippable
 		return size;
 	}
 
-	final boolean hasOwnership()
+	public final boolean hasOwnership()
 	{
 		return hasOwnership;
 	}

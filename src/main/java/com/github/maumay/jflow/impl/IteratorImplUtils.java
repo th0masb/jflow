@@ -9,7 +9,7 @@ import com.github.maumay.jflow.utils.Exceptions;
  * @author thomasb
  *
  */
-final class IteratorImplUtils
+public final class IteratorImplUtils
 {
 	public static AbstractIteratorSize min(AbstractIteratorSize... sizes)
 	{
@@ -155,7 +155,7 @@ final class IteratorImplUtils
 		}
 	}
 
-	static AbstractIteratorSize min(AbstractIteratorSize size, int other)
+	public static AbstractIteratorSize min(AbstractIteratorSize size, int other)
 	{
 		switch (size.getType()) {
 		case EXACT: {
@@ -179,7 +179,7 @@ final class IteratorImplUtils
 		}
 	}
 
-	static AbstractIteratorSize dropLowerBound(AbstractIteratorSize size)
+	public static AbstractIteratorSize dropLowerBound(AbstractIteratorSize size)
 	{
 		switch (size.getType()) {
 		case EXACT: {

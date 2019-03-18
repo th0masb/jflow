@@ -15,23 +15,19 @@ public class EmptyIterator
 	{
 	}
 
-	private static final OfDouble EMPTY_DOUBLE = new OfDouble();
-	private static final OfInt EMPTY_INT = new OfInt();
-	private static final OfLong EMPTY_LONG = new OfLong();
-
 	public static OfInt ofInt()
 	{
-		return EMPTY_INT;
+		return new OfInt();
 	}
 
 	public static OfLong ofLong()
 	{
-		return EMPTY_LONG;
+		return new OfLong();
 	}
 
 	public static OfDouble ofDouble()
 	{
-		return EMPTY_DOUBLE;
+		return new OfDouble();
 	}
 
 	public static final class OfObject<E> extends AbstractRichIterator<E>
