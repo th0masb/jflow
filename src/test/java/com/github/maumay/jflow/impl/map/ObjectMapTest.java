@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.impl.map;
+package com.github.maumay.jflow.impl.map;
 
 import java.util.ArrayList;
 import java.util.List;
