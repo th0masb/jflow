@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author t
  */
-class AbstractEnhancedIteratorSkipwhileTest extends IteratorExampleProviders implements IteratorTest
+class AbstractEnhancedIteratorSkipwhileTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	void test()
@@ -30,9 +30,9 @@ class AbstractEnhancedIteratorSkipwhileTest extends IteratorExampleProviders imp
 				Tup.of(asList("0", "1", "2", "3", "4"), string -> !string.equals("0")));
 
 		testData.stream().forEach(testCase -> {
-			assertObjectIteratorAsExpected(testCase._1(),
+			assertIteratorAsExpected(testCase._1(),
 					createSkipwhileIteratorProviderFrom(populated, testCase._2()));
-			assertObjectIteratorAsExpected(asList(),
+			assertIteratorAsExpected(asList(),
 					createSkipwhileIteratorProviderFrom(empty, testCase._2()));
 		});
 	}

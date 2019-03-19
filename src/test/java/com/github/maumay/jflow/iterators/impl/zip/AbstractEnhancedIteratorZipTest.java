@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author ThomasB
  */
 class AbstractEnhancedIteratorZipTest extends IteratorExampleProviders
-		implements IteratorTest
+		implements FiniteIteratorTest
 {
 	@Test
 	void testZipWithObject()
@@ -24,24 +24,24 @@ class AbstractEnhancedIteratorZipTest extends IteratorExampleProviders
 		AbstractRichIterable<String> large = getLargeObjectIteratorProviders();
 		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
-		assertObjectIteratorAsExpected(asList(Tup.of("0", "10"), Tup.of("1", "11")),
+		assertIteratorAsExpected(asList(Tup.of("0", "10"), Tup.of("1", "11")),
 				createZipIteratorProviderFrom(mid, small));
 
-		assertObjectIteratorAsExpected(
+		assertIteratorAsExpected(
 				asList(Tup.of("0", "0"), Tup.of("1", "1"), Tup.of("2", "2"),
 						Tup.of("3", "3"), Tup.of("4", "4")),
 				createZipIteratorProviderFrom(mid, mid));
 
-		assertObjectIteratorAsExpected(
+		assertIteratorAsExpected(
 				asList(Tup.of("0", "10"), Tup.of("1", "11"), Tup.of("2", "12"),
 						Tup.of("3", "13"), Tup.of("4", "14")),
 				createZipIteratorProviderFrom(mid, large));
 
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(mid, empty));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(empty, empty));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(empty, mid));
 	}
 

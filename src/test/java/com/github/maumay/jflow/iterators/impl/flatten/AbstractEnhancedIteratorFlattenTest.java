@@ -20,13 +20,13 @@ import com.github.maumay.jflow.impl.KnownSize;
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProviders implements IteratorTest
+class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@ParameterizedTest
 	@MethodSource
@@ -37,7 +37,7 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProviders imple
 				.getOrDefault(string, repeat("", 0)).iter();
 		AbstractRichIterable<String> flattenedIteratorProvider = createFlattenIteratorProviderFrom(
 				iteratorProvider, flattenMapping);
-		assertObjectIteratorAsExpected(expectedOutput, flattenedIteratorProvider);
+		assertIteratorAsExpected(expectedOutput, flattenedIteratorProvider);
 	}
 
 	private static <E> AbstractRichIterable<E> repeat(E element, int nTimes)

@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorAppendTest extends IteratorExampleProviders implements IteratorTest
+class AbstractEnhancedIteratorAppendTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	void test()
@@ -25,14 +25,14 @@ class AbstractEnhancedIteratorAppendTest extends IteratorExampleProviders implem
 		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 		AbstractRichIterable<String> small = getShortObjectIteratorProviders();
 
-		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4", "10", "11"),
+		assertIteratorAsExpected(asList("0", "1", "2", "3", "4", "10", "11"),
 				createAppendIteratorProviderFrom(populated, small));
-		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4"),
+		assertIteratorAsExpected(asList("0", "1", "2", "3", "4"),
 				createAppendIteratorProviderFrom(populated, empty));
 
-		assertObjectIteratorAsExpected(asList("10", "11"),
+		assertIteratorAsExpected(asList("10", "11"),
 				createAppendIteratorProviderFrom(empty, small));
-		assertObjectIteratorAsExpected(asList(), createAppendIteratorProviderFrom(empty, empty));
+		assertIteratorAsExpected(asList(), createAppendIteratorProviderFrom(empty, empty));
 	}
 
 	private <E> AbstractRichIterable<E> createAppendIteratorProviderFrom(

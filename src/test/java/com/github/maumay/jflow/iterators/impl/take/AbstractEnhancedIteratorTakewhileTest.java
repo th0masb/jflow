@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
@@ -21,7 +21,7 @@ import com.github.maumay.jflow.utils.Tup;
  *
  */
 public class AbstractEnhancedIteratorTakewhileTest extends IteratorExampleProviders
-		implements IteratorTest
+		implements FiniteIteratorTest
 {
 	@Test
 	void test()
@@ -35,9 +35,9 @@ public class AbstractEnhancedIteratorTakewhileTest extends IteratorExampleProvid
 				Tup.of(asList("0", "1", "2", "3", "4"), string -> !string.equals("5")));
 
 		testData.stream().forEach(testCase -> {
-			assertObjectIteratorAsExpected(testCase._1(),
+			assertIteratorAsExpected(testCase._1(),
 					createTakewhileIteratorProviderFrom(populated, testCase._2()));
-			assertObjectIteratorAsExpected(asList(),
+			assertIteratorAsExpected(asList(),
 					createTakewhileIteratorProviderFrom(empty, testCase._2()));
 		});
 	}

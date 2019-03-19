@@ -4,41 +4,48 @@
 package com.github.maumay.jflow.testutilities;
 
 import java.util.List;
-import java.util.function.UnaryOperator;
+import java.util.function.Function;
 
+import org.junit.jupiter.api.Test;
+
+import com.github.maumay.jflow.impl.AbstractIterator;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 
 /**
  * @author thomasb
  *
  */
-public interface LongAdapterTest extends LongIteratorTest, ListBuilder
+public abstract class LongAdapterTest<I extends AbstractIterator>
+		implements FiniteIteratorTest, ListBuilder
 {
-	List<LongCase> getLongTestCases();
+	protected abstract List<LongCase<I>> getLongTestCases();
 
-	default void testLongs()
+	@Test
+	public final void test()
 	{
-		List<LongCase> testcases = getLongTestCases();
+		List<LongCase<I>> testcases = getLongTestCases();
 
-		for (LongCase testcase : testcases) {
-			List<AbstractIterableLongs> initialProviders = IteratorExampleProviders
+		for (LongCase<I> testcase : testcases) {
+			List<AbstractTestIterable<I>> initialProviders = IteratorExampleProviders
 					.buildLongIterables(testcase.source, testcase.adapter);
 
-			assertLongIteratorAsExpected(testcase.result, initialProviders);
+			assertIteratorAsExpected(testcase.result, initialProviders);
 		}
 	}
 
 	@FunctionalInterface
-	static interface LongAdapter extends UnaryOperator<AbstractLongIterator>
+	public static interface LongAdapter<I extends AbstractIterator>
+			extends Function<AbstractLongIterator, I>
 	{
 	}
 
-	static class LongCase
+	public static class LongCase<I extends AbstractIterator>
 	{
-		final List<Long> source, result;
-		final LongAdapter adapter;
+		final List<Long> source;
+		final LongAdapter<I> adapter;
+		final List<?> result;
 
-		public LongCase(List<Long> source, LongAdapter adapter, List<Long> result)
+		public LongCase(List<Long> source, LongAdapter<I> adapter, List<?> result)
 		{
 			this.source = source;
 			this.result = result;

@@ -11,13 +11,13 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
  * @author ThomasB
  */
-class AbstractIntIteratorZipTest extends IteratorExampleProviders implements IteratorTest
+class AbstractIntIteratorZipTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	void testZipWithInt()
@@ -27,23 +27,23 @@ class AbstractIntIteratorZipTest extends IteratorExampleProviders implements Ite
 		AbstractIterableInts large = getLargeIntTestIteratorProvider();
 		AbstractIterableInts empty = getEmptyIntTestIteratorProvider();
 
-		assertObjectIteratorAsExpected(asList(IntTup.of(0, 0), IntTup.of(1, 1),
+		assertIteratorAsExpected(asList(IntTup.of(0, 0), IntTup.of(1, 1),
 				IntTup.of(2, 2), IntTup.of(3, 3), IntTup.of(4, 4)),
 				createZipIteratorProviderFrom(mid, mid));
 
-		assertObjectIteratorAsExpected(
+		assertIteratorAsExpected(
 				asList(IntTup.of(0, 10), IntTup.of(1, 11), IntTup.of(2, 12),
 						IntTup.of(3, 13), IntTup.of(4, 14)),
 				createZipIteratorProviderFrom(mid, large));
 
-		assertObjectIteratorAsExpected(asList(IntTup.of(0, 10), IntTup.of(1, 11)),
+		assertIteratorAsExpected(asList(IntTup.of(0, 10), IntTup.of(1, 11)),
 				createZipIteratorProviderFrom(mid, small));
 
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(mid, empty));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(empty, empty));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(empty, mid));
 	}
 

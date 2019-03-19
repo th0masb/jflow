@@ -12,12 +12,12 @@ import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  */
-public class MapToIntTest extends IteratorExampleProviders implements IteratorTest
+public class MapToIntTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	public void testAbstractFlowMapToInt()

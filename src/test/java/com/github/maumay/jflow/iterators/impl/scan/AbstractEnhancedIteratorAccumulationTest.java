@@ -12,14 +12,14 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  *
  */
 class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProviders
-		implements IteratorTest
+		implements FiniteIteratorTest
 {
 
 	@Test
@@ -28,9 +28,9 @@ class AbstractEnhancedIteratorAccumulationTest extends IteratorExampleProviders
 		AbstractRichIterable<String> populated = getObjectIteratorProviders();
 		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
-		assertObjectIteratorAsExpected(asList("x", "x0", "x01", "x012", "x0123", "x01234"),
+		assertIteratorAsExpected(asList("x", "x0", "x01", "x012", "x0123", "x01234"),
 				createAccumlationWithIdIteratorProviderFrom(populated, "x", String::concat));
-		assertObjectIteratorAsExpected(asList("x"),
+		assertIteratorAsExpected(asList("x"),
 				createAccumlationWithIdIteratorProviderFrom(empty, "x", String::concat));
 	}
 

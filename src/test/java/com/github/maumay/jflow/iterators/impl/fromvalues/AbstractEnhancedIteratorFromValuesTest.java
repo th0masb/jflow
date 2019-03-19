@@ -11,18 +11,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.ArraySource;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  */
-class AbstractEnhancedIteratorFromValuesTest implements IteratorTest
+class AbstractEnhancedIteratorFromValuesTest implements FiniteIteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")
 	void testCreationAsExpected(String[] source)
 	{
-		assertObjectIteratorAsExpected(asList(source),
+		assertIteratorAsExpected(asList(source),
 				getCreationFromValuesIteratorProvider(source));
 	}
 

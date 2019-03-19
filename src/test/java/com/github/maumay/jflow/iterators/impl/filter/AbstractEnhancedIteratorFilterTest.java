@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  */
-class AbstractEnhancedIteratorFilterTest extends IteratorExampleProviders implements IteratorTest
+class AbstractEnhancedIteratorFilterTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	void test()
@@ -24,21 +24,21 @@ class AbstractEnhancedIteratorFilterTest extends IteratorExampleProviders implem
 		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
 		Predicate<String> allFilteredPredicate = string -> parseInt(string) < 0;
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createFilterIteratorProviderFrom(populated, allFilteredPredicate));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createFilterIteratorProviderFrom(empty, allFilteredPredicate));
 
 		Predicate<String> someFilteredPredicate = string -> parseInt(string) < 3;
-		assertObjectIteratorAsExpected(asList("0", "1", "2"),
+		assertIteratorAsExpected(asList("0", "1", "2"),
 				createFilterIteratorProviderFrom(populated, someFilteredPredicate));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createFilterIteratorProviderFrom(empty, someFilteredPredicate));
 
 		Predicate<String> noneFilteredPredicate = string -> parseInt(string) < 5;
-		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4"),
+		assertIteratorAsExpected(asList("0", "1", "2", "3", "4"),
 				createFilterIteratorProviderFrom(populated, noneFilteredPredicate));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createFilterIteratorProviderFrom(empty, noneFilteredPredicate));
 	}
 

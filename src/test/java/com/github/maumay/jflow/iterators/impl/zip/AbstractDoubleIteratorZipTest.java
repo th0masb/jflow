@@ -11,7 +11,7 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 import com.github.maumay.jflow.utils.DoubleTup;
 
 /**
@@ -19,7 +19,7 @@ import com.github.maumay.jflow.utils.DoubleTup;
  *
  */
 class AbstractDoubleIteratorZipTest extends IteratorExampleProviders
-		implements IteratorTest
+		implements FiniteIteratorTest
 {
 	@Test
 	void testZipWithDouble()
@@ -29,24 +29,24 @@ class AbstractDoubleIteratorZipTest extends IteratorExampleProviders
 		AbstractIterableDoubles large = getLargeDoubleTestIteratorProvider();
 		AbstractIterableDoubles empty = getEmptyDoubleTestIteratorProvider();
 
-		assertObjectIteratorAsExpected(
+		assertIteratorAsExpected(
 				asList(DoubleTup.of(0, 0), DoubleTup.of(1, 1), DoubleTup.of(2, 2),
 						DoubleTup.of(3, 3), DoubleTup.of(4, 4)),
 				createZipIteratorProviderFrom(mid, mid));
 
-		assertObjectIteratorAsExpected(
+		assertIteratorAsExpected(
 				asList(DoubleTup.of(0, 10), DoubleTup.of(1, 11), DoubleTup.of(2, 12),
 						DoubleTup.of(3, 13), DoubleTup.of(4, 14)),
 				createZipIteratorProviderFrom(mid, large));
 
-		assertObjectIteratorAsExpected(asList(DoubleTup.of(0, 10), DoubleTup.of(1, 11)),
+		assertIteratorAsExpected(asList(DoubleTup.of(0, 10), DoubleTup.of(1, 11)),
 				createZipIteratorProviderFrom(mid, small));
 
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(mid, empty));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(empty, empty));
-		assertObjectIteratorAsExpected(asList(),
+		assertIteratorAsExpected(asList(),
 				createZipIteratorProviderFrom(empty, mid));
 	}
 

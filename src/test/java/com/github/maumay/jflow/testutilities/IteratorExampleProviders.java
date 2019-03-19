@@ -6,10 +6,11 @@ package com.github.maumay.jflow.testutilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.function.UnaryOperator;
+import java.util.function.Function;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
 import com.github.maumay.jflow.impl.AbstractIntIterator;
+import com.github.maumay.jflow.impl.AbstractIterator;
 import com.github.maumay.jflow.impl.AbstractIteratorSize;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
@@ -27,16 +28,16 @@ class IteratorExampleProviders
 {
 	private static final int UPPER_BOUND_MULTIPLIER = 3;
 
-	static <T> List<AbstractRichIterable<T>> buildIterables(List<T> src)
+	static <T> List<AbstractTestIterable<AbstractRichIterator<T>>> buildIterables(List<T> src)
 	{
 		return buildIterables(src, x -> x);
 	}
 
-	static <T> List<AbstractRichIterable<T>> buildIterables(List<T> src,
-			UnaryOperator<AbstractRichIterator<T>> adapter)
+	static <T, I extends AbstractIterator> List<AbstractTestIterable<I>> buildIterables(List<T> src,
+			Function<AbstractRichIterator<T>, I> adapter)
 	{
 		int size = src.size();
-		List<AbstractRichIterable<T>> dest = new ArrayList<>();
+		List<AbstractTestIterable<I>> dest = new ArrayList<>();
 		// Add exact size
 		dest.add(buildIterable(src, KnownSize.of(size), adapter));
 
@@ -55,12 +56,12 @@ class IteratorExampleProviders
 		return dest;
 	}
 
-	private static <T> AbstractRichIterable<T> buildIterable(List<T> src, AbstractIteratorSize size,
-			UnaryOperator<AbstractRichIterator<T>> adapter)
+	private static <T, I extends AbstractIterator> AbstractTestIterable<I> buildIterable(
+			List<T> src, AbstractIteratorSize size, Function<AbstractRichIterator<T>, I> adapter)
 	{
-		return new AbstractRichIterable<T>() {
+		return new AbstractTestIterable<I>() {
 			@Override
-			public AbstractRichIterator<T> iter()
+			public I iter()
 			{
 				return adapter.apply(new AbstractRichIterator<T>(size) {
 					int count = 0;
@@ -91,16 +92,16 @@ class IteratorExampleProviders
 		};
 	}
 
-	static List<AbstractIterableInts> buildIntIterables(List<Integer> src)
+	static List<AbstractTestIterable<AbstractIntIterator>> buildIntIterables(List<Integer> src)
 	{
 		return buildIntIterables(src, x -> x);
 	}
 
-	static List<AbstractIterableInts> buildIntIterables(List<Integer> src,
-			UnaryOperator<AbstractIntIterator> adapter)
+	static <I extends AbstractIterator> List<AbstractTestIterable<I>> buildIntIterables(
+			List<Integer> src, Function<AbstractIntIterator, I> adapter)
 	{
 		int size = src.size();
-		List<AbstractIterableInts> dest = new ArrayList<>();
+		List<AbstractTestIterable<I>> dest = new ArrayList<>();
 		dest.add(buildIntIterable(src, KnownSize.of(size), adapter));
 
 		// Add lower bound sizes.
@@ -118,12 +119,12 @@ class IteratorExampleProviders
 		return dest;
 	}
 
-	private static AbstractIterableInts buildIntIterable(List<Integer> src,
-			AbstractIteratorSize size, UnaryOperator<AbstractIntIterator> adapter)
+	private static <I extends AbstractIterator> AbstractTestIterable<I> buildIntIterable(
+			List<Integer> src, AbstractIteratorSize size, Function<AbstractIntIterator, I> adapter)
 	{
-		return new AbstractIterableInts() {
+		return new AbstractTestIterable<I>() {
 			@Override
-			public AbstractIntIterator iter()
+			public I iter()
 			{
 				return adapter.apply(new AbstractIntIterator(size) {
 					int count = 0;
@@ -154,16 +155,16 @@ class IteratorExampleProviders
 		};
 	}
 
-	static List<AbstractIterableLongs> buildLongIterables(List<Long> src)
+	static List<AbstractTestIterable<AbstractLongIterator>> buildLongIterables(List<Long> src)
 	{
 		return buildLongIterables(src, x -> x);
 	}
 
-	static List<AbstractIterableLongs> buildLongIterables(List<Long> src,
-			UnaryOperator<AbstractLongIterator> adapter)
+	static <I extends AbstractIterator> List<AbstractTestIterable<I>> buildLongIterables(
+			List<Long> src, Function<AbstractLongIterator, I> adapter)
 	{
 		int size = src.size();
-		List<AbstractIterableLongs> dest = new ArrayList<>();
+		List<AbstractTestIterable<I>> dest = new ArrayList<>();
 		dest.add(buildLongIterable(src, KnownSize.of(size), adapter));
 
 		// Add lower bound sizes.
@@ -181,12 +182,12 @@ class IteratorExampleProviders
 		return dest;
 	}
 
-	private static AbstractIterableLongs buildLongIterable(List<Long> src,
-			AbstractIteratorSize size, UnaryOperator<AbstractLongIterator> adapter)
+	private static <I extends AbstractIterator> AbstractTestIterable<I> buildLongIterable(
+			List<Long> src, AbstractIteratorSize size, Function<AbstractLongIterator, I> adapter)
 	{
-		return new AbstractIterableLongs() {
+		return new AbstractTestIterable<I>() {
 			@Override
-			public AbstractLongIterator iter()
+			public I iter()
 			{
 				return adapter.apply(new AbstractLongIterator(size) {
 					int count = 0;
@@ -217,16 +218,16 @@ class IteratorExampleProviders
 		};
 	}
 
-	static List<AbstractIterableDoubles> buildDoubleIterables(List<Double> src)
+	static List<AbstractTestIterable<AbstractDoubleIterator>> buildDoubleIterables(List<Double> src)
 	{
 		return buildDoubleIterables(src, x -> x);
 	}
 
-	static List<AbstractIterableDoubles> buildDoubleIterables(List<Double> src,
-			UnaryOperator<AbstractDoubleIterator> adapter)
+	static <I extends AbstractIterator> List<AbstractTestIterable<I>> buildDoubleIterables(
+			List<Double> src, Function<AbstractDoubleIterator, I> adapter)
 	{
 		int size = src.size();
-		List<AbstractIterableDoubles> dest = new ArrayList<>();
+		List<AbstractTestIterable<I>> dest = new ArrayList<>();
 		dest.add(buildDoubleIterable(src, KnownSize.of(size), adapter));
 
 		// Add lower bound sizes.
@@ -244,12 +245,13 @@ class IteratorExampleProviders
 		return dest;
 	}
 
-	private static AbstractIterableDoubles buildDoubleIterable(List<Double> src,
-			AbstractIteratorSize size, UnaryOperator<AbstractDoubleIterator> adapter)
+	private static <I extends AbstractIterator> AbstractTestIterable<I> buildDoubleIterable(
+			List<Double> src, AbstractIteratorSize size,
+			Function<AbstractDoubleIterator, I> adapter)
 	{
-		return new AbstractIterableDoubles() {
+		return new AbstractTestIterable<I>() {
 			@Override
-			public AbstractDoubleIterator iter()
+			public I iter()
 			{
 				return adapter.apply(new AbstractDoubleIterator(size) {
 					int count = 0;

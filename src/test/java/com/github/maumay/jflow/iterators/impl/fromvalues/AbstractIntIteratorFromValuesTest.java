@@ -12,12 +12,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.impl.ArraySource;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  */
-class AbstractIntIteratorFromValuesTest implements IteratorTest
+class AbstractIntIteratorFromValuesTest implements FiniteIteratorTest
 {
 	@ParameterizedTest
 	@MethodSource("creationTestDataProvider")

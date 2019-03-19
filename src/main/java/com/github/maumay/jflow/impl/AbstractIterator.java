@@ -60,4 +60,6 @@ public abstract class AbstractIterator implements Skippable
 	}
 
 	public abstract void skipImpl();
+
+	public abstract boolean hasNext();
 }

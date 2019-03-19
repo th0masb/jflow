@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author t
  */
-class AbstractEnhancedIteratorSkipTest extends IteratorExampleProviders implements IteratorTest
+class AbstractEnhancedIteratorSkipTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	void test()
@@ -31,9 +31,9 @@ class AbstractEnhancedIteratorSkipTest extends IteratorExampleProviders implemen
 		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
 		IntStream.range(0, nArgs).forEach(i -> {
-			assertObjectIteratorAsExpected(expectedOutcomesForDifferentIndexArguments.get(i),
+			assertIteratorAsExpected(expectedOutcomesForDifferentIndexArguments.get(i),
 					createSkipIteratorProviderFrom(populated, i));
-			assertObjectIteratorAsExpected(asList(), createSkipIteratorProviderFrom(empty, i));
+			assertIteratorAsExpected(asList(), createSkipIteratorProviderFrom(empty, i));
 		});
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i -> {
@@ -42,8 +42,8 @@ class AbstractEnhancedIteratorSkipTest extends IteratorExampleProviders implemen
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i -> {
-			assertObjectIteratorAsExpected(asList(), createSkipIteratorProviderFrom(populated, i));
-			assertObjectIteratorAsExpected(asList(), createSkipIteratorProviderFrom(empty, i));
+			assertIteratorAsExpected(asList(), createSkipIteratorProviderFrom(populated, i));
+			assertIteratorAsExpected(asList(), createSkipIteratorProviderFrom(empty, i));
 		});
 
 	}

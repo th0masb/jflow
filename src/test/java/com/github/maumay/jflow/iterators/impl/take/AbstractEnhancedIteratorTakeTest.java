@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * @author ThomasB
  */
 public class AbstractEnhancedIteratorTakeTest extends IteratorExampleProviders
-		implements IteratorTest
+		implements FiniteIteratorTest
 {
 	@Test
 	void test()
@@ -32,9 +32,9 @@ public class AbstractEnhancedIteratorTakeTest extends IteratorExampleProviders
 		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
 		IntStream.range(0, nArgs).forEach(i -> {
-			assertObjectIteratorAsExpected(expectedOutcomesForDifferentIndexArguments.get(i),
+			assertIteratorAsExpected(expectedOutcomesForDifferentIndexArguments.get(i),
 					createTakeIteratorProviderFrom(populated, i));
-			assertObjectIteratorAsExpected(asList(), createTakeIteratorProviderFrom(empty, i));
+			assertIteratorAsExpected(asList(), createTakeIteratorProviderFrom(empty, i));
 		});
 
 		IntStream.range(Constants.NEGATIVE_LOWER_BOUND, 0).forEach(i -> {
@@ -43,10 +43,10 @@ public class AbstractEnhancedIteratorTakeTest extends IteratorExampleProviders
 		});
 
 		IntStream.range(nArgs, Constants.POSITIVE_UPPER_BOUND).forEach(i -> {
-			assertObjectIteratorAsExpected(
+			assertIteratorAsExpected(
 					expectedOutcomesForDifferentIndexArguments.get(nArgs - 1),
 					createTakeIteratorProviderFrom(populated, i));
-			assertObjectIteratorAsExpected(asList(), createTakeIteratorProviderFrom(empty, i));
+			assertIteratorAsExpected(asList(), createTakeIteratorProviderFrom(empty, i));
 		});
 	}
 

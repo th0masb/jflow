@@ -18,14 +18,14 @@ import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 
 /**
  * 
  * @author thomasb
  *
  */
-public class MapTest extends IteratorExampleProviders implements IteratorTest
+public class MapTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	public void testAbstractObjectFlowMap()
@@ -34,9 +34,9 @@ public class MapTest extends IteratorExampleProviders implements IteratorTest
 		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 		Function<String, String> mapper = string -> string + string;
 
-		assertObjectIteratorAsExpected(asList("00", "11", "22", "33", "44"),
+		assertIteratorAsExpected(asList("00", "11", "22", "33", "44"),
 				createMapIteratorProviderFrom(populated, mapper));
-		assertObjectIteratorAsExpected(asList(), createMapIteratorProviderFrom(empty, mapper));
+		assertIteratorAsExpected(asList(), createMapIteratorProviderFrom(empty, mapper));
 	}
 
 	private <T, R> AbstractRichIterable<R> createMapIteratorProviderFrom(

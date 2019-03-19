@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
 import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
-import com.github.maumay.jflow.testutilities.IteratorTest;
+import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author t
  */
-class AbstractLongIteratorTakewhileTest extends IteratorExampleProviders implements IteratorTest
+class AbstractLongIteratorTakewhileTest extends IteratorExampleProviders implements FiniteIteratorTest
 {
 	@Test
 	void test()
