@@ -12,7 +12,7 @@ import com.github.maumay.jflow.impl.AbstractIntIterator;
  * @author thomasb
  *
  */
-public interface IntAdapterTest extends IntIteratorTest
+public interface IntAdapterTest extends IntIteratorTest, ListBuilder
 {
 	List<IntCase> getIntTestCases();
 

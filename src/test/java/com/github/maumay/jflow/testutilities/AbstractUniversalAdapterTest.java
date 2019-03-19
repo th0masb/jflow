@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  *
  */
 public abstract class AbstractUniversalAdapterTest<T>
-		implements AdapterTest<T>, IntAdapterTest, LongAdapterTest, DoubleAdapterTest
+		implements AdapterTest<T>, IntAdapterTest, LongAdapterTest, DoubleAdapterTest, ListBuilder
 {
 	@Test
 	public final void testImpl()

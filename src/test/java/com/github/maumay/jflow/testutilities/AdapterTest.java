@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.testutilities;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
@@ -13,7 +12,7 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
  * @author thomasb
  *
  */
-public interface AdapterTest<T> extends ObjectIteratorTest
+public interface AdapterTest<T> extends ObjectIteratorTest, ListBuilder
 {
 	List<Case<T>> getTestCases();
 
@@ -22,30 +21,11 @@ public interface AdapterTest<T> extends ObjectIteratorTest
 		List<Case<T>> testcases = getTestCases();
 
 		for (Case<T> testcase : testcases) {
-			List<AbstractRichIterable<T>> initialProviders = IteratorExampleProviders
-					.buildIterables(testcase.source);
+			List<AbstractRichIterable<T>> providers = IteratorExampleProviders
+					.buildIterables(testcase.source, testcase.adapter);
 
-			List<AbstractRichIterable<T>> adaptedProviders = adapt(testcase.adapter,
-					initialProviders);
-
-			assertObjectIteratorAsExpected(testcase.result, adaptedProviders);
+			assertObjectIteratorAsExpected(testcase.result, providers);
 		}
-	}
-
-	default List<AbstractRichIterable<T>> adapt(Adapter<T> adapter,
-			List<AbstractRichIterable<T>> source)
-	{
-		List<AbstractRichIterable<T>> dest = new ArrayList<>(source.size());
-		for (AbstractRichIterable<T> element : source) {
-			dest.add(new AbstractRichIterable<T>() {
-				@Override
-				public AbstractRichIterator<T> iter()
-				{
-					return adapter.apply(element.iter());
-				}
-			});
-		}
-		return dest;
 	}
 
 	@FunctionalInterface

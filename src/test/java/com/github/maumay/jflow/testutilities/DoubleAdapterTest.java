@@ -12,7 +12,7 @@ import com.github.maumay.jflow.impl.AbstractDoubleIterator;
  * @author thomasb
  *
  */
-public interface DoubleAdapterTest extends DoubleIteratorTest
+public interface DoubleAdapterTest extends DoubleIteratorTest, ListBuilder
 {
 	List<DoubleCase> getDoubleTestCases();
 

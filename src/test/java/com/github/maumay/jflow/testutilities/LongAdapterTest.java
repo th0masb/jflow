@@ -12,7 +12,7 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
  * @author thomasb
  *
  */
-public interface LongAdapterTest extends LongIteratorTest
+public interface LongAdapterTest extends LongIteratorTest, ListBuilder
 {
 	List<LongCase> getLongTestCases();
 
