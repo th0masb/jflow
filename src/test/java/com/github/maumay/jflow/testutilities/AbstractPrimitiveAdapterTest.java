@@ -9,11 +9,14 @@ import org.junit.jupiter.api.Test;
  * @author thomasb
  *
  */
-public abstract class AbstractAdapterTest<T> implements AdapterTest<T>
+public abstract class AbstractPrimitiveAdapterTest
+		implements IntAdapterTest, LongAdapterTest, DoubleAdapterTest
 {
 	@Test
 	public final void testImpl()
 	{
-		test();
+		testInts();
+		testLongs();
+		testDoubles();
 	}
 }

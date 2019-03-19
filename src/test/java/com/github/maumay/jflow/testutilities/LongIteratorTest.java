@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.testutilities;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,7 +19,7 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
  */
 public interface LongIteratorTest
 {
-	default void assertLongIteratorAsExpected(long[] expectedElements,
+	default void assertLongIteratorAsExpected(List<Long> expectedElements,
 			List<AbstractIterableLongs> iteratorProviders)
 	{
 		for (AbstractIterableLongs iteratorProvider : iteratorProviders) {
@@ -45,23 +44,23 @@ public interface LongIteratorTest
 		}
 	}
 
-	static void assertSkippingAsExpected(long[] expectedElements, AbstractLongIterator iterator)
+	static void assertSkippingAsExpected(List<Long> expectedElements, AbstractLongIterator iterator)
 	{
-		IntStream.range(0, expectedElements.length).forEach(i -> iterator.skip());
+		IntStream.range(0, expectedElements.size()).forEach(i -> iterator.skip());
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
-	static void assertNextElementChecksAsExpected(long[] expectedElements,
+	static void assertNextElementChecksAsExpected(List<Long> expectedElements,
 			AbstractLongIterator iterator)
 	{
-		IntStream.range(0, expectedElements.length).forEach(i -> {
+		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			assertTrue(iterator.hasNext());
 			iterator.skip();
 		});
 		assertFalse(iterator.hasNext());
 	}
 
-	static void assertStandardIterationAsExpected(long[] expectedElements,
+	static void assertStandardIterationAsExpected(List<Long> expectedElements,
 			AbstractLongIterator iterator)
 	{
 		List<Long> recoveredElements = new ArrayList<>();
@@ -70,30 +69,30 @@ public interface LongIteratorTest
 		}
 		assertThrows(NoSuchElementException.class, iterator::nextLong);
 		assertThrows(NoSuchElementException.class, iterator::skip);
-		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
+		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static void assertUncheckedIterationAsExpected(long[] expectedElements,
+	static void assertUncheckedIterationAsExpected(List<Long> expectedElements,
 			AbstractLongIterator iterator)
 	{
 		List<Long> recoveredElements = new ArrayList<>();
-		IntStream.range(0, expectedElements.length)
+		IntStream.range(0, expectedElements.size())
 				.forEach(i -> recoveredElements.add(iterator.nextLong()));
 
 		assertThrows(NoSuchElementException.class, iterator::nextLong);
 		assertThrows(NoSuchElementException.class, iterator::skip);
-		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
+		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static void assertAlternatingNextAndSkipCallsAsExpected(long[] expectedElements,
+	static void assertAlternatingNextAndSkipCallsAsExpected(List<Long> expectedElements,
 			AbstractLongIterator iterator)
 	{
 		List<Long> expectedOutcome = new ArrayList<>(), recoveredElements = new ArrayList<>();
 
-		IntStream.range(0, expectedElements.length).forEach(i -> {
+		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			if (i % 2 == 0) {
 				recoveredElements.add(iterator.nextLong());
-				expectedOutcome.add(expectedElements[i]);
+				expectedOutcome.add(expectedElements.get(i));
 			} else {
 				iterator.skip();
 			}
@@ -103,10 +102,5 @@ public interface LongIteratorTest
 		assertThrows(NoSuchElementException.class, iterator::nextLong);
 		assertThrows(NoSuchElementException.class, iterator::skip);
 		assertEquals(expectedOutcome, recoveredElements);
-	}
-
-	static long[] convertFromBoxed(List<Long> boxedLongs)
-	{
-		return boxedLongs.stream().mapToLong(i -> i).toArray();
 	}
 }
