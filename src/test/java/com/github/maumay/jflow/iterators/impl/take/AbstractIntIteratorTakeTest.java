@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author t
  */
-class AbstractIntIteratorTakeTest extends IteratorExampleProvider implements IteratorTest
+class AbstractIntIteratorTakeTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	void test()

@@ -15,23 +15,23 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 
 /**
  * @author ThomasB
  */
-class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExampleProvider
+class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExampleProviders
 {
 	@ParameterizedTest
 	@MethodSource("singleTypeReductionTestDataProvider")
 	void testSingleTypeReduction(BinaryOperator<String> reducer, String expectedPopulatedResult)
 	{
-		AbstractRichIterator<String> populated = getObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> populated = getObjectIteratorProviders().iterator();
 		Optional<String> reduction = populated.foldOption(reducer);
 		assertTrue(reduction.isPresent());
 		assertEquals(expectedPopulatedResult, reduction.get());
 
-		AbstractRichIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> empty = getEmptyObjectIteratorProvider().iterator();
 		assertFalse(empty.foldOption(reducer).isPresent());
 	}
 
@@ -45,11 +45,11 @@ class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExamplePr
 	void testTwoTypeReduction(Double id, BiFunction<Double, String, Double> reducer,
 			Double expectedPopulatedResult)
 	{
-		AbstractRichIterator<String> populated = getObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> populated = getObjectIteratorProviders().iterator();
 		Double reduction = populated.fold(id, reducer);
 		assertEquals(expectedPopulatedResult, reduction);
 
-		AbstractRichIterator<String> empty = getEmptyObjectTestIteratorProvider().iterator();
+		AbstractRichIterator<String> empty = getEmptyObjectIteratorProvider().iterator();
 		assertEquals(id, empty.fold(id, reducer));
 	}
 
@@ -68,9 +68,9 @@ class AbstractEnhancedIteratorReductionConsumptionTest extends IteratorExamplePr
 
 	static Stream<Arguments> countReductionTestDataProvider()
 	{
-		return Stream.of(Arguments.of(getObjectTestIteratorProvider().iterator(), 5),
-				Arguments.of(getSmallObjectTestIteratorProvider().iterator(), 2),
-				Arguments.of(getLargeObjectTestIteratorProvider().iterator(), 6),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), 0));
+		return Stream.of(Arguments.of(getObjectIteratorProviders().iterator(), 5),
+				Arguments.of(getShortObjectIteratorProviders().iterator(), 2),
+				Arguments.of(getLargeObjectIteratorProviders().iterator(), 6),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(), 0));
 	}
 }

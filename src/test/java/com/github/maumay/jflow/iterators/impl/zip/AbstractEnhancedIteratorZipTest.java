@@ -6,23 +6,23 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author ThomasB
  */
-class AbstractEnhancedIteratorZipTest extends IteratorExampleProvider
+class AbstractEnhancedIteratorZipTest extends IteratorExampleProviders
 		implements IteratorTest
 {
 	@Test
 	void testZipWithObject()
 	{
-		AbstractRichIterable<String> small = getSmallObjectTestIteratorProvider();
-		AbstractRichIterable<String> mid = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> large = getLargeObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> small = getShortObjectIteratorProviders();
+		AbstractRichIterable<String> mid = getObjectIteratorProviders();
+		AbstractRichIterable<String> large = getLargeObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
 		assertObjectIteratorAsExpected(asList(Tup.of("0", "10"), Tup.of("1", "11")),
 				createZipIteratorProviderFrom(mid, small));

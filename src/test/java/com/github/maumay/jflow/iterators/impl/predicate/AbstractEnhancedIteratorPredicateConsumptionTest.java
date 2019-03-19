@@ -16,13 +16,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.KnownSize;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExampleProvider
+class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExampleProviders
 {
 	@ParameterizedTest
 	@MethodSource("allEqualTestDataProvider")
@@ -34,8 +34,8 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 	static Stream<Arguments> allEqualTestDataProvider()
 	{
 		return Stream.of(Arguments.of(getAllEqualFlow(), Boolean.TRUE),
-				Arguments.of(getObjectTestIteratorProvider().iterator(), Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(), Boolean.TRUE));
+				Arguments.of(getObjectIteratorProviders().iterator(), Boolean.FALSE),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(), Boolean.TRUE));
 	}
 
 	private static AbstractRichIterator<String> getAllEqualFlow()
@@ -77,13 +77,13 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Predicate<String>) s -> parseDouble(s) < 3, Boolean.FALSE),
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Predicate<String>) s -> parseDouble(s) < 3, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE));
 	}
 
@@ -98,13 +98,13 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Predicate<String>) s -> parseDouble(s) < -1, Boolean.FALSE),
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Predicate<String>) s -> parseDouble(s) > 3, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Predicate<String>) s -> parseDouble(s) < 3, Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Predicate<String>) s -> parseDouble(s) > -1, Boolean.FALSE));
 	}
 
@@ -119,13 +119,13 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Predicate<String>) s -> parseDouble(s) < -1, Boolean.TRUE),
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Predicate<String>) s -> parseDouble(s) > 3, Boolean.FALSE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Predicate<String>) s -> parseDouble(s) < 3, Boolean.TRUE),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Predicate<String>) s -> parseDouble(s) > -1, Boolean.TRUE));
 	}
 }

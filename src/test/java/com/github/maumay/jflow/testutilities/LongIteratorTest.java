@@ -21,14 +21,16 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
 public interface LongIteratorTest
 {
 	default void assertLongIteratorAsExpected(long[] expectedElements,
-			AbstractIterableLongs iteratorProvider)
+			List<AbstractIterableLongs> iteratorProviders)
 	{
-		assertSizeDecreasesAsExpected(iteratorProvider.iter());
-		assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
-		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
-		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
-		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
-		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
+		for (AbstractIterableLongs iteratorProvider : iteratorProviders) {
+			assertSizeDecreasesAsExpected(iteratorProvider.iter());
+			assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
+			assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
+			assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
+			assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
+			assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
+		}
 	}
 
 	static void assertSizeDecreasesAsExpected(AbstractLongIterator iterator)

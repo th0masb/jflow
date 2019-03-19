@@ -20,14 +20,17 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 public interface ObjectIteratorTest
 {
 	default <T> void assertObjectIteratorAsExpected(List<T> expectedElements,
-			AbstractRichIterable<T> iteratorProvider)
+			List<AbstractRichIterable<T>> iteratorProviders)
 	{
-		assertSizeDecreasesAsExpected(iteratorProvider.iterator());
-		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
-		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
-		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
-		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
-		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
+		for (AbstractRichIterable<T> iteratorProvider : iteratorProviders) {
+			assertSizeDecreasesAsExpected(iteratorProvider.iterator());
+			assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
+			assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
+			assertStandardIterationAsExpected(expectedElements, iteratorProvider.iterator());
+			assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iterator());
+			assertAlternatingNextAndSkipCallsAsExpected(expectedElements,
+					iteratorProvider.iterator());
+		}
 	}
 
 	static void assertSizeDecreasesAsExpected(AbstractRichIterator<?> iterator)

@@ -10,23 +10,28 @@ import java.util.function.LongUnaryOperator;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testutilities.AbstractRichIterable;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.AbstractRichIterable;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
-public class MapTest extends IteratorExampleProvider implements IteratorTest
+/**
+ * 
+ * @author thomasb
+ *
+ */
+public class MapTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	public void testAbstractObjectFlowMap()
 	{
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 		Function<String, String> mapper = string -> string + string;
 
 		assertObjectIteratorAsExpected(asList("00", "11", "22", "33", "44"),

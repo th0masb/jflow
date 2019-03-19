@@ -19,14 +19,14 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.KnownSize;
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implements IteratorTest
+class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProviders implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource
@@ -97,46 +97,46 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 		// ---
 		// Case 0: All empty
 		Map<String, AbstractRichIterable<String>> testMapping0 = new HashMap<>();
-		AbstractRichIterable<String> iteratorProvider0 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider0 = getObjectIteratorProviders();
 		List<String> expectedOutput0 = Arrays.asList();
 		// ---
 		// Case 1: Left boundary set
 		Map<String, AbstractRichIterable<String>> testMapping1 = new HashMap<>();
 		testMapping1.put("0", repeat("0", 2));
-		AbstractRichIterable<String> iteratorProvider1 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider1 = getObjectIteratorProviders();
 		List<String> expectedOutput1 = Arrays.asList("0", "0");
 		// ---
 		// Case 2: Interior set
 		Map<String, AbstractRichIterable<String>> testMapping2 = new HashMap<>();
 		testMapping2.put("1", repeat("1", 2));
-		AbstractRichIterable<String> iteratorProvider2 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider2 = getObjectIteratorProviders();
 		List<String> expectedOutput2 = Arrays.asList("1", "1");
 		// ---
 		// Case 3: Right boundary set
 		Map<String, AbstractRichIterable<String>> testMapping3 = new HashMap<>();
 		testMapping3.put("4", repeat("4", 3));
-		AbstractRichIterable<String> iteratorProvider3 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider3 = getObjectIteratorProviders();
 		List<String> expectedOutput3 = Arrays.asList("4", "4", "4");
 		// ---
 		// Case 4: Left boundary and interior set.
 		Map<String, AbstractRichIterable<String>> testMapping4 = new HashMap<>();
 		testMapping4.put("0", repeat("0", 1));
 		testMapping4.put("1", repeat("1", 1));
-		AbstractRichIterable<String> iteratorProvider4 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider4 = getObjectIteratorProviders();
 		List<String> expectedOutput4 = Arrays.asList("0", "1");
 		// ---
 		// Case 5: Interior and right boundary set.
 		Map<String, AbstractRichIterable<String>> testMapping5 = new HashMap<>();
 		testMapping5.put("1", repeat("1", 1));
 		testMapping5.put("4", repeat("4", 2));
-		AbstractRichIterable<String> iteratorProvider5 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider5 = getObjectIteratorProviders();
 		List<String> expectedOutput5 = Arrays.asList("1", "4", "4");
 		// ---
 		// Case 6: left and right boundary set.
 		Map<String, AbstractRichIterable<String>> testMapping6 = new HashMap<>();
 		testMapping6.put("0", repeat("0", 1));
 		testMapping6.put("4", repeat("4", 2));
-		AbstractRichIterable<String> iteratorProvider6 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider6 = getObjectIteratorProviders();
 		List<String> expectedOutput6 = Arrays.asList("0", "4", "4");
 		// ---
 		// Case 7: all set.
@@ -144,7 +144,7 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 		testMapping7.put("0", repeat("0", 1));
 		testMapping7.put("2", repeat("2", 1));
 		testMapping7.put("4", repeat("4", 2));
-		AbstractRichIterable<String> iteratorProvider7 = getObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider7 = getObjectIteratorProviders();
 		List<String> expectedOutput7 = Arrays.asList("0", "2", "4", "4");
 		// ---
 		// Case 8: Degenerate case.
@@ -152,7 +152,7 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implem
 		testMapping8.put("0", repeat("0", 1));
 		testMapping8.put("2", repeat("2", 1));
 		testMapping8.put("4", repeat("4", 2));
-		AbstractRichIterable<String> iteratorProvider8 = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> iteratorProvider8 = getEmptyObjectIteratorProvider();
 		List<String> expectedOutput8 = Arrays.asList();
 
 		return Stream.of(Arguments.of(testMapping0, iteratorProvider0, expectedOutput0),

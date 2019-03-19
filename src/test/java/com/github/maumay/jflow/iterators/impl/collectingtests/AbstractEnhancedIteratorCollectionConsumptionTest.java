@@ -23,14 +23,14 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleProvider
+class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleProviders
 {
 	@ParameterizedTest
 	@MethodSource("collectToCollectionTestDataProvider")
@@ -42,14 +42,14 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 
 	static Stream<Arguments> collectToCollectionTestDataProvider()
 	{
-		return Stream.of(Arguments.of(getObjectTestIteratorProvider().iterator(),
+		return Stream.of(Arguments.of(getObjectIteratorProviders().iterator(),
 				(Supplier<Collection<String>>) ArrayList::new, asList("0", "1", "2", "3", "4")),
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Supplier<Collection<String>>) HashSet::new,
 						new HashSet<>(asList("0", "1", "2", "3", "4"))),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Supplier<Collection<String>>) ArrayList::new, asList()),
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Supplier<Collection<String>>) HashSet::new, new HashSet<>()));
 	}
 
@@ -66,11 +66,11 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 
 	static Stream<Arguments> collectToMapTestDataProvider()
 	{
-		return Stream.of(Arguments.of(getSmallObjectTestIteratorProvider().iterator(),
+		return Stream.of(Arguments.of(getShortObjectIteratorProviders().iterator(),
 				(UnaryOperator<String>) x -> x + x, (Function<String, Integer>) Integer::parseInt,
 				asList(Tup.of("1010", 10), Tup.of("1111", 11))),
 
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(UnaryOperator<String>) x -> x + x,
 						(Function<String, Integer>) Integer::parseInt, asList()));
 	}
@@ -88,11 +88,11 @@ class AbstractEnhancedIteratorCollectionConsumptionTest extends IteratorExampleP
 	static Stream<Arguments> groupByTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getObjectTestIteratorProvider().iterator(),
+				Arguments.of(getObjectIteratorProviders().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2,
 						asList(Tup.of(0, asList("0", "2", "4")), Tup.of(1, asList("1", "3")))),
 
-				Arguments.of(getEmptyObjectTestIteratorProvider().iterator(),
+				Arguments.of(getEmptyObjectIteratorProvider().iterator(),
 						(Function<String, Integer>) s -> parseInt(s) % 2, asList()));
 	}
 }

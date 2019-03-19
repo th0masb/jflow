@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author t
  */
-class AbstractEnhancedIteratorSkipTest extends IteratorExampleProvider implements IteratorTest
+class AbstractEnhancedIteratorSkipTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	void test()
@@ -27,8 +27,8 @@ class AbstractEnhancedIteratorSkipTest extends IteratorExampleProvider implement
 
 		int nArgs = expectedOutcomesForDifferentIndexArguments.size();
 
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
 		IntStream.range(0, nArgs).forEach(i -> {
 			assertObjectIteratorAsExpected(expectedOutcomesForDifferentIndexArguments.get(i),

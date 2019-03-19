@@ -13,13 +13,13 @@ import java.util.OptionalDouble;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractDoubleIteratorMinMaxTest extends IteratorExampleProvider
+class AbstractDoubleIteratorMinMaxTest extends IteratorExampleProviders
 {
 	@Test
 	void testMinOption()

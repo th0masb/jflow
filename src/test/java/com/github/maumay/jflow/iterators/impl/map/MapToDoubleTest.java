@@ -14,19 +14,19 @@ import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author t
  */
-public class MapToDoubleTest extends IteratorExampleProvider implements IteratorTest
+public class MapToDoubleTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	public void testAbstractFlowMapToDouble()
 	{
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 		ToDoubleFunction<String> mapper = Double::parseDouble;
 
 		assertDoubleIteratorAsExpected(new double[] { 0, 1, 2, 3, 4 },

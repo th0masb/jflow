@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
  * @author ThomasB
  */
-class AbstractIntIteratorZipTest extends IteratorExampleProvider implements IteratorTest
+class AbstractIntIteratorZipTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	void testZipWithInt()

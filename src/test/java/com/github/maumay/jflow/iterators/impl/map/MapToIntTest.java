@@ -11,19 +11,19 @@ import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author ThomasB
  */
-public class MapToIntTest extends IteratorExampleProvider implements IteratorTest
+public class MapToIntTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	public void testAbstractFlowMapToInt()
 	{
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 		ToIntFunction<String> mapper = Integer::parseInt;
 
 		assertIntIteratorAsExpected(new int[] { 0, 1, 2, 3, 4 },

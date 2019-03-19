@@ -21,14 +21,16 @@ import com.github.maumay.jflow.impl.AbstractIteratorSize;
 public interface IntIteratorTest
 {
 	default void assertIntIteratorAsExpected(int[] expectedElements,
-			AbstractIterableInts iteratorProvider)
+			List<AbstractIterableInts> iteratorProviders)
 	{
-		assertSizeDecreasesAsExpected(iteratorProvider.iter());
-		assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
-		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
-		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
-		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
-		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
+		for (AbstractIterableInts iteratorProvider : iteratorProviders) {
+			assertSizeDecreasesAsExpected(iteratorProvider.iter());
+			assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
+			assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
+			assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
+			assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
+			assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
+		}
 	}
 
 	static void assertSizeDecreasesAsExpected(AbstractIntIterator iterator)

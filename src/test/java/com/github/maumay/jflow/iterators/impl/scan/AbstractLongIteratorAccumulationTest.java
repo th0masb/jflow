@@ -3,13 +3,13 @@
  */
 package com.github.maumay.jflow.iterators.impl.scan;
 
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author ThomasB
  */
-class AbstractLongIteratorAccumulationTest extends IteratorExampleProvider implements IteratorTest
+class AbstractLongIteratorAccumulationTest extends IteratorExampleProviders implements IteratorTest
 {
 	// @Test
 	// void testAccumulationWithoutId()

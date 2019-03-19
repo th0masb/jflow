@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.testutilities;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,15 +19,17 @@ import com.github.maumay.jflow.impl.AbstractIteratorSize;
  */
 public interface DoubleIteratorTest
 {
-	default void assertDoubleIteratorAsExpected(double[] expectedElements,
-			AbstractIterableDoubles iteratorProvider)
+	default void assertDoubleIteratorAsExpected(List<Double> expectedElements,
+			List<AbstractIterableDoubles> iteratorProviders)
 	{
-		assertSizeDecreasesAsExpected(iteratorProvider.iter());
-		assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
-		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
-		assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
-		assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
-		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
+		for (AbstractIterableDoubles iteratorProvider : iteratorProviders) {
+			assertSizeDecreasesAsExpected(iteratorProvider.iter());
+			assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
+			assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
+			assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
+			assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
+			assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
+		}
 	}
 
 	static void assertSizeDecreasesAsExpected(AbstractDoubleIterator iterator)
@@ -43,23 +44,24 @@ public interface DoubleIteratorTest
 		}
 	}
 
-	static void assertSkippingAsExpected(double[] expectedElements, AbstractDoubleIterator iterator)
+	static void assertSkippingAsExpected(List<Double> expectedElements,
+			AbstractDoubleIterator iterator)
 	{
-		IntStream.range(0, expectedElements.length).forEach(i -> iterator.skip());
+		IntStream.range(0, expectedElements.size()).forEach(i -> iterator.skip());
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
-	static void assertNextElementChecksAsExpected(double[] expectedElements,
+	static void assertNextElementChecksAsExpected(List<Double> expectedElements,
 			AbstractDoubleIterator iterator)
 	{
-		IntStream.range(0, expectedElements.length).forEach(i -> {
+		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			assertTrue(iterator.hasNext());
 			iterator.skip();
 		});
 		assertFalse(iterator.hasNext());
 	}
 
-	static void assertStandardIterationAsExpected(double[] expectedElements,
+	static void assertStandardIterationAsExpected(List<Double> expectedElements,
 			AbstractDoubleIterator iterator)
 	{
 		List<Double> recoveredElements = new ArrayList<>();
@@ -68,30 +70,30 @@ public interface DoubleIteratorTest
 		}
 		assertThrows(NoSuchElementException.class, iterator::nextDouble);
 		assertThrows(NoSuchElementException.class, iterator::skip);
-		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
+		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static void assertUncheckedIterationAsExpected(double[] expectedElements,
+	static void assertUncheckedIterationAsExpected(List<Double> expectedElements,
 			AbstractDoubleIterator iterator)
 	{
 		List<Double> recoveredElements = new ArrayList<>();
-		IntStream.range(0, expectedElements.length)
+		IntStream.range(0, expectedElements.size())
 				.forEach(i -> recoveredElements.add(iterator.nextDouble()));
 
 		assertThrows(NoSuchElementException.class, iterator::nextDouble);
 		assertThrows(NoSuchElementException.class, iterator::skip);
-		assertArrayEquals(expectedElements, convertFromBoxed(recoveredElements));
+		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static void assertAlternatingNextAndSkipCallsAsExpected(double[] expectedElements,
+	static void assertAlternatingNextAndSkipCallsAsExpected(List<Double> expectedElements,
 			AbstractDoubleIterator iterator)
 	{
 		List<Double> expectedOutcome = new ArrayList<>(), recoveredElements = new ArrayList<>();
 
-		IntStream.range(0, expectedElements.length).forEach(i -> {
+		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			if (i % 2 == 0) {
 				recoveredElements.add(iterator.nextDouble());
-				expectedOutcome.add(expectedElements[i]);
+				expectedOutcome.add(expectedElements.get(i));
 			} else {
 				iterator.skip();
 			}
@@ -101,10 +103,5 @@ public interface DoubleIteratorTest
 		assertThrows(NoSuchElementException.class, iterator::nextDouble);
 		assertThrows(NoSuchElementException.class, iterator::skip);
 		assertEquals(expectedOutcome, recoveredElements);
-	}
-
-	static double[] convertFromBoxed(List<Double> boxedDoubles)
-	{
-		return boxedDoubles.stream().mapToDouble(i -> i).toArray();
 	}
 }

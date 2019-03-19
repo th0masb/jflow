@@ -16,12 +16,12 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 
 /**
  * @author ThomasB
  */
-class AbstractIntIteratorReductionConsumptionTest extends IteratorExampleProvider
+class AbstractIntIteratorReductionConsumptionTest extends IteratorExampleProviders
 {
 	@ParameterizedTest
 	@MethodSource("reductionWithoutIdTestDataProvider")

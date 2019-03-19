@@ -11,20 +11,20 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorSliceTest extends IteratorExampleProvider implements IteratorTest
+class AbstractEnhancedIteratorSliceTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
 		IntUnaryOperator allSlicedOperator = i -> i;
 		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4"),

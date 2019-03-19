@@ -3,13 +3,13 @@
  */
 package com.github.maumay.jflow.iterators.impl.flatten;
 
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author ThomasB
  */
-class AbstractEnhancedIteratorFlattenToIntTest extends IteratorExampleProvider
+class AbstractEnhancedIteratorFlattenToIntTest extends IteratorExampleProviders
 		implements IteratorTest
 {
 	// @Test

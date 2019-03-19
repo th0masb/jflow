@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.LongTup;
 
@@ -18,7 +18,7 @@ import com.github.maumay.jflow.utils.LongTup;
  * @author ThomasB
  *
  */
-class AbstractLongIteratorZipTest extends IteratorExampleProvider implements IteratorTest
+class AbstractLongIteratorZipTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	void testZipWithLong()

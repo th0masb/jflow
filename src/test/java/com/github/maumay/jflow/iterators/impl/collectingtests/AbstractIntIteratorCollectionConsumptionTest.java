@@ -18,13 +18,13 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author ThomasB
  */
-class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProvider
+class AbstractIntIteratorCollectionConsumptionTest extends IteratorExampleProviders
 {
 	@ParameterizedTest
 	@MethodSource("collectToArrayTestDataProvider")

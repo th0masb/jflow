@@ -12,13 +12,13 @@ import java.util.OptionalLong;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractLongIteratorMinMaxTest extends IteratorExampleProvider
+class AbstractLongIteratorMinMaxTest extends IteratorExampleProviders
 {
 	@Test
 	void testMin()

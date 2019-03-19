@@ -9,21 +9,21 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorAppendTest extends IteratorExampleProvider implements IteratorTest
+class AbstractEnhancedIteratorAppendTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
-		AbstractRichIterable<String> small = getSmallObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
+		AbstractRichIterable<String> small = getShortObjectIteratorProviders();
 
 		assertObjectIteratorAsExpected(asList("0", "1", "2", "3", "4", "10", "11"),
 				createAppendIteratorProviderFrom(populated, small));

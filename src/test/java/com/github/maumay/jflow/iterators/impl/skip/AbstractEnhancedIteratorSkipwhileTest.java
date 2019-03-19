@@ -9,20 +9,20 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
  * @author t
  */
-class AbstractEnhancedIteratorSkipwhileTest extends IteratorExampleProvider implements IteratorTest
+class AbstractEnhancedIteratorSkipwhileTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	void test()
 	{
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 
 		List<Tup<List<String>, Predicate<String>>> testData = asList(
 				Tup.of(asList(), string -> !string.equals("5")),

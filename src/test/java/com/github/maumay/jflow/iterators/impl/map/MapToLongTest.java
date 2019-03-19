@@ -11,16 +11,16 @@ import com.github.maumay.jflow.testutilities.AbstractRichIterable;
 import com.github.maumay.jflow.testutilities.AbstractIterableDoubles;
 import com.github.maumay.jflow.testutilities.AbstractIterableInts;
 import com.github.maumay.jflow.testutilities.AbstractIterableLongs;
-import com.github.maumay.jflow.testutilities.IteratorExampleProvider;
+import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
 import com.github.maumay.jflow.testutilities.IteratorTest;
 
-public class MapToLongTest extends IteratorExampleProvider implements IteratorTest
+public class MapToLongTest extends IteratorExampleProviders implements IteratorTest
 {
 	@Test
 	public void testAbstractFlowMapToLong()
 	{
-		AbstractRichIterable<String> populated = getObjectTestIteratorProvider();
-		AbstractRichIterable<String> empty = getEmptyObjectTestIteratorProvider();
+		AbstractRichIterable<String> populated = getObjectIteratorProviders();
+		AbstractRichIterable<String> empty = getEmptyObjectIteratorProvider();
 		ToLongFunction<String> mapper = Long::parseLong;
 
 		assertLongIteratorAsExpected(new long[] { 0, 1, 2, 3, 4 },
