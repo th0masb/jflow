@@ -19,7 +19,7 @@ public final class ConcatenationAdapter
 		public OfObject(AbstractRichIterator<? extends E> sourceOne,
 				AbstractRichIterator<? extends E> sourceTwo)
 		{
-			super(IteratorImplUtils.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorSizes.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 
@@ -51,7 +51,7 @@ public final class ConcatenationAdapter
 	{
 		public OfInt(AbstractIntIterator sourceOne, AbstractIntIterator sourceTwo)
 		{
-			super(IteratorImplUtils.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorSizes.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 
@@ -84,7 +84,7 @@ public final class ConcatenationAdapter
 	{
 		public OfLong(AbstractLongIterator sourceOne, AbstractLongIterator sourceTwo)
 		{
-			super(IteratorImplUtils.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorSizes.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 
@@ -117,7 +117,7 @@ public final class ConcatenationAdapter
 	{
 		public OfDouble(AbstractDoubleIterator sourceOne, AbstractDoubleIterator sourceTwo)
 		{
-			super(IteratorImplUtils.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
+			super(IteratorSizes.sum(sourceOne.getSize(), sourceTwo.getSize()), sourceOne,
 					sourceTwo);
 		}
 

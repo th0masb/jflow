@@ -3,7 +3,7 @@
  */
 package com.github.maumay.jflow.impl;
 
-import static com.github.maumay.jflow.impl.IteratorImplUtils.requireNonNegative;
+import static com.github.maumay.jflow.impl.IteratorSizes.requireNonNegative;
 
 import java.util.NoSuchElementException;
 import java.util.function.IntUnaryOperator;
@@ -29,7 +29,7 @@ public class SliceAdapter
 
 		public OfObject(AbstractRichIterator<E> src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
+			super(IteratorSizes.dropLowerBound(src.getSize()), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -112,7 +112,7 @@ public class SliceAdapter
 
 		public OfInt(AbstractIntIterator src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
+			super(IteratorSizes.dropLowerBound(src.getSize()), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -196,7 +196,7 @@ public class SliceAdapter
 
 		public OfLong(AbstractLongIterator src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
+			super(IteratorSizes.dropLowerBound(src.getSize()), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -280,7 +280,7 @@ public class SliceAdapter
 
 		public OfDouble(AbstractDoubleIterator src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorImplUtils.dropLowerBound(src.getSize()), src);
+			super(IteratorSizes.dropLowerBound(src.getSize()), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;

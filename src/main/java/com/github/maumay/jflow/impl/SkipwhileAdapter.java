@@ -30,7 +30,7 @@ public class SkipwhileAdapter
 		public OfObject(AbstractRichIterator<E> source,
 				Predicate<? super E> predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = predicate;
 			this.firstFailure = null;
 			this.firstFailureInitialised = false;
@@ -96,7 +96,7 @@ public class SkipwhileAdapter
 
 		public OfInt(AbstractIntIterator source, IntPredicate predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;
@@ -162,7 +162,7 @@ public class SkipwhileAdapter
 
 		public OfLong(AbstractLongIterator source, LongPredicate predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;
@@ -228,7 +228,7 @@ public class SkipwhileAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;

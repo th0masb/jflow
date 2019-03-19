@@ -30,7 +30,7 @@ public final class FilterAdapter
 
 		public OfObject(AbstractRichIterator<E> source, Predicate<? super E> predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 
@@ -79,7 +79,7 @@ public final class FilterAdapter
 
 		public OfInt(AbstractIntIterator source, IntPredicate predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 
@@ -128,7 +128,7 @@ public final class FilterAdapter
 
 		public OfLong(AbstractLongIterator source, LongPredicate predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 
@@ -177,7 +177,7 @@ public final class FilterAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
 		{
-			super(IteratorImplUtils.dropLowerBound(source.getSize()), source);
+			super(IteratorSizes.dropLowerBound(source.getSize()), source);
 			this.predicate = Objects.requireNonNull(predicate);
 		}
 

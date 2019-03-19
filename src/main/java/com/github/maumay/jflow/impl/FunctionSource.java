@@ -83,7 +83,7 @@ public final class FunctionSource
 
 		public OfInt(IntUnaryOperator src, int size)
 		{
-			this(src, new KnownSize(IteratorImplUtils.requireNonNegative(size)));
+			this(src, new KnownSize(IteratorSizes.requireNonNegative(size)));
 		}
 
 		public OfInt(IntUnaryOperator src)
@@ -137,7 +137,7 @@ public final class FunctionSource
 
 		public OfLong(IntToLongFunction src, int size)
 		{
-			this(src, new KnownSize(IteratorImplUtils.requireNonNegative(size)));
+			this(src, new KnownSize(IteratorSizes.requireNonNegative(size)));
 		}
 
 		public OfLong(IntToLongFunction src)
@@ -191,7 +191,7 @@ public final class FunctionSource
 
 		public OfDouble(IntToDoubleFunction src, int size)
 		{
-			this(src, new KnownSize(IteratorImplUtils.requireNonNegative(size)));
+			this(src, new KnownSize(IteratorSizes.requireNonNegative(size)));
 		}
 
 		public OfDouble(IntToDoubleFunction src)

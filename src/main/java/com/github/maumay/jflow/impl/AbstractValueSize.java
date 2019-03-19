@@ -16,7 +16,7 @@ public abstract class AbstractValueSize extends AbstractIteratorSize
 	public AbstractValueSize(SizeType type, int value)
 	{
 		super(type);
-		this.value = IteratorImplUtils.requireNonNegative(value);
+		this.value = IteratorSizes.requireNonNegative(value);
 	}
 
 	public int getValue()

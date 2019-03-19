@@ -21,8 +21,8 @@ public class SkipAdapter
 
 		public OfObject(AbstractRichIterator<E> source, int skipcount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), skipcount), source);
-			this.skipCount = IteratorImplUtils.requireNonNegative(skipcount);
+			super(IteratorSizes.subtract(source.getSize(), skipcount), source);
+			this.skipCount = IteratorSizes.requireNonNegative(skipcount);
 			this.skipped = false;
 		}
 
@@ -70,8 +70,8 @@ public class SkipAdapter
 
 		public OfInt(AbstractIntIterator source, int skipcount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), skipcount), source);
-			this.skipCount = IteratorImplUtils.requireNonNegative(skipcount);
+			super(IteratorSizes.subtract(source.getSize(), skipcount), source);
+			this.skipCount = IteratorSizes.requireNonNegative(skipcount);
 			this.skipped = false;
 		}
 
@@ -119,8 +119,8 @@ public class SkipAdapter
 
 		public OfLong(AbstractLongIterator source, int skipcount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), skipcount), source);
-			this.skipCount = IteratorImplUtils.requireNonNegative(skipcount);
+			super(IteratorSizes.subtract(source.getSize(), skipcount), source);
+			this.skipCount = IteratorSizes.requireNonNegative(skipcount);
 			this.skipped = false;
 		}
 
@@ -169,8 +169,8 @@ public class SkipAdapter
 
 		public OfDouble(AbstractDoubleIterator source, int skipcount)
 		{
-			super(IteratorImplUtils.subtract(source.getSize(), skipcount), source);
-			this.skipCount = IteratorImplUtils.requireNonNegative(skipcount);
+			super(IteratorSizes.subtract(source.getSize(), skipcount), source);
+			this.skipCount = IteratorSizes.requireNonNegative(skipcount);
 			this.skipped = false;
 		}
 

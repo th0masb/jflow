@@ -20,8 +20,8 @@ public final class BoundedSize extends AbstractIteratorSize
 	public BoundedSize(int lo, int hi)
 	{
 		super(SizeType.BOUNDED);
-		this.lo = IteratorImplUtils.requireNonNegative(lo);
-		this.hi = IteratorImplUtils.requireNonNegative(hi);
+		this.lo = IteratorSizes.requireNonNegative(lo);
+		this.hi = IteratorSizes.requireNonNegative(hi);
 		Exceptions.require(lo <= hi);
 	}
 

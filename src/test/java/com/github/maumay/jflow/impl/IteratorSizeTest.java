@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractIteratorSize;
 import com.github.maumay.jflow.impl.BoundedSize;
-import com.github.maumay.jflow.impl.IteratorImplUtils;
+import com.github.maumay.jflow.impl.IteratorSizes;
 import com.github.maumay.jflow.impl.KnownSize;
 import com.github.maumay.jflow.impl.LowerBound;
 import com.github.maumay.jflow.impl.UnknownSize;
@@ -31,7 +31,7 @@ class IteratorSizeTest
 	@MethodSource
 	void testSum(AbstractIteratorSize expected, List<AbstractIteratorSize> sizes)
 	{
-		assertEquals(expected, IteratorImplUtils.sum((AbstractIteratorSize[]) sizes.toArray()));
+		assertEquals(expected, IteratorSizes.sum((AbstractIteratorSize[]) sizes.toArray()));
 	}
 
 	static Stream<Arguments> testSum()
@@ -56,7 +56,7 @@ class IteratorSizeTest
 	@MethodSource
 	void testMin(AbstractIteratorSize expected, List<AbstractIteratorSize> sizes)
 	{
-		assertEquals(expected, IteratorImplUtils.min((AbstractIteratorSize[]) sizes.toArray()));
+		assertEquals(expected, IteratorSizes.min((AbstractIteratorSize[]) sizes.toArray()));
 	}
 
 	static Stream<Arguments> testMin()
