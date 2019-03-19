@@ -18,14 +18,12 @@ import com.github.maumay.jflow.impl.AbstractIterator;
 public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends AbstractListBuilder
 		implements FiniteIteratorTest
 {
-	protected abstract List<IntCase<I>> getIntTestCases();
+	protected abstract List<IntCase<I>> getTestCases();
 
 	@Test
 	public final void test()
 	{
-		List<IntCase<I>> testcases = getIntTestCases();
-
-		for (IntCase<I> testcase : testcases) {
+		for (IntCase<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> initialProviders = IteratorExampleProviders
 					.buildIntIterables(testcase.source, testcase.adapter);
 

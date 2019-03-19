@@ -24,9 +24,7 @@ public abstract class AbstractAdapterTest<T, I extends AbstractIterator> extends
 	@Test
 	public final void test()
 	{
-		List<Case<T, I>> testcases = getTestCases();
-
-		for (Case<T, I> testcase : testcases) {
+		for (Case<T, I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> providers = IteratorExampleProviders
 					.buildIterables(testcase.source, testcase.adapter);
 

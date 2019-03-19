@@ -15,7 +15,7 @@ import com.github.maumay.jflow.testutilities.AbstractIntAdapterTest;
 public final class IntMapTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
-	protected List<IntCase<AbstractIntIterator>> getIntTestCases()
+	protected List<IntCase<AbstractIntIterator>> getTestCases()
 	{
 		IntAdapter<AbstractIntIterator> adapter = iter -> iter.map(n -> 2 * n);
 		return list(new IntCase<>(list(), adapter, list()),

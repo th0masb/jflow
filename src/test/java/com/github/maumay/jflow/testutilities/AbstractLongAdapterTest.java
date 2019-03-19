@@ -18,14 +18,12 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
 public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 		extends AbstractListBuilder implements FiniteIteratorTest
 {
-	protected abstract List<LongCase<I>> getLongTestCases();
+	protected abstract List<LongCase<I>> getTestCases();
 
 	@Test
 	public final void test()
 	{
-		List<LongCase<I>> testcases = getLongTestCases();
-
-		for (LongCase<I> testcase : testcases) {
+		for (LongCase<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> initialProviders = IteratorExampleProviders
 					.buildLongIterables(testcase.source, testcase.adapter);
 

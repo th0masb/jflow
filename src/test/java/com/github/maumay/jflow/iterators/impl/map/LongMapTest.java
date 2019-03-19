@@ -15,7 +15,7 @@ import com.github.maumay.jflow.testutilities.AbstractLongAdapterTest;
 public final class LongMapTest extends AbstractLongAdapterTest<AbstractLongIterator>
 {
 	@Override
-	protected List<LongCase<AbstractLongIterator>> getLongTestCases()
+	protected List<LongCase<AbstractLongIterator>> getTestCases()
 	{
 		LongAdapter<AbstractLongIterator> adapter = iter -> iter.map(n -> 2 * n);
 		return list(new LongCase<>(list(), adapter, list()),
