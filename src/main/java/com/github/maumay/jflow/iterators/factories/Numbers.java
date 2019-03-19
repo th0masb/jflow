@@ -1,7 +1,7 @@
 package com.github.maumay.jflow.iterators.factories;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.impl.UnknownSize;
+import com.github.maumay.jflow.impl.InfiniteSize;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
 
@@ -42,7 +42,7 @@ public final class Numbers
 	 */
 	public static LongIterator fibonacci(final int first, final int second)
 	{
-		return new AbstractLongIterator(UnknownSize.instance()) {
+		return new AbstractLongIterator(InfiniteSize.instance()) {
 			long x1 = first, x2 = second;
 			int count = 0;
 
@@ -65,7 +65,7 @@ public final class Numbers
 					count++;
 					return count == 1 ? first : second;
 				} else {
-					final long nextFib = x1 + x2;
+					long nextFib = Math.addExact(x1, x2);
 					x1 = x2;
 					x2 = nextFib;
 					return nextFib;

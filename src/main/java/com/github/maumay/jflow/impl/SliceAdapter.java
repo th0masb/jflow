@@ -29,7 +29,7 @@ public class SliceAdapter
 
 		public OfObject(AbstractRichIterator<E> src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorSizes.dropLowerBound(src.getSize()), src);
+			super(src.getSize().filter(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -112,7 +112,7 @@ public class SliceAdapter
 
 		public OfInt(AbstractIntIterator src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorSizes.dropLowerBound(src.getSize()), src);
+			super(src.getSize().filter(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -185,8 +185,7 @@ public class SliceAdapter
 		}
 	}
 
-	public static class OfLong
-			extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
+	public static class OfLong extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
 	{
 		private final IntUnaryOperator indexMapping;
 
@@ -196,7 +195,7 @@ public class SliceAdapter
 
 		public OfLong(AbstractLongIterator src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorSizes.dropLowerBound(src.getSize()), src);
+			super(src.getSize().filter(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -269,8 +268,7 @@ public class SliceAdapter
 		}
 	}
 
-	public static class OfDouble
-			extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
+	public static class OfDouble extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
 	{
 		private final IntUnaryOperator indexMapping;
 
@@ -280,7 +278,7 @@ public class SliceAdapter
 
 		public OfDouble(AbstractDoubleIterator src, IntUnaryOperator indexMapping)
 		{
-			super(IteratorSizes.dropLowerBound(src.getSize()), src);
+			super(src.getSize().filter(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;

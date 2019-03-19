@@ -3,8 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.Objects;
-
 /**
  * @author thomasb
  *
@@ -13,10 +11,10 @@ public abstract class AbstractValueSize extends AbstractIteratorSize
 {
 	private int value;
 
-	public AbstractValueSize(SizeType type, int value)
+	protected AbstractValueSize(SizeType type, int value)
 	{
 		super(type);
-		this.value = IteratorSizes.requireNonNegative(value);
+		this.value = value;
 	}
 
 	public int getValue()
@@ -36,20 +34,26 @@ public abstract class AbstractValueSize extends AbstractIteratorSize
 		return false;
 	}
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj instanceof AbstractValueSize) {
-			AbstractValueSize other = (AbstractValueSize) obj;
-			return value == other.value && getType() == other.getType();
-		} else {
-			return false;
-		}
-	}
+	// @Override
+	// public boolean equals(Object obj)
+	// {
+	// if (obj instanceof AbstractValueSize) {
+	// AbstractValueSize other = (AbstractValueSize) obj;
+	// return value == other.value && getType() == other.getType();
+	// } else {
+	// return false;
+	// }
+	// }
+	//
+	// @Override
+	// public int hashCode()
+	// {
+	// return Objects.hash(value, getType());
+	// }
 
 	@Override
-	public int hashCode()
+	public String toString()
 	{
-		return Objects.hash(value, getType());
+		return new StringBuilder(getType().name()).append("(").append(value).append(")").toString();
 	}
 }

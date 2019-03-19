@@ -27,10 +27,9 @@ public class SkipwhileAdapter
 		private E firstFailure;
 		private boolean firstFailureInitialised, firstFailureConsumed;
 
-		public OfObject(AbstractRichIterator<E> source,
-				Predicate<? super E> predicate)
+		public OfObject(AbstractRichIterator<E> source, Predicate<? super E> predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = predicate;
 			this.firstFailure = null;
 			this.firstFailureInitialised = false;
@@ -86,8 +85,7 @@ public class SkipwhileAdapter
 		}
 	}
 
-	public static final class OfInt
-			extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
+	public static final class OfInt extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
 	{
 		private final IntPredicate predicate;
 
@@ -96,7 +94,7 @@ public class SkipwhileAdapter
 
 		public OfInt(AbstractIntIterator source, IntPredicate predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;
@@ -152,8 +150,7 @@ public class SkipwhileAdapter
 		}
 	}
 
-	public static final class OfLong
-			extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
+	public static final class OfLong extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
 	{
 		private final LongPredicate predicate;
 
@@ -162,7 +159,7 @@ public class SkipwhileAdapter
 
 		public OfLong(AbstractLongIterator source, LongPredicate predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;
@@ -228,7 +225,7 @@ public class SkipwhileAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;

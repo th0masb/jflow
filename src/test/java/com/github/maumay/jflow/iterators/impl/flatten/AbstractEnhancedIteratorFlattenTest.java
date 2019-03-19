@@ -26,14 +26,12 @@ import com.github.maumay.jflow.testutilities.IteratorTest;
  * @author ThomasB
  *
  */
-class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider
-		implements IteratorTest
+class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider implements IteratorTest
 {
 	@ParameterizedTest
 	@MethodSource
 	void newTest(Map<String, AbstractRichIterable<String>> testMapping,
-			AbstractRichIterable<String> iteratorProvider,
-			List<String> expectedOutput)
+			AbstractRichIterable<String> iteratorProvider, List<String> expectedOutput)
 	{
 		Function<String, AbstractRichIterator<String>> flattenMapping = string -> testMapping
 				.getOrDefault(string, repeat("", 0)).iter();
@@ -49,7 +47,7 @@ class AbstractEnhancedIteratorFlattenTest extends IteratorExampleProvider
 			@Override
 			public AbstractRichIterator<E> iter()
 			{
-				return new AbstractRichIterator<E>(new KnownSize(nTimes)) {
+				return new AbstractRichIterator<E>(KnownSize.of(nTimes)) {
 					int count = 0;
 
 					@Override

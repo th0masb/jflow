@@ -34,7 +34,7 @@ public final class ArrayAccumulators
 			return (E[]) dest;
 		}
 		case BOUNDED: {
-			int upper = ((BoundedSize) src.getSize()).upperBound();
+			int upper = ((BoundedSize) src.getSize()).upper();
 			if (upper < MAX_ARRAY_SIZE) {
 				Object[] tmp = new Object[upper];
 				int counter = 0;
@@ -51,14 +51,15 @@ public final class ArrayAccumulators
 			}
 			// Fall through if upper bound is too large.
 		}
-		case LOWER_BOUND:
-		case UNKNOWN: {
+		case LOWER_BOUND: {
 			OfObject<E> accumulator = createObjectAccumulator();
 			while (src.hasNext()) {
 				accumulator.add(src.nextImpl());
 			}
 			return accumulator.compress();
 		}
+		case INFINITE:
+			throw new InfiniteConsumptionException();
 		default:
 			throw new RuntimeException();
 		}
@@ -77,7 +78,7 @@ public final class ArrayAccumulators
 			return dest;
 		}
 		case BOUNDED: {
-			int upper = ((BoundedSize) src.getSize()).upperBound();
+			int upper = ((BoundedSize) src.getSize()).upper();
 			if (upper < MAX_ARRAY_SIZE) {
 				int[] tmp = new int[upper];
 				int counter = 0;
@@ -94,14 +95,15 @@ public final class ArrayAccumulators
 			}
 			// Fall through if upper bound is too large.
 		}
-		case LOWER_BOUND:
-		case UNKNOWN: {
+		case LOWER_BOUND: {
 			OfInt accumulator = createIntAccumulator();
 			while (src.hasNext()) {
 				accumulator.add(src.nextIntImpl());
 			}
 			return accumulator.compress();
 		}
+		case INFINITE:
+			throw new InfiniteConsumptionException();
 		default:
 			throw new RuntimeException();
 		}
@@ -120,7 +122,7 @@ public final class ArrayAccumulators
 			return dest;
 		}
 		case BOUNDED: {
-			int upper = ((BoundedSize) src.getSize()).upperBound();
+			int upper = ((BoundedSize) src.getSize()).upper();
 			if (upper < MAX_ARRAY_SIZE) {
 				long[] tmp = new long[upper];
 				int counter = 0;
@@ -137,14 +139,15 @@ public final class ArrayAccumulators
 			}
 			// Fall through if upper bound is too large.
 		}
-		case LOWER_BOUND:
-		case UNKNOWN: {
+		case LOWER_BOUND: {
 			OfLong accumulator = createLongAccumulator();
 			while (src.hasNext()) {
 				accumulator.add(src.nextLongImpl());
 			}
 			return accumulator.compress();
 		}
+		case INFINITE:
+			throw new InfiniteConsumptionException();
 		default:
 			throw new RuntimeException();
 		}
@@ -163,7 +166,7 @@ public final class ArrayAccumulators
 			return dest;
 		}
 		case BOUNDED: {
-			int upper = ((BoundedSize) src.getSize()).upperBound();
+			int upper = ((BoundedSize) src.getSize()).upper();
 			if (upper < MAX_ARRAY_SIZE) {
 				double[] tmp = new double[upper];
 				int counter = 0;
@@ -180,14 +183,15 @@ public final class ArrayAccumulators
 			}
 			// Fall through if upper bound is too large.
 		}
-		case LOWER_BOUND:
-		case UNKNOWN: {
+		case LOWER_BOUND: {
 			OfDouble accumulator = createDoubleAccumulator();
 			while (src.hasNext()) {
 				accumulator.add(src.nextDoubleImpl());
 			}
 			return accumulator.compress();
 		}
+		case INFINITE:
+			throw new InfiniteConsumptionException();
 		default:
 			throw new RuntimeException();
 		}

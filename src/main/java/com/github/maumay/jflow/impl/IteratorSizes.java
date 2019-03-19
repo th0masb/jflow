@@ -29,8 +29,8 @@ public final class IteratorSizes
 			}
 			case BOUNDED: {
 				BoundedSize x = (BoundedSize) size;
-				lo = Math.min(lo, x.lowerBound());
-				hi = isNaN(hi) ? x.upperBound() : Math.min(hi, x.upperBound());
+				lo = Math.min(lo, x.lower());
+				hi = isNaN(hi) ? x.upper() : Math.min(hi, x.upper());
 				break;
 			}
 			case LOWER_BOUND: {
@@ -63,8 +63,8 @@ public final class IteratorSizes
 			}
 			case BOUNDED: {
 				BoundedSize x = (BoundedSize) size;
-				lo += x.lowerBound();
-				hi += x.upperBound();
+				lo += x.lower();
+				hi += x.upper();
 				break;
 			}
 			case LOWER_BOUND: {
@@ -108,93 +108,94 @@ public final class IteratorSizes
 	// Could probably move the fuctions below to abstract methods on
 	// AbstractIteratorSize
 
-	static AbstractIteratorSize add(AbstractIteratorSize size, int addition)
-	{
-		switch (size.getType()) {
-		case EXACT: {
-			KnownSize x = (KnownSize) size;
-			return new KnownSize(x.getValue() + addition);
-		}
-		case LOWER_BOUND: {
-			LowerBound x = (LowerBound) size;
-			return new LowerBound(x.getValue() + addition);
-		}
-		case BOUNDED: {
-			BoundedSize x = (BoundedSize) size;
-			return new BoundedSize(x.lowerBound() + addition, x.upperBound() + addition);
-		}
-		case INFINITE:
-			return size;
-		default:
-			throw new RuntimeException();
-		}
-	}
-
-	static AbstractIteratorSize subtract(AbstractIteratorSize size, int subtraction)
-	{
-		switch (size.getType()) {
-		case EXACT: {
-			KnownSize x = (KnownSize) size;
-			return new KnownSize(Math.max(0, x.getValue() - subtraction));
-		}
-		case LOWER_BOUND: {
-			LowerBound x = (LowerBound) size;
-			return new LowerBound(Math.max(0, x.getValue() - subtraction));
-		}
-		case BOUNDED: {
-			BoundedSize x = (BoundedSize) size;
-			int lo = x.lowerBound(), hi = x.upperBound();
-			return hi > subtraction
-					? new BoundedSize(Math.max(0, lo - subtraction), hi - subtraction)
-					: new KnownSize(0);
-		}
-		case INFINITE:
-			return size;
-		default:
-			throw new RuntimeException();
-		}
-	}
-
-	public static AbstractIteratorSize min(AbstractIteratorSize size, int other)
-	{
-		switch (size.getType()) {
-		case EXACT: {
-			KnownSize x = (KnownSize) size;
-			return new KnownSize(Math.min(x.getValue(), other));
-		}
-		case LOWER_BOUND: {
-			LowerBound x = (LowerBound) size;
-			return x.getValue() >= other ? new KnownSize(other)
-					: new BoundedSize(x.getValue(), other);
-		}
-		case BOUNDED: {
-			BoundedSize x = (BoundedSize) size;
-			return x.lowerBound() >= other ? new KnownSize(other)
-					: new BoundedSize(x.lowerBound(), Math.min(other, x.upperBound()));
-		}
-		case INFINITE:
-			return new KnownSize(other);
-		default:
-			throw new RuntimeException();
-		}
-	}
-
-	public static AbstractIteratorSize dropLowerBound(AbstractIteratorSize size)
-	{
-		switch (size.getType()) {
-		case EXACT: {
-			KnownSize x = (KnownSize) size;
-			return new BoundedSize(0, x.getValue());
-		}
-		case BOUNDED: {
-			BoundedSize x = (BoundedSize) size;
-			return new BoundedSize(0, x.upperBound());
-		}
-		case LOWER_BOUND:
-		case INFINITE:
-			return new LowerBound(0);
-		default:
-			throw new RuntimeException();
-		}
-	}
+	// static AbstractIteratorSize add(AbstractIteratorSize size, int addition)
+	// {
+	// switch (size.getType()) {
+	// case EXACT: {
+	// KnownSize x = (KnownSize) size;
+	// return new KnownSize(x.getValue() + addition);
+	// }
+	// case LOWER_BOUND: {
+	// LowerBound x = (LowerBound) size;
+	// return new LowerBound(x.getValue() + addition);
+	// }
+	// case BOUNDED: {
+	// BoundedSize x = (BoundedSize) size;
+	// return new BoundedSize(x.lower() + addition, x.upper() + addition);
+	// }
+	// case INFINITE:
+	// return size;
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	//
+	// static AbstractIteratorSize subtract(AbstractIteratorSize size, int
+	// subtraction)
+	// {
+	// switch (size.getType()) {
+	// case EXACT: {
+	// KnownSize x = (KnownSize) size;
+	// return new KnownSize(Math.max(0, x.getValue() - subtraction));
+	// }
+	// case LOWER_BOUND: {
+	// LowerBound x = (LowerBound) size;
+	// return new LowerBound(Math.max(0, x.getValue() - subtraction));
+	// }
+	// case BOUNDED: {
+	// BoundedSize x = (BoundedSize) size;
+	// int lo = x.lower(), hi = x.upper();
+	// return hi > subtraction
+	// ? new BoundedSize(Math.max(0, lo - subtraction), hi - subtraction)
+	// : new KnownSize(0);
+	// }
+	// case INFINITE:
+	// return size;
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	//
+	// public static AbstractIteratorSize min(AbstractIteratorSize size, int other)
+	// {
+	// switch (size.getType()) {
+	// case EXACT: {
+	// KnownSize x = (KnownSize) size;
+	// return new KnownSize(Math.min(x.getValue(), other));
+	// }
+	// case LOWER_BOUND: {
+	// LowerBound x = (LowerBound) size;
+	// return x.getValue() >= other ? new KnownSize(other)
+	// : new BoundedSize(x.getValue(), other);
+	// }
+	// case BOUNDED: {
+	// BoundedSize x = (BoundedSize) size;
+	// return x.lower() >= other ? new KnownSize(other)
+	// : new BoundedSize(x.lower(), Math.min(other, x.upper()));
+	// }
+	// case INFINITE:
+	// return new KnownSize(other);
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	//
+	// public static AbstractIteratorSize dropLowerBound(AbstractIteratorSize size)
+	// {
+	// switch (size.getType()) {
+	// case EXACT: {
+	// KnownSize x = (KnownSize) size;
+	// return new BoundedSize(0, x.getValue());
+	// }
+	// case BOUNDED: {
+	// BoundedSize x = (BoundedSize) size;
+	// return new BoundedSize(0, x.upper());
+	// }
+	// case LOWER_BOUND:
+	// case INFINITE:
+	// return new LowerBound(0);
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
 }

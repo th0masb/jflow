@@ -27,7 +27,7 @@ public final class ScanAdapter
 
 		public OfObject(AbstractRichIterator<E> src, R id, BiFunction<R, E, R> accumulator)
 		{
-			super(IteratorSizes.add(src.getSize(), 1), src);
+			super(src.getSize().add(1), src);
 			this.accumulator = Objects.requireNonNull(accumulator);
 			this.accumulationValue = Objects.requireNonNull(id);
 			this.initialValueConsumed = false;
@@ -66,7 +66,7 @@ public final class ScanAdapter
 
 		public OfDouble(AbstractDoubleIterator src, double id, DoubleBinaryOperator accumulator)
 		{
-			super(IteratorSizes.add(src.getSize(), 1), src);
+			super(src.getSize().add(1), src);
 			this.accumulator = Objects.requireNonNull(accumulator);
 			this.accumulationValue = id;
 			this.initialValueConsumed = false;

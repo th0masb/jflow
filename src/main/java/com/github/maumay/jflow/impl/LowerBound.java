@@ -3,42 +3,66 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.OptionalInt;
-
-import com.github.maumay.jflow.utils.Option;
-
 /**
  * @author thomasb
  *
  */
 public final class LowerBound extends AbstractValueSize
 {
-	public LowerBound(int size)
+	LowerBound(int size)
 	{
 		super(SizeType.LOWER_BOUND, size);
 	}
 
-	@Override
-	public OptionalInt getMinimalUpperBound()
+	public static LowerBound of(int value)
 	{
-		return Option.emptyInt();
-	}
-
-	@Override
-	public OptionalInt getMaximalLowerBound()
-	{
-		return Option.of(getValue());
-	}
-
-	@Override
-	public OptionalInt getExactSize()
-	{
-		return OptionalInt.empty();
+		return new LowerBound(IteratorSizes.requireNonNegative(value));
 	}
 
 	@Override
 	public LowerBound copy()
 	{
 		return new LowerBound(getValue());
+	}
+
+	@Override
+	AbstractIteratorSize addImpl(int value)
+	{
+		return new LowerBound(getValue() + value);
+	}
+
+	@Override
+	AbstractIteratorSize subtractImpl(int value)
+	{
+		return new LowerBound(Math.max(0, getValue() - value));
+	}
+
+	@Override
+	AbstractIteratorSize minImpl(int value)
+	{
+		return getValue() >= value ? new KnownSize(value) : new BoundedSize(getValue(), value);
+	}
+
+	@Override
+	public AbstractIteratorSize filter()
+	{
+		return new LowerBound(0);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof LowerBound) {
+			LowerBound other = (LowerBound) obj;
+			return getValue() == other.getValue();
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return getValue();
 	}
 }

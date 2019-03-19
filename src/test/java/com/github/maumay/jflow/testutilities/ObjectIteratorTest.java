@@ -8,11 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
-import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.AbstractIteratorSize;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 
 /**
  * @author ThomasB
@@ -23,7 +22,6 @@ public interface ObjectIteratorTest
 	default <T> void assertObjectIteratorAsExpected(List<T> expectedElements,
 			AbstractRichIterable<T> iteratorProvider)
 	{
-		assertSizeAsExpected(expectedElements, iteratorProvider.iterator());
 		assertSizeDecreasesAsExpected(iteratorProvider.iterator());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iterator());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iterator());
@@ -32,33 +30,15 @@ public interface ObjectIteratorTest
 		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iterator());
 	}
 
-	static <T> void assertSizeAsExpected(List<T> expectedElements,
-			AbstractRichIterator<T> iterator)
-	{
-		iterator.getSize().getExactSize().ifPresent(n -> {
-			assertEquals(expectedElements.size(), n);
-		});
-		iterator.getSize().getMinimalUpperBound().ifPresent(n -> {
-			assertTrue(expectedElements.size() <= n);
-		});
-		iterator.getSize().getMaximalLowerBound().ifPresent(n -> {
-			assertTrue(n <= expectedElements.size());
-		});
-	}
-
 	static void assertSizeDecreasesAsExpected(AbstractRichIterator<?> iterator)
 	{
-		AbstractIteratorSize size = iterator.getSize();
-		OptionalInt lower = size.getMaximalLowerBound(), exact = size.getExactSize(),
-				upper = size.getMinimalUpperBound();
+		AbstractIteratorSize startSize = iterator.getSize().copy();
 
 		int count = 0;
 		while (iterator.hasNext()) {
 			count++;
 			iterator.next();
-			assertEquals(size.getMaximalLowerBound(), Utils.subtractSize(lower, count));
-			assertEquals(size.getMinimalUpperBound(), Utils.subtractSize(upper, count));
-			assertEquals(size.getExactSize(), Utils.subtractSize(exact, count));
+			assertEquals(startSize.subtract(count), iterator.getSize());
 		}
 	}
 

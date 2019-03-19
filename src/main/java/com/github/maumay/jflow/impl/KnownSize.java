@@ -3,9 +3,7 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.OptionalInt;
-
-import com.github.maumay.jflow.utils.Option;
+import java.util.Objects;
 
 /**
  * @author thomasb
@@ -13,32 +11,63 @@ import com.github.maumay.jflow.utils.Option;
  */
 public final class KnownSize extends AbstractValueSize
 {
-	public KnownSize(int size)
+	KnownSize(int size)
 	{
 		super(SizeType.EXACT, size);
 	}
 
-	@Override
-	public OptionalInt getMinimalUpperBound()
+	public static KnownSize of(int size)
 	{
-		return Option.of(getValue());
-	}
-
-	@Override
-	public OptionalInt getMaximalLowerBound()
-	{
-		return Option.of(getValue());
-	}
-
-	@Override
-	public OptionalInt getExactSize()
-	{
-		return Option.of(getValue());
+		return new KnownSize(IteratorSizes.requireNonNegative(size));
 	}
 
 	@Override
 	public KnownSize copy()
 	{
 		return new KnownSize(getValue());
+	}
+
+	@Override
+	AbstractIteratorSize addImpl(int value)
+	{
+		return new KnownSize(getValue() + value);
+	}
+
+	@Override
+	AbstractIteratorSize subtractImpl(int value)
+	{
+		return new KnownSize(Math.max(0, getValue() - value));
+	}
+
+	@Override
+	AbstractIteratorSize minImpl(int value)
+	{
+		return new KnownSize(Math.min(getValue(), value));
+	}
+
+	@Override
+	public AbstractIteratorSize filter()
+	{
+		return new BoundedSize(0, getValue());
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof KnownSize) {
+			KnownSize other = (KnownSize) obj;
+			return getValue() == other.getValue();
+		} else if (obj instanceof BoundedSize) {
+			BoundedSize other = (BoundedSize) obj;
+			return getValue() == other.lower() && getValue() == other.upper();
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(getValue(), getValue());
 	}
 }

@@ -83,19 +83,19 @@ public final class FunctionSource
 
 		public OfInt(IntUnaryOperator src, int size)
 		{
-			this(src, new KnownSize(IteratorSizes.requireNonNegative(size)));
+			this(src, KnownSize.of(size));
 		}
 
 		public OfInt(IntUnaryOperator src)
 		{
-			this(src, UnknownSize.instance());
+			this(src, InfiniteSize.instance());
 		}
 
 		private OfInt(IntUnaryOperator src, AbstractIteratorSize size)
 		{
 			super(size);
 			this.src = src;
-			this.infiniteSize = size.getType() == SizeType.UNKNOWN;
+			this.infiniteSize = size.getType() == SizeType.INFINITE;
 			this.count = 0;
 			this.size = infiniteSize ? -1 : ((KnownSize) size).getValue();
 		}
@@ -137,19 +137,19 @@ public final class FunctionSource
 
 		public OfLong(IntToLongFunction src, int size)
 		{
-			this(src, new KnownSize(IteratorSizes.requireNonNegative(size)));
+			this(src, KnownSize.of(size));
 		}
 
 		public OfLong(IntToLongFunction src)
 		{
-			this(src, UnknownSize.instance());
+			this(src, InfiniteSize.instance());
 		}
 
 		private OfLong(IntToLongFunction src, AbstractIteratorSize size)
 		{
 			super(size);
 			this.src = src;
-			this.infiniteSize = size.getType() == SizeType.UNKNOWN;
+			this.infiniteSize = size.getType() == SizeType.INFINITE;
 			this.count = 0;
 			this.size = infiniteSize ? -1 : ((KnownSize) size).getValue();
 		}
@@ -191,19 +191,19 @@ public final class FunctionSource
 
 		public OfDouble(IntToDoubleFunction src, int size)
 		{
-			this(src, new KnownSize(IteratorSizes.requireNonNegative(size)));
+			this(src, KnownSize.of(size));
 		}
 
 		public OfDouble(IntToDoubleFunction src)
 		{
-			this(src, UnknownSize.instance());
+			this(src, InfiniteSize.instance());
 		}
 
 		private OfDouble(IntToDoubleFunction src, AbstractIteratorSize size)
 		{
 			super(size);
 			this.src = src;
-			this.infiniteSize = size.getType() == SizeType.UNKNOWN;
+			this.infiniteSize = size.getType() == SizeType.INFINITE;
 			this.count = 0;
 			this.size = infiniteSize ? -1 : ((KnownSize) size).getValue();
 		}

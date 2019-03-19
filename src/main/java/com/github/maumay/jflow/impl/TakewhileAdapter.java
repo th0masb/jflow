@@ -30,7 +30,7 @@ public class TakewhileAdapter
 
 		public OfObject(AbstractRichIterator<E> source, Predicate<? super E> predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = Objects.requireNonNull(predicate);
 			this.cached = null;
 			this.iteratorExhausted = false;
@@ -104,7 +104,7 @@ public class TakewhileAdapter
 
 		public OfInt(AbstractIntIterator source, IntPredicate predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = Objects.requireNonNull(predicate);
 			this.cached = 0;
 			this.iteratorExhausted = false;
@@ -178,7 +178,7 @@ public class TakewhileAdapter
 
 		public OfLong(AbstractLongIterator source, LongPredicate predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = Objects.requireNonNull(predicate);
 			this.cached = 0;
 			this.iteratorExhausted = false;
@@ -253,7 +253,7 @@ public class TakewhileAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
 		{
-			super(IteratorSizes.dropLowerBound(source.getSize()), source);
+			super(source.getSize().filter(), source);
 			this.predicate = predicate;
 			this.cached = 0;
 			this.iteratorExhausted = false;

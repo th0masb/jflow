@@ -6,9 +6,9 @@ package com.github.maumay.jflow.testutilities;
 import java.util.NoSuchElementException;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
+import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.KnownSize;
 
 /**
@@ -26,7 +26,7 @@ public class IteratorExampleProvider
 			public AbstractRichIterator<String> iter()
 			{
 				int size = Utils.SMALL_OBJECT_EXAMPLE_SRC.length;
-				return new AbstractRichIterator<String>(new KnownSize(size)) {
+				return new AbstractRichIterator<String>(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -62,7 +62,7 @@ public class IteratorExampleProvider
 			public AbstractRichIterator<String> iter()
 			{
 				int size = Utils.OBJECT_EXAMPLE_SRC.length;
-				return new AbstractRichIterator<String>(new KnownSize(size)) {
+				return new AbstractRichIterator<String>(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -98,7 +98,7 @@ public class IteratorExampleProvider
 			public AbstractRichIterator<String> iter()
 			{
 				int size = Utils.LARGE_OBJECT_EXAMPLE_SRC.length;
-				return new AbstractRichIterator<String>(new KnownSize(size)) {
+				return new AbstractRichIterator<String>(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -133,7 +133,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractRichIterator<String> iter()
 			{
-				return new AbstractRichIterator<String>(new KnownSize(1)) {
+				return new AbstractRichIterator<String>(KnownSize.of(1)) {
 					int count = 0;
 
 					@Override
@@ -168,7 +168,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractRichIterator<String> iter()
 			{
-				return new AbstractRichIterator<String>(new KnownSize(0)) {
+				return new AbstractRichIterator<String>(KnownSize.of(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -198,7 +198,7 @@ public class IteratorExampleProvider
 			public AbstractIntIterator iter()
 			{
 				int size = Utils.SMALL_INT_EXAMPLE_SRC.length;
-				return new AbstractIntIterator(new KnownSize(size)) {
+				return new AbstractIntIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -234,7 +234,7 @@ public class IteratorExampleProvider
 			public AbstractIntIterator iter()
 			{
 				int size = Utils.INT_EXAMPLE_SRC.length;
-				return new AbstractIntIterator(new KnownSize(size)) {
+				return new AbstractIntIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -270,7 +270,7 @@ public class IteratorExampleProvider
 			public AbstractIntIterator iter()
 			{
 				int size = Utils.LARGE_INT_EXAMPLE_SRC.length;
-				return new AbstractIntIterator(new KnownSize(size)) {
+				return new AbstractIntIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -305,7 +305,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractIntIterator iter()
 			{
-				return new AbstractIntIterator(new KnownSize(0)) {
+				return new AbstractIntIterator(KnownSize.of(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -335,7 +335,7 @@ public class IteratorExampleProvider
 			public AbstractDoubleIterator iter()
 			{
 				int size = Utils.SMALL_DOUBLE_EXAMPLE_SRC.length;
-				return new AbstractDoubleIterator(new KnownSize(size)) {
+				return new AbstractDoubleIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -371,7 +371,7 @@ public class IteratorExampleProvider
 			public AbstractDoubleIterator iter()
 			{
 				int size = Utils.DOUBLE_EXAMPLE_SRC.length;
-				return new AbstractDoubleIterator(new KnownSize(size)) {
+				return new AbstractDoubleIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -407,7 +407,7 @@ public class IteratorExampleProvider
 			public AbstractDoubleIterator iter()
 			{
 				int size = Utils.LARGE_DOUBLE_EXAMPLE_SRC.length;
-				return new AbstractDoubleIterator(new KnownSize(size)) {
+				return new AbstractDoubleIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -442,7 +442,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractDoubleIterator iter()
 			{
-				return new AbstractDoubleIterator(new KnownSize(0)) {
+				return new AbstractDoubleIterator(KnownSize.of(0)) {
 					@Override
 					public boolean hasNext()
 					{
@@ -472,7 +472,7 @@ public class IteratorExampleProvider
 			public AbstractLongIterator iter()
 			{
 				int size = Utils.SMALL_LONG_EXAMPLE_SRC.length;
-				return new AbstractLongIterator(new KnownSize(size)) {
+				return new AbstractLongIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -508,7 +508,7 @@ public class IteratorExampleProvider
 			public AbstractLongIterator iter()
 			{
 				int size = Utils.LONG_EXAMPLE_SRC.length;
-				return new AbstractLongIterator(new KnownSize(size)) {
+				return new AbstractLongIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -544,7 +544,7 @@ public class IteratorExampleProvider
 			public AbstractLongIterator iter()
 			{
 				int size = Utils.LARGE_LONG_EXAMPLE_SRC.length;
-				return new AbstractLongIterator(new KnownSize(size)) {
+				return new AbstractLongIterator(KnownSize.of(size)) {
 					int count = 0;
 
 					@Override
@@ -579,7 +579,7 @@ public class IteratorExampleProvider
 			@Override
 			public AbstractLongIterator iter()
 			{
-				return new AbstractLongIterator(new KnownSize(0)) {
+				return new AbstractLongIterator(KnownSize.of(0)) {
 					@Override
 					public boolean hasNext()
 					{

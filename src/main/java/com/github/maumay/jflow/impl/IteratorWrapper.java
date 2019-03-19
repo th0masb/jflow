@@ -58,7 +58,7 @@ public final class IteratorWrapper
 
 		public OfObject(Iterator<? extends E> source)
 		{
-			super(UnknownSize.instance());
+			super(new LowerBound(0));
 			this.source = source;
 		}
 
@@ -87,7 +87,7 @@ public final class IteratorWrapper
 
 		public OfLong(PrimitiveIterator.OfLong source)
 		{
-			super(UnknownSize.instance());
+			super(new LowerBound(0));
 			this.source = source;
 		}
 
@@ -116,7 +116,7 @@ public final class IteratorWrapper
 
 		public OfInt(PrimitiveIterator.OfInt source)
 		{
-			super(UnknownSize.instance());
+			super(new LowerBound(0));
 			this.source = source;
 		}
 
@@ -145,7 +145,7 @@ public final class IteratorWrapper
 
 		public OfDouble(PrimitiveIterator.OfDouble source)
 		{
-			super(UnknownSize.instance());
+			super(new LowerBound(0));
 			this.source = source;
 		}
 

@@ -4,10 +4,8 @@
 package com.github.maumay.jflow.impl;
 
 import java.util.Objects;
-import java.util.OptionalInt;
 
 import com.github.maumay.jflow.utils.Exceptions;
-import com.github.maumay.jflow.utils.Option;
 
 /**
  * @author thomasb
@@ -17,20 +15,27 @@ public final class BoundedSize extends AbstractIteratorSize
 {
 	private int lo, hi;
 
-	public BoundedSize(int lo, int hi)
+	BoundedSize(int lo, int hi)
 	{
 		super(SizeType.BOUNDED);
-		this.lo = IteratorSizes.requireNonNegative(lo);
-		this.hi = IteratorSizes.requireNonNegative(hi);
-		Exceptions.require(lo <= hi);
+		this.lo = lo;
+		this.hi = hi;
 	}
 
-	public int upperBound()
+	public static BoundedSize of(int lo, int hi)
+	{
+		lo = IteratorSizes.requireNonNegative(lo);
+		hi = IteratorSizes.requireNonNegative(hi);
+		Exceptions.require(lo <= hi);
+		return new BoundedSize(lo, hi);
+	}
+
+	public int upper()
 	{
 		return hi;
 	}
 
-	public int lowerBound()
+	public int lower()
 	{
 		return lo;
 	}
@@ -43,21 +48,28 @@ public final class BoundedSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public OptionalInt getMinimalUpperBound()
+	AbstractIteratorSize addImpl(int value)
 	{
-		return Option.of(hi);
+		return new BoundedSize(lo + value, hi + value);
 	}
 
 	@Override
-	public OptionalInt getMaximalLowerBound()
+	AbstractIteratorSize subtractImpl(int value)
 	{
-		return Option.of(lo);
+		return value >= hi ? new KnownSize(0)
+				: new BoundedSize(Math.max(0, lo - value), hi - value);
 	}
 
 	@Override
-	public OptionalInt getExactSize()
+	AbstractIteratorSize minImpl(int value)
 	{
-		return OptionalInt.empty();
+		return lo >= value ? new KnownSize(value) : new BoundedSize(lo, Math.min(hi, value));
+	}
+
+	@Override
+	public AbstractIteratorSize filter()
+	{
+		return new BoundedSize(0, hi);
 	}
 
 	@Override
@@ -66,6 +78,9 @@ public final class BoundedSize extends AbstractIteratorSize
 		if (obj instanceof BoundedSize) {
 			BoundedSize other = (BoundedSize) obj;
 			return lo == other.lo && hi == other.hi;
+		} else if (obj instanceof KnownSize) {
+			KnownSize other = (KnownSize) obj;
+			return lo == other.getValue() && hi == other.getValue();
 		} else {
 			return false;
 		}
@@ -80,7 +95,7 @@ public final class BoundedSize extends AbstractIteratorSize
 	@Override
 	public BoundedSize copy()
 	{
-		return new BoundedSize(lowerBound(), upperBound());
+		return new BoundedSize(lo, hi);
 	}
 
 	@Override
@@ -89,4 +104,10 @@ public final class BoundedSize extends AbstractIteratorSize
 		return false;
 	}
 
+	@Override
+	public String toString()
+	{
+		return new StringBuilder("BOUNDED(").append(lo).append(", ").append(hi).append(")")
+				.toString();
+	}
 }

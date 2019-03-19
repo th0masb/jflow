@@ -3,8 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.OptionalInt;
-
 /**
  * @author thomasb
  *
@@ -24,24 +22,6 @@ public final class InfiniteSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public OptionalInt getExactSize()
-	{
-		return OptionalInt.empty();
-	}
-
-	@Override
-	public OptionalInt getMinimalUpperBound()
-	{
-		return OptionalInt.empty();
-	}
-
-	@Override
-	public OptionalInt getMaximalLowerBound()
-	{
-		return OptionalInt.empty();
-	}
-
-	@Override
 	public InfiniteSize copy()
 	{
 		return this;
@@ -57,5 +37,29 @@ public final class InfiniteSize extends AbstractIteratorSize
 	public boolean isSingleton()
 	{
 		return true;
+	}
+
+	@Override
+	AbstractIteratorSize addImpl(int value)
+	{
+		return this;
+	}
+
+	@Override
+	AbstractIteratorSize subtractImpl(int value)
+	{
+		return this;
+	}
+
+	@Override
+	AbstractIteratorSize minImpl(int value)
+	{
+		return new KnownSize(value);
+	}
+
+	@Override
+	public AbstractIteratorSize filter()
+	{
+		return new LowerBound(0);
 	}
 }

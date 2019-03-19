@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.impl.UnknownSize;
+import com.github.maumay.jflow.impl.LowerBound;
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.factories.Iter;
 
@@ -213,7 +213,7 @@ public final class Strings
 	 */
 	public static RichIterator<String> allMatches(String source, Pattern pattern)
 	{
-		return new AbstractRichIterator<String>(UnknownSize.instance()) {
+		return new AbstractRichIterator<String>(LowerBound.of(0)) {
 			Matcher matcher = pattern.matcher(source);
 			String current;
 

@@ -38,7 +38,7 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 
 	private static AbstractDoubleIterator getAllEqualFlow()
 	{
-		return new AbstractDoubleIterator(new KnownSize(3)) {
+		return new AbstractDoubleIterator(KnownSize.of(3)) {
 			int count = 0;
 
 			@Override
@@ -75,10 +75,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 	static Stream<Arguments> allMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x < 3, Boolean.FALSE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x > -1, Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < 3,
+						Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > -1,
+						Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
@@ -96,10 +96,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 	static Stream<Arguments> anyMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x < -1, Boolean.FALSE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x > 3, Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < -1,
+						Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > 3,
+						Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.FALSE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
@@ -117,10 +117,10 @@ class AbstractDoubleIteratorPredicateConsumptionTest extends IteratorExampleProv
 	static Stream<Arguments> noneMatchTestDataProvider()
 	{
 		return Stream.of(
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x < -1, Boolean.TRUE),
-				Arguments.of(getDoubleTestIteratorProvider().iter(),
-						(DoublePredicate) x -> x > 3, Boolean.FALSE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x < -1,
+						Boolean.TRUE),
+				Arguments.of(getDoubleTestIteratorProvider().iter(), (DoublePredicate) x -> x > 3,
+						Boolean.FALSE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),
 						(DoublePredicate) x -> x < 3, Boolean.TRUE),
 				Arguments.of(getEmptyDoubleTestIteratorProvider().iter(),

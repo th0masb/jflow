@@ -3,8 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.OptionalInt;
-
 /**
  * @author thomasb
  *
@@ -23,12 +21,28 @@ public abstract class AbstractIteratorSize
 		return type;
 	}
 
-	// Do we actually need these three methods?
-	public abstract OptionalInt getExactSize();
+	public final AbstractIteratorSize add(int value)
+	{
+		return addImpl(IteratorSizes.requireNonNegative(value));
+	}
 
-	public abstract OptionalInt getMinimalUpperBound();
+	public final AbstractIteratorSize subtract(int value)
+	{
+		return subtractImpl(IteratorSizes.requireNonNegative(value));
+	}
 
-	public abstract OptionalInt getMaximalLowerBound();
+	public final AbstractIteratorSize min(int value)
+	{
+		return minImpl(IteratorSizes.requireNonNegative(value));
+	}
+
+	abstract AbstractIteratorSize addImpl(int value);
+
+	abstract AbstractIteratorSize subtractImpl(int value);
+
+	abstract AbstractIteratorSize minImpl(int value);
+
+	public abstract AbstractIteratorSize filter();
 
 	public abstract AbstractIteratorSize copy();
 

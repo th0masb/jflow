@@ -22,7 +22,7 @@ public final class ApplicationSource
 
 		public OfObject(UnaryOperator<E> applicationOperator, E initialValue)
 		{
-			super(UnknownSize.instance());
+			super(InfiniteSize.instance());
 			this.applicationOperator = applicationOperator;
 			this.currentValue = initialValue;
 		}

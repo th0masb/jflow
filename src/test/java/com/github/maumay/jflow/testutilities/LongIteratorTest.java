@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import com.github.maumay.jflow.impl.AbstractIteratorSize;
@@ -24,7 +23,6 @@ public interface LongIteratorTest
 	default void assertLongIteratorAsExpected(long[] expectedElements,
 			AbstractIterableLongs iteratorProvider)
 	{
-		assertSizeAsExpected(expectedElements, iteratorProvider.iter());
 		assertSizeDecreasesAsExpected(iteratorProvider.iter());
 		assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
 		assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
@@ -33,32 +31,15 @@ public interface LongIteratorTest
 		assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
 	}
 
-	static void assertSizeAsExpected(long[] expectedElements, AbstractLongIterator iterator)
-	{
-		iterator.getSize().getExactSize().ifPresent(n -> {
-			assertEquals(expectedElements.length, n);
-		});
-		iterator.getSize().getMinimalUpperBound().ifPresent(n -> {
-			assertTrue(expectedElements.length <= n);
-		});
-		iterator.getSize().getMaximalLowerBound().ifPresent(n -> {
-			assertTrue(n <= expectedElements.length);
-		});
-	}
-
 	static void assertSizeDecreasesAsExpected(AbstractLongIterator iterator)
 	{
-		AbstractIteratorSize size = iterator.getSize();
-		OptionalInt lower = size.getMaximalLowerBound(), exact = size.getExactSize(),
-				upper = size.getMinimalUpperBound();
+		AbstractIteratorSize startSize = iterator.getSize().copy();
 
 		int count = 0;
 		while (iterator.hasNext()) {
 			count++;
 			iterator.nextLong();
-			assertEquals(size.getMaximalLowerBound(), Utils.subtractSize(lower, count));
-			assertEquals(size.getMinimalUpperBound(), Utils.subtractSize(upper, count));
-			assertEquals(size.getExactSize(), Utils.subtractSize(exact, count));
+			assertEquals(startSize.subtract(count), iterator.getSize());
 		}
 	}
 

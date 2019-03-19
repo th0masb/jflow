@@ -40,7 +40,7 @@ class AbstractEnhancedIteratorPredicateConsumptionTest extends IteratorExamplePr
 
 	private static AbstractRichIterator<String> getAllEqualFlow()
 	{
-		return new AbstractRichIterator<String>(new KnownSize(3)) {
+		return new AbstractRichIterator<String>(KnownSize.of(3)) {
 			int count = 0;
 
 			@Override

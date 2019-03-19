@@ -13,13 +13,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.impl.AbstractIteratorSize;
-import com.github.maumay.jflow.impl.BoundedSize;
-import com.github.maumay.jflow.impl.IteratorSizes;
-import com.github.maumay.jflow.impl.KnownSize;
-import com.github.maumay.jflow.impl.LowerBound;
-import com.github.maumay.jflow.impl.UnknownSize;
-
 /**
  * @author thomasb
  *
@@ -45,8 +38,9 @@ class IteratorSizeTest
 		AbstractIteratorSize expected2 = new LowerBound(6);
 
 		// Case 3
-		List<AbstractIteratorSize> input3 = Arrays.asList(UnknownSize.instance(), new KnownSize(5));
-		AbstractIteratorSize expected3 = new LowerBound(5);
+		List<AbstractIteratorSize> input3 = Arrays.asList(InfiniteSize.instance(),
+				new KnownSize(5));
+		AbstractIteratorSize expected3 = InfiniteSize.instance();
 
 		return Stream.of(Arguments.of(expected1, input1), Arguments.of(expected2, input2),
 				Arguments.of(expected3, input3));
@@ -70,8 +64,9 @@ class IteratorSizeTest
 		AbstractIteratorSize expected2 = new BoundedSize(0, 5);
 
 		// Case 3
-		List<AbstractIteratorSize> input3 = Arrays.asList(UnknownSize.instance(), new KnownSize(5));
-		AbstractIteratorSize expected3 = new BoundedSize(0, 5);
+		List<AbstractIteratorSize> input3 = Arrays.asList(InfiniteSize.instance(),
+				new KnownSize(5));
+		AbstractIteratorSize expected3 = new KnownSize(5);
 
 		// Case 4
 		List<AbstractIteratorSize> input4 = Arrays.asList(new BoundedSize(3, 6), new KnownSize(5));
