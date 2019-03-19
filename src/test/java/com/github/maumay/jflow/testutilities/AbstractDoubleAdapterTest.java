@@ -16,7 +16,7 @@ import com.github.maumay.jflow.impl.AbstractIterator;
  *
  */
 public abstract class AbstractDoubleAdapterTest<I extends AbstractIterator>
-		implements FiniteIteratorTest, ListBuilder
+		extends AbstractListBuilder implements FiniteIteratorTest
 {
 	protected abstract List<DoubleCase<I>> getDoubleTestCases();
 

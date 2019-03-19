@@ -10,10 +10,10 @@ import java.util.List;
  * @author thomasb
  *
  */
-public interface ListBuilder
+public abstract class AbstractListBuilder
 {
-	@SuppressWarnings("unchecked")
-	default <T> List<T> list(T... ts)
+	@SafeVarargs
+	public final <T> List<T> list(T... ts)
 	{
 		return Arrays.asList(ts);
 	}

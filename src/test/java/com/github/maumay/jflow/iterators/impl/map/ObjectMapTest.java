@@ -13,7 +13,7 @@ import com.github.maumay.jflow.testutilities.AbstractAdapterTest;
  * @author thomasb
  *
  */
-public final class MapTest2 extends AbstractAdapterTest<String, AbstractRichIterator<String>>
+public final class ObjectMapTest extends AbstractAdapterTest<String, AbstractRichIterator<String>>
 {
 	@Override
 	protected List<Case<String, AbstractRichIterator<String>>> getTestCases()

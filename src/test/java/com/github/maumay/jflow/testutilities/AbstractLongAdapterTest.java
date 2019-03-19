@@ -15,8 +15,8 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
  * @author thomasb
  *
  */
-public abstract class LongAdapterTest<I extends AbstractIterator>
-		implements FiniteIteratorTest, ListBuilder
+public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
+		extends AbstractListBuilder implements FiniteIteratorTest
 {
 	protected abstract List<LongCase<I>> getLongTestCases();
 

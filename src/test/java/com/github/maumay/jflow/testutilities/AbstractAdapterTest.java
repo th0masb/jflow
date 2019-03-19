@@ -15,8 +15,8 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
  * @author thomasb
  *
  */
-public abstract class AbstractAdapterTest<T, I extends AbstractIterator>
-		implements FiniteIteratorTest, ListBuilder
+public abstract class AbstractAdapterTest<T, I extends AbstractIterator> extends AbstractListBuilder
+		implements FiniteIteratorTest
 {
 
 	protected abstract List<Case<T, I>> getTestCases();
