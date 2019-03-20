@@ -3,7 +3,9 @@
  */
 package com.github.maumay.jflow.testutilities;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.PrimitiveIterator;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,24 @@ public abstract class AbstractDoubleAdapterTest<I extends AbstractIterator>
 				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
 			}
 		}
+	}
+
+	protected final PrimitiveIterator.OfDouble iter(List<Double> src)
+	{
+		Iterator<Double> boxed = src.iterator();
+		return new PrimitiveIterator.OfDouble() {
+			@Override
+			public boolean hasNext()
+			{
+				return boxed.hasNext();
+			}
+
+			@Override
+			public double nextDouble()
+			{
+				return boxed.next();
+			}
+		};
 	}
 
 	@FunctionalInterface

@@ -3,7 +3,9 @@
  */
 package com.github.maumay.jflow.testutilities;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.PrimitiveIterator;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,24 @@ public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
 			}
 		}
+	}
+
+	protected final PrimitiveIterator.OfLong iter(List<Long> src)
+	{
+		Iterator<Long> boxed = src.iterator();
+		return new PrimitiveIterator.OfLong() {
+			@Override
+			public boolean hasNext()
+			{
+				return boxed.hasNext();
+			}
+
+			@Override
+			public long nextLong()
+			{
+				return boxed.next();
+			}
+		};
 	}
 
 	@FunctionalInterface
