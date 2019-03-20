@@ -5,7 +5,6 @@ package com.github.maumay.jflow.iterators.bindingbehaviour;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +12,6 @@ import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 import java.util.Stack;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -38,12 +36,12 @@ class CollectionIteratorBindingTest
 		xs.add(element);
 		Iterator<?> iter1 = xs.iterator();
 		xs.remove(element);
-		assertThrows(ConcurrentModificationException.class, () -> iter1.next());
+		assertThrows(ConcurrentModificationException.class, iter1::next);
 
 		xs.add(element);
 		Iterator<?> iter2 = xs.iterator();
 		xs.add("2");
-		assertThrows(ConcurrentModificationException.class, () -> iter2.next());
+		assertThrows(ConcurrentModificationException.class, iter2::next);
 	}
 
 	@ParameterizedTest
@@ -53,11 +51,7 @@ class CollectionIteratorBindingTest
 		assertTrue(xs.size() == 0);
 		Iterator<?> iter = xs.iterator();
 		xs.add("");
-		try {
-			iter.next();
-			fail();
-		} catch (ConcurrentModificationException | NoSuchElementException ex) {
-		}
+		assertThrows(RuntimeException.class, iter::next);
 	}
 
 	static Stream<Arguments> emptyCollectionSupplier()
