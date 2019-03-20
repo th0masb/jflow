@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testutilities.AbstractObjectAdapterTest;
+import com.github.maumay.jflow.testframework.AbstractObjectAdapterTest;
 
 /**
  * @author thomasb

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.testutilities;
+package com.github.maumay.jflow.testframework;
 
 import com.github.maumay.jflow.impl.AbstractIterator;
 

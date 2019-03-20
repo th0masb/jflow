@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.PrimitiveIterator;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.testutilities.AbstractDoubleAdapterTest;
+import com.github.maumay.jflow.testframework.AbstractDoubleAdapterTest;
 
 /**
  * @author thomasb

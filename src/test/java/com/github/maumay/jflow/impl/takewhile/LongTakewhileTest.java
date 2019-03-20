@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.takewhile;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testutilities.AbstractLongAdapterTest;
+import com.github.maumay.jflow.testframework.AbstractLongAdapterTest;
 
 /**
  * @author t

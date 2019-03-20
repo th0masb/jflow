@@ -12,14 +12,14 @@ import java.util.function.IntFunction;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.testutilities.AbstractIterableInts;
-import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
+import com.github.maumay.jflow.testframework.AbstractIterableInts;
+import com.github.maumay.jflow.testframework.IteratorProvider;
 
 /**
  * @author ThomasB
  *
  */
-class AbstractIntIteratorMinMaxTest extends IteratorExampleProviders
+class AbstractIntIteratorMinMaxTest extends IteratorProvider
 {
 	@Test
 	void testMin()

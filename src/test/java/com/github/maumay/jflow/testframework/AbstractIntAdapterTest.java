@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.testutilities;
+package com.github.maumay.jflow.testframework;
 
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +26,7 @@ public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends
 	public final void testIterationBehaviour()
 	{
 		for (IntCase<I> testcase : getTestCases()) {
-			List<AbstractTestIterable<I>> initialProviders = IteratorExampleProviders
+			List<AbstractTestIterable<I>> initialProviders = IteratorProvider
 					.buildIntIterables(testcase.source, testcase.adapter);
 
 			assertIteratorAsExpected(testcase.result, initialProviders);
@@ -37,7 +37,7 @@ public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends
 	public final void testOwnershipBehaviour()
 	{
 		for (IntCase<I> testcase : getTestCases()) {
-			List<AbstractTestIterable<AbstractIntIterator>> providers = IteratorExampleProviders
+			List<AbstractTestIterable<AbstractIntIterator>> providers = IteratorProvider
 					.buildIntIterables(testcase.source);
 
 			for (AbstractTestIterable<AbstractIntIterator> provider : providers) {

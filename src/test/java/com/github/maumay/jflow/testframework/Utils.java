@@ -1,4 +1,4 @@
-package com.github.maumay.jflow.testutilities;
+package com.github.maumay.jflow.testframework;
 
 import java.util.OptionalInt;
 

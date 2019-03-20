@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.PrimitiveIterator;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
-import com.github.maumay.jflow.testutilities.AbstractIntAdapterTest;
+import com.github.maumay.jflow.testframework.AbstractIntAdapterTest;
 
 /**
  * @author thomasb

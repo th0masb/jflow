@@ -10,8 +10,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.impl.ArraySource;
-import com.github.maumay.jflow.testutilities.AbstractRichIterable;
-import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
+import com.github.maumay.jflow.testframework.AbstractRichIterable;
+import com.github.maumay.jflow.testframework.FiniteIteratorTest;
 
 /**
  * @author ThomasB

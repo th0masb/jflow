@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.skipwhile;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
-import com.github.maumay.jflow.testutilities.AbstractIntAdapterTest;
+import com.github.maumay.jflow.testframework.AbstractIntAdapterTest;
 
 /**
  * @author t

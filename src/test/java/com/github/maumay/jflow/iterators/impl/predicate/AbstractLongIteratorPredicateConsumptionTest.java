@@ -15,12 +15,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.KnownSize;
-import com.github.maumay.jflow.testutilities.IteratorExampleProviders;
+import com.github.maumay.jflow.testframework.IteratorProvider;
 
 /**
  * @author ThomasB
  */
-class AbstractLongIteratorPredicateConsumptionTest extends IteratorExampleProviders
+class AbstractLongIteratorPredicateConsumptionTest extends IteratorProvider
 {
 	@ParameterizedTest
 	@MethodSource("allEqualTestDataProvider")

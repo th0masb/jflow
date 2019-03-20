@@ -11,8 +11,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.impl.ArraySource;
-import com.github.maumay.jflow.testutilities.AbstractIterableInts;
-import com.github.maumay.jflow.testutilities.FiniteIteratorTest;
+import com.github.maumay.jflow.testframework.AbstractIterableInts;
+import com.github.maumay.jflow.testframework.FiniteIteratorTest;
 
 /**
  * @author ThomasB

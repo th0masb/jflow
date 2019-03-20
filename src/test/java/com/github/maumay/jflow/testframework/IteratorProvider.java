@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.github.maumay.jflow.testutilities;
+package com.github.maumay.jflow.testframework;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import com.github.maumay.jflow.impl.LowerBound;
  *
  * @author t
  */
-class IteratorExampleProviders
+class IteratorProvider
 {
 	private static final int UPPER_BOUND_MULTIPLIER = 5;
 

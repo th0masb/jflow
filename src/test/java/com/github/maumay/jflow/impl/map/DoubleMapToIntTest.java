@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.map;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
-import com.github.maumay.jflow.testutilities.AbstractDoubleAdapterTest;
+import com.github.maumay.jflow.testframework.AbstractDoubleAdapterTest;
 
 /**
  * @author t
