@@ -6,13 +6,13 @@ package com.github.maumay.jflow.impl.map;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testutilities.AbstractAdapterTest;
+import com.github.maumay.jflow.testutilities.AbstractObjectAdapterTest;
 
 /**
  * @author thomasb
  *
  */
-public final class ObjectMapToLongTest extends AbstractAdapterTest<String, AbstractLongIterator>
+public final class ObjectMapToLongTest extends AbstractObjectAdapterTest<String, AbstractLongIterator>
 {
 	@Override
 	protected List<Case<String, AbstractLongIterator>> getTestCases()

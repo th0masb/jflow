@@ -36,7 +36,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 			getSize().decrement();
 			return nextLongImpl();
 		} else {
-			throw new RuntimeException();
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}
 	}
 

@@ -16,18 +16,31 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
  *
  */
 public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
-		extends AbstractListBuilder implements FiniteIteratorTest
+		extends AbstractAdapterTest implements FiniteIteratorTest
 {
 	protected abstract List<LongCase<I>> getTestCases();
 
 	@Test
-	public final void test()
+	public final void testIterationBehaviour()
 	{
 		for (LongCase<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> initialProviders = IteratorExampleProviders
 					.buildLongIterables(testcase.source, testcase.adapter);
 
 			assertIteratorAsExpected(testcase.result, initialProviders);
+		}
+	}
+
+	@Test
+	public final void testOwnershipBehaviour()
+	{
+		for (LongCase<I> testcase : getTestCases()) {
+			List<AbstractTestIterable<AbstractLongIterator>> providers = IteratorExampleProviders
+					.buildLongIterables(testcase.source);
+
+			for (AbstractTestIterable<AbstractLongIterator> provider : providers) {
+				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
+			}
 		}
 	}
 

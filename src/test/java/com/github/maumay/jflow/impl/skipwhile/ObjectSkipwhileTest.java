@@ -6,14 +6,14 @@ package com.github.maumay.jflow.impl.skipwhile;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testutilities.AbstractAdapterTest;
+import com.github.maumay.jflow.testutilities.AbstractObjectAdapterTest;
 
 /**
  * @author t
  *
  */
 public final class ObjectSkipwhileTest
-		extends AbstractAdapterTest<Double, AbstractRichIterator<Double>>
+		extends AbstractObjectAdapterTest<Double, AbstractRichIterator<Double>>
 {
 	@Override
 	protected List<Case<Double, AbstractRichIterator<Double>>> getTestCases()

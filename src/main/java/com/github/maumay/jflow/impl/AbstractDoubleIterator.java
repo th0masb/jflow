@@ -34,7 +34,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 			getSize().decrement();
 			return nextDoubleImpl();
 		} else {
-			throw new RuntimeException();
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}
 	}
 

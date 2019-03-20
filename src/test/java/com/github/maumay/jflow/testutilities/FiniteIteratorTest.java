@@ -38,7 +38,7 @@ public interface FiniteIteratorTest
 		}
 	}
 
-	static Object next(AbstractIterator iterator)
+	default Object next(AbstractIterator iterator)
 	{
 		if (iterator instanceof AbstractRichIterator<?>) {
 			return ((AbstractRichIterator<?>) iterator).next();
@@ -53,7 +53,7 @@ public interface FiniteIteratorTest
 		}
 	}
 
-	static void assertSizeDecreasesByNextAsExpected(AbstractIterator iterator)
+	default void assertSizeDecreasesByNextAsExpected(AbstractIterator iterator)
 	{
 		AbstractIteratorSize startSize = iterator.getSize().copy();
 
@@ -69,7 +69,7 @@ public interface FiniteIteratorTest
 		}
 	}
 
-	static void assertSizeDecreasesBySkipAsExpected(AbstractIterator iterator)
+	default void assertSizeDecreasesBySkipAsExpected(AbstractIterator iterator)
 	{
 		AbstractIteratorSize startSize = iterator.getSize().copy();
 
@@ -85,7 +85,7 @@ public interface FiniteIteratorTest
 		}
 	}
 
-	static <T> void assertSkippingAsExpected(List<T> expectedElements, AbstractIterator iterator)
+	default <T> void assertSkippingAsExpected(List<T> expectedElements, AbstractIterator iterator)
 	{
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			try {
@@ -97,7 +97,7 @@ public interface FiniteIteratorTest
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
-	static <T> void assertNextElementChecksAsExpected(List<T> expectedElements,
+	default <T> void assertNextElementChecksAsExpected(List<T> expectedElements,
 			AbstractIterator iterator)
 	{
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
@@ -111,7 +111,7 @@ public interface FiniteIteratorTest
 		assertFalse(iterator.hasNext());
 	}
 
-	static void assertStandardIterationAsExpected(List<?> expectedElements,
+	default void assertStandardIterationAsExpected(List<?> expectedElements,
 			AbstractIterator iterator)
 	{
 		List<Object> recoveredElements = new ArrayList<>();
@@ -127,7 +127,7 @@ public interface FiniteIteratorTest
 		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static void assertUncheckedIterationAsExpected(List<?> expectedElements,
+	default void assertUncheckedIterationAsExpected(List<?> expectedElements,
 			AbstractIterator iterator)
 	{
 		List<Object> recoveredElements = new ArrayList<>();
@@ -143,7 +143,7 @@ public interface FiniteIteratorTest
 		assertEquals(expectedElements, recoveredElements);
 	}
 
-	static void assertAlternatingNextAndSkipCallsAsExpected(List<?> expectedElements,
+	default void assertAlternatingNextAndSkipCallsAsExpected(List<?> expectedElements,
 			AbstractIterator iterator)
 	{
 		List<Object> expectedOutcome = new ArrayList<>(), recoveredElements = new ArrayList<>();

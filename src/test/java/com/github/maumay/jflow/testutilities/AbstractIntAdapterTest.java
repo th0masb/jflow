@@ -15,19 +15,32 @@ import com.github.maumay.jflow.impl.AbstractIterator;
  * @author thomasb
  *
  */
-public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends AbstractListBuilder
+public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends AbstractAdapterTest
 		implements FiniteIteratorTest
 {
 	protected abstract List<IntCase<I>> getTestCases();
 
 	@Test
-	public final void test()
+	public final void testIterationBehaviour()
 	{
 		for (IntCase<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> initialProviders = IteratorExampleProviders
 					.buildIntIterables(testcase.source, testcase.adapter);
 
 			assertIteratorAsExpected(testcase.result, initialProviders);
+		}
+	}
+
+	@Test
+	public final void testOwnershipBehaviour()
+	{
+		for (IntCase<I> testcase : getTestCases()) {
+			List<AbstractTestIterable<AbstractIntIterator>> providers = IteratorExampleProviders
+					.buildIntIterables(testcase.source);
+
+			for (AbstractTestIterable<AbstractIntIterator> provider : providers) {
+				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
+			}
 		}
 	}
 

@@ -4,7 +4,6 @@
 package com.github.maumay.jflow.impl;
 
 import com.github.maumay.jflow.iterators.Skippable;
-import com.github.maumay.jflow.utils.Exceptions;
 
 /**
  * @author thomasb
@@ -12,6 +11,8 @@ import com.github.maumay.jflow.utils.Exceptions;
  */
 public abstract class AbstractIterator implements Skippable
 {
+	protected static final String OWNERSHIP_ERR_MSG = "Ownership has been reliquished!";
+
 	/**
 	 * The sizing information for this iterator
 	 */
@@ -43,8 +44,11 @@ public abstract class AbstractIterator implements Skippable
 	final void relinquishOwnership()
 	{
 		// Can't relinquish ownership twice!
-		Exceptions.require(hasOwnership);
-		hasOwnership = false;
+		if (hasOwnership) {
+			hasOwnership = false;
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
 	}
 
 	// Skippable API
@@ -55,7 +59,7 @@ public abstract class AbstractIterator implements Skippable
 			getSize().decrement();
 			skipImpl();
 		} else {
-			throw new RuntimeException();
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}
 	}
 

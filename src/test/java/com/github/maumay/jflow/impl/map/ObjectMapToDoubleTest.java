@@ -6,13 +6,13 @@ package com.github.maumay.jflow.impl.map;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.testutilities.AbstractAdapterTest;
+import com.github.maumay.jflow.testutilities.AbstractObjectAdapterTest;
 
 /**
  * @author thomasb
  *
  */
-public final class ObjectMapToDoubleTest extends AbstractAdapterTest<String, AbstractDoubleIterator>
+public final class ObjectMapToDoubleTest extends AbstractObjectAdapterTest<String, AbstractDoubleIterator>
 {
 	@Override
 	protected List<Case<String, AbstractDoubleIterator>> getTestCases()

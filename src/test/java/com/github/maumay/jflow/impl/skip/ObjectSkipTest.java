@@ -6,14 +6,14 @@ package com.github.maumay.jflow.impl.skip;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testutilities.AbstractAdapterTest;
+import com.github.maumay.jflow.testutilities.AbstractObjectAdapterTest;
 
 /**
  * @author t
  *
  */
 public final class ObjectSkipTest
-		extends AbstractAdapterTest<String, AbstractRichIterator<String>>
+		extends AbstractObjectAdapterTest<String, AbstractRichIterator<String>>
 {
 	@Override
 	protected List<Case<String, AbstractRichIterator<String>>> getTestCases()

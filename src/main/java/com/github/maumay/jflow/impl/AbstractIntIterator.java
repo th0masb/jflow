@@ -34,7 +34,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 			getSize().decrement();
 			return nextIntImpl();
 		} else {
-			throw new RuntimeException();
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}
 	}
 

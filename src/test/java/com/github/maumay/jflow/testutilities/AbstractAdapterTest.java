@@ -3,52 +3,35 @@
  */
 package com.github.maumay.jflow.testutilities;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import org.junit.jupiter.api.Test;
-
 import com.github.maumay.jflow.impl.AbstractIterator;
-import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.impl.IteratorOwnershipException;
 
 /**
  * @author thomasb
  *
  */
-public abstract class AbstractAdapterTest<T, I extends AbstractIterator> extends AbstractListBuilder
-		implements FiniteIteratorTest
+public abstract class AbstractAdapterTest implements FiniteIteratorTest
 {
-
-	protected abstract List<Case<T, I>> getTestCases();
-
-	@Test
-	public final void test()
+	@SafeVarargs
+	protected final <T> List<T> list(T... ts)
 	{
-		for (Case<T, I> testcase : getTestCases()) {
-			List<AbstractTestIterable<I>> providers = IteratorExampleProviders
-					.buildIterables(testcase.source, testcase.adapter);
-
-			assertIteratorAsExpected(testcase.result, providers);
-		}
+		return Arrays.asList(ts);
 	}
 
-	@FunctionalInterface
-	public static interface Adapter<T, I extends AbstractIterator>
-			extends Function<AbstractRichIterator<T>, I>
+	protected final <I extends AbstractIterator> void assertAdaptionRemovesOwnership(I iterator,
+			Function<I, ? extends AbstractIterator> adapter)
 	{
-	}
-
-	public static class Case<T, I extends AbstractIterator>
-	{
-		final List<T> source;
-		final Adapter<T, I> adapter;
-		final List<?> result;
-
-		public Case(List<T> source, Adapter<T, I> adapter, List<?> result)
-		{
-			this.source = source;
-			this.result = result;
-			this.adapter = adapter;
+		// Can't check empty iterators
+		if (iterator.hasNext()) {
+			adapter.apply(iterator);
+			assertThrows(IteratorOwnershipException.class, iterator::skip);
+			assertThrows(IteratorOwnershipException.class, () -> next(iterator));
 		}
 	}
 }

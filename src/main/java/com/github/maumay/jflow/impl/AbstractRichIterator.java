@@ -31,8 +31,7 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator
-		implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -46,7 +45,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 			getSize().decrement();
 			return nextImpl();
 		} else {
-			throw new RuntimeException();
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}
 	}
 

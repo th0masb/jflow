@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testutilities.AbstractAdapterTest;
+import com.github.maumay.jflow.testutilities.AbstractObjectAdapterTest;
 
 /**
  * @author thomasb
  *
  */
-public final class ObjectMapTest extends AbstractAdapterTest<String, AbstractRichIterator<String>>
+public final class ObjectMapTest extends AbstractObjectAdapterTest<String, AbstractRichIterator<String>>
 {
 	@Override
 	protected List<Case<String, AbstractRichIterator<String>>> getTestCases()
