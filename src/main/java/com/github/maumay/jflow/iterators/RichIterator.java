@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -55,8 +53,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @param   <R> The target element type of the mapping operation.
 	 *
 	 * @param f A mapping function.
-	 * @return A new {@link RichIterator} instance whose elements are obtained
-	 *         by applying the parameter mapping function to each element of this
+	 * @return A new {@link RichIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
 	 *         {@link RichIterator} instance in turn.
 	 */
 	<R> RichIterator<R> map(Function<? super E, ? extends R> f);
@@ -95,33 +93,31 @@ public interface RichIterator<E> extends SafeIterator<E>
 	LongIterator mapToLong(ToLongFunction<? super E> f);
 
 	/**
-	 * Maps elements of this {@link RichIterator} to {@link RichIterator}
-	 * instances before sequentially concatenating them end to end.
+	 * Maps elements of this {@link RichIterator} to {@link RichIterator} instances
+	 * before sequentially concatenating them end to end.
 	 *
 	 * @param         <R> The element type of the target {@link RichIterator}
 	 *                instances.
 	 *
 	 * @param mapping A function taking elements to instances of
 	 *                {@link RichIterator}
-	 * @return A {@link RichIterator} obtained by applying the mapping function
-	 *         to each element in turn and sequentially concatenating the results.
+	 * @return A {@link RichIterator} obtained by applying the mapping function to
+	 *         each element in turn and sequentially concatenating the results.
 	 */
 	<R> RichIterator<R> flatMap(
 			Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
 	 * Combines this {@link RichIterator} with another iterator to create a new
-	 * {@link RichIterator} consisting of pairs of elements with the same index
-	 * in their respective origins.
+	 * {@link RichIterator} consisting of pairs of elements with the same index in
+	 * their respective origins.
 	 *
-	 * @param       <R> The upper type bound on the parameter
-	 *              {@link RichIterator}.
-	 * @param other The {@link RichIterator} to zip this source
-	 *              {@link RichIterator} with.
+	 * @param       <R> The upper type bound on the parameter {@link RichIterator}.
+	 * @param other The sequence to zip this iterator with.
 	 *
 	 * @return Denote this source {@link RichIterator} by {@code F} with the
-	 *         parameter {@link RichIterator} denoted by {@code I}. We return a
-	 *         new {@link RichIterator} instance {@code G} defined by:
+	 *         parameter sequence denoted by {@code I}. We return a new
+	 *         {@link RichIterator} instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], I[j])}</li>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
@@ -129,6 +125,23 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 */
 	<R> RichIterator<Tup<E, R>> zip(Iterator<? extends R> other);
 
+	/**
+	 * Combines this {@link RichIterator} with another sequence to create a new
+	 * {@link RichIterator} consisting of pairs of elements with the same index in
+	 * their respective origins.
+	 *
+	 * @param       <R> The upper type bound on the parameter {@link RichIterator}.
+	 * @param other The {@link RichIterator} to zip this source {@link RichIterator}
+	 *              with.
+	 *
+	 * @return Denote this source {@link RichIterator} by {@code F} with the
+	 *         parameter {@link RichIterator} denoted by {@code I}. We return a new
+	 *         {@link RichIterator} instance {@code G} defined by:
+	 *         <ul>
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
+	 *         </ul>
+	 */
 	<R> RichIterator<Tup<E, R>> zip(List<? extends R> other);
 
 	<R> RichIterator<Tup<E, R>> zip(Vec<? extends R> other);
@@ -138,8 +151,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * {@link RichIterator} to a pair consisting of the element and the index it
 	 * appears.
 	 *
-	 * @return Denote this source {@link RichIterator} by {@code F}. We return a
-	 *         new {@link RichIterator} instance {@code G} defined by:
+	 * @return Denote this source {@link RichIterator} by {@code F}. We return a new
+	 *         {@link RichIterator} instance {@code G} defined by:
 	 *         <ul>
 	 *         <li>{@code G[j] = (F[j], j)}</li>
 	 *         <li>{@code length(G) = length(F)}</li>
@@ -169,8 +182,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *
 	 * @param n A non-negative integer.
 	 * @throws IllegalArgumentException If parameter is negative.
-	 * @return Let {@code F} denote this source {@link RichIterator}. We return
-	 *         a {@link RichIterator} consisting of the first
+	 * @return Let {@code F} denote this source {@link RichIterator}. We return a
+	 *         {@link RichIterator} consisting of the first
 	 *         {@code max(n, length(F))} elements of {@code F}.
 	 */
 	RichIterator<E> take(int n);
@@ -183,58 +196,58 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @param predicate A predicate applicable to the type of elements in this
 	 *                  {@link RichIterator}.
 	 * @return Let {@code n} be the index of the first element that the parameter
-	 *         predicate fails for. Then this method returns a
-	 *         {@link RichIterator} consisting of the first {@code n} elements
-	 *         of this source {@link RichIterator}. If no element fails the
-	 *         predicate test then a copy of the source is returned.
+	 *         predicate fails for. Then this method returns a {@link RichIterator}
+	 *         consisting of the first {@code n} elements of this source
+	 *         {@link RichIterator}. If no element fails the predicate test then a
+	 *         copy of the source is returned.
 	 */
 	RichIterator<E> takeWhile(Predicate<? super E> predicate);
 
 	/**
-	 * Creates a new {@link RichIterator} from this {@link RichIterator} by
-	 * removing the first n elements.
+	 * Creates a new {@link RichIterator} from this {@link RichIterator} by removing
+	 * the first n elements.
 	 *
 	 * @param n A non-negative integer.
 	 * @throws IllegalArgumentException If parameter is negative.
-	 * @return Let {@code F} denote this source {@link RichIterator}. We return
-	 *         a {@link RichIterator} missing the first
-	 *         {@code min(n, length(F))} elements of {@code F}.
+	 * @return Let {@code F} denote this source {@link RichIterator}. We return a
+	 *         {@link RichIterator} missing the first {@code min(n, length(F))}
+	 *         elements of {@code F}.
 	 */
 	RichIterator<E> skip(int n);
 
 	/**
-	 * Creates a new {@link RichIterator} from this {@link RichIterator} by
-	 * removing elements until an element fails the supplied test, the first failure
-	 * is the first element of the result.
+	 * Creates a new {@link RichIterator} from this {@link RichIterator} by removing
+	 * elements until an element fails the supplied test, the first failure is the
+	 * first element of the result.
 	 *
 	 * @param predicate A predicate applicable to the type of elements in this
 	 *                  {@link RichIterator}.
 	 * @return Let {@code n} be the index of the first element that the parameter
-	 *         predicate fails for. Then this method returns a
-	 *         {@link RichIterator} missing {@code n} elements of this source
-	 *         {@link RichIterator}. If no element fails the predicate test then
-	 *         a copy of the source is returned.
+	 *         predicate fails for. Then this method returns a {@link RichIterator}
+	 *         missing {@code n} elements of this source {@link RichIterator}. If no
+	 *         element fails the predicate test then a copy of the source is
+	 *         returned.
 	 */
 	RichIterator<E> skipWhile(Predicate<? super E> predicate);
 
 	/**
-	 * Creates a new {@link RichIterator} from this {@link RichIterator} by
-	 * removing any element which fails the supplied predicate test.
+	 * Creates a new {@link RichIterator} from this {@link RichIterator} by removing
+	 * any element which fails the supplied predicate test.
 	 *
 	 * @param predicate A predicate applicable to the type of elements in this
 	 *                  {@link RichIterator}.
-	 * @return A {@link RichIterator} containing only those elements of this
-	 *         source {@link RichIterator} which pass the test defined by the
-	 *         parameter predicate. The relative ordering of elements is retained.
+	 * @return A {@link RichIterator} containing only those elements of this source
+	 *         {@link RichIterator} which pass the test defined by the parameter
+	 *         predicate. The relative ordering of elements is retained.
 	 */
 	RichIterator<E> filter(Predicate<? super E> predicate);
 
 	/**
-	 * Creates a new {@link RichIterator} from this {@link RichIterator} by
-	 * adding each element of the supplied iterator to its end in order.
+	 * Creates a new {@link RichIterator} from this {@link RichIterator} by adding
+	 * each element of the supplied iterator to its end in order.
 	 *
-	 * @param other An {@link RichIterator} containing elements of the same type
-	 *              as this source {@link RichIterator}.
+	 * @param other An {@link RichIterator} containing elements of the same type as
+	 *              this source {@link RichIterator}.
 	 * @return a {@link RichIterator} consisting of the elements of this source
 	 *         {@link RichIterator} followed by the elements of the parameter
 	 *         {@link RichIterator}.
@@ -242,28 +255,48 @@ public interface RichIterator<E> extends SafeIterator<E>
 	RichIterator<E> append(Iterator<? extends E> other);
 
 	/**
-	 * Creates a new {@link RichIterator} from this {@link RichIterator} by
-	 * adding each element to the end of the supplied iterator in order.
+	 * Creates a new {@link RichIterator} from this {@link RichIterator} by adding
+	 * each element to the end of the supplied iterator in order.
 	 *
-	 * @param other An {@link RichIterator} containing elements of the same type
-	 *              as this source {@link RichIterator}.
-	 * @return a {@link RichIterator} consisting of the elements of the
-	 *         parameter {@link RichIterator} followed by the elements of this
-	 *         source {@link RichIterator}.
+	 * @param other An {@link RichIterator} containing elements of the same type as
+	 *              this source {@link RichIterator}.
+	 * @return a {@link RichIterator} consisting of the elements of the parameter
+	 *         {@link RichIterator} followed by the elements of this source
+	 *         {@link RichIterator}.
 	 */
 	RichIterator<E> insert(Iterator<? extends E> other);
 
 	/**
-	 * Applies a scanning operation to this {@link RichIterator} to produce a
-	 * new {@link RichIterator}.
+	 * Convenience method for appending a single element onto the end of this
+	 * {@link RichIterator}.
+	 *
+	 * @param e The element to append
+	 * @return A {@link RichIterator} consisting of the elements of this source
+	 *         {@link RichIterator} followed by the parameter element
+	 */
+	RichIterator<E> append(E e);
+
+	/**
+	 * Convenience method for inserting a single element into the beginning of this
+	 * {@link RichIterator}.
+	 *
+	 * @param e The element to insert.
+	 * @return A {@link RichIterator} consisting of the parameter element followed
+	 *         by the elements of the source flow
+	 */
+	RichIterator<E> insert(E e);
+
+	/**
+	 * Applies a scanning operation to this {@link RichIterator} to produce a new
+	 * {@link RichIterator}.
 	 *
 	 * @param             <R> The target element type of the accumulation.
 	 *
 	 * @param id          The identity element in the accumulation.
 	 * @param accumulator The accumulator function.
-	 * @return Let {@code F} denote this source {@link RichIterator} and
-	 *         {@code g} denote the accumulation function. Then the
-	 *         {@link RichIterator} returned is of the form:
+	 * @return Let {@code F} denote this source {@link RichIterator} and {@code g}
+	 *         denote the accumulation function. Then the {@link RichIterator}
+	 *         returned is of the form:
 	 *         <ul>
 	 *         <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
 	 *         </ul>
@@ -271,67 +304,61 @@ public interface RichIterator<E> extends SafeIterator<E>
 	<R> RichIterator<R> scan(R id, BiFunction<R, E, R> accumulator);
 
 	/**
-	 * Safely manipulates the element type of this {@link RichIterator} by
-	 * filtering out elements who cannot be cast to the target type before casting
-	 * the remainder.
+	 * Safely manipulates the element type of this {@link RichIterator} by filtering
+	 * out elements who cannot be cast to the target type before casting the
+	 * remainder.
 	 *
 	 * @param       <R> The target type
 	 * @param klass A Class instance defining the target type
-	 * @return A new {@link RichIterator} with element type given by the
-	 *         supplied target type, containing only the elements of the source
-	 *         which are of the target type.
+	 * @return A new {@link RichIterator} with element type given by the supplied
+	 *         target type, containing only the elements of the source which are of
+	 *         the target type.
 	 */
 	<R> RichIterator<R> cast(Class<R> klass);
 
 	/**
-	 * Calculates the minimum element in this {@link RichIterator} with respect
-	 * to the ordering specified by the parameter.
+	 * Calculates the minimum element in this {@link RichIterator} with respect to
+	 * the ordering specified by the parameter.
 	 *
 	 * @param orderingFunction This function defines the ordering on this element
 	 *                         type.
-	 * @return Nothing if the {@link RichIterator} is empty. Otherwise the
-	 *         minimum element in this {@link RichIterator}.
+	 * @return Nothing if the {@link RichIterator} is empty. Otherwise the minimum
+	 *         element in this {@link RichIterator}.
 	 */
 	Optional<E> minOption(Comparator<? super E> orderingFunction);
 
 	/**
-	 * Calculates the minimum element in this {@link RichIterator} with respect
-	 * to the ordering specified by the parameter throwing an exception if this
+	 * Calculates the minimum element in this {@link RichIterator} with respect to
+	 * the ordering specified by the parameter throwing an exception if this
 	 * iterator is empty.
 	 *
 	 * @param orderingFunction This function defines the ordering on this element
 	 *                         type.
 	 * @return The minimum element in this {@link RichIterator}.
 	 */
-	default E min(Comparator<? super E> orderingFunction)
-	{
-		return minOption(orderingFunction).get();
-	}
+	E min(Comparator<? super E> orderingFunction);
 
 	/**
-	 * Calculates the maximum element in this {@link RichIterator} with respect
-	 * to the ordering specified by the parameter.
+	 * Calculates the maximum element in this {@link RichIterator} with respect to
+	 * the ordering specified by the parameter.
 	 *
 	 * @param orderingFunction This function defines the ordering on this element
 	 *                         type.
-	 * @return Nothing if the {@link RichIterator} is empty. Otherwise the
-	 *         maximum element in this {@link RichIterator}.
+	 * @return Nothing if the {@link RichIterator} is empty. Otherwise the maximum
+	 *         element in this {@link RichIterator}.
 	 */
 	Optional<E> maxOption(Comparator<? super E> orderingFunction);
 
 	/**
-	 * Calculates the maximum element in this {@link RichIterator} with respect
-	 * to the ordering specified by the parameter throwing an exception if this
+	 * Calculates the maximum element in this {@link RichIterator} with respect to
+	 * the ordering specified by the parameter throwing an exception if this
 	 * iterator is empty.
 	 *
 	 * @param orderingFunction This function defines the ordering on this element
 	 *                         type.
 	 * @return The maximum element in this {@link RichIterator}.
 	 */
-	default E max(Comparator<? super E> orderingFunction)
-	{
-		return maxOption(orderingFunction).get();
-	}
+	E max(Comparator<? super E> orderingFunction);
 
 	/**
 	 * Checks whether every element in this {@link RichIterator} is the same.
@@ -339,15 +366,15 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link RichIterator}.
 	 *
-	 * @return True is every element of this {@link RichIterator} is equal
-	 *         (under .equals contract), false otherwise.
+	 * @return True is every element of this {@link RichIterator} is equal (under
+	 *         .equals contract), false otherwise.
 	 */
 	boolean areAllEqual();
 
 	/**
-	 * Checks whether every element in this {@link RichIterator} passes the
-	 * supplied predicate test. This method is a 'consuming method', i.e. it will
-	 * iterate through this {@link RichIterator}.
+	 * Checks whether every element in this {@link RichIterator} passes the supplied
+	 * predicate test. This method is a 'consuming method', i.e. it will iterate
+	 * through this {@link RichIterator}.
 	 *
 	 * @param predicate A predicate applicable to the type of elements in this
 	 *                  {@link RichIterator}.
@@ -357,9 +384,9 @@ public interface RichIterator<E> extends SafeIterator<E>
 	boolean allMatch(Predicate<? super E> predicate);
 
 	/**
-	 * Checks whether any element in this {@link RichIterator} passes the
-	 * supplied predicate test. This method is a 'consuming method', i.e. it will
-	 * iterate through this {@link RichIterator}.
+	 * Checks whether any element in this {@link RichIterator} passes the supplied
+	 * predicate test. This method is a 'consuming method', i.e. it will iterate
+	 * through this {@link RichIterator}.
 	 *
 	 * @param predicate A predicate applicable to the type of elements in this
 	 *                  {@link RichIterator}.
@@ -369,9 +396,9 @@ public interface RichIterator<E> extends SafeIterator<E>
 	boolean anyMatch(Predicate<? super E> predicate);
 
 	/**
-	 * Checks whether every element in this {@link RichIterator} fails the
-	 * supplied predicate test. This method is a 'consuming method', i.e. it will
-	 * iterate through this {@link RichIterator}.
+	 * Checks whether every element in this {@link RichIterator} fails the supplied
+	 * predicate test. This method is a 'consuming method', i.e. it will iterate
+	 * through this {@link RichIterator}.
 	 *
 	 * @param predicate A predicate applicable to the type of elements in this
 	 *                  {@link RichIterator}.
@@ -381,9 +408,9 @@ public interface RichIterator<E> extends SafeIterator<E>
 	boolean noneMatch(Predicate<? super E> predicate);
 
 	/**
-	 * Fold this {@link RichIterator} to a single value via some reduction
-	 * function and an initial value. This method is a 'consuming method', i.e. it
-	 * will iterate through this {@link RichIterator}.
+	 * Fold this {@link RichIterator} to a single value via some reduction function
+	 * and an initial value. This method is a 'consuming method', i.e. it will
+	 * iterate through this {@link RichIterator}.
 	 *
 	 * @param         <R> The type of the reduction output.
 	 * @param id      The identity of the reduction operation
@@ -427,9 +454,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	E fold(BinaryOperator<E> reducer);
 
 	/**
-	 * Counts the number of elements in this {@link RichIterator}. This method
-	 * is a 'consuming method', i.e. it will iterate through this
-	 * {@link RichIterator}.
+	 * Counts the number of elements in this {@link RichIterator}. This method is a
+	 * 'consuming method', i.e. it will iterate through this {@link RichIterator}.
 	 *
 	 * @return the number of elements in this {@link RichIterator}.
 	 */
@@ -440,8 +466,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * method is a 'consuming method', i.e. it will iterate through this
 	 * {@link RichIterator}.
 	 *
-	 * @return A Vec containing all elements of this source {@link RichIterator}
-	 *         in the order that they appeared in the iteration.
+	 * @return A Vec containing all elements of this source {@link RichIterator} in
+	 *         the order that they appeared in the iteration.
 	 */
 	Vec<E> toVec();
 
@@ -475,9 +501,68 @@ public interface RichIterator<E> extends SafeIterator<E>
 	void consume(IteratorConsumer<? super E> consumer);
 
 	/**
-	 * Caches the elements in this {@link RichIterator}. This method is a
-	 * 'consuming method', i.e. it will iterate through this
-	 * {@link RichIterator}.
+	 * Associates each unique value in this iterator with the result of applying the
+	 * provided function to it. The result is similar to
+	 * {@link #toMap(Function, Function)} with the first argument being the identity
+	 * function. If duplicate elements appear in this iterator then an exception
+	 * will be thrown.
+	 * 
+	 * @param             <V> The type of values in the resulting map.
+	 * @param valueMapper the function which produces the associated values in the
+	 *                    resultant map for each unique element in this iterator.
+	 * @return a map associating the unique elements of this iterator with the
+	 *         result of applying the parameter function to them.
+	 */
+	<V> Map<E, V> associate(Function<? super E, ? extends V> valueMapper);
+
+	/**
+	 * Builds a Map using the elements in this {@link RichIterator} via two supplied
+	 * functions. This method is a 'consuming method', i.e. it will iterate through
+	 * this {@link RichIterator}.
+	 *
+	 * @param             <K> The type of the keys in the created mapping.
+	 * @param             <V> The type of the values in the created mapping.
+	 * @param keyMapper   A function mapping elements of this {@link RichIterator}
+	 *                    to elements of the key type.
+	 * @param valueMapper A function mapping elements of this {@link RichIterator}
+	 *                    to elements of the value type.
+	 *
+	 * @throws IllegalStateException If two elements of this {@link RichIterator}
+	 *                               map to the same key.
+	 *
+	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
+	 *         with the elements in this source {@link RichIterator}. More
+	 *         specifically if:
+	 *         <ul>
+	 *         <li>{@code k} denotes the key mapping function</li>
+	 *         <li>{@code v} denotes the value mapping function</li>
+	 *         </ul>
+	 *         an element of this source {@link RichIterator}, say {@code e}, is
+	 *         associated to the key value pair {@code (k(e), v(e))}.
+	 */
+	<K, V> Map<K, V> toMap(Function<? super E, ? extends K> keyMapper,
+			Function<? super E, ? extends V> valueMapper);
+
+	/**
+	 * Groups elements in this {@link RichIterator} via their image under some
+	 * supplied classification function. This method is a 'consuming method', i.e.
+	 * it will iterate through this {@link RichIterator}.
+	 *
+	 * @param            <K> The type of the keys in the grouping map.
+	 *
+	 * @param classifier A function defining the different groups of elements.
+	 * @return A Map instance whose keys partition the elements of this source
+	 *         {@link RichIterator} via the classification function. Elements in
+	 *         this source {@link RichIterator} who have equal (under .equals()
+	 *         contract) images under the classification function are grouped
+	 *         together in a {@link List} accessed by their shared classification
+	 *         key.
+	 */
+	<K> Map<K, List<E>> groupBy(Function<? super E, ? extends K> classifier);
+
+	/**
+	 * Caches the elements in this {@link RichIterator}. This method is a 'consuming
+	 * method', i.e. it will iterate through this {@link RichIterator}.
 	 *
 	 * @param                   <C> The type of collection which is supplied and
 	 *                          returned.
@@ -486,29 +571,17 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @return The collection obtained by calling the collection supply function
 	 *         once and adding each element in this {@link RichIterator} to it
 	 */
-	default <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
-	{
-		C coll = collectionFactory.get();
-		while (hasNext()) {
-			coll.add(next());
-		}
-		return coll;
-	}
+	<C extends Collection<E>> C toCollection(Supplier<C> collectionFactory);
 
 	/**
-	 * Caches the elements in this {@link RichIterator} into a Set. This method
-	 * is a 'consuming method', i.e. it will iterate through this
-	 * {@link RichIterator}.
+	 * Caches the elements in this {@link RichIterator} into a Set. This method is a
+	 * 'consuming method', i.e. it will iterate through this {@link RichIterator}.
 	 *
 	 * @return A Set instance containing all unique elements of the source flow.
 	 */
 	default Set<E> toSet()
 	{
-		Set<E> set = new HashSet<>();
-		while (hasNext()) {
-			set.add(next());
-		}
-		return set;
+		return toCollection(HashSet::new);
 	}
 
 	/**
@@ -523,137 +596,26 @@ public interface RichIterator<E> extends SafeIterator<E>
 	}
 
 	/**
-	 * Caches the elements in this {@link RichIterator} into a List. This method
-	 * is a 'consuming method', i.e. it will iterate through this
-	 * {@link RichIterator}.
+	 * Caches the elements in this {@link RichIterator} into a List. This method is
+	 * a 'consuming method', i.e. it will iterate through this {@link RichIterator}.
 	 *
 	 * @return A List instance containing all elements of the source flow with their
 	 *         order retained.
 	 */
 	default List<E> toList()
 	{
-		List<E> xs = new ArrayList<>();
-		while (hasNext()) {
-			xs.add(next());
-		}
-		return xs;
+		return toCollection(ArrayList::new);
 	}
 
 	/**
 	 * Caches the elements in this iterator to a List which is accessible through an
 	 * unmodifiable view.
 	 * 
-	 * @return An unmodifiable view of the result of
-	 *         {@link RichIterator#toList()}.
+	 * @return An unmodifiable view of the result of {@link RichIterator#toList()}.
 	 */
 	default List<E> toUnmodifiableList()
 	{
 		return Collections.unmodifiableList(toList());
-	}
-
-	/**
-	 * Builds a Map using the elements in this {@link RichIterator} via two
-	 * supplied functions. This method is a 'consuming method', i.e. it will iterate
-	 * through this {@link RichIterator}.
-	 *
-	 * @param             <K> The type of the keys in the created mapping.
-	 * @param             <V> The type of the values in the created mapping.
-	 * @param keyMapper   A function mapping elements of this
-	 *                    {@link RichIterator} to elements of the key type.
-	 * @param valueMapper A function mapping elements of this
-	 *                    {@link RichIterator} to elements of the value type.
-	 *
-	 * @throws IllegalStateException If two elements of this
-	 *                               {@link RichIterator} map to the same key.
-	 *
-	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
-	 *         with the elements in this source {@link RichIterator}. More
-	 *         specifically if:
-	 *         <ul>
-	 *         <li>{@code k} denotes the key mapping function</li>
-	 *         <li>{@code v} denotes the value mapping function</li>
-	 *         </ul>
-	 *         an element of this source {@link RichIterator}, say {@code e}, is
-	 *         associated to the key value pair {@code (k(e), v(e))}.
-	 */
-	default <K, V> Map<K, V> toMap(Function<? super E, ? extends K> keyMapper,
-			Function<? super E, ? extends V> valueMapper)
-	{
-		Map<K, V> collected = new HashMap<>();
-		while (hasNext()) {
-			E next = next();
-			K key = keyMapper.apply(next);
-			if (collected.containsKey(key)) {
-				throw new IllegalStateException();
-			} else {
-				collected.put(key, valueMapper.apply(next));
-			}
-		}
-		return collected;
-	}
-
-	/**
-	 * Applies the same logic as {@link #toMap(Function, Function)} but optimizes
-	 * the result for enumerate types by returning an instance of {@link EnumMap}.
-	 * Note that if this iterator is empty then a {@link HashMap} will be returned
-	 * instead.
-	 * 
-	 * @param             <K> The type of key in the resulting map.
-	 * @param             <V> The type of value in the resulting map.
-	 * @param keyMapper   see {@link #toMap(Function, Function)}
-	 * @param valueMapper see {@link #toMap(Function, Function)}
-	 * @return see {@link #toMap(Function, Function)}
-	 */
-	default <K extends Enum<K>, V> Map<K, V> toEnumMap(Function<? super E, K> keyMapper,
-			Function<? super E, ? extends V> valueMapper)
-	{
-		// If there are no concrete elements we can't instantiate an enum map so return
-		// a HashMap
-		if (!hasNext()) {
-			return new HashMap<>();
-		}
-		E first = next();
-		K firstKey = keyMapper.apply(first);
-		@SuppressWarnings("unchecked")
-		Map<K, V> dest = new EnumMap<>((Class<K>) firstKey.getClass());
-		dest.put(firstKey, valueMapper.apply(first));
-		while (hasNext()) {
-			E next = next();
-			K key = keyMapper.apply(next);
-			if (dest.containsKey(key)) {
-				throw new IllegalStateException();
-			} else {
-				dest.put(key, valueMapper.apply(next));
-			}
-		}
-		return dest;
-	}
-
-	/**
-	 * Associates each unique value in this iterator with the result of applying the
-	 * provided function to it. The result is similar to
-	 * {@link #toMap(Function, Function)} with the first argument being the identity
-	 * function. If duplicate elements appear in this iterator then an exception
-	 * will be thrown.
-	 * 
-	 * @param             <V> The type of values in the resulting map.
-	 * @param valueMapper the function which produces the associated values in the
-	 *                    resultant map for each unique element in this iterator.
-	 * @return a map associating the unique elements of this iterator with the
-	 *         result of applying the parameter function to them.
-	 */
-	default <V> Map<E, V> associate(Function<? super E, ? extends V> valueMapper)
-	{
-		Map<E, V> collected = new HashMap<>();
-		while (hasNext()) {
-			E key = next();
-			if (collected.containsKey(key)) {
-				throw new IllegalStateException();
-			} else {
-				collected.put(key, valueMapper.apply(key));
-			}
-		}
-		return collected;
 	}
 
 	/**
@@ -674,58 +636,4 @@ public interface RichIterator<E> extends SafeIterator<E>
 	{
 		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
-
-	/**
-	 * Groups elements in this {@link RichIterator} via their image under some
-	 * supplied classification function. This method is a 'consuming method', i.e.
-	 * it will iterate through this {@link RichIterator}.
-	 *
-	 * @param            <K> The type of the keys in the grouping map.
-	 *
-	 * @param classifier A function defining the different groups of elements.
-	 * @return A Map instance whose keys partition the elements of this source
-	 *         {@link RichIterator} via the classification function. Elements in
-	 *         this source {@link RichIterator} who have equal (under .equals()
-	 *         contract) images under the classification function are grouped
-	 *         together in a {@link List} accessed by their shared classification
-	 *         key.
-	 */
-	default <K> Map<K, List<E>> groupBy(Function<? super E, ? extends K> classifier)
-	{
-		Map<K, List<E>> collected = new HashMap<>();
-		while (hasNext()) {
-			E next = next();
-			K key = classifier.apply(next);
-			collected.putIfAbsent(key, new ArrayList<>());
-			collected.get(key).add(next);
-		}
-		return collected;
-	}
-
-	/**
-	 * Convenience method for appending a single element onto the end of this
-	 * {@link RichIterator}.
-	 *
-	 * @param e The element to append
-	 * @return A {@link RichIterator} consisting of the elements of this source
-	 *         {@link RichIterator} followed by the parameter element
-	 */
-	default RichIterator<E> append(E e)
-	{
-		return append(Iter.over(e));
-	}
-
-	/**
-	 * Convenience method for inserting a single element into the beginning of this
-	 * {@link RichIterator}.
-	 *
-	 * @param e The element to insert.
-	 * @return A {@link RichIterator} consisting of the parameter element
-	 *         followed by the elements of the source flow
-	 */
-	default RichIterator<E> insert(E e)
-	{
-		return insert(Iter.over(e));
-	}
-
 }

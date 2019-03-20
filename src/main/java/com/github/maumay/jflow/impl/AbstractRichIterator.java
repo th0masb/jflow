@@ -3,15 +3,20 @@
  */
 package com.github.maumay.jflow.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
@@ -20,6 +25,7 @@ import com.github.maumay.jflow.iterators.IteratorAdapter;
 import com.github.maumay.jflow.iterators.IteratorCollector;
 import com.github.maumay.jflow.iterators.IteratorConsumer;
 import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -31,7 +37,8 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator
+		implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -144,6 +151,18 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	}
 
 	@Override
+	public RichIterator<E> append(E e)
+	{
+		return new ConcatenationAdapter.OfObject<>(this, new ArraySource.OfObject<>(e));
+	}
+
+	@Override
+	public RichIterator<E> insert(E e)
+	{
+		return new ConcatenationAdapter.OfObject<>(new ArraySource.OfObject<>(e), this);
+	}
+
+	@Override
 	public <R> AbstractRichIterator<R> scan(R id, BiFunction<R, E, R> accumulator)
 	{
 		return new ScanAdapter.OfObject<>(this, id, accumulator);
@@ -177,6 +196,18 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	public Optional<E> maxOption(Comparator<? super E> orderingFunction)
 	{
 		return ObjectMinMaxConsumption.findMax(this, orderingFunction);
+	}
+
+	@Override
+	public E min(Comparator<? super E> orderingFunction)
+	{
+		return minOption(orderingFunction).get();
+	}
+
+	@Override
+	public E max(Comparator<? super E> orderingFunction)
+	{
+		return maxOption(orderingFunction).get();
 	}
 
 	@Override
@@ -249,5 +280,64 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	public <R> AbstractRichIterator<R> cast(Class<R> klass)
 	{
 		return filter(klass::isInstance).map(klass::cast);
+	}
+
+	@Override
+	public <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
+	{
+		Exceptions.require(hasOwnership());
+		C coll = collectionFactory.get();
+		while (hasNext()) {
+			coll.add(nextImpl());
+		}
+		return coll;
+	}
+
+	@Override
+	public <K, V> Map<K, V> toMap(Function<? super E, ? extends K> keyMapper,
+			Function<? super E, ? extends V> valueMapper)
+	{
+		Exceptions.require(hasOwnership());
+		Map<K, V> collected = new HashMap<>();
+		while (hasNext()) {
+			E next = nextImpl();
+			K key = keyMapper.apply(next);
+			if (collected.containsKey(key)) {
+				throw new IllegalStateException();
+			} else {
+				collected.put(key, valueMapper.apply(next));
+			}
+		}
+		return collected;
+	}
+
+	@Override
+	public <V> Map<E, V> associate(Function<? super E, ? extends V> valueMapper)
+	{
+		Exceptions.require(hasOwnership());
+		Map<E, V> collected = new HashMap<>();
+		while (hasNext()) {
+			E key = nextImpl();
+			if (collected.containsKey(key)) {
+				throw new IllegalStateException();
+			} else {
+				collected.put(key, valueMapper.apply(key));
+			}
+		}
+		return collected;
+	}
+
+	@Override
+	public <K> Map<K, List<E>> groupBy(Function<? super E, ? extends K> classifier)
+	{
+		Exceptions.require(hasOwnership());
+		Map<K, List<E>> collected = new HashMap<>();
+		while (hasNext()) {
+			E next = nextImpl();
+			K key = classifier.apply(next);
+			collected.putIfAbsent(key, new ArrayList<>());
+			collected.get(key).add(next);
+		}
+		return collected;
 	}
 }
