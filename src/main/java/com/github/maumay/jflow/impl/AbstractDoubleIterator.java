@@ -72,7 +72,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public AbstractRichIterator<DoubleTup> zipWith(OfDouble other)
+	public AbstractRichIterator<DoubleTup> zip(OfDouble other)
 	{
 		return new ZipAdapter.OfDoubles(this, IteratorWrapper.wrap(other));
 	}

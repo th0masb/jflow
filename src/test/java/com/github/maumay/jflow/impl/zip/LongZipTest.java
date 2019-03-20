@@ -19,13 +19,13 @@ public final class LongZipTest extends AbstractDoubleAdapterTest<AbstractRichIte
 	protected List<DoubleCase<AbstractRichIterator<DoubleTup>>> getTestCases()
 	{
 
-		return list(new DoubleCase<>(list(), i -> i.zipWith(iter(list())), list()),
-				new DoubleCase<>(list(), i -> i.zipWith(iter(list(1.0))), list()),
-				new DoubleCase<>(list(1.0), i -> i.zipWith(iter(list())), list()),
-				new DoubleCase<>(list(1.0), i -> i.zipWith(iter(list(2.0))), list(tup(1.0, 2.0))),
-				new DoubleCase<>(list(1.0, 2.0), i -> i.zipWith(iter(list(2.0))),
+		return list(new DoubleCase<>(list(), i -> i.zip(iter(list())), list()),
+				new DoubleCase<>(list(), i -> i.zip(iter(list(1.0))), list()),
+				new DoubleCase<>(list(1.0), i -> i.zip(iter(list())), list()),
+				new DoubleCase<>(list(1.0), i -> i.zip(iter(list(2.0))), list(tup(1.0, 2.0))),
+				new DoubleCase<>(list(1.0, 2.0), i -> i.zip(iter(list(2.0))),
 						list(tup(1.0, 2.0))),
-				new DoubleCase<>(list(1.0), i -> i.zipWith(iter(list(2.0, 3.0))),
+				new DoubleCase<>(list(1.0), i -> i.zip(iter(list(2.0, 3.0))),
 						list(tup(1.0, 2.0))));
 	}
 

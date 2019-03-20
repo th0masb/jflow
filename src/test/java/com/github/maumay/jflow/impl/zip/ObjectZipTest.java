@@ -20,12 +20,12 @@ public final class ObjectZipTest
 	protected List<Case<Double, AbstractRichIterator<Tup<Double, Double>>>> getTestCases()
 	{
 
-		return list(new Case<>(list(), i -> i.zipWith(list()), list()),
-				new Case<>(list(), i -> i.zipWith(list(1.0)), list()),
-				new Case<>(list(1.0), i -> i.zipWith(list()), list()),
-				new Case<>(list(1.0), i -> i.zipWith(list(2.0)), list(tup(1.0, 2.0))),
-				new Case<>(list(1.0, 2.0), i -> i.zipWith(list(2.0)), list(tup(1.0, 2.0))),
-				new Case<>(list(1.0), i -> i.zipWith(list(2.0, 3.0)), list(tup(1.0, 2.0))));
+		return list(new Case<>(list(), i -> i.zip(list()), list()),
+				new Case<>(list(), i -> i.zip(list(1.0)), list()),
+				new Case<>(list(1.0), i -> i.zip(list()), list()),
+				new Case<>(list(1.0), i -> i.zip(list(2.0)), list(tup(1.0, 2.0))),
+				new Case<>(list(1.0, 2.0), i -> i.zip(list(2.0)), list(tup(1.0, 2.0))),
+				new Case<>(list(1.0), i -> i.zip(list(2.0, 3.0)), list(tup(1.0, 2.0))));
 	}
 
 	private <L, R> Tup<L, R> tup(L left, R right)

@@ -99,7 +99,7 @@ public class EnhancedIteratorExamples
 
 		// *****************************************************************************************
 		// Zipping
-		assert strings.iter().zipWith(strings.revIter()).map(pair -> pair._1 + pair._2).toVec()
+		assert strings.iter().zip(strings.revIter()).map(pair -> pair._1 + pair._2).toVec()
 				.equals(vec("ab", "ba"));
 
 		System.out.println("All assertions passed");

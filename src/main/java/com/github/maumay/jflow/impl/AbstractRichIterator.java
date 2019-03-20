@@ -84,7 +84,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	}
 
 	@Override
-	public <R> AbstractRichIterator<Tup<E, R>> zipWith(Iterator<? extends R> other)
+	public <R> AbstractRichIterator<Tup<E, R>> zip(Iterator<? extends R> other)
 	{
 		return new ZipAdapter.OfObjects<>(this, IteratorWrapper.wrap(other));
 	}
@@ -234,15 +234,15 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	}
 
 	@Override
-	public <R> AbstractRichIterator<Tup<E, R>> zipWith(List<? extends R> other)
+	public <R> AbstractRichIterator<Tup<E, R>> zip(List<? extends R> other)
 	{
-		return zipWith(new CollectionSource<>(other));
+		return zip(new CollectionSource<>(other));
 	}
 
 	@Override
-	public <R> AbstractRichIterator<Tup<E, R>> zipWith(Vec<? extends R> other)
+	public <R> AbstractRichIterator<Tup<E, R>> zip(Vec<? extends R> other)
 	{
-		return zipWith(other.iter());
+		return zip(other.iter());
 	}
 
 	@Override

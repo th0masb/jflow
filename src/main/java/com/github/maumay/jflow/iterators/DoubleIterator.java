@@ -97,7 +97,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	RichIterator<DoubleTup> zipWith(PrimitiveIterator.OfDouble other);
+	RichIterator<DoubleTup> zip(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Creates a new Iterator by mapping each element in this source

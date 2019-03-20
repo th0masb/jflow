@@ -95,7 +95,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	RichIterator<IntTup> zipWith(PrimitiveIterator.OfInt other);
+	RichIterator<IntTup> zip(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Creates a new Iterator by mapping each element in this source

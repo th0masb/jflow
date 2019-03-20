@@ -127,11 +127,11 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	<R> RichIterator<Tup<E, R>> zipWith(Iterator<? extends R> other);
+	<R> RichIterator<Tup<E, R>> zip(Iterator<? extends R> other);
 
-	<R> RichIterator<Tup<E, R>> zipWith(List<? extends R> other);
+	<R> RichIterator<Tup<E, R>> zip(List<? extends R> other);
 
-	<R> RichIterator<Tup<E, R>> zipWith(Vec<? extends R> other);
+	<R> RichIterator<Tup<E, R>> zip(Vec<? extends R> other);
 
 	/**
 	 * Creates a new {@link RichIterator} by mapping each element in this source

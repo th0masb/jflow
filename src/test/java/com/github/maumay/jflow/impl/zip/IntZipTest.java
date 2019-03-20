@@ -18,12 +18,12 @@ public final class IntZipTest extends AbstractIntAdapterTest<AbstractRichIterato
 	@Override
 	protected List<IntCase<AbstractRichIterator<IntTup>>> getTestCases()
 	{
-		return list(new IntCase<>(list(), i -> i.zipWith(iter(list())), list()),
-				new IntCase<>(list(), i -> i.zipWith(iter(list(1))), list()),
-				new IntCase<>(list(1), i -> i.zipWith(iter(list())), list()),
-				new IntCase<>(list(1), i -> i.zipWith(iter(list(2))), list(tup(1, 2))),
-				new IntCase<>(list(1, 2), i -> i.zipWith(iter(list(2))), list(tup(1, 2))),
-				new IntCase<>(list(1), i -> i.zipWith(iter(list(2, 3))), list(tup(1, 2))));
+		return list(new IntCase<>(list(), i -> i.zip(iter(list())), list()),
+				new IntCase<>(list(), i -> i.zip(iter(list(1))), list()),
+				new IntCase<>(list(1), i -> i.zip(iter(list())), list()),
+				new IntCase<>(list(1), i -> i.zip(iter(list(2))), list(tup(1, 2))),
+				new IntCase<>(list(1, 2), i -> i.zip(iter(list(2))), list(tup(1, 2))),
+				new IntCase<>(list(1), i -> i.zip(iter(list(2, 3))), list(tup(1, 2))));
 	}
 
 	private IntTup tup(int left, int right)

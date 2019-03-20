@@ -72,7 +72,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public AbstractRichIterator<IntTup> zipWith(OfInt other)
+	public AbstractRichIterator<IntTup> zip(OfInt other)
 	{
 		return new ZipAdapter.OfInts(this, IteratorWrapper.wrap(other));
 	}
@@ -80,7 +80,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractRichIterator<IntTup> enumerate()
 	{
-		return zipWith(Numbers.natural());
+		return zip(Numbers.natural());
 	}
 
 	@Override
