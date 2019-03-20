@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.impl.append;
+package com.github.maumay.jflow.impl.insert;
 
 import java.util.Iterator;
 import java.util.List;
@@ -14,16 +14,16 @@ import com.github.maumay.jflow.testutilities.AbstractIntAdapterTest;
  * @author thomasb
  *
  */
-public final class IntAppendTest extends AbstractIntAdapterTest<AbstractIntIterator>
+public final class IntInsertTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
 	protected List<IntCase<AbstractIntIterator>> getTestCases()
 	{
 		List<Integer> empty = list(), populated = list(0);
-		return list(new IntCase<>(empty, i -> i.append(unbox(empty.iterator())), empty),
-				new IntCase<>(empty, i -> i.append(unbox(populated.iterator())), populated),
-				new IntCase<>(populated, i -> i.append(unbox(empty.iterator())), populated),
-				new IntCase<>(populated, i -> i.append(unbox(list(1).iterator())), list(0, 1)));
+		return list(new IntCase<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
+				new IntCase<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
+				new IntCase<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
+				new IntCase<>(populated, i -> i.insert(unbox(list(1).iterator())), list(1, 0)));
 	}
 
 	private PrimitiveIterator.OfInt unbox(Iterator<Integer> source)

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.impl.append;
+package com.github.maumay.jflow.impl.insert;
 
 import java.util.List;
 
@@ -12,16 +12,16 @@ import com.github.maumay.jflow.testutilities.AbstractAdapterTest;
  * @author thomasb
  *
  */
-public final class ObjectAppendTest
+public final class ObjectInsertTest
 		extends AbstractAdapterTest<Double, AbstractRichIterator<Double>>
 {
 	@Override
 	protected List<Case<Double, AbstractRichIterator<Double>>> getTestCases()
 	{
 		List<Double> empty = list(), populated = list(0.0);
-		return list(new Case<>(empty, i -> i.append(empty.iterator()), empty),
-				new Case<>(empty, i -> i.append(populated.iterator()), populated),
-				new Case<>(populated, i -> i.append(empty.iterator()), populated),
-				new Case<>(populated, i -> i.append(list(1.0).iterator()), list(0.0, 1.0)));
+		return list(new Case<>(empty, i -> i.insert(empty.iterator()), empty),
+				new Case<>(empty, i -> i.insert(populated.iterator()), populated),
+				new Case<>(populated, i -> i.insert(empty.iterator()), populated),
+				new Case<>(populated, i -> i.insert(list(1.0).iterator()), list(1.0, 0.0)));
 	}
 }

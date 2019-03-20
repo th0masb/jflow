@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,8 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
  */
 public interface FiniteIteratorTest
 {
-	default <I extends AbstractIterator> void assertIteratorAsExpected(
-			List<?> expectedElements, List<AbstractTestIterable<I>> iteratorProviders)
+	default <I extends AbstractIterator> void assertIteratorAsExpected(List<?> expectedElements,
+			List<AbstractTestIterable<I>> iteratorProviders)
 	{
 		for (AbstractTestIterable<I> iteratorProvider : iteratorProviders) {
 			assertSizeDecreasesByNextAsExpected(iteratorProvider.iter());
@@ -59,7 +60,11 @@ public interface FiniteIteratorTest
 		int count = 0;
 		while (iterator.hasNext()) {
 			count++;
-			next(iterator);
+			try {
+				next(iterator);
+			} catch (NoSuchElementException ex) {
+				fail("Fewer elements than expected.");
+			}
 			assertEquals(startSize.subtract(count), iterator.getSize());
 		}
 	}
@@ -71,14 +76,24 @@ public interface FiniteIteratorTest
 		int count = 0;
 		while (iterator.hasNext()) {
 			count++;
-			iterator.skip();
+			try {
+				iterator.skip();
+			} catch (NoSuchElementException ex) {
+				fail("Fewer elements than expected.");
+			}
 			assertEquals(startSize.subtract(count), iterator.getSize());
 		}
 	}
 
 	static <T> void assertSkippingAsExpected(List<T> expectedElements, AbstractIterator iterator)
 	{
-		IntStream.range(0, expectedElements.size()).forEach(i -> iterator.skip());
+		IntStream.range(0, expectedElements.size()).forEach(i -> {
+			try {
+				iterator.skip();
+			} catch (NoSuchElementException ex) {
+				fail("Fewer elements than expected.");
+			}
+		});
 		assertThrows(NoSuchElementException.class, iterator::skip);
 	}
 
@@ -87,7 +102,11 @@ public interface FiniteIteratorTest
 	{
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			assertTrue(iterator.hasNext());
-			iterator.skip();
+			try {
+				iterator.skip();
+			} catch (NoSuchElementException ex) {
+				fail("Fewer elements than expected.");
+			}
 		});
 		assertFalse(iterator.hasNext());
 	}
@@ -97,7 +116,11 @@ public interface FiniteIteratorTest
 	{
 		List<Object> recoveredElements = new ArrayList<>();
 		while (iterator.hasNext()) {
-			recoveredElements.add(next(iterator));
+			try {
+				recoveredElements.add(next(iterator));
+			} catch (NoSuchElementException ex) {
+				fail("Fewer elements than expected.");
+			}
 		}
 		assertThrows(NoSuchElementException.class, () -> next(iterator));
 		assertThrows(NoSuchElementException.class, iterator::skip);
@@ -108,9 +131,13 @@ public interface FiniteIteratorTest
 			AbstractIterator iterator)
 	{
 		List<Object> recoveredElements = new ArrayList<>();
-		IntStream.range(0, expectedElements.size())
-				.forEach(i -> recoveredElements.add(next(iterator)));
-
+		for (int i = 0; i < expectedElements.size(); i++) {
+			try {
+				recoveredElements.add(next(iterator));
+			} catch (NoSuchElementException ex) {
+				fail("Fewer elements than expected.");
+			}
+		}
 		assertThrows(NoSuchElementException.class, () -> next(iterator));
 		assertThrows(NoSuchElementException.class, iterator::skip);
 		assertEquals(expectedElements, recoveredElements);
@@ -123,8 +150,12 @@ public interface FiniteIteratorTest
 
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			if (i % 2 == 0) {
-				recoveredElements.add(next(iterator));
 				expectedOutcome.add(expectedElements.get(i));
+				try {
+					recoveredElements.add(next(iterator));
+				} catch (NoSuchElementException ex) {
+					fail("Fewer elements than expected.");
+				}
 			} else {
 				iterator.skip();
 			}
