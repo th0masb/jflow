@@ -33,7 +33,6 @@ public final class IterExamples
 
 		// Construct from existing collections
 		assert Iter.over(Arrays.asList(1, 2, 3)).toVec().equals(vec(1, 2, 3));
-		assert Iter.reverse(Arrays.asList(1, 2, 3)).toVec().equals(vec(3, 2, 1));
 
 		// *****************************************************************************************
 		// Construct from enumerated types
