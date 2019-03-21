@@ -5,8 +5,6 @@ package com.github.maumay.jflow.impl;
 
 import java.util.function.IntPredicate;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -18,7 +16,7 @@ public final class IntPredicateConsumption
 
 	public static boolean allEqual(AbstractIntIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean initialised = false;
 		int last = -1;
 		while (source.hasNext()) {
@@ -37,7 +35,7 @@ public final class IntPredicateConsumption
 
 	public static boolean allMatch(AbstractIntIterator source, IntPredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextIntImpl())) {
 				return false;
@@ -48,7 +46,7 @@ public final class IntPredicateConsumption
 
 	public static boolean anyMatch(AbstractIntIterator source, IntPredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (predicate.test(source.nextIntImpl())) {
 				return true;
@@ -59,7 +57,7 @@ public final class IntPredicateConsumption
 
 	public static boolean noneMatch(AbstractIntIterator source, IntPredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (predicate.test(source.nextIntImpl())) {
 				return false;

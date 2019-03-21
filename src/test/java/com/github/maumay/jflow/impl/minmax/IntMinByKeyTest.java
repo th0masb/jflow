@@ -34,5 +34,4 @@ public final class IntMinByKeyTest extends AbstractIntCollectionTest<OptionalInt
 	{
 		return list(new FailCase(list(5), IndexOutOfBoundsException.class));
 	}
-
 }

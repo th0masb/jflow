@@ -5,8 +5,6 @@ package com.github.maumay.jflow.impl;
 
 import java.util.function.DoublePredicate;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -20,7 +18,7 @@ public final class DoublePredicateConsumption
 
 	public static boolean allEqual(AbstractDoubleIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean initialised = false;
 		double last = -1;
 		while (source.hasNext()) {
@@ -39,7 +37,7 @@ public final class DoublePredicateConsumption
 
 	public static boolean allMatch(AbstractDoubleIterator source, DoublePredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextDoubleImpl())) {
 				return false;
@@ -50,7 +48,7 @@ public final class DoublePredicateConsumption
 
 	public static boolean anyMatch(AbstractDoubleIterator source, DoublePredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (predicate.test(source.nextDoubleImpl())) {
 				return true;
@@ -61,7 +59,7 @@ public final class DoublePredicateConsumption
 
 	public static boolean noneMatch(AbstractDoubleIterator source, DoublePredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (predicate.test(source.nextDoubleImpl())) {
 				return false;

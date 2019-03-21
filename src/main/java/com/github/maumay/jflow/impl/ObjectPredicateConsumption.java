@@ -3,23 +3,23 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
  * @author ThomasB
  */
-public final class ObjectPredicateConsumption
+public class ObjectPredicateConsumption
 {
 	public ObjectPredicateConsumption()
 	{
 	}
 
-	public static <E> boolean allEqual(final Iterator<? extends E> source)
+	public static <E> boolean allEqual(AbstractRichIterator<? extends E> source)
 	{
+		source.relinquishOwnership();
 		E last = null;
 		while (source.hasNext()) {
-			final E next = source.next();
+			E next = source.nextImpl();
 			if (last == null || last.equals(next)) {
 				last = next;
 			} else {
@@ -29,33 +29,36 @@ public final class ObjectPredicateConsumption
 		return true;
 	}
 
-	public static <E> boolean allMatch(final Iterator<? extends E> source,
-			final Predicate<? super E> predicate)
+	public static <E> boolean allMatch(AbstractRichIterator<? extends E> source,
+			Predicate<? super E> predicate)
 	{
+		source.relinquishOwnership();
 		while (source.hasNext()) {
-			if (!predicate.test(source.next())) {
+			if (!predicate.test(source.nextImpl())) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public static <E> boolean anyMatch(final Iterator<? extends E> source,
-			final Predicate<? super E> predicate)
+	public static <E> boolean anyMatch(AbstractRichIterator<? extends E> source,
+			Predicate<? super E> predicate)
 	{
+		source.relinquishOwnership();
 		while (source.hasNext()) {
-			if (predicate.test(source.next())) {
+			if (predicate.test(source.nextImpl())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static <E> boolean noneMatch(final Iterator<? extends E> source,
-			final Predicate<? super E> predicate)
+	public static <E> boolean noneMatch(AbstractRichIterator<? extends E> source,
+			Predicate<? super E> predicate)
 	{
+		source.relinquishOwnership();
 		while (source.hasNext()) {
-			if (predicate.test(source.next())) {
+			if (predicate.test(source.nextImpl())) {
 				return false;
 			}
 		}

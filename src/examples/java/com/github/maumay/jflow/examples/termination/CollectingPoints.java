@@ -4,6 +4,7 @@
 package com.github.maumay.jflow.examples.termination;
 
 import static com.github.maumay.jflow.utils.Exceptions.require;
+import static com.github.maumay.jflow.vec.Vec.vec;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
 
@@ -104,6 +105,7 @@ public final class CollectingPoints
 		require(source.hasNext());
 		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 		double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
+
 		for (Point p : source.lift()) {
 			minx = Math.min(minx, p.x);
 			maxx = Math.max(maxx, p.x);
@@ -129,7 +131,7 @@ public final class CollectingPoints
 	@SuppressWarnings("unused")
 	public static void main(String[] args)
 	{
-		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 1));
+		Vec<Point> points = vec(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
 		Bounds withIterator = points.iter().map(p -> p.translate(0, 1))

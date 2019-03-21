@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
@@ -41,10 +40,6 @@ public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBui
 
 				// Make sure ownership was taken away by the collector
 				assertFalse(iterator.hasOwnership());
-				// Make sure the collector completely consumed the iterator
-				assertFalse(iterator.hasNext());
-				assertThrows(NoSuchElementException.class, iterator::nextImpl);
-				assertThrows(NoSuchElementException.class, iterator::skipImpl);
 			}
 		}
 	}

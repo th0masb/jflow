@@ -8,13 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.impl.IteratorOwnershipException;
 
 /**
  * @author thomasb
@@ -42,12 +40,7 @@ public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilde
 				assertEquals(testCase.expectedResult, collector.apply(iterator));
 
 				// Make sure ownership was taken away by the collector
-				assertThrows(IteratorOwnershipException.class, iterator::nextDouble);
-				assertThrows(IteratorOwnershipException.class, iterator::skip);
-				// Make sure the collector completely consumed the iterator
-				assertFalse(iterator.hasNext());
-				assertThrows(NoSuchElementException.class, iterator::nextDoubleImpl);
-				assertThrows(NoSuchElementException.class, iterator::skipImpl);
+				assertFalse(iterator.hasOwnership());
 			}
 		}
 	}

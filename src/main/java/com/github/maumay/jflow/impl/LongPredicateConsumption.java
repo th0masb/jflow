@@ -5,8 +5,6 @@ package com.github.maumay.jflow.impl;
 
 import java.util.function.LongPredicate;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -18,7 +16,7 @@ public final class LongPredicateConsumption
 
 	public static boolean allEqual(AbstractLongIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean initialised = false;
 		long last = -1;
 		while (source.hasNext()) {
@@ -37,7 +35,7 @@ public final class LongPredicateConsumption
 
 	public static boolean allMatch(AbstractLongIterator source, LongPredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (!predicate.test(source.nextLongImpl())) {
 				return false;
@@ -48,7 +46,7 @@ public final class LongPredicateConsumption
 
 	public static boolean anyMatch(AbstractLongIterator source, LongPredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLongImpl())) {
 				return true;
@@ -59,7 +57,7 @@ public final class LongPredicateConsumption
 
 	public static boolean noneMatch(AbstractLongIterator source, LongPredicate predicate)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		while (source.hasNext()) {
 			if (predicate.test(source.nextLongImpl())) {
 				return false;
