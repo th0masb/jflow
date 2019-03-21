@@ -30,9 +30,9 @@ import com.github.maumay.jflow.vec.Vec;
 /**
  * An immutable implementation of {@link Vec} which stores only non null
  * references. This class is very space efficient as it simply wraps a single
- * Object array. When combined with {@link RichIterator} instances one can
- * write very clean, efficient and safe code code without ever needing to
- * reference this type directly.
+ * Object array. When combined with {@link RichIterator} instances one can write
+ * very clean, efficient and safe code code without ever needing to reference
+ * this type directly.
  *
  * @param <E> The type of the elements contained in this List.
  *
@@ -312,13 +312,12 @@ final class VecImpl<E> implements Vec<E>
 	@Override
 	public IntVec mapToInt(ToIntFunction<? super E> mappingFunc)
 	{
-		throw new RuntimeException("Not yet implemented");
+		return iter().mapToInt(mappingFunc).toVec();
 	}
 
 	@Override
 	public LongVec mapToLong(ToLongFunction<? super E> mappingFunc)
 	{
-		throw new RuntimeException("Not yet implemented");
+		return iter().mapToLong(mappingFunc).toVec();
 	}
-
 }
