@@ -28,14 +28,13 @@ class IteratorProvider
 {
 	private static final int UPPER_BOUND_MULTIPLIER = 5;
 
-	static <T> List<AbstractTestIterable<AbstractRichIterator<T>>> buildIterables(
-			List<T> src)
+	static <T> List<AbstractTestIterable<AbstractRichIterator<T>>> buildIterables(List<T> src)
 	{
 		return buildIterables(src, x -> x);
 	}
 
-	static <T, I extends AbstractIterator> List<AbstractTestIterable<I>> buildIterables(
-			List<T> src, Function<AbstractRichIterator<T>, I> adapter)
+	static <T, I extends AbstractIterator> List<AbstractTestIterable<I>> buildIterables(List<T> src,
+			Function<AbstractRichIterator<T>, I> adapter)
 	{
 		int size = src.size();
 		List<AbstractTestIterable<I>> dest = new ArrayList<>();
@@ -58,8 +57,7 @@ class IteratorProvider
 	}
 
 	private static <T, I extends AbstractIterator> AbstractTestIterable<I> buildIterable(
-			List<T> src, AbstractIteratorSize size,
-			Function<AbstractRichIterator<T>, I> adapter)
+			List<T> src, AbstractIteratorSize size, Function<AbstractRichIterator<T>, I> adapter)
 	{
 		return new AbstractTestIterable<I>() {
 			@Override
@@ -94,8 +92,7 @@ class IteratorProvider
 		};
 	}
 
-	static List<AbstractTestIterable<AbstractIntIterator>> buildIntIterables(
-			List<Integer> src)
+	static List<AbstractTestIterable<AbstractIntIterator>> buildIntIterables(List<Integer> src)
 	{
 		return buildIntIterables(src, x -> x);
 	}
@@ -123,8 +120,7 @@ class IteratorProvider
 	}
 
 	private static <I extends AbstractIterator> AbstractTestIterable<I> buildIntIterable(
-			List<Integer> src, AbstractIteratorSize size,
-			Function<AbstractIntIterator, I> adapter)
+			List<Integer> src, AbstractIteratorSize size, Function<AbstractIntIterator, I> adapter)
 	{
 		return new AbstractTestIterable<I>() {
 			@Override
@@ -159,8 +155,7 @@ class IteratorProvider
 		};
 	}
 
-	static List<AbstractTestIterable<AbstractLongIterator>> buildLongIterables(
-			List<Long> src)
+	static List<AbstractTestIterable<AbstractLongIterator>> buildLongIterables(List<Long> src)
 	{
 		return buildLongIterables(src, x -> x);
 	}
@@ -188,8 +183,7 @@ class IteratorProvider
 	}
 
 	private static <I extends AbstractIterator> AbstractTestIterable<I> buildLongIterable(
-			List<Long> src, AbstractIteratorSize size,
-			Function<AbstractLongIterator, I> adapter)
+			List<Long> src, AbstractIteratorSize size, Function<AbstractLongIterator, I> adapter)
 	{
 		return new AbstractTestIterable<I>() {
 			@Override
@@ -224,8 +218,7 @@ class IteratorProvider
 		};
 	}
 
-	static List<AbstractTestIterable<AbstractDoubleIterator>> buildDoubleIterables(
-			List<Double> src)
+	static List<AbstractTestIterable<AbstractDoubleIterator>> buildDoubleIterables(List<Double> src)
 	{
 		return buildDoubleIterables(src, x -> x);
 	}
