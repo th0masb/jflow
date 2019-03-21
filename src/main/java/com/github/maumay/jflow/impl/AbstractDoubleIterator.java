@@ -83,7 +83,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	@Override
 	public AbstractRichIterator<DoubleTup> enumerate()
 	{
-		throw new RuntimeException();
+		return new ZipAdapter.OfDoubles(new FunctionSource.OfDouble(x -> x), this);
 	}
 
 	@Override

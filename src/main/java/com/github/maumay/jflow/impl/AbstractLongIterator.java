@@ -82,7 +82,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public AbstractRichIterator<LongTup> enumerate()
 	{
-		throw new RuntimeException();
+		return new ZipAdapter.OfLongs(new FunctionSource.OfLong(x -> x), this);
 	}
 
 	@Override

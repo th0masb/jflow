@@ -10,7 +10,6 @@ import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.factories.Numbers;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
@@ -80,7 +79,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractRichIterator<IntTup> enumerate()
 	{
-		return zip(Numbers.natural());
+		return new ZipAdapter.OfInts(new FunctionSource.OfInt(n -> n), this);
 	}
 
 	@Override
