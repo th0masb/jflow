@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.minmax;
 import java.util.Comparator;
 import java.util.List;
 
-import com.github.maumay.jflow.testframework.AbstractObjectCollectionTest;
+import com.github.maumay.jflow.test.AbstractObjectCollectionTest;
 
 /**
  * @author thomasb

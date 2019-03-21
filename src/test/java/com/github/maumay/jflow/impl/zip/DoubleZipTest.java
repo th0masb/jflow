@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.zip;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testframework.AbstractDoubleAdapterTest;
+import com.github.maumay.jflow.test.AbstractDoubleAdapterTest;
 import com.github.maumay.jflow.utils.DoubleTup;
 
 /**

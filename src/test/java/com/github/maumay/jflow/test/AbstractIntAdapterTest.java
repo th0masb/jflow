@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.testframework;
+package com.github.maumay.jflow.test;
 
 import java.util.Iterator;
 import java.util.List;
@@ -10,15 +10,15 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
+import com.github.maumay.jflow.impl.AbstractIntIterator;
 import com.github.maumay.jflow.impl.AbstractIterator;
-import com.github.maumay.jflow.impl.AbstractLongIterator;
 
 /**
  * @author thomasb
  *
  */
-public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
-		extends AbstractAdapterTest implements FiniteIteratorTest
+public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends AbstractAdapterTest
+		implements FiniteIteratorTest
 {
 	protected abstract List<Case<I>> getTestCases();
 
@@ -27,7 +27,7 @@ public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 	{
 		for (Case<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> initialProviders = IteratorProvider
-					.buildLongIterables(testcase.source, testcase.adapter);
+					.buildIntIterables(testcase.source, testcase.adapter);
 
 			assertIteratorAsExpected(testcase.result, initialProviders);
 		}
@@ -37,19 +37,19 @@ public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 	public final void testOwnershipBehaviour()
 	{
 		for (Case<I> testcase : getTestCases()) {
-			List<AbstractTestIterable<AbstractLongIterator>> providers = IteratorProvider
-					.buildLongIterables(testcase.source);
+			List<AbstractTestIterable<AbstractIntIterator>> providers = IteratorProvider
+					.buildIntIterables(testcase.source);
 
-			for (AbstractTestIterable<AbstractLongIterator> provider : providers) {
+			for (AbstractTestIterable<AbstractIntIterator> provider : providers) {
 				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
 			}
 		}
 	}
 
-	protected final PrimitiveIterator.OfLong iter(List<Long> src)
+	protected final PrimitiveIterator.OfInt iter(List<Integer> src)
 	{
-		Iterator<Long> boxed = src.iterator();
-		return new PrimitiveIterator.OfLong() {
+		Iterator<Integer> boxed = src.iterator();
+		return new PrimitiveIterator.OfInt() {
 			@Override
 			public boolean hasNext()
 			{
@@ -57,7 +57,7 @@ public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 			}
 
 			@Override
-			public long nextLong()
+			public int nextInt()
 			{
 				return boxed.next();
 			}
@@ -66,17 +66,17 @@ public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 
 	@FunctionalInterface
 	public static interface Adapter<I extends AbstractIterator>
-			extends Function<AbstractLongIterator, I>
+			extends Function<AbstractIntIterator, I>
 	{
 	}
 
 	public static class Case<I extends AbstractIterator>
 	{
-		final List<Long> source;
+		final List<Integer> source;
 		final Adapter<I> adapter;
 		final List<?> result;
 
-		public Case(List<Long> source, Adapter<I> adapter, List<?> result)
+		public Case(List<Integer> source, Adapter<I> adapter, List<?> result)
 		{
 			this.source = source;
 			this.result = result;

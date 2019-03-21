@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.takewhile;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
-import com.github.maumay.jflow.testframework.AbstractDoubleAdapterTest;
+import com.github.maumay.jflow.test.AbstractDoubleAdapterTest;
 
 /**
  * @author t

@@ -1,4 +1,4 @@
-package com.github.maumay.jflow.testframework;
+package com.github.maumay.jflow.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

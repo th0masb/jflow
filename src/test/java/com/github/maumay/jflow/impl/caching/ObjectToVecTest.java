@@ -7,7 +7,7 @@ import static com.github.maumay.jflow.vec.Vec.vec;
 
 import java.util.List;
 
-import com.github.maumay.jflow.testframework.AbstractObjectCollectionTest;
+import com.github.maumay.jflow.test.AbstractObjectCollectionTest;
 import com.github.maumay.jflow.vec.Vec;
 
 /**

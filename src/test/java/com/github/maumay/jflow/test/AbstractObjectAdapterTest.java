@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.testframework;
+package com.github.maumay.jflow.test;
 
 import java.util.List;
 import java.util.function.Function;

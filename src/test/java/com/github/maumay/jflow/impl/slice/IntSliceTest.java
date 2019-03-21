@@ -8,7 +8,7 @@ import static java.lang.Math.max;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractIntIterator;
-import com.github.maumay.jflow.testframework.AbstractIntAdapterTest;
+import com.github.maumay.jflow.test.AbstractIntAdapterTest;
 
 /**
  * @author thomasb

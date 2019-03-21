@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import com.github.maumay.jflow.testframework.AbstractObjectCollectionTest;
+import com.github.maumay.jflow.test.AbstractObjectCollectionTest;
 import com.github.maumay.jflow.utils.Option;
 
 /**

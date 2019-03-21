@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.github.maumay.jflow.testframework.AbstractObjectCollectionTest;
+import com.github.maumay.jflow.test.AbstractObjectCollectionTest;
 
 /**
  * @author thomasb

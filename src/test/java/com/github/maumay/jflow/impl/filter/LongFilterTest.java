@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.filter;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testframework.AbstractLongAdapterTest;
+import com.github.maumay.jflow.test.AbstractLongAdapterTest;
 
 /**
  * @author t

@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.map;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testframework.AbstractObjectAdapterTest;
+import com.github.maumay.jflow.test.AbstractObjectAdapterTest;
 
 /**
  * @author thomasb

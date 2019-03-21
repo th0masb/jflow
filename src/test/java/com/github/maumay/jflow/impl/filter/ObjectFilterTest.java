@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.filter;
 import java.util.List;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.testframework.AbstractObjectAdapterTest;
+import com.github.maumay.jflow.test.AbstractObjectAdapterTest;
 
 /**
  * @author t

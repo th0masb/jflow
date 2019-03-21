@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.minmax;
 import java.util.List;
 import java.util.OptionalInt;
 
-import com.github.maumay.jflow.testframework.AbstractIntCollectionTest;
+import com.github.maumay.jflow.test.AbstractIntCollectionTest;
 import com.github.maumay.jflow.utils.Option;
 
 /**

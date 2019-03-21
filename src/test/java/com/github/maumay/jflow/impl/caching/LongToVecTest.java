@@ -5,7 +5,7 @@ package com.github.maumay.jflow.impl.caching;
 
 import java.util.List;
 
-import com.github.maumay.jflow.testframework.AbstractLongCollectionTest;
+import com.github.maumay.jflow.test.AbstractLongCollectionTest;
 import com.github.maumay.jflow.vec.LongVec;
 
 /**

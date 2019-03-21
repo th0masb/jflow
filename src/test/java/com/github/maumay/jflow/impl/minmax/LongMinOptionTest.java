@@ -6,7 +6,7 @@ package com.github.maumay.jflow.impl.minmax;
 import java.util.List;
 import java.util.OptionalLong;
 
-import com.github.maumay.jflow.testframework.AbstractLongCollectionTest;
+import com.github.maumay.jflow.test.AbstractLongCollectionTest;
 import com.github.maumay.jflow.utils.Option;
 
 /**

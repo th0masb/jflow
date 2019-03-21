@@ -5,7 +5,7 @@ package com.github.maumay.jflow.impl.predicates;
 
 import java.util.List;
 
-import com.github.maumay.jflow.testframework.AbstractLongCollectionTest;
+import com.github.maumay.jflow.test.AbstractLongCollectionTest;
 
 /**
  * @author thomasb

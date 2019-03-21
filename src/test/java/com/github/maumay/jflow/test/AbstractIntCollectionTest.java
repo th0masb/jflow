@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.testframework;
+package com.github.maumay.jflow.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,13 +12,13 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.impl.AbstractIntIterator;
 
 /**
  * @author thomasb
  *
  */
-public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilder
+public abstract class AbstractIntCollectionTest<R> extends AbstractListBuilder
 {
 	protected abstract Collector<R> getCollectorToTest();
 
@@ -31,10 +31,10 @@ public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilde
 	{
 		Collector<R> collector = getCollectorToTest();
 		for (Case<R> testCase : getTestCases()) {
-			List<AbstractTestIterable<AbstractDoubleIterator>> iteratorProviders = IteratorProvider
-					.buildDoubleIterables(testCase.source);
-			for (AbstractTestIterable<AbstractDoubleIterator> provider : iteratorProviders) {
-				AbstractDoubleIterator iterator = provider.iter();
+			List<AbstractTestIterable<AbstractIntIterator>> iteratorProviders = IteratorProvider
+					.buildIntIterables(testCase.source);
+			for (AbstractTestIterable<AbstractIntIterator> provider : iteratorProviders) {
+				AbstractIntIterator iterator = provider.iter();
 
 				// Make sure we have the expected result.
 				assertEquals(testCase.expectedResult, collector.apply(iterator));
@@ -50,26 +50,26 @@ public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilde
 	{
 		Collector<R> collector = getCollectorToTest();
 		for (FailCase testCase : getFailureCases()) {
-			List<AbstractTestIterable<AbstractDoubleIterator>> iteratorProviders = IteratorProvider
-					.buildDoubleIterables(testCase.source);
-			for (AbstractTestIterable<AbstractDoubleIterator> provider : iteratorProviders) {
-				AbstractDoubleIterator iterator = provider.iter();
+			List<AbstractTestIterable<AbstractIntIterator>> iteratorProviders = IteratorProvider
+					.buildIntIterables(testCase.source);
+			for (AbstractTestIterable<AbstractIntIterator> provider : iteratorProviders) {
+				AbstractIntIterator iterator = provider.iter();
 				assertThrows(testCase.expectedFailType, () -> collector.apply(iterator));
 			}
 		}
 	}
 
 	@FunctionalInterface
-	public static interface Collector<R> extends Function<AbstractDoubleIterator, R>
+	public static interface Collector<R> extends Function<AbstractIntIterator, R>
 	{
 	}
 
 	public static class Case<R>
 	{
-		final List<Double> source;
+		final List<Integer> source;
 		final R expectedResult;
 
-		public Case(List<Double> source, R expectedResult)
+		public Case(List<Integer> source, R expectedResult)
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;
@@ -78,10 +78,10 @@ public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilde
 
 	public static class FailCase
 	{
-		final List<Double> source;
+		final List<Integer> source;
 		final Class<? extends RuntimeException> expectedFailType;
 
-		public FailCase(List<Double> source, Class<? extends RuntimeException> expectedFailType)
+		public FailCase(List<Integer> source, Class<? extends RuntimeException> expectedFailType)
 		{
 			this.source = source;
 			this.expectedFailType = expectedFailType;

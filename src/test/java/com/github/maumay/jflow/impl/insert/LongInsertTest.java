@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.PrimitiveIterator;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.testframework.AbstractLongAdapterTest;
+import com.github.maumay.jflow.test.AbstractLongAdapterTest;
 
 /**
  * @author thomasb
