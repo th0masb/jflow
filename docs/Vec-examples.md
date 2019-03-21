@@ -1,6 +1,8 @@
 # Vec API examples
 ---
-Below is a snippet of Java code demonstrating some of the main functionality provided with the `Vec` interface. They can be thought of as immutable arrays with many useful methods. The main thing you should take away from this page is that when a method is called on a vector it is evaluated in a *strict* manner, i.e. the computation takes place immediately. As you will see on the next API example page `EnhancedIterator`s share much of the same functionality with vectors but when (adapter) methods such as `.map(...)` are called on an iterator it evaluates in a *lazy* manner. Understanding this is key to using this library well and writing efficient code.
+Below is a snippet of (boilerplate free) Java code demonstrating some of the main functionality provided with the `Vec` interface. They can be thought of as immutable arrays with many useful methods. The main thing you should take away from this page is that when a method is called on a vector it is evaluated in a *strict* manner, i.e. the computation takes place immediately. As you will see on the next API example page `RichIterator`s share much of the same functionality with vectors but when methods such as `.map(...)` are called on an iterator it evaluates in a *lazy* manner. Understanding this is key to using this library well and writing efficient code.
+
+Note that there are primitive specializations `DoubleVec`, `IntVec` and `LongVec` which wrap the corresponding primitive arrays. These have less direct functionality but since you can construct the rich primitive iterators (and streams) in the same way as shown here you have access to most of it in a slightly more verbose way.
 
 ```java
 // Factory method designed for importing statically
@@ -66,7 +68,7 @@ assert ints.get(1) == 2;
 
 try {
 	Integer seventh = ints.get(7);
-	assert false;
+	throw new AssertionError();
 } catch (IndexOutOfBoundsException ex) {
 }
 
