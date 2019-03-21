@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.impl.arraysource;
+package com.github.maumay.jflow.impl.source;
 
 import java.util.List;
 
