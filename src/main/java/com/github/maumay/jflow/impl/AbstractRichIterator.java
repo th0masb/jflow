@@ -22,10 +22,10 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterables.RichIterable;
-import com.github.maumay.jflow.iterators.RichIteratorCollector;
-import com.github.maumay.jflow.iterators.RichIteratorConsumer;
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.RichIteratorAdapter;
+import com.github.maumay.jflow.iterators.RichIteratorCollector;
+import com.github.maumay.jflow.iterators.RichIteratorConsumer;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
@@ -201,13 +201,13 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	@Override
 	public E min(Comparator<? super E> orderingFunction)
 	{
-		return minOption(orderingFunction).get();
+		return minOption(orderingFunction).orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
 	public E max(Comparator<? super E> orderingFunction)
 	{
-		return maxOption(orderingFunction).get();
+		return maxOption(orderingFunction).orElseThrow(IllegalStateException::new);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import com.github.maumay.jflow.impl.IteratorOwnershipException;
  * @author thomasb
  *
  */
-public abstract class AbstractDoubleCollectionTest<R>
+public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilder
 {
 	protected abstract Collector<R> getCollectorToTest();
 
@@ -88,8 +88,7 @@ public abstract class AbstractDoubleCollectionTest<R>
 		final List<Double> source;
 		final Class<? extends RuntimeException> expectedFailType;
 
-		public FailCase(List<Double> source,
-				Class<? extends RuntimeException> expectedFailType)
+		public FailCase(List<Double> source, Class<? extends RuntimeException> expectedFailType)
 		{
 			this.source = source;
 			this.expectedFailType = expectedFailType;

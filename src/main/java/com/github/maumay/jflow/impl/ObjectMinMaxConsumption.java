@@ -4,7 +4,6 @@
 package com.github.maumay.jflow.impl;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.Optional;
 
 /**
@@ -17,13 +16,14 @@ public final class ObjectMinMaxConsumption
 	{
 	}
 
-	public static <E> Optional<E> findMin(final Iterator<? extends E> source,
-			final Comparator<? super E> orderingFunction)
+	public static <E> Optional<E> findMin(AbstractRichIterator<? extends E> source,
+			Comparator<? super E> orderingFunction)
 	{
-		final Comparator<? super E> cf = orderingFunction;
+		source.relinquishOwnership();
+		Comparator<? super E> cf = orderingFunction;
 		E min = null;
 		while (source.hasNext()) {
-			final E next = source.next();
+			E next = source.nextImpl();
 			if (min == null || cf.compare(min, next) > 0) {
 				min = next;
 			}
@@ -31,13 +31,14 @@ public final class ObjectMinMaxConsumption
 		return min == null ? Optional.empty() : Optional.of(min);
 	}
 
-	public static <E> Optional<E> findMax(final Iterator<? extends E> source,
-			final Comparator<? super E> orderingFunction)
+	public static <E> Optional<E> findMax(AbstractRichIterator<? extends E> source,
+			Comparator<? super E> orderingFunction)
 	{
-		final Comparator<? super E> cf = orderingFunction;
+		source.relinquishOwnership();
+		Comparator<? super E> cf = orderingFunction;
 		E max = null;
 		while (source.hasNext()) {
-			final E next = source.next();
+			E next = source.nextImpl();
 			if (max == null || cf.compare(max, next) < 0) {
 				max = next;
 			}

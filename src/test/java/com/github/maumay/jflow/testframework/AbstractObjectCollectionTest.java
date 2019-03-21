@@ -14,12 +14,11 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.impl.IteratorOwnershipException;
 
 /**
  * @author thomasb
  */
-public abstract class AbstractObjectCollectionTest<E, R>
+public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBuilder
 {
 	protected abstract Collector<E, R> getCollectorToTest();
 
@@ -41,8 +40,7 @@ public abstract class AbstractObjectCollectionTest<E, R>
 				assertEquals(testCase.expectedResult, collector.apply(iterator));
 
 				// Make sure ownership was taken away by the collector
-				assertThrows(IteratorOwnershipException.class, iterator::next);
-				assertThrows(IteratorOwnershipException.class, iterator::skip);
+				assertFalse(iterator.hasOwnership());
 				// Make sure the collector completely consumed the iterator
 				assertFalse(iterator.hasNext());
 				assertThrows(NoSuchElementException.class, iterator::nextImpl);
@@ -75,7 +73,7 @@ public abstract class AbstractObjectCollectionTest<E, R>
 		final List<E> source;
 		final R expectedResult;
 
-		protected Case(List<E> source, R expectedResult)
+		public Case(List<E> source, R expectedResult)
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;
@@ -87,8 +85,7 @@ public abstract class AbstractObjectCollectionTest<E, R>
 		final List<E> source;
 		final Class<? extends RuntimeException> expectedFailType;
 
-		public FailCase(List<E> source,
-				Class<? extends RuntimeException> expectedFailType)
+		public FailCase(List<E> source, Class<? extends RuntimeException> expectedFailType)
 		{
 			this.source = source;
 			this.expectedFailType = expectedFailType;
