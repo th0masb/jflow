@@ -104,12 +104,11 @@ public final class CollectingPoints
 		require(source.hasNext());
 		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 		double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
-		while (source.hasNext()) {
-			Point next = source.next();
-			minx = Math.min(minx, next.x);
-			maxx = Math.max(maxx, next.x);
-			miny = Math.min(miny, next.y);
-			maxy = Math.max(maxy, next.y);
+		for (Point p : source.lift()) {
+			minx = Math.min(minx, p.x);
+			maxx = Math.max(maxx, p.x);
+			miny = Math.min(miny, p.y);
+			maxy = Math.max(maxy, p.y);
 		}
 		double width = maxx - minx;
 		double height = maxy - miny;
@@ -141,5 +140,6 @@ public final class CollectingPoints
 				.collect(CollectingPoints.pointsCollector());
 
 		// withIterator.equals(withStream)
+		System.out.println("done");
 	}
 }

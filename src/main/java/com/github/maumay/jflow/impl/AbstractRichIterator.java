@@ -21,10 +21,11 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterators.IteratorAdapter;
-import com.github.maumay.jflow.iterators.IteratorCollector;
-import com.github.maumay.jflow.iterators.IteratorConsumer;
+import com.github.maumay.jflow.iterables.RichIterable;
+import com.github.maumay.jflow.iterators.RichIteratorCollector;
+import com.github.maumay.jflow.iterators.RichIteratorConsumer;
 import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterators.RichIteratorAdapter;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
@@ -37,8 +38,7 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator
-		implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -169,19 +169,19 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public <R> RichIterator<R> adapt(IteratorAdapter<? super E, R> adapter)
+	public <R> AbstractRichIterator<R> adapt(RichIteratorAdapter<? super E, R> adapter)
 	{
 		return adapter.adapt(this);
 	}
 
 	@Override
-	public <R> R collect(IteratorCollector<? super E, ? extends R> collector)
+	public <R> R collect(RichIteratorCollector<? super E, ? extends R> collector)
 	{
 		return collector.collect(this);
 	}
 
 	@Override
-	public void consume(IteratorConsumer<? super E> consumer)
+	public void consume(RichIteratorConsumer<? super E> consumer)
 	{
 		consumer.consume(this);
 	}
@@ -340,4 +340,11 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 		}
 		return collected;
 	}
+
+	@Override
+	public RichIterable<E> lift()
+	{
+		return new SingleUseIterable<>(this);
+	}
+
 }

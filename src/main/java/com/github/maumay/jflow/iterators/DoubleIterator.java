@@ -442,6 +442,35 @@ public interface DoubleIterator extends SafeDoubleIterator
 	double[] toArray();
 
 	/**
+	 * Adapts this iterator via the given function to produce a new iterator and
+	 * remove the ability of this iterator to be used directly.
+	 * 
+	 * @param adapter The function describing how a new iterator should be
+	 *                constructed from this iterator.
+	 * @return The new, adapted iterator which is sourced from this iterator.
+	 */
+	<R> DoubleIterator adapt(DoubleIteratorAdapter adapter);
+
+	/**
+	 * Consumes this iterator using the supplied collection function to create a new
+	 * instance of the given type.
+	 * 
+	 * @param           <R> The type of the collection result..
+	 * @param collector The collection function which is used to consume this
+	 *                  iterator.
+	 * @return The result of the collection function applied to this
+	 *         {@link DoubleIterator}.
+	 */
+	<R> R collect(DoubleIteratorCollector<R> collector);
+
+	/**
+	 * Consumes this iterator via some state-changing procedure.
+	 * 
+	 * @param consumer The procedure which will be used to consume this iterator.
+	 */
+	void consume(DoubleIteratorConsumer consumer);
+
+	/**
 	 * Builds a Map using the elements in this {@link DoubleIterator} via two
 	 * supplied functions.
 	 *
@@ -486,28 +515,6 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         key.
 	 */
 	<K> Map<K, double[]> groupBy(DoubleFunction<K> classifier);
-
-	// /**
-	// * A convenience method for applying a global function onto this
-	// * {@link DoubleIterator}.
-	// *
-	// * This method is potentially (depending on the supplied function) a
-	// 'consuming
-	// * method', i.e. it will iterate through this {@link DoubleIterator}.
-	// *
-	// * A convenience method for applying a global function onto this
-	// * {@link DoubleIterator}.
-	// *
-	// * @param <C> The target type of the build function.
-	// * @param builder A function whose input encompasses
-	// * {@link DoubleIterator} instances of this element type.
-	// * @return the output of the supplied function applied to this
-	// * {@link DoubleIterator}.
-	// */
-	// default <C> C build(Function<? super DoubleIterator, C> builder)
-	// {
-	// return builder.apply(this);
-	// }
 
 	/**
 	 * Boxes the primitive double values in this {@link DoubleIterator}.

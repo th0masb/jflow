@@ -11,6 +11,9 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.DoubleIteratorAdapter;
+import com.github.maumay.jflow.iterators.DoubleIteratorCollector;
+import com.github.maumay.jflow.iterators.DoubleIteratorConsumer;
 import com.github.maumay.jflow.utils.DoubleTup;
 
 /**
@@ -219,6 +222,24 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	public double[] toArray()
 	{
 		return ArrayAccumulators.consume(this);
+	}
+
+	@Override
+	public <R> DoubleIterator adapt(DoubleIteratorAdapter adapter)
+	{
+		return adapter.adapt(this);
+	}
+
+	@Override
+	public <R> R collect(DoubleIteratorCollector<R> collector)
+	{
+		return collector.collect(this);
+	}
+
+	@Override
+	public void consume(DoubleIteratorConsumer consumer)
+	{
+		consumer.consume(this);
 	}
 
 	@Override

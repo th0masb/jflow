@@ -10,7 +10,7 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
  *
  */
 @FunctionalInterface
-public interface IteratorAdapter<E, R>
+public interface RichIteratorAdapter<E, R>
 {
 	AbstractRichIterator<R> adapt(AbstractRichIterator<? extends E> source);
 }

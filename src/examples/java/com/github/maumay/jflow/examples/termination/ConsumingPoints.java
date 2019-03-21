@@ -6,7 +6,7 @@ package com.github.maumay.jflow.examples.termination;
 import static com.github.maumay.jflow.vec.Vec.vec;
 
 import com.github.maumay.jflow.examples.termination.Geometry.Point;
-import com.github.maumay.jflow.iterators.IteratorConsumer;
+import com.github.maumay.jflow.iterators.RichIteratorConsumer;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -23,7 +23,7 @@ public final class ConsumingPoints
 		Iter.wrap(source.iterator()).consume(drawPolygon(gc));
 	}
 
-	static IteratorConsumer<Point> drawPolygon(GraphicsContext gc)
+	static RichIteratorConsumer<Point> drawPolygon(GraphicsContext gc)
 	{
 		return iter -> {
 			gc.beginPath();

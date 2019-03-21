@@ -27,6 +27,17 @@ public class Geometry
 		}
 	}
 
+	static class Line
+	{
+		final Point start, end;
+
+		Line(Point start, Point end)
+		{
+			this.start = start;
+			this.end = end;
+		}
+	}
+
 	static class Bounds
 	{
 		final double x, y, width, height;

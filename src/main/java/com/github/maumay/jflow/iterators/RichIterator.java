@@ -22,6 +22,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
+import com.github.maumay.jflow.iterables.RichIterable;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
@@ -104,8 +105,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @return A {@link RichIterator} obtained by applying the mapping function to
 	 *         each element in turn and sequentially concatenating the results.
 	 */
-	<R> RichIterator<R> flatMap(
-			Function<? super E, ? extends Iterator<? extends R>> mapping);
+	<R> RichIterator<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
 	 * Combines this {@link RichIterator} with another iterator to create a new
@@ -479,7 +479,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *                constructed from this iterator.
 	 * @return The new, adapted iterator which is sourced from this iterator.
 	 */
-	<R> RichIterator<R> adapt(IteratorAdapter<? super E, R> adapter);
+	<R> RichIterator<R> adapt(RichIteratorAdapter<? super E, R> adapter);
 
 	/**
 	 * Consumes this iterator using the supplied collection function to create a new
@@ -491,14 +491,14 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @return The result of the collection function applied to this
 	 *         {@link RichIterator}.
 	 */
-	<R> R collect(IteratorCollector<? super E, ? extends R> collector);
+	<R> R collect(RichIteratorCollector<? super E, ? extends R> collector);
 
 	/**
 	 * Consumes this iterator via some state-changing procedure.
 	 * 
 	 * @param consumer The procedure which will be used to consume this iterator.
 	 */
-	void consume(IteratorConsumer<? super E> consumer);
+	void consume(RichIteratorConsumer<? super E> consumer);
 
 	/**
 	 * Associates each unique value in this iterator with the result of applying the
@@ -636,4 +636,6 @@ public interface RichIterator<E> extends SafeIterator<E>
 	{
 		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
+
+	RichIterable<E> lift();
 }

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.github.maumay.jflow.iterators.IteratorCollector;
+import com.github.maumay.jflow.iterators.RichIteratorCollector;
 import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.Exceptions;
 
@@ -35,7 +35,7 @@ public class IterCollectors
 	 * @return see {@link #toMap(Function, Function)}
 	 */
 	static class EnumMapCollector<K extends Enum<K>, R>
-			implements IteratorCollector<K, Map<K, R>>
+			implements RichIteratorCollector<K, Map<K, R>>
 	{
 		private final Function<? super K, ? extends R> targetMapper;
 

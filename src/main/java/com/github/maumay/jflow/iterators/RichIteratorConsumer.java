@@ -13,12 +13,12 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
  * @author t
  */
 @FunctionalInterface
-public interface IteratorConsumer<E>
+public interface RichIteratorConsumer<E>
 {
 	/**
-	 * Consumes the argument iterator by performing side effects using the elements.
+	 * Consumes the argument by performing side effects using the elements.
 	 * 
-	 * @param source the iterator to collect and consume.
+	 * @param source the iterator to consume.
 	 */
 	void consume(AbstractRichIterator<? extends E> source);
 }
