@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.impl;
 
-import java.util.Map;
 import java.util.OptionalInt;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
@@ -218,19 +217,6 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	public int[] toArray()
 	{
 		return ArrayAccumulators.consume(this);
-	}
-
-	@Override
-	public <K, V> Map<K, V> toMap(IntFunction<? extends K> keyMapper,
-			IntFunction<? extends V> valueMapper)
-	{
-		return IntCollectionConsumption.toMap(this, keyMapper, valueMapper);
-	}
-
-	@Override
-	public <K> Map<K, int[]> groupBy(IntFunction<? extends K> classifier)
-	{
-		return IntCollectionConsumption.groupBy(this, classifier);
 	}
 
 	@Override

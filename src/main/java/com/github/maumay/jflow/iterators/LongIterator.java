@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.iterators;
 
-import java.util.Map;
 import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
 import java.util.function.IntUnaryOperator;
@@ -402,73 +401,6 @@ public interface LongIterator extends SafeLongIterator
 	 *         with their ordering retained.
 	 */
 	long[] toArray();
-
-	/**
-	 * Builds a {@linkplain Map} using the elements in this {@link LongIterator} via
-	 * two supplied functions.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongIterator}.
-	 *
-	 * @param             <K> The type of the keys in the created mapping.
-	 * @param             <V> The type of the values in the created mapping.
-	 * @param keyMapper   A function mapping longs to elements of the key type.
-	 * @param valueMapper A function mapping longs to elements of the value type.
-	 *
-	 * @throws IllegalStateException If two elements of this {@link LongIterator}
-	 *                               map to the same key.
-	 *
-	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
-	 *         with the elements in this source {@link LongIterator}. More
-	 *         specifically if:
-	 *         <ul>
-	 *         <li>{@code k} denotes the key mapping function</li>
-	 *         <li>{@code v} denotes the value mapping function</li>
-	 *         </ul>
-	 *         an element of this source {@link LongIterator}, say {@code e}, is
-	 *         associated to the key value pair {@code (k(e), v(e))}.
-	 */
-	<K, V> Map<K, V> toMap(LongFunction<K> keyMapper, LongFunction<V> valueMapper);
-
-	/**
-	 * Groups elements in this {@link LongIterator} via their image under some
-	 * supplied classification function.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongIterator}.
-	 *
-	 * @param            <K> The type of the keys in the grouping map.
-	 *
-	 * @param classifier A function defining the different groups of elements.
-	 * @return A Map instance whose keys partition the elements of this source
-	 *         {@link LongIterator} via the classification function. Elements in
-	 *         this source {@link LongIterator} who have equal (under .equals()
-	 *         contract) images under the classification function are grouped
-	 *         together in a long array accessed by their shared classification key.
-	 */
-	<K> Map<K, long[]> groupBy(LongFunction<K> classifier);
-
-	// /**
-	// * A convenience method for applying a global function onto this
-	// * {@link LongIterator}.
-	// *
-	// * This method is potentially (depending on the supplied function) a
-	// 'consuming
-	// * method', i.e. it will iterate through this {@link LongIterator}.
-	// *
-	// * A convenience method for applying a global function onto this
-	// * {@link LongIterator}.
-	// *
-	// * @param <C> The target type of the build function.
-	// * @param builder - a function whose input encompasses {@link LongIterator}
-	// * instances of this element type.
-	// * @return the output of the supplied function applied to this
-	// * {@link LongIterator}.
-	// */
-	// default <C> C build(Function<? super LongIterator, C> builder)
-	// {
-	// return builder.apply(this);
-	// }
 
 	/**
 	 * Boxes the primitive long values in this {@link LongIterator}.

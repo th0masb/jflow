@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.Map;
 import java.util.OptionalLong;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
@@ -209,18 +208,6 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	public long[] toArray()
 	{
 		return ArrayAccumulators.consume(this);
-	}
-
-	@Override
-	public <K, V> Map<K, V> toMap(LongFunction<K> keyMapper, LongFunction<V> valueMapper)
-	{
-		return LongCollectionConsumption.toMap(this, keyMapper, valueMapper);
-	}
-
-	@Override
-	public <K> Map<K, long[]> groupBy(LongFunction<K> classifier)
-	{
-		return LongCollectionConsumption.groupBy(this, classifier);
 	}
 
 	@Override

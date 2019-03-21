@@ -6,8 +6,6 @@ package com.github.maumay.jflow.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * Used for building primitive arrays when we have an unknown amount of entries.
  * 
@@ -23,7 +21,7 @@ public final class ArrayAccumulators
 	@SuppressWarnings("unchecked")
 	static <E> E[] consume(AbstractRichIterator<? extends E> src)
 	{
-		Exceptions.require(src.hasOwnership());
+		src.relinquishOwnership();
 		switch (src.getSize().getType()) {
 		case EXACT: {
 			int size = ((KnownSize) src.getSize()).getValue();
@@ -67,7 +65,7 @@ public final class ArrayAccumulators
 
 	static int[] consume(AbstractIntIterator src)
 	{
-		Exceptions.require(src.hasOwnership());
+		src.relinquishOwnership();
 		switch (src.getSize().getType()) {
 		case EXACT: {
 			int size = ((KnownSize) src.getSize()).getValue();
@@ -111,7 +109,7 @@ public final class ArrayAccumulators
 
 	static long[] consume(AbstractLongIterator src)
 	{
-		Exceptions.require(src.hasOwnership());
+		src.relinquishOwnership();
 		switch (src.getSize().getType()) {
 		case EXACT: {
 			int size = ((KnownSize) src.getSize()).getValue();
@@ -155,7 +153,7 @@ public final class ArrayAccumulators
 
 	static double[] consume(AbstractDoubleIterator src)
 	{
-		Exceptions.require(src.hasOwnership());
+		src.relinquishOwnership();
 		switch (src.getSize().getType()) {
 		case EXACT: {
 			int size = ((KnownSize) src.getSize()).getValue();

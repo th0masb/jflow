@@ -1,7 +1,5 @@
 package com.github.maumay.jflow.iterators;
 
-import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
 import java.util.PrimitiveIterator;
 import java.util.function.DoubleBinaryOperator;
@@ -455,52 +453,6 @@ public interface DoubleIterator extends SafeDoubleIterator
 	void consume(DoubleIteratorConsumer consumer);
 
 	/**
-	 * Builds a Map using the elements in this {@link DoubleIterator} via two
-	 * supplied functions.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link DoubleIterator}.
-	 *
-	 * @param             <K> The type of the keys in the created mapping.
-	 * @param             <V> The type of the values in the created mapping.
-	 * @param keyMapper   A function mapping doubles to elements of the key type.
-	 * @param valueMapper A function mapping doubles to elements of the value type.
-	 *
-	 * @throws IllegalStateException If two elements of this {@link DoubleIterator}
-	 *                               map to the same key.
-	 *
-	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
-	 *         with the elements in this source {@link DoubleIterator}. More
-	 *         specifically if:
-	 *         <ul>
-	 *         <li>{@code k} denotes the key mapping function</li>
-	 *         <li>{@code v} denotes the value mapping function</li>
-	 *         </ul>
-	 *         an element of this source {@link DoubleIterator}, say {@code e}, is
-	 *         associated to the key value pair {@code (k(e), v(e))}.
-	 */
-	<K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper, DoubleFunction<V> valueMapper);
-
-	/**
-	 * Groups elements in this {@link DoubleIterator} via their image under some
-	 * supplied classification function.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link DoubleIterator}.
-	 *
-	 * @param            <K> The type of the keys in the grouping map.
-	 *
-	 * @param classifier A function defining the different groups of elements.
-	 * @return A Map instance whose keys partition the elements of this source
-	 *         {@link DoubleIterator} via the classification function. Elements in
-	 *         this source {@link DoubleIterator} who have equal (under .equals()
-	 *         contract) images under the classification function are grouped
-	 *         together in a double array accessed by their shared classification
-	 *         key.
-	 */
-	<K> Map<K, double[]> groupBy(DoubleFunction<K> classifier);
-
-	/**
 	 * Boxes the primitive double values in this {@link DoubleIterator}.
 	 *
 	 * @return a copy of this source {@link DoubleIterator} as a Iterator of boxed
@@ -532,25 +484,4 @@ public interface DoubleIterator extends SafeDoubleIterator
 	{
 		return fold((a, b) -> a * b);
 	}
-
-	/**
-	 * Computes the average of elements in a non-empty iterator.
-	 * 
-	 * @return the average of elements if this iterator is non-empty, throws an
-	 *         exception otherwise.
-	 */
-	default double average()
-	{
-		if (!hasNext()) {
-			throw new NoSuchElementException();
-		}
-		int count = 0;
-		double sum = 0;
-		while (hasNext()) {
-			count++;
-			sum += nextDouble();
-		}
-		return sum / count;
-	}
-
 }

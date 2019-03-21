@@ -26,7 +26,6 @@ import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.RichIteratorAdapter;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
 import com.github.maumay.jflow.iterators.RichIteratorConsumer;
-import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -279,7 +278,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	@Override
 	public <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
 	{
-		Exceptions.require(hasOwnership());
+		relinquishOwnership();
 		C coll = collectionFactory.get();
 		while (hasNext()) {
 			coll.add(nextImpl());
@@ -291,7 +290,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	public <K, V> Map<K, V> toMap(Function<? super E, ? extends K> keyMapper,
 			Function<? super E, ? extends V> valueMapper)
 	{
-		Exceptions.require(hasOwnership());
+		relinquishOwnership();
 		Map<K, V> collected = new HashMap<>();
 		while (hasNext()) {
 			E next = nextImpl();
@@ -308,7 +307,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	@Override
 	public <V> Map<E, V> associate(Function<? super E, ? extends V> valueMapper)
 	{
-		Exceptions.require(hasOwnership());
+		relinquishOwnership();
 		Map<E, V> collected = new HashMap<>();
 		while (hasNext()) {
 			E key = nextImpl();
@@ -324,7 +323,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	@Override
 	public <K> Map<K, List<E>> groupBy(Function<? super E, ? extends K> classifier)
 	{
-		Exceptions.require(hasOwnership());
+		relinquishOwnership();
 		Map<K, List<E>> collected = new HashMap<>();
 		while (hasNext()) {
 			E next = nextImpl();

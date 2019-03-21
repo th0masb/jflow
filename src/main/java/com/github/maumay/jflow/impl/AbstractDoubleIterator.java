@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.impl;
 
-import java.util.Map;
 import java.util.OptionalDouble;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleFunction;
@@ -240,18 +239,6 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	public void consume(DoubleIteratorConsumer consumer)
 	{
 		consumer.consume(this);
-	}
-
-	@Override
-	public <K, V> Map<K, V> toMap(DoubleFunction<K> keyMapper, DoubleFunction<V> valueMapper)
-	{
-		return DoubleCollectionConsumption.toMap(this, keyMapper, valueMapper);
-	}
-
-	@Override
-	public <K> Map<K, double[]> groupBy(DoubleFunction<K> classifier)
-	{
-		return DoubleCollectionConsumption.groupBy(this, classifier);
 	}
 
 	@Override

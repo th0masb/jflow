@@ -19,7 +19,7 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
  */
 public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBuilder
 {
-	protected abstract Collector<E, R> getCollectorToTest();
+	protected abstract Collector<E, ? extends R> getCollectorToTest();
 
 	protected abstract List<Case<E, R>> getTestCases();
 
@@ -28,7 +28,7 @@ public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBui
 	@Test
 	public final void testPassCases()
 	{
-		Collector<E, R> collector = getCollectorToTest();
+		Collector<E, ? extends R> collector = getCollectorToTest();
 		for (Case<E, R> testCase : getTestCases()) {
 			List<AbstractTestIterable<AbstractRichIterator<E>>> iteratorProviders = IteratorProvider
 					.buildIterables(testCase.source);
@@ -47,7 +47,7 @@ public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBui
 	@Test
 	public final void testFailureCases()
 	{
-		Collector<E, R> collector = getCollectorToTest();
+		Collector<E, ? extends R> collector = getCollectorToTest();
 		for (FailCase<E> testCase : getFailureCases()) {
 			List<AbstractTestIterable<AbstractRichIterator<E>>> iteratorProviders = IteratorProvider
 					.buildIterables(testCase.source);

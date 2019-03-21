@@ -1,6 +1,5 @@
 package com.github.maumay.jflow.iterators;
 
-import java.util.Map;
 import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.IntBinaryOperator;
@@ -437,52 +436,6 @@ public interface IntIterator extends SafeIntIterator
 	int[] toArray();
 
 	/**
-	 * Builds a Map using the elements in this {@link IntIterator} via two supplied
-	 * functions.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link IntIterator}.
-	 *
-	 * @param             <K> The type of the keys in the created mapping.
-	 * @param             <V> The type of the values in the created mapping.
-	 * @param keyMapper   A function mapping longs to elements of the key type.
-	 * @param valueMapper A function mapping longs to elements of the value type.
-	 *
-	 * @throws IllegalStateException If two elements of this {@link IntIterator} map
-	 *                               to the same key.
-	 *
-	 * @return A Map instance whose key-value pairs have a 1-to-1 correspondence
-	 *         with the elements in this source {@link IntIterator}. More
-	 *         specifically if:
-	 *         <ul>
-	 *         <li>{@code k} denotes the key mapping function</li>
-	 *         <li>{@code v} denotes the value mapping function</li>
-	 *         </ul>
-	 *         an element of this source {@link IntIterator}, say {@code e}, is
-	 *         associated to the key value pair {@code (k(e), v(e))}.
-	 */
-	<K, V> Map<K, V> toMap(IntFunction<? extends K> keyMapper,
-			IntFunction<? extends V> valueMapper);
-
-	/**
-	 * Groups elements in this {@link IntIterator} via their image under some
-	 * supplied classification function.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link IntIterator}.
-	 *
-	 * @param            <K> The type of the keys in the grouping map.
-	 *
-	 * @param classifier A function defining the different groups of elements.
-	 * @return A Map instance whose keys partition the elements of this source
-	 *         {@link IntIterator} via the classification function. Elements in this
-	 *         source {@link IntIterator} who have equal (under .equals() contract)
-	 *         images under the classification function are grouped together in a
-	 *         long array accessed by their shared classification key.
-	 */
-	<K> Map<K, int[]> groupBy(IntFunction<? extends K> classifier);
-
-	/**
 	 * Boxes the primitive long values in this {@link IntIterator}.
 	 *
 	 * @return a copy of this source {@link IntIterator} as a Iterator of boxed
@@ -501,6 +454,6 @@ public interface IntIterator extends SafeIntIterator
 	 */
 	default int sum()
 	{
-		return fold(0, (a, b) -> a + b);
+		return fold(Math::addExact);
 	}
 }
