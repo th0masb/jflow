@@ -26,6 +26,8 @@ public abstract class AbstractDoubleCollectionTest<R>
 
 	protected abstract List<Case<R>> getTestCases();
 
+	protected abstract List<FailCase> getFailureCases();
+
 	@Test
 	public final void test()
 	{
@@ -50,6 +52,20 @@ public abstract class AbstractDoubleCollectionTest<R>
 		}
 	}
 
+	@Test
+	public final void testFailureCases()
+	{
+		Collector<R> collector = getCollectorToTest();
+		for (FailCase testCase : getFailureCases()) {
+			List<AbstractTestIterable<AbstractDoubleIterator>> iteratorProviders = IteratorProvider
+					.buildDoubleIterables(testCase.source);
+			for (AbstractTestIterable<AbstractDoubleIterator> provider : iteratorProviders) {
+				AbstractDoubleIterator iterator = provider.iter();
+				assertThrows(testCase.expectedFailType, () -> collector.apply(iterator));
+			}
+		}
+	}
+
 	@FunctionalInterface
 	public static interface Collector<R> extends Function<AbstractDoubleIterator, R>
 	{
@@ -64,6 +80,19 @@ public abstract class AbstractDoubleCollectionTest<R>
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;
+		}
+	}
+
+	public static class FailCase
+	{
+		final List<Double> source;
+		final Class<? extends RuntimeException> expectedFailType;
+
+		public FailCase(List<Double> source,
+				Class<? extends RuntimeException> expectedFailType)
+		{
+			this.source = source;
+			this.expectedFailType = expectedFailType;
 		}
 	}
 }

@@ -15,12 +15,12 @@ import com.github.maumay.jflow.testframework.AbstractIntAdapterTest;
 public final class IntFilterTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
-	protected List<IntCase<AbstractIntIterator>> getTestCases()
+	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
-		IntAdapter<AbstractIntIterator> adapter = iter -> iter.filter(x -> x > 1);
-		return list(new IntCase<>(list(), adapter, list()),
-				new IntCase<>(list(0, 2), adapter, list(2)),
-				new IntCase<>(list(0, 1), adapter, list()),
-				new IntCase<>(list(2, 3), adapter, list(2, 3)));
+		Adapter<AbstractIntIterator> adapter = iter -> iter.filter(x -> x > 1);
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(0, 2), adapter, list(2)),
+				new Case<>(list(0, 1), adapter, list()),
+				new Case<>(list(2, 3), adapter, list(2, 3)));
 	}
 }

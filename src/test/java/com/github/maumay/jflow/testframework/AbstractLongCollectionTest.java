@@ -26,6 +26,8 @@ public abstract class AbstractLongCollectionTest<R>
 
 	protected abstract List<Case<R>> getTestCases();
 
+	protected abstract List<FailCase> getFailureCases();
+
 	@Test
 	public final void test()
 	{
@@ -50,6 +52,20 @@ public abstract class AbstractLongCollectionTest<R>
 		}
 	}
 
+	@Test
+	public final void testFailureCases()
+	{
+		Collector<R> collector = getCollectorToTest();
+		for (FailCase testCase : getFailureCases()) {
+			List<AbstractTestIterable<AbstractLongIterator>> iteratorProviders = IteratorProvider
+					.buildLongIterables(testCase.source);
+			for (AbstractTestIterable<AbstractLongIterator> provider : iteratorProviders) {
+				AbstractLongIterator iterator = provider.iter();
+				assertThrows(testCase.expectedFailType, () -> collector.apply(iterator));
+			}
+		}
+	}
+
 	@FunctionalInterface
 	public static interface Collector<R> extends Function<AbstractLongIterator, R>
 	{
@@ -64,6 +80,19 @@ public abstract class AbstractLongCollectionTest<R>
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;
+		}
+	}
+
+	public static class FailCase
+	{
+		final List<Long> source;
+		final Class<? extends RuntimeException> expectedFailType;
+
+		public FailCase(List<Long> source,
+				Class<? extends RuntimeException> expectedFailType)
+		{
+			this.source = source;
+			this.expectedFailType = expectedFailType;
 		}
 	}
 }

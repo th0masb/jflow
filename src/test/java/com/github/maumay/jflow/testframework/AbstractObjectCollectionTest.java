@@ -25,8 +25,10 @@ public abstract class AbstractObjectCollectionTest<E, R>
 
 	protected abstract List<Case<E, R>> getTestCases();
 
+	protected abstract List<FailCase<E>> getFailureCases();
+
 	@Test
-	public final void test()
+	public final void testPassCases()
 	{
 		Collector<E, R> collector = getCollectorToTest();
 		for (Case<E, R> testCase : getTestCases()) {
@@ -49,6 +51,20 @@ public abstract class AbstractObjectCollectionTest<E, R>
 		}
 	}
 
+	@Test
+	public final void testFailureCases()
+	{
+		Collector<E, R> collector = getCollectorToTest();
+		for (FailCase<E> testCase : getFailureCases()) {
+			List<AbstractTestIterable<AbstractRichIterator<E>>> iteratorProviders = IteratorProvider
+					.buildIterables(testCase.source);
+			for (AbstractTestIterable<AbstractRichIterator<E>> provider : iteratorProviders) {
+				AbstractRichIterator<E> iterator = provider.iter();
+				assertThrows(testCase.expectedFailType, () -> collector.apply(iterator));
+			}
+		}
+	}
+
 	@FunctionalInterface
 	public static interface Collector<E, R> extends Function<AbstractRichIterator<E>, R>
 	{
@@ -63,6 +79,19 @@ public abstract class AbstractObjectCollectionTest<E, R>
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;
+		}
+	}
+
+	public static class FailCase<E>
+	{
+		final List<E> source;
+		final Class<? extends RuntimeException> expectedFailType;
+
+		public FailCase(List<E> source,
+				Class<? extends RuntimeException> expectedFailType)
+		{
+			this.source = source;
+			this.expectedFailType = expectedFailType;
 		}
 	}
 }

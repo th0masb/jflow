@@ -15,10 +15,10 @@ import com.github.maumay.jflow.testframework.AbstractIntAdapterTest;
 public class IntMapToLongTest extends AbstractIntAdapterTest<AbstractLongIterator>
 {
 	@Override
-	protected List<IntCase<AbstractLongIterator>> getTestCases()
+	protected List<Case<AbstractLongIterator>> getTestCases()
 	{
-		IntAdapter<AbstractLongIterator> adapter = iter -> iter.mapToLong(x -> 2 * x);
-		return list(new IntCase<>(list(), adapter, list()),
-				new IntCase<>(list(1, 2, 3), adapter, list(2L, 4L, 6L)));
+		Adapter<AbstractLongIterator> adapter = iter -> iter.mapToLong(x -> 2 * x);
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(1, 2, 3), adapter, list(2L, 4L, 6L)));
 	}
 }

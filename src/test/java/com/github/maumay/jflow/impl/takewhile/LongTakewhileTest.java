@@ -15,13 +15,13 @@ import com.github.maumay.jflow.testframework.AbstractLongAdapterTest;
 public final class LongTakewhileTest extends AbstractLongAdapterTest<AbstractLongIterator>
 {
 	@Override
-	protected List<LongCase<AbstractLongIterator>> getTestCases()
+	protected List<Case<AbstractLongIterator>> getTestCases()
 	{
-		LongAdapter<AbstractLongIterator> adapter = i -> i.takeWhile(x -> x > 3);
-		return list(new LongCase<>(list(), adapter, list()),
-				new LongCase<>(list(3L, 1L, 5L), adapter, list()),
-				new LongCase<>(list(4L, 4L, 2L, 4L), adapter, list(4L, 4L)),
-				new LongCase<>(list(4L, 4L, 1L), adapter, list(4L, 4L)),
-				new LongCase<>(list(4L, 4L, 4L), adapter, list(4L, 4L, 4L)));
+		Adapter<AbstractLongIterator> adapter = i -> i.takeWhile(x -> x > 3);
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(3L, 1L, 5L), adapter, list()),
+				new Case<>(list(4L, 4L, 2L, 4L), adapter, list(4L, 4L)),
+				new Case<>(list(4L, 4L, 1L), adapter, list(4L, 4L)),
+				new Case<>(list(4L, 4L, 4L), adapter, list(4L, 4L, 4L)));
 	}
 }

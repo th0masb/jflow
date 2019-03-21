@@ -20,12 +20,12 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
 public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 		extends AbstractAdapterTest implements FiniteIteratorTest
 {
-	protected abstract List<LongCase<I>> getTestCases();
+	protected abstract List<Case<I>> getTestCases();
 
 	@Test
 	public final void testIterationBehaviour()
 	{
-		for (LongCase<I> testcase : getTestCases()) {
+		for (Case<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> initialProviders = IteratorProvider
 					.buildLongIterables(testcase.source, testcase.adapter);
 
@@ -36,7 +36,7 @@ public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 	@Test
 	public final void testOwnershipBehaviour()
 	{
-		for (LongCase<I> testcase : getTestCases()) {
+		for (Case<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<AbstractLongIterator>> providers = IteratorProvider
 					.buildLongIterables(testcase.source);
 
@@ -65,18 +65,18 @@ public abstract class AbstractLongAdapterTest<I extends AbstractIterator>
 	}
 
 	@FunctionalInterface
-	public static interface LongAdapter<I extends AbstractIterator>
+	public static interface Adapter<I extends AbstractIterator>
 			extends Function<AbstractLongIterator, I>
 	{
 	}
 
-	public static class LongCase<I extends AbstractIterator>
+	public static class Case<I extends AbstractIterator>
 	{
 		final List<Long> source;
-		final LongAdapter<I> adapter;
+		final Adapter<I> adapter;
 		final List<?> result;
 
-		public LongCase(List<Long> source, LongAdapter<I> adapter, List<?> result)
+		public Case(List<Long> source, Adapter<I> adapter, List<?> result)
 		{
 			this.source = source;
 			this.result = result;

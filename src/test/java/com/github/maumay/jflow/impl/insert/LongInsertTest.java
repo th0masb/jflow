@@ -17,13 +17,13 @@ import com.github.maumay.jflow.testframework.AbstractLongAdapterTest;
 public final class LongInsertTest extends AbstractLongAdapterTest<AbstractLongIterator>
 {
 	@Override
-	protected List<LongCase<AbstractLongIterator>> getTestCases()
+	protected List<Case<AbstractLongIterator>> getTestCases()
 	{
 		List<Long> empty = list(), populated = list(0L);
-		return list(new LongCase<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
-				new LongCase<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
-				new LongCase<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
-				new LongCase<>(populated, i -> i.insert(unbox(list(1L).iterator())), list(1L, 0L)));
+		return list(new Case<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
+				new Case<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
+				new Case<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
+				new Case<>(populated, i -> i.insert(unbox(list(1L).iterator())), list(1L, 0L)));
 	}
 
 	private PrimitiveIterator.OfLong unbox(Iterator<Long> source)

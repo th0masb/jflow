@@ -17,13 +17,13 @@ import com.github.maumay.jflow.testframework.AbstractDoubleAdapterTest;
 public final class DoubleInsertTest extends AbstractDoubleAdapterTest<AbstractDoubleIterator>
 {
 	@Override
-	protected List<DoubleCase<AbstractDoubleIterator>> getTestCases()
+	protected List<Case<AbstractDoubleIterator>> getTestCases()
 	{
 		List<Double> empty = list(), populated = list(0.0);
-		return list(new DoubleCase<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
-				new DoubleCase<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
-				new DoubleCase<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
-				new DoubleCase<>(populated, i -> i.insert(unbox(list(1.0).iterator())),
+		return list(new Case<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
+				new Case<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
+				new Case<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
+				new Case<>(populated, i -> i.insert(unbox(list(1.0).iterator())),
 						list(1.0, 0.0)));
 	}
 

@@ -20,12 +20,12 @@ import com.github.maumay.jflow.impl.AbstractIterator;
 public abstract class AbstractDoubleAdapterTest<I extends AbstractIterator>
 		extends AbstractAdapterTest implements FiniteIteratorTest
 {
-	protected abstract List<DoubleCase<I>> getTestCases();
+	protected abstract List<Case<I>> getTestCases();
 
 	@Test
 	public final void testIteratorBehaviour()
 	{
-		for (DoubleCase<I> testcase : getTestCases()) {
+		for (Case<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<I>> initialProviders = IteratorProvider
 					.buildDoubleIterables(testcase.source, testcase.adapter);
 
@@ -36,7 +36,7 @@ public abstract class AbstractDoubleAdapterTest<I extends AbstractIterator>
 	@Test
 	public final void testOwnershipBehaviour()
 	{
-		for (DoubleCase<I> testcase : getTestCases()) {
+		for (Case<I> testcase : getTestCases()) {
 			List<AbstractTestIterable<AbstractDoubleIterator>> providers = IteratorProvider
 					.buildDoubleIterables(testcase.source);
 
@@ -65,18 +65,18 @@ public abstract class AbstractDoubleAdapterTest<I extends AbstractIterator>
 	}
 
 	@FunctionalInterface
-	public static interface DoubleAdapter<I extends AbstractIterator>
+	public static interface Adapter<I extends AbstractIterator>
 			extends Function<AbstractDoubleIterator, I>
 	{
 	}
 
-	public static class DoubleCase<I extends AbstractIterator>
+	public static class Case<I extends AbstractIterator>
 	{
 		final List<Double> source;
-		final DoubleAdapter<I> adapter;
+		final Adapter<I> adapter;
 		final List<?> result;
 
-		public DoubleCase(List<Double> source, DoubleAdapter<I> adapter, List<?> result)
+		public Case(List<Double> source, Adapter<I> adapter, List<?> result)
 		{
 			this.source = source;
 			this.result = result;

@@ -16,13 +16,13 @@ public final class DoubleTakewhileTest
 		extends AbstractDoubleAdapterTest<AbstractDoubleIterator>
 {
 	@Override
-	protected List<DoubleCase<AbstractDoubleIterator>> getTestCases()
+	protected List<Case<AbstractDoubleIterator>> getTestCases()
 	{
-		DoubleAdapter<AbstractDoubleIterator> adapter = i -> i.takeWhile(x -> x > 3);
-		return list(new DoubleCase<>(list(), adapter, list()),
-				new DoubleCase<>(list(3.0, 1.0, 5.0), adapter, list()),
-				new DoubleCase<>(list(4.0, 4.0, 2.0, 4.0), adapter, list(4.0, 4.0)),
-				new DoubleCase<>(list(4.0, 4.0, 1.0), adapter, list(4.0, 4.0)),
-				new DoubleCase<>(list(4.0, 4.0, 4.0), adapter, list(4.0, 4.0, 4.0)));
+		Adapter<AbstractDoubleIterator> adapter = i -> i.takeWhile(x -> x > 3);
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(3.0, 1.0, 5.0), adapter, list()),
+				new Case<>(list(4.0, 4.0, 2.0, 4.0), adapter, list(4.0, 4.0)),
+				new Case<>(list(4.0, 4.0, 1.0), adapter, list(4.0, 4.0)),
+				new Case<>(list(4.0, 4.0, 4.0), adapter, list(4.0, 4.0, 4.0)));
 	}
 }

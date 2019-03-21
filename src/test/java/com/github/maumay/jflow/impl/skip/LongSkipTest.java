@@ -15,13 +15,13 @@ import com.github.maumay.jflow.testframework.AbstractLongAdapterTest;
 public final class LongSkipTest extends AbstractLongAdapterTest<AbstractLongIterator>
 {
 	@Override
-	protected List<LongCase<AbstractLongIterator>> getTestCases()
+	protected List<Case<AbstractLongIterator>> getTestCases()
 	{
 		List<Long> src = list(0L, 0L, 0L, 0L, 0L, 0L);
-		return list(new LongCase<>(list(), i -> i.skip(2), list()),
-				new LongCase<>(src, i -> i.skip(0), src),
-				new LongCase<>(src, i -> i.skip(3), list(0L, 0L, 0L)),
-				new LongCase<>(src, i -> i.skip(6), list()),
-				new LongCase<>(src, i -> i.skip(7), list()));
+		return list(new Case<>(list(), i -> i.skip(2), list()),
+				new Case<>(src, i -> i.skip(0), src),
+				new Case<>(src, i -> i.skip(3), list(0L, 0L, 0L)),
+				new Case<>(src, i -> i.skip(6), list()),
+				new Case<>(src, i -> i.skip(7), list()));
 	}
 }

@@ -15,11 +15,11 @@ import com.github.maumay.jflow.testframework.AbstractDoubleAdapterTest;
 public class DoubleMapToLongTest extends AbstractDoubleAdapterTest<AbstractLongIterator>
 {
 	@Override
-	protected List<DoubleCase<AbstractLongIterator>> getTestCases()
+	protected List<Case<AbstractLongIterator>> getTestCases()
 	{
-		DoubleAdapter<AbstractLongIterator> adapter = iter -> iter
+		Adapter<AbstractLongIterator> adapter = iter -> iter
 				.mapToLong(x -> (int) (2 * x));
-		return list(new DoubleCase<>(list(), adapter, list()),
-				new DoubleCase<>(list(1.0, 2.0), adapter, list(2L, 4L)));
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(1.0, 2.0), adapter, list(2L, 4L)));
 	}
 }

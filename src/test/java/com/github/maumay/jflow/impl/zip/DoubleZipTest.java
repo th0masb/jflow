@@ -16,16 +16,16 @@ import com.github.maumay.jflow.utils.DoubleTup;
 public final class DoubleZipTest extends AbstractDoubleAdapterTest<AbstractRichIterator<DoubleTup>>
 {
 	@Override
-	protected List<DoubleCase<AbstractRichIterator<DoubleTup>>> getTestCases()
+	protected List<Case<AbstractRichIterator<DoubleTup>>> getTestCases()
 	{
 
-		return list(new DoubleCase<>(list(), i -> i.zip(iter(list())), list()),
-				new DoubleCase<>(list(), i -> i.zip(iter(list(1.0))), list()),
-				new DoubleCase<>(list(1.0), i -> i.zip(iter(list())), list()),
-				new DoubleCase<>(list(1.0), i -> i.zip(iter(list(2.0))), list(tup(1.0, 2.0))),
-				new DoubleCase<>(list(1.0, 2.0), i -> i.zip(iter(list(2.0))),
+		return list(new Case<>(list(), i -> i.zip(iter(list())), list()),
+				new Case<>(list(), i -> i.zip(iter(list(1.0))), list()),
+				new Case<>(list(1.0), i -> i.zip(iter(list())), list()),
+				new Case<>(list(1.0), i -> i.zip(iter(list(2.0))), list(tup(1.0, 2.0))),
+				new Case<>(list(1.0, 2.0), i -> i.zip(iter(list(2.0))),
 						list(tup(1.0, 2.0))),
-				new DoubleCase<>(list(1.0), i -> i.zip(iter(list(2.0, 3.0))),
+				new Case<>(list(1.0), i -> i.zip(iter(list(2.0, 3.0))),
 						list(tup(1.0, 2.0))));
 	}
 

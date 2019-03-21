@@ -16,13 +16,13 @@ public final class DoubleSkipwhileTest
 		extends AbstractDoubleAdapterTest<AbstractDoubleIterator>
 {
 	@Override
-	protected List<DoubleCase<AbstractDoubleIterator>> getTestCases()
+	protected List<Case<AbstractDoubleIterator>> getTestCases()
 	{
-		DoubleAdapter<AbstractDoubleIterator> adapter = i -> i.skipWhile(x -> x > 2);
-		return list(new DoubleCase<>(list(), adapter, list()),
-				new DoubleCase<>(list(1.0, 3.0, 0.0), adapter, list(1.0, 3.0, 0.0)),
-				new DoubleCase<>(list(3.0, 1.0, 2.0), adapter, list(1.0, 2.0)),
-				new DoubleCase<>(list(3.0, 3.0, 1.0), adapter, list(1.0)),
-				new DoubleCase<>(list(3.0, 3.0, 3.0), adapter, list()));
+		Adapter<AbstractDoubleIterator> adapter = i -> i.skipWhile(x -> x > 2);
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(1.0, 3.0, 0.0), adapter, list(1.0, 3.0, 0.0)),
+				new Case<>(list(3.0, 1.0, 2.0), adapter, list(1.0, 2.0)),
+				new Case<>(list(3.0, 3.0, 1.0), adapter, list(1.0)),
+				new Case<>(list(3.0, 3.0, 3.0), adapter, list()));
 	}
 }

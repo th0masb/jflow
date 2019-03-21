@@ -15,13 +15,13 @@ import com.github.maumay.jflow.testframework.AbstractIntAdapterTest;
 public final class IntTakewhileTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
-	protected List<IntCase<AbstractIntIterator>> getTestCases()
+	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
-		IntAdapter<AbstractIntIterator> adapter = i -> i.takeWhile(x -> x > 3);
-		return list(new IntCase<>(list(), adapter, list()),
-				new IntCase<>(list(3, 1, 5), adapter, list()),
-				new IntCase<>(list(4, 4, 2, 4), adapter, list(4, 4)),
-				new IntCase<>(list(4, 4, 1), adapter, list(4, 4)),
-				new IntCase<>(list(4, 4, 4), adapter, list(4, 4, 4)));
+		Adapter<AbstractIntIterator> adapter = i -> i.takeWhile(x -> x > 3);
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(3, 1, 5), adapter, list()),
+				new Case<>(list(4, 4, 2, 4), adapter, list(4, 4)),
+				new Case<>(list(4, 4, 1), adapter, list(4, 4)),
+				new Case<>(list(4, 4, 4), adapter, list(4, 4, 4)));
 	}
 }

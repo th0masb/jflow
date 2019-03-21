@@ -16,13 +16,13 @@ public final class DoubleTakeTest
 		extends AbstractDoubleAdapterTest<AbstractDoubleIterator>
 {
 	@Override
-	protected List<DoubleCase<AbstractDoubleIterator>> getTestCases()
+	protected List<Case<AbstractDoubleIterator>> getTestCases()
 	{
 		List<Double> src = list(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-		return list(new DoubleCase<>(list(), i -> i.take(0), list()),
-				new DoubleCase<>(list(), i -> i.take(3), list()),
-				new DoubleCase<>(src, i -> i.take(0), list()),
-				new DoubleCase<>(src, i -> i.take(3), list(0.0, 0.0, 0.0)),
-				new DoubleCase<>(src, i -> i.take(6), src));
+		return list(new Case<>(list(), i -> i.take(0), list()),
+				new Case<>(list(), i -> i.take(3), list()),
+				new Case<>(src, i -> i.take(0), list()),
+				new Case<>(src, i -> i.take(3), list(0.0, 0.0, 0.0)),
+				new Case<>(src, i -> i.take(6), src));
 	}
 }

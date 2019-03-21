@@ -17,13 +17,13 @@ import com.github.maumay.jflow.testframework.AbstractIntAdapterTest;
 public final class IntInsertTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
-	protected List<IntCase<AbstractIntIterator>> getTestCases()
+	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
 		List<Integer> empty = list(), populated = list(0);
-		return list(new IntCase<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
-				new IntCase<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
-				new IntCase<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
-				new IntCase<>(populated, i -> i.insert(unbox(list(1).iterator())), list(1, 0)));
+		return list(new Case<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
+				new Case<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
+				new Case<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
+				new Case<>(populated, i -> i.insert(unbox(list(1).iterator())), list(1, 0)));
 	}
 
 	private PrimitiveIterator.OfInt unbox(Iterator<Integer> source)

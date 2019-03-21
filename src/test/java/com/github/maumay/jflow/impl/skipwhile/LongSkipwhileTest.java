@@ -15,13 +15,13 @@ import com.github.maumay.jflow.testframework.AbstractLongAdapterTest;
 public final class LongSkipwhileTest extends AbstractLongAdapterTest<AbstractLongIterator>
 {
 	@Override
-	protected List<LongCase<AbstractLongIterator>> getTestCases()
+	protected List<Case<AbstractLongIterator>> getTestCases()
 	{
-		LongAdapter<AbstractLongIterator> adapter = i -> i.skipWhile(x -> x > 2);
-		return list(new LongCase<>(list(), adapter, list()),
-				new LongCase<>(list(1L, 3L, 0L), adapter, list(1L, 3L, 0L)),
-				new LongCase<>(list(3L, 1L, 2L), adapter, list(1L, 2L)),
-				new LongCase<>(list(3L, 3L, 1L), adapter, list(1L)),
-				new LongCase<>(list(3L, 3L, 3L), adapter, list()));
+		Adapter<AbstractLongIterator> adapter = i -> i.skipWhile(x -> x > 2);
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(1L, 3L, 0L), adapter, list(1L, 3L, 0L)),
+				new Case<>(list(3L, 1L, 2L), adapter, list(1L, 2L)),
+				new Case<>(list(3L, 3L, 1L), adapter, list(1L)),
+				new Case<>(list(3L, 3L, 3L), adapter, list()));
 	}
 }

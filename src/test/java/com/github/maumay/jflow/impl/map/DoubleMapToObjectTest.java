@@ -16,11 +16,11 @@ public final class DoubleMapToObjectTest
 		extends AbstractDoubleAdapterTest<AbstractRichIterator<String>>
 {
 	@Override
-	protected List<DoubleCase<AbstractRichIterator<String>>> getTestCases()
+	protected List<Case<AbstractRichIterator<String>>> getTestCases()
 	{
-		DoubleAdapter<AbstractRichIterator<String>> adapter = iter -> iter
+		Adapter<AbstractRichIterator<String>> adapter = iter -> iter
 				.mapToObject(x -> "" + (int) x);
-		return list(new DoubleCase<>(list(), adapter, list()), new DoubleCase<>(
+		return list(new Case<>(list(), adapter, list()), new Case<>(
 				list(1.0, 2.0, 3.0, 4.0), adapter, list("1", "2", "3", "4")));
 	}
 }

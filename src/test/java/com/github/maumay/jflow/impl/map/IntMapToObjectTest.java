@@ -16,11 +16,11 @@ public final class IntMapToObjectTest
 		extends AbstractIntAdapterTest<AbstractRichIterator<String>>
 {
 	@Override
-	protected List<IntCase<AbstractRichIterator<String>>> getTestCases()
+	protected List<Case<AbstractRichIterator<String>>> getTestCases()
 	{
-		IntAdapter<AbstractRichIterator<String>> adapter = iter -> iter
+		Adapter<AbstractRichIterator<String>> adapter = iter -> iter
 				.mapToObject(x -> "" + x);
-		return list(new IntCase<>(list(), adapter, list()),
-				new IntCase<>(list(1, 2, 3, 4), adapter, list("1", "2", "3", "4")));
+		return list(new Case<>(list(), adapter, list()),
+				new Case<>(list(1, 2, 3, 4), adapter, list("1", "2", "3", "4")));
 	}
 }
