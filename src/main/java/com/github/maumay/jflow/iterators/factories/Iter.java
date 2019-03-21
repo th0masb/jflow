@@ -22,9 +22,9 @@ import com.github.maumay.jflow.impl.FunctionSource;
 import com.github.maumay.jflow.impl.IteratorWrapper;
 import com.github.maumay.jflow.iterables.RichIterable;
 import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 
@@ -132,8 +132,7 @@ public final class Iter
 	 * @return A EnhancedIterator built from apply the indexing function to a
 	 *         bounded range of natural numbers.
 	 */
-	public static <E> RichIterator<E> byIndexing(IntFunction<E> indexingFunction,
-			int indexBound)
+	public static <E> RichIterator<E> byIndexing(IntFunction<E> indexingFunction, int indexBound)
 	{
 		Exceptions.requireArg(indexBound >= 0);
 		return new FunctionSource.OfObject<>(indexingFunction, indexBound);
@@ -195,6 +194,7 @@ public final class Iter
 	 * Flattens a sequence of stacked sequences by returning an iterator traversing
 	 * all elements of every sequence.
 	 * 
+	 * @param        <E> The element type of the stacked iterables.
 	 * @param source A sequence of sequences.
 	 * @return An iterator traversing all elements contained in each element in the
 	 *         source

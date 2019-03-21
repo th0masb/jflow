@@ -431,13 +431,13 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *                constructed from this iterator.
 	 * @return The new, adapted iterator which is sourced from this iterator.
 	 */
-	<R> DoubleIterator adapt(DoubleIteratorAdapter adapter);
+	DoubleIterator adapt(DoubleIteratorAdapter adapter);
 
 	/**
 	 * Consumes this iterator using the supplied collection function to create a new
 	 * instance of the given type.
 	 * 
-	 * @param           <R> The type of the collection result..
+	 * @param           <R> The type of the collection result.
 	 * @param collector The collection function which is used to consume this
 	 *                  iterator.
 	 * @return The result of the collection function applied to this

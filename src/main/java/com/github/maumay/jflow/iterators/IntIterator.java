@@ -248,9 +248,6 @@ public interface IntIterator extends SafeIntIterator
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link IntIterator}.
 	 *
-	 * @param defaultValue - The value which will be returned if the source is
-	 *                     empty.
-	 *
 	 * @return the smallest element in this {@link IntIterator} or the default value
 	 *         if the iteration is empty.
 	 */
@@ -289,9 +286,6 @@ public interface IntIterator extends SafeIntIterator
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link IntIterator}.
-	 *
-	 * @param defaultValue - The value which will be returned if the source is
-	 *                     empty.
 	 *
 	 * @return The largest element in this {@link IntIterator} or the default value
 	 *         if the iteration is empty.

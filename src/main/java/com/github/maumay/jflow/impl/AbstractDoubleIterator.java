@@ -224,7 +224,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public <R> DoubleIterator adapt(DoubleIteratorAdapter adapter)
+	public DoubleIterator adapt(DoubleIteratorAdapter adapter)
 	{
 		return adapter.adapt(this);
 	}

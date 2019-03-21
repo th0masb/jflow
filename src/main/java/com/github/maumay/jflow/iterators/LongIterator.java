@@ -249,9 +249,6 @@ public interface LongIterator extends SafeLongIterator
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
 	 *
-	 * @param defaultValue - The value which will be returned if the source is
-	 *                     empty.
-	 *
 	 * @return the smallest element in this {@link LongIterator} or the default
 	 *         value if the iteration is empty.
 	 */
@@ -273,9 +270,6 @@ public interface LongIterator extends SafeLongIterator
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link LongIterator}.
-	 *
-	 * @param defaultValue - The value which will be returned if the source is
-	 *                     empty.
 	 *
 	 * @return The largest element in this {@link LongIterator} or the default value
 	 *         if the iteration is empty.

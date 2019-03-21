@@ -144,6 +144,23 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 */
 	<R> RichIterator<Tup<E, R>> zip(List<? extends R> other);
 
+	/**
+	 * Combines this {@link RichIterator} with another sequence to create a new
+	 * {@link RichIterator} consisting of pairs of elements with the same index in
+	 * their respective origins.
+	 *
+	 * @param       <R> The upper type bound on the parameter {@link RichIterator}.
+	 * @param other The {@link RichIterator} to zip this source {@link RichIterator}
+	 *              with.
+	 *
+	 * @return Denote this source {@link RichIterator} by {@code F} with the
+	 *         parameter {@link RichIterator} denoted by {@code I}. We return a new
+	 *         {@link RichIterator} instance {@code G} defined by:
+	 *         <ul>
+	 *         <li>{@code G[j] = (F[j], I[j])}</li>
+	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
+	 *         </ul>
+	 */
 	<R> RichIterator<Tup<E, R>> zip(Vec<? extends R> other);
 
 	/**
@@ -171,7 +188,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *         method returns a {@link RichIterator} {@code G} given by:
 	 *         <ul>
 	 *         <li>{@code G[i] = F(f(i))}</li>
-	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) &lt; length(F))} </code></li>
+	 *         <li><code> length(G) = supremum {i | f(i) &lt; length(F)} </code></li>
 	 *         </ul>
 	 */
 	RichIterator<E> slice(IntUnaryOperator indexMap);
@@ -461,9 +478,18 @@ public interface RichIterator<E> extends SafeIterator<E>
 	Vec<E> toVec();
 
 	/**
+	 * Converts this iterator into a single use {@link RichIterable}, i.e. it
+	 * 'lifts' this object into a supplier function returning this object.
+	 * 
+	 * @return An iterable which wraps this iterator.
+	 */
+	RichIterable<E> lift();
+
+	/**
 	 * Adapts this iterator via the given function to produce a new iterator and
 	 * remove the ability of this iterator to be used directly.
 	 * 
+	 * @param         <R> The element type of the adaption result.
 	 * @param adapter The function describing how a new iterator should be
 	 *                constructed from this iterator.
 	 * @return The new, adapted iterator which is sourced from this iterator.
@@ -474,7 +500,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Consumes this iterator using the supplied collection function to create a new
 	 * instance of the given type.
 	 * 
-	 * @param           <R> The type of the collection result..
+	 * @param           <R> The type of the collection result.
 	 * @param collector The collection function which is used to consume this
 	 *                  iterator.
 	 * @return The result of the collection function applied to this
@@ -625,6 +651,4 @@ public interface RichIterator<E> extends SafeIterator<E>
 	{
 		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
-
-	RichIterable<E> lift();
 }
