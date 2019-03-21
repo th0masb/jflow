@@ -7,8 +7,6 @@ import java.util.OptionalInt;
 import java.util.function.IntFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -20,7 +18,7 @@ public class IntMinMaxConsumption
 
 	public static OptionalInt findMinOption(AbstractIntIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int min = Integer.MAX_VALUE;
 		while (source.hasNext()) {
@@ -38,10 +36,11 @@ public class IntMinMaxConsumption
 	public static <C extends Comparable<C>> OptionalInt findMinOption(AbstractIntIterator source,
 			IntFunction<C> key)
 	{
+		source.relinquishOwnership();
 		int minKey = -1;
 		C minVal = null;
 		while (source.hasNext()) {
-			final int nextKey = source.nextInt();
+			final int nextKey = source.nextIntImpl();
 			final C nextVal = key.apply(nextKey);
 
 			if (minVal == null) {
@@ -57,7 +56,7 @@ public class IntMinMaxConsumption
 
 	public static int findMin(AbstractIntIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int min = Integer.MAX_VALUE;
 		while (source.hasNext()) {
@@ -78,7 +77,7 @@ public class IntMinMaxConsumption
 
 	public static OptionalInt findMinOption(AbstractIntIterator source, IntUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int minKey = -1;
 		int minVal = Integer.MAX_VALUE;
@@ -100,7 +99,7 @@ public class IntMinMaxConsumption
 
 	public static int findMin(AbstractIntIterator source, int defaultVal, IntUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int minKey = -1;
 		int minVal = Integer.MAX_VALUE;
@@ -122,7 +121,7 @@ public class IntMinMaxConsumption
 
 	public static OptionalInt findMaxOption(AbstractIntIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int max = Integer.MIN_VALUE;
 		while (source.hasNext()) {
@@ -139,7 +138,7 @@ public class IntMinMaxConsumption
 
 	public static int findMax(AbstractIntIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int max = Integer.MIN_VALUE;
 		while (source.hasNext()) {
@@ -160,7 +159,7 @@ public class IntMinMaxConsumption
 
 	public static OptionalInt findMaxOption(AbstractIntIterator source, IntUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int maxKey = -1;
 		int maxVal = Integer.MIN_VALUE;
@@ -183,10 +182,11 @@ public class IntMinMaxConsumption
 	public static <C extends Comparable<C>> OptionalInt findMaxOption(AbstractIntIterator source,
 			IntFunction<C> key)
 	{
+		source.relinquishOwnership();
 		int maxKey = -1;
 		C maxVal = null;
 		while (source.hasNext()) {
-			final int nextKey = source.nextInt();
+			final int nextKey = source.nextIntImpl();
 			final C nextVal = key.apply(nextKey);
 
 			if (maxVal == null) {
@@ -202,7 +202,7 @@ public class IntMinMaxConsumption
 
 	public static int findMax(AbstractIntIterator source, int defaultVal, IntUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		int maxKey = -1;
 		int maxVal = Integer.MIN_VALUE;

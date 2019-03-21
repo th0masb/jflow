@@ -143,9 +143,9 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public int min(int defaultValue)
+	public int min()
 	{
-		return IntMinMaxConsumption.findMin(this, defaultValue, n -> n);
+		return minOption().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
@@ -161,21 +161,15 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public int max(int defaultValue)
+	public int max()
 	{
-		return IntMinMaxConsumption.findMax(this, defaultValue, n -> n);
+		return maxOption().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
 	public <C extends Comparable<C>> OptionalInt maxByKey(IntFunction<C> key)
 	{
 		return IntMinMaxConsumption.findMaxOption(this, key);
-	}
-
-	@Override
-	public boolean areAllEqual()
-	{
-		return IntPredicateConsumption.allEqual(this);
 	}
 
 	@Override

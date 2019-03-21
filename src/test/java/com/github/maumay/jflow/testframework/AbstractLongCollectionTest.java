@@ -76,7 +76,7 @@ public abstract class AbstractLongCollectionTest<R> extends AbstractListBuilder
 		final List<Long> source;
 		final R expectedResult;
 
-		protected Case(List<Long> source, R expectedResult)
+		public Case(List<Long> source, R expectedResult)
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;

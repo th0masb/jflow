@@ -76,7 +76,7 @@ public abstract class AbstractIntCollectionTest<R> extends AbstractListBuilder
 		final List<Integer> source;
 		final R expectedResult;
 
-		protected Case(List<Integer> source, R expectedResult)
+		public Case(List<Integer> source, R expectedResult)
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;

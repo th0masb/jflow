@@ -211,12 +211,6 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	}
 
 	@Override
-	public boolean areAllEqual()
-	{
-		return ObjectPredicateConsumption.allEqual(this);
-	}
-
-	@Override
 	public boolean allMatch(Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.allMatch(this, predicate);

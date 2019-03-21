@@ -6,8 +6,6 @@ package com.github.maumay.jflow.impl;
 import java.util.OptionalLong;
 import java.util.function.LongUnaryOperator;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -19,7 +17,7 @@ public class LongMinMaxConsumption
 
 	public static OptionalLong findMinOption(AbstractLongIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long min = Long.MAX_VALUE;
 		while (source.hasNext()) {
@@ -36,7 +34,7 @@ public class LongMinMaxConsumption
 
 	public static long findMin(AbstractLongIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long min = Long.MAX_VALUE;
 		while (source.hasNext()) {
@@ -57,7 +55,7 @@ public class LongMinMaxConsumption
 
 	public static OptionalLong findMin(AbstractLongIterator source, LongUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long minKey = -1;
 		long minVal = Long.MAX_VALUE;
@@ -79,7 +77,7 @@ public class LongMinMaxConsumption
 
 	public static long findMin(AbstractLongIterator source, long defaultVal, LongUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long minKey = -1;
 		long minVal = Long.MAX_VALUE;
@@ -101,7 +99,7 @@ public class LongMinMaxConsumption
 
 	public static OptionalLong findMaxOption(AbstractLongIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long max = Long.MIN_VALUE;
 		while (source.hasNext()) {
@@ -118,7 +116,7 @@ public class LongMinMaxConsumption
 
 	public static long findMax(AbstractLongIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long max = Long.MIN_VALUE;
 		while (source.hasNext()) {
@@ -139,7 +137,7 @@ public class LongMinMaxConsumption
 
 	public static OptionalLong findMaxOption(AbstractLongIterator source, LongUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long maxKey = -1;
 		long maxVal = Long.MIN_VALUE;
@@ -161,7 +159,7 @@ public class LongMinMaxConsumption
 
 	public static long findMax(AbstractLongIterator source, long defaultVal, LongUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		long maxKey = -1;
 		long maxVal = Long.MIN_VALUE;

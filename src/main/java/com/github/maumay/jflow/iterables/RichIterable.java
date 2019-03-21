@@ -14,8 +14,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.github.maumay.jflow.iterators.RichIteratorCollector;
 import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterators.RichIteratorCollector;
 
 /**
  * Abstraction of iterable object which can construct enhanced iterators
@@ -101,17 +101,6 @@ public interface RichIterable<E> extends Iterable<E>
 	default E max(Comparator<? super E> orderingFunction)
 	{
 		return iter().max(orderingFunction);
-	}
-
-	/**
-	 * Calculates whether all elements in the iterator created by {@link #iter()}
-	 * are the same according to {@link Object#equals(Object)}.
-	 * 
-	 * @return True if all elements are equal, false otherwise.
-	 */
-	default boolean areAllEqual()
-	{
-		return iter().areAllEqual();
 	}
 
 	/**

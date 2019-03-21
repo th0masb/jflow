@@ -6,8 +6,6 @@ package com.github.maumay.jflow.impl;
 import java.util.OptionalDouble;
 import java.util.function.DoubleUnaryOperator;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -19,7 +17,7 @@ public class DoubleMinMaxConsumption
 
 	public static OptionalDouble findMinOption(AbstractDoubleIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double min = Double.POSITIVE_INFINITY;
 		while (source.hasNext()) {
@@ -36,7 +34,7 @@ public class DoubleMinMaxConsumption
 
 	public static double findMin(AbstractDoubleIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double min = Double.POSITIVE_INFINITY;
 		while (source.hasNext()) {
@@ -57,7 +55,7 @@ public class DoubleMinMaxConsumption
 
 	public static OptionalDouble findMin(AbstractDoubleIterator source, DoubleUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double minKey = -1;
 		double minVal = Double.POSITIVE_INFINITY;
@@ -80,7 +78,7 @@ public class DoubleMinMaxConsumption
 	public static double findMin(AbstractDoubleIterator source, double defaultVal,
 			DoubleUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double minKey = -1;
 		double minVal = Double.POSITIVE_INFINITY;
@@ -102,7 +100,7 @@ public class DoubleMinMaxConsumption
 
 	public static OptionalDouble findMaxOption(AbstractDoubleIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double max = Double.NEGATIVE_INFINITY;
 		while (source.hasNext()) {
@@ -119,7 +117,7 @@ public class DoubleMinMaxConsumption
 
 	public static double findMax(AbstractDoubleIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double max = Double.NEGATIVE_INFINITY;
 		while (source.hasNext()) {
@@ -141,7 +139,7 @@ public class DoubleMinMaxConsumption
 	public static OptionalDouble findMaxOption(AbstractDoubleIterator source,
 			DoubleUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double maxKey = -1;
 		double maxVal = Double.NEGATIVE_INFINITY;
@@ -164,7 +162,7 @@ public class DoubleMinMaxConsumption
 	public static double findMax(AbstractDoubleIterator source, double defaultVal,
 			DoubleUnaryOperator key)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean found = false;
 		double maxKey = -1;
 		double maxVal = Double.NEGATIVE_INFINITY;

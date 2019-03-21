@@ -361,17 +361,6 @@ public interface RichIterator<E> extends SafeIterator<E>
 	E max(Comparator<? super E> orderingFunction);
 
 	/**
-	 * Checks whether every element in this {@link RichIterator} is the same.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link RichIterator}.
-	 *
-	 * @return True is every element of this {@link RichIterator} is equal (under
-	 *         .equals contract), false otherwise.
-	 */
-	boolean areAllEqual();
-
-	/**
 	 * Checks whether every element in this {@link RichIterator} passes the supplied
 	 * predicate test. This method is a 'consuming method', i.e. it will iterate
 	 * through this {@link RichIterator}.

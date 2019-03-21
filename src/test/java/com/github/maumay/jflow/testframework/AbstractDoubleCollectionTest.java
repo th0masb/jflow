@@ -76,7 +76,7 @@ public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilde
 		final List<Double> source;
 		final R expectedResult;
 
-		protected Case(List<Double> source, R expectedResult)
+		public Case(List<Double> source, R expectedResult)
 		{
 			this.source = source;
 			this.expectedResult = expectedResult;

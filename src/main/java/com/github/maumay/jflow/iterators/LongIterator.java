@@ -52,8 +52,8 @@ public interface LongIterator extends SafeLongIterator
 	 *
 	 * @param   <E> The target type of the mapping function.
 	 * @param f A mapping function.
-	 * @return A new {@link RichIterator} instance whose elements are obtained
-	 *         by applying the parameter mapping function to each element of this
+	 * @return A new {@link RichIterator} instance whose elements are obtained by
+	 *         applying the parameter mapping function to each element of this
 	 *         {@link LongIterator} instance in turn.
 	 */
 	<E> RichIterator<E> mapToObject(LongFunction<? extends E> f);
@@ -213,8 +213,8 @@ public interface LongIterator extends SafeLongIterator
 	LongIterator append(long... other);
 
 	/**
-	 * Creates a new {@link LongIterator} from this {@link RichIterator} by
-	 * adding each element to the end of the supplied primitive iterator in order.
+	 * Creates a new {@link LongIterator} from this {@link RichIterator} by adding
+	 * each element to the end of the supplied primitive iterator in order.
 	 *
 	 * @param other A primitive iterator.
 	 * @return a {@link LongIterator} consisting of the elements of the parameter
@@ -224,43 +224,14 @@ public interface LongIterator extends SafeLongIterator
 	LongIterator insert(PrimitiveIterator.OfLong other);
 
 	/**
-	 * Creates a new {@link LongIterator} from this {@link RichIterator} by
-	 * adding each element to the end of the supplied varargs array in order.
+	 * Creates a new {@link LongIterator} from this {@link RichIterator} by adding
+	 * each element to the end of the supplied varargs array in order.
 	 *
 	 * @param other - A varargs long array
 	 * @return an {@link LongIterator} consisting of the elements in the parameter
 	 *         array followed by the elements of the source {@link LongIterator}.
 	 */
 	LongIterator insert(long... other);
-
-	// /**
-	// * Applies an accumulation operation to this {@link LongIterator} to produce a
-	// * new {@link LongIterator}.
-	// *
-	// * @param accumulator The accumulation function.
-	// * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
-	// * denote the accumulation function. Then the {@link LongIterator}
-	// * returned is of the form:
-	// * <ul>
-	// * <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
-	// * </ul>
-	// */
-	// LongIterator scan(LongBinaryOperator accumulator);
-	//
-	// /**
-	// * Applies an accumulation operation to this {@link LongIterator} to produce a
-	// * new {@link LongIterator}.
-	// *
-	// * @param id The identity element in the accumulation.
-	// * @param accumulator The accumulator function.
-	// * @return Let {@code F} denote this source {@link LongIterator} and {@code g}
-	// * denote the accumulation function. Then the {@link LongIterator}
-	// * returned is of the form:
-	// * <ul>
-	// * <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
-	// * </ul>
-	// */
-	// LongIterator scan(long id, LongBinaryOperator accumulator);
 
 	/**
 	 * Calculates the minimum value in this {@link LongIterator}.
@@ -285,7 +256,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return the smallest element in this {@link LongIterator} or the default
 	 *         value if the iteration is empty.
 	 */
-	long min(long defaultValue);
+	long min();
 
 	/**
 	 * Calculates the maximum value in this {@link LongIterator}.
@@ -310,18 +281,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return The largest element in this {@link LongIterator} or the default value
 	 *         if the iteration is empty.
 	 */
-	long max(long defaultValue);
-
-	/**
-	 * Checks whether every element in this {@link LongIterator} is the same.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link LongIterator}.
-	 *
-	 * @return True is every element of this {@link LongIterator} is equal, false
-	 *         otherwise.
-	 */
-	boolean areAllEqual();
+	long max();
 
 	/**
 	 * Checks whether every element in this {@link LongIterator} passes the supplied
@@ -513,8 +473,8 @@ public interface LongIterator extends SafeLongIterator
 	/**
 	 * Boxes the primitive long values in this {@link LongIterator}.
 	 *
-	 * @return a copy of this source {@link LongIterator} as a
-	 *         {@link RichIterator} of boxed {@linkplain Long} instances.
+	 * @return a copy of this source {@link LongIterator} as a {@link RichIterator}
+	 *         of boxed {@linkplain Long} instances.
 	 */
 	default RichIterator<Long> boxed()
 	{

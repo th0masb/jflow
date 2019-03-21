@@ -232,35 +232,6 @@ public interface IntIterator extends SafeIntIterator
 	 */
 	IntIterator insert(int... other);
 
-	// /**
-	// * Applies an accumulation operation to this {@link IntIterator} to produce a
-	// * new {@link IntIterator}.
-	// *
-	// * @param accumulator The accumulation function.
-	// * @return Let {@code F} denote this source {@link IntIterator} and {@code g}
-	// * denote the accumulation function. Then the {@link IntIterator}
-	// * returned is of the form:
-	// * <ul>
-	// * <li>{@code [F[0], g(F[0], F[1]), g(g(F[0], F[1]), F[2]), ... ]}</li>
-	// * </ul>
-	// */
-	// IntIterator scan(IntBinaryOperator accumulator);
-	//
-	// /**
-	// * Applies an accumulation operation to this {@link IntIterator} to produce a
-	// * new {@link IntIterator}.
-	// *
-	// * @param id The identity element in the accumulation.
-	// * @param accumulator The accumulator function.
-	// * @return Let {@code F} denote this source {@link IntIterator} and {@code g}
-	// * denote the accumulation function. Then the {@link IntIterator}
-	// * returned is of the form:
-	// * <ul>
-	// * <li>{@code [id, g(id, F[0]), g(g(id, F[0]), F[1]), ... ]}</li>
-	// * </ul>
-	// */
-	// IntIterator scan(int id, IntBinaryOperator accumulator);
-
 	/**
 	 * Calculates the minimum value in this {@link IntIterator}.
 	 *
@@ -284,7 +255,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return the smallest element in this {@link IntIterator} or the default value
 	 *         if the iteration is empty.
 	 */
-	int min(int defaultValue);
+	int min();
 
 	/**
 	 * Calculates the minimum element in this {@link IntIterator} by a mapping to a
@@ -326,7 +297,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return The largest element in this {@link IntIterator} or the default value
 	 *         if the iteration is empty.
 	 */
-	int max(int defaultValue);
+	int max();
 
 	/**
 	 * Calculates the maximum element in this {@link IntIterator} by a mapping to a
@@ -344,17 +315,6 @@ public interface IntIterator extends SafeIntIterator
 	 *         source is empty.
 	 */
 	<C extends Comparable<C>> OptionalInt maxByKey(IntFunction<C> key);
-
-	/**
-	 * Checks whether every element in this {@link IntIterator} is the same.
-	 *
-	 * This method is a 'consuming method', i.e. it will iterate through this
-	 * {@link IntIterator}.
-	 *
-	 * @return True is every element of this {@link IntIterator} is equal, false
-	 *         otherwise.
-	 */
-	boolean areAllEqual();
 
 	/**
 	 * Checks whether every element in this {@link IntIterator} passes the supplied

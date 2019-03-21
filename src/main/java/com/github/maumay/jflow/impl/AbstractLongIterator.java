@@ -146,9 +146,9 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public long min(long defaultValue)
+	public long min()
 	{
-		return LongMinMaxConsumption.findMin(this, defaultValue, n -> n);
+		return minOption().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
@@ -158,15 +158,9 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public long max(long defaultValue)
+	public long max()
 	{
-		return LongMinMaxConsumption.findMax(this, defaultValue, n -> n);
-	}
-
-	@Override
-	public boolean areAllEqual()
-	{
-		return LongPredicateConsumption.allEqual(this);
+		return maxOption().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
