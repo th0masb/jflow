@@ -29,7 +29,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
 /**

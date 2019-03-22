@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.factories;
+package com.github.maumay.jflow.iterators.api;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.IntFunction;

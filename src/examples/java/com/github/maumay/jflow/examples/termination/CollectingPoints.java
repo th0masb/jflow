@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport;
 import com.github.maumay.jflow.examples.termination.Geometry.Bounds;
 import com.github.maumay.jflow.examples.termination.Geometry.Point;
 import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
 /**

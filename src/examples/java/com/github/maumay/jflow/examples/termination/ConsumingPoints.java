@@ -7,7 +7,7 @@ import static com.github.maumay.jflow.vec.Vec.vec;
 
 import com.github.maumay.jflow.examples.termination.Geometry.Point;
 import com.github.maumay.jflow.iterators.RichIteratorConsumer;
-import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
 import javafx.scene.canvas.GraphicsContext;

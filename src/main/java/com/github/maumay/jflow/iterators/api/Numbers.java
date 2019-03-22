@@ -1,4 +1,4 @@
-package com.github.maumay.jflow.iterators.factories;
+package com.github.maumay.jflow.iterators.api;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.InfiniteSize;

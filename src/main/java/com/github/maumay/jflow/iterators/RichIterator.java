@@ -23,7 +23,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterables.RichIterable;
-import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 

@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.github.maumay.jflow.impl.ArrayAccumulators;
 import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.api.Iter;
 
 /**
  * @author ThomasB

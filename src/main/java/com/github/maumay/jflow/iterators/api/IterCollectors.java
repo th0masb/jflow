@@ -1,15 +1,17 @@
 /**
  * 
  */
-package com.github.maumay.jflow.impl;
+package com.github.maumay.jflow.iterators.api;
 
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Function;
 
+import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.iterators.DoubleIteratorCollector;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
-import com.github.maumay.jflow.iterators.factories.Iter;
 import com.github.maumay.jflow.utils.Exceptions;
 
 /**
@@ -20,6 +22,32 @@ public class IterCollectors
 {
 	private IterCollectors()
 	{
+	}
+
+	public static DoubleIteratorCollector<Double> average()
+	{
+		return AVERAGE;
+	}
+
+	private static final DoubleIteratorCollector<Double> AVERAGE = iter -> {
+		iter.relinquishOwnership();
+		if (iter.hasNext()) {
+			double sum = 0;
+			long count = 0;
+			do {
+				sum += iter.nextDoubleImpl();
+				count++;
+			} while (iter.hasNext());
+			return sum / count;
+		} else {
+			throw new NoSuchElementException();
+		}
+	};
+
+	public static <K extends Enum<K>, R> EnumMapCollector<K, R> toEnumMap(
+			Function<? super K, ? extends R> f)
+	{
+		return new EnumMapCollector<K, R>(f);
 	}
 
 	/**

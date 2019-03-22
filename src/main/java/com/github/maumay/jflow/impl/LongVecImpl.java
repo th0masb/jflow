@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.stream.LongStream;
 
 import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.factories.Iter;
+import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.vec.LongVec;
 
 /**

@@ -41,7 +41,7 @@ public abstract class AbstractIterator implements Skippable
 		return hasOwnership;
 	}
 
-	final void relinquishOwnership()
+	public final void relinquishOwnership()
 	{
 		// Can't relinquish ownership twice!
 		if (hasOwnership) {
