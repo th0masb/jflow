@@ -3,9 +3,16 @@
  */
 package com.github.maumay.jflow.examples.termination;
 
+import java.util.List;
+
+import com.github.maumay.jflow.vec.Vec;
+
 /**
- * Problem: I would like to be able to take a sequence of points and compute the
- * minimal bounding box surrounding them.
+ * Problem A: I would like to be able to take a sequence of points and compute
+ * the minimal bounding box surrounding them.
+ * 
+ * Problem B: I would like to be able to take a sequence of points and join the
+ * consecutive points together to make lines.
  * 
  * @author thomasb
  */
@@ -49,5 +56,66 @@ public class Geometry
 			this.width = width;
 			this.height = height;
 		}
+	}
+
+	static Bounds calculateBoundingBox(Iterable<Point> points)
+	{
+		throw new RuntimeException();
+	}
+
+	static List<Line> calculateConnectingLines(Iterable<Point> points)
+	{
+		throw new RuntimeException();
+	}
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+
+	@SuppressWarnings("unused")
+	public static void main(String[] args)
+	{
+		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 1));
+
+		// With our stream version
+		Bounds withStream = points.stream().map(p -> p.translate(0, 1))
+				.collect(CollectingPoints.pointsCollector());
+
+		//
+		//
+		//
+
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		// With our iterator version
+		Bounds withIterator = points.iter().map(p -> p.translate(0, 1))
+				.collect(CollectingPoints::fromIterator);
+
+		// withIterator.equals(withStream)
+		System.out.println("done");
 	}
 }

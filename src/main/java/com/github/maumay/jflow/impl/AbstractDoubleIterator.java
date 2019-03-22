@@ -98,15 +98,15 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public AbstractDoubleIterator skip(int n)
+	public AbstractDoubleIterator drop(int n)
 	{
-		return new SkipAdapter.OfDouble(this, n);
+		return new DropAdapter.OfDouble(this, n);
 	}
 
 	@Override
-	public AbstractDoubleIterator skipWhile(DoublePredicate predicate)
+	public AbstractDoubleIterator dropWhile(DoublePredicate predicate)
 	{
-		return new SkipwhileAdapter.OfDouble(this, predicate);
+		return new DropwhileAdapter.OfDouble(this, predicate);
 	}
 
 	@Override

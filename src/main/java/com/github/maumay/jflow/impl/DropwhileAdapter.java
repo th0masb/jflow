@@ -13,9 +13,9 @@ import java.util.function.Predicate;
  * @author thomasb
  *
  */
-public class SkipwhileAdapter
+public class DropwhileAdapter
 {
-	private SkipwhileAdapter()
+	private DropwhileAdapter()
 	{
 	}
 

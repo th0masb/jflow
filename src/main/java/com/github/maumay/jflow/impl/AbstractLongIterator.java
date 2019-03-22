@@ -97,15 +97,15 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public AbstractLongIterator skip(int n)
+	public AbstractLongIterator drop(int n)
 	{
-		return new SkipAdapter.OfLong(this, n);
+		return new DropAdapter.OfLong(this, n);
 	}
 
 	@Override
-	public AbstractLongIterator skipWhile(LongPredicate predicate)
+	public AbstractLongIterator dropWhile(LongPredicate predicate)
 	{
-		return new SkipwhileAdapter.OfLong(this, predicate);
+		return new DropwhileAdapter.OfLong(this, predicate);
 	}
 
 	@Override

@@ -163,7 +163,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         {@link DoubleIterator} missing the first {@code min(n, length(F))}
 	 *         elements of {@code F}.
 	 */
-	DoubleIterator skip(int n);
+	DoubleIterator drop(int n);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
@@ -177,7 +177,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         {@link DoubleIterator}. If no element fails the predicate test then a
 	 *         copy of the source is returned.
 	 */
-	DoubleIterator skipWhile(DoublePredicate predicate);
+	DoubleIterator dropWhile(DoublePredicate predicate);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by

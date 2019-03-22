@@ -94,15 +94,15 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public AbstractIntIterator skip(int n)
+	public AbstractIntIterator drop(int n)
 	{
-		return new SkipAdapter.OfInt(this, n);
+		return new DropAdapter.OfInt(this, n);
 	}
 
 	@Override
-	public AbstractIntIterator skipWhile(IntPredicate predicate)
+	public AbstractIntIterator dropWhile(IntPredicate predicate)
 	{
-		return new SkipwhileAdapter.OfInt(this, predicate);
+		return new DropwhileAdapter.OfInt(this, predicate);
 	}
 
 	@Override

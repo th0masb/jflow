@@ -120,15 +120,15 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	}
 
 	@Override
-	public AbstractRichIterator<E> skip(int n)
+	public AbstractRichIterator<E> drop(int n)
 	{
-		return new SkipAdapter.OfObject<>(this, n);
+		return new DropAdapter.OfObject<>(this, n);
 	}
 
 	@Override
-	public AbstractRichIterator<E> skipWhile(Predicate<? super E> predicate)
+	public AbstractRichIterator<E> dropWhile(Predicate<? super E> predicate)
 	{
-		return new SkipwhileAdapter.OfObject<>(this, predicate);
+		return new DropwhileAdapter.OfObject<>(this, predicate);
 	}
 
 	@Override

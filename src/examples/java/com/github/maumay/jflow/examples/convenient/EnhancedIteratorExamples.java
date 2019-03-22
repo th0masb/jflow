@@ -65,10 +65,10 @@ public class EnhancedIteratorExamples
 		// *****************************************************************************************
 		// Take, skip
 		assert strings.iter().take(1).toVec().equals(vec("a"));
-		assert strings.iter().skip(1).toVec().equals(vec("b"));
+		assert strings.iter().drop(1).toVec().equals(vec("b"));
 
 		assert strings.iter().takeWhile(s -> s.equals("a")).toVec().equals(vec("a"));
-		assert strings.iter().skipWhile(s -> s.equals("a")).toVec().equals(vec("b"));
+		assert strings.iter().dropWhile(s -> s.equals("a")).toVec().equals(vec("b"));
 
 		// *****************************************************************************************
 		// Predicate matching (these are terminal methods triggering the consumption of

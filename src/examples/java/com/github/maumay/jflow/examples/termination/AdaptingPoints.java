@@ -13,6 +13,10 @@ import com.github.maumay.jflow.vec.Vec;
  */
 public final class AdaptingPoints
 {
+	/**
+	 * Lazily connects an iterator of points with lines connecting consecutive
+	 * points.
+	 */
 	static class PointFoldIterator
 			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<? extends Point>, Line>
 	{
@@ -50,6 +54,6 @@ public final class AdaptingPoints
 	{
 		Vec<Point> points = Vec.of(new Point(1, 0), new Point(3, 6));
 
-		points.iter().adapt(iter -> new PointFoldIterator(iter));
+		points.iter().adapt(PointFoldIterator::new);
 	}
 }
