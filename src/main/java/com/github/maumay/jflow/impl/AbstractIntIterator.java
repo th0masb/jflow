@@ -1,5 +1,6 @@
 package com.github.maumay.jflow.impl;
 
+import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
@@ -12,11 +13,13 @@ import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.utils.IntTup;
 
 /**
- * A skeletal implementation of a IntFlow, users writing custom IntFlows should
- * subclass this class.
- *
+ * Abstract supertype of all {@link IntIterator} implementations. Users should
+ * only subclass this class directly if they are creating a custom source
+ * iterator, i.e. one that is not built from another iterator (an adapter). For
+ * implementing custom adapters see {@link AbstractIteratorAdapter},
+ * {@link AbstractIteratorBiAdapters}.
+ * 
  * @author ThomasB
- * @since 23 Apr 2018
  */
 public abstract class AbstractIntIterator extends AbstractIterator implements IntIterator
 {
@@ -36,6 +39,15 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 		}
 	}
 
+	/**
+	 * Implementation logic for the {@link #nextInt()} method. This method does not
+	 * check the ownership flag of this iterator when it is called. Implementors of
+	 * custom adapters should call this method on the previous iterator. This method
+	 * should throw a {@link NoSuchElementException} if there are no further
+	 * elements to traverse.
+	 * 
+	 * @return The next element traversed by this iterator.
+	 */
 	public abstract int nextIntImpl();
 
 	// IntIterator API

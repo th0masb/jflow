@@ -31,12 +31,12 @@ public final class ConsumingPoints
 				Point first = iter.next();
 				gc.moveTo(first.x, first.y);
 			}
-			while (iter.hasNext()) {
-				Point next = iter.next();
+			for (Point next : iter.lift()) {
 				gc.lineTo(next.x, next.y);
 			}
 			gc.closePath();
 			gc.fill();
+			iter.relinquishOwnership();
 		};
 	}
 
@@ -48,7 +48,6 @@ public final class ConsumingPoints
 		points.iter().map(p -> p.translate(0, 1)).consume(drawPolygon(gc));
 
 		drawPolygon(gc, points);
-		drawPolygon(gc, points.toList());
 		// etc etc
 	}
 }

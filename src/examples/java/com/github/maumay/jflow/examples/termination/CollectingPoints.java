@@ -3,12 +3,12 @@
  */
 package com.github.maumay.jflow.examples.termination;
 
-import static com.github.maumay.jflow.utils.Exceptions.require;
 import static com.github.maumay.jflow.vec.Vec.vec;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
 
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -19,8 +19,9 @@ import java.util.stream.StreamSupport;
 
 import com.github.maumay.jflow.examples.termination.Geometry.Bounds;
 import com.github.maumay.jflow.examples.termination.Geometry.Point;
-import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterators.RichIteratorCollector;
 import com.github.maumay.jflow.iterators.api.Iter;
+import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
@@ -29,12 +30,13 @@ import com.github.maumay.jflow.vec.Vec;
 public final class CollectingPoints
 {
 	// Stream version
-	static PointsToBoundsCollector pointsCollector()
+	static PointsToBoundsCollector fromStream()
 	{
 		return new PointsToBoundsCollector();
 	}
 
-	static class PointsToBoundsCollector implements Collector<Point, CollectionContainer, Bounds>
+	static class PointsToBoundsCollector
+			implements Collector<Point, CollectionContainer, Optional<Bounds>>
 	{
 		@Override
 		public BiConsumer<CollectionContainer, Point> accumulator()
@@ -55,7 +57,7 @@ public final class CollectingPoints
 		}
 
 		@Override
-		public Function<CollectionContainer, Bounds> finisher()
+		public Function<CollectionContainer, Optional<Bounds>> finisher()
 		{
 			return CollectionContainer::finish;
 		}
@@ -72,7 +74,7 @@ public final class CollectingPoints
 		private double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 		private double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
 
-		void accumulate(Geometry.Point other)
+		void accumulate(Point other)
 		{
 			minx = Math.min(minx, other.x);
 			maxx = Math.max(maxx, other.x);
@@ -90,42 +92,54 @@ public final class CollectingPoints
 			return result;
 		}
 
-		Bounds finish()
+		Optional<Bounds> finish()
 		{
-			require(Double.isFinite(minx));
-			double width = maxx - minx, height = maxy - miny;
-			require(width >= 0 && height >= 0);
-			return new Geometry.Bounds(minx, miny, width, height);
+			if (Double.isInfinite(minx)) {
+				return Option.empty();
+			} else {
+				return Option.of(new Bounds(minx, miny, maxx - minx, maxy - miny));
+			}
 		}
 	}
 
 	// Iterator version
-	public static Bounds fromIterator(RichIterator<? extends Point> source)
+	public static RichIteratorCollector<Point, Optional<Bounds>> fromIterator()
 	{
-		require(source.hasNext());
-		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
-		double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
+		return source -> {
+			double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
+			double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;
+			/*
+			 * Can lift the iterator to a single use iterable so it can be used with the
+			 * enhanced for loop construct.
+			 */
+			for (Point p : source.lift()) {
+				minx = Math.min(minx, p.x);
+				maxx = Math.max(maxx, p.x);
+				miny = Math.min(miny, p.y);
+				maxy = Math.max(maxy, p.y);
+			}
 
-		for (Point p : source.lift()) {
-			minx = Math.min(minx, p.x);
-			maxx = Math.max(maxx, p.x);
-			miny = Math.min(miny, p.y);
-			maxy = Math.max(maxy, p.y);
-		}
-		double width = maxx - minx;
-		double height = maxy - miny;
-		require(width >= 0 && height >= 0);
-		return new Bounds(minx, miny, width, height);
+			/*
+			 * Good practice to make the input iterator relinquish ownership so it can't
+			 * be used again once it is consumed.
+			 */
+			source.relinquishOwnership();
+			if (Double.isInfinite(minx)) {
+				return Option.empty();
+			} else {
+				return Option.of(new Bounds(minx, miny, maxx - minx, maxy - miny));
+			}
+		};
 	}
 
-	public static Bounds fromIterable(Iterable<? extends Point> source)
+	public static Optional<Bounds> fromIterable(Iterable<? extends Point> source)
 	{
-		return fromIterator(Iter.wrap(source.iterator()));
+		return Iter.wrap(source.iterator()).collect(fromIterator());
 	}
 
-	static Bounds fromIterable2(Iterable<? extends Point> source)
+	static Optional<Bounds> fromIterable2(Iterable<? extends Point> source)
 	{
-		return StreamSupport.stream(source.spliterator(), false).collect(pointsCollector());
+		return StreamSupport.stream(source.spliterator(), false).collect(fromStream());
 	}
 
 	@SuppressWarnings("unused")
@@ -134,12 +148,12 @@ public final class CollectingPoints
 		Vec<Point> points = vec(new Point(0, 0), new Point(1, 1));
 
 		// With our iterator version
-		Bounds withIterator = points.iter().map(p -> p.translate(0, 1))
-				.collect(CollectingPoints::fromIterator);
+		Optional<Bounds> withIterator = points.iter().map(p -> p.translate(0, 1))
+				.collect(CollectingPoints.fromIterator());
 
 		// With our stream version
-		Bounds withStream = points.stream().map(p -> p.translate(0, 1))
-				.collect(CollectingPoints.pointsCollector());
+		Optional<Bounds> withStream = points.stream().map(p -> p.translate(0, 1))
+				.collect(CollectingPoints.fromStream());
 
 		// withIterator.equals(withStream)
 		System.out.println("done");

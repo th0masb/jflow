@@ -6,8 +6,9 @@ package com.github.maumay.jflow.impl;
 import java.util.Objects;
 
 /**
+ * Represents the four different possible states of the size of an iterator.
+ * 
  * @author thomasb
- *
  */
 public enum SizeType
 {
@@ -23,15 +24,4 @@ public enum SizeType
 	{
 		this.associatedClass = Objects.requireNonNull(associatedClass);
 	}
-
-	public boolean isKnown()
-	{
-		return this == EXACT;
-	}
-
-	public boolean isUnknown()
-	{
-		return !isKnown();
-	}
-
 }

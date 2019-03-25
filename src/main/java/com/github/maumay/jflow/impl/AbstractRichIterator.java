@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
@@ -30,14 +31,18 @@ import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
- * A skeletal implementation of a Flow, users writing custom Flows should
- * subclass this class.
- *
- * @param <E> The type of elements produced by this Flow.
+ * Abstract supertype of all {@link RichIterator} implementations. Users should
+ * only subclass this class directly if they are creating a custom source
+ * iterator, i.e. one that is not built from another iterator (an adapter). For
+ * implementing custom adapters see {@link AbstractIteratorAdapter},
+ * {@link AbstractIteratorBiAdapters}.
+ * 
+ * @param <E> The type of elements traversed by this iterator.
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator
+		implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -55,6 +60,15 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 		}
 	}
 
+	/**
+	 * Implementation logic for the {@link #next()} method. This method does not
+	 * check the ownership flag of this iterator when it is called. Implementors of
+	 * custom adapters should call this method on the previous iterator. This method
+	 * should throw a {@link NoSuchElementException} if there are no further
+	 * elements to traverse.
+	 * 
+	 * @return The next element traversed by this iterator.
+	 */
 	public abstract E nextImpl();
 
 	// EnhancedIterator API

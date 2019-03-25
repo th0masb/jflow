@@ -4,6 +4,7 @@
 package com.github.maumay.jflow.examples.termination;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.github.maumay.jflow.vec.Vec;
 
@@ -97,8 +98,8 @@ public class Geometry
 		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 1));
 
 		// With our stream version
-		Bounds withStream = points.stream().map(p -> p.translate(0, 1))
-				.collect(CollectingPoints.pointsCollector());
+		Optional<Bounds> withStream = points.stream().map(p -> p.translate(0, 1))
+				.collect(CollectingPoints.fromStream());
 
 		//
 		//
@@ -112,8 +113,8 @@ public class Geometry
 		//
 		//
 		// With our iterator version
-		Bounds withIterator = points.iter().map(p -> p.translate(0, 1))
-				.collect(CollectingPoints::fromIterator);
+		Optional<Bounds> withIterator = points.iter().map(p -> p.translate(0, 1))
+				.collect(CollectingPoints.fromIterator());
 
 		// withIterator.equals(withStream)
 		System.out.println("done");

@@ -3,6 +3,7 @@
  */
 package com.github.maumay.jflow.impl;
 
+import java.util.NoSuchElementException;
 import java.util.OptionalLong;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
@@ -16,12 +17,16 @@ import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.utils.LongTup;
 
 /**
- * A skeletal implementation of a LongFlow, users writing custom LongFlows
- * should subclass this class.
- *
+ * Abstract supertype of all {@link LongIterator} implementations. Users should
+ * only subclass this class directly if they are creating a custom source
+ * iterator, i.e. one that is not built from another iterator (an adapter). For
+ * implementing custom adapters see {@link AbstractIteratorAdapter},
+ * {@link AbstractIteratorBiAdapters}.
+ * 
  * @author ThomasB
  */
-public abstract class AbstractLongIterator extends AbstractIterator implements LongIterator
+public abstract class AbstractLongIterator extends AbstractIterator
+		implements LongIterator
 {
 	public AbstractLongIterator(AbstractIteratorSize size)
 	{
@@ -39,6 +44,15 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 		}
 	}
 
+	/**
+	 * Implementation logic for the {@link #nextLong()} method. This method does not
+	 * check the ownership flag of this iterator when it is called. Implementors of
+	 * custom adapters should call this method on the previous iterator. This method
+	 * should throw a {@link NoSuchElementException} if there are no further
+	 * elements to traverse.
+	 * 
+	 * @return The next element traversed by this iterator.
+	 */
 	public abstract long nextLongImpl();
 
 	// LongIterator API

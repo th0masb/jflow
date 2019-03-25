@@ -34,12 +34,6 @@ public final class InfiniteSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public boolean isSingleton()
-	{
-		return true;
-	}
-
-	@Override
 	AbstractIteratorSize addImpl(int value)
 	{
 		return this;

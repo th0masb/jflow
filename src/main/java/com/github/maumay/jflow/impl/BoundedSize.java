@@ -63,7 +63,8 @@ public final class BoundedSize extends AbstractIteratorSize
 	@Override
 	AbstractIteratorSize minImpl(int value)
 	{
-		return lo >= value ? new KnownSize(value) : new BoundedSize(lo, Math.min(hi, value));
+		return lo >= value ? new KnownSize(value)
+				: new BoundedSize(lo, Math.min(hi, value));
 	}
 
 	@Override
@@ -99,15 +100,9 @@ public final class BoundedSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public boolean isSingleton()
-	{
-		return false;
-	}
-
-	@Override
 	public String toString()
 	{
-		return new StringBuilder("BOUNDED(").append(lo).append(", ").append(hi).append(")")
-				.toString();
+		return new StringBuilder("BOUNDED(").append(lo).append(", ").append(hi)
+				.append(")").toString();
 	}
 }
