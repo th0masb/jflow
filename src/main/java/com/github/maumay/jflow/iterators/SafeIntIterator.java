@@ -19,7 +19,7 @@ public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// , 
 	 *
 	 * @return An OptionalInt wrapping the next element if there is one.
 	 */
-	default OptionalInt safeNextInt()
+	default OptionalInt nextIntOp()
 	{
 		return hasNext() ? OptionalInt.of(nextInt()) : OptionalInt.empty();
 	}

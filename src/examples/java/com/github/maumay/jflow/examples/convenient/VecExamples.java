@@ -75,9 +75,9 @@ public class VecExamples
 
 		// *****************************************************************************************
 		// Safe indexing
-		assert ints.headOption().get().equals(1);
-		assert ints.lastOption().get().equals(3);
-		assert !ints.getOption(6).isPresent();
+		assert ints.headOp().get().equals(1);
+		assert ints.lastOp().get().equals(3);
+		assert !ints.getOp(6).isPresent();
 
 		// *****************************************************************************************
 		// Unsafe indexing

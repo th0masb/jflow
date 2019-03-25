@@ -47,8 +47,8 @@ assert ints.find(n -> n > 3).equals(Optional.empty());
 // Min/max
 
 // Safe versions (returns nothing if vector is empty)
-assert ints.minOption(Comparator.naturalOrder()).equals(Optional.of(1));
-assert ints.maxOption(Comparator.naturalOrder()).equals(Optional.of(3));
+assert ints.minOp(Comparator.naturalOrder()).equals(Optional.of(1));
+assert ints.maxOp(Comparator.naturalOrder()).equals(Optional.of(3));
 
 // Unsafe versions (throws exception if the vector is empty)
 assert ints.min(Comparator.naturalOrder()).equals(1);
@@ -56,9 +56,9 @@ assert ints.max(Comparator.naturalOrder()).equals(3);
 
 // *****************************************************************************************
 // Safe indexing
-assert ints.headOption().get().equals(1);
-assert ints.lastOption().get().equals(3);
-assert !ints.getOption(6).isPresent();
+assert ints.headOp().get().equals(1);
+assert ints.lastOp().get().equals(3);
+assert !ints.getOp(6).isPresent();
 
 // *****************************************************************************************
 // Unsafe indexing

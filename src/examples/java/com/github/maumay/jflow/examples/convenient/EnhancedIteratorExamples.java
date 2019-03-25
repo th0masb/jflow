@@ -81,9 +81,9 @@ public class EnhancedIteratorExamples
 		// Fine grained control over consuming an iterator
 		RichIterator<String> iter = strings.iter();
 		assert iter.next().equals("a");
-		assert iter.nextOption().equals(Option.of("b"));
+		assert iter.nextOp().equals(Option.of("b"));
 		assert !iter.hasNext();
-		assert iter.nextOption().equals(Option.empty());
+		assert iter.nextOp().equals(Option.empty());
 		try {
 			System.out.println(iter.next());
 		} catch (NoSuchElementException ex) {

@@ -19,7 +19,7 @@ public interface SafeDoubleIterator extends OfDouble, Skippable// , OptionallySi
 	 *
 	 * @return An OptionalDouble wrapping the next element if there is one.
 	 */
-	default OptionalDouble safeNextDouble()
+	default OptionalDouble nextDoubleOp()
 	{
 		return hasNext() ? OptionalDouble.of(nextDouble()) : OptionalDouble.empty();
 	}

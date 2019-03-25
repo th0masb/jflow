@@ -50,7 +50,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 */
 	default Optional<E> find(Predicate<? super E> predicate)
 	{
-		return iter().filter(predicate).nextOption();
+		return iter().filter(predicate).nextOp();
 	}
 
 	/**

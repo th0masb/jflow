@@ -19,7 +19,7 @@ public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// 
 	 *
 	 * @return An OptionalLong wrapping the next element if there is one.
 	 */
-	default OptionalLong safeNextLong()
+	default OptionalLong nextLongOp()
 	{
 		return hasNext() ? OptionalLong.of(nextLong()) : OptionalLong.empty();
 	}

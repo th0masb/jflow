@@ -19,7 +19,7 @@ public interface SafeIterator<E> extends Iterator<E>, Skippable// , OptionallySi
 	 *
 	 * @return An Optional wrapping the next element if there is one.
 	 */
-	default Optional<E> nextOption()
+	default Optional<E> nextOp()
 	{
 		return hasNext() ? Optional.of(next()) : Optional.empty();
 	}

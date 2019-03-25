@@ -262,7 +262,7 @@ public final class Strings
 	 */
 	public static Optional<String> firstMatch(String source, Pattern pattern)
 	{
-		return allMatches(source, pattern).nextOption();
+		return allMatches(source, pattern).nextOp();
 	}
 
 	/**
