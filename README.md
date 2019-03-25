@@ -24,7 +24,7 @@ The rest of this file along will provide more detail and justification for the p
 Learning by example is always a useful method, below are some links to files which demonstrate some of the functionality on offer. If you are already familiar with the stream api then most of it should be fairly self explanatory. These files are intended to be read in the listed order.
 
  - [Vec](docs/Vec-examples.md)
- - [RichIterator](docs/EnhancedIterator-examples.md)
+ - [RichIterator](docs/RichIterator-examples.md)
  - [Iter](docs/Iter-examples.md)
 
 While these files don't demonstrate everything they contain the most useful functionality and allow you to start using the library straight away.
