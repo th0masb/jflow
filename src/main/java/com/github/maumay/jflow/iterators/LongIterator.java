@@ -241,7 +241,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return an {@link OptionalLong} wrapping the smallest element in this
 	 *         {@link LongIterator} or nothing if the iteration is empty.
 	 */
-	OptionalLong minOption();
+	OptionalLong minOp();
 
 	/**
 	 * Calculates the minimum value in this {@link LongIterator}.
@@ -263,7 +263,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return an {@link OptionalLong} wrapping the largest element in this
 	 *         {@link LongIterator} or nothing if the iteration is empty.
 	 */
-	OptionalLong maxOption();
+	OptionalLong maxOp();
 
 	/**
 	 * Calculates the maximum value in this {@link LongIterator}.
@@ -362,7 +362,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
-	OptionalLong foldOption(LongBinaryOperator reducer);
+	OptionalLong foldOp(LongBinaryOperator reducer);
 
 	/**
 	 * Counts the number of elements in this {@link LongIterator}.

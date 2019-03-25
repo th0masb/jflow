@@ -18,7 +18,7 @@ public final class LongMaxOptionTest extends AbstractLongCollectionTest<Optional
 	@Override
 	protected Collector<OptionalLong> getCollectorToTest()
 	{
-		return iter -> iter.maxOption();
+		return iter -> iter.maxOp();
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public final class IntMaxOptionTest extends AbstractIntCollectionTest<OptionalIn
 	@Override
 	protected Collector<OptionalInt> getCollectorToTest()
 	{
-		return iter -> iter.maxOption();
+		return iter -> iter.maxOp();
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public final class DoubleMinOptionTest extends AbstractDoubleCollectionTest<Opti
 	@Override
 	protected Collector<OptionalDouble> getCollectorToTest()
 	{
-		return iter -> iter.minOption();
+		return iter -> iter.minOp();
 	}
 
 	@Override

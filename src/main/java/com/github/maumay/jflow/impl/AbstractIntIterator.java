@@ -148,7 +148,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public OptionalInt minOption()
+	public OptionalInt minOp()
 	{
 		return IntMinMaxConsumption.findMinOption(this);
 	}
@@ -156,7 +156,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public int min()
 	{
-		return minOption().orElseThrow(IllegalStateException::new);
+		return minOp().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public OptionalInt maxOption()
+	public OptionalInt maxOp()
 	{
 		return IntMinMaxConsumption.findMaxOption(this);
 	}
@@ -174,7 +174,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public int max()
 	{
-		return maxOption().orElseThrow(IllegalStateException::new);
+		return maxOp().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
@@ -220,7 +220,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public OptionalInt foldOption(IntBinaryOperator reducer)
+	public OptionalInt foldOp(IntBinaryOperator reducer)
 	{
 		return IntReductionConsumption.foldOption(this, reducer);
 	}

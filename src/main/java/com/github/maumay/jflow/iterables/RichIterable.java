@@ -58,11 +58,11 @@ public interface RichIterable<E> extends Iterable<E>
 	 * according to the given comparator.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link RichIterator#minOption(Comparator)}.
+	 * @return see {@link RichIterator#minOp(Comparator)}.
 	 */
 	default Optional<E> minOption(Comparator<? super E> orderingFunction)
 	{
-		return iter().minOption(orderingFunction);
+		return iter().minOp(orderingFunction);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * empty.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link RichIterator#minOption(Comparator)}.
+	 * @return see {@link RichIterator#minOp(Comparator)}.
 	 */
 	default E min(Comparator<? super E> orderingFunction)
 	{
@@ -83,11 +83,11 @@ public interface RichIterable<E> extends Iterable<E>
 	 * {@link #iter()} according to the given comparator.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link RichIterator#maxOption(Comparator)}.
+	 * @return see {@link RichIterator#maxOp(Comparator)}.
 	 */
 	default Optional<E> maxOption(Comparator<? super E> orderingFunction)
 	{
-		return iter().maxOption(orderingFunction);
+		return iter().maxOp(orderingFunction);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * empty.
 	 * 
 	 * @param orderingFunction the complete ordering of this element type.
-	 * @return see {@link RichIterator#maxOption(Comparator)}.
+	 * @return see {@link RichIterator#maxOp(Comparator)}.
 	 */
 	default E max(Comparator<? super E> orderingFunction)
 	{
@@ -181,11 +181,11 @@ public interface RichIterable<E> extends Iterable<E>
 	 * 
 	 * @param reducer The reduction operator governing how two values are combined
 	 *                into one.
-	 * @return see {@link RichIterator#foldOption(BinaryOperator)}
+	 * @return see {@link RichIterator#foldOp(BinaryOperator)}
 	 */
 	default Optional<E> foldOption(BinaryOperator<E> reducer)
 	{
-		return iter().foldOption(reducer);
+		return iter().foldOp(reducer);
 	}
 
 	/**

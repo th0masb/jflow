@@ -257,7 +257,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @return an OptionalDouble wrapping the smallest element in this
 	 *         {@link DoubleIterator} or nothing if the iteration is empty.
 	 */
-	OptionalDouble minOption();
+	OptionalDouble minOp();
 
 	/**
 	 * Calculates the minimum value in this {@link DoubleIterator}, throws an
@@ -279,7 +279,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @return an OptionalDouble wrapping the largest element in this
 	 *         {@link DoubleIterator} or nothing if the iteration is empty.
 	 */
-	OptionalDouble maxOption();
+	OptionalDouble maxOp();
 
 	/**
 	 * Calculates the maximum value in this {@link DoubleIterator}, throws an
@@ -389,7 +389,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
-	OptionalDouble foldOption(DoubleBinaryOperator reducer);
+	OptionalDouble foldOp(DoubleBinaryOperator reducer);
 
 	/**
 	 * Counts the number of elements in this {@link DoubleIterator}.

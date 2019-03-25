@@ -153,7 +153,7 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	}
 
 	@Override
-	public OptionalLong minOption()
+	public OptionalLong minOp()
 	{
 		return LongMinMaxConsumption.findMinOption(this);
 	}
@@ -161,11 +161,11 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	@Override
 	public long min()
 	{
-		return minOption().orElseThrow(IllegalStateException::new);
+		return minOp().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
-	public OptionalLong maxOption()
+	public OptionalLong maxOp()
 	{
 		return LongMinMaxConsumption.findMaxOption(this);
 	}
@@ -173,7 +173,7 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	@Override
 	public long max()
 	{
-		return maxOption().orElseThrow(IllegalStateException::new);
+		return maxOp().orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	}
 
 	@Override
-	public OptionalLong foldOption(LongBinaryOperator reducer)
+	public OptionalLong foldOp(LongBinaryOperator reducer)
 	{
 		return LongReductionConsumption.foldOption(this, reducer);
 	}

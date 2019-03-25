@@ -159,7 +159,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 	}
 
 	@Override
-	public OptionalDouble minOption()
+	public OptionalDouble minOp()
 	{
 		return DoubleMinMaxConsumption.findMinOption(this);
 	}
@@ -171,7 +171,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 	}
 
 	@Override
-	public OptionalDouble maxOption()
+	public OptionalDouble maxOp()
 	{
 		return DoubleMinMaxConsumption.findMaxOption(this);
 	}
@@ -225,7 +225,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 	}
 
 	@Override
-	public OptionalDouble foldOption(DoubleBinaryOperator reducer)
+	public OptionalDouble foldOp(DoubleBinaryOperator reducer)
 	{
 		return DoubleReductionConsumption.foldOption(this, reducer);
 	}

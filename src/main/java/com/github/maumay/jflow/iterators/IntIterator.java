@@ -240,7 +240,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return an {@link OptionalInt} wrapping the smallest element in this
 	 *         {@link IntIterator} or nothing if the iteration is empty.
 	 */
-	OptionalInt minOption();
+	OptionalInt minOp();
 
 	/**
 	 * Calculates the minimum value in this {@link IntIterator}.
@@ -279,7 +279,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return an {@link OptionalInt} wrapping the largest element in this
 	 *         {@link IntIterator} or nothing if the iteration is empty.
 	 */
-	OptionalInt maxOption();
+	OptionalInt maxOp();
 
 	/**
 	 * Calculates the maximum value in this {@link IntIterator}.
@@ -395,7 +395,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
-	OptionalInt foldOption(IntBinaryOperator reducer);
+	OptionalInt foldOp(IntBinaryOperator reducer);
 
 	/**
 	 * Counts the number of elements in this {@link IntIterator}.

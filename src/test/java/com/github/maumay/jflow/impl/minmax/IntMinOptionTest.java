@@ -18,7 +18,7 @@ public final class IntMinOptionTest extends AbstractIntCollectionTest<OptionalIn
 	@Override
 	protected Collector<OptionalInt> getCollectorToTest()
 	{
-		return iter -> iter.minOption();
+		return iter -> iter.minOp();
 	}
 
 	@Override

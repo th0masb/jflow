@@ -200,13 +200,13 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public Optional<E> minOption(Comparator<? super E> orderingFunction)
+	public Optional<E> minOp(Comparator<? super E> orderingFunction)
 	{
 		return ObjectMinMaxConsumption.findMin(this, orderingFunction);
 	}
 
 	@Override
-	public Optional<E> maxOption(Comparator<? super E> orderingFunction)
+	public Optional<E> maxOp(Comparator<? super E> orderingFunction)
 	{
 		return ObjectMinMaxConsumption.findMax(this, orderingFunction);
 	}
@@ -214,13 +214,13 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	@Override
 	public E min(Comparator<? super E> orderingFunction)
 	{
-		return minOption(orderingFunction).orElseThrow(IllegalStateException::new);
+		return minOp(orderingFunction).orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
 	public E max(Comparator<? super E> orderingFunction)
 	{
-		return maxOption(orderingFunction).orElseThrow(IllegalStateException::new);
+		return maxOp(orderingFunction).orElseThrow(IllegalStateException::new);
 	}
 
 	@Override
@@ -254,7 +254,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public Optional<E> foldOption(BinaryOperator<E> reducer)
+	public Optional<E> foldOp(BinaryOperator<E> reducer)
 	{
 		return ObjectReductionConsumption.reduceOption(this, reducer);
 	}

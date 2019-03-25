@@ -18,7 +18,7 @@ public final class DoubleMaxOptionTest extends AbstractDoubleCollectionTest<Opti
 	@Override
 	protected Collector<OptionalDouble> getCollectorToTest()
 	{
-		return iter -> iter.maxOption();
+		return iter -> iter.maxOp();
 	}
 
 	@Override

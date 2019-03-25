@@ -20,7 +20,7 @@ public final class ObjectMaxOptionTest
 	@Override
 	protected Collector<Double, Optional<Double>> getCollectorToTest()
 	{
-		return iter -> iter.maxOption(Comparator.naturalOrder());
+		return iter -> iter.maxOp(Comparator.naturalOrder());
 	}
 
 	@Override

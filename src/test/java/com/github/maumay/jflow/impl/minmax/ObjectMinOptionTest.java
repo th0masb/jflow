@@ -20,7 +20,7 @@ public final class ObjectMinOptionTest
 	@Override
 	protected Collector<Double, Optional<Double>> getCollectorToTest()
 	{
-		return iter -> iter.minOption(Comparator.naturalOrder());
+		return iter -> iter.minOp(Comparator.naturalOrder());
 	}
 
 	@Override

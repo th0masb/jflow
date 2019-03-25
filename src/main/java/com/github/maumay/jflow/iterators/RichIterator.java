@@ -342,7 +342,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @return Nothing if the {@link RichIterator} is empty. Otherwise the minimum
 	 *         element in this {@link RichIterator}.
 	 */
-	Optional<E> minOption(Comparator<? super E> orderingFunction);
+	Optional<E> minOp(Comparator<? super E> orderingFunction);
 
 	/**
 	 * Calculates the minimum element in this {@link RichIterator} with respect to
@@ -364,7 +364,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @return Nothing if the {@link RichIterator} is empty. Otherwise the maximum
 	 *         element in this {@link RichIterator}.
 	 */
-	Optional<E> maxOption(Comparator<? super E> orderingFunction);
+	Optional<E> maxOp(Comparator<? super E> orderingFunction);
 
 	/**
 	 * Calculates the maximum element in this {@link RichIterator} with respect to
@@ -442,7 +442,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *         <br>
 	 *         {@code f(...f(f(F[0], F[1]), F[2])..., F[n - 1])}
 	 */
-	Optional<E> foldOption(BinaryOperator<E> reducer);
+	Optional<E> foldOp(BinaryOperator<E> reducer);
 
 	/**
 	 * Reduces this {@link RichIterator} to a single value via some reduction
