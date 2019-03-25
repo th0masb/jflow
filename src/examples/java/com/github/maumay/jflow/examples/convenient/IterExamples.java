@@ -13,6 +13,8 @@ import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.IntVec;
 
+import javafx.geometry.Side;
+
 /**
  * The {@link Iter} class contains a multitude of static factory methods for
  * constructing new enhanced iterators.
@@ -21,11 +23,6 @@ import com.github.maumay.jflow.vec.IntVec;
  */
 public final class IterExamples
 {
-	enum MyEnum
-	{
-		A, B, C;
-	}
-
 	public static void main(String[] args)
 	{
 		// Construct from varargs
@@ -36,7 +33,8 @@ public final class IterExamples
 
 		// *****************************************************************************************
 		// Construct from enumerated types
-		assert Iter.over(MyEnum.class).toVec().equals(vec(MyEnum.A, MyEnum.B, MyEnum.C));
+		assert Iter.over(Side.class).toVec()
+				.equals(vec(Side.LEFT, Side.TOP, Side.RIGHT, Side.BOTTOM));
 
 		// *****************************************************************************************
 		// Construct from optionals
@@ -44,12 +42,13 @@ public final class IterExamples
 		assert Iter.option(Option.of("a")).toVec().equals(vec("a"));
 
 		// Example usage is flattening a sequence of optional values
-		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::option)
-				.toVec().equals(vec("a", "b"));
+		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b"))
+				.flatMap(Iter::option).toVec().equals(vec("a", "b"));
 
 		// *****************************************************************************************
 		// Flatten stacked collections
-		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(), vec("b"));
+		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(),
+				vec("b"));
 		assert Iter.flatten(stacked).toVec().equals(vec("a", "b"));
 		assert Iter.flatten(stacked).anyMatch(s -> s.equals("a"));
 

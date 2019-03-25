@@ -35,8 +35,10 @@ public class VecExamples
 
 		// *****************************************************************************************
 		// Streams still work
-		assert ints.stream().map(n -> 2 * n).collect(Vec.collector()).equals(vec(2, 4, 6));
-		assert ints.parstream().map(n -> 3 * n).collect(Vec.collector()).equals(vec(3, 6, 9));
+		assert ints.stream().map(n -> 2 * n).collect(Vec.collector())
+				.equals(vec(2, 4, 6));
+		assert ints.parstream().map(n -> 3 * n).collect(Vec.collector())
+				.equals(vec(3, 6, 9));
 
 		// *****************************************************************************************
 		// Can map directly
@@ -75,9 +77,9 @@ public class VecExamples
 
 		// *****************************************************************************************
 		// Safe indexing
-		assert ints.headOp().get().equals(1);
-		assert ints.lastOp().get().equals(3);
-		assert !ints.getOp(6).isPresent();
+		assert ints.headOp().equals(Optional.of(1));
+		assert ints.lastOp().equals(Optional.of(3));
+		assert ints.getOp(6).equals(Optional.empty());
 
 		// *****************************************************************************************
 		// Unsafe indexing
@@ -87,7 +89,7 @@ public class VecExamples
 
 		try {
 			Integer seventh = ints.get(7);
-			assert false;
+			throw new AssertionError();
 		} catch (IndexOutOfBoundsException ex) {
 		}
 

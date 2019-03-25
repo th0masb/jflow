@@ -24,7 +24,7 @@ import com.github.maumay.jflow.vec.Vec;
  * @author thomasb
  *
  */
-public class EnhancedIteratorExamples
+public class RichIteratorExamples
 {
 
 	public static void main(String[] args)
@@ -55,7 +55,8 @@ public class EnhancedIteratorExamples
 		// Map
 		assert strings.iter().map(s -> s.length()).toVec().equals(vec(1, 1));
 		assert strings.iter().mapToInt(s -> s.length()).toVec().equals(IntVec.of(1, 1));
-		assert strings.iter().mapToDouble(s -> s.length()).toVec().equals(DoubleVec.of(1, 1));
+		assert strings.iter().mapToDouble(s -> s.length()).toVec()
+				.equals(DoubleVec.of(1, 1));
 		assert strings.iter().mapToLong(s -> s.length()).toVec().equals(LongVec.of(1, 1));
 
 		// *****************************************************************************************
@@ -94,13 +95,15 @@ public class EnhancedIteratorExamples
 
 		// *****************************************************************************************
 		// Append / insert
-		assert strings.iter().append(strings.revIter()).toVec().equals(vec("a", "b", "b", "a"));
-		assert strings.iter().insert(strings.revIter()).toVec().equals(vec("b", "a", "a", "b"));
+		assert strings.iter().append(strings.revIter()).toVec()
+				.equals(vec("a", "b", "b", "a"));
+		assert strings.iter().insert(strings.revIter()).toVec()
+				.equals(vec("b", "a", "a", "b"));
 
 		// *****************************************************************************************
 		// Zipping
-		assert strings.iter().zip(strings.revIter()).map(pair -> pair._1 + pair._2).toVec()
-				.equals(vec("ab", "ba"));
+		assert strings.iter().zip(strings.revIter()).map(pair -> pair._1 + pair._2)
+				.toVec().equals(vec("ab", "ba"));
 
 		System.out.println("All assertions passed");
 	}

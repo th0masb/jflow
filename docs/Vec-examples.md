@@ -16,8 +16,10 @@ ints.stream();
 
 // *****************************************************************************************
 // Streams still work
-assert ints.stream().map(n -> 2 * n).collect(Vec.collector()).equals(vec(2, 4, 6));
-assert ints.parstream().map(n -> 3 * n).collect(Vec.collector()).equals(vec(3, 6, 9));
+assert ints.stream().map(n -> 2 * n).collect(Vec.collector())
+		.equals(vec(2, 4, 6));
+assert ints.parstream().map(n -> 3 * n).collect(Vec.collector())
+		.equals(vec(3, 6, 9));
 
 // *****************************************************************************************
 // Can map directly
@@ -31,10 +33,10 @@ assert ints.filter(n -> n > 3).equals(vec());
 // *****************************************************************************************
 // Take, skip
 assert ints.take(1).equals(vec(1));
-assert ints.skip(2).equals(vec(3));
+assert ints.drop(2).equals(vec(3));
 
 assert ints.takeWhile(n -> n % 2 == 1).equals(vec(1));
-assert ints.skipWhile(n -> n % 2 == 1).equals(vec(2, 3));
+assert ints.dropWhile(n -> n % 2 == 1).equals(vec(2, 3));
 
 // *****************************************************************************************
 // Predicate matching
@@ -47,8 +49,8 @@ assert ints.find(n -> n > 3).equals(Optional.empty());
 // Min/max
 
 // Safe versions (returns nothing if vector is empty)
-assert ints.minOp(Comparator.naturalOrder()).equals(Optional.of(1));
-assert ints.maxOp(Comparator.naturalOrder()).equals(Optional.of(3));
+assert ints.minOption(Comparator.naturalOrder()).equals(Optional.of(1));
+assert ints.maxOption(Comparator.naturalOrder()).equals(Optional.of(3));
 
 // Unsafe versions (throws exception if the vector is empty)
 assert ints.min(Comparator.naturalOrder()).equals(1);
@@ -56,9 +58,9 @@ assert ints.max(Comparator.naturalOrder()).equals(3);
 
 // *****************************************************************************************
 // Safe indexing
-assert ints.headOp().get().equals(1);
-assert ints.lastOp().get().equals(3);
-assert !ints.getOp(6).isPresent();
+assert ints.headOp().equals(Optional.of(1));
+assert ints.lastOp().equals(Optional.of(3));
+assert ints.getOp(6).equals(Optional.empty());
 
 // *****************************************************************************************
 // Unsafe indexing
@@ -106,7 +108,7 @@ Tup<Vec<Integer>, Vec<Integer>> partitioned = ints.partition(n -> n % 2 == 0);
 assert partitioned._1.equals(vec(2));
 assert partitioned._2.equals(vec(1, 3));
 
-Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.skip(1));
+Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.drop(1));
 
 assert headTail._1.equals(1);
 assert headTail._2.equals(vec(2, 3));
