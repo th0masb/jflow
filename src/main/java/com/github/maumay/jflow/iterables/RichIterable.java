@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
+import com.github.maumay.jflow.vec.Vec;
 
 /**
  * Abstraction of iterable object which can construct enhanced iterators
@@ -60,7 +61,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * @param orderingFunction the complete ordering of this element type.
 	 * @return see {@link RichIterator#minOp(Comparator)}.
 	 */
-	default Optional<E> minOption(Comparator<? super E> orderingFunction)
+	default Optional<E> minOp(Comparator<? super E> orderingFunction)
 	{
 		return iter().minOp(orderingFunction);
 	}
@@ -85,7 +86,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * @param orderingFunction the complete ordering of this element type.
 	 * @return see {@link RichIterator#maxOp(Comparator)}.
 	 */
-	default Optional<E> maxOption(Comparator<? super E> orderingFunction)
+	default Optional<E> maxOp(Comparator<? super E> orderingFunction)
 	{
 		return iter().maxOp(orderingFunction);
 	}
@@ -183,7 +184,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 *                into one.
 	 * @return see {@link RichIterator#foldOp(BinaryOperator)}
 	 */
-	default Optional<E> foldOption(BinaryOperator<E> reducer)
+	default Optional<E> foldOp(BinaryOperator<E> reducer)
 	{
 		return iter().foldOp(reducer);
 	}
@@ -265,6 +266,17 @@ public interface RichIterable<E> extends Iterable<E>
 	default <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
 	{
 		return iter().toCollection(collectionFactory);
+	}
+
+	/**
+	 * Builds a vector from the elements traversed by the iterator created by
+	 * {@link #iter()}
+	 * 
+	 * @return see {@link RichIterator#toVec()}
+	 */
+	default Vec<E> toVec()
+	{
+		return iter().toVec();
 	}
 
 	/**
