@@ -10,12 +10,7 @@ archivesBaseName = "jflow"
 version = "0.5"
 
 jar {
-    manifest {
-        attributes('Implementation-Title': 'JFlow')
-        attributes('Implementation-Version': version)
-    }
-	
-	exclude("src/examples/**")
+    exclude("src/examples/**")
 }
 
 dependencies {
@@ -35,6 +30,15 @@ sourceSets {
 	}
 }
 
+test {
+	useJUnitPlatform()
+	dependsOn 'cleanTest'
+	
+	testLogging {
+		events "skipped", "failed"
+	}
+}
+
 repositories {
     mavenCentral()
 }
@@ -50,7 +54,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 artifacts {
-    archives sourcesJar, sourcesJar
+    archives sourcesJar, javadocJar
 }
 
 signing {
