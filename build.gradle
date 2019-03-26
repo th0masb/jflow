@@ -1,8 +1,13 @@
 apply(plugin: 'java')
 apply(plugin: 'eclipse')
+apply(plugin: 'maven')
+apply(plugin: 'signing')
 
 sourceCompatibility = 1.8
-version = '0.5'
+
+group = "com.github.maumay"
+archivesBaseName = "jflow"
+version = "0.5"
 
 jar {
     manifest {
@@ -10,7 +15,14 @@ jar {
         attributes('Implementation-Version': version)
     }
 	
-	exclude("src/examples/**", "src/experimental/**")
+	exclude("src/examples/**")
+}
+
+dependencies {
+	testCompile('org.junit.platform:junit-platform-launcher:1.1.1')
+	testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
+	testCompile('org.junit.jupiter:junit-jupiter-api:5.1.0')
+	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
 sourceSets {
@@ -21,22 +33,10 @@ sourceSets {
 		compileClasspath += main.output
 		runtimeClasspath += main.output
 	}
-
-	experimental {
-		compileClasspath += main.output
-		runtimeClasspath += main.output
-	}
 }
 
 repositories {
     mavenCentral()
-}
-
-dependencies {
-	testCompile('org.junit.platform:junit-platform-launcher:1.1.1')
-	testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
-    testCompile('org.junit.jupiter:junit-jupiter-api:5.1.0')
-    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -50,6 +50,54 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 artifacts {
-    archives(sourcesJar)
-    archives(javadocJar)
+    archives sourcesJar, sourcesJar
+}
+
+signing {
+	sign configurations.archives
+}
+
+uploadArchives {
+	repositories {
+	  mavenDeployer {
+		beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+  
+		repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+		  authentication(userName: ossrhUsername, password: ossrhPassword)
+		}
+  
+		snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+		  authentication(userName: ossrhUsername, password: ossrhPassword)
+		}
+  
+		pom.project {
+		  name 'JFlow'
+		  packaging 'jar'
+		  // optionally artifactId can be defined here
+		  description 'Enhanced iterators for Java'
+		  url 'https://github.com/maumay/JFlow'
+  
+		  scm {
+			connection 'scm:git:https://github.com/maumay/JFlow.git'
+			developerConnection 'scm:git:https://github.com/maumay/JFlow.git'
+			url 'https://github.com/maumay/JFlow.git'
+		  }
+  
+		  licenses {
+			license {
+			  name 'The Apache License, Version 2.0'
+			  url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+			}
+		  }
+  
+		  developers {
+			developer {
+			  id 'tom'
+			  name 'Thomas Ball'
+			  email 'tomoliverball@gmail.com'
+			}
+		  }
+		}
+	  }
+	}
 }
