@@ -1,4 +1,8 @@
 language: Java
+
 jdk:
  - oraclejdk8
  - openjdk8
+ 
+install:
+ - ./gradlew assemble -x signArchives
