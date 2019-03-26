@@ -3,6 +3,7 @@ package com.github.maumay.jflow.impl;
 import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
 import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoubleConsumer;
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
@@ -15,6 +16,7 @@ import com.github.maumay.jflow.iterators.DoubleIteratorAdapter;
 import com.github.maumay.jflow.iterators.DoubleIteratorCollector;
 import com.github.maumay.jflow.iterators.DoubleIteratorConsumer;
 import com.github.maumay.jflow.utils.DoubleTup;
+import com.github.maumay.jflow.utils.Option;
 
 /**
  * Abstract supertype of all {@link DoubleIterator} implementations. Users
@@ -25,8 +27,7 @@ import com.github.maumay.jflow.utils.DoubleTup;
  * 
  * @author ThomasB
  */
-public abstract class AbstractDoubleIterator extends AbstractIterator
-		implements DoubleIterator
+public abstract class AbstractDoubleIterator extends AbstractIterator implements DoubleIterator
 {
 	public AbstractDoubleIterator(AbstractIteratorSize size)
 	{
@@ -41,6 +42,26 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 			return nextDoubleImpl();
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public OptionalDouble nextDoubleOp()
+	{
+		if (hasOwnership()) {
+			getSize().decrement();
+			return Option.of(nextDoubleImpl());
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public void forEach(DoubleConsumer action)
+	{
+		relinquishOwnership();
+		while (hasNext()) {
+			action.accept(nextDoubleImpl());
 		}
 	}
 

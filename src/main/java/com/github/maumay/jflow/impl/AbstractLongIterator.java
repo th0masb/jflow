@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.OptionalLong;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
+import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
 import java.util.function.LongPredicate;
 import java.util.function.LongToDoubleFunction;
@@ -15,6 +16,7 @@ import java.util.function.LongUnaryOperator;
 
 import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.utils.LongTup;
+import com.github.maumay.jflow.utils.Option;
 
 /**
  * Abstract supertype of all {@link LongIterator} implementations. Users should
@@ -25,8 +27,7 @@ import com.github.maumay.jflow.utils.LongTup;
  * 
  * @author ThomasB
  */
-public abstract class AbstractLongIterator extends AbstractIterator
-		implements LongIterator
+public abstract class AbstractLongIterator extends AbstractIterator implements LongIterator
 {
 	public AbstractLongIterator(AbstractIteratorSize size)
 	{
@@ -41,6 +42,26 @@ public abstract class AbstractLongIterator extends AbstractIterator
 			return nextLongImpl();
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public OptionalLong nextLongOp()
+	{
+		if (hasOwnership()) {
+			getSize().decrement();
+			return Option.of(nextLongImpl());
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public void forEach(LongConsumer action)
+	{
+		relinquishOwnership();
+		while (hasNext()) {
+			action.accept(nextLongImpl());
 		}
 	}
 

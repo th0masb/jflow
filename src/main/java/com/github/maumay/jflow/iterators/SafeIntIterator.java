@@ -19,10 +19,7 @@ public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// , 
 	 *
 	 * @return An OptionalInt wrapping the next element if there is one.
 	 */
-	default OptionalInt nextIntOp()
-	{
-		return hasNext() ? OptionalInt.of(nextInt()) : OptionalInt.empty();
-	}
+	OptionalInt nextIntOp();
 
 	/**
 	 * Perform the supplied action for each element left in this iterator sequence,
@@ -30,12 +27,7 @@ public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// , 
 	 *
 	 * @param action The action to perform.
 	 */
-	default void forEach(final IntConsumer action)
-	{
-		while (hasNext()) {
-			action.accept(nextInt());
-		}
-	}
+	void forEach(IntConsumer action);
 
 	@Override
 	@Deprecated

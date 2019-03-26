@@ -3,6 +3,7 @@ package com.github.maumay.jflow.impl;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.function.IntBinaryOperator;
+import java.util.function.IntConsumer;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
@@ -11,6 +12,7 @@ import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.IntIterator;
 import com.github.maumay.jflow.utils.IntTup;
+import com.github.maumay.jflow.utils.Option;
 
 /**
  * Abstract supertype of all {@link IntIterator} implementations. Users should
@@ -36,6 +38,26 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 			return nextIntImpl();
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public OptionalInt nextIntOp()
+	{
+		if (hasOwnership()) {
+			getSize().decrement();
+			return Option.of(nextIntImpl());
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public void forEach(IntConsumer action)
+	{
+		relinquishOwnership();
+		while (hasNext()) {
+			action.accept(nextIntImpl());
 		}
 	}
 

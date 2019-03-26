@@ -12,17 +12,14 @@ import java.util.function.Consumer;
  *
  * @author t
  */
-public interface SafeIterator<E> extends Iterator<E>, Skippable// , OptionallySized
+public interface SafeIterator<E> extends Iterator<E>, Skippable
 {
 	/**
 	 * A safe alternative to directly calling {@link Iterator#next()} method.
 	 *
 	 * @return An Optional wrapping the next element if there is one.
 	 */
-	default Optional<E> nextOp()
-	{
-		return hasNext() ? Optional.of(next()) : Optional.empty();
-	}
+	Optional<E> nextOp();
 
 	/**
 	 * Perform the supplied action for each element left in this iterator sequence,
@@ -30,10 +27,5 @@ public interface SafeIterator<E> extends Iterator<E>, Skippable// , OptionallySi
 	 *
 	 * @param action The action to perform.
 	 */
-	default void forEach(final Consumer<? super E> action)
-	{
-		while (hasNext()) {
-			action.accept(next());
-		}
-	}
+	void forEach(final Consumer<? super E> action);
 }

@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
@@ -27,6 +28,7 @@ import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.RichIteratorAdapter;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
 import com.github.maumay.jflow.iterators.RichIteratorConsumer;
+import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -56,6 +58,26 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 			return nextImpl();
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public Optional<E> nextOp()
+	{
+		if (hasOwnership()) {
+			getSize().decrement();
+			return Option.of(nextImpl());
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public void forEach(Consumer<? super E> action)
+	{
+		relinquishOwnership();
+		while (hasNext()) {
+			action.accept(nextImpl());
 		}
 	}
 

@@ -19,10 +19,7 @@ public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// 
 	 *
 	 * @return An OptionalLong wrapping the next element if there is one.
 	 */
-	default OptionalLong nextLongOp()
-	{
-		return hasNext() ? OptionalLong.of(nextLong()) : OptionalLong.empty();
-	}
+	OptionalLong nextLongOp();
 
 	/**
 	 * Perform the supplied action for each element left in this iterator sequence,
@@ -30,12 +27,7 @@ public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// 
 	 *
 	 * @param action The action to perform.
 	 */
-	default void forEach(final LongConsumer action)
-	{
-		while (hasNext()) {
-			action.accept(nextLong());
-		}
-	}
+	void forEach(LongConsumer action);
 
 	@Override
 	@Deprecated
