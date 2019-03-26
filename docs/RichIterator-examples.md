@@ -1,5 +1,7 @@
+Here is a snippet of (boilerplate free) Java code demonstrating some of the functionality provided by the `RichIterator` interface. All iterators in this example are sourced from one instance of `Vec` (which I assume you have read about), other sources will be demonstrated in another file. The functionality here should look familiar to you already but I'd like to stress the laziness point again. When you create an iterator it does not evaluate enything until you specifically command it to by calling certain types of method. It is easy to tell whether a method is lazy or strict, if the method returns another iterator we call it an 'adapter method' (or intermediate operation) which evaluates lazily and if it returns anything else it is called a 'consuming method' and evaluates in a strict manner. Note that a consuming method does not have to consume the *whole* iterator.
+
 ```java
-// This vector is the source of the EnhancedIterator instances used in the
+// This vector is the source of the RichIterator instances used in the
 // following examples.
 Vec<String> strings = vec("a", "b");
 
