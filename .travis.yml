@@ -4,5 +4,5 @@ jdk:
  - oraclejdk8
  - openjdk8
  
-install:
+script:
  - ./gradlew assemble -x signArchives
