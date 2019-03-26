@@ -41,8 +41,7 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator
-		implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -112,7 +111,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	@Override
 	public AbstractRichIterator<Tup<Integer, E>> enumerate()
 	{
-		throw new RuntimeException();
+		return new ZipAdapter.OfObjects<>(new FunctionSource.OfObject<>(n -> n), this);
 	}
 
 	@Override
