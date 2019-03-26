@@ -19,8 +19,8 @@ import java.util.stream.StreamSupport;
 
 import com.github.maumay.jflow.examples.termination.Geometry.Bounds;
 import com.github.maumay.jflow.examples.termination.Geometry.Point;
+import com.github.maumay.jflow.iterators.Iter;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
-import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.Vec;
 

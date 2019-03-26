@@ -20,8 +20,8 @@ import java.util.function.ToLongFunction;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import com.github.maumay.jflow.iterators.Iter;
 import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.IntVec;
 import com.github.maumay.jflow.vec.LongVec;

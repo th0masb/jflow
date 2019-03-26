@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.api.Iter;
+import com.github.maumay.jflow.iterators.Iter;
 import com.github.maumay.jflow.vec.IntVec;
 
 /**

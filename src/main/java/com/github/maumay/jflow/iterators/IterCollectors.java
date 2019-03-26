@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.api;
+package com.github.maumay.jflow.iterators;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -10,8 +10,6 @@ import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.iterators.DoubleIteratorCollector;
-import com.github.maumay.jflow.iterators.RichIteratorCollector;
 import com.github.maumay.jflow.utils.Exceptions;
 
 /**

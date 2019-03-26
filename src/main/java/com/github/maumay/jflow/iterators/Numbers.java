@@ -1,9 +1,7 @@
-package com.github.maumay.jflow.iterators.api;
+package com.github.maumay.jflow.iterators;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.InfiniteSize;
-import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * Static methods for building Flows of common number sets.

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.api.Iter;
+import com.github.maumay.jflow.iterators.Iter;
 import com.github.maumay.jflow.utils.Tup;
 
 /**

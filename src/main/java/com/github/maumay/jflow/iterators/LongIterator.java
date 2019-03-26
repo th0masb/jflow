@@ -10,7 +10,6 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import com.github.maumay.jflow.iterators.api.Iter;
 import com.github.maumay.jflow.utils.LongTup;
 import com.github.maumay.jflow.vec.LongVec;
 

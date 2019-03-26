@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.api;
+package com.github.maumay.jflow.iterators;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.IntFunction;
@@ -15,10 +15,6 @@ import java.util.function.UnaryOperator;
 
 import com.github.maumay.jflow.impl.ApplicationSource;
 import com.github.maumay.jflow.impl.FunctionSource;
-import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.LongIterator;
 
 /**
  * Static methods for building infinite {@link RichIterator}s.

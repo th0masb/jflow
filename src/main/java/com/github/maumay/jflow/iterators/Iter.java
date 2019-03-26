@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators.api;
+package com.github.maumay.jflow.iterators;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;
@@ -21,10 +21,6 @@ import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.impl.FunctionSource;
 import com.github.maumay.jflow.impl.IteratorWrapper;
 import com.github.maumay.jflow.iterables.RichIterable;
-import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.LongIterator;
-import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 
