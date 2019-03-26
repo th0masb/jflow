@@ -1,8 +1,14 @@
-language: Java
+language: java
 
 jdk:
  - oraclejdk8
  - openjdk8
  
-script:
+before_install:
+ - chmod +x gradlew
+
+install:
  - ./gradlew assemble -x signArchives
+
+script:
+ - ./gradlew check -x signArchives
