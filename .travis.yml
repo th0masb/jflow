@@ -1,8 +1,11 @@
-language: Java
+language: java
 
 jdk:
  - oraclejdk8
  - openjdk8
  
+before_script:
+ - chmod +x gradlew
+
 script:
- - sudo ./gradlew assemble -x signArchives
+ - ./gradlew assemble -x signArchives
