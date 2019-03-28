@@ -55,8 +55,8 @@ public class IterCollectors
 	 * enumerated types by returning an instance of {@link EnumMap}. Note that if
 	 * this iterator is empty then a {@link HashMap} will be returned instead.
 	 * 
-	 * @param     <K> The element type of iterators this collector will accept.
-	 * @param The function which determines the values of the map.
+	 * @param   <K> The element type of iterators this collector will accept.
+	 * @param f The function which determines the values of the map.
 	 * @return see {@link RichIterator#associate(Function)}
 	 */
 	public static <K extends Enum<K>, R> EnumMapCollector<K, R> toEnumMap(
