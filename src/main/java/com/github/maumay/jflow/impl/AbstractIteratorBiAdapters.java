@@ -6,8 +6,10 @@ package com.github.maumay.jflow.impl;
 import java.util.Objects;
 
 /**
+ * Contains a set of static classes useful for implementing iterator
+ * bi-adapters, i.e. iterators which are constructed from two source iterators.
+ * 
  * @author thomasb
- *
  */
 public class AbstractIteratorBiAdapters
 {
@@ -15,6 +17,16 @@ public class AbstractIteratorBiAdapters
 	{
 	}
 
+	/**
+	 * Superclass of an object iterator ({@link AbstractRichIterator} which adapts
+	 * two provided source iterators and removes their ownership.
+	 * 
+	 * @author t
+	 *
+	 * @param <S1> The type of the first source iterator.
+	 * @param <S2> The type of the second source iterator.
+	 * @param <R> The element type of this iterator.
+	 */
 	public static abstract class OfObject<S1 extends AbstractIterator, S2 extends AbstractIterator, R>
 			extends AbstractRichIterator<R>
 	{
@@ -45,6 +57,15 @@ public class AbstractIteratorBiAdapters
 		}
 	}
 
+	/**
+	 * Superclass of an int iterator ({@link AbstractIntIterator} which adapts two
+	 * provided source iterators and removes their ownership.
+	 * 
+	 * @author t
+	 *
+	 * @param <S1> The type of the first source iterator.
+	 * @param <S2> The type of the second source iterator.
+	 */
 	public static abstract class OfInt<S1 extends AbstractIterator, S2 extends AbstractIterator>
 			extends AbstractIntIterator
 	{
@@ -75,6 +96,15 @@ public class AbstractIteratorBiAdapters
 		}
 	}
 
+	/**
+	 * Superclass of an long iterator ({@link AbstractLongIterator} which adapts two
+	 * provided source iterators and removes their ownership.
+	 * 
+	 * @author t
+	 *
+	 * @param <S1> The type of the first source iterator.
+	 * @param <S2> The type of the second source iterator.
+	 */
 	public static abstract class OfLong<S1 extends AbstractIterator, S2 extends AbstractIterator>
 			extends AbstractLongIterator
 	{
@@ -105,6 +135,15 @@ public class AbstractIteratorBiAdapters
 		}
 	}
 
+	/**
+	 * Superclass of an double iterator ({@link AbstractDoubleIterator} which adapts
+	 * two provided source iterators and removes their ownership.
+	 * 
+	 * @author t
+	 *
+	 * @param <S1> The type of the first source iterator.
+	 * @param <S2> The type of the second source iterator.
+	 */
 	public static abstract class OfDouble<S1 extends AbstractIterator, S2 extends AbstractIterator>
 			extends AbstractDoubleIterator
 	{
@@ -134,5 +173,4 @@ public class AbstractIteratorBiAdapters
 			return sourceTwo;
 		}
 	}
-
 }
