@@ -51,15 +51,13 @@ public class IterCollectors
 
 	/**
 	 * Creates a collector which applies the same logic as
-	 * {@link #toMap(Function, Function)} but optimizes the result for enumerated
-	 * types by returning an instance of {@link EnumMap}. Note that if this iterator
-	 * is empty then a {@link HashMap} will be returned instead.
+	 * {@link RichIterator#associate(Function)} but optimizes the result for
+	 * enumerated types by returning an instance of {@link EnumMap}. Note that if
+	 * this iterator is empty then a {@link HashMap} will be returned instead.
 	 * 
-	 * @param             <K> The type of key in the resulting map.
-	 * @param             <V> The type of value in the resulting map.
-	 * @param keyMapper   see {@link #toMap(Function, Function)}
-	 * @param valueMapper see {@link #toMap(Function, Function)}
-	 * @return see {@link #toMap(Function, Function)}
+	 * @param     <K> The element type of iterators this collector will accept.
+	 * @param The function which determines the values of the map.
+	 * @return see {@link RichIterator#associate(Function)}
 	 */
 	public static <K extends Enum<K>, R> EnumMapCollector<K, R> toEnumMap(
 			Function<? super K, ? extends R> f)
