@@ -8,11 +8,13 @@ import java.util.PrimitiveIterator;
 import java.util.function.LongConsumer;
 
 /**
- * A precursor interface to {@linkplain LongIterator}.
+ * Adds a method for safely retrieving the next element in a primitive long
+ * iterator.
  *
  * @author t
  */
-public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// , OptionallySized
+public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// ,
+																				// OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextLong()} method.
@@ -33,6 +35,7 @@ public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// 
 	@Deprecated
 	default Long next()
 	{
-		throw new UnsupportedOperationException("Boxing using this method is banned for Flows!!");
+		throw new UnsupportedOperationException(
+				"Boxing using this method is banned for Flows!!");
 	}
 }

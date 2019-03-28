@@ -6,8 +6,10 @@ package com.github.maumay.jflow.iterators;
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
 
 /**
- * @author thomasb
- *
+ * An object which terminates a double iterator data piping chain by performing
+ * side effects and consuming the iterator in the process.
+ * 
+ * @author t
  */
 @FunctionalInterface
 public interface DoubleIteratorConsumer

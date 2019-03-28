@@ -4,8 +4,8 @@
 package com.github.maumay.jflow.impl;
 
 /**
- * Contains a set of static classes useful for implementing iterator adapters,
- * i.e. iterators which are constructed from a single source iterator.
+ * Contains a set of static classes useful for implementing iterator adapters.
+ * These are iterators which are constructed from a single source iterator.
  * 
  * @author thomasb
  */

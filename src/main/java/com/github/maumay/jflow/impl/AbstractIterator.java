@@ -6,8 +6,8 @@ package com.github.maumay.jflow.impl;
 import com.github.maumay.jflow.iterators.Skippable;
 
 /**
- * Abstract supertype of all rich iterator implementations which adds the notion
- * of size, ownership and skipping.
+ * Supertype of all rich iterator implementations adding the notion of size,
+ * ownership and skipping.
  * 
  * @author thomasb
  */

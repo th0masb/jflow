@@ -8,11 +8,13 @@ import java.util.PrimitiveIterator;
 import java.util.function.IntConsumer;
 
 /**
- * A precursor interface to {@linkplain IntIterator}.
+ * Adds a method for safely retrieving the next element in a primitive int
+ * iterator.
  *
  * @author t
  */
-public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// , OptionallySized
+public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// ,
+																			// OptionallySized
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextInt()} method.
@@ -33,6 +35,6 @@ public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// , 
 	@Deprecated
 	default Integer next()
 	{
-		throw new UnsupportedOperationException("Boxing using this method is banned for Flows!!");
+		throw new UnsupportedOperationException("Boxing using this method is banned!!");
 	}
 }

@@ -22,6 +22,13 @@ public class IterCollectors
 	{
 	}
 
+	/**
+	 * A collector which computes the average of all elements in a primitive double
+	 * iterator, throws an exception if the iterator is empty.
+	 * 
+	 * @return a collector which computes the average of elements traversed by a
+	 *         primitive double iterator.
+	 */
 	public static DoubleIteratorCollector<Double> average()
 	{
 		return AVERAGE;
@@ -42,17 +49,11 @@ public class IterCollectors
 		}
 	};
 
-	public static <K extends Enum<K>, R> EnumMapCollector<K, R> toEnumMap(
-			Function<? super K, ? extends R> f)
-	{
-		return new EnumMapCollector<K, R>(f);
-	}
-
 	/**
-	 * Applies the same logic as {@link #toMap(Function, Function)} but optimizes
-	 * the result for enumerate types by returning an instance of {@link EnumMap}.
-	 * Note that if this iterator is empty then a {@link HashMap} will be returned
-	 * instead.
+	 * Creates a collector which applies the same logic as
+	 * {@link #toMap(Function, Function)} but optimizes the result for enumerated
+	 * types by returning an instance of {@link EnumMap}. Note that if this iterator
+	 * is empty then a {@link HashMap} will be returned instead.
 	 * 
 	 * @param             <K> The type of key in the resulting map.
 	 * @param             <V> The type of value in the resulting map.
@@ -60,6 +61,12 @@ public class IterCollectors
 	 * @param valueMapper see {@link #toMap(Function, Function)}
 	 * @return see {@link #toMap(Function, Function)}
 	 */
+	public static <K extends Enum<K>, R> EnumMapCollector<K, R> toEnumMap(
+			Function<? super K, ? extends R> f)
+	{
+		return new EnumMapCollector<K, R>(f);
+	}
+
 	static class EnumMapCollector<K extends Enum<K>, R>
 			implements RichIteratorCollector<K, Map<K, R>>
 	{
@@ -94,15 +101,5 @@ public class IterCollectors
 			}
 			return dest;
 		}
-	}
-
-	enum A
-	{
-		A, B, C;
-	}
-
-	public static void main(String[] args)
-	{
-		Iter.over(A.class).collect(new EnumMapCollector<>(x -> x));
 	}
 }

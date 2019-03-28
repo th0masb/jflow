@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * A precursor interface to {@linkplain RichIterator}.
+ * Adds a method for safely retrieving the next element in an iterator.
  *
  * @author t
  */

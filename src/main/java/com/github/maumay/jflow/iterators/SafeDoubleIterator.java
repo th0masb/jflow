@@ -8,7 +8,8 @@ import java.util.PrimitiveIterator.OfDouble;
 import java.util.function.DoubleConsumer;
 
 /**
- * A precursor interface to {@linkplain DoubleIterator}.
+ * Adds a method for safely retrieving the next element in a primitive double
+ * iterator.
  *
  * @author t
  */

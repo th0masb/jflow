@@ -7,7 +7,8 @@ import java.util.Objects;
 
 /**
  * Contains a set of static classes useful for implementing iterator
- * bi-adapters, i.e. iterators which are constructed from two source iterators.
+ * bi-adapters. These are iterators which are constructed from two source
+ * iterators.
  * 
  * @author thomasb
  */
@@ -18,8 +19,8 @@ public class AbstractIteratorBiAdapters
 	}
 
 	/**
-	 * Superclass of an object iterator ({@link AbstractRichIterator} which adapts
-	 * two provided source iterators and removes their ownership.
+	 * An object iterator ({@link AbstractRichIterator} which adapts two provided
+	 * source iterators and removes their ownership.
 	 * 
 	 * @author t
 	 *
@@ -58,8 +59,8 @@ public class AbstractIteratorBiAdapters
 	}
 
 	/**
-	 * Superclass of an int iterator ({@link AbstractIntIterator} which adapts two
-	 * provided source iterators and removes their ownership.
+	 * An int iterator ({@link AbstractIntIterator} which adapts two provided source
+	 * iterators and removes their ownership.
 	 * 
 	 * @author t
 	 *
@@ -97,8 +98,8 @@ public class AbstractIteratorBiAdapters
 	}
 
 	/**
-	 * Superclass of an long iterator ({@link AbstractLongIterator} which adapts two
-	 * provided source iterators and removes their ownership.
+	 * A long iterator ({@link AbstractLongIterator} which adapts two provided
+	 * source iterators and removes their ownership.
 	 * 
 	 * @author t
 	 *
@@ -136,8 +137,8 @@ public class AbstractIteratorBiAdapters
 	}
 
 	/**
-	 * Superclass of an double iterator ({@link AbstractDoubleIterator} which adapts
-	 * two provided source iterators and removes their ownership.
+	 * A double iterator ({@link AbstractDoubleIterator} which adapts two provided
+	 * source iterators and removes their ownership.
 	 * 
 	 * @author t
 	 *

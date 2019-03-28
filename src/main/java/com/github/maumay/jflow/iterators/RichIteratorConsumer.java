@@ -16,7 +16,9 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 public interface RichIteratorConsumer<E>
 {
 	/**
-	 * Consumes the argument by performing side effects using the elements.
+	 * Consumes the argument by performing side effects using the elements. The
+	 * ownership of the input should be removed at some point in this method
+	 * implementation.
 	 * 
 	 * @param source the iterator to consume.
 	 */

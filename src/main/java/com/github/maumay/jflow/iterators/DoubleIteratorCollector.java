@@ -7,8 +7,7 @@ import com.github.maumay.jflow.impl.AbstractDoubleIterator;
 
 /**
  * An object which can terminate an iterator data piping chain by aggregating
- * the elements (and hence consuming the iterator) to create a new instance of a
- * given type.
+ * the elements to create a new instance of a given type.
  * 
  * @param <R> the result type of the aggregation operation.
  * @author t
