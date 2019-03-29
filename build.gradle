@@ -112,10 +112,9 @@ uploadArchives {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
-		xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        xml.enabled false
         csv.enabled false
-		html.enabled false
+		html.enabled true
     }
 }
 
