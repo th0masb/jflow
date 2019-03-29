@@ -43,7 +43,8 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator
+		implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -65,8 +66,12 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	public Optional<E> nextOp()
 	{
 		if (hasOwnership()) {
-			getSize().decrement();
-			return Option.of(nextImpl());
+			if (hasNext()) {
+				getSize().decrement();
+				return Option.of(nextImpl());
+			} else {
+				return Option.empty();
+			}
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}

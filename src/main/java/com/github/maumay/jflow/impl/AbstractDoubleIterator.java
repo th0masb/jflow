@@ -27,7 +27,8 @@ import com.github.maumay.jflow.utils.Option;
  * 
  * @author ThomasB
  */
-public abstract class AbstractDoubleIterator extends AbstractIterator implements DoubleIterator
+public abstract class AbstractDoubleIterator extends AbstractIterator
+		implements DoubleIterator
 {
 	public AbstractDoubleIterator(AbstractIteratorSize size)
 	{
@@ -49,8 +50,12 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	public OptionalDouble nextDoubleOp()
 	{
 		if (hasOwnership()) {
-			getSize().decrement();
-			return Option.of(nextDoubleImpl());
+			if (hasNext()) {
+				getSize().decrement();
+				return Option.of(nextDoubleImpl());
+			} else {
+				return Option.emptyDouble();
+			}
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}

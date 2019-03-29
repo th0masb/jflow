@@ -27,7 +27,8 @@ import com.github.maumay.jflow.utils.Option;
  * 
  * @author ThomasB
  */
-public abstract class AbstractLongIterator extends AbstractIterator implements LongIterator
+public abstract class AbstractLongIterator extends AbstractIterator
+		implements LongIterator
 {
 	public AbstractLongIterator(AbstractIteratorSize size)
 	{
@@ -49,8 +50,12 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	public OptionalLong nextLongOp()
 	{
 		if (hasOwnership()) {
-			getSize().decrement();
-			return Option.of(nextLongImpl());
+			if (hasNext()) {
+				getSize().decrement();
+				return Option.of(nextLongImpl());
+			} else {
+				return Option.emptyLong();
+			}
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}

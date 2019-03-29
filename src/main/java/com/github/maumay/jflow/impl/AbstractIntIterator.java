@@ -45,8 +45,12 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	public OptionalInt nextIntOp()
 	{
 		if (hasOwnership()) {
-			getSize().decrement();
-			return Option.of(nextIntImpl());
+			if (hasNext()) {
+				getSize().decrement();
+				return Option.of(nextIntImpl());
+			} else {
+				return Option.emptyInt();
+			}
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}
