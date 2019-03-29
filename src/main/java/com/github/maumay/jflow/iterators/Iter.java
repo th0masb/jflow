@@ -25,7 +25,7 @@ import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 
 /**
- * Static methods for building finite EnhancedIterator instances.
+ * Static methods for building finite iterators.
  *
  * @author ThomasB
  */

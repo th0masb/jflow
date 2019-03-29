@@ -4,7 +4,7 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.InfiniteSize;
 
 /**
- * Static methods for building Flows of common number sets.
+ * Static methods for creating some infinite number sets.
  *
  * @author ThomasB
  */

@@ -13,8 +13,9 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.utils.Exceptions;
 
 /**
+ * Provides access to a couple of iterator collectors.
+ * 
  * @author t
- *
  */
 public class IterCollectors
 {
@@ -56,6 +57,7 @@ public class IterCollectors
 	 * this iterator is empty then a {@link HashMap} will be returned instead.
 	 * 
 	 * @param   <K> The element type of iterators this collector will accept.
+	 * @param   <R> The type of values in the resultant map.
 	 * @param f The function which determines the values of the map.
 	 * @return see {@link RichIterator#associate(Function)}
 	 */

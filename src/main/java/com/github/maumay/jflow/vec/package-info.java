@@ -1,6 +1,5 @@
 /**
- * Vecs (vectors) are efficient, immutable, null-safe, array-backed alternatives
- * to a List which come with a myriad of functionality based on enhanced
- * iterators and which are well suited for constructing parallel streams.
+ * Vecs (vectors) are immutable array wrappers which serve as an alternative to
+ * List.
  */
 package com.github.maumay.jflow.vec;

@@ -24,12 +24,12 @@ import com.github.maumay.jflow.utils.Tup;
 
 /**
  * <p>
- * A Vec (vector) is an <b>immutable</b> wrapper around an object array which
- * provides a myriad of higher order methods for operating on the elements using
- * enhanced sequential iterators (see {@link RichIterator}). The immutability
- * guarantee means we can also construct streams which are well suited for
- * parallelising operations. Null values are not permitted to be stored inside
- * this data structure.
+ * A Vec (vector) is an immutable wrapper around an object array which provides
+ * a myriad of higher order methods for operating on the elements using enhanced
+ * sequential iterators (see {@link RichIterator}). The immutability guarantee
+ * means we can also construct streams which are well suited for parallelising
+ * operations. Null values are not permitted to be stored inside this data
+ * structure.
  * </p>
  * 
  * @param <E> The element type of this Vec.
@@ -103,6 +103,15 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	 */
 	Vec<E> append(Iterable<? extends E> other);
 
+	/**
+	 * Creates a new vector by appending the contents of a Collection to this
+	 * vector.
+	 * 
+	 * @param other The source of the elements to append.
+	 * @return A new vector containing the elements of this vector with order
+	 *         retained followed by the elements of the parameter collection whose
+	 *         order is defined by the iterator it produces.
+	 */
 	Vec<E> append(Collection<? extends E> other);
 
 	/**
@@ -125,6 +134,15 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	 */
 	Vec<E> insert(Iterable<? extends E> other);
 
+	/**
+	 * Creates a new vector by inserting the contents of a collection at the start
+	 * of this vector.
+	 * 
+	 * @param other The source of the elements to insert.
+	 * @return A new vector containing the elements of the parameter collection
+	 *         whose order is determined by the iterator it produces followed by the
+	 *         elements of this vector whose relative order is preserved.
+	 */
 	Vec<E> insert(Collection<? extends E> other);
 
 	/**

@@ -6,20 +6,43 @@ package com.github.maumay.jflow.vec;
 import java.util.Optional;
 
 /**
+ * A finite ordered sequence which can be indexed.
+ * 
  * @author ThomasB
- *
  */
 public interface Indexable<E>
 {
+	/**
+	 * Get the size of this sequence.
+	 * 
+	 * @return The size of this sequence.
+	 */
 	int size();
 
+	/**
+	 * Retrieve the element at the provided index in an unsafe manner. An exception
+	 * will be thrown if the index is out of bounds.
+	 * 
+	 * @param index The index to search at.
+	 * @return The element at the given index.
+	 */
 	E get(int index);
 
+	/**
+	 * Retrieve a flag indicating whether this sequence is empty.
+	 * 
+	 * @return whether this sequence is empty.
+	 */
 	default boolean isEmpty()
 	{
 		return size() == 0;
 	}
 
+	/**
+	 * Retrieve a flag indicating whether this sequence is non-empty.
+	 * 
+	 * @return whether this sequence is non-empty.
+	 */
 	default boolean isPopulated()
 	{
 		return !isEmpty();
