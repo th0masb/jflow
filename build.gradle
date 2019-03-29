@@ -1,8 +1,10 @@
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'jacoco'
-apply plugin: 'maven'
-apply plugin: 'signing'
+plugins {
+	id 'java'
+	id 'eclipse'
+	id 'jacoco'
+	id 'maven'
+	id 'signing'
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -108,13 +110,24 @@ uploadArchives {
     }
 }
 
-task codeCoverageReport(type: JacocoReport) {
-	executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-
-	reports {
-		xml.enabled true
-		xml.destination new File("${buildDir}/reports/jacoco/report.xml")
+jacocoTestReport {
+    reports {
+        xml.enabled true
+		xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        csv.enabled false
 		html.enabled false
-		csv.enabled false
-	}
+    }
 }
+
+
+//
+//task codeCoverageReport(type: JacocoReport) {
+//	executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+//
+//	reports {
+//		xml.enabled true
+//		xml.destination new File("${buildDir}/reports/jacoco/report.xml")
+//		html.enabled false
+//		csv.enabled false
+//	}
+//}

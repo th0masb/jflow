@@ -12,7 +12,7 @@ install:
 
 script:
  - ./gradlew check -x signArchives
- - ./gradlew codeCoverageReport
+ - ./gradlew jacocoReport
  
 after_success:
  - bash <(curl -s https://codecov.io/bash)
