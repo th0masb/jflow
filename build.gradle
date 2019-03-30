@@ -11,7 +11,7 @@ targetCompatibility = 1.8
 
 group = "com.github.maumay"
 archivesBaseName = "jflow"
-version = "0.5"
+version = "0.5.1"
 
 jar {
     exclude("src/examples/**")
