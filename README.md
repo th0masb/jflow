@@ -1,7 +1,7 @@
 # JFlow
 ### Complementing Java streams with enhanced iterator functionality
 
-[![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=blue)](https://javadoc.io/doc/com.github.maumay/jflow)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=blue)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=blue)](https://javadoc.io/doc/com.github.maumay/jflow) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow)
 
 ---
 #### Overview
@@ -15,6 +15,7 @@ JFlow is a lightweight Java library which complements the stream library by simp
  - An immutable alternative to `List` (along with primitive specializations) called `Vec` which is space efficient, comes with a myriad of useful functionality and can construct streams well suited to performing computations in parallel.
 
 The rest of this file along will provide more detail and justification for the points above which will hopefully demonstrate the value which I believe is offered by this library. This will be communicated via a mixture of simple API examples as well as longer and more in-depth code examples.
+
 
 
 
@@ -37,7 +38,7 @@ While these files don't demonstrate everything they contain the most useful func
 ---
 #### Accessing and using this library
 
-... still need to upload it
+The coordinates on maven central are `com.github.maumay:jflow:0.5.1`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file.
 
 ---
 #### Sizing optimizations
