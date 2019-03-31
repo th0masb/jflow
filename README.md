@@ -1,7 +1,7 @@
 # JFlow
 ### Complementing Java streams with enhanced iterator functionality
 
-[![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow)
+[![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=blue)](https://javadoc.io/doc/com.github.maumay/jflow)
 
 ---
 #### Overview
@@ -32,10 +32,12 @@ While these files don't demonstrate everything they contain the most useful func
 ---
 #### Collecting, consuming and adapting
 
+... still need to write stuff
+
 ---
 #### Accessing and using this library
 
-
+... still need to upload it
 
 ---
 #### Sizing optimizations
