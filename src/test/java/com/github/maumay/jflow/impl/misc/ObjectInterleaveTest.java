@@ -24,10 +24,10 @@ public final class ObjectInterleaveTest
 		Adapter<Double, AbstractRichIterator<Double>> populatedInterleave = i -> i
 				.interleave(list(1.0, 2.0, 3.0).iterator());
 		return list(new Case<>(list(), emptyInterleave, list()),
-				new Case<>(list(1.0), emptyInterleave, list()),
+				new Case<>(list(1.0), emptyInterleave, list(1.0)),
 				new Case<>(list(), populatedInterleave, list()),
 				new Case<>(list(5.0), populatedInterleave, list(5.0, 1.0)),
-				new Case<>(list(5.0, 4.0, 6.0, 8.0), populatedInterleave,
-						list(5.0, 1.0, 4.0, 2.0, 6.0, 3.0)));
+				new Case<>(list(5.0, 4.0, 6.0, 8.0, 9.0), populatedInterleave,
+						list(5.0, 1.0, 4.0, 2.0, 6.0, 3.0, 8.0)));
 	}
 }

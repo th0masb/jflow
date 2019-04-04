@@ -137,7 +137,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	@Override
 	public AbstractRichIterator<E> interleave(Iterator<? extends E> other)
 	{
-		throw new RuntimeException("Not yet implemented");
+		return new InterleaveAdapter<>(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
