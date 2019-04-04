@@ -288,6 +288,12 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 		return stream().parallel();
 	}
 
+	@Override
+	default Vec<E> toVec()
+	{
+		return this;
+	}
+
 	// Static factories
 
 	/**

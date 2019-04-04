@@ -43,8 +43,7 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator
-		implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -133,6 +132,12 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	public <R> AbstractRichIterator<Tup<E, R>> zip(Iterator<? extends R> other)
 	{
 		return new ZipAdapter.OfObjects<>(this, IteratorWrapper.wrap(other));
+	}
+
+	@Override
+	public AbstractRichIterator<E> interleave(Iterator<? extends E> other)
+	{
+		throw new RuntimeException("Not yet implemented");
 	}
 
 	@Override

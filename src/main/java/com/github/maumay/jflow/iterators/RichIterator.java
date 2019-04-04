@@ -162,6 +162,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 */
 	<R> RichIterator<Tup<E, R>> zip(Vec<? extends R> other);
 
+	RichIterator<E> interleave(Iterator<? extends E> other);
+
 	/**
 	 * Creates a new {@link RichIterator} by mapping each element in this source
 	 * {@link RichIterator} to a pair consisting of the element and the index it
