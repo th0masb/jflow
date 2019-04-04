@@ -29,7 +29,7 @@ public class SliceAdapter
 
 		public OfObject(AbstractRichIterator<E> src, IntUnaryOperator indexMapping)
 		{
-			super(src.getSize().filter(), src);
+			super(src.getSize().dropLowerBound(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -112,7 +112,7 @@ public class SliceAdapter
 
 		public OfInt(AbstractIntIterator src, IntUnaryOperator indexMapping)
 		{
-			super(src.getSize().filter(), src);
+			super(src.getSize().dropLowerBound(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -195,7 +195,7 @@ public class SliceAdapter
 
 		public OfLong(AbstractLongIterator src, IntUnaryOperator indexMapping)
 		{
-			super(src.getSize().filter(), src);
+			super(src.getSize().dropLowerBound(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;
@@ -278,7 +278,7 @@ public class SliceAdapter
 
 		public OfDouble(AbstractDoubleIterator src, IntUnaryOperator indexMapping)
 		{
-			super(src.getSize().filter(), src);
+			super(src.getSize().dropLowerBound(), src);
 			this.indexMapping = indexMapping;
 			this.checkpoint = requireNonNegative(indexMapping.applyAsInt(0));
 			this.indexCount = 1;

@@ -29,7 +29,7 @@ public class DropwhileAdapter
 
 		public OfObject(AbstractRichIterator<E> source, Predicate<? super E> predicate)
 		{
-			super(source.getSize().filter(), source);
+			super(source.getSize().dropLowerBound(), source);
 			this.predicate = predicate;
 			this.firstFailure = null;
 			this.firstFailureInitialised = false;
@@ -94,7 +94,7 @@ public class DropwhileAdapter
 
 		public OfInt(AbstractIntIterator source, IntPredicate predicate)
 		{
-			super(source.getSize().filter(), source);
+			super(source.getSize().dropLowerBound(), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;
@@ -159,7 +159,7 @@ public class DropwhileAdapter
 
 		public OfLong(AbstractLongIterator source, LongPredicate predicate)
 		{
-			super(source.getSize().filter(), source);
+			super(source.getSize().dropLowerBound(), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;
@@ -225,7 +225,7 @@ public class DropwhileAdapter
 
 		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
 		{
-			super(source.getSize().filter(), source);
+			super(source.getSize().dropLowerBound(), source);
 			this.predicate = predicate;
 			this.firstFailure = 0;
 			this.firstFailureInitialised = false;

@@ -40,11 +40,12 @@ public final class LowerBound extends AbstractValueSize
 	@Override
 	AbstractIteratorSize minImpl(int value)
 	{
-		return getValue() >= value ? new KnownSize(value) : new BoundedSize(getValue(), value);
+		return getValue() >= value ? new KnownSize(value)
+				: new BoundedSize(getValue(), value);
 	}
 
 	@Override
-	public AbstractIteratorSize filter()
+	public AbstractIteratorSize dropLowerBound()
 	{
 		return new LowerBound(0);
 	}
@@ -64,5 +65,11 @@ public final class LowerBound extends AbstractValueSize
 	public int hashCode()
 	{
 		return getValue();
+	}
+
+	@Override
+	AbstractIteratorSize timesImpl(int value)
+	{
+		return new LowerBound(getValue() * value);
 	}
 }

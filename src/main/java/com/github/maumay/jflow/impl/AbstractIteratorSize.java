@@ -67,11 +67,23 @@ public abstract class AbstractIteratorSize
 	}
 
 	/**
+	 * Multiplies this size by a non-negative number. Throws an exception if the
+	 * parameter is negative.
+	 * 
+	 * @param value A natural number
+	 * @return The product of this and the given number.
+	 */
+	public final AbstractIteratorSize times(int value)
+	{
+		return timesImpl(value);
+	}
+
+	/**
 	 * Computes a size which represents a size ranging from 0 to this size.
 	 * 
 	 * @return see above.
 	 */
-	public abstract AbstractIteratorSize filter();
+	public abstract AbstractIteratorSize dropLowerBound();
 
 	/**
 	 * Creates a copy of this size.
@@ -97,6 +109,8 @@ public abstract class AbstractIteratorSize
 	abstract AbstractIteratorSize subtractImpl(int value);
 
 	abstract AbstractIteratorSize minImpl(int value);
+
+	abstract AbstractIteratorSize timesImpl(int value);
 
 	/**
 	 * Mutate this size in place by subtracting one from it.

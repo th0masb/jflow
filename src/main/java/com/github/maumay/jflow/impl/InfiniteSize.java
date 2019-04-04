@@ -52,8 +52,14 @@ public final class InfiniteSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public AbstractIteratorSize filter()
+	public AbstractIteratorSize dropLowerBound()
 	{
 		return new LowerBound(0);
+	}
+
+	@Override
+	AbstractIteratorSize timesImpl(int value)
+	{
+		return this;
 	}
 }
