@@ -19,11 +19,11 @@ public abstract class AbstractAdapterTest extends AbstractListBuilder implements
 	protected final <I extends AbstractIterator> void assertAdaptionRemovesOwnership(I iterator,
 			Function<I, ? extends AbstractIterator> adapter)
 	{
-		// Can't check empty iterators
-		if (iterator.hasNext()) {
-			adapter.apply(iterator);
-			assertThrows(IteratorOwnershipException.class, iterator::skip);
-			assertThrows(IteratorOwnershipException.class, () -> next(iterator));
-		}
+		adapter.apply(iterator);
+		assertThrows(IteratorOwnershipException.class, iterator::skip);
+		assertThrows(IteratorOwnershipException.class, () -> next(iterator));
+		// // Can't check empty iterators
+		// if (iterator.hasNext()) {
+		// }
 	}
 }

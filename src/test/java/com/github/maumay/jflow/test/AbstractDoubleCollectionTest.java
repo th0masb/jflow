@@ -31,9 +31,9 @@ public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilde
 	{
 		Collector<R> collector = getCollectorToTest();
 		for (Case<R> testCase : getTestCases()) {
-			List<AbstractTestIterable<AbstractDoubleIterator>> iteratorProviders = IteratorProvider
+			List<TestIterable<AbstractDoubleIterator>> iteratorProviders = IteratorProvider
 					.buildDoubleIterables(testCase.source);
-			for (AbstractTestIterable<AbstractDoubleIterator> provider : iteratorProviders) {
+			for (TestIterable<AbstractDoubleIterator> provider : iteratorProviders) {
 				AbstractDoubleIterator iterator = provider.iter();
 
 				// Make sure we have the expected result.
@@ -50,9 +50,9 @@ public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilde
 	{
 		Collector<R> collector = getCollectorToTest();
 		for (FailCase testCase : getFailureCases()) {
-			List<AbstractTestIterable<AbstractDoubleIterator>> iteratorProviders = IteratorProvider
+			List<TestIterable<AbstractDoubleIterator>> iteratorProviders = IteratorProvider
 					.buildDoubleIterables(testCase.source);
-			for (AbstractTestIterable<AbstractDoubleIterator> provider : iteratorProviders) {
+			for (TestIterable<AbstractDoubleIterator> provider : iteratorProviders) {
 				AbstractDoubleIterator iterator = provider.iter();
 				assertThrows(testCase.expectedFailType, () -> collector.apply(iterator));
 			}
