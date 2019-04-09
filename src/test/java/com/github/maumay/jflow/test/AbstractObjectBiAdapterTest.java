@@ -19,7 +19,7 @@ import com.github.maumay.jflow.impl.IteratorOwnershipException;
  *
  */
 public abstract class AbstractObjectBiAdapterTest<T1, T2, I extends AbstractIterator>
-		implements FiniteIteratorTest
+		extends AbstractListBuilder implements FiniteIteratorTest
 {
 	protected abstract List<Case<T1, T2, I>> getTestCases();
 
