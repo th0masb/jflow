@@ -287,13 +287,13 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	@Override
 	public Optional<E> foldOp(BinaryOperator<E> reducer)
 	{
-		return ObjectReductionConsumption.reduceOption(this, reducer);
+		return ObjectReductionConsumption.foldOp(this, reducer);
 	}
 
 	@Override
 	public E fold(BinaryOperator<E> reducer)
 	{
-		return ObjectReductionConsumption.reduce(this, reducer);
+		return ObjectReductionConsumption.fold(this, reducer);
 	}
 
 	@Override

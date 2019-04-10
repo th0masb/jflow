@@ -7,8 +7,6 @@ import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
 import java.util.function.DoubleBinaryOperator;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -21,7 +19,7 @@ public final class DoubleReductionConsumption
 	public static OptionalDouble foldOption(AbstractDoubleIterator source,
 			DoubleBinaryOperator reducer)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean reductionUninitialised = true;
 		double reduction = -1L;
 		while (source.hasNext()) {
@@ -37,7 +35,7 @@ public final class DoubleReductionConsumption
 
 	public static double fold(AbstractDoubleIterator source, DoubleBinaryOperator reducer)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean reductionUninitialised = true;
 		double reduction = -1L;
 		while (source.hasNext()) {
@@ -58,7 +56,7 @@ public final class DoubleReductionConsumption
 	public static double fold(AbstractDoubleIterator source, double id,
 			DoubleBinaryOperator reducer)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		double reduction = id;
 		while (source.hasNext()) {
 			reduction = reducer.applyAsDouble(reduction, source.nextDoubleImpl());
@@ -68,7 +66,7 @@ public final class DoubleReductionConsumption
 
 	public static long count(AbstractDoubleIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		int count = 0;
 		while (source.hasNext()) {
 			source.skipImpl();

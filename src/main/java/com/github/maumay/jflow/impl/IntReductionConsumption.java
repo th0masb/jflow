@@ -7,8 +7,6 @@ import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.function.IntBinaryOperator;
 
-import com.github.maumay.jflow.utils.Exceptions;
-
 /**
  * @author ThomasB
  */
@@ -20,7 +18,7 @@ public final class IntReductionConsumption
 
 	public static OptionalInt foldOption(AbstractIntIterator source, IntBinaryOperator reducer)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean reductionUninitialised = true;
 		int reduction = -1;
 		while (source.hasNext()) {
@@ -36,7 +34,7 @@ public final class IntReductionConsumption
 
 	public static int fold(AbstractIntIterator source, IntBinaryOperator reducer)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		boolean reductionUninitialised = true;
 		int reduction = -1;
 		while (source.hasNext()) {
@@ -56,7 +54,7 @@ public final class IntReductionConsumption
 
 	public static int fold(AbstractIntIterator source, int id, IntBinaryOperator reducer)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		int reduction = id;
 		while (source.hasNext()) {
 			reduction = reducer.applyAsInt(reduction, source.nextIntImpl());
@@ -66,7 +64,7 @@ public final class IntReductionConsumption
 
 	public static long count(AbstractIntIterator source)
 	{
-		Exceptions.require(source.hasOwnership());
+		source.relinquishOwnership();
 		int count = 0;
 		while (source.hasNext()) {
 			source.skipImpl();

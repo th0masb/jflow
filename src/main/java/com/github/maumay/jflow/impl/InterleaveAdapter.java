@@ -3,9 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import com.github.maumay.jflow.iterators.Iter;
-import com.github.maumay.jflow.iterators.Repeatedly;
-
 /**
  * @author thomasb
  *
@@ -18,8 +15,7 @@ public final class InterleaveAdapter<E> extends
 	public InterleaveAdapter(AbstractRichIterator<E> sourceOne,
 			AbstractRichIterator<? extends E> sourceTwo)
 	{
-		super(IteratorSizes.min(sourceOne.getSize(), sourceTwo.getSize()).times(2),
-				sourceOne, sourceTwo);
+		super(new LowerBound(0), sourceOne, sourceTwo);
 		oneEngaged = true;
 	}
 
@@ -46,11 +42,5 @@ public final class InterleaveAdapter<E> extends
 	public boolean hasNext()
 	{
 		return oneEngaged ? getSourceOne().hasNext() : getSourceTwo().hasNext();
-	}
-
-	public static void main(String[] args)
-	{
-		System.out.println(
-				Iter.over("1", "2", "3").interleave(Repeatedly.call(() -> "!")).toVec());
 	}
 }

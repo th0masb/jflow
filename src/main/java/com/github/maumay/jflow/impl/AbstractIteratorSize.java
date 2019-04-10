@@ -75,7 +75,7 @@ public abstract class AbstractIteratorSize
 	 */
 	public final AbstractIteratorSize times(int value)
 	{
-		return timesImpl(value);
+		return timesImpl(IteratorSizes.requireNonNegative(value));
 	}
 
 	/**
