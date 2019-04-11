@@ -61,7 +61,7 @@ public class IterCollectors
 	 * @param f The function which determines the values of the map.
 	 * @return see {@link RichIterator#associate(Function)}
 	 */
-	public static <K extends Enum<K>, R> EnumMapCollector<K, R> toEnumMap(
+	public static <K extends Enum<K>, R> RichIteratorCollector<K, Map<K, R>> toEnumMap(
 			Function<? super K, ? extends R> f)
 	{
 		return new EnumMapCollector<K, R>(f);
