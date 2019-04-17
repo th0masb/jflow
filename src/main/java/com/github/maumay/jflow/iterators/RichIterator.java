@@ -162,6 +162,15 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 */
 	<R> RichIterator<Tup<E, R>> zip(Vec<? extends R> other);
 
+	/**
+	 * Combines this iterator with another via an 'interleaving' operation. Elements
+	 * are taken from the head of the two sources in turn (beginning with this
+	 * iterator) until one of the sources is exhausted at which point the interleave
+	 * iterator is considered exhausted too.
+	 * 
+	 * @param other the other iterator to interleave into this one
+	 * @return The interleaving result as described above.
+	 */
 	RichIterator<E> interleave(Iterator<? extends E> other);
 
 	/**

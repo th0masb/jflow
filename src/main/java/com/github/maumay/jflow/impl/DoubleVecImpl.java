@@ -83,6 +83,14 @@ final class DoubleVecImpl implements DoubleVec
 	{
 		return Arrays.toString(data);
 	}
+
+	@Override
+	public DoubleVecImpl sorted()
+	{
+		double[] cpy = Arrays.copyOf(data, data.length);
+		Arrays.sort(cpy);
+		return new DoubleVecImpl(cpy);
+	}
 }
 
 /*

@@ -50,6 +50,14 @@ public interface DoubleVec extends DoubleIterable
 	DoubleStream stream();
 
 	/**
+	 * Computes a sorted copy of this vector.
+	 * 
+	 * @return A new vector containing the same elements of this but sorted into
+	 *         ascending order.
+	 */
+	DoubleVec sorted();
+
+	/**
 	 * Creates a vector wrapper around the given arguments, <b>no</b> defensive
 	 * copying takes place.
 	 * 
