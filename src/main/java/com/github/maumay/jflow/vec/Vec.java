@@ -43,7 +43,7 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	 * 
 	 * @return An iterator traversing the elements in this vector in reverse order.
 	 */
-	RichIterator<E> revIter();
+	RichIterator<E> iterRev();
 
 	/**
 	 * Creates a sequential stream over the elements in this vector.
