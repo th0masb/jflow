@@ -1,113 +1,78 @@
-Here is a snippet of (boilerplate free and liberally incorrect) Java code demonstrating some of the functionality provided by the `RichIterator` interface. Please note that I use `==` instead of `.equals(...)` here incorrectly so all the assertions involving comparisons would fail but it is *far* nicer to read. All iterators in this example are sourced from one instance of `Vec` (which I assume you have read about), other sources will be demonstrated in another file. The functionality here should look familiar to you already but I'd like to stress the laziness point again. When you create an iterator it does not evaluate enything until you specifically command it to by calling certain types of method. It is easy to tell whether a method is lazy or strict, if the method returns another iterator we call it an 'adapter method' (or intermediate operation) which evaluates lazily and if it returns anything else it is called a 'consuming method' and evaluates in a strict manner. Note that a consuming method does not have to consume the *whole* iterator.
+Here is a snippet of boilerplate free Java code demonstrating some of the functionality provided by the `RichIterator` interface. **Please note** that I use `==` instead of `.equals(...)` here incorrectly so all the assertions involving comparisons would fail but it is *far* nicer to read. 
+
+All iterators in this example are sourced from one instance of `Vec` (which I assume you have read about), other sources will be demonstrated in another file. The functionality here should look familiar to you already but I'd like to stress the laziness point again. When you create an iterator it does not evaluate enything until you specifically command it to by calling certain types of method. It is easy to tell whether a method is lazy or strict, if the method returns another iterator we call it an 'adapter method' (or intermediate operation) which evaluates lazily and if it returns anything else it is called a 'consuming method' and evaluates in a strict manner. Note that a consuming method does not have to consume the *whole* iterator.
 
 ```java
-// Factory method designed for importing statically
-Vec<Integer> ints = vec(1, 2, 3);
-// or can use ints = Vec.of(1, 2, 3);
+// This vector is the source of the EnhancedIterator instances used in the
+// following examples.
+Vec<String> strings = vec("a", "b");
 
 // *****************************************************************************************
-// Easy to make enhanced iterators and streams
-ints.iter();
-ints.stream();
+// Create other collections
+List<String> stringsList = asList("a", "b");
+
+assert strings.iter().toVec() == strings;
+assert strings.iter().toList() == stringsList;
+assert strings.iter().toSet() == new HashSet<>(stringsList);
+assert strings.iter().toCollection(ArrayList::new) == stringsList;
 
 // *****************************************************************************************
-// Streams still work
-assert ints.stream().map(n -> 2 * n).collect(Vec.collector()) == vec(2, 4, 6);
-assert ints.parstream().map(n -> 3 * n).collect(Vec.collector()) == vec(3, 6, 9);
+// Create maps
+Map<String, String> expected = new HashMap<>();
+expected.put("a", "aa");
+expected.put("b", "bb");
+
+assert strings.iter().toMap(x -> x, x -> x + x) == expected;
+assert strings.iter().associate(x -> x + x) == expected;
 
 // *****************************************************************************************
-// Can map directly
-assert ints.map(n -> 2 * n) == vec(2, 4, 6);
-assert ints.map(n -> 3 * n) == vec(3, 6, 9);
+// Map
+assert strings.iter().map(s -> s.length()).toVec() == vec(1, 1);
+assert strings.iter().mapToInt(s -> s.length()).toVec() == IntVec.of(1, 1);
+assert strings.iter().mapToDouble(s -> s.length()).toVec() == DoubleVec.of(1, 1);
+assert strings.iter().mapToLong(s -> s.length()).toVec() == LongVec.of(1, 1);
 
 // *****************************************************************************************
 // Filter
-assert ints.filter(n -> n > 2) == vec(3);
+assert strings.iter().filter(s -> s.equals("a")).toVec() == vec("a");
 
 // *****************************************************************************************
 // Take, skip
-assert ints.take(1) == vec(1);
-assert ints.drop(2) == vec(3);
+assert strings.iter().take(1).toVec() == vec("a");
+assert strings.iter().drop(1).toVec() == vec("b");
 
-assert ints.takeWhile(n -> n % 2 == 1) == vec(1);
-assert ints.dropWhile(n -> n % 2 == 1) == vec(2, 3);
-
-// *****************************************************************************************
-// Predicate matching
-assert ints.anyMatch(n -> n > 2);
-assert ints.allMatch(n -> n > 0);
-assert ints.noneMatch(n -> n > 3);
-assert !ints.find(n -> n > 3).isPresent();
+assert strings.iter().takeWhile(s -> s.equals("a")).toVec() == vec("a");
+assert strings.iter().dropWhile(s -> s.equals("a")).toVec() == vec("b");
 
 // *****************************************************************************************
-// Min/max
-
-// Safe versions (returns nothing if vector is empty)
-assert ints.minOp(Comparator.naturalOrder()) == Optional.of(1);
-assert ints.maxOp(Comparator.naturalOrder()) == Optional.of(3);
-
-// Unsafe versions (throws exception if the vector is empty)
-assert ints.min(Comparator.naturalOrder()) == 1;
-assert ints.max(Comparator.naturalOrder()) == 3;
+// Predicate matching (these are terminal methods triggering the consumption of
+// the iterator).
+assert strings.iter().allMatch(s -> !s.equals("c"));
+assert strings.iter().anyMatch(s -> s == "b");
+assert strings.iter().noneMatch(s -> s == "0");
 
 // *****************************************************************************************
-// Safe indexing
-assert ints.headOp() == Optional.of(1);
-assert ints.lastOp() == Optional.of(3);
-assert !ints.getOp(6).isPresent();
-
-// *****************************************************************************************
-// Unsafe indexing
-assert ints.head() == 1;
-assert ints.last() == 3;
-assert ints.get(1) == 2;
-
+// Fine grained control over consuming an iterator
+RichIterator<String> iter = strings.iter();
+assert iter.next() == "a";
+assert iter.nextOp() == Option.of("b");
+assert !iter.hasNext();
+assert !iter.nextOp().isPresent();
 try {
-	Integer seventh = ints.get(7);
-	throw new AssertionError();
-} catch (IndexOutOfBoundsException ex) {
+	System.out.println(iter.next());
+} catch (NoSuchElementException ex) {
 }
 
-// *****************************************************************************************
-// Easy type manipulation
-Vec<Number> nums = ints.cast(Number.class);
+// ...
+// with great power comes great responsibility
 
 // *****************************************************************************************
-// Easy to convert to/from other collection types
-List<Integer> listInts = Arrays.asList(1, 2, 3);
-
-assert ints.toList() == listInts;
-assert ints.toSet() == new HashSet<>(listInts);
-assert ints.toCollection(ArrayList::new) == listInts;
-
-assert ints == Vec.copy(listInts);
+// Append / insert
+assert strings.iter().append(strings.revIter()).toVec() == vec("a", "b", "b", "a");
+assert strings.iter().insert(strings.revIter()).toVec() == vec("b", "a", "a", "b");
 
 // *****************************************************************************************
-// Easy to convert to maps
-Map<Integer, Integer> expected = new HashMap<>();
-expected.put(1, 2);
-expected.put(2, 4);
-expected.put(3, 6);
+// Zipping
+assert strings.iter().zip(strings.revIter()).map(pair -> pair._1 + pair._2).toVec() == vec("ab", "ba");
 
-Map<Integer, Integer> map1 = ints.toMap(n -> n, n -> 2 * n);
-Map<Integer, Integer> map2 = ints.associate(n -> 2 * n);
-
-assert map1 == expected && map2 == expected;
-
-// *****************************************************************************************
-// Vec splitting
-Tup<Vec<Integer>, Vec<Integer>> partitioned = ints.partition(n -> n % 2 == 0);
-
-// Scala inspired tuple.
-assert partitioned._1 == vec(2);
-assert partitioned._2 == vec(1, 3);
-
-Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.drop(1));
-
-assert headTail._1 == 1;
-assert headTail._2 == vec(2, 3);
-
-// *****************************************************************************************
-// Fold vectors
-assert ints.fold((a, b) -> a | b) == 0b11;
 ```
