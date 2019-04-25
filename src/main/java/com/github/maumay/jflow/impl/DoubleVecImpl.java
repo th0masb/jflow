@@ -28,7 +28,7 @@ final class DoubleVecImpl implements DoubleVec
 	@Override
 	public DoubleIterator iter()
 	{
-		return Iter.doubles(data);
+		return new ArraySource.OfDouble(data);
 	}
 
 	@Override

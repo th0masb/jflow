@@ -1,8 +1,8 @@
 package com.github.maumay.jflow.api;
 
 import static com.github.maumay.jflow.vec.Vec.vec;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.iterators.Iter;
 import com.github.maumay.jflow.utils.Tup;
+import com.github.maumay.jflow.vec.DoubleVec;
+import com.github.maumay.jflow.vec.IntVec;
+import com.github.maumay.jflow.vec.LongVec;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
@@ -86,114 +89,99 @@ class IterTest
 	@Test
 	void testFlatten()
 	{
-		fail("Not yet implemented");
+		assertEquals(vec("a", "b", "c"),
+				Iter.flatten(vec(vec(), vec("a"), vec(), vec("b", "c"))).toVec());
 	}
 
 	@Test
 	void testEmptyInts()
 	{
-		fail("Not yet implemented");
+		assertEquals(IntVec.empty(), Iter.emptyInts().toVec());
 	}
 
 	@Test
 	void testInts()
 	{
-		fail("Not yet implemented");
+		assertEquals(IntVec.of(1, 2), Iter.ints(1, 2).toVec());
 	}
 
 	@Test
 	void testReverseInts()
 	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testIntsByIndexing()
-	{
-		fail("Not yet implemented");
+		assertEquals(IntVec.of(2, 1), Iter.reverseInts(1, 2).toVec());
 	}
 
 	@Test
 	void testEmptyDoubles()
 	{
-		fail("Not yet implemented");
+		assertEquals(DoubleVec.empty(), Iter.emptyDoubles().toVec());
 	}
 
 	@Test
 	void testDoubles()
 	{
-		fail("Not yet implemented");
+		assertEquals(DoubleVec.of(1, 2), Iter.doubles(1, 2).toVec());
 	}
 
 	@Test
 	void testReverseDoubles()
 	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDoublesByIndexing()
-	{
-		fail("Not yet implemented");
+		assertEquals(DoubleVec.of(2, 1), Iter.reverseDoubles(1, 2).toVec());
 	}
 
 	@Test
 	void testEmptyLongs()
 	{
-		fail("Not yet implemented");
+		assertEquals(LongVec.empty(), Iter.emptyLongs().toVec());
 	}
 
 	@Test
 	void testLongs()
 	{
-		fail("Not yet implemented");
+		assertEquals(LongVec.of(1, 2), Iter.longs(1, 2).toVec());
 	}
 
 	@Test
 	void testReverseLongs()
 	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testLongsByIndexing()
-	{
-		fail("Not yet implemented");
+		assertEquals(LongVec.of(2, 1), Iter.reverseLongs(1, 2).toVec());
 	}
 
 	@Test
 	void testWrapIterator()
 	{
-		fail("Not yet implemented");
+		assertEquals(vec("a"), Iter.wrap(Arrays.asList("a").iterator()).toVec());
 	}
 
 	@Test
 	void testWrapIterable()
 	{
-		fail("Not yet implemented");
+		assertEquals(vec("a"), Iter.wrap(Arrays.asList("a")).toVec());
 	}
 
 	@Test
 	void testUntil()
 	{
-		fail("Not yet implemented");
+		assertEquals(IntVec.of(0, 1, 2, 3, 4), Iter.until(5).toVec());
 	}
 
 	@Test
 	void testBetweenIntInt()
 	{
-		fail("Not yet implemented");
+		assertEquals(IntVec.of(1, 2, 3, 4), Iter.between(1, 5).toVec());
 	}
 
 	@Test
 	void testBetweenIntIntInt()
 	{
-		fail("Not yet implemented");
+		assertEquals(IntVec.of(1, 2, 3, 4), Iter.between(1, 5, 1).toVec());
+		assertEquals(IntVec.of(1, -1, -3), Iter.between(1, -5, -2).toVec());
 	}
 
 	@Test
 	void testPartition()
 	{
-		fail("Not yet implemented");
+		assertArrayEquals(new double[] { 1.0, 1.5, 2.0, 2.5, 3.0 },
+				Iter.partition(1.0, 3.0, 4).toArray(), 1e-7);
 	}
 }
