@@ -26,30 +26,28 @@ public final class IterExamples
 	public static void main(String[] args)
 	{
 		// Construct from varargs
-		assert Iter.over(1, 2, 3).toVec().equals(vec(1, 2, 3));
+		assert Iter.over(1, 2, 3).toVec() == vec(1, 2, 3);
 
 		// Construct from existing collections
-		assert Iter.over(Arrays.asList(1, 2, 3)).toVec().equals(vec(1, 2, 3));
+		assert Iter.over(Arrays.asList(1, 2, 3)).toVec() == vec(1, 2, 3);
 
 		// *****************************************************************************************
 		// Construct from enumerated types
-		assert Iter.over(Side.class).toVec()
-				.equals(vec(Side.LEFT, Side.TOP, Side.RIGHT, Side.BOTTOM));
+		assert Iter.over(Side.class).toVec() == vec(Side.LEFT, Side.TOP, Side.RIGHT, Side.BOTTOM);
 
 		// *****************************************************************************************
 		// Construct from optionals
-		assert Iter.option(Option.empty()).toVec().equals(vec());
-		assert Iter.option(Option.of("a")).toVec().equals(vec("a"));
+		assert Iter.option(Option.empty()).toVec() == vec();
+		assert Iter.option(Option.of("a")).toVec() == vec("a");
 
 		// Example usage is flattening a sequence of optional values
-		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b"))
-				.flatMap(Iter::option).toVec().equals(vec("a", "b"));
+		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::option)
+				.toVec() == vec("a", "b");
 
 		// *****************************************************************************************
 		// Flatten stacked collections
-		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(),
-				vec("b"));
-		assert Iter.flatten(stacked).toVec().equals(vec("a", "b"));
+		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(), vec("b"));
+		assert Iter.flatten(stacked).toVec() == vec("a", "b");
 		assert Iter.flatten(stacked).anyMatch(s -> s.equals("a"));
 
 		// *****************************************************************************************
@@ -71,12 +69,10 @@ public final class IterExamples
 
 		// *****************************************************************************************
 		// Construct primitive number ranges
-		assert Iter.until(5).toVec().equals(IntVec.of(0, 1, 2, 3, 4));
-		assert Iter.between(1, 4).toVec().equals(IntVec.of(1, 2, 3));
-		assert Iter.between(1, 10, 2).toVec().equals(IntVec.of(1, 3, 5, 7, 9));
-		assert Iter.between(9, 0, -2).toVec().equals(IntVec.of(9, 7, 5, 3, 1));
-
-		System.out.println("All assertions passed");
+		assert Iter.until(5).toVec() == IntVec.of(0, 1, 2, 3, 4);
+		assert Iter.between(1, 4).toVec() == IntVec.of(1, 2, 3);
+		assert Iter.between(1, 10, 2).toVec() == IntVec.of(1, 3, 5, 7, 9);
+		assert Iter.between(9, 0, -2).toVec() == IntVec.of(9, 7, 5, 3, 1);
 	}
 
 }
