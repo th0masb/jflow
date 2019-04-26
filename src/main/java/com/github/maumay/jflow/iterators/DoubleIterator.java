@@ -8,7 +8,6 @@ import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
-import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.vec.DoubleVec;
@@ -124,7 +123,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) &lt; length(F))} </code></li>
 	 *         </ul>
 	 */
-	DoubleIterator slice(IntUnaryOperator indexMap);
+	DoubleIterator slice(IteratorSlicer indexMap);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by

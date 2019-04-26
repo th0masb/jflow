@@ -9,12 +9,12 @@ import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
-import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.DoubleIteratorAdapter;
 import com.github.maumay.jflow.iterators.DoubleIteratorCollector;
 import com.github.maumay.jflow.iterators.DoubleIteratorConsumer;
+import com.github.maumay.jflow.iterators.IteratorSlicer;
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.utils.Option;
 
@@ -27,8 +27,7 @@ import com.github.maumay.jflow.utils.Option;
  * 
  * @author ThomasB
  */
-public abstract class AbstractDoubleIterator extends AbstractIterator
-		implements DoubleIterator
+public abstract class AbstractDoubleIterator extends AbstractIterator implements DoubleIterator
 {
 	public AbstractDoubleIterator(AbstractIteratorSize size)
 	{
@@ -83,7 +82,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 
 	// DoubleIterator API
 	@Override
-	public AbstractDoubleIterator slice(IntUnaryOperator indexMapping)
+	public AbstractDoubleIterator slice(IteratorSlicer indexMapping)
 	{
 		return new SliceAdapter.OfDouble(this, indexMapping);
 	}

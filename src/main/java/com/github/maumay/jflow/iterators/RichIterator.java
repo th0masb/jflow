@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
-import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
@@ -201,7 +200,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *         <li><code> length(G) = supremum {i | f(i) &lt; length(F)} </code></li>
 	 *         </ul>
 	 */
-	RichIterator<E> slice(IntUnaryOperator indexMap);
+	RichIterator<E> slice(IteratorSlicer indexMap);
 
 	/**
 	 * Creates a new {@link RichIterator} from this {@link RichIterator} by

@@ -2,7 +2,6 @@ package com.github.maumay.jflow.iterators;
 
 import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
-import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongFunction;
 import java.util.function.LongPredicate;
@@ -124,7 +123,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) &lt; length(F))} </code></li>
 	 *         </ul>
 	 */
-	LongIterator slice(IntUnaryOperator indexMap);
+	LongIterator slice(IteratorSlicer indexMap);
 
 	/**
 	 * Creates a new {@link LongIterator} from this {@link LongIterator} by

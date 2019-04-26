@@ -16,7 +16,6 @@ import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
@@ -24,6 +23,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterables.RichIterable;
+import com.github.maumay.jflow.iterators.IteratorSlicer;
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.RichIteratorAdapter;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
@@ -147,7 +147,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	}
 
 	@Override
-	public AbstractRichIterator<E> slice(IntUnaryOperator f)
+	public AbstractRichIterator<E> slice(IteratorSlicer f)
 	{
 		return new SliceAdapter.OfObject<>(this, f);
 	}
