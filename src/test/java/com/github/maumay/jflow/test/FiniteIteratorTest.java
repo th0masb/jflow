@@ -25,9 +25,9 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 public interface FiniteIteratorTest
 {
 	default <I extends AbstractIterator> void assertIteratorAsExpected(List<?> expectedElements,
-			List<AbstractTestIterable<I>> iteratorProviders)
+			List<TestIterable<I>> iteratorProviders)
 	{
-		for (AbstractTestIterable<I> iteratorProvider : iteratorProviders) {
+		for (TestIterable<I> iteratorProvider : iteratorProviders) {
 			assertSizeDecreasesByNextAsExpected(iteratorProvider.iter());
 			assertSizeDecreasesBySkipAsExpected(iteratorProvider.iter());
 			assertSkippingAsExpected(expectedElements, iteratorProvider.iter());

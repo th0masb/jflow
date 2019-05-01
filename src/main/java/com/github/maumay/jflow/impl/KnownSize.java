@@ -46,7 +46,7 @@ public final class KnownSize extends AbstractValueSize
 	}
 
 	@Override
-	public AbstractIteratorSize filter()
+	public AbstractIteratorSize dropLowerBound()
 	{
 		return new BoundedSize(0, getValue());
 	}
@@ -69,5 +69,11 @@ public final class KnownSize extends AbstractValueSize
 	public int hashCode()
 	{
 		return Objects.hash(getValue(), getValue());
+	}
+
+	@Override
+	AbstractIteratorSize timesImpl(int value)
+	{
+		return new KnownSize(getValue() * value);
 	}
 }

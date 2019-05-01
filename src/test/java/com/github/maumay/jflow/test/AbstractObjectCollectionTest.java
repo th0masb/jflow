@@ -30,9 +30,9 @@ public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBui
 	{
 		Collector<E, ? extends R> collector = getCollectorToTest();
 		for (Case<E, R> testCase : getTestCases()) {
-			List<AbstractTestIterable<AbstractRichIterator<E>>> iteratorProviders = IteratorProvider
+			List<TestIterable<AbstractRichIterator<E>>> iteratorProviders = IteratorProvider
 					.buildIterables(testCase.source);
-			for (AbstractTestIterable<AbstractRichIterator<E>> provider : iteratorProviders) {
+			for (TestIterable<AbstractRichIterator<E>> provider : iteratorProviders) {
 				AbstractRichIterator<E> iterator = provider.iter();
 
 				// Make sure we have the expected result.
@@ -49,9 +49,9 @@ public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBui
 	{
 		Collector<E, ? extends R> collector = getCollectorToTest();
 		for (FailCase<E> testCase : getFailureCases()) {
-			List<AbstractTestIterable<AbstractRichIterator<E>>> iteratorProviders = IteratorProvider
+			List<TestIterable<AbstractRichIterator<E>>> iteratorProviders = IteratorProvider
 					.buildIterables(testCase.source);
-			for (AbstractTestIterable<AbstractRichIterator<E>> provider : iteratorProviders) {
+			for (TestIterable<AbstractRichIterator<E>> provider : iteratorProviders) {
 				AbstractRichIterator<E> iterator = provider.iter();
 				assertThrows(testCase.expectedFailType, () -> collector.apply(iterator));
 			}

@@ -145,7 +145,7 @@ public class Repeatedly
 	 */
 	public static IntIterator indexInts(IntUnaryOperator indexingFunction)
 	{
-		return new FunctionSource.OfInt(indexingFunction, -1);
+		return new FunctionSource.OfInt(indexingFunction);
 	}
 
 	// /**
@@ -204,7 +204,7 @@ public class Repeatedly
 	 * @return An infinite DoubleEnhancedIterator built from repeatedly calling the
 	 *         supply function.
 	 */
-	public static DoubleIterator callDoubles(final DoubleSupplier indexingFunction)
+	public static DoubleIterator callDoubles(DoubleSupplier indexingFunction)
 	{
 		return Repeatedly.indexDoubles(i -> indexingFunction.getAsDouble());
 	}
@@ -217,9 +217,9 @@ public class Repeatedly
 	 * @return An infinite DoubleEnhancedIterator built from apply the indexing
 	 *         function to each natural number in turn.
 	 */
-	public static DoubleIterator indexDoubles(final IntToDoubleFunction indexingFunction)
+	public static DoubleIterator indexDoubles(IntToDoubleFunction indexingFunction)
 	{
-		return new FunctionSource.OfDouble(indexingFunction, -1);
+		return new FunctionSource.OfDouble(indexingFunction);
 	}
 
 	// /**
@@ -290,7 +290,7 @@ public class Repeatedly
 	 */
 	public static LongIterator indexLongs(IntToLongFunction indexingFunction)
 	{
-		return new FunctionSource.OfLong(indexingFunction, -1);
+		return new FunctionSource.OfLong(indexingFunction);
 	}
 
 	// /**

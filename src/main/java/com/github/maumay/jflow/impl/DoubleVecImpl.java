@@ -28,7 +28,7 @@ final class DoubleVecImpl implements DoubleVec
 	@Override
 	public DoubleIterator iter()
 	{
-		return Iter.doubles(data);
+		return new ArraySource.OfDouble(data);
 	}
 
 	@Override
@@ -82,6 +82,14 @@ final class DoubleVecImpl implements DoubleVec
 	public String toString()
 	{
 		return Arrays.toString(data);
+	}
+
+	@Override
+	public DoubleVecImpl sorted()
+	{
+		double[] cpy = Arrays.copyOf(data, data.length);
+		Arrays.sort(cpy);
+		return new DoubleVecImpl(cpy);
 	}
 }
 

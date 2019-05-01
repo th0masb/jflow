@@ -68,7 +68,7 @@ public final class BoundedSize extends AbstractIteratorSize
 	}
 
 	@Override
-	public AbstractIteratorSize filter()
+	public AbstractIteratorSize dropLowerBound()
 	{
 		return new BoundedSize(0, hi);
 	}
@@ -104,5 +104,15 @@ public final class BoundedSize extends AbstractIteratorSize
 	{
 		return new StringBuilder("BOUNDED(").append(lo).append(", ").append(hi)
 				.append(")").toString();
+	}
+
+	@Override
+	AbstractIteratorSize timesImpl(int value)
+	{
+		if (value > 0) {
+			return new BoundedSize(lo * value, hi * value);
+		} else {
+			return new KnownSize(0);
+		}
 	}
 }

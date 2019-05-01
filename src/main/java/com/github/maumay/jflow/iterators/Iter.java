@@ -10,9 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.IntFunction;
-import java.util.function.IntToDoubleFunction;
-import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.impl.ArraySource;
@@ -116,23 +113,24 @@ public final class Iter
 		return new ArraySource.OfObjectReversed<>(elements);
 	}
 
-	/**
-	 * Build a finite length EnhancedIterator from a function which accepts a
-	 * positive integer argument representing a sequence index.
-	 *
-	 * @param                  <E> The target type of the indexing function.
-	 * @param indexingFunction A function whose domain is the natural numbers.
-	 * @param indexBound       The upper bound (exclusive) of the index range. It
-	 *                         must be non-negative otherwise an exception will be
-	 *                         thrown.
-	 * @return A EnhancedIterator built from apply the indexing function to a
-	 *         bounded range of natural numbers.
-	 */
-	public static <E> RichIterator<E> byIndexing(IntFunction<E> indexingFunction, int indexBound)
-	{
-		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionSource.OfObject<>(indexingFunction, indexBound);
-	}
+	// /**
+	// * Build a finite length EnhancedIterator from a function which accepts a
+	// * positive integer argument representing a sequence index.
+	// *
+	// * @param <E> The target type of the indexing function.
+	// * @param indexingFunction A function whose domain is the natural numbers.
+	// * @param indexBound The upper bound (exclusive) of the index range. It
+	// * must be non-negative otherwise an exception will be
+	// * thrown.
+	// * @return A EnhancedIterator built from apply the indexing function to a
+	// * bounded range of natural numbers.
+	// */
+	// public static <E> RichIterator<E> byIndexing(IntFunction<E> indexingFunction,
+	// int indexBound)
+	// {
+	// Exceptions.requireArg(indexBound >= 0);
+	// return new FunctionSource.OfObject<>(indexingFunction, indexBound);
+	// }
 
 	/**
 	 * Converts an Optional into an Iterator, if the input is present then returns a
@@ -234,23 +232,6 @@ public final class Iter
 		return new ArraySource.OfIntReversed(elements);
 	}
 
-	/**
-	 * Build a finite length IntEnhancedIterator from a function which accepts a
-	 * positive integer argument representing a sequence index.
-	 *
-	 * @param indexingFunction A function whose domain is the natural numbers.
-	 * @param indexBound       The upper bound (exclusive) of the index range. It
-	 *                         must be non-negative otherwise an exception will be
-	 *                         thrown.
-	 * @return A IntEnhancedIterator built from apply the indexing function to a
-	 *         bounded range of natural numbers.
-	 */
-	public static IntIterator intsByIndexing(IntUnaryOperator indexingFunction, int indexBound)
-	{
-		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionSource.OfInt(indexingFunction, indexBound);
-	}
-
 	// Doubles
 
 	/**
@@ -286,23 +267,26 @@ public final class Iter
 		return new ArraySource.OfDoubleReversed(elements);
 	}
 
-	/**
-	 * Build a finite length DoubleEnhancedIterator from a function which accepts a
-	 * positive integer argument representing a sequence index.
-	 *
-	 * @param indexingFunction A function whose domain is the natural numbers.
-	 * @param indexBound       The upper bound (exclusive) of the index range. It
-	 *                         must be non-negative otherwise an exception will be
-	 *                         thrown.
-	 * @return A DoubleEnhancedIterator built from apply the indexing function to a
-	 *         bounded range
-	 */
-	public static DoubleIterator doublesByIndexing(IntToDoubleFunction indexingFunction,
-			int indexBound)
-	{
-		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionSource.OfDouble(indexingFunction, indexBound);
-	}
+	// /**
+	// * Build a finite length DoubleEnhancedIterator from a function which accepts
+	// a
+	// * positive integer argument representing a sequence index.
+	// *
+	// * @param indexingFunction A function whose domain is the natural numbers.
+	// * @param indexBound The upper bound (exclusive) of the index range. It
+	// * must be non-negative otherwise an exception will be
+	// * thrown.
+	// * @return A DoubleEnhancedIterator built from apply the indexing function to
+	// a
+	// * bounded range
+	// */
+	// public static DoubleIterator doublesByIndexing(IntToDoubleFunction
+	// indexingFunction,
+	// int indexBound)
+	// {
+	// Exceptions.requireArg(indexBound >= 0);
+	// return new FunctionSource.OfDouble(indexingFunction, indexBound);
+	// }
 
 	// Longs
 
@@ -339,22 +323,23 @@ public final class Iter
 		return new ArraySource.OfLongReversed(elements);
 	}
 
-	/**
-	 * Build a finite length LongEnhancedIterator from a function which accepts a
-	 * positive integer argument representing a sequence index.
-	 *
-	 * @param indexingFunction A function whose domain is the natural numbers.
-	 * @param indexBound       The upper bound (exclusive) of the index range. It
-	 *                         must be non-negative otherwise an exception will be
-	 *                         thrown.
-	 * @return A LongEnhancedIterator built from apply the indexing function to a
-	 *         bounded range of natural numbers.
-	 */
-	public static LongIterator longsByIndexing(IntToLongFunction indexingFunction, int indexBound)
-	{
-		Exceptions.requireArg(indexBound >= 0);
-		return new FunctionSource.OfLong(indexingFunction, indexBound);
-	}
+	// /**
+	// * Build a finite length LongEnhancedIterator from a function which accepts a
+	// * positive integer argument representing a sequence index.
+	// *
+	// * @param indexingFunction A function whose domain is the natural numbers.
+	// * @param indexBound The upper bound (exclusive) of the index range. It
+	// * must be non-negative otherwise an exception will be
+	// * thrown.
+	// * @return A LongEnhancedIterator built from apply the indexing function to a
+	// * bounded range of natural numbers.
+	// */
+	// public static LongIterator longsByIndexing(IntToLongFunction
+	// indexingFunction, int indexBound)
+	// {
+	// Exceptions.requireArg(indexBound >= 0);
+	// return new FunctionSource.OfLong(indexingFunction, indexBound);
+	// }
 
 	/**
 	 * Wraps an existing iterator in a EnhancedIterator to enable use of all extra
@@ -466,4 +451,22 @@ public final class Iter
 		double step = (end - start) / nSubIntervals;
 		return until(nSubIntervals + 1).mapToDouble(i -> start + i * step);
 	}
+
+	/**
+	 * Build a finite length IntEnhancedIterator from a function which accepts a
+	 * positive integer argument representing a sequence index.
+	 *
+	 * @param indexingFunction A function whose domain is the natural numbers.
+	 * @param indexBound       The upper bound (exclusive) of the index range. It
+	 *                         must be non-negative otherwise an exception will be
+	 *                         thrown.
+	 * @return A IntEnhancedIterator built from apply the indexing function to a
+	 *         bounded range of natural numbers.
+	 */
+	private static IntIterator intsByIndexing(IntUnaryOperator indexingFunction, int indexBound)
+	{
+		Exceptions.requireArg(indexBound >= 0);
+		return new FunctionSource.OfInt(indexingFunction, indexBound);
+	}
+
 }

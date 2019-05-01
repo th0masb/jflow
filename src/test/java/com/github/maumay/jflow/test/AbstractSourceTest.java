@@ -28,7 +28,7 @@ public abstract class AbstractSourceTest<I extends AbstractIterator> extends Abs
 			// Check the source iterator is created with ownership.
 			assertTrue(testCase.source.get().hasOwnership());
 
-			AbstractTestIterable<I> iterable = new AbstractTestIterable<I>() {
+			TestIterable<I> iterable = new TestIterable<I>() {
 				@Override
 				public I iter()
 				{

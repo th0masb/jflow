@@ -5,7 +5,6 @@ package com.github.maumay.jflow.impl;
 
 import java.util.NoSuchElementException;
 import java.util.OptionalLong;
-import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
@@ -14,6 +13,7 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
+import com.github.maumay.jflow.iterators.IteratorSlicer;
 import com.github.maumay.jflow.iterators.LongIterator;
 import com.github.maumay.jflow.utils.LongTup;
 import com.github.maumay.jflow.utils.Option;
@@ -27,8 +27,7 @@ import com.github.maumay.jflow.utils.Option;
  * 
  * @author ThomasB
  */
-public abstract class AbstractLongIterator extends AbstractIterator
-		implements LongIterator
+public abstract class AbstractLongIterator extends AbstractIterator implements LongIterator
 {
 	public AbstractLongIterator(AbstractIteratorSize size)
 	{
@@ -83,7 +82,7 @@ public abstract class AbstractLongIterator extends AbstractIterator
 
 	// LongIterator API
 	@Override
-	public AbstractLongIterator slice(IntUnaryOperator indexMapping)
+	public AbstractLongIterator slice(IteratorSlicer indexMapping)
 	{
 		return new SliceAdapter.OfLong(this, indexMapping);
 	}

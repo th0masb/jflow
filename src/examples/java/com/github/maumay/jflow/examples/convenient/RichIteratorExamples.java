@@ -29,7 +29,7 @@ public class RichIteratorExamples
 
 	public static void main(String[] args)
 	{
-		// This vector is the source of the EnhancedIterator instances used in the
+		// This vector is the source of the RichIterator instances used in the
 		// following examples.
 		Vec<String> strings = vec("a", "b");
 
@@ -37,10 +37,10 @@ public class RichIteratorExamples
 		// Create other collections
 		List<String> stringsList = asList("a", "b");
 
-		assert strings.iter().toVec().equals(strings);
-		assert strings.iter().toList().equals(stringsList);
-		assert strings.iter().toSet().equals(new HashSet<>(stringsList));
-		assert strings.iter().toCollection(ArrayList::new).equals(stringsList);
+		assert strings.iter().toVec() == strings;
+		assert strings.iter().toList() == stringsList;
+		assert strings.iter().toSet() == new HashSet<>(stringsList);
+		assert strings.iter().toCollection(ArrayList::new) == stringsList;
 
 		// *****************************************************************************************
 		// Create maps
@@ -48,28 +48,27 @@ public class RichIteratorExamples
 		expected.put("a", "aa");
 		expected.put("b", "bb");
 
-		assert strings.iter().toMap(x -> x, x -> x + x).equals(expected);
-		assert strings.iter().associate(x -> x + x).equals(expected);
+		assert strings.iter().toMap(x -> x, x -> x + x) == expected;
+		assert strings.iter().associate(x -> x + x) == expected;
 
 		// *****************************************************************************************
 		// Map
-		assert strings.iter().map(s -> s.length()).toVec().equals(vec(1, 1));
-		assert strings.iter().mapToInt(s -> s.length()).toVec().equals(IntVec.of(1, 1));
-		assert strings.iter().mapToDouble(s -> s.length()).toVec()
-				.equals(DoubleVec.of(1, 1));
-		assert strings.iter().mapToLong(s -> s.length()).toVec().equals(LongVec.of(1, 1));
+		assert strings.iter().map(s -> s.length()).toVec() == vec(1, 1);
+		assert strings.iter().mapToInt(s -> s.length()).toVec() == IntVec.of(1, 1);
+		assert strings.iter().mapToDouble(s -> s.length()).toVec() == DoubleVec.of(1, 1);
+		assert strings.iter().mapToLong(s -> s.length()).toVec() == LongVec.of(1, 1);
 
 		// *****************************************************************************************
 		// Filter
-		assert strings.iter().filter(s -> s.equals("a")).toVec().equals(vec("a"));
+		assert strings.iter().filter(s -> s.equals("a")).toVec() == vec("a");
 
 		// *****************************************************************************************
 		// Take, skip
-		assert strings.iter().take(1).toVec().equals(vec("a"));
-		assert strings.iter().drop(1).toVec().equals(vec("b"));
+		assert strings.iter().take(1).toVec() == vec("a");
+		assert strings.iter().drop(1).toVec() == vec("b");
 
-		assert strings.iter().takeWhile(s -> s.equals("a")).toVec().equals(vec("a"));
-		assert strings.iter().dropWhile(s -> s.equals("a")).toVec().equals(vec("b"));
+		assert strings.iter().takeWhile(s -> s.equals("a")).toVec() == vec("a");
+		assert strings.iter().dropWhile(s -> s.equals("a")).toVec() == vec("b");
 
 		// *****************************************************************************************
 		// Predicate matching (these are terminal methods triggering the consumption of
@@ -81,10 +80,10 @@ public class RichIteratorExamples
 		// *****************************************************************************************
 		// Fine grained control over consuming an iterator
 		RichIterator<String> iter = strings.iter();
-		assert iter.next().equals("a");
-		assert iter.nextOp().equals(Option.of("b"));
+		assert iter.next() == "a";
+		assert iter.nextOp() == Option.of("b");
 		assert !iter.hasNext();
-		assert iter.nextOp().equals(Option.empty());
+		assert !iter.nextOp().isPresent();
 		try {
 			System.out.println(iter.next());
 		} catch (NoSuchElementException ex) {
@@ -95,17 +94,13 @@ public class RichIteratorExamples
 
 		// *****************************************************************************************
 		// Append / insert
-		assert strings.iter().append(strings.revIter()).toVec()
-				.equals(vec("a", "b", "b", "a"));
-		assert strings.iter().insert(strings.revIter()).toVec()
-				.equals(vec("b", "a", "a", "b"));
+		assert strings.iter().append(strings.iterRev()).toVec() == vec("a", "b", "b", "a");
+		assert strings.iter().insert(strings.iterRev()).toVec() == vec("b", "a", "a", "b");
 
 		// *****************************************************************************************
 		// Zipping
-		assert strings.iter().zip(strings.revIter()).map(pair -> pair._1 + pair._2)
-				.toVec().equals(vec("ab", "ba"));
-
-		System.out.println("All assertions passed");
+		assert strings.iter().zip(strings.iterRev()).map(pair -> pair._1 + pair._2)
+				.toVec() == vec("ab", "ba");
 	}
 
 }

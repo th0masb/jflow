@@ -18,14 +18,13 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 public abstract class AbstractObjectAdapterTest<T, I extends AbstractIterator>
 		extends AbstractAdapterTest implements FiniteIteratorTest
 {
-
 	protected abstract List<Case<T, I>> getTestCases();
 
 	@Test
 	public final void testIterationBehaviour()
 	{
 		for (Case<T, I> testcase : getTestCases()) {
-			List<AbstractTestIterable<I>> providers = IteratorProvider
+			List<TestIterable<I>> providers = IteratorProvider
 					.buildIterables(testcase.source, testcase.adapter);
 
 			assertIteratorAsExpected(testcase.result, providers);
@@ -36,10 +35,10 @@ public abstract class AbstractObjectAdapterTest<T, I extends AbstractIterator>
 	public final void testOwnershipBehaviour()
 	{
 		for (Case<T, I> testcase : getTestCases()) {
-			List<AbstractTestIterable<AbstractRichIterator<T>>> providers = IteratorProvider
+			List<TestIterable<AbstractRichIterator<T>>> providers = IteratorProvider
 					.buildIterables(testcase.source);
 
-			for (AbstractTestIterable<AbstractRichIterator<T>> provider : providers) {
+			for (TestIterable<AbstractRichIterator<T>> provider : providers) {
 				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
 			}
 		}

@@ -26,7 +26,7 @@ public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends
 	public final void testIterationBehaviour()
 	{
 		for (Case<I> testcase : getTestCases()) {
-			List<AbstractTestIterable<I>> initialProviders = IteratorProvider
+			List<TestIterable<I>> initialProviders = IteratorProvider
 					.buildIntIterables(testcase.source, testcase.adapter);
 
 			assertIteratorAsExpected(testcase.result, initialProviders);
@@ -37,10 +37,10 @@ public abstract class AbstractIntAdapterTest<I extends AbstractIterator> extends
 	public final void testOwnershipBehaviour()
 	{
 		for (Case<I> testcase : getTestCases()) {
-			List<AbstractTestIterable<AbstractIntIterator>> providers = IteratorProvider
+			List<TestIterable<AbstractIntIterator>> providers = IteratorProvider
 					.buildIntIterables(testcase.source);
 
-			for (AbstractTestIterable<AbstractIntIterator> provider : providers) {
+			for (TestIterable<AbstractIntIterator> provider : providers) {
 				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
 			}
 		}

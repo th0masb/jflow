@@ -16,7 +16,6 @@ import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
@@ -24,6 +23,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.iterables.RichIterable;
+import com.github.maumay.jflow.iterators.IteratorSlicer;
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.RichIteratorAdapter;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
@@ -43,8 +43,7 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator
-		implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -136,13 +135,19 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
+	public AbstractRichIterator<E> interleave(Iterator<? extends E> other)
+	{
+		return new InterleaveAdapter<>(this, IteratorWrapper.wrap(other));
+	}
+
+	@Override
 	public AbstractRichIterator<Tup<Integer, E>> enumerate()
 	{
 		return new ZipAdapter.OfObjects<>(new FunctionSource.OfObject<>(n -> n), this);
 	}
 
 	@Override
-	public AbstractRichIterator<E> slice(IntUnaryOperator f)
+	public AbstractRichIterator<E> slice(IteratorSlicer f)
 	{
 		return new SliceAdapter.OfObject<>(this, f);
 	}
@@ -282,13 +287,13 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	@Override
 	public Optional<E> foldOp(BinaryOperator<E> reducer)
 	{
-		return ObjectReductionConsumption.reduceOption(this, reducer);
+		return ObjectReductionConsumption.foldOp(this, reducer);
 	}
 
 	@Override
 	public E fold(BinaryOperator<E> reducer)
 	{
-		return ObjectReductionConsumption.reduce(this, reducer);
+		return ObjectReductionConsumption.fold(this, reducer);
 	}
 
 	@Override

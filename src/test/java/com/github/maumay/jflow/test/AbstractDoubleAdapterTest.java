@@ -26,7 +26,7 @@ public abstract class AbstractDoubleAdapterTest<I extends AbstractIterator>
 	public final void testIteratorBehaviour()
 	{
 		for (Case<I> testcase : getTestCases()) {
-			List<AbstractTestIterable<I>> initialProviders = IteratorProvider
+			List<TestIterable<I>> initialProviders = IteratorProvider
 					.buildDoubleIterables(testcase.source, testcase.adapter);
 
 			assertIteratorAsExpected(testcase.result, initialProviders);
@@ -37,10 +37,10 @@ public abstract class AbstractDoubleAdapterTest<I extends AbstractIterator>
 	public final void testOwnershipBehaviour()
 	{
 		for (Case<I> testcase : getTestCases()) {
-			List<AbstractTestIterable<AbstractDoubleIterator>> providers = IteratorProvider
+			List<TestIterable<AbstractDoubleIterator>> providers = IteratorProvider
 					.buildDoubleIterables(testcase.source);
 
-			for (AbstractTestIterable<AbstractDoubleIterator> provider : providers) {
+			for (TestIterable<AbstractDoubleIterator> provider : providers) {
 				assertAdaptionRemovesOwnership(provider.iter(), testcase.adapter);
 			}
 		}

@@ -123,7 +123,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         <li><code> length(G) = supremum {i | (i in N) and (f(i) &lt; length(F))} </code></li>
 	 *         </ul>
 	 */
-	IntIterator slice(IntUnaryOperator indexMap);
+	IntIterator slice(IteratorSlicer indexMap);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by selecting

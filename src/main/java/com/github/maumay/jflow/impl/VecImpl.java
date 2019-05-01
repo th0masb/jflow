@@ -116,7 +116,7 @@ final class VecImpl<E> implements Vec<E>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public AbstractRichIterator<E> revIter()
+	public AbstractRichIterator<E> iterRev()
 	{
 		return new ArraySource.OfObjectReversed<>((E[]) data);
 	}

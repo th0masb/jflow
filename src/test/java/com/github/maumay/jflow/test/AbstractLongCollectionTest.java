@@ -31,9 +31,9 @@ public abstract class AbstractLongCollectionTest<R> extends AbstractListBuilder
 	{
 		Collector<R> collector = getCollectorToTest();
 		for (Case<R> testCase : getTestCases()) {
-			List<AbstractTestIterable<AbstractLongIterator>> iteratorProviders = IteratorProvider
+			List<TestIterable<AbstractLongIterator>> iteratorProviders = IteratorProvider
 					.buildLongIterables(testCase.source);
-			for (AbstractTestIterable<AbstractLongIterator> provider : iteratorProviders) {
+			for (TestIterable<AbstractLongIterator> provider : iteratorProviders) {
 				AbstractLongIterator iterator = provider.iter();
 
 				// Make sure we have the expected result.
@@ -50,9 +50,9 @@ public abstract class AbstractLongCollectionTest<R> extends AbstractListBuilder
 	{
 		Collector<R> collector = getCollectorToTest();
 		for (FailCase testCase : getFailureCases()) {
-			List<AbstractTestIterable<AbstractLongIterator>> iteratorProviders = IteratorProvider
+			List<TestIterable<AbstractLongIterator>> iteratorProviders = IteratorProvider
 					.buildLongIterables(testCase.source);
-			for (AbstractTestIterable<AbstractLongIterator> provider : iteratorProviders) {
+			for (TestIterable<AbstractLongIterator> provider : iteratorProviders) {
 				AbstractLongIterator iterator = provider.iter();
 				assertThrows(testCase.expectedFailType, () -> collector.apply(iterator));
 			}

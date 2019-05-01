@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
-import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
@@ -163,6 +162,17 @@ public interface RichIterator<E> extends SafeIterator<E>
 	<R> RichIterator<Tup<E, R>> zip(Vec<? extends R> other);
 
 	/**
+	 * Combines this iterator with another via an 'interleaving' operation. Elements
+	 * are taken from the head of the two sources in turn (beginning with this
+	 * iterator) until one of the sources is exhausted at which point the interleave
+	 * iterator is considered exhausted too.
+	 * 
+	 * @param other the other iterator to interleave into this one
+	 * @return The interleaving result as described above.
+	 */
+	RichIterator<E> interleave(Iterator<? extends E> other);
+
+	/**
 	 * Creates a new {@link RichIterator} by mapping each element in this source
 	 * {@link RichIterator} to a pair consisting of the element and the index it
 	 * appears.
@@ -190,7 +200,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *         <li><code> length(G) = supremum {i | f(i) &lt; length(F)} </code></li>
 	 *         </ul>
 	 */
-	RichIterator<E> slice(IntUnaryOperator indexMap);
+	RichIterator<E> slice(IteratorSlicer indexMap);
 
 	/**
 	 * Creates a new {@link RichIterator} from this {@link RichIterator} by

@@ -11,6 +11,7 @@ import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
 import com.github.maumay.jflow.iterators.IntIterator;
+import com.github.maumay.jflow.iterators.IteratorSlicer;
 import com.github.maumay.jflow.utils.IntTup;
 import com.github.maumay.jflow.utils.Option;
 
@@ -78,7 +79,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 
 	// IntIterator API
 	@Override
-	public AbstractIntIterator slice(IntUnaryOperator sliceMap)
+	public AbstractIntIterator slice(IteratorSlicer sliceMap)
 	{
 		return new SliceAdapter.OfInt(this, sliceMap);
 	}
