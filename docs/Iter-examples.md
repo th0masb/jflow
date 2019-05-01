@@ -1,4 +1,4 @@
-This file demonstrates some of the static factory methods contained in the class `Iter` which enable you to construct rich iterators from various sources. **Please note** that like in the other files I use referential equality in the assertion statments which will cause them to fail but improves readability.
+This file demonstrates some of the static factory methods contained in the class `Iter` which enable you to construct rich iterators from various sources. **Please note** that I use referential equality in the assertion statements which will cause many to fail if you executed this code but it greatly improves readability.
 
 
 ```java

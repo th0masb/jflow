@@ -1,6 +1,6 @@
 # Vec API examples
 ---
-Here is a snippet of (boilerplate free and liberally incorrect) Java code demonstrating some of the main functionality provided with the `Vec` interface. Please note that I use `==` instead of `.equals(...)` here so all the assertions involving comparisons would fail but it is *far* nicer to read and that is what matters in this file. 
+Here is a snippet of (boilerplate free and liberally incorrect) Java code demonstrating some of the main functionality provided with the `Vec` interface. **Please note** that I use referential equality in the assertion statements which will cause many to fail if you executed this code but it greatly improves readability.
 
 A `Vec` can be thought of as immutable lists with many useful methods. The main thing you should take away from this page is that when a method is called on a `Vec` it is evaluated in a *strict* manner, i.e. the computation takes place immediately. As you will see on the next API example page `RichIterator`s share much of the same functionality with vectors but when methods such as `.map(...)` are called on an iterator it evaluates in a *lazy* manner. Understanding this is key to using this library well and writing efficient code.
 
