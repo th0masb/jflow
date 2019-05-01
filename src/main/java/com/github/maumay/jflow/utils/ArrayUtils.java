@@ -37,6 +37,7 @@ import com.github.maumay.jflow.vec.Vec;
  * 
  * @author ThomasB
  */
+@Deprecated
 public final class ArrayUtils
 {
 	private ArrayUtils()
