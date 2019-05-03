@@ -3,9 +3,11 @@
  */
 package com.github.maumay.jflow.iterators;
 
+import java.util.NoSuchElementException;
 import java.util.OptionalLong;
 import java.util.PrimitiveIterator;
 import java.util.function.LongConsumer;
+import java.util.function.LongSupplier;
 
 /**
  * Adds a method for safely retrieving the next element in a primitive long
@@ -13,8 +15,7 @@ import java.util.function.LongConsumer;
  *
  * @author t
  */
-public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// ,
-																				// OptionallySized
+public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong, LongSupplier
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextLong()} method.
@@ -35,7 +36,13 @@ public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong// 
 	@Deprecated
 	default Long next()
 	{
-		throw new UnsupportedOperationException(
-				"Boxing using this method is banned for Flows!!");
+		throw new UnsupportedOperationException("Boxing using this method is banned for Flows!!");
+	}
+
+	@Override
+	default long getAsLong()
+	{
+		return nextLongOp()
+				.orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
 	}
 }

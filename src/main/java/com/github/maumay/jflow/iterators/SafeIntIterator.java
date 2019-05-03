@@ -3,9 +3,11 @@
  */
 package com.github.maumay.jflow.iterators;
 
+import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.PrimitiveIterator;
 import java.util.function.IntConsumer;
+import java.util.function.IntSupplier;
 
 /**
  * Adds a method for safely retrieving the next element in a primitive int
@@ -13,8 +15,7 @@ import java.util.function.IntConsumer;
  *
  * @author t
  */
-public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// ,
-																			// OptionallySized
+public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable, IntSupplier
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextInt()} method.
@@ -36,5 +37,12 @@ public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable// ,
 	default Integer next()
 	{
 		throw new UnsupportedOperationException("Boxing using this method is banned!!");
+	}
+
+	@Override
+	default int getAsInt()
+	{
+		return nextIntOp()
+				.orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
 	}
 }

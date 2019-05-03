@@ -4,15 +4,17 @@
 package com.github.maumay.jflow.iterators;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Adds a method for safely retrieving the next element in an iterator.
  *
  * @author t
  */
-public interface SafeIterator<E> extends Iterator<E>, Skippable
+public interface SafeIterator<E> extends Iterator<E>, Skippable, Supplier<E>
 {
 	/**
 	 * A safe alternative to directly calling {@link Iterator#next()} method.
@@ -27,5 +29,11 @@ public interface SafeIterator<E> extends Iterator<E>, Skippable
 	 *
 	 * @param action The action to perform.
 	 */
-	void forEach(final Consumer<? super E> action);
+	void forEach(Consumer<? super E> action);
+
+	@Override
+	default E get()
+	{
+		return nextOp().orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
+	}
 }

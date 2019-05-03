@@ -3,9 +3,11 @@
  */
 package com.github.maumay.jflow.iterators;
 
+import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.function.DoubleConsumer;
+import java.util.function.DoubleSupplier;
 
 /**
  * Adds a method for safely retrieving the next element in a primitive double
@@ -13,7 +15,7 @@ import java.util.function.DoubleConsumer;
  *
  * @author t
  */
-public interface SafeDoubleIterator extends OfDouble, Skippable
+public interface SafeDoubleIterator extends OfDouble, Skippable, DoubleSupplier
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextDouble()} method.
@@ -35,5 +37,12 @@ public interface SafeDoubleIterator extends OfDouble, Skippable
 	default Double next()
 	{
 		throw new UnsupportedOperationException("Boxing using this method is banned!!");
+	}
+
+	@Override
+	default double getAsDouble()
+	{
+		return nextDoubleOp()
+				.orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
 	}
 }
