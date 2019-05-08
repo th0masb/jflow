@@ -179,7 +179,7 @@ public final class Iter
 	 * @param src the map encapsulating the entries to traverse.
 	 * @return an iterator traversing the key, value pairs of the map.
 	 */
-	public static <K, V> RichIterator<Tup<K, V>> entries(Map<K, V> src)
+	public static <K, V> RichIterator<Tup<K, V>> entries(Map<? extends K, ? extends V> src)
 	{
 		return Iter.over(src.entrySet()).map(entry -> Tup.of(entry.getKey(), entry.getValue()));
 	}
