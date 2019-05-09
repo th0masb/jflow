@@ -3,6 +3,7 @@ package com.github.maumay.jflow.examples.convenient;
 import static com.github.maumay.jflow.vec.Vec.vec;
 import static java.util.Arrays.asList;
 
+import java.nio.file.LinkOption;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,8 +13,6 @@ import java.util.function.BinaryOperator;
 import com.github.maumay.jflow.iterators.Iter;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.IntVec;
-
-import javafx.geometry.Side;
 
 /**
  * The {@link Iter} class contains a multitude of static factory methods for
@@ -33,7 +32,7 @@ public final class IterExamples
 
 		// *****************************************************************************************
 		// Construct from enumerated types
-		assert Iter.over(Side.class).toVec() == vec(Side.LEFT, Side.TOP, Side.RIGHT, Side.BOTTOM);
+		assert Iter.over(LinkOption.class).toVec() == vec(LinkOption.NOFOLLOW_LINKS);
 
 		// *****************************************************************************************
 		// Construct from optionals
