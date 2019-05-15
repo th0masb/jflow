@@ -330,17 +330,14 @@ public interface RichIterator<E> extends SafeIterator<E>
 	<R> RichIterator<R> scan(R id, BiFunction<R, E, R> accumulator);
 
 	/**
-	 * Safely manipulates the element type of this {@link RichIterator} by filtering
-	 * out elements who cannot be cast to the target type before casting the
-	 * remainder.
+	 * Unsafely manipulates the element type of this {@link RichIterator} by
+	 * forcibly casting each element in turn to the target typ.
 	 *
-	 * @param       <R> The target type
-	 * @param klass A Class instance defining the target type
+	 * @param <R> The target type
 	 * @return A new {@link RichIterator} with element type given by the supplied
-	 *         target type, containing only the elements of the source which are of
-	 *         the target type.
+	 *         target type.
 	 */
-	<R> RichIterator<R> cast(Class<R> klass);
+	<R> RichIterator<R> cast();
 
 	/**
 	 * Calculates the minimum element in this {@link RichIterator} with respect to

@@ -83,15 +83,14 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	Vec<E> filter(Predicate<? super E> predicate);
 
 	/**
-	 * Creates a new vector by safely manipulating the element type of this vector.
-	 * 
-	 * @param       <R> The element type of the new vector.
-	 * @param klass A class defining the element type of the new vector.
-	 * @return A new vector with the required parameterisation containing the
-	 *         elements of this vector which can be cast to the given type with
-	 *         their relative order preserved.
+	 * Unsafely manipulates the element type of this vector by forcibly casting each
+	 * element in turn to the target type.
+	 *
+	 * @param <R> The target type
+	 * @return A new {@link RichIterator} with element type given by the supplied
+	 *         target type.
 	 */
-	<R> Vec<R> cast(Class<R> klass);
+	<R> Vec<R> cast();
 
 	/**
 	 * Creates a new vector by appending the contents of an Iterable to this vector.

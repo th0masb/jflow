@@ -93,7 +93,7 @@ public class VecExamples
 
 		// *****************************************************************************************
 		// Easy type manipulation
-		Vec<Number> nums = ints.cast(Number.class);
+		Vec<Number> nums = ints.<Number>cast();
 
 		// *****************************************************************************************
 		// Easy to convert to/from other collection types

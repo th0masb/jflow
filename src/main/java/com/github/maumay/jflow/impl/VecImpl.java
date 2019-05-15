@@ -151,9 +151,9 @@ final class VecImpl<E> implements Vec<E>
 	}
 
 	@Override
-	public <R> VecImpl<R> cast(Class<R> klass)
+	public <R> VecImpl<R> cast()
 	{
-		return iter().cast(klass).toVec();
+		return iter().<R>cast().toVec();
 	}
 
 	@Override

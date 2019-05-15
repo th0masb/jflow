@@ -314,10 +314,11 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 		return zip(other.iter());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public <R> AbstractRichIterator<R> cast(Class<R> klass)
+	public <R> AbstractRichIterator<R> cast()
 	{
-		return filter(klass::isInstance).map(klass::cast);
+		return map(x -> (R) x);
 	}
 
 	@Override
