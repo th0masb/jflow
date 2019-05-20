@@ -3,14 +3,20 @@
  */
 package com.github.maumay.jflow.iterators;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.function.Function;
 
+import com.github.maumay.jflow.impl.AbstractDoubleIterator;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
 import com.github.maumay.jflow.utils.Exceptions;
+import com.github.maumay.jflow.vec.DoubleVec;
+import com.github.maumay.jflow.vec.Vec;
 
 /**
  * Provides access to a couple of iterator collectors.
@@ -100,6 +106,81 @@ public class IterCollectors
 				}
 			}
 			return dest;
+		}
+	}
+
+	public static <E> RichIteratorCollector<E, Vec<Vec<E>>> pack(int packSize)
+	{
+		return new Packer<>(packSize);
+	}
+
+	static class Packer<E> implements RichIteratorCollector<E, Vec<Vec<E>>>
+	{
+		private final int packSize;
+
+		public Packer(int packSize)
+		{
+			Exceptions.require(packSize > 0);
+			this.packSize = packSize;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public Vec<Vec<E>> collect(AbstractRichIterator<? extends E> source)
+		{
+			source.relinquishOwnership();
+			List<Vec<E>> dest = new ArrayList<>();
+			Object[] curr = new Object[packSize];
+			int count = 0;
+			while (source.hasNext()) {
+				curr[count++] = source.nextImpl();
+				if (count == packSize) {
+					dest.add(Vec.<E>of((E[]) curr));
+					curr = new Object[packSize];
+					count = 0;
+				}
+			}
+			if (count > 0) {
+				dest.add(Vec.<E>of((E[]) Arrays.copyOf(curr, count)));
+			}
+			return Vec.copy(dest);
+		}
+	}
+
+	public static DoubleIteratorCollector<Vec<DoubleVec>> packDoubles(int packSize)
+	{
+		return new DoublePacker(packSize);
+	}
+
+	static class DoublePacker implements DoubleIteratorCollector<Vec<DoubleVec>>
+	{
+		private final int packSize;
+
+		public DoublePacker(int packSize)
+		{
+			Exceptions.require(packSize > 0);
+			this.packSize = packSize;
+		}
+
+		@Override
+		public Vec<DoubleVec> collect(AbstractDoubleIterator source)
+		{
+			source.relinquishOwnership();
+			List<DoubleVec> dest = new ArrayList<>();
+			double[] curr = new double[packSize];
+			int count = 0;
+			while (source.hasNext()) {
+				curr[count++] = source.nextDoubleImpl();
+				if (count == packSize) {
+					dest.add(DoubleVec.of(curr));
+					curr = new double[packSize];
+					count = 0;
+				}
+			}
+			if (count > 0) {
+				dest.add(DoubleVec.of(Arrays.copyOf(curr, count)));
+			}
+			return Vec.copy(dest);
 		}
 	}
 }
