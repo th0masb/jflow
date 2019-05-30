@@ -6,6 +6,7 @@ package com.github.maumay.jflow.iterables;
 import java.util.function.LongConsumer;
 
 import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 
 /**
  * Abstraction of iterable object which can construct enhanced primitive long
@@ -14,9 +15,15 @@ import com.github.maumay.jflow.iterators.LongIterator;
  * @author t
  */
 @FunctionalInterface
-public interface LongIterable
+public interface LongIterable extends Iterable<Long>
 {
 	LongIterator iter();
+
+	@Override
+	default RichIterator<Long> iterator()
+	{
+		return iter().boxed();
+	}
 
 	default void forEach(final LongConsumer action)
 	{

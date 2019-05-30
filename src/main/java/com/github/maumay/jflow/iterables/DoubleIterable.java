@@ -6,6 +6,7 @@ package com.github.maumay.jflow.iterables;
 import java.util.function.DoubleConsumer;
 
 import com.github.maumay.jflow.iterators.DoubleIterator;
+import com.github.maumay.jflow.iterators.RichIterator;
 
 /**
  * Abstraction of iterable object which can construct enhanced primitive double
@@ -14,7 +15,7 @@ import com.github.maumay.jflow.iterators.DoubleIterator;
  * @author t
  */
 @FunctionalInterface
-public interface DoubleIterable
+public interface DoubleIterable extends Iterable<Double>
 {
 	/**
 	 * Constructs an enhanced double iterator traversing the elements encapsulated
@@ -23,6 +24,12 @@ public interface DoubleIterable
 	 * @return an enhanced iterator traversing the encapsulated elements.
 	 */
 	DoubleIterator iter();
+
+	@Override
+	default RichIterator<Double> iterator()
+	{
+		return iter().boxed();
+	}
 
 	/**
 	 * Consumes this iterator by applying some action to each element in turn.
