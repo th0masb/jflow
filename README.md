@@ -38,7 +38,7 @@ While these files don't demonstrate everything they contain the most useful func
 ---
 #### Accessing and using this library
 
-The coordinates on maven central are `com.github.maumay:jflow:0.5.3`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file.
+The coordinates on maven central are `com.github.maumay:jflow:0.5.4`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file.
 
 ---
 #### Sizing optimizations
