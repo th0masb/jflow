@@ -1,11 +1,11 @@
-# JFlow
+# jflow
 ### Complementing Java streams with enhanced iterator functionality
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=blue)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=blue)](https://javadoc.io/doc/com.github.maumay/jflow) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow)
 
 ---
 #### Overview
-JFlow is a lightweight Java library which complements the stream library by simplifying and tweaking the API in a sequential context using iterators as well as supplementing the API with extra functionality not available when using streams. What is offered can be summarized as follows:
+jflow is a lightweight Java library which complements the stream library by simplifying and tweaking the API in a sequential context using iterators as well as supplementing the API with extra functionality not available when using streams. What is offered can be summarized as follows:
 
  - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) which adds functionality in the style of the `Stream` interface. 
  - Static factory methods for constructing these iterators from various sources.
