@@ -657,4 +657,32 @@ public interface RichIterator<E> extends SafeIterator<E>
 	{
 		return unmodifiableMap(toMap(keyMapper, valueMapper));
 	}
+
+	/**
+	 * Append two iterators in turn to the end of this iterator. See
+	 * {@link #append(Iterator)}.
+	 * 
+	 * @param first  The first iterator to append
+	 * @param second The second iterator to append
+	 * @return The concatenation of the three iterators.
+	 */
+	default RichIterator<E> append(Iterator<? extends E> first, Iterator<? extends E> second)
+	{
+		return append(first).append(second);
+	}
+
+	/**
+	 * Append three iterators in turn to the end of this iterator. See
+	 * {@link #append(Iterator)}.
+	 * 
+	 * @param first  The first iterator to append
+	 * @param second The second iterator to append
+	 * @param third  the third iterator to append
+	 * @return The concatenation of the four iterators.
+	 */
+	default RichIterator<E> append(Iterator<? extends E> first, Iterator<? extends E> second,
+			Iterator<? extends E> third)
+	{
+		return append(first).append(second).append(third);
+	}
 }
