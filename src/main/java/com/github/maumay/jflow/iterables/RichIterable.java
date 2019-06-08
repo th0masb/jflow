@@ -261,7 +261,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * @param <C>               The type of collection to build
 	 * @param collectionFactory A supplier of empty, mutable instances of the
 	 *                          required collection type.
-	 * @return see {@link RichIterator#toCollection(Supplier)}
+	 * @return see {@link RichIterator#to(Supplier)}
 	 */
 	default <C extends Collection<E>> C to(Supplier<C> collectionFactory)
 	{
