@@ -43,7 +43,8 @@ import com.github.maumay.jflow.vec.Vec;
  *
  * @author ThomasB
  */
-public abstract class AbstractRichIterator<E> extends AbstractIterator implements RichIterator<E>
+public abstract class AbstractRichIterator<E> extends AbstractIterator
+		implements RichIterator<E>
 {
 	public AbstractRichIterator(AbstractIteratorSize size)
 	{
@@ -322,7 +323,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator implement
 	}
 
 	@Override
-	public <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
+	public <C extends Collection<E>> C to(Supplier<C> collectionFactory)
 	{
 		relinquishOwnership();
 		C coll = collectionFactory.get();

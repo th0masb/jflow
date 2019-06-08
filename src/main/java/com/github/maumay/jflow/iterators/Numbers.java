@@ -17,7 +17,7 @@ public final class Numbers
 	 */
 	public static IntIterator natural()
 	{
-		return Repeatedly.indexInts(i -> i);
+		return Iter.indexInts(i -> i);
 	}
 
 	/**

@@ -40,7 +40,7 @@ public class RichIteratorExamples
 		assert strings.iter().toVec() == strings;
 		assert strings.iter().toList() == stringsList;
 		assert strings.iter().toSet() == new HashSet<>(stringsList);
-		assert strings.iter().toCollection(ArrayList::new) == stringsList;
+		assert strings.iter().to(ArrayList::new) == stringsList;
 
 		// *****************************************************************************************
 		// Create maps
@@ -94,8 +94,10 @@ public class RichIteratorExamples
 
 		// *****************************************************************************************
 		// Append / insert
-		assert strings.iter().append(strings.iterRev()).toVec() == vec("a", "b", "b", "a");
-		assert strings.iter().insert(strings.iterRev()).toVec() == vec("b", "a", "a", "b");
+		assert strings.iter().append(strings.iterRev()).toVec() == vec("a", "b", "b",
+				"a");
+		assert strings.iter().insert(strings.iterRev()).toVec() == vec("b", "a", "a",
+				"b");
 
 		// *****************************************************************************************
 		// Zipping

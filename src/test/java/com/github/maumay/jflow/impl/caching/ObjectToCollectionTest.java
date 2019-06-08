@@ -19,13 +19,14 @@ public final class ObjectToCollectionTest
 	@Override
 	protected Collector<Integer, HashSet<Integer>> getCollectorToTest()
 	{
-		return iter -> iter.toCollection(HashSet::new);
+		return iter -> iter.to(HashSet::new);
 	}
 
 	@Override
 	protected List<Case<Integer, Set<Integer>>> getTestCases()
 	{
-		return list(new Case<>(list(), set()), new Case<>(list(1, 2, 2, 3), set(1, 2, 3)));
+		return list(new Case<>(list(), set()),
+				new Case<>(list(1, 2, 2, 3), set(1, 2, 3)));
 	}
 
 	private final Set<Integer> set(int... xs)

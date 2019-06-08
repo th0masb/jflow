@@ -49,9 +49,9 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Applies a function elementwise to this {@link RichIterator} to make a new
 	 * {@link RichIterator}.
 	 *
-	 * @param   <R> The target element type of the mapping operation.
+	 * @param <R> The target element type of the mapping operation.
 	 *
-	 * @param f A mapping function.
+	 * @param f   A mapping function.
 	 * @return A new {@link RichIterator} instance whose elements are obtained by
 	 *         applying the parameter mapping function to each element of this
 	 *         {@link RichIterator} instance in turn.
@@ -95,22 +95,22 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Maps elements of this {@link RichIterator} to {@link RichIterator} instances
 	 * before sequentially concatenating them end to end.
 	 *
-	 * @param         <R> The element type of the target {@link RichIterator}
-	 *                instances.
+	 * @param <R>     The element type of the target {@link RichIterator} instances.
 	 *
 	 * @param mapping A function taking elements to instances of
 	 *                {@link RichIterator}
 	 * @return A {@link RichIterator} obtained by applying the mapping function to
 	 *         each element in turn and sequentially concatenating the results.
 	 */
-	<R> RichIterator<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping);
+	<R> RichIterator<R> flatMap(
+			Function<? super E, ? extends Iterator<? extends R>> mapping);
 
 	/**
 	 * Combines this {@link RichIterator} with another iterator to create a new
 	 * {@link RichIterator} consisting of pairs of elements with the same index in
 	 * their respective origins.
 	 *
-	 * @param       <R> The upper type bound on the parameter {@link RichIterator}.
+	 * @param <R>   The upper type bound on the parameter {@link RichIterator}.
 	 * @param other The sequence to zip this iterator with.
 	 *
 	 * @return Denote this source {@link RichIterator} by {@code F} with the
@@ -128,7 +128,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * {@link RichIterator} consisting of pairs of elements with the same index in
 	 * their respective origins.
 	 *
-	 * @param       <R> The upper type bound on the parameter {@link RichIterator}.
+	 * @param <R>   The upper type bound on the parameter {@link RichIterator}.
 	 * @param other The {@link RichIterator} to zip this source {@link RichIterator}
 	 *              with.
 	 *
@@ -147,7 +147,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * {@link RichIterator} consisting of pairs of elements with the same index in
 	 * their respective origins.
 	 *
-	 * @param       <R> The upper type bound on the parameter {@link RichIterator}.
+	 * @param <R>   The upper type bound on the parameter {@link RichIterator}.
 	 * @param other The {@link RichIterator} to zip this source {@link RichIterator}
 	 *              with.
 	 *
@@ -316,7 +316,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Applies a scanning operation to this {@link RichIterator} to produce a new
 	 * {@link RichIterator}.
 	 *
-	 * @param             <R> The target element type of the accumulation.
+	 * @param <R>         The target element type of the accumulation.
 	 *
 	 * @param id          The identity element in the accumulation.
 	 * @param accumulator The accumulator function.
@@ -424,7 +424,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * and an initial value. This method is a 'consuming method', i.e. it will
 	 * iterate through this {@link RichIterator}.
 	 *
-	 * @param         <R> The type of the reduction output.
+	 * @param <R>     The type of the reduction output.
 	 * @param id      The identity of the reduction operation
 	 * @param reducer The reduction function
 	 * @return If we denote this source {@link RichIterator} by {@code F}, the
@@ -495,7 +495,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Adapts this iterator via the given function to produce a new iterator and
 	 * remove the ability of this iterator to be used directly.
 	 * 
-	 * @param         <R> The element type of the adaption result.
+	 * @param <R>     The element type of the adaption result.
 	 * @param adapter The function describing how a new iterator should be
 	 *                constructed from this iterator.
 	 * @return The new, adapted iterator which is sourced from this iterator.
@@ -506,7 +506,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Consumes this iterator using the supplied collection function to create a new
 	 * instance of the given type.
 	 * 
-	 * @param           <R> The type of the collection result.
+	 * @param <R>       The type of the collection result.
 	 * @param collector The collection function which is used to consume this
 	 *                  iterator.
 	 * @return The result of the collection function applied to this
@@ -528,7 +528,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * function. If duplicate elements appear in this iterator then an exception
 	 * will be thrown.
 	 * 
-	 * @param             <V> The type of values in the resulting map.
+	 * @param <V>         The type of values in the resulting map.
 	 * @param valueMapper the function which produces the associated values in the
 	 *                    resultant map for each unique element in this iterator.
 	 * @return a map associating the unique elements of this iterator with the
@@ -541,8 +541,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * functions. This method is a 'consuming method', i.e. it will iterate through
 	 * this {@link RichIterator}.
 	 *
-	 * @param             <K> The type of the keys in the created mapping.
-	 * @param             <V> The type of the values in the created mapping.
+	 * @param <K>         The type of the keys in the created mapping.
+	 * @param <V>         The type of the values in the created mapping.
 	 * @param keyMapper   A function mapping elements of this {@link RichIterator}
 	 *                    to elements of the key type.
 	 * @param valueMapper A function mapping elements of this {@link RichIterator}
@@ -569,7 +569,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * supplied classification function. This method is a 'consuming method', i.e.
 	 * it will iterate through this {@link RichIterator}.
 	 *
-	 * @param            <K> The type of the keys in the grouping map.
+	 * @param <K>        The type of the keys in the grouping map.
 	 *
 	 * @param classifier A function defining the different groups of elements.
 	 * @return A Map instance whose keys partition the elements of this source
@@ -585,14 +585,14 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Caches the elements in this {@link RichIterator}. This method is a 'consuming
 	 * method', i.e. it will iterate through this {@link RichIterator}.
 	 *
-	 * @param                   <C> The type of collection which is supplied and
+	 * @param <C>               The type of collection which is supplied and
 	 *                          returned.
 	 * @param collectionFactory A function supplying a mutable instance of
 	 *                          {@link Collection}
 	 * @return The collection obtained by calling the collection supply function
 	 *         once and adding each element in this {@link RichIterator} to it
 	 */
-	<C extends Collection<E>> C toCollection(Supplier<C> collectionFactory);
+	<C extends Collection<E>> C to(Supplier<C> collectionFactory);
 
 	/**
 	 * Caches the elements in this {@link RichIterator} into a Set. This method is a
@@ -602,7 +602,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 */
 	default Set<E> toSet()
 	{
-		return toCollection(HashSet::new);
+		return to(HashSet::new);
 	}
 
 	/**
@@ -625,7 +625,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 */
 	default List<E> toList()
 	{
-		return toCollection(ArrayList::new);
+		return to(ArrayList::new);
 	}
 
 	/**
@@ -643,8 +643,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * Constructs a Map from the elements of this iterator which is accessible
 	 * through an unmodifiable view.
 	 * 
-	 * @param             <K> The type of the keys in the resulting map.
-	 * @param             <V> The type of the values in the resulting map.
+	 * @param <K>         The type of the keys in the resulting map.
+	 * @param <V>         The type of the values in the resulting map.
 	 * @param keyMapper   The function mapping the elements of this iterator to the
 	 *                    keys of the resulting map.
 	 * @param valueMapper The function mapping the elements of this iterator to the
@@ -666,7 +666,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @param second The second iterator to append
 	 * @return The concatenation of the three iterators.
 	 */
-	default RichIterator<E> append(Iterator<? extends E> first, Iterator<? extends E> second)
+	default RichIterator<E> append(Iterator<? extends E> first,
+			Iterator<? extends E> second)
 	{
 		return append(first).append(second);
 	}
@@ -680,8 +681,8 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 * @param third  the third iterator to append
 	 * @return The concatenation of the four iterators.
 	 */
-	default RichIterator<E> append(Iterator<? extends E> first, Iterator<? extends E> second,
-			Iterator<? extends E> third)
+	default RichIterator<E> append(Iterator<? extends E> first,
+			Iterator<? extends E> second, Iterator<? extends E> third)
 	{
 		return append(first).append(second).append(third);
 	}

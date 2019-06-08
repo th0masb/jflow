@@ -150,7 +150,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * Groups the elements of the iterator created by {@link #iter()} according to
 	 * some classification function.
 	 * 
-	 * @param            <K> The type of the classification values.
+	 * @param <K>        The type of the classification values.
 	 * @param classifier The classification function.
 	 * @return see {@link RichIterator#groupBy(Function)}
 	 */
@@ -163,7 +163,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * Folds the elements of the iterator created by {@link #iter()} into one value
 	 * using a provided reduction operator and a starting value.
 	 * 
-	 * @param         <R> The type of the fold result.
+	 * @param <R>     The type of the fold result.
 	 * @param id      The initial value of the fold operation.
 	 * @param reducer The reduction operator governing how two values are combined
 	 *                into one.
@@ -207,8 +207,8 @@ public interface RichIterable<E> extends Iterable<E>
 	 * Builds a Map from the elements in the iterator created by {@link #iter()} by
 	 * applying two functions to each value.
 	 * 
-	 * @param          <K> The type of the keys in the constructed map.
-	 * @param          <V> The type of the values in the constructed map
+	 * @param <K>      The type of the keys in the constructed map.
+	 * @param <V>      The type of the values in the constructed map
 	 * @param keyMap   The function determining the map keys.
 	 * @param valueMap The function determining the map values.
 	 * @return see {@link RichIterator#toMap(Function, Function)}
@@ -223,7 +223,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * Builds a Map from the elements in the iterator created by {@link #iter()} by
 	 * associating each with it's image under the provided function.
 	 * 
-	 * @param          <V> the type of the values in the constructed map.
+	 * @param <V>      the type of the values in the constructed map.
 	 * @param valueMap The function determining the map values.
 	 * @return see {@link RichIterator#associate(Function)}
 	 */
@@ -240,7 +240,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 */
 	default List<E> toList()
 	{
-		return toCollection(ArrayList::new);
+		return to(ArrayList::new);
 	}
 
 	/**
@@ -251,21 +251,21 @@ public interface RichIterable<E> extends Iterable<E>
 	 */
 	default Set<E> toSet()
 	{
-		return toCollection(HashSet::new);
+		return to(HashSet::new);
 	}
 
 	/**
 	 * Builds a collection from the elements in the iterator created by
 	 * {@link #iter()}.
 	 * 
-	 * @param                   <C> The type of collection to build
+	 * @param <C>               The type of collection to build
 	 * @param collectionFactory A supplier of empty, mutable instances of the
 	 *                          required collection type.
 	 * @return see {@link RichIterator#toCollection(Supplier)}
 	 */
-	default <C extends Collection<E>> C toCollection(Supplier<C> collectionFactory)
+	default <C extends Collection<E>> C to(Supplier<C> collectionFactory)
 	{
-		return iter().toCollection(collectionFactory);
+		return iter().to(collectionFactory);
 	}
 
 	/**
@@ -283,7 +283,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * Creates a new instance of the given type by applying the given collector to
 	 * the iterator returned by {@link #iter()}.
 	 * 
-	 * @param                   <R> The target type of the transformation.
+	 * @param <R>               The target type of the transformation.
 	 * @param iteratorCollector The collector which determines how this vector will
 	 *                          be transformed.
 	 * @return The image of the transformation under the supplied collector.

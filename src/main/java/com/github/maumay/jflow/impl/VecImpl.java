@@ -40,13 +40,11 @@ import com.github.maumay.jflow.vec.Vec;
  */
 final class VecImpl<E> implements Vec<E>
 {
-	private static final Object[] EMPTY = new Object[0];
-
 	private final Object[] data;
 
 	public VecImpl()
 	{
-		data = EMPTY;
+		this(new Object[0]);
 	}
 
 	VecImpl(Object[] cache)
@@ -139,7 +137,8 @@ final class VecImpl<E> implements Vec<E>
 	}
 
 	@Override
-	public <R> VecImpl<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping)
+	public <R> VecImpl<R> flatMap(
+			Function<? super E, ? extends Iterator<? extends R>> mapping)
 	{
 		return iter().flatMap(mapping).toVec();
 	}

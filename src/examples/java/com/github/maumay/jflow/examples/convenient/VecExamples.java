@@ -101,7 +101,7 @@ public class VecExamples
 
 		assert ints.toList() == listInts;
 		assert ints.toSet() == new HashSet<>(listInts);
-		assert ints.toCollection(ArrayList::new) == listInts;
+		assert ints.to(ArrayList::new) == listInts;
 
 		assert ints == Vec.copy(listInts);
 
