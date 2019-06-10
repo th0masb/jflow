@@ -14,7 +14,7 @@ List<String> stringsList = asList("a", "b");
 assert strings.iter().toVec() == strings;
 assert strings.iter().toList() == stringsList;
 assert strings.iter().toSet() == new HashSet<>(stringsList);
-assert strings.iter().toCollection(ArrayList::new) == stringsList;
+assert strings.iter().to(ArrayList::new) == stringsList;
 
 // *****************************************************************************************
 // Create maps
