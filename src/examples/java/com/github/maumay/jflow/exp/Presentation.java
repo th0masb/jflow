@@ -57,8 +57,8 @@ public class Presentation
 
 		// Vec<String> xs = vec("a", "b", "c").iter().map(x -> x + x).toVec();
 
-		Vec<List<String>> lists = Iter.call(() -> new ArrayList<String>())
-				.<List<String>>cast().take(10).toVec();
+		Vec<List<String>> lists = Iter.call(() -> new ArrayList<String>()).<List<String>>cast()
+				.take(10).toVec();
 
 		List<String> left = Arrays.asList("a", "b", "c");
 		Vec<String> right = vec("d", "e", "f");
@@ -70,8 +70,8 @@ public class Presentation
 		Vec<Circle> circles = getSomeCircles();
 		Vec<Triangle> triangles = getSomeTriangles();
 
-		Vec<Shape> shapes = squares.iter().<Shape>cast()
-				.chain(circles.iter(), triangles.iter()).toVec();
+		Vec<Shape> shapes = squares.iter().<Shape>cast().chain(circles.iter())
+				.chain(triangles.iter()).toVec();
 
 		Vec<String> strings = vec("a", "b", "c");
 

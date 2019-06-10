@@ -64,11 +64,11 @@ try {
 }
 
 // *****************************************************************************************
-// Append / insert
-assert strings.iter().append("c").toVec() == vec("a", "b", "c");
+// Chain / insert
+assert strings.iter().chain("c").toVec() == vec("a", "b", "c");
 assert strings.iter().insert("c").toVec() == vec("c", "a", "b");
 
-assert strings.iter().append(strings.iterRev()).toVec() == vec("a", "b", "b", "a");
+assert strings.iter().chain(strings.iterRev()).toVec() == vec("a", "b", "b", "a");
 assert strings.iter().insert(strings.iterRev()).toVec() == vec("b", "a", "a", "b");
 
 // *****************************************************************************************
