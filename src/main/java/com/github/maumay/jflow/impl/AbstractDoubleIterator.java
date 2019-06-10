@@ -154,15 +154,15 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public AbstractDoubleIterator append(OfDouble other)
+	public AbstractDoubleIterator chain(OfDouble other)
 	{
 		return new ConcatenationAdapter.OfDouble(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractDoubleIterator append(double... xs)
+	public AbstractDoubleIterator chain(double... xs)
 	{
-		return append(new ArraySource.OfDouble(xs));
+		return chain(new ArraySource.OfDouble(xs));
 	}
 
 	@Override

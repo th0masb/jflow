@@ -71,7 +71,7 @@ public class Presentation
 		Vec<Triangle> triangles = getSomeTriangles();
 
 		Vec<Shape> shapes = squares.iter().<Shape>cast()
-				.append(circles.iter(), triangles.iter()).toVec();
+				.chain(circles.iter(), triangles.iter()).toVec();
 
 		Vec<String> strings = vec("a", "b", "c");
 

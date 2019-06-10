@@ -197,7 +197,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         {@link LongIterator} followed by the elements of the parameter
 	 *         primitive iterator.
 	 */
-	LongIterator append(PrimitiveIterator.OfLong other);
+	LongIterator chain(PrimitiveIterator.OfLong other);
 
 	/**
 	 * Creates a new {@link LongIterator} from this {@link LongIterator} by adding
@@ -207,7 +207,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return A {@link LongIterator} consisting of the elements of the source
 	 *         {@link LongIterator} followed by the elements in the parameter array.
 	 */
-	LongIterator append(long... other);
+	LongIterator chain(long... other);
 
 	/**
 	 * Creates a new {@link LongIterator} from this {@link RichIterator} by adding

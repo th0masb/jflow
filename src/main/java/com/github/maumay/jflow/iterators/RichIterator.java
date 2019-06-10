@@ -278,7 +278,7 @@ public interface RichIterator<E> extends SafeIterator<E>
 	 *         {@link RichIterator} followed by the elements of the parameter
 	 *         {@link RichIterator}.
 	 */
-	RichIterator<E> append(Iterator<? extends E> other);
+	RichIterator<E> chain(Iterator<? extends E> other);
 
 	/**
 	 * Creates a new {@link RichIterator} from this {@link RichIterator} by adding
@@ -660,30 +660,30 @@ public interface RichIterator<E> extends SafeIterator<E>
 
 	/**
 	 * Append two iterators in turn to the end of this iterator. See
-	 * {@link #append(Iterator)}.
+	 * {@link #chain(Iterator)}.
 	 * 
 	 * @param first  The first iterator to append
 	 * @param second The second iterator to append
 	 * @return The concatenation of the three iterators.
 	 */
-	default RichIterator<E> append(Iterator<? extends E> first,
+	default RichIterator<E> chain(Iterator<? extends E> first,
 			Iterator<? extends E> second)
 	{
-		return append(first).append(second);
+		return chain(first).chain(second);
 	}
 
 	/**
 	 * Append three iterators in turn to the end of this iterator. See
-	 * {@link #append(Iterator)}.
+	 * {@link #chain(Iterator)}.
 	 * 
 	 * @param first  The first iterator to append
 	 * @param second The second iterator to append
 	 * @param third  the third iterator to append
 	 * @return The concatenation of the four iterators.
 	 */
-	default RichIterator<E> append(Iterator<? extends E> first,
+	default RichIterator<E> chain(Iterator<? extends E> first,
 			Iterator<? extends E> second, Iterator<? extends E> third)
 	{
-		return append(first).append(second).append(third);
+		return chain(first).chain(second).chain(third);
 	}
 }

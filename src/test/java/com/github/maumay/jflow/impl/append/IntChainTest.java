@@ -12,15 +12,15 @@ import com.github.maumay.jflow.test.AbstractIntAdapterTest;
  * @author thomasb
  *
  */
-public final class IntAppendTest extends AbstractIntAdapterTest<AbstractIntIterator>
+public final class IntChainTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
 	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
 		List<Integer> empty = list(), populated = list(0);
-		return list(new Case<>(empty, i -> i.append(iter(empty)), empty),
-				new Case<>(empty, i -> i.append(iter(populated)), populated),
-				new Case<>(populated, i -> i.append(iter(empty)), populated),
-				new Case<>(populated, i -> i.append(iter(list(1))), list(0, 1)));
+		return list(new Case<>(empty, i -> i.chain(iter(empty)), empty),
+				new Case<>(empty, i -> i.chain(iter(populated)), populated),
+				new Case<>(populated, i -> i.chain(iter(empty)), populated),
+				new Case<>(populated, i -> i.chain(iter(list(1))), list(0, 1)));
 	}
 }

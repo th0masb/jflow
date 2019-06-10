@@ -154,15 +154,15 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public AbstractLongIterator append(OfLong other)
+	public AbstractLongIterator chain(OfLong other)
 	{
 		return new ConcatenationAdapter.OfLong(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractLongIterator append(long... xs)
+	public AbstractLongIterator chain(long... xs)
 	{
-		return append(new ArraySource.OfLong(xs));
+		return chain(new ArraySource.OfLong(xs));
 	}
 
 	@Override

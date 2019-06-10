@@ -94,7 +94,7 @@ public class RichIteratorExamples
 
 		// *****************************************************************************************
 		// Append / insert
-		assert strings.iter().append(strings.iterRev()).toVec() == vec("a", "b", "b",
+		assert strings.iter().chain(strings.iterRev()).toVec() == vec("a", "b", "b",
 				"a");
 		assert strings.iter().insert(strings.iterRev()).toVec() == vec("b", "a", "a",
 				"b");

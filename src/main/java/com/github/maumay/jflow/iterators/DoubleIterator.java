@@ -197,7 +197,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         {@link DoubleIterator} followed by the elements of the parameter
 	 *         PrimitiveIterator.OfDouble.
 	 */
-	DoubleIterator append(PrimitiveIterator.OfDouble other);
+	DoubleIterator chain(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
@@ -208,7 +208,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         {@link DoubleIterator} followed by the elements in the parameter
 	 *         array.
 	 */
-	DoubleIterator append(double... other);
+	DoubleIterator chain(double... other);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this Iterator by adding each

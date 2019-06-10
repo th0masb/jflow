@@ -151,15 +151,15 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public AbstractIntIterator append(OfInt other)
+	public AbstractIntIterator chain(OfInt other)
 	{
 		return new ConcatenationAdapter.OfInt(this, IteratorWrapper.wrap(other));
 	}
 
 	@Override
-	public AbstractIntIterator append(int... xs)
+	public AbstractIntIterator chain(int... xs)
 	{
-		return append(new ArraySource.OfInt(xs));
+		return chain(new ArraySource.OfInt(xs));
 	}
 
 	@Override

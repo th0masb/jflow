@@ -197,7 +197,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         {@link IntIterator} followed by the elements of the parameter
 	 *         primitive iterator.
 	 */
-	IntIterator append(PrimitiveIterator.OfInt other);
+	IntIterator chain(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by adding
@@ -207,7 +207,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return An {@link IntIterator} consisting of the elements of the source
 	 *         {@link IntIterator} followed by the elements in the parameter array.
 	 */
-	IntIterator append(int... other);
+	IntIterator chain(int... other);
 
 	/**
 	 * Creates a new {@link IntIterator} from this Iterator by adding each element

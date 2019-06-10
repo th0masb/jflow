@@ -62,7 +62,7 @@ public class Geometry
 		Vec<Square> squares2 = Vec.empty();
 
 		Vec<Shape> combined2 = triangles2.iter().<Shape>cast()
-				.append(circles2.iter(), squares2.iter()).toVec();
+				.chain(circles2.iter(), squares2.iter()).toVec();
 	}
 
 	static Bounds computeBounds(Iterable<Point> points)
