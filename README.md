@@ -9,7 +9,6 @@ jflow is a lightweight Java library providing an immutable alternative to the `L
 
  - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs).
  - Static factory methods for constructing these iterators from various sources.
- - A simpler collecting mechanism (in comparison to `Stream`) for converting lazy sequences into custom data structures in a non-parallel context.
  - A mechanism for implementing custom intermediate (in stream terminology) operations.
  - An alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
 
@@ -19,7 +18,7 @@ The rest of this file along will provide more detail and justification for the p
 ---
 #### Accessing and using this library
 
-The coordinates on maven central are `com.github.maumay:jflow:0.5.4`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file.
+The coordinates on maven central are `com.github.maumay:jflow:0.5.5`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file.
 
 
 ---
@@ -58,7 +57,7 @@ class Point {
     }
 }
 
-Vec<Point> fiveRandom = Repeatedly.call(Point::new).take(5).toVec();
+Vec<Point> fiveRandom = Iter.call(Point::new).take(5).toVec();
 ```
 
 Here we created an infinite iterator of random points (possible because of laziness) and took 5 of them from the head. Since we knew the initial iterator had infinite size we deduce that the iterator formed by the take operation must have exactly five elements. We can then create an array of size 5 on the stack, allocate the points into it and return a wrapper around it without any copying taking place, wasting no space and retaining complete immutability.
