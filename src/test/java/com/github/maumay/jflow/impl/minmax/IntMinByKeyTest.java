@@ -26,7 +26,7 @@ public final class IntMinByKeyTest extends AbstractIntCollectionTest<OptionalInt
 	protected List<Case<OptionalInt>> getTestCases()
 	{
 		return list(new Case<>(list(), Option.emptyInt()),
-				new Case<>(list(0, 2, 2, 1), Option.of(0)));
+				new Case<>(list(2, 0, 2, 1), Option.of(0)));
 	}
 
 	@Override

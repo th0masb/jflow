@@ -22,12 +22,14 @@ public final class DoubleMinTest extends AbstractDoubleCollectionTest<Double>
 	@Override
 	protected List<Case<Double>> getTestCases()
 	{
-		return list(new Case<>(list(1.0), 1.0), new Case<>(list(9.0, 1.0, 3.0, 2.0), 1.0));
+		return list(new Case<>(list(1.0), 1.0), new Case<>(list(9.0, 1.0, 3.0, 2.0), 1.0),
+				new Case<>(list(1.0, 9.0, 7.0), 1.0), new Case<>(list(Double.NaN, 0.0), 0.0));
 	}
 
 	@Override
 	protected List<FailCase> getFailureCases()
 	{
-		return list(new FailCase(list(), IllegalStateException.class));
+		return list(new FailCase(list(), IllegalStateException.class),
+				new FailCase(list(), IllegalStateException.class));
 	}
 }

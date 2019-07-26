@@ -27,7 +27,7 @@ public final class ObjectMaxOptionTest
 	protected List<Case<Double, Optional<Double>>> getTestCases()
 	{
 		return list(new Case<>(list(), Option.empty()), new Case<>(list(1.0), Optional.of(1.0)),
-				new Case<>(list(9.0, 1.0, 3.0, 2.0), Optional.of(9.0)));
+				new Case<>(list(1.0, 9.0, 3.0, 2.0), Optional.of(9.0)));
 	}
 
 	@Override

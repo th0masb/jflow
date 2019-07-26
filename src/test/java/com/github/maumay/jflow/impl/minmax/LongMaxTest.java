@@ -22,7 +22,8 @@ public final class LongMaxTest extends AbstractLongCollectionTest<Long>
 	@Override
 	protected List<Case<Long>> getTestCases()
 	{
-		return list(new Case<>(list(1L), 1L), new Case<>(list(9L, 1L, 3L, 2L), 9L));
+		return list(new Case<>(list(1L), 1L), new Case<>(list(9L, 1L, 3L, 2L), 9L),
+				new Case<>(list(1L, 9L, 3L, 2L), 9L));
 	}
 
 	@Override

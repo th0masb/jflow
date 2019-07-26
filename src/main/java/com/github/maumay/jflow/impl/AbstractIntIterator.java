@@ -183,7 +183,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public int min()
 	{
-		return minOp().orElseThrow(IllegalStateException::new);
+		return IntMinMaxConsumption.findMin(this);
 	}
 
 	@Override
@@ -201,7 +201,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public int max()
 	{
-		return maxOp().orElseThrow(IllegalStateException::new);
+		return IntMinMaxConsumption.findMax(this);
 	}
 
 	@Override

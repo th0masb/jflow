@@ -25,7 +25,7 @@ public final class IntMaxOptionTest extends AbstractIntCollectionTest<OptionalIn
 	protected List<Case<OptionalInt>> getTestCases()
 	{
 		return list(new Case<>(list(), Option.emptyInt()), new Case<>(list(1), Option.of(1)),
-				new Case<>(list(9, 1, 3, 2), Option.of(9)));
+				new Case<>(list(1, 9, 3, 2), Option.of(9)));
 	}
 
 	@Override

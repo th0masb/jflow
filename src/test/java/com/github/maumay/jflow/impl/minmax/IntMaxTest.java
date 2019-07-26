@@ -22,7 +22,7 @@ public final class IntMaxTest extends AbstractIntCollectionTest<Integer>
 	@Override
 	protected List<Case<Integer>> getTestCases()
 	{
-		return list(new Case<>(list(1), 1), new Case<>(list(9, 1, 3, 2), 9));
+		return list(new Case<>(list(1), 1), new Case<>(list(1, 9, 3, 2), 9));
 	}
 
 	@Override

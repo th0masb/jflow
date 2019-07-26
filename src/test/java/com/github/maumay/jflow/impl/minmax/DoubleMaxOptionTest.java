@@ -25,7 +25,11 @@ public final class DoubleMaxOptionTest extends AbstractDoubleCollectionTest<Opti
 	protected List<Case<OptionalDouble>> getTestCases()
 	{
 		return list(new Case<>(list(), Option.emptyDouble()), new Case<>(list(1.0), Option.of(1.0)),
-				new Case<>(list(9.0, 1.0, 3.0, 2.0), Option.of(9.0)));
+				new Case<>(list(9.0, 1.0, 3.0, 2.0), Option.of(9.0)),
+				new Case<>(list(1.0, 9.0, 3.0, 2.0), Option.of(9.0)),
+				new Case<>(list(Double.NaN, 1.0, 9.0, -2.0), Option.of(9.0)),
+				new Case<>(list(1.0, Double.NaN), Option.of(1.0)),
+				new Case<>(list(Double.NaN), Option.emptyDouble()));
 	}
 
 	@Override

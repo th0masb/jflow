@@ -5,7 +5,6 @@ package com.github.maumay.jflow.impl;
 
 import java.util.OptionalInt;
 import java.util.function.IntFunction;
-import java.util.function.IntUnaryOperator;
 
 /**
  * @author ThomasB
@@ -75,50 +74,6 @@ public class IntMinMaxConsumption
 		}
 	}
 
-	public static OptionalInt findMinOption(AbstractIntIterator source, IntUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		int minKey = -1;
-		int minVal = Integer.MAX_VALUE;
-		while (source.hasNext()) {
-			int nextKey = source.nextIntImpl();
-			int nextVal = key.applyAsInt(nextKey);
-
-			if (!found) {
-				found = true;
-				minKey = nextKey;
-				minVal = nextVal;
-			} else if (nextVal < minVal) {
-				minVal = nextVal;
-				minKey = nextKey;
-			}
-		}
-		return found ? OptionalInt.of(minKey) : OptionalInt.empty();
-	}
-
-	public static int findMin(AbstractIntIterator source, int defaultVal, IntUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		int minKey = -1;
-		int minVal = Integer.MAX_VALUE;
-		while (source.hasNext()) {
-			int nextKey = source.nextIntImpl();
-			int nextVal = key.applyAsInt(nextKey);
-
-			if (!found) {
-				found = true;
-				minKey = nextKey;
-				minVal = nextVal;
-			} else if (nextVal < minVal) {
-				minVal = nextVal;
-				minKey = nextKey;
-			}
-		}
-		return found ? minKey : defaultVal;
-	}
-
 	public static OptionalInt findMaxOption(AbstractIntIterator source)
 	{
 		source.relinquishOwnership();
@@ -157,28 +112,6 @@ public class IntMinMaxConsumption
 		}
 	}
 
-	public static OptionalInt findMaxOption(AbstractIntIterator source, IntUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		int maxKey = -1;
-		int maxVal = Integer.MIN_VALUE;
-		while (source.hasNext()) {
-			int nextKey = source.nextIntImpl();
-			int nextVal = key.applyAsInt(nextKey);
-
-			if (!found) {
-				found = true;
-				maxKey = nextKey;
-				maxVal = nextVal;
-			} else if (nextVal > maxVal) {
-				maxVal = nextVal;
-				maxKey = nextKey;
-			}
-		}
-		return found ? OptionalInt.of(maxKey) : OptionalInt.empty();
-	}
-
 	public static <C extends Comparable<C>> OptionalInt findMaxOption(AbstractIntIterator source,
 			IntFunction<C> key)
 	{
@@ -198,27 +131,5 @@ public class IntMinMaxConsumption
 			}
 		}
 		return maxVal == null ? OptionalInt.empty() : OptionalInt.of(maxKey);
-	}
-
-	public static int findMax(AbstractIntIterator source, int defaultVal, IntUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		int maxKey = -1;
-		int maxVal = Integer.MIN_VALUE;
-		while (source.hasNext()) {
-			int nextKey = source.nextIntImpl();
-			int nextVal = key.applyAsInt(nextKey);
-
-			if (!found) {
-				found = true;
-				maxKey = nextKey;
-				maxVal = nextVal;
-			} else if (nextVal > maxVal) {
-				maxVal = nextVal;
-				maxKey = nextKey;
-			}
-		}
-		return found ? maxKey : defaultVal;
 	}
 }

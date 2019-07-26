@@ -186,7 +186,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public long min()
 	{
-		return minOp().orElseThrow(IllegalStateException::new);
+		return LongMinMaxConsumption.findMin(this);
 	}
 
 	@Override
@@ -198,7 +198,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	@Override
 	public long max()
 	{
-		return maxOp().orElseThrow(IllegalStateException::new);
+		return LongMinMaxConsumption.findMax(this);
 	}
 
 	@Override

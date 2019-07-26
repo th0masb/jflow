@@ -4,7 +4,6 @@
 package com.github.maumay.jflow.impl;
 
 import java.util.OptionalDouble;
-import java.util.function.DoubleUnaryOperator;
 
 /**
  * @author ThomasB
@@ -53,51 +52,6 @@ public class DoubleMinMaxConsumption
 		}
 	}
 
-	public static OptionalDouble findMin(AbstractDoubleIterator source, DoubleUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		double minKey = -1;
-		double minVal = Double.POSITIVE_INFINITY;
-		while (source.hasNext()) {
-			double nextKey = source.nextDoubleImpl();
-			double nextVal = key.applyAsDouble(nextKey);
-
-			if (!found && !Double.isNaN(nextVal)) {
-				found = true;
-				minKey = nextKey;
-				minVal = nextVal;
-			} else if (nextVal < minVal) {
-				minVal = nextVal;
-				minKey = nextKey;
-			}
-		}
-		return found ? OptionalDouble.of(minKey) : OptionalDouble.empty();
-	}
-
-	public static double findMin(AbstractDoubleIterator source, double defaultVal,
-			DoubleUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		double minKey = -1;
-		double minVal = Double.POSITIVE_INFINITY;
-		while (source.hasNext()) {
-			double nextKey = source.nextDoubleImpl();
-			double nextVal = key.applyAsDouble(nextKey);
-
-			if (!found && !Double.isNaN(nextVal)) {
-				found = true;
-				minKey = nextKey;
-				minVal = nextVal;
-			} else if (nextVal < minVal) {
-				minVal = nextVal;
-				minKey = nextKey;
-			}
-		}
-		return found ? minKey : defaultVal;
-	}
-
 	public static OptionalDouble findMaxOption(AbstractDoubleIterator source)
 	{
 		source.relinquishOwnership();
@@ -136,49 +90,4 @@ public class DoubleMinMaxConsumption
 		}
 	}
 
-	public static OptionalDouble findMaxOption(AbstractDoubleIterator source,
-			DoubleUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		double maxKey = -1;
-		double maxVal = Double.NEGATIVE_INFINITY;
-		while (source.hasNext()) {
-			double nextKey = source.nextDoubleImpl();
-			double nextVal = key.applyAsDouble(nextKey);
-
-			if (!found && !Double.isNaN(nextVal)) {
-				found = true;
-				maxKey = nextKey;
-				maxVal = nextVal;
-			} else if (nextVal > maxVal) {
-				maxVal = nextVal;
-				maxKey = nextKey;
-			}
-		}
-		return found ? OptionalDouble.of(maxKey) : OptionalDouble.empty();
-	}
-
-	public static double findMax(AbstractDoubleIterator source, double defaultVal,
-			DoubleUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		double maxKey = -1;
-		double maxVal = Double.NEGATIVE_INFINITY;
-		while (source.hasNext()) {
-			double nextKey = source.nextDoubleImpl();
-			double nextVal = key.applyAsDouble(nextKey);
-
-			if (!found && !Double.isNaN(nextVal)) {
-				found = true;
-				maxKey = nextKey;
-				maxVal = nextVal;
-			} else if (nextVal > maxVal) {
-				maxVal = nextVal;
-				maxKey = nextKey;
-			}
-		}
-		return found ? maxKey : defaultVal;
-	}
 }

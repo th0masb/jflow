@@ -4,7 +4,6 @@
 package com.github.maumay.jflow.impl;
 
 import java.util.OptionalLong;
-import java.util.function.LongUnaryOperator;
 
 /**
  * @author ThomasB
@@ -53,50 +52,6 @@ public class LongMinMaxConsumption
 		}
 	}
 
-	public static OptionalLong findMin(AbstractLongIterator source, LongUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		long minKey = -1;
-		long minVal = Long.MAX_VALUE;
-		while (source.hasNext()) {
-			long nextKey = source.nextLongImpl();
-			long nextVal = key.applyAsLong(nextKey);
-
-			if (!found) {
-				found = true;
-				minKey = nextKey;
-				minVal = nextVal;
-			} else if (nextVal < minVal) {
-				minVal = nextVal;
-				minKey = nextKey;
-			}
-		}
-		return found ? OptionalLong.of(minKey) : OptionalLong.empty();
-	}
-
-	public static long findMin(AbstractLongIterator source, long defaultVal, LongUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		long minKey = -1;
-		long minVal = Long.MAX_VALUE;
-		while (source.hasNext()) {
-			long nextKey = source.nextLongImpl();
-			long nextVal = key.applyAsLong(nextKey);
-
-			if (!found) {
-				found = true;
-				minKey = nextKey;
-				minVal = nextVal;
-			} else if (nextVal < minVal) {
-				minVal = nextVal;
-				minKey = nextKey;
-			}
-		}
-		return found ? minKey : defaultVal;
-	}
-
 	public static OptionalLong findMaxOption(AbstractLongIterator source)
 	{
 		source.relinquishOwnership();
@@ -133,49 +88,5 @@ public class LongMinMaxConsumption
 		} else {
 			throw new IllegalStateException();
 		}
-	}
-
-	public static OptionalLong findMaxOption(AbstractLongIterator source, LongUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		long maxKey = -1;
-		long maxVal = Long.MIN_VALUE;
-		while (source.hasNext()) {
-			long nextKey = source.nextLongImpl();
-			long nextVal = key.applyAsLong(nextKey);
-
-			if (!found) {
-				found = true;
-				maxKey = nextKey;
-				maxVal = nextVal;
-			} else if (nextVal > maxVal) {
-				maxVal = nextVal;
-				maxKey = nextKey;
-			}
-		}
-		return found ? OptionalLong.of(maxKey) : OptionalLong.empty();
-	}
-
-	public static long findMax(AbstractLongIterator source, long defaultVal, LongUnaryOperator key)
-	{
-		source.relinquishOwnership();
-		boolean found = false;
-		long maxKey = -1;
-		long maxVal = Long.MIN_VALUE;
-		while (source.hasNext()) {
-			long nextKey = source.nextLongImpl();
-			long nextVal = key.applyAsLong(nextKey);
-
-			if (!found) {
-				found = true;
-				maxKey = nextKey;
-				maxVal = nextVal;
-			} else if (nextVal > maxVal) {
-				maxVal = nextVal;
-				maxKey = nextKey;
-			}
-		}
-		return found ? maxKey : defaultVal;
 	}
 }
