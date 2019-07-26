@@ -53,6 +53,10 @@ class VecImplTest extends AbstractListBuilder
 		Vec<String> vector = new VecImpl<>("a", "b", "c");
 		assertEquals(vector, vector.stream().collect(Vec.collector()));
 
+		// Vec<Long> numbers = Iter.until(1000).mapToLong(x -> x).boxed().toVec();
+		// assertEquals((Long) 499500L, numbers.parstream().reduce((a, b) -> a +
+		// b).get());
+
 	}
 
 	@Test

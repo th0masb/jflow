@@ -32,8 +32,8 @@ public class AbstractIteratorAdapter
 		public OfObject(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.isInfinite()
-					|| size != source.getSize() : "Must not share size instance";
+			// assert size.isInfinite() || size != source.getSize() : "Must not share size
+			// instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via
@@ -55,16 +55,15 @@ public class AbstractIteratorAdapter
 	 *
 	 * @param <S> The type of the source iterator.
 	 */
-	public static abstract class OfInt<S extends AbstractIterator>
-			extends AbstractIntIterator
+	public static abstract class OfInt<S extends AbstractIterator> extends AbstractIntIterator
 	{
 		private final S source;
 
 		public OfInt(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.isInfinite()
-					|| size != source.getSize() : "Must not share size instance";
+			// assert size.isInfinite() || size != source.getSize() : "Must not share size
+			// instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via
@@ -86,16 +85,15 @@ public class AbstractIteratorAdapter
 	 *
 	 * @param <S> The type of the source iterator.
 	 */
-	public static abstract class OfLong<S extends AbstractIterator>
-			extends AbstractLongIterator
+	public static abstract class OfLong<S extends AbstractIterator> extends AbstractLongIterator
 	{
 		private final S source;
 
 		public OfLong(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.isInfinite()
-					|| size != source.getSize() : "Must not share size instance";
+			// assert size.isInfinite() || size != source.getSize() : "Must not share size
+			// instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via
@@ -117,16 +115,15 @@ public class AbstractIteratorAdapter
 	 *
 	 * @param <S> The type of the source iterator.
 	 */
-	public static abstract class OfDouble<S extends AbstractIterator>
-			extends AbstractDoubleIterator
+	public static abstract class OfDouble<S extends AbstractIterator> extends AbstractDoubleIterator
 	{
 		private final S source;
 
 		public OfDouble(AbstractIteratorSize size, S source)
 		{
 			super(size);
-			assert size.isInfinite()
-					|| size != source.getSize() : "Must not share size instance";
+			// assert size.isInfinite()
+			// || size != source.getSize() : "Must not share size instance";
 			this.source = source;
 
 			// The source is now considered locked and can only be consumed indirectly via

@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
@@ -44,7 +43,7 @@ public class ObjectReductionConsumption
 			}
 		}
 		if (reduction == null) {
-			throw new NoSuchElementException();
+			throw new IllegalStateException("Cannot fold an empty iterator!");
 		} else {
 			return reduction;
 		}
