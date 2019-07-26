@@ -291,7 +291,8 @@ public interface DoubleIterator extends SafeDoubleIterator
 	double max();
 
 	/**
-	 * Checks whether every element in this {@link DoubleIterator} is the same.
+	 * Checks whether every element in this {@link DoubleIterator} is the same
+	 * according to the equality contract: {@link Double#compare(double, double)}.
 	 *
 	 * This method is a 'consuming method', i.e. it will iterate through this
 	 * {@link DoubleIterator}.

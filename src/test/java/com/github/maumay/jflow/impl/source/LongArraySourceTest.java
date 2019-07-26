@@ -19,6 +19,8 @@ public final class LongArraySourceTest extends AbstractSourceTest<AbstractLongIt
 	protected List<Case<AbstractLongIterator>> getTestCases()
 	{
 		return list(new Case<>(() -> new ArraySource.OfLong(), list()),
-				new Case<>(() -> new ArraySource.OfLong(0L, 1L, 2L), list(0L, 1L, 2L)));
+				new Case<>(() -> new ArraySource.OfLong(0L, 1L, 2L), list(0L, 1L, 2L)),
+				new Case<>(() -> new ArraySource.OfLongReversed(), list()),
+				new Case<>(() -> new ArraySource.OfLongReversed(0L, 1L, 2L), list(2L, 1L, 0L)));
 	}
 }

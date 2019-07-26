@@ -19,6 +19,9 @@ public final class DoubleArraySourceTest extends AbstractSourceTest<AbstractDoub
 	protected List<Case<AbstractDoubleIterator>> getTestCases()
 	{
 		return list(new Case<>(() -> new ArraySource.OfDouble(), list()),
-				new Case<>(() -> new ArraySource.OfDouble(0.0, 1.0, 2.0), list(0.0, 1.0, 2.0)));
+				new Case<>(() -> new ArraySource.OfDouble(0.0, 1.0, 2.0), list(0.0, 1.0, 2.0)),
+				new Case<>(() -> new ArraySource.OfDoubleReversed(), list()),
+				new Case<>(() -> new ArraySource.OfDoubleReversed(0.0, 1.0, 2.0),
+						list(2.0, 1.0, 0.0)));
 	}
 }

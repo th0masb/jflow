@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import com.github.maumay.jflow.impl.AbstractDoubleIterator;
@@ -17,6 +18,7 @@ import com.github.maumay.jflow.impl.AbstractIterator;
 import com.github.maumay.jflow.impl.AbstractIteratorSize;
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.utils.Option;
 
 /**
  * @author ThomasB
@@ -29,10 +31,12 @@ public interface FiniteIteratorTest
 	{
 		for (TestIterable<I> iteratorProvider : iteratorProviders) {
 			assertSizeDecreasesByNextAsExpected(iteratorProvider.iter());
+			assertSizeDecreasesNyNextOpAsExpected(iteratorProvider.iter());
 			assertSizeDecreasesBySkipAsExpected(iteratorProvider.iter());
 			assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
 			assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
 			assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
+			assertOptionalIterationAsExpected(expectedElements, iteratorProvider.iter());
 			assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
 			assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
 		}
@@ -53,6 +57,21 @@ public interface FiniteIteratorTest
 		}
 	}
 
+	default Optional<?> nextOp(AbstractIterator iterator)
+	{
+		if (iterator instanceof AbstractRichIterator<?>) {
+			return ((AbstractRichIterator<?>) iterator).nextOp();
+		} else if (iterator instanceof AbstractIntIterator) {
+			return Option.box(((AbstractIntIterator) iterator).nextIntOp());
+		} else if (iterator instanceof AbstractDoubleIterator) {
+			return Option.box(((AbstractDoubleIterator) iterator).nextDoubleOp());
+		} else if (iterator instanceof AbstractLongIterator) {
+			return Option.box(((AbstractLongIterator) iterator).nextLongOp());
+		} else {
+			throw new AssertionError();
+		}
+	}
+
 	default void assertSizeDecreasesByNextAsExpected(AbstractIterator iterator)
 	{
 		AbstractIteratorSize startSize = iterator.getSize().copy();
@@ -62,6 +81,22 @@ public interface FiniteIteratorTest
 			count++;
 			try {
 				next(iterator);
+			} catch (NoSuchElementException ex) {
+				fail("Fewer elements than expected.");
+			}
+			assertEquals(startSize.subtract(count), iterator.getSize());
+		}
+	}
+
+	default void assertSizeDecreasesNyNextOpAsExpected(AbstractIterator iterator)
+	{
+		AbstractIteratorSize startSize = iterator.getSize().copy();
+
+		int count = 0;
+		while (iterator.hasNext()) {
+			count++;
+			try {
+				nextOp(iterator);
 			} catch (NoSuchElementException ex) {
 				fail("Fewer elements than expected.");
 			}
@@ -121,6 +156,20 @@ public interface FiniteIteratorTest
 			} catch (NoSuchElementException ex) {
 				fail("Fewer elements than expected.");
 			}
+		}
+		assertThrows(NoSuchElementException.class, () -> next(iterator));
+		assertThrows(NoSuchElementException.class, iterator::skip);
+		assertEquals(expectedElements, recoveredElements);
+	}
+
+	default void assertOptionalIterationAsExpected(List<?> expectedElements,
+			AbstractIterator iterator)
+	{
+		List<Object> recoveredElements = new ArrayList<>();
+		Optional<?> next = nextOp(iterator);
+		while (next.isPresent()) {
+			recoveredElements.add(next.get());
+			next = nextOp(iterator);
 		}
 		assertThrows(NoSuchElementException.class, () -> next(iterator));
 		assertThrows(NoSuchElementException.class, iterator::skip);

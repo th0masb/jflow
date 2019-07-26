@@ -10,8 +10,6 @@ import java.util.function.DoublePredicate;
  */
 public final class DoublePredicateConsumption
 {
-	private static final double EQUALITY_TOLERANCE = 0.00001;
-
 	public DoublePredicateConsumption()
 	{
 	}
@@ -26,7 +24,7 @@ public final class DoublePredicateConsumption
 			if (!initialised) {
 				initialised = true;
 				last = next;
-			} else if (Math.abs(last - next) < EQUALITY_TOLERANCE) {
+			} else if (Double.compare(last, next) == 0) {
 				last = next;
 			} else {
 				return false;

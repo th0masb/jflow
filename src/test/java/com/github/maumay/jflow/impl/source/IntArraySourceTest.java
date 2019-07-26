@@ -19,6 +19,8 @@ public final class IntArraySourceTest extends AbstractSourceTest<AbstractIntIter
 	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
 		return list(new Case<>(() -> new ArraySource.OfInt(), list()),
-				new Case<>(() -> new ArraySource.OfInt(0, 1, 2), list(0, 1, 2)));
+				new Case<>(() -> new ArraySource.OfIntReversed(), list()),
+				new Case<>(() -> new ArraySource.OfInt(0, 1, 2), list(0, 1, 2)),
+				new Case<>(() -> new ArraySource.OfIntReversed(0, 1, 2), list(2, 1, 0)));
 	}
 }

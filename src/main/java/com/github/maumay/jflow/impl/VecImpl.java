@@ -47,7 +47,7 @@ final class VecImpl<E> implements Vec<E>
 		this(new Object[0]);
 	}
 
-	VecImpl(Object[] cache)
+	VecImpl(Object... cache)
 	{
 		this.data = cache;
 	}
@@ -137,8 +137,7 @@ final class VecImpl<E> implements Vec<E>
 	}
 
 	@Override
-	public <R> VecImpl<R> flatMap(
-			Function<? super E, ? extends Iterator<? extends R>> mapping)
+	public <R> VecImpl<R> flatMap(Function<? super E, ? extends Iterator<? extends R>> mapping)
 	{
 		return iter().flatMap(mapping).toVec();
 	}

@@ -19,6 +19,9 @@ public final class ObjectArraySourceTest extends AbstractSourceTest<AbstractRich
 	protected List<Case<AbstractRichIterator<Double>>> getTestCases()
 	{
 		return list(new Case<>(() -> new ArraySource.OfObject<>(), list()),
-				new Case<>(() -> new ArraySource.OfObject<>(0.0, 1.0, 2.0), list(0.0, 1.0, 2.0)));
+				new Case<>(() -> new ArraySource.OfObject<>(0.0, 1.0, 2.0), list(0.0, 1.0, 2.0)),
+				new Case<>(() -> new ArraySource.OfObjectReversed<>(), list()),
+				new Case<>(() -> new ArraySource.OfObjectReversed<>(0.0, 1.0, 2.0),
+						list(2.0, 1.0, 0.0)));
 	}
 }
