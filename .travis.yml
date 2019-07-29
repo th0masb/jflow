@@ -13,3 +13,5 @@ install:
 script:
  - ./gradlew check -x signArchives
 
+after_success:
+ - bash <(curl -s https://codecov.io/bash)
