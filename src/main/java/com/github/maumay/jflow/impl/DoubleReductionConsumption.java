@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
 import java.util.function.DoubleBinaryOperator;
 
@@ -47,7 +46,7 @@ public final class DoubleReductionConsumption
 			}
 		}
 		if (reductionUninitialised) {
-			throw new NoSuchElementException("Attempted fold on empty iterator");
+			throw new IllegalStateException("Attempted fold on empty iterator");
 		} else {
 			return reduction;
 		}
