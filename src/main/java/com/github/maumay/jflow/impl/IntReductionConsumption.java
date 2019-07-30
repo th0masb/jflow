@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.function.IntBinaryOperator;
 
@@ -46,7 +45,7 @@ public final class IntReductionConsumption
 			}
 		}
 		if (reductionUninitialised) {
-			throw new NoSuchElementException("Attempted fold on empty iterator");
+			throw new IllegalStateException("Attempted fold on empty iterator");
 		} else {
 			return reduction;
 		}
