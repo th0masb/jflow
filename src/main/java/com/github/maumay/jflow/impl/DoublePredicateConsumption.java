@@ -10,7 +10,7 @@ import java.util.function.DoublePredicate;
  */
 public final class DoublePredicateConsumption
 {
-	public DoublePredicateConsumption()
+	private DoublePredicateConsumption()
 	{
 	}
 

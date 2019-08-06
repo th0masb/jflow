@@ -10,24 +10,24 @@ import java.util.function.Predicate;
  */
 public class ObjectPredicateConsumption
 {
-	public ObjectPredicateConsumption()
+	private ObjectPredicateConsumption()
 	{
 	}
 
-	public static <E> boolean allEqual(AbstractRichIterator<? extends E> source)
-	{
-		source.relinquishOwnership();
-		E last = null;
-		while (source.hasNext()) {
-			E next = source.nextImpl();
-			if (last == null || last.equals(next)) {
-				last = next;
-			} else {
-				return false;
-			}
-		}
-		return true;
-	}
+	// public static <E> boolean allEqual(AbstractRichIterator<? extends E> source)
+	// {
+	// source.relinquishOwnership();
+	// E last = null;
+	// while (source.hasNext()) {
+	// E next = source.nextImpl();
+	// if (last == null || last.equals(next)) {
+	// last = next;
+	// } else {
+	// return false;
+	// }
+	// }
+	// return true;
+	// }
 
 	public static <E> boolean allMatch(AbstractRichIterator<? extends E> source,
 			Predicate<? super E> predicate)

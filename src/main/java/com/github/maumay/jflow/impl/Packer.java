@@ -28,7 +28,9 @@ public class Packer
 
 		public OfObject(int packSize, Type type)
 		{
-			Exceptions.require(packSize > 0);
+			if (packSize <= 0) {
+				throw new IllegalArgumentException();
+			}
 			this.packSize = packSize;
 			this.type = Objects.requireNonNull(type);
 		}

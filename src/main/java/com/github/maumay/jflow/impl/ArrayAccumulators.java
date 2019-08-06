@@ -4,6 +4,7 @@
 package com.github.maumay.jflow.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -232,11 +233,15 @@ public final class ArrayAccumulators
 			Object[] currentStore = arrays.get(arrays.size() - 1);
 			currentStore[runningIndex] = element;
 			runningIndex = (runningIndex + 1) % currentStore.length;
-
 			if (runningIndex == 0) {
-				int newSize = Math.min(MAX_ARRAY_SIZE, GROWTH_FACTOR * currentStore.length);
-				arrays.add(new Object[newSize]);
+				addNewArray(currentStore.length);
 			}
+		}
+
+		private void addNewArray(int previousLength)
+		{
+			int newSize = Math.min(MAX_ARRAY_SIZE, GROWTH_FACTOR * previousLength);
+			arrays.add(new Object[newSize]);
 		}
 
 		@SuppressWarnings("unchecked")
@@ -259,6 +264,22 @@ public final class ArrayAccumulators
 			// copy the last array which is only partially full.
 			System.arraycopy(arrays.get(arrays.size() - 1), 0, result, indexTracker, runningIndex);
 			return (E[]) result;
+		}
+
+		@SuppressWarnings("unchecked")
+		public void add(ArrayAccumulators.OfObject<E> other)
+		{
+			Object[] otherLast = other.arrays.remove(other.arrays.size() - 1);
+			Object[] thisLast = arrays.remove(arrays.size() - 1);
+			arrays.add(Arrays.copyOf(thisLast, runningIndex));
+			arrays.addAll(other.arrays);
+			runningIndex = 0;
+			addNewArray(thisLast.length);
+			for (int i = 0; i < other.runningIndex; i++) {
+				add((E) otherLast[i]);
+			}
+			// Make sure the other is left in it's correct state
+			other.arrays.add(otherLast);
 		}
 	}
 

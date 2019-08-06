@@ -17,7 +17,7 @@ import com.github.maumay.jflow.impl.AbstractRichIterator;
 /**
  * @author thomasb
  */
-public abstract class AbstractObjectCollectionTest<E, R> extends AbstractListBuilder
+public abstract class AbstractObjectCollectionTest<E, R> extends AbstractCollectionBuilder
 {
 	protected abstract Collector<E, ? extends R> getCollectorToTest();
 

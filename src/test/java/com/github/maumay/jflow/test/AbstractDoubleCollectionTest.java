@@ -18,7 +18,7 @@ import com.github.maumay.jflow.impl.AbstractDoubleIterator;
  * @author thomasb
  *
  */
-public abstract class AbstractDoubleCollectionTest<R> extends AbstractListBuilder
+public abstract class AbstractDoubleCollectionTest<R> extends AbstractCollectionBuilder
 {
 	protected abstract Collector<R> getCollectorToTest();
 

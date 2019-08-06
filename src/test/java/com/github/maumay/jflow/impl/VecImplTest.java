@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.test.AbstractListBuilder;
+import com.github.maumay.jflow.test.AbstractCollectionBuilder;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -22,7 +22,7 @@ import com.github.maumay.jflow.vec.Vec;
  * @author thomasb
  *
  */
-class VecImplTest extends AbstractListBuilder
+class VecImplTest extends AbstractCollectionBuilder
 {
 	@Test
 	void testEquals()

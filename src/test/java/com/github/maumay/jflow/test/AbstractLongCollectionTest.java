@@ -18,7 +18,7 @@ import com.github.maumay.jflow.impl.AbstractLongIterator;
  * @author thomasb
  *
  */
-public abstract class AbstractLongCollectionTest<R> extends AbstractListBuilder
+public abstract class AbstractLongCollectionTest<R> extends AbstractCollectionBuilder
 {
 	protected abstract Collector<R> getCollectorToTest();
 
