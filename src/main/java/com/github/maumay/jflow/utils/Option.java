@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.utils;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -71,26 +70,26 @@ public final class Option
 		}
 	}
 
-	/**
-	 * Performs a 'safe-cast' of a source object to a type specified by the given
-	 * class parameter.
-	 * 
-	 * @param            <R> The type which we will attempt to cast the object
-	 *                   reference to.
-	 * @param src        The object to cast.
-	 * @param targetType The type to attempt to cast to.
-	 * @return The result of the cast if the given object is an instance of the
-	 *         target type. Nothing otherwise.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <R> Optional<R> cast(Object src, Class<R> targetType)
-	{
-		if (targetType.isInstance(src)) {
-			return Optional.of((R) src);
-		} else {
-			return Optional.empty();
-		}
-	}
+	// /**
+	// * Performs a 'safe-cast' of a source object to a type specified by the given
+	// * class parameter.
+	// *
+	// * @param <R> The type which we will attempt to cast the object
+	// * reference to.
+	// * @param src The object to cast.
+	// * @param targetType The type to attempt to cast to.
+	// * @return The result of the cast if the given object is an instance of the
+	// * target type. Nothing otherwise.
+	// */
+	// @SuppressWarnings("unchecked")
+	// public static <R> Optional<R> cast(Object src, Class<R> targetType)
+	// {
+	// if (targetType.isInstance(src)) {
+	// return Optional.of((R) src);
+	// } else {
+	// return Optional.empty();
+	// }
+	// }
 
 	/**
 	 * Wraps a value in an optional.
@@ -218,62 +217,66 @@ public final class Option
 		return x.isPresent() ? OptionalLong.of(f.applyAsLong(x.getAsLong())) : OptionalLong.empty();
 	}
 
-	/**
-	 * Given an optional value this method attempts to retrieve the value contained
-	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	 *
-	 * @param              <T> The type of the value wrapped by the passed optional.
-	 * @param errorMessage The message to pass to the exception if the extraction
-	 *                     fails.
-	 * @param x            The optional to extract a value from.
-	 * @return The value inside the optional if it exists.
-	 */
-	public static <T> T extract(Optional<? extends T> x, String errorMessage)
-	{
-		return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	}
-
-	/**
-	 * Given an optional value this method attempts to retrieve the value contained
-	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	 *
-	 * @param x            The optional to extract a value from.
-	 * @param errorMessage The message to pass to the exception if the extraction
-	 *                     fails.
-	 * @return The value inside the optional if it exists.
-	 */
-	public static int extract(OptionalInt x, String errorMessage)
-	{
-		return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	}
-
-	/**
-	 * Given an optional value this method attempts to retrieve the value contained
-	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	 *
-	 * @param x            The optional to extract a value from.
-	 * @param errorMessage The message to pass to the exception if the extraction
-	 *                     fails.
-	 * @return The value inside the optional if it exists.
-	 */
-	public static double extract(OptionalDouble x, String errorMessage)
-	{
-		return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	}
-
-	/**
-	 * Given an optional value this method attempts to retrieve the value contained
-	 * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	 *
-	 * @param x            The optional to extract a value from.
-	 * @param errorMessage The message to pass to the exception if the extraction
-	 *                     fails.
-	 * @return The value inside the optional if it exists.
-	 */
-	public static double extract(OptionalLong x, String errorMessage)
-	{
-		return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	}
+	// /**
+	// * Given an optional value this method attempts to retrieve the value
+	// contained
+	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+	// *
+	// * @param <T> The type of the value wrapped by the passed optional.
+	// * @param errorMessage The message to pass to the exception if the extraction
+	// * fails.
+	// * @param x The optional to extract a value from.
+	// * @return The value inside the optional if it exists.
+	// */
+	// public static <T> T extract(Optional<? extends T> x, String errorMessage)
+	// {
+	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+	// }
+	//
+	// /**
+	// * Given an optional value this method attempts to retrieve the value
+	// contained
+	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+	// *
+	// * @param x The optional to extract a value from.
+	// * @param errorMessage The message to pass to the exception if the extraction
+	// * fails.
+	// * @return The value inside the optional if it exists.
+	// */
+	// public static int extract(OptionalInt x, String errorMessage)
+	// {
+	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+	// }
+	//
+	// /**
+	// * Given an optional value this method attempts to retrieve the value
+	// contained
+	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+	// *
+	// * @param x The optional to extract a value from.
+	// * @param errorMessage The message to pass to the exception if the extraction
+	// * fails.
+	// * @return The value inside the optional if it exists.
+	// */
+	// public static double extract(OptionalDouble x, String errorMessage)
+	// {
+	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+	// }
+	//
+	// /**
+	// * Given an optional value this method attempts to retrieve the value
+	// contained
+	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+	// *
+	// * @param x The optional to extract a value from.
+	// * @param errorMessage The message to pass to the exception if the extraction
+	// * fails.
+	// * @return The value inside the optional if it exists.
+	// */
+	// public static double extract(OptionalLong x, String errorMessage)
+	// {
+	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+	// }
 
 	/**
 	 * An addition function acting on optional values.

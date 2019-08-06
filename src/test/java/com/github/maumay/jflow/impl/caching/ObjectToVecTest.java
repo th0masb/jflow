@@ -3,8 +3,6 @@
  */
 package com.github.maumay.jflow.impl.caching;
 
-import static com.github.maumay.jflow.vec.Vec.vec;
-
 import java.util.List;
 
 import com.github.maumay.jflow.test.AbstractObjectCollectionTest;

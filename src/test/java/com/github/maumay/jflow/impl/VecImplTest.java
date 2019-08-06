@@ -3,7 +3,6 @@
  */
 package com.github.maumay.jflow.impl;
 
-import static com.github.maumay.jflow.vec.Vec.vec;
 import static java.util.Comparator.naturalOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
