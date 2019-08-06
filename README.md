@@ -1,18 +1,17 @@
 # jflow
-### Provides an immutable alternative to `List` alongside enhanced iterators
+### Enhanced iterators alongside an immutable and ergonomic alternative to `List`
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=blue)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=blue)](https://javadoc.io/doc/com.github.maumay/jflow) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![codecov](https://codecov.io/gh/maumay/jflow/branch/master/graph/badge.svg)](https://codecov.io/gh/maumay/jflow)
 
 
-
 ---
 #### Overview
-jflow is a lightweight Java library providing an immutable alternative to the `List` interface called `Vec` which aims to maximise useability without compromising on performance. The `Iterator` interface has been extended with a large amount of extra functionality in the style of `Stream` with this goal in mind. The functionality provided can be summarised as follows:  
+A lightweight Java library (no other dependencies, ~1MB size inclusive of javadoc and source jars) whose functionality can be summarised as follows:  
 
- - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs).
+ - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of extra functionality in the style of `Stream`. Anyone comfortable with streams should immediately feel right at home. 
  - Static factory methods for constructing these iterators from various sources.
- - A mechanism for implementing custom intermediate (in stream terminology) operations.
  - An alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
+ - A mechanism for implementing custom intermediate (in stream terminology) operations.
 
 The rest of this file along will provide more detail and justification for the points above which will hopefully demonstrate the value which I believe is offered by this library. This will be communicated via a mixture of simple API examples as well as longer and more in-depth code examples.
 
