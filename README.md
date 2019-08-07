@@ -1,7 +1,7 @@
 # jflow
 ### Enhanced iterators alongside an immutable and ergonomic alternative to `List`
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=blue)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=blue)](https://javadoc.io/doc/com.github.maumay/jflow) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![codecov](https://codecov.io/gh/maumay/jflow/branch/master/graph/badge.svg)](https://codecov.io/gh/maumay/jflow)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=orange)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=orange)](https://javadoc.io/doc/com.github.maumay/jflow) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![codecov](https://codecov.io/gh/maumay/jflow/branch/master/graph/badge.svg)](https://codecov.io/gh/maumay/jflow)
 
 
 ---
