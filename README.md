@@ -6,7 +6,7 @@
 
 ---
 #### Overview
-A lightweight Java library (no other dependencies, ~1MB size inclusive of javadoc and source jars) whose functionality can be summarised as follows:  
+A lightweight Java library (no other dependencies, ~200KB size) whose functionality can be summarised as follows:  
 
  - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of extra functionality in the style of `Stream`. Anyone comfortable with streams should immediately feel right at home. 
  - Static factory methods for constructing these iterators from various sources.
