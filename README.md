@@ -8,12 +8,10 @@
 #### Overview
 A lightweight Java library (no other dependencies, ~200KB size) whose functionality can be summarised as follows:  
 
- - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of extra functionality in the style of `Stream`. Anyone comfortable with streams should immediately feel right at home. 
+ - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of additional functionality in the style of `Stream` but with some tweaks for increased usability. 
  - Static factory methods for constructing these iterators from various sources.
  - An alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
  - A mechanism for implementing custom intermediate (in stream terminology) operations.
-
-The rest of this file along will provide more detail and justification for the points above which will hopefully demonstrate the value which I believe is offered by this library. This will be communicated via a mixture of simple API examples as well as longer and more in-depth code examples.
 
 
 ---
@@ -31,10 +29,11 @@ Learning by example is always a useful method, below are some links to files whi
  - [RichIterator](docs/RichIterator-examples.md)
  - [Iter](docs/Iter-examples.md)
 
-While these files don't demonstrate everything they contain the most useful functionality and allow you to start using the library straight away.
+While these files don't demonstrate everything they do show some useful functionality and allow you to start using the library straight away.
+
 
 ---
-#### Sizing optimizations
+#### Sized iterators
 
 An aim of this library is that the use of an iterator over a sequential stream should not negatively affect the runtime performance. Many operations which terminate a lazy sequence of data (such as predicate matching) essentially just boil down to a single loop and so the difference between using the two data structures is negligible. Others (such as collecting the elements into some collection) can be optimized when we have information about the number of elements in the sequence.
 
@@ -61,7 +60,8 @@ class Point {
 Vec<Point> fiveRandom = Iter.call(Point::new).take(5).toVec();
 ```
 
-Here we created an infinite iterator of random points (possible because of laziness) and took 5 of them from the head. Since we knew the initial iterator had infinite size we deduce that the iterator formed by the take operation must have exactly five elements. We can then create an array of size 5 on the stack, allocate the points into it and return a wrapper around it without any copying taking place, wasting no space and retaining complete immutability.
+Here we created an infinite iterator of random points (possible because of laziness) and took 5 of them from the head. Since we knew the initial iterator had infinite size we deduce that the iterator formed by the take operation must have exactly five elements. We can then create an array of size 5 on the stack, allocate the points into it and return an immutable wrapper around it without any copying taking place, wasting no space and benefiting from complete immutability.
+
 
 ---
 #### Mutability and ownership
@@ -80,6 +80,8 @@ iterator.next();
 So we took off the head and then adapted the iterator by putting this element at the end. If you read the previous section about adding a notion of size to iterators and spotted the potential for subtle bugs here then well done. For those who didn't spot it (like myself initially) let me break it down. The first iterator has a known size of three, when we call the `next` method we remove the current head and so the iterator now has a known size of two. We then create a new iterator with a known size of three by appending one element. What if we now call `next` again on the initial iterator? How would the second know this had happened and register that it must also decrease it's size by one? The short answer is that calling `next` again on the first iterator will throw an exception, more specifically an `IteratorOwnershipException`.
 
 Introducing a concept of ownership was the best and most performant way to solve this problem I could think of and is similar to the behaviour exhibited by streams. Essentially at the point of creation each iterator possesses ownership of itself and only those iterators which have their ownership intact allow you calls methods directly on them. Calling an adaption method which produces a new iterator (like `append`) will force the old iterator to relinquish the ownership of it's methods. Therefore the only way to access the elements traversed by the old iterator is indirectly through the new one. In this way we remove the potential danger of subtle bugs arising from allowing mutation in this manner.
+
+
 
 
 ---

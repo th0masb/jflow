@@ -50,7 +50,7 @@ public final class Strings
 	 * @param obj An object reference.
 	 * @return the string representation of the parameter object.
 	 */
-	public static String str(Object obj)
+	public static String convert(Object obj)
 	{
 		return obj.toString();
 	}
@@ -62,7 +62,7 @@ public final class Strings
 	 * @param x A primitive int.
 	 * @return The String representation of the parameter int.
 	 */
-	public static String str(int x)
+	public static String convert(int x)
 	{
 		return Integer.toString(x);
 	}
@@ -74,7 +74,7 @@ public final class Strings
 	 * @param x A primitive double.
 	 * @return The String representation of the parameter double.
 	 */
-	public static String str(double x)
+	public static String convert(double x)
 	{
 		return Double.toString(x);
 	}
@@ -86,7 +86,7 @@ public final class Strings
 	 * @param x A primitive long.
 	 * @return The String representation of the parameter long.
 	 */
-	public static String str(long x)
+	public static String convert(long x)
 	{
 		return Long.toString(x);
 	}
@@ -98,7 +98,7 @@ public final class Strings
 	 * @param x A primitive char.
 	 * @return The String representation of the parameter char.
 	 */
-	public static String str(char x)
+	public static String convert(char x)
 	{
 		return Character.toString(x);
 	}
@@ -110,7 +110,7 @@ public final class Strings
 	 * @param xs An int array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String str(int[] xs)
+	public static String convert(int[] xs)
 	{
 		return Arrays.toString(xs);
 	}
@@ -122,7 +122,7 @@ public final class Strings
 	 * @param xs A double array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String str(double[] xs)
+	public static String convert(double[] xs)
 	{
 		return Arrays.toString(xs);
 	}
@@ -134,7 +134,55 @@ public final class Strings
 	 * @param xs A long array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String str(long[] xs)
+	public static String convert(long[] xs)
+	{
+		return Arrays.toString(xs);
+	}
+
+	/**
+	 * Unified and null-safe toString function. Works for all objects, arrays and
+	 * primitives.
+	 *
+	 * @param xs A boolean array reference.
+	 * @return The String representation of the parameter array.
+	 */
+	public static String convert(boolean[] xs)
+	{
+		return Arrays.toString(xs);
+	}
+
+	/**
+	 * Unified and null-safe toString function. Works for all objects, arrays and
+	 * primitives.
+	 *
+	 * @param xs A byte array reference.
+	 * @return The String representation of the parameter array.
+	 */
+	public static String convert(byte[] xs)
+	{
+		return Arrays.toString(xs);
+	}
+
+	/**
+	 * Unified and null-safe toString function. Works for all objects, arrays and
+	 * primitives.
+	 *
+	 * @param xs A short array reference.
+	 * @return The String representation of the parameter array.
+	 */
+	public static String convert(short[] xs)
+	{
+		return Arrays.toString(xs);
+	}
+
+	/**
+	 * Unified and null-safe toString function. Works for all objects, arrays and
+	 * primitives.
+	 *
+	 * @param xs A float array reference.
+	 * @return The String representation of the parameter array.
+	 */
+	public static String convert(float[] xs)
 	{
 		return Arrays.toString(xs);
 	}
@@ -146,7 +194,7 @@ public final class Strings
 	 * @param xs A char array reference.
 	 * @return The String representation of the parameter array.
 	 */
-	public static String str(char[] xs)
+	public static String convert(char[] xs)
 	{
 		return Arrays.toString(xs);
 	}
