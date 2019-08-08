@@ -79,16 +79,16 @@ uploadArchives {
 		}
   
 		pom.project {
-		  name 'JFlow'
+		  name 'jflow'
 		  packaging 'jar'
 		  // optionally artifactId can be defined here
 		  description 'Enhanced iterators for Java'
-		  url 'https://github.com/maumay/JFlow'
+		  url 'https://github.com/maumay/jflow'
   
 		  scm {
-			connection 'scm:git:https://github.com/maumay/JFlow.git'
-			developerConnection 'scm:git:https://github.com/maumay/JFlow.git'
-			url 'https://github.com/maumay/JFlow.git'
+			connection 'scm:git:https://github.com/maumay/jflow.git'
+			developerConnection 'scm:git:https://github.com/maumay/jflow.git'
+			url 'https://github.com/maumay/jflow.git'
 		  }
   
 		  licenses {
