@@ -1,5 +1,5 @@
 # jflow
-### Enhanced iterators alongside an immutable and ergonomic alternative to `List`
+### Enhanced iterators with immutable and ergonomic fixed length arrays
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=orange)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://javadoc.io/badge/com.github.maumay/jflow.svg?color=orange)](https://javadoc.io/doc/com.github.maumay/jflow) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![codecov](https://codecov.io/gh/maumay/jflow/branch/master/graph/badge.svg)](https://codecov.io/gh/maumay/jflow)
 
@@ -10,7 +10,7 @@ A lightweight Java library (no other dependencies, ~200KB size) whose functional
 
  - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of additional functionality in the style of `Stream` but with some tweaks for increased usability. 
  - Static factory methods for constructing these iterators from various sources.
- - An alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
+ - An immutable, array-backed alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
  - A mechanism for implementing custom intermediate (in stream terminology) operations.
 
 
