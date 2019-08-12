@@ -8,13 +8,10 @@ import static java.lang.Character.isWhitespace;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.github.maumay.jflow.impl.AbstractRichIterator;
-import com.github.maumay.jflow.impl.LowerBound;
+import com.github.maumay.jflow.impl.RegexMatchIterator;
 import com.github.maumay.jflow.iterators.Iter;
 import com.github.maumay.jflow.iterators.RichIterator;
 
@@ -261,43 +258,7 @@ public final class Strings
 	 */
 	public static RichIterator<String> allMatches(String source, Pattern pattern)
 	{
-		return new AbstractRichIterator<String>(LowerBound.of(0)) {
-			Matcher matcher = pattern.matcher(source);
-			String current;
-
-			@Override
-			public boolean hasNext()
-			{
-				if (current != null) {
-					return true;
-				} else {
-					if (matcher.find()) {
-						current = matcher.group();
-						return true;
-					} else {
-						return false;
-					}
-				}
-			}
-
-			@Override
-			public String nextImpl()
-			{
-				if (hasNext()) {
-					String next = current;
-					current = null;
-					return next;
-				} else {
-					throw new NoSuchElementException();
-				}
-			}
-
-			@Override
-			public void skipImpl()
-			{
-				next();
-			}
-		};
+		return new RegexMatchIterator(pattern.matcher(source));
 	}
 
 	/**
