@@ -9,7 +9,7 @@
 A lightweight Java library (no other dependencies, ~200KB size) whose functionality can be summarised as follows:  
 
  - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of additional functionality in the style of `Stream` but with some tweaks for increased usability. 
- - Static factory methods for constructing these iterators from various sources.
+ - A variety of useful static factory methods for constructing these iterators (both finite and infinite) from various sources.
  - An immutable, array-backed alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
  - A mechanism for implementing custom intermediate (in stream terminology) operations.
 
