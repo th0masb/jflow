@@ -48,7 +48,7 @@ public class Geometry
 		UnaryOperator<Point> translateUpwards = p -> new Point(p.x, p.y + 1);
 
 		computeBounds(() -> Stream.of(a, b, c).map(translateUpwards).iterator());
-		computeBounds(Iter.over(a, b, c).map(translateUpwards).lift());
+		computeBounds(Iter.args(a, b, c).map(translateUpwards).lift());
 
 		List<Triangle> triangles = new ArrayList<>();
 		List<Circle> circles = new ArrayList<>();

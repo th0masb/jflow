@@ -35,7 +35,7 @@ class ArrayAccumulatorsTest
 
 	static RichIterator<Arguments> testIntAccumulation()
 	{
-		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(39),
+		return Iter.args(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(39),
 				Arguments.of(12009));
 	}
 
@@ -56,7 +56,7 @@ class ArrayAccumulatorsTest
 
 	static RichIterator<Arguments> testDoubleAccumulation()
 	{
-		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(39),
+		return Iter.args(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(39),
 				Arguments.of(10239));
 	}
 
@@ -77,7 +77,7 @@ class ArrayAccumulatorsTest
 
 	static RichIterator<Arguments> testLongAccumulation()
 	{
-		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(284),
+		return Iter.args(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(284),
 				Arguments.of(9375));
 	}
 
@@ -98,7 +98,7 @@ class ArrayAccumulatorsTest
 
 	static RichIterator<Arguments> testObjectAccumulation()
 	{
-		return Iter.over(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(284),
+		return Iter.args(Arguments.of(10), Arguments.of(20), Arguments.of(21), Arguments.of(284),
 				Arguments.of(9375));
 	}
 
@@ -124,6 +124,6 @@ class ArrayAccumulatorsTest
 
 	static RichIterator<Arguments> testObjectCombining()
 	{
-		return Iter.over(Arguments.of(36, 0.5), Arguments.of(241, 0.3), Arguments.of(241, 0.9));
+		return Iter.args(Arguments.of(36, 0.5), Arguments.of(241, 0.3), Arguments.of(241, 0.9));
 	}
 }

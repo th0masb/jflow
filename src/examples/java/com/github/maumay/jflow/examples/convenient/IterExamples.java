@@ -3,7 +3,6 @@ package com.github.maumay.jflow.examples.convenient;
 import static com.github.maumay.jflow.vec.Vec.vec;
 import static java.util.Arrays.asList;
 
-import java.nio.file.LinkOption;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,25 +21,30 @@ import com.github.maumay.jflow.vec.IntVec;
  */
 public final class IterExamples
 {
+	enum Hand
+	{
+		LEFT, RIGHT;
+	}
+
 	public static void main(String[] args)
 	{
 		// Construct from varargs
-		assert Iter.over(1, 2, 3).toVec() == vec(1, 2, 3);
+		assert Iter.args(1, 2, 3).toVec() == vec(1, 2, 3);
 
 		// Construct from existing collections
 		assert Iter.over(Arrays.asList(1, 2, 3)).toVec() == vec(1, 2, 3);
 
 		// *****************************************************************************************
 		// Construct from enumerated types
-		assert Iter.over(LinkOption.class).toVec() == vec(LinkOption.NOFOLLOW_LINKS);
+		assert Iter.enums(Hand.class).toVec() == vec(Hand.LEFT, Hand.RIGHT);
 
 		// *****************************************************************************************
 		// Construct from optionals
-		assert Iter.option(Option.empty()).toVec() == vec();
-		assert Iter.option(Option.of("a")).toVec() == vec("a");
+		assert Iter.over(Option.empty()).toVec() == vec();
+		assert Iter.over(Option.of("a")).toVec() == vec("a");
 
 		// Example usage is flattening a sequence of optional values
-		assert Iter.over(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::option)
+		assert Iter.args(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::over)
 				.toVec() == vec("a", "b");
 
 		// *****************************************************************************************
@@ -58,7 +62,7 @@ public final class IterExamples
 		BinaryOperator<Integer> sum = (a, b) -> a + b;
 		assert Iter.keys(map).fold(sum) == 3;
 		assert Iter.values(map).fold(sum) == 30;
-		assert Iter.entries(map).map(pair -> pair._1 * pair._2).fold(sum) == 50;
+		assert Iter.over(map).map(pair -> pair._1 * pair._2).fold(sum) == 50;
 
 		// *****************************************************************************************
 		// Construct primitive iterators

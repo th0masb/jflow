@@ -217,7 +217,7 @@ public final class Strings
 	 */
 	public static String concat(String... source)
 	{
-		return concat(Iter.over(source));
+		return concat(Iter.args(source));
 	}
 
 	/**

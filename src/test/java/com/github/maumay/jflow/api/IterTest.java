@@ -41,49 +41,43 @@ class IterTest
 	@Test
 	void testOverArray()
 	{
-		assertEquals(vec("a", "b"), Iter.over("a", "b").toVec());
+		assertEquals(vec("a", "b"), Iter.args("a", "b").toVec());
 	}
 
 	@Test
 	void testOverEnum()
 	{
 		assertEquals(vec(Locale.Category.DISPLAY, Locale.Category.FORMAT),
-				Iter.over(Locale.Category.class).toVec());
-	}
-
-	@Test
-	void testReverse()
-	{
-		assertEquals(vec("b", "a"), Iter.reverse("a", "b").toVec());
+				Iter.enums(Locale.Category.class).toVec());
 	}
 
 	@Test
 	void testOption()
 	{
 		Optional<String> emptyOp = Optional.empty();
-		assertEquals(Vec.empty(), Iter.option(emptyOp).toVec());
-		assertEquals(vec("a"), Iter.option(Optional.of("a")).toVec());
+		assertEquals(Vec.empty(), Iter.over(emptyOp).toVec());
+		assertEquals(vec("a"), Iter.over(Optional.of("a")).toVec());
 	}
 
 	@Test
 	void testValues()
 	{
-		Map<String, String> map = Iter.over("a").associate(x -> x + x);
+		Map<String, String> map = Iter.args("a").associate(x -> x + x);
 		assertEquals(vec("aa"), Iter.values(map).toVec());
 	}
 
 	@Test
 	void testKeys()
 	{
-		Map<String, String> map = Iter.over("a").associate(x -> x + x);
+		Map<String, String> map = Iter.args("a").associate(x -> x + x);
 		assertEquals(vec("a"), Iter.keys(map).toVec());
 	}
 
 	@Test
 	void testEntries()
 	{
-		Map<String, String> map = Iter.over("a").associate(x -> x + x);
-		assertEquals(vec(Tup.of("a", "aa")), Iter.entries(map).toVec());
+		Map<String, String> map = Iter.args("a").associate(x -> x + x);
+		assertEquals(vec(Tup.of("a", "aa")), Iter.over(map).toVec());
 	}
 
 	@Test
