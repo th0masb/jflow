@@ -3,6 +3,8 @@
  */
 package com.github.maumay.jflow.utils;
 
+import java.util.Objects;
+
 /**
  * Compact two element tuple (pair) of primitive longs inspired by Scala.
  * 
@@ -63,11 +65,7 @@ public final class LongTup
 	@Override
 	public int hashCode()
 	{
-		int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (_1 ^ (_1 >>> 32));
-		result = prime * result + (int) (_2 ^ (_2 >>> 32));
-		return result;
+		return Objects.hash(_1, _2);
 	}
 
 	@Override
@@ -80,10 +78,6 @@ public final class LongTup
 		if (getClass() != obj.getClass())
 			return false;
 		LongTup other = (LongTup) obj;
-		if (_1 != other._1)
-			return false;
-		if (_2 != other._2)
-			return false;
-		return true;
+		return _1 == other._1 && _2 == other._2;
 	}
 }

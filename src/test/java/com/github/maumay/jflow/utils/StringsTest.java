@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -18,13 +20,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author thomasb
- *
  */
 public final class StringsTest
 {
 	@Test
 	void testIsTrimmed()
 	{
+		assertTrue(Strings.isTrimmed(""));
 		assertTrue(Strings.isTrimmed("hdddklj"));
 		assertTrue(Strings.isTrimmed("hdd   dklj"));
 		assertFalse(Strings.isTrimmed(" sjsn"));
@@ -51,6 +53,7 @@ public final class StringsTest
 		assertEquals(Integer.toString(12), Strings.convert(12));
 		assertEquals(Long.toString(128374287498243L), Strings.convert(128374287498243L));
 		assertEquals(Double.toString(0.7323), Strings.convert(0.7323));
+		assertEquals(new String(new char[] { 'a' }), Strings.convert('a'));
 	}
 
 	@ParameterizedTest
@@ -64,5 +67,33 @@ public final class StringsTest
 	{
 		return Stream.of(Arguments.of("123", Arrays.asList("1", "2", "3")),
 				Arguments.of("123", Arrays.asList("", "1", "", "23", "")));
+	}
+
+	@Test
+	void firstMatchTest()
+	{
+		String pattern = "abo";
+		assertEquals(Optional.of("abo"),
+				Strings.firstMatch("gdjdjjabo, sloabos", pattern));
+		assertEquals(Optional.of("abo"),
+				Strings.firstMatch("gdjdjjabo, sloabos", Pattern.compile(pattern)));
+
+		assertEquals(Optional.empty(), Strings.firstMatch("gdjdjjadosls", pattern));
+		assertEquals(Optional.empty(),
+				Strings.firstMatch("gdjdjjadosls", Pattern.compile(pattern)));
+	}
+
+	@Test
+	void lastMatchTest()
+	{
+		String pattern = "a[bc]o";
+		assertEquals(Optional.of("aco"),
+				Strings.lastMatch("gdjdjjabo, sloacos", pattern));
+		assertEquals(Optional.of("aco"),
+				Strings.lastMatch("gdjdjjabo, sloacos", Pattern.compile(pattern)));
+
+		assertEquals(Optional.empty(), Strings.lastMatch("gdjdjjadosls", pattern));
+		assertEquals(Optional.empty(),
+				Strings.lastMatch("gdjdjjadosls", Pattern.compile(pattern)));
 	}
 }

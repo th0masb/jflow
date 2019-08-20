@@ -36,8 +36,8 @@ public final class Strings
 	 */
 	public static boolean isTrimmed(String text)
 	{
-		return text.isEmpty()
-				|| (!isWhitespace(text.charAt(0)) && !isWhitespace(text.charAt(text.length() - 1)));
+		return text.isEmpty() || (!isWhitespace(text.charAt(0))
+				&& !isWhitespace(text.charAt(text.length() - 1)));
 	}
 
 	/**
@@ -297,7 +297,7 @@ public final class Strings
 	 * 
 	 * @return The last match if there is one, nothing otherwise.
 	 */
-	public static Optional<String> lastMatch(String source, String regex)
+	public static Optional<String> lastMatch(String source, Pattern regex)
 	{
 		Iterator<String> allMatches = allMatches(source, regex);
 		if (allMatches.hasNext()) {
@@ -309,6 +309,20 @@ public final class Strings
 		} else {
 			return Optional.empty();
 		}
+	}
+
+	/**
+	 * Find the last match of a regular expression in a given string. Escaping
+	 * backslashes are required in the regex.
+	 * 
+	 * @param source The string to search in.
+	 * @param regex  The regular expression to search for.
+	 * 
+	 * @return The last match if there is one, nothing otherwise.
+	 */
+	public static Optional<String> lastMatch(String source, String regex)
+	{
+		return lastMatch(source, Pattern.compile(regex));
 	}
 
 	/**
