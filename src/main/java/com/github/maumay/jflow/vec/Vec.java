@@ -274,7 +274,7 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	 */
 	default boolean contains(E element)
 	{
-		return anyMatch(x -> x.equals(element));
+		return any(x -> x.equals(element));
 	}
 
 	/**

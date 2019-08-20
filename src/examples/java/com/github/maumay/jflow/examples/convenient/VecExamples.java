@@ -57,10 +57,10 @@ public class VecExamples
 
 		// *****************************************************************************************
 		// Predicate matching
-		assert ints.anyMatch(n -> n > 2);
-		assert ints.allMatch(n -> n > 0);
-		assert ints.noneMatch(n -> n > 3);
-		assert !ints.find(n -> n > 3).isPresent();
+		assert ints.any(n -> n > 2);
+		assert ints.all(n -> n > 0);
+		assert ints.none(n -> n > 3);
+		assert !ints.findOp(n -> n > 3).isPresent();
 
 		// *****************************************************************************************
 		// Min/max

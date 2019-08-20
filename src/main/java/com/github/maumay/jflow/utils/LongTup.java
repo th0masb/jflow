@@ -63,6 +63,13 @@ public final class LongTup
 	}
 
 	@Override
+	public String toString()
+	{
+		return new StringBuilder("(").append(_1).append(", ").append(_2).append(")")
+				.toString();
+	}
+
+	@Override
 	public int hashCode()
 	{
 		return Objects.hash(_1, _2);

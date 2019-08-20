@@ -3,6 +3,10 @@
  */
 package com.github.maumay.jflow.utils;
 
+import static java.lang.Double.doubleToLongBits;
+
+import java.util.Objects;
+
 /**
  * Compact two element tuple (pair) of primitive doubles inspired by Scala.
  * 
@@ -63,20 +67,14 @@ public final class DoubleTup
 	@Override
 	public String toString()
 	{
-		return new StringBuilder("(").append(_1).append(", ").append(_2).append(")").toString();
+		return new StringBuilder("(").append(_1).append(", ").append(_2).append(")")
+				.toString();
 	}
 
 	@Override
 	public int hashCode()
 	{
-		int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(_1);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(_2);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
+		return Objects.hash(_1, _2);
 	}
 
 	@Override
@@ -89,10 +87,7 @@ public final class DoubleTup
 		if (getClass() != obj.getClass())
 			return false;
 		DoubleTup other = (DoubleTup) obj;
-		if (Double.doubleToLongBits(_1) != Double.doubleToLongBits(other._1))
-			return false;
-		if (Double.doubleToLongBits(_2) != Double.doubleToLongBits(other._2))
-			return false;
-		return true;
+		return doubleToLongBits(_1) == doubleToLongBits(other._1)
+				&& doubleToLongBits(_2) == doubleToLongBits(other._2);
 	}
 }

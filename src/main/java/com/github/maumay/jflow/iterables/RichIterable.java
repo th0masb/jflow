@@ -49,7 +49,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * @return The first element to pass the predicate test if there is one, nothing
 	 *         otherwise.
 	 */
-	default Optional<E> find(Predicate<? super E> predicate)
+	default Optional<E> findOp(Predicate<? super E> predicate)
 	{
 		return iter().filter(predicate).nextOp();
 	}
@@ -112,7 +112,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * @return true if all elements pass the test or the iterator is empty, false
 	 *         otherwise.
 	 */
-	default boolean allMatch(Predicate<? super E> condition)
+	default boolean all(Predicate<? super E> condition)
 	{
 		return iter().all(condition);
 	}
@@ -128,7 +128,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * @param condition The predicate test.
 	 * @return true if at least one element passes the test, false otherwise.
 	 */
-	default boolean anyMatch(Predicate<? super E> condition)
+	default boolean any(Predicate<? super E> condition)
 	{
 		return iter().any(condition);
 	}
@@ -141,7 +141,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 * @return true if all elements fail the test or the iterator is empty, false
 	 *         otherwise.
 	 */
-	default boolean noneMatch(Predicate<? super E> condition)
+	default boolean none(Predicate<? super E> condition)
 	{
 		return iter().none(condition);
 	}
