@@ -13,7 +13,6 @@ import java.util.function.DoubleUnaryOperator;
 import com.github.maumay.jflow.iterators.DoubleIterator;
 import com.github.maumay.jflow.iterators.DoubleIteratorAdapter;
 import com.github.maumay.jflow.iterators.DoubleIteratorCollector;
-import com.github.maumay.jflow.iterators.DoubleIteratorConsumer;
 import com.github.maumay.jflow.iterators.IteratorSlicer;
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.utils.Option;
@@ -94,7 +93,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public <E> AbstractRichIterator<E> mapToObject(DoubleFunction<? extends E> f)
+	public <E> AbstractRichIterator<E> mapToObj(DoubleFunction<? extends E> f)
 	{
 		return new MapToObjectAdapter.FromDouble<>(this, f);
 	}
@@ -214,19 +213,19 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	}
 
 	@Override
-	public boolean allMatch(DoublePredicate predicate)
+	public boolean all(DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(DoublePredicate predicate)
+	public boolean any(DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(DoublePredicate predicate)
+	public boolean none(DoublePredicate predicate)
 	{
 		return DoublePredicateConsumption.noneMatch(this, predicate);
 	}
@@ -271,12 +270,6 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 	public <R> R collect(DoubleIteratorCollector<R> collector)
 	{
 		return collector.collect(this);
-	}
-
-	@Override
-	public void consume(DoubleIteratorConsumer consumer)
-	{
-		consumer.consume(this);
 	}
 
 	@Override

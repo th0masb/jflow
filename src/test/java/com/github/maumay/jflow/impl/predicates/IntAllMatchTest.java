@@ -16,7 +16,7 @@ public final class IntAllMatchTest extends AbstractIntCollectionTest<Boolean>
 	@Override
 	protected Collector<Boolean> getCollectorToTest()
 	{
-		return iter -> iter.allMatch(x -> x > 1);
+		return iter -> iter.all(x -> x > 1);
 	}
 
 	@Override

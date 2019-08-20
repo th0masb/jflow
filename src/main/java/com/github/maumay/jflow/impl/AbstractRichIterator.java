@@ -27,7 +27,6 @@ import com.github.maumay.jflow.iterators.IteratorSlicer;
 import com.github.maumay.jflow.iterators.RichIterator;
 import com.github.maumay.jflow.iterators.RichIteratorAdapter;
 import com.github.maumay.jflow.iterators.RichIteratorCollector;
-import com.github.maumay.jflow.iterators.RichIteratorConsumer;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
@@ -63,7 +62,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public Optional<E> nextOp()
+	public final Optional<E> nextOp()
 	{
 		if (hasOwnership()) {
 			if (hasNext()) {
@@ -78,7 +77,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public void forEach(Consumer<? super E> action)
+	public final void forEach(Consumer<? super E> action)
 	{
 		relinquishOwnership();
 		while (hasNext()) {
@@ -226,12 +225,6 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public void consume(RichIteratorConsumer<? super E> consumer)
-	{
-		consumer.consume(this);
-	}
-
-	@Override
 	public Optional<E> minOp(Comparator<? super E> orderingFunction)
 	{
 		return ObjectMinMaxConsumption.findMin(this, orderingFunction);
@@ -256,19 +249,19 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public boolean allMatch(Predicate<? super E> predicate)
+	public boolean all(Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(Predicate<? super E> predicate)
+	public boolean any(Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(Predicate<? super E> predicate)
+	public boolean none(Predicate<? super E> predicate)
 	{
 		return ObjectPredicateConsumption.noneMatch(this, predicate);
 	}
@@ -387,4 +380,15 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 		return new SingleUseIterable<>(this);
 	}
 
+	@Override
+	public E find(Predicate<? super E> predicate)
+	{
+		return filter(predicate).next();
+	}
+
+	@Override
+	public Optional<E> findOp(Predicate<? super E> predicate)
+	{
+		return filter(predicate).nextOp();
+	}
 }

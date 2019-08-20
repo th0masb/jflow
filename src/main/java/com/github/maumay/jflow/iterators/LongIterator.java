@@ -285,7 +285,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(LongPredicate predicate);
+	boolean all(LongPredicate predicate);
 
 	/**
 	 * Checks whether any element in this {@link LongIterator} passes the supplied
@@ -298,7 +298,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(LongPredicate predicate);
+	boolean any(LongPredicate predicate);
 
 	/**
 	 * Checks whether every element in this {@link LongIterator} fails the supplied
@@ -311,7 +311,7 @@ public interface LongIterator extends SafeLongIterator
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(LongPredicate predicate);
+	boolean none(LongPredicate predicate);
 
 	/**
 	 * Reduces this {@link LongIterator} to a single value via some reduction
@@ -403,5 +403,16 @@ public interface LongIterator extends SafeLongIterator
 	default RichIterator<Long> boxed()
 	{
 		return mapToObject(x -> x);
+	}
+
+	/**
+	 * Adapts this iterator by casting each element to a primitive double.
+	 * 
+	 * @return An iterator traversing the same elements as this one but cast to
+	 *         primitive double values.
+	 */
+	default DoubleIterator asDouble()
+	{
+		return mapToDouble(n -> n);
 	}
 }

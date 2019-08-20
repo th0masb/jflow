@@ -319,7 +319,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(IntPredicate predicate);
+	boolean all(IntPredicate predicate);
 
 	/**
 	 * Checks whether any element in this {@link IntIterator} passes the supplied
@@ -332,7 +332,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(IntPredicate predicate);
+	boolean any(IntPredicate predicate);
 
 	/**
 	 * Checks whether every element in this {@link IntIterator} fails the supplied
@@ -345,7 +345,7 @@ public interface IntIterator extends SafeIntIterator
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(IntPredicate predicate);
+	boolean none(IntPredicate predicate);
 
 	/**
 	 * Reduces this {@link IntIterator} to a single value via some reduction
@@ -448,5 +448,27 @@ public interface IntIterator extends SafeIntIterator
 	default int sum()
 	{
 		return fold(Math::addExact);
+	}
+
+	/**
+	 * Adapts this iterator by casting each element to a primitive long.
+	 * 
+	 * @return An iterator traversing the same elements as this one but cast to
+	 *         primitive long values.
+	 */
+	default LongIterator asLong()
+	{
+		return mapToLong(n -> n);
+	}
+
+	/**
+	 * Adapts this iterator by casting each element to a primitive double.
+	 * 
+	 * @return An iterator traversing the same elements as this one but cast to
+	 *         primitive double values.
+	 */
+	default DoubleIterator asDouble()
+	{
+		return mapToDouble(n -> n);
 	}
 }

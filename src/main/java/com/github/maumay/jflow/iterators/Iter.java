@@ -26,7 +26,6 @@ import com.github.maumay.jflow.impl.CollectionSource;
 import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.impl.FunctionSource;
 import com.github.maumay.jflow.impl.IteratorWrapper;
-import com.github.maumay.jflow.iterables.RichIterable;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.utils.Tup;
 
@@ -54,20 +53,6 @@ public final class Iter
 	}
 
 	/**
-	 * Construct a EnhancedIterator which wraps an iterator provided from an
-	 * existing Collection.
-	 *
-	 * @param     <E> The upper bound on the source Collection element type.
-	 * @param src Some Collection of elements.
-	 * @return A EnhancedIterator instance wrapping an iterator constructed from the
-	 *         source sequence.
-	 */
-	public static <E> RichIterator<E> over(Collection<? extends E> src)
-	{
-		return new CollectionSource<>(src);
-	}
-
-	/**
 	 * Construct a EnhancedIterator iterating over varargs elements.
 	 *
 	 * @param          <E> The least upper bound on the types of the passed
@@ -82,63 +67,45 @@ public final class Iter
 	}
 
 	/**
-	 * Construct an Iterator traversing over all values in the given enumeration.
-	 * 
-	 * @param           <E> The enum type to traverse the values of.
-	 * @param enumclass The class of the enum type to traverse the values of.
-	 * @return An enhanced iterator traversing over all values of the given enum
-	 *         type.
+	 * Construct a EnhancedIterator which wraps an iterator provided from an
+	 * existing Collection.
+	 *
+	 * @param     <E> The upper bound on the source Collection element type.
+	 * @param src Some Collection of elements.
+	 * @return A EnhancedIterator instance wrapping an iterator constructed from the
+	 *         source sequence.
 	 */
-	public static <E extends Enum<E>> RichIterator<E> enums(Class<E> enumclass)
+	public static <E> RichIterator<E> over(Collection<? extends E> src)
 	{
-		return Iter.args(enumclass.getEnumConstants());
+		return new CollectionSource<>(src);
 	}
 
-	// /**
-	// * Build a EnhancedIterator reverse iterating over a List.
-	// *
-	// * @param <E> The upper type bound on the elements in the source.
-	// * @param source The source List
-	// * @return A EnhancedIterator reversing over the source starting with the last
-	// * element.
-	// */
-	// public static <E> EnhancedIterator<E> reverse(List<? extends E> source)
-	// {
-	// return new ReversedSourceIterator.OfObject<>(source);
-	// }
-
-	// /**
-	// * Construct a EnhancedIterator reverse iterating over varargs elements.
-	// *
-	// * @param <E> The least upper bound on the types of the passed elements.
-	// * @param elements The elements to be reversed over.
-	// * @return A EnhancedIterator reversing over the given elements starting with
-	// * the last element.
-	// */
-	// @SafeVarargs
-	// public static <E> RichIterator<E> reverse(E... elements)
-	// {
-	// return new ArraySource.OfObjectReversed<>(elements);
-	// }
-
-	// /**
-	// * Build a finite length EnhancedIterator from a function which accepts a
-	// * positive integer argument representing a sequence index.
-	// *
-	// * @param <E> The target type of the indexing function.
-	// * @param indexingFunction A function whose domain is the natural numbers.
-	// * @param indexBound The upper bound (exclusive) of the index range. It
-	// * must be non-negative otherwise an exception will be
-	// * thrown.
-	// * @return A EnhancedIterator built from apply the indexing function to a
-	// * bounded range of natural numbers.
-	// */
-	// public static <E> RichIterator<E> byIndexing(IntFunction<E> indexingFunction,
-	// int indexBound)
-	// {
-	// Exceptions.requireArg(indexBound >= 0);
-	// return new FunctionSource.OfObject<>(indexingFunction, indexBound);
-	// }
+	/**
+	 * Construct an enhanced iterable which produces wrapped iterators sourced from
+	 * an existing iterable object.
+	 *
+	 * @param     <E> The upper bound on the source iterable element type.
+	 * @param src An object which can construct an iterator over it's elements.
+	 * @return A enhanced iterable instance producing wrapped iterators sourced from
+	 *         the input iterable.
+	 */
+	public static <E> RichIterator<E> over(Iterable<? extends E> src)
+	{
+		return wrap(src.iterator());
+	}
+	
+	/**
+	 * Creates an enhanced iterator traversing the entry pairs of some {@link Map}
+	 * 
+	 * @param     <K> The type of the keys in the source map.
+	 * @param     <V> the type of the values in the source map.
+	 * @param src the map encapsulating the entries to traverse.
+	 * @return an iterator traversing the key, value pairs of the map.
+	 */
+	public static <K, V> RichIterator<Tup<K, V>> over(Map<? extends K, ? extends V> src)
+	{
+		return Iter.over(src.entrySet()).map(entry -> Tup.of(entry.getKey(), entry.getValue()));
+	}
 
 	/**
 	 * Converts an Optional into an Iterator, if the input is present then returns a
@@ -153,6 +120,19 @@ public final class Iter
 	public static <E> RichIterator<E> over(Optional<? extends E> src)
 	{
 		return src.isPresent() ? Iter.args(src.get()) : Iter.empty();
+	}
+
+	/**
+	 * Construct an Iterator traversing over all values in the given enumeration.
+	 * 
+	 * @param           <E> The enum type to traverse the values of.
+	 * @param enumclass The class of the enum type to traverse the values of.
+	 * @return An enhanced iterator traversing over all values of the given enum
+	 *         type.
+	 */
+	public static <E extends Enum<E>> RichIterator<E> enums(Class<E> enumclass)
+	{
+		return Iter.args(enumclass.getEnumConstants());
 	}
 
 	/**
@@ -177,19 +157,6 @@ public final class Iter
 	public static <K> RichIterator<K> keys(Map<? extends K, ?> src)
 	{
 		return Iter.over(src.keySet());
-	}
-
-	/**
-	 * Creates an enhanced iterator traversing the entry pairs of some {@link Map}
-	 * 
-	 * @param     <K> The type of the keys in the source map.
-	 * @param     <V> the type of the values in the source map.
-	 * @param src the map encapsulating the entries to traverse.
-	 * @return an iterator traversing the key, value pairs of the map.
-	 */
-	public static <K, V> RichIterator<Tup<K, V>> over(Map<? extends K, ? extends V> src)
-	{
-		return Iter.over(src.entrySet()).map(entry -> Tup.of(entry.getKey(), entry.getValue()));
 	}
 
 	/**
@@ -331,24 +298,6 @@ public final class Iter
 		return new ArraySource.OfLongReversed(elements);
 	}
 
-	// /**
-	// * Build a finite length LongEnhancedIterator from a function which accepts a
-	// * positive integer argument representing a sequence index.
-	// *
-	// * @param indexingFunction A function whose domain is the natural numbers.
-	// * @param indexBound The upper bound (exclusive) of the index range. It
-	// * must be non-negative otherwise an exception will be
-	// * thrown.
-	// * @return A LongEnhancedIterator built from apply the indexing function to a
-	// * bounded range of natural numbers.
-	// */
-	// public static LongIterator longsByIndexing(IntToLongFunction
-	// indexingFunction, int indexBound)
-	// {
-	// Exceptions.requireArg(indexBound >= 0);
-	// return new FunctionSource.OfLong(indexingFunction, indexBound);
-	// }
-
 	/**
 	 * Wraps an existing iterator in a EnhancedIterator to enable use of all extra
 	 * functionality.
@@ -362,19 +311,6 @@ public final class Iter
 		return new IteratorWrapper.OfObject<>(src);
 	}
 
-	/**
-	 * Construct an enhanced iterable which produces wrapped iterators sourced from
-	 * an existing iterable object.
-	 *
-	 * @param     <E> The upper bound on the source iterable element type.
-	 * @param src An object which can construct an iterator over it's elements.
-	 * @return A enhanced iterable instance producing wrapped iterators sourced from
-	 *         the input iterable.
-	 */
-	public static <E> RichIterable<E> wrap(Iterable<? extends E> src)
-	{
-		return () -> wrap(src.iterator());
-	}
 
 	/**
 	 * Builds an integer range between 0 and some provided upper bound.

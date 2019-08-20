@@ -53,7 +53,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 *         parameter mapping function to each element of this
 	 *         {@link DoubleIterator} instance in turn.
 	 */
-	<E> RichIterator<E> mapToObject(DoubleFunction<? extends E> f);
+	<E> RichIterator<E> mapToObj(DoubleFunction<? extends E> f);
 
 	/**
 	 * Applies a function elementwise to this {@link DoubleIterator} to make new
@@ -313,7 +313,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @return True if every element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean allMatch(DoublePredicate predicate);
+	boolean all(DoublePredicate predicate);
 
 	/**
 	 * Checks whether any element in this {@link DoubleIterator} passes the supplied
@@ -326,7 +326,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @return True if any element passes the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean anyMatch(DoublePredicate predicate);
+	boolean any(DoublePredicate predicate);
 
 	/**
 	 * Checks whether every element in this {@link DoubleIterator} fails the
@@ -339,7 +339,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 * @return True if every element fails the parameter predicate test, false
 	 *         otherwise.
 	 */
-	boolean noneMatch(DoublePredicate predicate);
+	boolean none(DoublePredicate predicate);
 
 	/**
 	 * Reduces this {@link DoubleIterator} to a single value via some reduction
@@ -445,13 +445,6 @@ public interface DoubleIterator extends SafeDoubleIterator
 	<R> R collect(DoubleIteratorCollector<R> collector);
 
 	/**
-	 * Consumes this iterator via some state-changing procedure.
-	 * 
-	 * @param consumer The procedure which will be used to consume this iterator.
-	 */
-	void consume(DoubleIteratorConsumer consumer);
-
-	/**
 	 * Boxes the primitive double values in this {@link DoubleIterator}.
 	 *
 	 * @return a copy of this source {@link DoubleIterator} as a Iterator of boxed
@@ -459,7 +452,7 @@ public interface DoubleIterator extends SafeDoubleIterator
 	 */
 	default RichIterator<Double> boxed()
 	{
-		return mapToObject(x -> x);
+		return mapToObj(x -> x);
 	}
 
 	/**

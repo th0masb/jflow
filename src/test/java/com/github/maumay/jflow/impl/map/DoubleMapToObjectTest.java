@@ -19,7 +19,7 @@ public final class DoubleMapToObjectTest
 	protected List<Case<AbstractRichIterator<String>>> getTestCases()
 	{
 		Adapter<AbstractRichIterator<String>> adapter = iter -> iter
-				.mapToObject(x -> "" + (int) x);
+				.mapToObj(x -> "" + (int) x);
 		return list(new Case<>(list(), adapter, list()), new Case<>(
 				list(1.0, 2.0, 3.0, 4.0), adapter, list("1", "2", "3", "4")));
 	}

@@ -51,7 +51,7 @@ public final class IterExamples
 		// Flatten stacked collections
 		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(), vec("b"));
 		assert Iter.flatten(stacked).toVec() == vec("a", "b");
-		assert Iter.flatten(stacked).anyMatch(s -> s.equals("a"));
+		assert Iter.flatten(stacked).any(s -> s.equals("a"));
 
 		// *****************************************************************************************
 		// Construct from maps
@@ -66,9 +66,9 @@ public final class IterExamples
 
 		// *****************************************************************************************
 		// Construct primitive iterators
-		assert Iter.ints(1, 2, 3).anyMatch(n -> n == 2);
-		assert Iter.doubles(1.0, 2.0, 3.0).allMatch(n -> n > 0);
-		assert Iter.longs(1, 2, 3).noneMatch(n -> n > 3);
+		assert Iter.ints(1, 2, 3).any(n -> n == 2);
+		assert Iter.doubles(1.0, 2.0, 3.0).all(n -> n > 0);
+		assert Iter.longs(1, 2, 3).none(n -> n > 3);
 
 		// *****************************************************************************************
 		// Construct primitive number ranges

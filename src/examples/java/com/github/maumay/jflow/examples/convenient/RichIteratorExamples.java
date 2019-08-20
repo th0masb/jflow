@@ -73,9 +73,9 @@ public class RichIteratorExamples
 		// *****************************************************************************************
 		// Predicate matching (these are terminal methods triggering the consumption of
 		// the iterator).
-		assert strings.iter().allMatch(s -> !s.equals("c"));
-		assert strings.iter().anyMatch(s -> s.equals("b"));
-		assert strings.iter().noneMatch(s -> s.equals("0"));
+		assert strings.iter().all(s -> !s.equals("c"));
+		assert strings.iter().any(s -> s.equals("b"));
+		assert strings.iter().none(s -> s.equals("0"));
 
 		// *****************************************************************************************
 		// Fine grained control over consuming an iterator

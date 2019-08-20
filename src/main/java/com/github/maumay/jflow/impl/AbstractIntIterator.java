@@ -211,19 +211,19 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public boolean allMatch(IntPredicate predicate)
+	public boolean all(IntPredicate predicate)
 	{
 		return IntPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(IntPredicate predicate)
+	public boolean any(IntPredicate predicate)
 	{
 		return IntPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(IntPredicate predicate)
+	public boolean none(IntPredicate predicate)
 	{
 		return IntPredicateConsumption.noneMatch(this, predicate);
 	}

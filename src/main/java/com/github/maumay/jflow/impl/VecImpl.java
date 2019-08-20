@@ -71,7 +71,7 @@ final class VecImpl<E> implements Vec<E>
 		if (obj instanceof Vec<?>) {
 			final Vec<?> other = (Vec<?>) obj;
 			if (other.size() == size()) {
-				return Iter.until(size()).allMatch(i -> data[i].equals(other.get(i)));
+				return Iter.until(size()).all(i -> data[i].equals(other.get(i)));
 			} else {
 				return false;
 			}

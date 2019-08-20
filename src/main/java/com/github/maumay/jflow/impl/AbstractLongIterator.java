@@ -202,19 +202,19 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public boolean allMatch(LongPredicate predicate)
+	public boolean all(LongPredicate predicate)
 	{
 		return LongPredicateConsumption.allMatch(this, predicate);
 	}
 
 	@Override
-	public boolean anyMatch(LongPredicate predicate)
+	public boolean any(LongPredicate predicate)
 	{
 		return LongPredicateConsumption.anyMatch(this, predicate);
 	}
 
 	@Override
-	public boolean noneMatch(LongPredicate predicate)
+	public boolean none(LongPredicate predicate)
 	{
 		return LongPredicateConsumption.noneMatch(this, predicate);
 	}

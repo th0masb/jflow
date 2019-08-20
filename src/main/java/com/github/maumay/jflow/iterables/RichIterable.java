@@ -114,7 +114,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 */
 	default boolean allMatch(Predicate<? super E> condition)
 	{
-		return iter().allMatch(condition);
+		return iter().all(condition);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 */
 	default boolean anyMatch(Predicate<? super E> condition)
 	{
-		return iter().anyMatch(condition);
+		return iter().any(condition);
 	}
 
 	/**
@@ -143,7 +143,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 */
 	default boolean noneMatch(Predicate<? super E> condition)
 	{
-		return iter().noneMatch(condition);
+		return iter().none(condition);
 	}
 
 	/**

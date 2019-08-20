@@ -16,7 +16,7 @@ public class IntNoneMatchTest extends AbstractIntCollectionTest<Boolean>
 	@Override
 	protected Collector<Boolean> getCollectorToTest()
 	{
-		return iter -> iter.noneMatch(x -> x > 1);
+		return iter -> iter.none(x -> x > 1);
 	}
 
 	@Override

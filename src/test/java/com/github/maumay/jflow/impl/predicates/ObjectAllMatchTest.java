@@ -16,7 +16,7 @@ public final class ObjectAllMatchTest extends AbstractObjectCollectionTest<Doubl
 	@Override
 	protected Collector<Double, Boolean> getCollectorToTest()
 	{
-		return iter -> iter.allMatch(x -> x > 1);
+		return iter -> iter.all(x -> x > 1);
 	}
 
 	@Override

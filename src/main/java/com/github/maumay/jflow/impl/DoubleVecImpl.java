@@ -66,7 +66,7 @@ final class DoubleVecImpl implements DoubleVec
 		if (obj instanceof DoubleVec) {
 			DoubleVec other = (DoubleVec) obj;
 			return size() == other.size()
-					&& Iter.until(size()).allMatch(i -> Double.compare(get(i), other.get(i)) == 0);
+					&& Iter.until(size()).all(i -> Double.compare(get(i), other.get(i)) == 0);
 		} else {
 			return false;
 		}

@@ -16,7 +16,7 @@ public class ObjectNoneMatchTest extends AbstractObjectCollectionTest<Double, Bo
 	@Override
 	protected Collector<Double, Boolean> getCollectorToTest()
 	{
-		return iter -> iter.noneMatch(x -> x > 1);
+		return iter -> iter.none(x -> x > 1);
 	}
 
 	@Override

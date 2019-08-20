@@ -66,7 +66,7 @@ final class LongVecImpl implements LongVec
 		if (obj instanceof LongVec) {
 			LongVec other = (LongVec) obj;
 			return size() == other.size()
-					&& Iter.until(size()).allMatch(i -> get(i) == other.get(i));
+					&& Iter.until(size()).all(i -> get(i) == other.get(i));
 		} else {
 			return false;
 		}

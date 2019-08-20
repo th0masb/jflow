@@ -150,7 +150,7 @@ class IterTest
 	@Test
 	void testWrapIterable()
 	{
-		assertEquals(vec("a"), Iter.wrap(Arrays.asList("a")).toVec());
+		assertEquals(vec("a"), Iter.over(Arrays.asList("a")).toVec());
 	}
 
 	@Test

@@ -16,7 +16,7 @@ public final class LongAllMatchTest extends AbstractLongCollectionTest<Boolean>
 	@Override
 	protected Collector<Boolean> getCollectorToTest()
 	{
-		return iter -> iter.allMatch(x -> x > 1);
+		return iter -> iter.all(x -> x > 1);
 	}
 
 	@Override

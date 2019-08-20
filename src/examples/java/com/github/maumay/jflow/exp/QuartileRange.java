@@ -25,6 +25,6 @@ public class QuartileRange implements DoubleIterable
 
 	public boolean equalWithinTolerance(QuartileRange other, double tolerance)
 	{
-		return iter().zip(other.iter()).allMatch(pair -> abs(pair._1 - pair._2) < tolerance);
+		return iter().zip(other.iter()).all(pair -> abs(pair._1 - pair._2) < tolerance);
 	}
 }
