@@ -3,6 +3,7 @@
  */
 package com.github.maumay.jflow.impl.collecting;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,12 +13,12 @@ import com.github.maumay.jflow.test.AbstractObjectCollectionTest;
  * @author thomasb
  *
  */
-public class ObjectToCollectionTest extends AbstractObjectCollectionTest<Integer, Set<Integer>>
+public class ObjectToSetTest extends AbstractObjectCollectionTest<Integer, Set<Integer>>
 {
 	@Override
 	protected Collector<Integer, ? extends Set<Integer>> getCollectorToTest()
 	{
-		return iter -> iter.toSet();
+		return iter -> iter.to(HashSet::new);
 	}
 
 	@Override

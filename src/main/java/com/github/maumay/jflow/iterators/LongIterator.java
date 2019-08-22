@@ -93,7 +93,7 @@ public interface LongIterator extends SafeLongIterator
 	 *         <li>{@code length(G) = min(length(F), length(I))}</li>
 	 *         </ul>
 	 */
-	RichIterator<LongTup> zipWith(PrimitiveIterator.OfLong other);
+	RichIterator<LongTup> zip(PrimitiveIterator.OfLong other);
 
 	/**
 	 * Creates a new {@link RichIterator} by mapping each element in this source

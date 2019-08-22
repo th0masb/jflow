@@ -112,7 +112,7 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 	}
 
 	@Override
-	public AbstractRichIterator<LongTup> zipWith(OfLong other)
+	public AbstractRichIterator<LongTup> zip(OfLong other)
 	{
 		return new ZipAdapter.OfLongs(this, IteratorWrapper.wrap(other));
 	}
