@@ -60,7 +60,7 @@ public final class FilterAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				initialized = false;
@@ -109,7 +109,7 @@ public final class FilterAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				initialized = false;
@@ -158,7 +158,7 @@ public final class FilterAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				initialized = false;
@@ -207,7 +207,7 @@ public final class FilterAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				initialized = false;

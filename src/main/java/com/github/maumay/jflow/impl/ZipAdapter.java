@@ -41,10 +41,10 @@ public final class ZipAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSourceOne().skipImpl();
-			getSourceTwo().skipImpl();
+			getSourceOne().forwardImpl();
+			getSourceTwo().forwardImpl();
 		}
 	}
 
@@ -70,10 +70,10 @@ public final class ZipAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSourceOne().skipImpl();
-			getSourceTwo().skipImpl();
+			getSourceOne().forwardImpl();
+			getSourceTwo().forwardImpl();
 		}
 	}
 
@@ -99,10 +99,10 @@ public final class ZipAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSourceOne().skipImpl();
-			getSourceTwo().skipImpl();
+			getSourceOne().forwardImpl();
+			getSourceTwo().forwardImpl();
 		}
 	}
 
@@ -128,10 +128,10 @@ public final class ZipAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSourceOne().skipImpl();
-			getSourceTwo().skipImpl();
+			getSourceOne().forwardImpl();
+			getSourceTwo().forwardImpl();
 		}
 	}
 }

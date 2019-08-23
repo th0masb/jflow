@@ -68,7 +68,7 @@ public final class DoubleReductionConsumption
 		source.relinquishOwnership();
 		int count = 0;
 		while (source.hasNext()) {
-			source.skipImpl();
+			source.forwardImpl();
 			count++;
 		}
 		return count;

@@ -45,10 +45,10 @@ public class TakeAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ < takeCount) {
-				getSource().skipImpl();
+				getSource().forwardImpl();
 			} else {
 				throw new NoSuchElementException();
 			}
@@ -84,10 +84,10 @@ public class TakeAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ < takeCount) {
-				getSource().skipImpl();
+				getSource().forwardImpl();
 			} else {
 				throw new NoSuchElementException();
 			}
@@ -123,10 +123,10 @@ public class TakeAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ < takeCount) {
-				getSource().skipImpl();
+				getSource().forwardImpl();
 			} else {
 				throw new NoSuchElementException();
 			}
@@ -163,10 +163,10 @@ public class TakeAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ < takeCount) {
-				getSource().skipImpl();
+				getSource().forwardImpl();
 			} else {
 				throw new NoSuchElementException();
 			}

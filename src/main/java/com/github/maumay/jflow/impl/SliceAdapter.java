@@ -51,7 +51,7 @@ public class SliceAdapter
 			AbstractRichIterator<E> src = getSource();
 			while (iteratorCount < checkpoint) {
 				if (src.hasNext()) {
-					src.skipImpl();
+					src.forwardImpl();
 					iteratorCount++;
 				} else {
 					return false;
@@ -86,7 +86,7 @@ public class SliceAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (elementCached || cacheNextElement()) {
 				consumeCache();
@@ -134,7 +134,7 @@ public class SliceAdapter
 			AbstractIntIterator src = getSource();
 			while (iteratorCount < checkpoint) {
 				if (src.hasNext()) {
-					src.skipImpl();
+					src.forwardImpl();
 					iteratorCount++;
 				} else {
 					return false;
@@ -169,7 +169,7 @@ public class SliceAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (elementCached || cacheNextElement()) {
 				consumeCache();
@@ -217,7 +217,7 @@ public class SliceAdapter
 			AbstractLongIterator src = getSource();
 			while (iteratorCount < checkpoint) {
 				if (src.hasNext()) {
-					src.skipImpl();
+					src.forwardImpl();
 					iteratorCount++;
 				} else {
 					return false;
@@ -252,7 +252,7 @@ public class SliceAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (elementCached || cacheNextElement()) {
 				consumeCache();
@@ -300,7 +300,7 @@ public class SliceAdapter
 			AbstractDoubleIterator src = getSource();
 			while (iteratorCount < checkpoint) {
 				if (src.hasNext()) {
-					src.skipImpl();
+					src.forwardImpl();
 					iteratorCount++;
 				} else {
 					return false;
@@ -335,7 +335,7 @@ public class SliceAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (elementCached || cacheNextElement()) {
 				consumeCache();

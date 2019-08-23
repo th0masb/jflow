@@ -15,7 +15,7 @@ import java.util.function.IntSupplier;
  *
  * @author t
  */
-public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable, IntSupplier
+public interface SafeIntIterator extends PrimitiveIterator.OfInt, IntSupplier
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextInt()} method.
@@ -42,7 +42,7 @@ public interface SafeIntIterator extends PrimitiveIterator.OfInt, Skippable, Int
 	@Override
 	default int getAsInt()
 	{
-		return nextIntOp()
-				.orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
+		return nextIntOp().orElseThrow(
+				() -> new NoSuchElementException("Supply has been exhausted"));
 	}
 }

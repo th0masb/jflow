@@ -36,7 +36,7 @@ public final class CollectionSource<E> extends AbstractRichIterator<E>
 	}
 
 	@Override
-	public void skipImpl()
+	public void forwardImpl()
 	{
 		source.next();
 	}

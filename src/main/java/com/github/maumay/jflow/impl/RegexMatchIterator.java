@@ -48,7 +48,7 @@ public final class RegexMatchIterator extends AbstractRichIterator<String>
 	}
 
 	@Override
-	public void skipImpl()
+	public void forwardImpl()
 	{
 		nextImpl();
 	}

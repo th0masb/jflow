@@ -50,10 +50,10 @@ public abstract class AbstractObjectBiAdapterTest<T1, T2, I extends AbstractIter
 					AbstractRichIterator<T2> right = rightProvider.iter();
 
 					testcase.adapter.apply(left, right);
-					assertThrows(IteratorOwnershipException.class, left::skip);
+					assertThrows(IteratorOwnershipException.class, left::forward);
 					assertThrows(IteratorOwnershipException.class, () -> next(left));
 
-					assertThrows(IteratorOwnershipException.class, right::skip);
+					assertThrows(IteratorOwnershipException.class, right::forward);
 					assertThrows(IteratorOwnershipException.class, () -> next(right));
 				}
 			}

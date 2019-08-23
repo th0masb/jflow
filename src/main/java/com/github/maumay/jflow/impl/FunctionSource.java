@@ -63,7 +63,7 @@ public final class FunctionSource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				count++;
@@ -117,7 +117,7 @@ public final class FunctionSource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				count++;
@@ -171,7 +171,7 @@ public final class FunctionSource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				count++;
@@ -225,7 +225,7 @@ public final class FunctionSource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				count++;

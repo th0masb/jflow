@@ -75,7 +75,7 @@ public final class IteratorWrapper
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			source.next();
 		}
@@ -104,7 +104,7 @@ public final class IteratorWrapper
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			source.nextLong();
 		}
@@ -133,7 +133,7 @@ public final class IteratorWrapper
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			source.nextInt();
 		}
@@ -162,7 +162,7 @@ public final class IteratorWrapper
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			source.nextDouble();
 		}

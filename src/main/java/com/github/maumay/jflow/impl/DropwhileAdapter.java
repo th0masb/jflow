@@ -71,11 +71,11 @@ public class DropwhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				if (firstFailureConsumed) {
-					getSource().skipImpl();
+					getSource().forwardImpl();
 				} else {
 					firstFailureConsumed = true;
 				}
@@ -136,11 +136,11 @@ public class DropwhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				if (firstFailureConsumed) {
-					getSource().skipImpl();
+					getSource().forwardImpl();
 				} else {
 					firstFailureConsumed = true;
 				}
@@ -201,11 +201,11 @@ public class DropwhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				if (firstFailureConsumed) {
-					getSource().skipImpl();
+					getSource().forwardImpl();
 				} else {
 					firstFailureConsumed = true;
 				}
@@ -267,11 +267,11 @@ public class DropwhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (hasNext()) {
 				if (firstFailureConsumed) {
-					getSource().skipImpl();
+					getSource().forwardImpl();
 				} else {
 					firstFailureConsumed = true;
 				}

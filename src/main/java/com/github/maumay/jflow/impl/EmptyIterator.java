@@ -50,7 +50,7 @@ public class EmptyIterator
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			throw new NoSuchElementException();
 		}
@@ -76,7 +76,7 @@ public class EmptyIterator
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			throw new NoSuchElementException();
 		}
@@ -102,7 +102,7 @@ public class EmptyIterator
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			throw new NoSuchElementException();
 		}
@@ -128,7 +128,7 @@ public class EmptyIterator
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			throw new NoSuchElementException();
 		}

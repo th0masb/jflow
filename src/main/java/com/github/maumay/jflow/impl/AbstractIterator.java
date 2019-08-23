@@ -3,15 +3,13 @@
  */
 package com.github.maumay.jflow.impl;
 
-import com.github.maumay.jflow.iterators.Skippable;
-
 /**
  * Supertype of all rich iterator implementations adding the notion of size,
  * ownership and skipping.
  * 
  * @author thomasb
  */
-public abstract class AbstractIterator implements Skippable
+public abstract class AbstractIterator
 {
 	protected static final String OWNERSHIP_ERR_MSG = "Ownership has been reliquished!";
 
@@ -22,7 +20,7 @@ public abstract class AbstractIterator implements Skippable
 
 	/**
 	 * Flag indicating whether this iterator has ownership over its {@link #next()}
-	 * and {@link #skip()} methods. If it does not possess ownership (in the case it
+	 * and {@link #forward()} methods. If it does not possess ownership (in the case it
 	 * has been adapted) then calling these methods will throw an exception.
 	 */
 	private boolean hasOwnership;
@@ -68,24 +66,25 @@ public abstract class AbstractIterator implements Skippable
 		}
 	}
 
-	// Skippable API
-	@Override
-	public final void skip()
+	/**
+	 * 
+	 */
+	public final void forward()
 	{
 		if (hasOwnership()) {
 			getSize().decrement();
-			skipImpl();
+			forwardImpl();
 		} else {
 			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
 		}
 	}
 
 	/**
-	 * Implementation for the {@link #skip()} method, it does not check for
+	 * Implementation for the {@link #forward()} method, it does not check for
 	 * ownership and therefore should only be used in custom iterator
 	 * implementation.
 	 */
-	public abstract void skipImpl();
+	public abstract void forwardImpl();
 
 	/**
 	 * Checks if this iterator still has more elements to traverse.

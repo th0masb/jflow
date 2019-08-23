@@ -41,9 +41,9 @@ public final class MapToLongAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -70,9 +70,9 @@ public final class MapToLongAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -100,9 +100,9 @@ public final class MapToLongAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 }

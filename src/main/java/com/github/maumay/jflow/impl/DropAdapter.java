@@ -30,7 +30,7 @@ public class DropAdapter
 		{
 			AbstractRichIterator<E> src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skipImpl();
+				src.forwardImpl();
 			}
 			skipped = true;
 		}
@@ -54,12 +54,12 @@ public class DropAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (!skipped) {
 				performSkip();
 			}
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -79,7 +79,7 @@ public class DropAdapter
 		{
 			AbstractIntIterator src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skipImpl();
+				src.forwardImpl();
 			}
 			skipped = true;
 		}
@@ -103,12 +103,12 @@ public class DropAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (!skipped) {
 				performSkip();
 			}
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -128,7 +128,7 @@ public class DropAdapter
 		{
 			AbstractLongIterator src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skipImpl();
+				src.forwardImpl();
 			}
 			skipped = true;
 		}
@@ -152,12 +152,12 @@ public class DropAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (!skipped) {
 				performSkip();
 			}
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -178,7 +178,7 @@ public class DropAdapter
 		{
 			AbstractDoubleIterator src = getSource();
 			for (int count = 0; count < skipCount && src.hasNext(); count++) {
-				src.skipImpl();
+				src.forwardImpl();
 			}
 			skipped = true;
 		}
@@ -202,12 +202,12 @@ public class DropAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (!skipped) {
 				performSkip();
 			}
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 }

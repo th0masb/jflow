@@ -79,7 +79,7 @@ public class TakewhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (iteratorExhausted) {
 				throw new NoSuchElementException();
@@ -153,7 +153,7 @@ public class TakewhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (iteratorExhausted) {
 				throw new NoSuchElementException();
@@ -227,7 +227,7 @@ public class TakewhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (iteratorExhausted) {
 				throw new NoSuchElementException();
@@ -302,7 +302,7 @@ public class TakewhileAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (iteratorExhausted) {
 				throw new NoSuchElementException();

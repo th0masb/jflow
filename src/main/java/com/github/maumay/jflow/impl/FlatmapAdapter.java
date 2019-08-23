@@ -56,7 +56,7 @@ public final class FlatmapAdapter<E, R>
 	}
 
 	@Override
-	public void skipImpl()
+	public void forwardImpl()
 	{
 		nextImpl();
 	}

@@ -36,12 +36,12 @@ public final class ConcatenationAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (getSourceOne().hasNext()) {
-				getSourceOne().skipImpl();
+				getSourceOne().forwardImpl();
 			} else {
-				getSourceTwo().skipImpl();
+				getSourceTwo().forwardImpl();
 			}
 		}
 	}
@@ -69,12 +69,12 @@ public final class ConcatenationAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (getSourceOne().hasNext()) {
-				getSourceOne().skipImpl();
+				getSourceOne().forwardImpl();
 			} else {
-				getSourceTwo().skipImpl();
+				getSourceTwo().forwardImpl();
 			}
 		}
 	}
@@ -102,12 +102,12 @@ public final class ConcatenationAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (getSourceOne().hasNext()) {
-				getSourceOne().skipImpl();
+				getSourceOne().forwardImpl();
 			} else {
-				getSourceTwo().skipImpl();
+				getSourceTwo().forwardImpl();
 			}
 		}
 	}
@@ -135,12 +135,12 @@ public final class ConcatenationAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (getSourceOne().hasNext()) {
-				getSourceOne().skipImpl();
+				getSourceOne().forwardImpl();
 			} else {
-				getSourceTwo().skipImpl();
+				getSourceTwo().forwardImpl();
 			}
 		}
 	}

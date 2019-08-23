@@ -43,9 +43,9 @@ public class MapAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -72,9 +72,9 @@ public class MapAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -101,9 +101,9 @@ public class MapAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -131,9 +131,9 @@ public class MapAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 }

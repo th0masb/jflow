@@ -44,7 +44,7 @@ public final class AdaptingPoints
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			nextImpl();
 		}

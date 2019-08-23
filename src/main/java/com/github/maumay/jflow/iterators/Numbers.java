@@ -1,7 +1,6 @@
 package com.github.maumay.jflow.iterators;
 
-import com.github.maumay.jflow.impl.AbstractLongIterator;
-import com.github.maumay.jflow.impl.InfiniteSize;
+import com.github.maumay.jflow.impl.FibonnaciIterator;
 
 /**
  * Static methods for creating some infinite number sets.
@@ -10,6 +9,10 @@ import com.github.maumay.jflow.impl.InfiniteSize;
  */
 public final class Numbers
 {
+	private Numbers()
+	{
+	}
+
 	/**
 	 * Iterates over the natural numbers.
 	 *
@@ -38,37 +41,8 @@ public final class Numbers
 	 * @param second The second start val
 	 * @return The Fibonnaci numbers
 	 */
-	public static LongIterator fibonacci(final int first, final int second)
+	public static LongIterator fibonacci(int first, int second)
 	{
-		return new AbstractLongIterator(InfiniteSize.instance()) {
-			long x1 = first, x2 = second;
-			int count = 0;
-
-			@Override
-			public void skipImpl()
-			{
-				nextLong();
-			}
-
-			@Override
-			public boolean hasNext()
-			{
-				return true;
-			}
-
-			@Override
-			public long nextLongImpl()
-			{
-				if (count < 2) {
-					count++;
-					return count == 1 ? first : second;
-				} else {
-					long nextFib = Math.addExact(x1, x2);
-					x1 = x2;
-					x2 = nextFib;
-					return nextFib;
-				}
-			}
-		};
+		return new FibonnaciIterator(first, second);
 	}
 }

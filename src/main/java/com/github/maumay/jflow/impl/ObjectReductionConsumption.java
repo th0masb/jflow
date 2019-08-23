@@ -68,7 +68,7 @@ public class ObjectReductionConsumption
 		}
 		long count = 0;
 		while (source.hasNext()) {
-			source.skipImpl();
+			source.forwardImpl();
 			count++;
 		}
 		return count;

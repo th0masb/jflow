@@ -35,8 +35,8 @@ class IteratorProvider
 		return buildIterables(src, x -> x);
 	}
 
-	static <T, I extends AbstractIterator> List<TestIterable<I>> buildIterables(List<T> src,
-			Function<AbstractRichIterator<T>, I> adapter)
+	static <T, I extends AbstractIterator> List<TestIterable<I>> buildIterables(
+			List<T> src, Function<AbstractRichIterator<T>, I> adapter)
 	{
 		int size = src.size();
 		List<TestIterable<I>> dest = new ArrayList<>();
@@ -58,8 +58,9 @@ class IteratorProvider
 		return dest;
 	}
 
-	private static <T, I extends AbstractIterator> TestIterable<I> buildIterable(List<T> src,
-			AbstractIteratorSize size, Function<AbstractRichIterator<T>, I> adapter)
+	private static <T, I extends AbstractIterator> TestIterable<I> buildIterable(
+			List<T> src, AbstractIteratorSize size,
+			Function<AbstractRichIterator<T>, I> adapter)
 	{
 		return () -> adapter.apply(new AbstractRichIterator<T>(size) {
 			int count = 0;
@@ -81,7 +82,7 @@ class IteratorProvider
 			}
 
 			@Override
-			public void skipImpl()
+			public void forwardImpl()
 			{
 				nextImpl();
 			}
@@ -93,8 +94,8 @@ class IteratorProvider
 		return buildIntIterables(src, x -> x);
 	}
 
-	static <I extends AbstractIterator> List<TestIterable<I>> buildIntIterables(List<Integer> src,
-			Function<AbstractIntIterator, I> adapter)
+	static <I extends AbstractIterator> List<TestIterable<I>> buildIntIterables(
+			List<Integer> src, Function<AbstractIntIterator, I> adapter)
 	{
 		int size = src.size();
 		List<TestIterable<I>> dest = new ArrayList<>();
@@ -115,8 +116,9 @@ class IteratorProvider
 		return dest;
 	}
 
-	private static <I extends AbstractIterator> TestIterable<I> buildIntIterable(List<Integer> src,
-			AbstractIteratorSize size, Function<AbstractIntIterator, I> adapter)
+	private static <I extends AbstractIterator> TestIterable<I> buildIntIterable(
+			List<Integer> src, AbstractIteratorSize size,
+			Function<AbstractIntIterator, I> adapter)
 	{
 		return () -> adapter.apply(new AbstractIntIterator(size) {
 			int count = 0;
@@ -138,7 +140,7 @@ class IteratorProvider
 			}
 
 			@Override
-			public void skipImpl()
+			public void forwardImpl()
 			{
 				nextIntImpl();
 			}
@@ -150,8 +152,8 @@ class IteratorProvider
 		return buildLongIterables(src, x -> x);
 	}
 
-	static <I extends AbstractIterator> List<TestIterable<I>> buildLongIterables(List<Long> src,
-			Function<AbstractLongIterator, I> adapter)
+	static <I extends AbstractIterator> List<TestIterable<I>> buildLongIterables(
+			List<Long> src, Function<AbstractLongIterator, I> adapter)
 	{
 		int size = src.size();
 		List<TestIterable<I>> dest = new ArrayList<>();
@@ -172,8 +174,9 @@ class IteratorProvider
 		return dest;
 	}
 
-	private static <I extends AbstractIterator> TestIterable<I> buildLongIterable(List<Long> src,
-			AbstractIteratorSize size, Function<AbstractLongIterator, I> adapter)
+	private static <I extends AbstractIterator> TestIterable<I> buildLongIterable(
+			List<Long> src, AbstractIteratorSize size,
+			Function<AbstractLongIterator, I> adapter)
 	{
 		return () -> adapter.apply(new AbstractLongIterator(size) {
 			int count = 0;
@@ -195,20 +198,21 @@ class IteratorProvider
 			}
 
 			@Override
-			public void skipImpl()
+			public void forwardImpl()
 			{
 				nextLongImpl();
 			}
 		});
 	}
 
-	static List<TestIterable<AbstractDoubleIterator>> buildDoubleIterables(List<Double> src)
+	static List<TestIterable<AbstractDoubleIterator>> buildDoubleIterables(
+			List<Double> src)
 	{
 		return buildDoubleIterables(src, x -> x);
 	}
 
-	static <I extends AbstractIterator> List<TestIterable<I>> buildDoubleIterables(List<Double> src,
-			Function<AbstractDoubleIterator, I> adapter)
+	static <I extends AbstractIterator> List<TestIterable<I>> buildDoubleIterables(
+			List<Double> src, Function<AbstractDoubleIterator, I> adapter)
 	{
 		int size = src.size();
 		List<TestIterable<I>> dest = new ArrayList<>();
@@ -253,7 +257,7 @@ class IteratorProvider
 			}
 
 			@Override
-			public void skipImpl()
+			public void forwardImpl()
 			{
 				nextDoubleImpl();
 			}
@@ -267,7 +271,8 @@ class IteratorProvider
 		List<TestIterable<I>> dest = new ArrayList<>();
 
 		List<TestIterable<AbstractRichIterator<T1>>> leftArgs = buildIterables(sourceOne);
-		List<TestIterable<AbstractRichIterator<T2>>> rightArgs = buildIterables(sourceTwo);
+		List<TestIterable<AbstractRichIterator<T2>>> rightArgs = buildIterables(
+				sourceTwo);
 
 		for (TestIterable<AbstractRichIterator<T1>> left : leftArgs) {
 			for (TestIterable<AbstractRichIterator<T2>> right : rightArgs) {

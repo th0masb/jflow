@@ -41,9 +41,9 @@ public class MapToObjectAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -71,9 +71,9 @@ public class MapToObjectAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -101,9 +101,9 @@ public class MapToObjectAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 }

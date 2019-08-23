@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  *
  * @author t
  */
-public interface SafeIterator<E> extends Iterator<E>, Skippable, Supplier<E>
+public interface SafeIterator<E> extends Iterator<E>, Supplier<E>
 {
 	/**
 	 * A safe alternative to directly calling {@link Iterator#next()} method.
@@ -34,6 +34,7 @@ public interface SafeIterator<E> extends Iterator<E>, Skippable, Supplier<E>
 	@Override
 	default E get()
 	{
-		return nextOp().orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
+		return nextOp().orElseThrow(
+				() -> new NoSuchElementException("Supply has been exhausted"));
 	}
 }

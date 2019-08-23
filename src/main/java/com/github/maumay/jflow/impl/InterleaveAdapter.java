@@ -28,12 +28,12 @@ public final class InterleaveAdapter<E> extends
 	}
 
 	@Override
-	public void skipImpl()
+	public void forwardImpl()
 	{
 		if (oneEngaged) {
-			getSourceOne().skipImpl();
+			getSourceOne().forwardImpl();
 		} else {
-			getSourceTwo().skipImpl();
+			getSourceTwo().forwardImpl();
 		}
 		oneEngaged = !oneEngaged;
 	}

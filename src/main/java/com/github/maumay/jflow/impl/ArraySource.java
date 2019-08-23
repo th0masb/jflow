@@ -46,7 +46,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= data.length) {
 				throw new NoSuchElementException();
@@ -86,7 +86,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= data.length) {
 				throw new NoSuchElementException();
@@ -122,7 +122,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= data.length) {
 				throw new NoSuchElementException();
@@ -158,7 +158,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= data.length) {
 				throw new NoSuchElementException();
@@ -194,7 +194,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= data.length) {
 				throw new NoSuchElementException();
@@ -232,7 +232,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= size) {
 				throw new NoSuchElementException();
@@ -270,7 +270,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= size) {
 				throw new NoSuchElementException();
@@ -308,7 +308,7 @@ public final class ArraySource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			if (count++ >= size) {
 				throw new NoSuchElementException();

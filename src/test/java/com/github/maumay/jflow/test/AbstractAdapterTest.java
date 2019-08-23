@@ -20,7 +20,7 @@ public abstract class AbstractAdapterTest extends AbstractCollectionBuilder impl
 			Function<I, ? extends AbstractIterator> adapter)
 	{
 		adapter.apply(iterator);
-		assertThrows(IteratorOwnershipException.class, iterator::skip);
+		assertThrows(IteratorOwnershipException.class, iterator::forward);
 		assertThrows(IteratorOwnershipException.class, () -> next(iterator));
 		// // Can't check empty iterators
 		// if (iterator.hasNext()) {

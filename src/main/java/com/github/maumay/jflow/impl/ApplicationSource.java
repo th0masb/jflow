@@ -42,7 +42,7 @@ public final class ApplicationSource
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			currentValue = applicationOperator.apply(currentValue);
 		}

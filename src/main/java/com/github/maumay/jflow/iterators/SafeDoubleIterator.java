@@ -15,7 +15,7 @@ import java.util.function.DoubleSupplier;
  *
  * @author t
  */
-public interface SafeDoubleIterator extends OfDouble, Skippable, DoubleSupplier
+public interface SafeDoubleIterator extends OfDouble, DoubleSupplier
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextDouble()} method.
@@ -42,7 +42,7 @@ public interface SafeDoubleIterator extends OfDouble, Skippable, DoubleSupplier
 	@Override
 	default double getAsDouble()
 	{
-		return nextDoubleOp()
-				.orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
+		return nextDoubleOp().orElseThrow(
+				() -> new NoSuchElementException("Supply has been exhausted"));
 	}
 }

@@ -41,9 +41,9 @@ public final class MapToIntAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -71,9 +71,9 @@ public final class MapToIntAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 
@@ -100,9 +100,9 @@ public final class MapToIntAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
-			getSource().skipImpl();
+			getSource().forwardImpl();
 		}
 	}
 }

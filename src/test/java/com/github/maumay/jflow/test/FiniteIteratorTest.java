@@ -32,13 +32,13 @@ public interface FiniteIteratorTest
 		for (TestIterable<I> iteratorProvider : iteratorProviders) {
 			assertSizeDecreasesByNextAsExpected(iteratorProvider.iter());
 			assertSizeDecreasesNyNextOpAsExpected(iteratorProvider.iter());
-			assertSizeDecreasesBySkipAsExpected(iteratorProvider.iter());
-			assertSkippingAsExpected(expectedElements, iteratorProvider.iter());
+			assertSizeDecreasesByForwardAsExpected(iteratorProvider.iter());
+			assertForwardingAsExpected(expectedElements, iteratorProvider.iter());
 			assertNextElementChecksAsExpected(expectedElements, iteratorProvider.iter());
 			assertStandardIterationAsExpected(expectedElements, iteratorProvider.iter());
 			assertOptionalIterationAsExpected(expectedElements, iteratorProvider.iter());
 			assertUncheckedIterationAsExpected(expectedElements, iteratorProvider.iter());
-			assertAlternatingNextAndSkipCallsAsExpected(expectedElements, iteratorProvider.iter());
+			assertAlternatingNextAndForwardCallsAsExpected(expectedElements, iteratorProvider.iter());
 		}
 	}
 
@@ -104,7 +104,7 @@ public interface FiniteIteratorTest
 		}
 	}
 
-	default void assertSizeDecreasesBySkipAsExpected(AbstractIterator iterator)
+	default void assertSizeDecreasesByForwardAsExpected(AbstractIterator iterator)
 	{
 		AbstractIteratorSize startSize = iterator.getSize().copy();
 
@@ -112,7 +112,7 @@ public interface FiniteIteratorTest
 		while (iterator.hasNext()) {
 			count++;
 			try {
-				iterator.skip();
+				iterator.forward();
 			} catch (NoSuchElementException ex) {
 				fail("Fewer elements than expected.");
 			}
@@ -120,16 +120,16 @@ public interface FiniteIteratorTest
 		}
 	}
 
-	default <T> void assertSkippingAsExpected(List<T> expectedElements, AbstractIterator iterator)
+	default <T> void assertForwardingAsExpected(List<T> expectedElements, AbstractIterator iterator)
 	{
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			try {
-				iterator.skip();
+				iterator.forward();
 			} catch (NoSuchElementException ex) {
 				fail("Fewer elements than expected.");
 			}
 		});
-		assertThrows(NoSuchElementException.class, iterator::skip);
+		assertThrows(NoSuchElementException.class, iterator::forward);
 	}
 
 	default <T> void assertNextElementChecksAsExpected(List<T> expectedElements,
@@ -138,7 +138,7 @@ public interface FiniteIteratorTest
 		IntStream.range(0, expectedElements.size()).forEach(i -> {
 			assertTrue(iterator.hasNext());
 			try {
-				iterator.skip();
+				iterator.forward();
 			} catch (NoSuchElementException ex) {
 				fail("Fewer elements than expected.");
 			}
@@ -158,7 +158,7 @@ public interface FiniteIteratorTest
 			}
 		}
 		assertThrows(NoSuchElementException.class, () -> next(iterator));
-		assertThrows(NoSuchElementException.class, iterator::skip);
+		assertThrows(NoSuchElementException.class, iterator::forward);
 		assertEquals(expectedElements, recoveredElements);
 	}
 
@@ -172,7 +172,7 @@ public interface FiniteIteratorTest
 			next = nextOp(iterator);
 		}
 		assertThrows(NoSuchElementException.class, () -> next(iterator));
-		assertThrows(NoSuchElementException.class, iterator::skip);
+		assertThrows(NoSuchElementException.class, iterator::forward);
 		assertEquals(expectedElements, recoveredElements);
 	}
 
@@ -188,11 +188,11 @@ public interface FiniteIteratorTest
 			}
 		}
 		assertThrows(NoSuchElementException.class, () -> next(iterator));
-		assertThrows(NoSuchElementException.class, iterator::skip);
+		assertThrows(NoSuchElementException.class, iterator::forward);
 		assertEquals(expectedElements, recoveredElements);
 	}
 
-	default void assertAlternatingNextAndSkipCallsAsExpected(List<?> expectedElements,
+	default void assertAlternatingNextAndForwardCallsAsExpected(List<?> expectedElements,
 			AbstractIterator iterator)
 	{
 		List<Object> expectedOutcome = new ArrayList<>(), recoveredElements = new ArrayList<>();
@@ -206,13 +206,13 @@ public interface FiniteIteratorTest
 					fail("Fewer elements than expected.");
 				}
 			} else {
-				iterator.skip();
+				iterator.forward();
 			}
 		});
 
 		assertFalse(iterator.hasNext());
 		assertThrows(NoSuchElementException.class, () -> next(iterator));
-		assertThrows(NoSuchElementException.class, iterator::skip);
+		assertThrows(NoSuchElementException.class, iterator::forward);
 		assertEquals(expectedOutcome, recoveredElements);
 	}
 }

@@ -15,8 +15,9 @@ import java.util.function.LongSupplier;
  *
  * @author t
  */
-public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong, LongSupplier
+public interface SafeLongIterator extends PrimitiveIterator.OfLong, LongSupplier
 {
+
 	/**
 	 * A safe alternative to directly calling {@link #nextLong()} method.
 	 *
@@ -36,13 +37,14 @@ public interface SafeLongIterator extends Skippable, PrimitiveIterator.OfLong, L
 	@Deprecated
 	default Long next()
 	{
-		throw new UnsupportedOperationException("Boxing using this method is banned for Flows!!");
+		throw new UnsupportedOperationException(
+				"Boxing using this method is banned for Flows!!");
 	}
 
 	@Override
 	default long getAsLong()
 	{
-		return nextLongOp()
-				.orElseThrow(() -> new NoSuchElementException("Supply has been exhausted"));
+		return nextLongOp().orElseThrow(
+				() -> new NoSuchElementException("Supply has been exhausted"));
 	}
 }

@@ -66,7 +66,7 @@ public final class LongReductionConsumption
 		source.relinquishOwnership();
 		long count = 0;
 		while (source.hasNext()) {
-			source.skipImpl();
+			source.forwardImpl();
 			count++;
 		}
 		return count;

@@ -51,7 +51,7 @@ public final class ScanAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			nextImpl();
 		}
@@ -91,7 +91,7 @@ public final class ScanAdapter
 		}
 
 		@Override
-		public void skipImpl()
+		public void forwardImpl()
 		{
 			nextDoubleImpl();
 		}
