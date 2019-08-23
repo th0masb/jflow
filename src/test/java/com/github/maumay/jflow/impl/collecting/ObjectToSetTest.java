@@ -24,7 +24,8 @@ public class ObjectToSetTest extends AbstractObjectCollectionTest<Integer, Set<I
 	@Override
 	protected List<Case<Integer, Set<Integer>>> getTestCases()
 	{
-		return list(new Case<>(list(), set()), new Case<>(list(1, 2, 3), set(1, 2, 3)));
+		return list(new Case<>(list(), new HashSet<Integer>()),
+				new Case<>(list(1, 2, 3), new HashSet<Integer>(list(1, 2, 3))));
 	}
 
 	@Override

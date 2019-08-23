@@ -4,9 +4,7 @@
 package com.github.maumay.jflow.test;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.github.maumay.jflow.vec.DoubleVec;
 import com.github.maumay.jflow.vec.Vec;
@@ -23,11 +21,11 @@ public abstract class AbstractCollectionBuilder
 		return Arrays.asList(ts);
 	}
 
-	@SafeVarargs
-	protected final <T> Set<T> set(T... ts)
-	{
-		return new HashSet<>(list(ts));
-	}
+	// @SafeVarargs
+	// protected final <T> Set<T> set(T... ts)
+	// {
+	// return new HashSet<>(list(ts));
+	// }
 
 	@SafeVarargs
 	protected final <T> Vec<T> vec(T... ts)
