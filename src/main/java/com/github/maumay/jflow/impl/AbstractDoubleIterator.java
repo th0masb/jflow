@@ -26,7 +26,8 @@ import com.github.maumay.jflow.utils.Option;
  * 
  * @author ThomasB
  */
-public abstract class AbstractDoubleIterator extends AbstractIterator implements DoubleIterator
+public abstract class AbstractDoubleIterator extends AbstractIterator
+		implements DoubleIterator
 {
 	public AbstractDoubleIterator(AbstractIteratorSize size)
 	{
@@ -66,6 +67,13 @@ public abstract class AbstractDoubleIterator extends AbstractIterator implements
 		while (hasNext()) {
 			action.accept(nextDoubleImpl());
 		}
+	}
+
+	@Override
+	public final void remove()
+	{
+		throw new UnsupportedOperationException(
+				"Removing is not supported for rich iterators.");
 	}
 
 	/**

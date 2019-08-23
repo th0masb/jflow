@@ -85,6 +85,13 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 		}
 	}
 
+	@Override
+	public final void remove()
+	{
+		throw new UnsupportedOperationException(
+				"Removing is not supported for rich iterators.");
+	}
+
 	/**
 	 * Implementation logic for the {@link #next()} method. This method does not
 	 * check the ownership flag of this iterator when it is called. Implementors of

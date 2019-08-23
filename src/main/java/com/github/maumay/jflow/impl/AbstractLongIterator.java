@@ -27,7 +27,8 @@ import com.github.maumay.jflow.utils.Option;
  * 
  * @author ThomasB
  */
-public abstract class AbstractLongIterator extends AbstractIterator implements LongIterator
+public abstract class AbstractLongIterator extends AbstractIterator
+		implements LongIterator
 {
 	public AbstractLongIterator(AbstractIteratorSize size)
 	{
@@ -67,6 +68,13 @@ public abstract class AbstractLongIterator extends AbstractIterator implements L
 		while (hasNext()) {
 			action.accept(nextLongImpl());
 		}
+	}
+
+	@Override
+	public final void remove()
+	{
+		throw new UnsupportedOperationException(
+				"Removing is not supported for rich iterators.");
 	}
 
 	/**
