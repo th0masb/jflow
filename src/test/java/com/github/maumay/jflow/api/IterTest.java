@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.maumay.jflow.iterators.Iter;
+import com.github.maumay.jflow.iterator.Iter;
 import com.github.maumay.jflow.utils.Strings;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.DoubleVec;

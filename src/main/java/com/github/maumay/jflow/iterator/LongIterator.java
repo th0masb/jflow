@@ -1,4 +1,4 @@
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterator;
 
 import java.util.OptionalLong;
 import java.util.PrimitiveIterator;

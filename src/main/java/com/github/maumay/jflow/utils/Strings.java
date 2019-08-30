@@ -12,8 +12,8 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import com.github.maumay.jflow.impl.RegexMatchIterator;
-import com.github.maumay.jflow.iterators.Iter;
-import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterator.Iter;
+import com.github.maumay.jflow.iterator.RichIterator;
 
 /**
  * Static utility methods for working with strings.

@@ -1,12 +1,12 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterables;
+package com.github.maumay.jflow.iterable;
 
 import java.util.function.IntConsumer;
 
-import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterator.IntIterator;
+import com.github.maumay.jflow.iterator.RichIterator;
 
 /**
  * Abstraction of iterable object which can construct enhanced primitive int

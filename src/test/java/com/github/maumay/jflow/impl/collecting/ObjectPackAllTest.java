@@ -5,7 +5,7 @@ package com.github.maumay.jflow.impl.collecting;
 
 import java.util.List;
 
-import com.github.maumay.jflow.iterators.IterC;
+import com.github.maumay.jflow.iterator.IterC;
 import com.github.maumay.jflow.test.AbstractObjectCollectionTest;
 import com.github.maumay.jflow.vec.Vec;
 

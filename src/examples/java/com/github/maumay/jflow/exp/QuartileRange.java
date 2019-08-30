@@ -5,9 +5,9 @@ package com.github.maumay.jflow.exp;
 
 import static java.lang.Math.abs;
 
-import com.github.maumay.jflow.iterables.DoubleIterable;
-import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.Iter;
+import com.github.maumay.jflow.iterable.DoubleIterable;
+import com.github.maumay.jflow.iterator.DoubleIterator;
+import com.github.maumay.jflow.iterator.Iter;
 
 /**
  * @author thomasb

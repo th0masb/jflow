@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.impl.AbstractLongIterator;
 import com.github.maumay.jflow.impl.FibonnaciIterator;
-import com.github.maumay.jflow.iterators.Numbers;
+import com.github.maumay.jflow.iterator.Numbers;
 import com.github.maumay.jflow.test.AbstractSourceTest;
 import com.github.maumay.jflow.vec.IntVec;
 import com.github.maumay.jflow.vec.LongVec;

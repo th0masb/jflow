@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterator;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;

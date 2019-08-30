@@ -11,7 +11,7 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.github.maumay.jflow.iterators.Iter;
+import com.github.maumay.jflow.iterator.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
 /**

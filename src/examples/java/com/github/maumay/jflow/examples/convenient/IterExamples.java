@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.function.BinaryOperator;
 
-import com.github.maumay.jflow.iterators.Iter;
+import com.github.maumay.jflow.iterator.Iter;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.IntVec;
 

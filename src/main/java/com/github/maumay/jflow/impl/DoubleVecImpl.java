@@ -6,8 +6,8 @@ package com.github.maumay.jflow.impl;
 import java.util.Arrays;
 import java.util.stream.DoubleStream;
 
-import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.Iter;
+import com.github.maumay.jflow.iterator.DoubleIterator;
+import com.github.maumay.jflow.iterator.Iter;
 import com.github.maumay.jflow.vec.DoubleVec;
 
 /**

@@ -1,11 +1,15 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.impl;
 
-import com.github.maumay.jflow.impl.AbstractRichIterator;
+import com.github.maumay.jflow.iterator.RichIterator;
 
 /**
+ * TODO Not API yet, when abstract implementations are exposed this can be
+ * exposed.
+ * 
+ * 
  * A custom adaption operation which can be inserted into an iterator chain via
  * {@link RichIterator#adapt(RichIteratorAdapter)}.
  * 

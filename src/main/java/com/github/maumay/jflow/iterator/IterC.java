@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterator;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -15,6 +15,8 @@ import java.util.function.Function;
 import com.github.maumay.jflow.impl.EnumAssociator;
 import com.github.maumay.jflow.impl.Packer;
 import com.github.maumay.jflow.impl.Packer.Type;
+import com.github.maumay.jflow.iterators.collector.DoubleIteratorCollector;
+import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.DoubleVec;
@@ -41,12 +43,11 @@ public class IterC
 	public static DoubleIteratorCollector<Double> average()
 	{
 		return iter -> {
-			iter.relinquishOwnership();
 			if (iter.hasNext()) {
 				double sum = 0;
 				long count = 0;
 				do {
-					sum += iter.nextDoubleImpl();
+					sum += iter.nextDouble();
 					count++;
 				} while (iter.hasNext());
 				return sum / count;
@@ -66,12 +67,11 @@ public class IterC
 	public static DoubleIteratorCollector<OptionalDouble> averageOp()
 	{
 		return iter -> {
-			iter.relinquishOwnership();
 			if (iter.hasNext()) {
 				double sum = 0;
 				long count = 0;
 				do {
-					sum += iter.nextDoubleImpl();
+					sum += iter.nextDouble();
 					count++;
 				} while (iter.hasNext());
 				return Option.of(sum / count);
@@ -87,12 +87,12 @@ public class IterC
 	 * enumerated types by returning an instance of {@link EnumMap}. Note that if
 	 * this iterator is empty then a {@link HashMap} will be returned instead.
 	 * 
-	 * @param <K> The element type of iterators this collector will accept.
-	 * @param <R> The type of values in the resultant map.
-	 * @param f   The function which determines the values of the map.
+	 * @param   <K> The element type of iterators this collector will accept.
+	 * @param   <R> The type of values in the resultant map.
+	 * @param f The function which determines the values of the map.
 	 * @return see {@link RichIterator#associate(Function)}
 	 */
-	public static <K extends Enum<K>, R> RichIteratorCollector<K, Map<K, R>> enumAssociate(
+	public static <K extends Enum<K>, R> IteratorCollector1<K, Map<K, R>> enumAssociate(
 			Function<? super K, ? extends R> f)
 	{
 		return new EnumAssociator<K, R>(f);
@@ -106,11 +106,12 @@ public class IterC
 	 * therefore it is guaranteed that all the vectors have length equal to the
 	 * specified pack size.
 	 * 
-	 * @param <E>      The inferred element type of the compatible source iterators.
+	 * @param          <E> The inferred element type of the compatible source
+	 *                 iterators.
 	 * @param packSize The size of vectors to pack elements into.
 	 * @return The packing collector.
 	 */
-	public static <E> RichIteratorCollector<E, Vec<Vec<E>>> pack(int packSize)
+	public static <E> IteratorCollector1<E, Vec<Vec<E>>> pack(int packSize)
 	{
 		return new Packer.OfObject<>(packSize, Type.EXCLUDE_REMAINDER);
 	}
@@ -122,11 +123,12 @@ public class IterC
 	 * different vector etc. If there are remainder elements then they are included
 	 * in a vector of a smaller size to the specified pack size
 	 * 
-	 * @param <E>      The inferred element type of the compatible source iterators.
+	 * @param          <E> The inferred element type of the compatible source
+	 *                 iterators.
 	 * @param packSize The size of vectors to pack elements into.
 	 * @return The packing collector.
 	 */
-	public static <E> RichIteratorCollector<E, Vec<Vec<E>>> packAll(int packSize)
+	public static <E> IteratorCollector1<E, Vec<Vec<E>>> packAll(int packSize)
 	{
 		return new Packer.OfObject<>(packSize, Type.INCLUDE_REMAINDER);
 	}
@@ -166,14 +168,13 @@ public class IterC
 	 * Splits an iterator of tuples into a tuple of equal sized vectors containing
 	 * the left and right elements respectively.
 	 */
-	public static <L, R> RichIteratorCollector<Tup<L, R>, Tup<Vec<L>, Vec<R>>> split()
+	public static <L, R> IteratorCollector1<Tup<L, R>, Tup<Vec<L>, Vec<R>>> split()
 	{
 		return source -> {
-			source.relinquishOwnership();
 			List<L> left = new ArrayList<>();
 			List<R> right = new ArrayList<>();
 			while (source.hasNext()) {
-				Tup<L, R> next = source.nextImpl();
+				Tup<L, R> next = source.next();
 				left.add(next._1);
 				right.add(next._2);
 			}

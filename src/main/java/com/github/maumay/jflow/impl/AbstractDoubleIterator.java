@@ -10,10 +10,9 @@ import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
 
-import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.DoubleIteratorAdapter;
-import com.github.maumay.jflow.iterators.DoubleIteratorCollector;
-import com.github.maumay.jflow.iterators.IteratorSlicer;
+import com.github.maumay.jflow.iterator.DoubleIterator;
+import com.github.maumay.jflow.iterator.IteratorSlicer;
+import com.github.maumay.jflow.iterators.collector.DoubleIteratorCollector;
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.utils.Option;
 

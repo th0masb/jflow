@@ -1,4 +1,4 @@
-package com.github.maumay.jflow.iterables;
+package com.github.maumay.jflow.iterable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,8 +14,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.RichIteratorCollector;
+import com.github.maumay.jflow.iterator.RichIterator;
+import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
@@ -288,7 +288,7 @@ public interface RichIterable<E> extends Iterable<E>
 	 *                          be transformed.
 	 * @return The image of the transformation under the supplied collector.
 	 */
-	default <R> R transform(RichIteratorCollector<? super E, R> iteratorCollector)
+	default <R> R transform(IteratorCollector1<? super E, R> iteratorCollector)
 	{
 		return iter().collect(iteratorCollector);
 	}

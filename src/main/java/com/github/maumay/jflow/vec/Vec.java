@@ -18,8 +18,8 @@ import com.github.maumay.jflow.impl.ArraySource;
 import com.github.maumay.jflow.impl.CollectionSource;
 import com.github.maumay.jflow.impl.EmptyIterator;
 import com.github.maumay.jflow.impl.VecCollector;
-import com.github.maumay.jflow.iterables.RichIterable;
-import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterable.RichIterable;
+import com.github.maumay.jflow.iterator.RichIterator;
 import com.github.maumay.jflow.utils.Tup;
 
 /**

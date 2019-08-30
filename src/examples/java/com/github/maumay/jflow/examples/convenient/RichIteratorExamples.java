@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterator.RichIterator;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.DoubleVec;
 import com.github.maumay.jflow.vec.IntVec;

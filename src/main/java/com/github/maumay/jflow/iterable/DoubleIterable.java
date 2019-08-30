@@ -1,12 +1,12 @@
 /**
  *
  */
-package com.github.maumay.jflow.iterables;
+package com.github.maumay.jflow.iterable;
 
 import java.util.function.DoubleConsumer;
 
-import com.github.maumay.jflow.iterators.DoubleIterator;
-import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterator.DoubleIterator;
+import com.github.maumay.jflow.iterator.RichIterator;
 
 /**
  * Abstraction of iterable object which can construct enhanced primitive double

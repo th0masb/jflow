@@ -6,8 +6,8 @@ package com.github.maumay.jflow.vec;
 import java.util.stream.IntStream;
 
 import com.github.maumay.jflow.impl.ArraySource;
-import com.github.maumay.jflow.iterables.IntIterable;
-import com.github.maumay.jflow.iterators.IntIterator;
+import com.github.maumay.jflow.iterable.IntIterable;
+import com.github.maumay.jflow.iterator.IntIterator;
 
 /**
  * An immutable wrapper around a primitive int array which can build enhanced

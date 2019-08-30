@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import com.github.maumay.jflow.iterators.Iter;
+import com.github.maumay.jflow.iterator.Iter;
 import com.github.maumay.jflow.vec.Vec;
 
 /**

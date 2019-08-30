@@ -3,11 +3,6 @@
  */
 package com.github.maumay.jflow.examples.termination;
 
-import java.util.List;
-import java.util.Optional;
-
-import com.github.maumay.jflow.vec.Vec;
-
 /**
  * Problem A: I would like to be able to take a sequence of points and compute
  * the minimal bounding box surrounding them.
@@ -57,66 +52,5 @@ public class Geometry
 			this.width = width;
 			this.height = height;
 		}
-	}
-
-	static Bounds calculateBoundingBox(Iterable<Point> points)
-	{
-		throw new RuntimeException();
-	}
-
-	static List<Line> calculateConnectingLines(Iterable<Point> points)
-	{
-		throw new RuntimeException();
-	}
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-
-	@SuppressWarnings("unused")
-	public static void main(String[] args)
-	{
-		Vec<Point> points = Vec.vec(new Point(0, 0), new Point(1, 1));
-
-		// With our stream version
-		Optional<Bounds> withStream = points.stream().map(p -> p.translate(0, 1))
-				.collect(CollectingPoints.fromStream());
-
-		//
-		//
-		//
-
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		// With our iterator version
-		Optional<Bounds> withIterator = points.iter().map(p -> p.translate(0, 1))
-				.collect(CollectingPoints.fromIterator());
-
-		// withIterator.equals(withStream)
-		System.out.println("done");
 	}
 }

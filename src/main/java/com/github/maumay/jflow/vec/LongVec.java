@@ -6,8 +6,8 @@ package com.github.maumay.jflow.vec;
 import java.util.stream.LongStream;
 
 import com.github.maumay.jflow.impl.ArraySource;
-import com.github.maumay.jflow.iterables.LongIterable;
-import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterable.LongIterable;
+import com.github.maumay.jflow.iterator.LongIterator;
 
 /**
  * An immutable wrapper around a primitive long array which can build enhanced

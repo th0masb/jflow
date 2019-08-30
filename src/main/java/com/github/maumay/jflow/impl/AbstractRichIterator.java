@@ -22,11 +22,11 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 
-import com.github.maumay.jflow.iterables.RichIterable;
-import com.github.maumay.jflow.iterators.IteratorSlicer;
-import com.github.maumay.jflow.iterators.RichIterator;
-import com.github.maumay.jflow.iterators.RichIteratorAdapter;
-import com.github.maumay.jflow.iterators.RichIteratorCollector;
+import com.github.maumay.jflow.iterable.RichIterable;
+import com.github.maumay.jflow.iterator.IteratorSlicer;
+import com.github.maumay.jflow.iterator.RichIterator;
+import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterators.collector.IteratorCollector2;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
@@ -226,9 +226,27 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public <R> R collect(RichIteratorCollector<? super E, ? extends R> collector)
+	public <R> R collect(IteratorCollector1<? super E, ? extends R> collector)
 	{
-		return collector.collect(this);
+		if (hasOwnership()) {
+			R result = collector.collect(this);
+			relinquishOwnership();
+			return result;
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
+	}
+
+	@Override
+	public <R> R collect(IteratorCollector2<E, ? extends R> collector)
+	{
+		if (hasOwnership()) {
+			R result = collector.collect(this);
+			relinquishOwnership();
+			return result;
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
 	}
 
 	@Override

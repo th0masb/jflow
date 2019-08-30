@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.impl;
 
-import com.github.maumay.jflow.impl.AbstractDoubleIterator;
+import com.github.maumay.jflow.iterator.DoubleIterator;
 
 /**
  * A custom adaption operation which can be inserted into an iterator chain via

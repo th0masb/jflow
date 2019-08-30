@@ -10,8 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import com.github.maumay.jflow.iterators.Iter;
-import com.github.maumay.jflow.iterators.RichIterator;
+import com.github.maumay.jflow.iterator.Iter;
+import com.github.maumay.jflow.iterator.RichIterator;
 
 /**
  * @author ThomasB

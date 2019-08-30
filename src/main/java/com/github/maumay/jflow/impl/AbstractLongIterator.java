@@ -13,8 +13,8 @@ import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
 import java.util.function.LongUnaryOperator;
 
-import com.github.maumay.jflow.iterators.IteratorSlicer;
-import com.github.maumay.jflow.iterators.LongIterator;
+import com.github.maumay.jflow.iterator.IteratorSlicer;
+import com.github.maumay.jflow.iterator.LongIterator;
 import com.github.maumay.jflow.utils.LongTup;
 import com.github.maumay.jflow.utils.Option;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators;
+package com.github.maumay.jflow.iterator;
 
 import java.util.function.IntUnaryOperator;
 

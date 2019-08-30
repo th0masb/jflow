@@ -10,8 +10,8 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
-import com.github.maumay.jflow.iterators.IntIterator;
-import com.github.maumay.jflow.iterators.IteratorSlicer;
+import com.github.maumay.jflow.iterator.IntIterator;
+import com.github.maumay.jflow.iterator.IteratorSlicer;
 import com.github.maumay.jflow.utils.IntTup;
 import com.github.maumay.jflow.utils.Option;
 
