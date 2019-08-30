@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.collector;
+package com.github.maumay.jflow.iterator.collector;
 
 import java.util.Iterator;
 
@@ -14,7 +14,7 @@ import java.util.Iterator;
  * @author t
  */
 @FunctionalInterface
-public interface IteratorCollector1<E, R>
+public interface IteratorCollector2<E, R>
 {
 	/**
 	 * Consumes the argument iterator by aggregating the elements to create a new
@@ -23,5 +23,5 @@ public interface IteratorCollector1<E, R>
 	 * @param source The iterator to collect and consume.
 	 * @return The result of the collection operation.
 	 */
-	R collect(Iterator<? extends E> source);
+	R collect(Iterator<E> source);
 }

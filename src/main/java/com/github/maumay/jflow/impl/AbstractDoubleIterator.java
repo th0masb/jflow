@@ -12,7 +12,7 @@ import java.util.function.DoubleUnaryOperator;
 
 import com.github.maumay.jflow.iterator.DoubleIterator;
 import com.github.maumay.jflow.iterator.IteratorSlicer;
-import com.github.maumay.jflow.iterators.collector.DoubleIteratorCollector;
+import com.github.maumay.jflow.iterator.collector.DoubleIteratorCollector;
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.utils.Option;
 

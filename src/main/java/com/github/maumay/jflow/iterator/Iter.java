@@ -550,5 +550,4 @@ public final class Iter
 	{
 		return new FunctionSource.OfLong(indexingFunction);
 	}
-
 }

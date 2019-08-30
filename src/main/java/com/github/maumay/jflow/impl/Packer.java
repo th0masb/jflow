@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 import com.github.maumay.jflow.iterator.DoubleIterator;
-import com.github.maumay.jflow.iterators.collector.DoubleIteratorCollector;
-import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.collector.DoubleIteratorCollector;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.vec.DoubleVec;
 import com.github.maumay.jflow.vec.Vec;

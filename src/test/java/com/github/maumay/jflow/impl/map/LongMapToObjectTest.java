@@ -19,7 +19,7 @@ public final class LongMapToObjectTest
 	protected List<Case<AbstractRichIterator<String>>> getTestCases()
 	{
 		Adapter<AbstractRichIterator<String>> adapter = iter -> iter
-				.mapToObject(x -> "" + x);
+				.mapToObj(x -> "" + x);
 		return list(new Case<>(list(), adapter, list()),
 				new Case<>(list(1L, 2L, 3L, 4L), adapter, list("1", "2", "3", "4")));
 	}

@@ -15,8 +15,8 @@ import java.util.function.Function;
 import com.github.maumay.jflow.impl.EnumAssociator;
 import com.github.maumay.jflow.impl.Packer;
 import com.github.maumay.jflow.impl.Packer.Type;
-import com.github.maumay.jflow.iterators.collector.DoubleIteratorCollector;
-import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.collector.DoubleIteratorCollector;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.DoubleVec;
@@ -27,9 +27,9 @@ import com.github.maumay.jflow.vec.Vec;
  * 
  * @author t
  */
-public class IterC
+public class IterCollect
 {
-	private IterC()
+	private IterCollect()
 	{
 	}
 
@@ -165,8 +165,8 @@ public class IterC
 	}
 
 	/**
-	 * Splits an iterator of tuples into a tuple of equal sized vectors containing
-	 * the left and right elements respectively.
+	 * Returns a collector which splits an iterator of tuples into a tuple of equal
+	 * sized vectors containing the left and right elements respectively.
 	 */
 	public static <L, R> IteratorCollector1<Tup<L, R>, Tup<Vec<L>, Vec<R>>> split()
 	{

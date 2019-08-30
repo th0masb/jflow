@@ -102,7 +102,7 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	}
 
 	@Override
-	public <E> AbstractRichIterator<E> mapToObject(LongFunction<? extends E> f)
+	public <E> AbstractRichIterator<E> mapToObj(LongFunction<? extends E> f)
 	{
 		return new MapToObjectAdapter.FromLong<>(this, f);
 	}

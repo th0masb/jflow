@@ -13,7 +13,7 @@ import java.util.OptionalDouble;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.iterator.Iter;
-import com.github.maumay.jflow.iterator.IterC;
+import com.github.maumay.jflow.iterator.IterCollect;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -21,29 +21,29 @@ import com.github.maumay.jflow.vec.Vec;
  * @author thomasb
  *
  */
-public final class IterCTest
+public final class IterCollectTest
 {
 	@Test
 	void averageTest()
 	{
-		assertEquals((Double) 5.0, Iter.doubles(0, 10).collect(IterC.average()));
+		assertEquals((Double) 5.0, Iter.doubles(0, 10).collect(IterCollect.average()));
 		assertThrows(NoSuchElementException.class,
-				() -> Iter.emptyDoubles().collect(IterC.average()));
+				() -> Iter.emptyDoubles().collect(IterCollect.average()));
 	}
 
 	@Test
 	void averageOpTest()
 	{
 		assertEquals(OptionalDouble.of(5.0),
-				Iter.doubles(0, 10).collect(IterC.averageOp()));
+				Iter.doubles(0, 10).collect(IterCollect.averageOp()));
 		assertEquals(OptionalDouble.empty(),
-				Iter.emptyDoubles().collect(IterC.averageOp()));
+				Iter.emptyDoubles().collect(IterCollect.averageOp()));
 	}
 
 	@Test
 	void testSplit()
 	{
 		Vec<Tup<Integer, Integer>> source = vec(Tup.of(1, 2), Tup.of(3, 4));
-		assertEquals(Tup.of(vec(1, 3), vec(2, 4)), source.iter().collect(IterC.split()));
+		assertEquals(Tup.of(vec(1, 3), vec(2, 4)), source.iter().collect(IterCollect.split()));
 	}
 }

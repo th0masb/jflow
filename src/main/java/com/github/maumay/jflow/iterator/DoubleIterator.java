@@ -10,7 +10,7 @@ import java.util.function.DoubleToLongFunction;
 import java.util.function.DoubleUnaryOperator;
 
 import com.github.maumay.jflow.impl.DoubleIteratorAdapter;
-import com.github.maumay.jflow.iterators.collector.DoubleIteratorCollector;
+import com.github.maumay.jflow.iterator.collector.DoubleIteratorCollector;
 import com.github.maumay.jflow.utils.DoubleTup;
 import com.github.maumay.jflow.vec.DoubleVec;
 

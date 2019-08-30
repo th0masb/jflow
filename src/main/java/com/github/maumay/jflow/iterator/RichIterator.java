@@ -23,8 +23,8 @@ import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.impl.RichIteratorAdapter;
 import com.github.maumay.jflow.iterable.RichIterable;
-import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
-import com.github.maumay.jflow.iterators.collector.IteratorCollector2;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector2;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 

@@ -5,7 +5,7 @@ package com.github.maumay.jflow.impl.collecting;
 
 import java.util.List;
 
-import com.github.maumay.jflow.iterator.IterC;
+import com.github.maumay.jflow.iterator.IterCollect;
 import com.github.maumay.jflow.test.AbstractObjectCollectionTest;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -18,7 +18,7 @@ public final class ObjectPackTest extends AbstractObjectCollectionTest<Integer, 
 	@Override
 	protected Collector<Integer, ? extends Vec<Vec<Integer>>> getCollectorToTest()
 	{
-		return iter -> iter.collect(IterC.pack(3));
+		return iter -> iter.collect(IterCollect.pack(3));
 	}
 
 	@Override

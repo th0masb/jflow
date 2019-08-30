@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
 
 /**
  * Collector which converts an iterator of enumerations into a map by

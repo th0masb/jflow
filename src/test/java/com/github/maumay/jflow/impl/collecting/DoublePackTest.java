@@ -5,7 +5,7 @@ package com.github.maumay.jflow.impl.collecting;
 
 import java.util.List;
 
-import com.github.maumay.jflow.iterator.IterC;
+import com.github.maumay.jflow.iterator.IterCollect;
 import com.github.maumay.jflow.test.AbstractDoubleCollectionTest;
 import com.github.maumay.jflow.vec.DoubleVec;
 import com.github.maumay.jflow.vec.Vec;
@@ -19,7 +19,7 @@ public final class DoublePackTest extends AbstractDoubleCollectionTest<Vec<Doubl
 	@Override
 	protected Collector<Vec<DoubleVec>> getCollectorToTest()
 	{
-		return iter -> iter.collect(IterC.packDoubles(3));
+		return iter -> iter.collect(IterCollect.packDoubles(3));
 	}
 
 	@Override

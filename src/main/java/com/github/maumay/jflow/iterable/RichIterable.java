@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import com.github.maumay.jflow.iterator.RichIterator;
-import com.github.maumay.jflow.iterators.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
 import com.github.maumay.jflow.vec.Vec;
 
 /**

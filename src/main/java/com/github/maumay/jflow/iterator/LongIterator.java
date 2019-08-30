@@ -53,7 +53,7 @@ public interface LongIterator extends OptionalLongIterator
 	 *         applying the parameter mapping function to each element of this
 	 *         {@link LongIterator} instance in turn.
 	 */
-	<E> RichIterator<E> mapToObject(LongFunction<? extends E> f);
+	<E> RichIterator<E> mapToObj(LongFunction<? extends E> f);
 
 	/**
 	 * Applies a function elementwise to this {@link LongIterator} to make a new
@@ -402,7 +402,7 @@ public interface LongIterator extends OptionalLongIterator
 	 */
 	default RichIterator<Long> boxed()
 	{
-		return mapToObject(x -> x);
+		return mapToObj(x -> x);
 	}
 
 	/**

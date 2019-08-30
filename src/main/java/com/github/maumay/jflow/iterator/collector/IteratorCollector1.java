@@ -1,19 +1,20 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterators.collector;
+package com.github.maumay.jflow.iterator.collector;
 
-import com.github.maumay.jflow.iterator.DoubleIterator;
+import java.util.Iterator;
 
 /**
  * An object which can terminate an iterator data piping chain by aggregating
  * the elements to create a new instance of a given type.
  * 
+ * @param <E> The element type of the iterator to be collected.
  * @param <R> the result type of the aggregation operation.
  * @author t
  */
 @FunctionalInterface
-public interface DoubleIteratorCollector<R>
+public interface IteratorCollector1<E, R>
 {
 	/**
 	 * Consumes the argument iterator by aggregating the elements to create a new
@@ -22,5 +23,5 @@ public interface DoubleIteratorCollector<R>
 	 * @param source The iterator to collect and consume.
 	 * @return The result of the collection operation.
 	 */
-	R collect(DoubleIterator source);
+	R collect(Iterator<? extends E> source);
 }
