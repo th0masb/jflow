@@ -13,7 +13,7 @@ import java.util.OptionalDouble;
 import org.junit.jupiter.api.Test;
 
 import com.github.maumay.jflow.iterator.Iter;
-import com.github.maumay.jflow.iterator.IterCollect;
+import com.github.maumay.jflow.iterator.collector.IterCollect;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 

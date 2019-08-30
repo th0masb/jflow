@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.iterator;
+package com.github.maumay.jflow.iterator.collector;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -15,8 +15,7 @@ import java.util.function.Function;
 import com.github.maumay.jflow.impl.EnumAssociator;
 import com.github.maumay.jflow.impl.Packer;
 import com.github.maumay.jflow.impl.Packer.Type;
-import com.github.maumay.jflow.iterator.collector.DoubleIteratorCollector;
-import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.RichIterator;
 import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.DoubleVec;

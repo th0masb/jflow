@@ -276,7 +276,13 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 	@Override
 	public <R> R collect(DoubleIteratorCollector<R> collector)
 	{
-		return collector.collect(this);
+		if (hasOwnership()) {
+			R result = collector.collect(this);
+			relinquishOwnership();
+			return result;
+		} else {
+			throw new IteratorOwnershipException(OWNERSHIP_ERR_MSG);
+		}
 	}
 
 	@Override
