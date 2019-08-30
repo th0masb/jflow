@@ -30,7 +30,7 @@ import com.github.maumay.jflow.vec.LongVec;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface LongIterator extends SafeLongIterator
+public interface LongIterator extends OptionalLongIterator
 {
 	/**
 	 * Applies a function elementwise to this {@link LongIterator} to make new

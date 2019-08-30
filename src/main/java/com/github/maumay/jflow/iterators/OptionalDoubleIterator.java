@@ -15,7 +15,7 @@ import java.util.function.DoubleSupplier;
  *
  * @author t
  */
-public interface SafeDoubleIterator extends OfDouble, DoubleSupplier
+public interface OptionalDoubleIterator extends OfDouble, DoubleSupplier
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextDouble()} method.

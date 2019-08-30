@@ -15,7 +15,7 @@ import java.util.function.IntSupplier;
  *
  * @author t
  */
-public interface SafeIntIterator extends PrimitiveIterator.OfInt, IntSupplier
+public interface OptionalIntIterator extends PrimitiveIterator.OfInt, IntSupplier
 {
 	/**
 	 * A safe alternative to directly calling {@link #nextInt()} method.

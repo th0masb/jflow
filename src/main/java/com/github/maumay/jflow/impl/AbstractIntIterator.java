@@ -98,7 +98,7 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public <E> AbstractRichIterator<E> mapToObject(IntFunction<? extends E> f)
+	public <E> AbstractRichIterator<E> mapToObj(IntFunction<? extends E> f)
 	{
 		return new MapToObjectAdapter.FromInt<>(this, f);
 	}

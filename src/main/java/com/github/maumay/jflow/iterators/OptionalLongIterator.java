@@ -15,7 +15,7 @@ import java.util.function.LongSupplier;
  *
  * @author t
  */
-public interface SafeLongIterator extends PrimitiveIterator.OfLong, LongSupplier
+public interface OptionalLongIterator extends PrimitiveIterator.OfLong, LongSupplier
 {
 
 	/**

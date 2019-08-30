@@ -43,7 +43,7 @@ import com.github.maumay.jflow.vec.Vec;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface RichIterator<E> extends SafeIterator<E>
+public interface RichIterator<E> extends OptionalIterator<E>
 {
 	/**
 	 * Applies a function elementwise to this {@link RichIterator} to make a new

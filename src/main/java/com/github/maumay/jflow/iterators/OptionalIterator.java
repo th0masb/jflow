@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  *
  * @author t
  */
-public interface SafeIterator<E> extends Iterator<E>, Supplier<E>
+public interface OptionalIterator<E> extends Iterator<E>, Supplier<E>
 {
 	/**
 	 * A safe alternative to directly calling {@link Iterator#next()} method.

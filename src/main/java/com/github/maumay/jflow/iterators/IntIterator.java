@@ -30,7 +30,7 @@ import com.github.maumay.jflow.vec.IntVec;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface IntIterator extends SafeIntIterator
+public interface IntIterator extends OptionalIntIterator
 {
 	/**
 	 * Applies a function elementwise to this {@link IntIterator} to make new
@@ -53,7 +53,7 @@ public interface IntIterator extends SafeIntIterator
 	 *         parameter mapping function to each element of this
 	 *         {@link IntIterator} instance in turn.
 	 */
-	<E> RichIterator<E> mapToObject(IntFunction<? extends E> f);
+	<E> RichIterator<E> mapToObj(IntFunction<? extends E> f);
 
 	/**
 	 * Applies a function elementwise to this {@link IntIterator} to make a new
@@ -436,7 +436,7 @@ public interface IntIterator extends SafeIntIterator
 	 */
 	default RichIterator<Integer> boxed()
 	{
-		return mapToObject(x -> x);
+		return mapToObj(x -> x);
 	}
 
 	/**

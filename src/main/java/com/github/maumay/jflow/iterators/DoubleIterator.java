@@ -30,7 +30,7 @@ import com.github.maumay.jflow.vec.DoubleVec;
  * @author ThomasB
  * @since 20 Apr 2018
  */
-public interface DoubleIterator extends SafeDoubleIterator
+public interface DoubleIterator extends OptionalDoubleIterator
 {
 	/**
 	 * Applies a function elementwise to this {@link DoubleIterator} to make new
