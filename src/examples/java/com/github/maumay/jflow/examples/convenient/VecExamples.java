@@ -50,10 +50,10 @@ public class VecExamples
 		// *****************************************************************************************
 		// Take, skip
 		assert ints.take(1) == vec(1);
-		assert ints.drop(2) == vec(3);
+		assert ints.skip(2) == vec(3);
 
 		assert ints.takeWhile(n -> n % 2 == 1) == vec(1);
-		assert ints.dropWhile(n -> n % 2 == 1) == vec(2, 3);
+		assert ints.skipWhile(n -> n % 2 == 1) == vec(2, 3);
 
 		// *****************************************************************************************
 		// Predicate matching
@@ -125,7 +125,7 @@ public class VecExamples
 		assert partitioned._1 == vec(2);
 		assert partitioned._2 == vec(1, 3);
 
-		Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.drop(1));
+		Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.skip(1));
 
 		assert headTail._1 == 1;
 		assert headTail._2 == vec(2, 3);

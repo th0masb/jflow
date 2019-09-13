@@ -39,7 +39,7 @@ public interface LongVec extends LongIterable
 	 * 
 	 * @return an iterator traversing the elements in this vector in reverse order.
 	 */
-	LongIterator revIter();
+	LongIterator iterRev();
 
 	/**
 	 * Constructs a sequential {@link LongStream} over the elements in this vector.

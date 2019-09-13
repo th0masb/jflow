@@ -55,7 +55,7 @@ final class LongVecImpl implements LongVec
 	}
 
 	@Override
-	public LongIterator revIter()
+	public LongIterator iterRev()
 	{
 		return Iter.reverseLongs(data);
 	}

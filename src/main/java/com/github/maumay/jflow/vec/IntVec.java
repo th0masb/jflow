@@ -39,7 +39,7 @@ public interface IntVec extends IntIterable
 	 * 
 	 * @return an iterator traversing the elements in this vector in reverse order.
 	 */
-	IntIterator revIter();
+	IntIterator iterRev();
 
 	/**
 	 * Constructs a sequential {@link IntStream} over the elements in this vector.

@@ -71,8 +71,7 @@ public class RichIteratorExamples
 		assert strings.iter().skipWhile(s -> s.equals("a")).toVec() == vec("b");
 
 		// *****************************************************************************************
-		// Predicate matching (these are terminal methods triggering the consumption of
-		// the iterator).
+		// Predicate matching
 		assert strings.iter().all(s -> !s.equals("c"));
 		assert strings.iter().any(s -> s.equals("b"));
 		assert strings.iter().none(s -> s.equals("0"));
@@ -89,13 +88,9 @@ public class RichIteratorExamples
 		} catch (NoSuchElementException ex) {
 		}
 
-		// ...
-		// with great power comes great responsibility
-
 		// *****************************************************************************************
-		// Append / insert
-		assert strings.iter().chain(strings.iterRev()).toVec() == vec("a", "b", "b",
-				"a");
+		// Chaining
+		assert strings.iter().chain(strings.iterRev()).toVec() == vec("a", "b", "b", "a");
 		assert strings.iter().rchain(strings.iterRev()).toVec() == vec("b", "a", "a",
 				"b");
 

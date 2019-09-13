@@ -186,7 +186,7 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	 *         elements is 0 then we just return this vector, if it is less than
 	 *         zero an exception will be thrown.
 	 */
-	Vec<E> drop(int n);
+	Vec<E> skip(int n);
 
 	/**
 	 * Creates a new vector by skipping elements from the start of this vector until
@@ -197,7 +197,7 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	 *         the first element which fails the predicate. This first failure
 	 *         <b>is</b> included.
 	 */
-	Vec<E> dropWhile(Predicate<? super E> predicate);
+	Vec<E> skipWhile(Predicate<? super E> predicate);
 
 	/**
 	 * Partitions this vector into two new vectors by applying a predicate test

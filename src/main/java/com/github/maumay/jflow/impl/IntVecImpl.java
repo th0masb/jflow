@@ -55,7 +55,7 @@ final class IntVecImpl implements IntVec
 	}
 
 	@Override
-	public IntIterator revIter()
+	public IntIterator iterRev()
 	{
 		return Iter.reverseInts(data);
 	}

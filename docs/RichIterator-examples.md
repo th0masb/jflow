@@ -39,17 +39,16 @@ assert strings.iter().filter(s -> s.equals("a")).toVec() == vec("a");
 // *****************************************************************************************
 // Take, skip
 assert strings.iter().take(1).toVec() == vec("a");
-assert strings.iter().drop(1).toVec() == vec("b");
+assert strings.iter().skip(1).toVec() == vec("b");
 
 assert strings.iter().takeWhile(s -> s.equals("a")).toVec() == vec("a");
-assert strings.iter().dropWhile(s -> s.equals("a")).toVec() == vec("b");
+assert strings.iter().skipWhile(s -> s.equals("a")).toVec() == vec("b");
 
 // *****************************************************************************************
-// Predicate matching (these are terminal methods triggering the consumption of
-// the iterator).
-assert strings.iter().allMatch(s -> !s.equals("c"));
-assert strings.iter().anyMatch(s -> s.equals("b"));
-assert strings.iter().noneMatch(s -> s.equals("0"));
+// Predicate matching
+assert strings.iter().all(s -> !s.equals("c"));
+assert strings.iter().any(s -> s.equals("b"));
+assert strings.iter().none(s -> s.equals("0"));
 
 // *****************************************************************************************
 // Fine grained control over consuming an iterator
@@ -64,15 +63,11 @@ try {
 }
 
 // *****************************************************************************************
-// Chain / insert
-assert strings.iter().chain("c").toVec() == vec("a", "b", "c");
-assert strings.iter().insert("c").toVec() == vec("c", "a", "b");
-
+// Chaining
 assert strings.iter().chain(strings.iterRev()).toVec() == vec("a", "b", "b", "a");
-assert strings.iter().insert(strings.iterRev()).toVec() == vec("b", "a", "a", "b");
+assert strings.iter().rchain(strings.iterRev()).toVec() == vec("b", "a", "a", "b");
 
 // *****************************************************************************************
 // Zipping
 assert strings.iter().zip(strings.iterRev()).map(pair -> pair._1 + pair._2).toVec() == vec("ab", "ba");
-
 ```

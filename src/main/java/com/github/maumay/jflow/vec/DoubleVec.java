@@ -39,7 +39,7 @@ public interface DoubleVec extends DoubleIterable
 	 * 
 	 * @return an iterator traversing the elements in this vector in reverse order.
 	 */
-	DoubleIterator revIter();
+	DoubleIterator iterRev();
 
 	/**
 	 * Constructs a sequential {@link DoubleStream} over the elements in this

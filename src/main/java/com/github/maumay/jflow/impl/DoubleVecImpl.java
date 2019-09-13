@@ -55,7 +55,7 @@ final class DoubleVecImpl implements DoubleVec
 	}
 
 	@Override
-	public DoubleIterator revIter()
+	public DoubleIterator iterRev()
 	{
 		return Iter.reverseDoubles(data);
 	}

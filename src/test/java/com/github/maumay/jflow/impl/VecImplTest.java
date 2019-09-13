@@ -128,11 +128,11 @@ class VecImplTest extends AbstractCollectionBuilder
 	@Test
 	void testDrop()
 	{
-		assertEquals(new VecImpl<>("a", "b"), new VecImpl<>("a", "b").drop(0));
-		assertEquals(new VecImpl<>("b"), new VecImpl<>("a", "b").drop(1));
-		assertEquals(new VecImpl<>(), new VecImpl<>("a", "b").drop(2));
-		assertEquals(new VecImpl<>(), new VecImpl<>("a", "b").drop(3));
-		assertThrows(IllegalArgumentException.class, () -> new VecImpl<>("a").drop(-1));
+		assertEquals(new VecImpl<>("a", "b"), new VecImpl<>("a", "b").skip(0));
+		assertEquals(new VecImpl<>("b"), new VecImpl<>("a", "b").skip(1));
+		assertEquals(new VecImpl<>(), new VecImpl<>("a", "b").skip(2));
+		assertEquals(new VecImpl<>(), new VecImpl<>("a", "b").skip(3));
+		assertThrows(IllegalArgumentException.class, () -> new VecImpl<>("a").skip(-1));
 	}
 
 	@Test
