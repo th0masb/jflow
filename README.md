@@ -5,20 +5,19 @@
 
 
 ---
-#### Overview
-A lightweight Java library (no other dependencies, ~200KB size) whose functionality can be summarised as follows:  
+#### Overview + Motivation
+A lightweight Java library (no other dependencies, ~200KB size) inspired by other languages (notably Rust + Scala) whose functionality can be summarised as follows:  
 
- - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of additional functionality in the style of `Stream` but with some tweaks for increased usability. 
+ - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of additional functionality in the style of `Stream` but with some tweaks. 
  - A variety of useful static factory methods for constructing these iterators (both finite and infinite) from various sources.
  - An immutable, array-backed alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
- - A mechanism for implementing custom intermediate (in stream terminology) operations.
 
+Frustration about the (imo) unnecessary verbosity of the provided stream API coupled with the desire for an immutable, efficient and ergonomic immutable list motivated me to write this library. Writing Java has become much better (more done with more readability with less characters and less bugs) as well as more enjoyable.
 
 ---
 #### Accessing and using this library
 
-The coordinates on maven central are `com.github.maumay:jflow:0.5.5`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file.
-
+The coordinates on maven central are `com.github.maumay:jflow:0.7.0`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file. Javadoc can be accessed via the corresponding badge link at the top of this readme, additional documentation is given below.
 
 ---
 #### API examples
@@ -30,7 +29,6 @@ Learning by example is always a useful method, below are some links to files whi
  - [Iter](docs/Iter-examples.md)
 
 While these files don't demonstrate everything they do show some useful functionality and allow you to start using the library straight away.
-
 
 ---
 #### Sized iterators
@@ -60,13 +58,13 @@ class Point {
 Vec<Point> fiveRandom = Iter.call(Point::new).take(5).toVec();
 ```
 
-Here we created an infinite iterator of random points (possible because of laziness) and took 5 of them from the head. Since we knew the initial iterator had infinite size we deduce that the iterator formed by the take operation must have exactly five elements. We can then create an array of size 5 on the stack, allocate the points into it and return an immutable wrapper around it without any copying taking place, wasting no space and benefiting from complete immutability.
+Here we created an infinite iterator of random points (possible because of laziness) and took 5 of them from the head. Since we knew the initial iterator had infinite size we deduce that the iterator formed by the take operation must have exactly five elements. We can then create an array of size 5 whose direct reference is encapsulated in the function call stack, allocate the points into it and return an immutable wrapper around it without any copying taking place, wasting no space and benefiting from complete immutability.
 
 
 ---
 #### Mutability and ownership
 
-A stream and an iterator are fundamentally different in that the former is (to all intents and purposes) *immutable* and the latter is *mutable* and supports more fine grained consumption. We have already seen this to be useful when we implement custom collectors (see here ...). Let's see an example of something we can do with an iterator which isn't possible with a stream.
+A stream and an iterator are different in that the former is (to all intents and purposes) *immutable* and the latter is *mutable* and supports more fine grained consumption (although a stream can be converted to a vanilla iterator. We have already seen this to be useful when we implement custom collectors (see here ...). Let's see an example of something we can do with an iterator which isn't possible with a stream.
 
 ```Java
 RichIterator<String> iterator = Iter.over("a", "b", "c");
