@@ -135,7 +135,7 @@ public interface IntIterator extends OptionalIntIterator
 	 *         {@link IntIterator} consisting of the first {@code max(n, length(F))}
 	 *         elements of {@code F}.
 	 */
-	IntIterator skip(int n);
+	IntIterator take(int n);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by selecting
@@ -149,7 +149,7 @@ public interface IntIterator extends OptionalIntIterator
 	 *         {@link IntIterator}. If no element fails the predicate test then a
 	 *         copy of the source is returned.
 	 */
-	IntIterator skipWhile(IntPredicate predicate);
+	IntIterator takeWhile(IntPredicate predicate);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by removing
@@ -161,7 +161,7 @@ public interface IntIterator extends OptionalIntIterator
 	 *         {@link IntIterator} missing the first {@code min(n, length(F))}
 	 *         elements of {@code F}.
 	 */
-	IntIterator drop(int n);
+	IntIterator skip(int n);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by removing
@@ -175,7 +175,7 @@ public interface IntIterator extends OptionalIntIterator
 	 *         element fails the predicate test then a copy of the source is
 	 *         returned.
 	 */
-	IntIterator dropWhile(IntPredicate predicate);
+	IntIterator skipWhile(IntPredicate predicate);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by removing
@@ -207,7 +207,7 @@ public interface IntIterator extends OptionalIntIterator
 	 * @return An {@link IntIterator} consisting of the elements of the source
 	 *         {@link IntIterator} followed by the elements in the parameter array.
 	 */
-	IntIterator chain(int... other);
+	IntIterator append(int... other);
 
 	/**
 	 * Creates a new {@link IntIterator} from this Iterator by adding each element
@@ -218,7 +218,7 @@ public interface IntIterator extends OptionalIntIterator
 	 *         primitive iterator followed by the elements of this source
 	 *         {@link IntIterator}.
 	 */
-	IntIterator insert(PrimitiveIterator.OfInt other);
+	IntIterator rchain(PrimitiveIterator.OfInt other);
 
 	/**
 	 * Creates a new {@link IntIterator} from this Iterator by adding each element

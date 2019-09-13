@@ -178,13 +178,13 @@ final class VecImpl<E> implements Vec<E>
 	@Override
 	public Vec<E> insert(Iterable<? extends E> other)
 	{
-		return iter().insert(other.iterator()).toVec();
+		return iter().rchain(other.iterator()).toVec();
 	}
 
 	@Override
 	public Vec<E> insert(Collection<? extends E> other)
 	{
-		return iter().insert(new CollectionSource<>(other)).toVec();
+		return iter().rchain(new CollectionSource<>(other)).toVec();
 	}
 
 	@Override

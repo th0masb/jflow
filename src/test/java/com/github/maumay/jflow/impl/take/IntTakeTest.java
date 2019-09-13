@@ -18,10 +18,10 @@ public final class IntTakeTest extends AbstractIntAdapterTest<AbstractIntIterato
 	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
 		List<Integer> src = list(0, 0, 0, 0, 0, 0);
-		return list(new Case<>(list(), i -> i.skip(0), list()),
-				new Case<>(list(), i -> i.skip(3), list()),
-				new Case<>(src, i -> i.skip(0), list()),
-				new Case<>(src, i -> i.skip(3), list(0, 0, 0)),
-				new Case<>(src, i -> i.skip(6), src));
+		return list(new Case<>(list(), i -> i.take(0), list()),
+				new Case<>(list(), i -> i.take(3), list()),
+				new Case<>(src, i -> i.take(0), list()),
+				new Case<>(src, i -> i.take(3), list(0, 0, 0)),
+				new Case<>(src, i -> i.take(6), src));
 	}
 }

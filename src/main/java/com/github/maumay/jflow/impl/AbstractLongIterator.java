@@ -168,13 +168,13 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	}
 
 	@Override
-	public AbstractLongIterator chain(long... xs)
+	public AbstractLongIterator append(long... xs)
 	{
 		return chain(new ArraySource.OfLong(xs));
 	}
 
 	@Override
-	public AbstractLongIterator insert(OfLong other)
+	public AbstractLongIterator rchain(OfLong other)
 	{
 		return new ConcatenationAdapter.OfLong(IteratorWrapper.wrap(other), this);
 	}
@@ -182,7 +182,7 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	@Override
 	public AbstractLongIterator insert(long... xs)
 	{
-		return insert(new ArraySource.OfLong(xs));
+		return rchain(new ArraySource.OfLong(xs));
 	}
 
 	@Override

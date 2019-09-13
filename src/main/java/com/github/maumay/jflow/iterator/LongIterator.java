@@ -207,7 +207,7 @@ public interface LongIterator extends OptionalLongIterator
 	 * @return A {@link LongIterator} consisting of the elements of the source
 	 *         {@link LongIterator} followed by the elements in the parameter array.
 	 */
-	LongIterator chain(long... other);
+	LongIterator append(long... other);
 
 	/**
 	 * Creates a new {@link LongIterator} from this {@link RichIterator} by adding
@@ -218,7 +218,7 @@ public interface LongIterator extends OptionalLongIterator
 	 *         primitive iterator followed by the elements of this source
 	 *         {@link LongIterator}.
 	 */
-	LongIterator insert(PrimitiveIterator.OfLong other);
+	LongIterator rchain(PrimitiveIterator.OfLong other);
 
 	/**
 	 * Creates a new {@link LongIterator} from this {@link RichIterator} by adding

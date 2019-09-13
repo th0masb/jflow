@@ -196,7 +196,7 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 	}
 
 	@Override
-	public AbstractRichIterator<E> insert(Iterator<? extends E> other)
+	public AbstractRichIterator<E> rchain(Iterator<? extends E> other)
 	{
 		return new ConcatenationAdapter.OfObject<>(IteratorWrapper.wrap(other), this);
 	}

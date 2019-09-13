@@ -20,10 +20,10 @@ public final class DoubleInsertTest extends AbstractDoubleAdapterTest<AbstractDo
 	protected List<Case<AbstractDoubleIterator>> getTestCases()
 	{
 		List<Double> empty = list(), populated = list(0.0);
-		return list(new Case<>(empty, i -> i.insert(unbox(empty.iterator())), empty),
-				new Case<>(empty, i -> i.insert(unbox(populated.iterator())), populated),
-				new Case<>(populated, i -> i.insert(unbox(empty.iterator())), populated),
-				new Case<>(populated, i -> i.insert(unbox(list(1.0).iterator())),
+		return list(new Case<>(empty, i -> i.rchain(unbox(empty.iterator())), empty),
+				new Case<>(empty, i -> i.rchain(unbox(populated.iterator())), populated),
+				new Case<>(populated, i -> i.rchain(unbox(empty.iterator())), populated),
+				new Case<>(populated, i -> i.rchain(unbox(list(1.0).iterator())),
 						list(1.0, 0.0)));
 	}
 

@@ -210,7 +210,7 @@ public interface DoubleIterator extends OptionalDoubleIterator
 	 *         {@link DoubleIterator} followed by the elements in the parameter
 	 *         array.
 	 */
-	DoubleIterator chain(double... other);
+	DoubleIterator append(double... other);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this Iterator by adding each
@@ -221,7 +221,7 @@ public interface DoubleIterator extends OptionalDoubleIterator
 	 *         primitive iterator followed by the elements of this source
 	 *         {@link DoubleIterator}.
 	 */
-	DoubleIterator insert(PrimitiveIterator.OfDouble other);
+	DoubleIterator rchain(PrimitiveIterator.OfDouble other);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this Iterator by adding each

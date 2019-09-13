@@ -166,13 +166,13 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 	}
 
 	@Override
-	public AbstractDoubleIterator chain(double... xs)
+	public AbstractDoubleIterator append(double... xs)
 	{
 		return chain(new ArraySource.OfDouble(xs));
 	}
 
 	@Override
-	public AbstractDoubleIterator insert(OfDouble other)
+	public AbstractDoubleIterator rchain(OfDouble other)
 	{
 		return new ConcatenationAdapter.OfDouble(IteratorWrapper.wrap(other), this);
 	}
@@ -180,7 +180,7 @@ public abstract class AbstractDoubleIterator extends AbstractIterator
 	@Override
 	public AbstractDoubleIterator insert(double... xs)
 	{
-		return insert(new ArraySource.OfDouble(xs));
+		return rchain(new ArraySource.OfDouble(xs));
 	}
 
 	@Override

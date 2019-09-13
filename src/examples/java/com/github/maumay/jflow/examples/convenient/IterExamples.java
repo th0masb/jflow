@@ -44,12 +44,13 @@ public final class IterExamples
 		assert Iter.over(Option.of("a")).toVec() == vec("a");
 
 		// Example usage is flattening a sequence of optional values
-		assert Iter.args(Option.of("a"), Option.empty(), Option.of("b")).flatMap(Iter::over)
-				.toVec() == vec("a", "b");
+		assert Iter.args(Option.of("a"), Option.empty(), Option.of("b"))
+				.flatMap(Iter::over).toVec() == vec("a", "b");
 
 		// *****************************************************************************************
 		// Flatten stacked collections
-		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(), vec("b"));
+		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(),
+				vec("b"));
 		assert Iter.flatten(stacked).toVec() == vec("a", "b");
 		assert Iter.flatten(stacked).any(s -> s.equals("a"));
 

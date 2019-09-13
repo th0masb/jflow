@@ -294,7 +294,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
 	 *         {@link RichIterator} followed by the elements of this source
 	 *         {@link RichIterator}.
 	 */
-	RichIterator<E> insert(Iterator<? extends E> other);
+	RichIterator<E> rchain(Iterator<? extends E> other);
 
 	/**
 	 * Convenience method for appending a single element onto the end of this

@@ -17,7 +17,7 @@ public final class IntSkipwhileTest extends AbstractIntAdapterTest<AbstractIntIt
 	@Override
 	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
-		Adapter<AbstractIntIterator> adapter = i -> i.dropWhile(x -> x > 2);
+		Adapter<AbstractIntIterator> adapter = i -> i.skipWhile(x -> x > 2);
 		return list(new Case<>(list(), adapter, list()),
 				new Case<>(list(1, 3, 0), adapter, list(1, 3, 0)),
 				new Case<>(list(3, 1, 2), adapter, list(1, 2)),

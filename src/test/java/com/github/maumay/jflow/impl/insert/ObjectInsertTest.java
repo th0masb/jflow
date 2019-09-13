@@ -19,9 +19,9 @@ public final class ObjectInsertTest
 	protected List<Case<Double, AbstractRichIterator<Double>>> getTestCases()
 	{
 		List<Double> empty = list(), populated = list(0.0);
-		return list(new Case<>(empty, i -> i.insert(empty.iterator()), empty),
-				new Case<>(empty, i -> i.insert(populated.iterator()), populated),
-				new Case<>(populated, i -> i.insert(empty.iterator()), populated),
-				new Case<>(populated, i -> i.insert(list(1.0).iterator()), list(1.0, 0.0)));
+		return list(new Case<>(empty, i -> i.rchain(empty.iterator()), empty),
+				new Case<>(empty, i -> i.rchain(populated.iterator()), populated),
+				new Case<>(populated, i -> i.rchain(empty.iterator()), populated),
+				new Case<>(populated, i -> i.rchain(list(1.0).iterator()), list(1.0, 0.0)));
 	}
 }

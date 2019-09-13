@@ -195,7 +195,7 @@ class IterTest
 	{
 		assertEquals(vec("a", "a", "a"), Iter.repeat("a").take(3).toVec());
 		assertEquals(vec("a", "a", "a"), Iter.call(() -> "a").take(3).toVec());
-		assertEquals(IntVec.of(1, 1, 1), Iter.callInts(() -> 1).skip(3).toVec());
+		assertEquals(IntVec.of(1, 1, 1), Iter.callInts(() -> 1).take(3).toVec());
 		assertEquals(LongVec.of(1, 1, 1), Iter.callLongs(() -> 1).take(3).toVec());
 		assertEquals(DoubleVec.of(1, 1, 1), Iter.callDoubles(() -> 1).take(3).toVec());
 	}
@@ -205,7 +205,7 @@ class IterTest
 	{
 		assertEquals(vec("0", "1", "2"),
 				Iter.index(n -> Strings.convert(n)).take(3).toVec());
-		assertEquals(IntVec.of(0, 2, 4), Iter.indexInts(n -> 2 * n).skip(3).toVec());
+		assertEquals(IntVec.of(0, 2, 4), Iter.indexInts(n -> 2 * n).take(3).toVec());
 		assertEquals(LongVec.of(0, 2, 4), Iter.indexLongs(n -> 2 * n).take(3).toVec());
 		assertEquals(DoubleVec.of(0, 2, 4),
 				Iter.indexDoubles(x -> 2 * x).take(3).toVec());
