@@ -75,8 +75,9 @@ try {
 }
 
 // *****************************************************************************************
-// Easy type manipulation
-Vec<Number> nums = ints.<Number>cast();
+// Easy type manipulation. It is unsafe (any type can be passed) due to Java generics
+// deficiencies but can be very useful and convenient.
+assert ints.<Number>cast() == Vec.<Number>of(1, 2, 3);
 
 // *****************************************************************************************
 // Easy to convert to/from other collection types

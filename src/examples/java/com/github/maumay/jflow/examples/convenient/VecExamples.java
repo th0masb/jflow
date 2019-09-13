@@ -56,7 +56,7 @@ public class VecExamples
 		assert ints.skipWhile(n -> n % 2 == 1) == vec(2, 3);
 
 		// *****************************************************************************************
-		// Predicate matching
+		// Predicate matching / finding
 		assert ints.any(n -> n > 2);
 		assert ints.all(n -> n > 0);
 		assert ints.none(n -> n > 3);
@@ -92,8 +92,9 @@ public class VecExamples
 		}
 
 		// *****************************************************************************************
-		// Easy type manipulation
-		Vec<Number> nums = ints.<Number>cast();
+		// Easy type manipulation. It is unsafe (any type can be passed) due to Java
+		// generics deficiencies but can be very useful and convenient.
+		assert ints.<Number>cast() == Vec.<Number>of(1, 2, 3);
 
 		// *****************************************************************************************
 		// Easy to convert to/from other collection types

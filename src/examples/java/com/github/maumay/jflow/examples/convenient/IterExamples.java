@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BinaryOperator;
 
 import com.github.maumay.jflow.iterator.Iter;
-import com.github.maumay.jflow.utils.Option;
 import com.github.maumay.jflow.vec.IntVec;
 
 /**
@@ -40,19 +40,18 @@ public final class IterExamples
 
 		// *****************************************************************************************
 		// Construct from optionals
-		assert Iter.over(Option.empty()).toVec() == vec();
-		assert Iter.over(Option.of("a")).toVec() == vec("a");
+		assert Iter.over(Optional.empty()).toVec() == vec();
+		assert Iter.over(Optional.of("a")).toVec() == vec("a");
 
 		// Example usage is flattening a sequence of optional values
-		assert Iter.args(Option.of("a"), Option.empty(), Option.of("b"))
-				.flatMap(Iter::over).toVec() == vec("a", "b");
+		assert Iter.args(Optional.of("a"), Optional.empty()).flatMap(Iter::over)
+				.toVec() == vec("a");
 
 		// *****************************************************************************************
 		// Flatten stacked collections
 		Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(),
 				vec("b"));
 		assert Iter.flatten(stacked).toVec() == vec("a", "b");
-		assert Iter.flatten(stacked).any(s -> s.equals("a"));
 
 		// *****************************************************************************************
 		// Construct from maps
