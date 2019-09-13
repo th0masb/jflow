@@ -2,9 +2,9 @@
 ---
 Here is a snippet of (boilerplate free and liberally incorrect) Java code demonstrating some of the main functionality provided with the `Vec` interface. **Please note** that I use referential equality in the assertion statements which will cause many to fail if you executed this code but it greatly improves readability.
 
-A `Vec` can be thought of as immutable lists with many useful methods. The main thing you should take away from this page is that when a method is called on a `Vec` it is evaluated in a *strict* manner, i.e. the computation takes place immediately. As you will see on the next API example page `RichIterator`s share much of the same functionality with vectors but when methods such as `.map(...)` are called on an iterator it evaluates in a *lazy* manner. Understanding this is key to using this library well and writing efficient code.
+A `Vec` can be thought of as an immutable list with many useful methods. The main thing you should take away from this page is that when a method is called on a `Vec` it is evaluated in a *strict* manner, i.e. the computation takes place immediately. As you will see on the next API example page `RichIterator`s share much of the same functionality with vectors but when methods such as `.map(...)` are called on an iterator it evaluates in a *lazy* manner. Understanding this is key to using this library well and writing efficient code.
 
-Note that there are primitive specializations `DoubleVec`, `IntVec` and `LongVec` which wrap the corresponding primitive arrays. These have less direct functionality but since you can construct the rich primitive iterators (and streams) in the same way as shown here you have access to most of it in a slightly more verbose way.
+Note that there are primitive specialisations `DoubleVec`, `IntVec` and `LongVec` which wrap the corresponding primitive arrays. These have less direct functionality but since you can construct the rich primitive iterators (and streams) in the same way as shown here you have access to most of it in a slightly more verbose way.
 
 ```java
 // Factory method designed for importing statically
@@ -33,17 +33,17 @@ assert ints.filter(n -> n > 2) == vec(3);
 // *****************************************************************************************
 // Take, skip
 assert ints.take(1) == vec(1);
-assert ints.drop(2) == vec(3);
+assert ints.skip(2) == vec(3);
 
 assert ints.takeWhile(n -> n % 2 == 1) == vec(1);
-assert ints.dropWhile(n -> n % 2 == 1) == vec(2, 3);
+assert ints.skipWhile(n -> n % 2 == 1) == vec(2, 3);
 
 // *****************************************************************************************
-// Predicate matching
-assert ints.anyMatch(n -> n > 2);
-assert ints.allMatch(n -> n > 0);
-assert ints.noneMatch(n -> n > 3);
-assert !ints.find(n -> n > 3).isPresent();
+// Predicate matching / finding
+assert ints.any(n -> n > 2);
+assert ints.all(n -> n > 0);
+assert ints.none(n -> n > 3);
+assert !ints.findOp(n -> n > 3).isPresent();
 
 // *****************************************************************************************
 // Min/max
@@ -75,8 +75,8 @@ try {
 }
 
 // *****************************************************************************************
-// Easy type manipulation. It is unsafe (any type can be passed) due to Java generics
-// deficiencies but can be very useful and convenient.
+// Easy type manipulation. It is unsafe (any type can be passed) due to Java
+// generics deficiencies but can be very useful and convenient.
 assert ints.<Number>cast() == Vec.<Number>of(1, 2, 3);
 
 // *****************************************************************************************
@@ -85,7 +85,7 @@ List<Integer> listInts = Arrays.asList(1, 2, 3);
 
 assert ints.toList() == listInts;
 assert ints.toSet() == new HashSet<>(listInts);
-assert ints.toCollection(ArrayList::new) == listInts;
+assert ints.to(ArrayList::new) == listInts;
 
 assert ints == Vec.copy(listInts);
 
@@ -109,7 +109,7 @@ Tup<Vec<Integer>, Vec<Integer>> partitioned = ints.partition(n -> n % 2 == 0);
 assert partitioned._1 == vec(2);
 assert partitioned._2 == vec(1, 3);
 
-Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.drop(1));
+Tup<Integer, Vec<Integer>> headTail = Tup.of(ints.head(), ints.skip(1));
 
 assert headTail._1 == 1;
 assert headTail._2 == vec(2, 3);

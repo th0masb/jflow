@@ -12,7 +12,7 @@ A lightweight Java library (no other dependencies, ~200KB size) inspired by othe
  - A variety of useful static factory methods for constructing these iterators (both finite and infinite) from various sources.
  - An immutable, array-backed alternative to `List` (along with primitive specializations) called `Vec` which is optimally space efficient, well integrated with the aforementioned iterators to facilitate efficient manipulation (mapping, filtering etc) and can be converted to/from standard `Collection` implementations with ease.
 
-Frustration about the (imo) unnecessary verbosity of the provided stream API coupled with the desire for an immutable, efficient and ergonomic immutable list motivated me to write this library. Writing Java has become much better (more done with more readability with less characters and less bugs) as well as more enjoyable.
+Frustration about the (imo) unnecessary verbosity of the provided stream API coupled with the desire for an immutable, efficient and ergonomic immutable list motivated me to write this library. Writing Java has become much better (more done with more readability with less characters and less bugs) and more enjoyable.
 
 ---
 #### Accessing and using this library
