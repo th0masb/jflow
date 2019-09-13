@@ -25,7 +25,7 @@ public class NumbersTest extends AbstractSourceTest<AbstractLongIterator>
 	@Test
 	void testNaturalNumbers()
 	{
-		assertEquals(IntVec.of(0, 1, 2, 3, 4), Numbers.natural().take(5).toVec());
+		assertEquals(IntVec.of(0, 1, 2, 3, 4), Numbers.natural().skip(5).toVec());
 	}
 
 	@Test

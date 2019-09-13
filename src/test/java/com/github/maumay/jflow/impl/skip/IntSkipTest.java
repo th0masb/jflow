@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.impl.drop;
+package com.github.maumay.jflow.impl.skip;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.github.maumay.jflow.test.AbstractIntAdapterTest;
  * @author t
  *
  */
-public final class IntDropTest extends AbstractIntAdapterTest<AbstractIntIterator>
+public final class IntSkipTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
 	protected List<Case<AbstractIntIterator>> getTestCases()

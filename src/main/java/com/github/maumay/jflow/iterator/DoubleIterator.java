@@ -163,7 +163,7 @@ public interface DoubleIterator extends OptionalDoubleIterator
 	 *         {@link DoubleIterator} missing the first {@code min(n, length(F))}
 	 *         elements of {@code F}.
 	 */
-	DoubleIterator drop(int n);
+	DoubleIterator skip(int n);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by
@@ -177,7 +177,7 @@ public interface DoubleIterator extends OptionalDoubleIterator
 	 *         {@link DoubleIterator}. If no element fails the predicate test then a
 	 *         copy of the source is returned.
 	 */
-	DoubleIterator dropWhile(DoublePredicate predicate);
+	DoubleIterator skipWhile(DoublePredicate predicate);
 
 	/**
 	 * Creates a new {@link DoubleIterator} from this {@link DoubleIterator} by

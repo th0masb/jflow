@@ -144,15 +144,15 @@ public abstract class AbstractLongIterator extends AbstractIterator
 	}
 
 	@Override
-	public AbstractLongIterator drop(int n)
+	public AbstractLongIterator skip(int n)
 	{
-		return new DropAdapter.OfLong(this, n);
+		return new SkipAdapter.OfLong(this, n);
 	}
 
 	@Override
-	public AbstractLongIterator dropWhile(LongPredicate predicate)
+	public AbstractLongIterator skipWhile(LongPredicate predicate)
 	{
-		return new DropwhileAdapter.OfLong(this, predicate);
+		return new SkipwhileAdapter.OfLong(this, predicate);
 	}
 
 	@Override

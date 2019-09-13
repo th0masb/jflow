@@ -348,8 +348,7 @@ public interface Vec<E> extends RichIterable<E>, Indexable<E>
 	 */
 	static <E> Vec<E> copy(Collection<? extends E> collection)
 	{
-		CollectionSource<E> iter = new CollectionSource<>(collection);
-		return iter.toVec();
+		return new CollectionSource<E>(collection).toVec();
 	}
 
 	/**

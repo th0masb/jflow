@@ -65,10 +65,10 @@ public class RichIteratorExamples
 		// *****************************************************************************************
 		// Take, skip
 		assert strings.iter().take(1).toVec() == vec("a");
-		assert strings.iter().drop(1).toVec() == vec("b");
+		assert strings.iter().skip(1).toVec() == vec("b");
 
 		assert strings.iter().takeWhile(s -> s.equals("a")).toVec() == vec("a");
-		assert strings.iter().dropWhile(s -> s.equals("a")).toVec() == vec("b");
+		assert strings.iter().skipWhile(s -> s.equals("a")).toVec() == vec("b");
 
 		// *****************************************************************************************
 		// Predicate matching (these are terminal methods triggering the consumption of

@@ -128,13 +128,13 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	}
 
 	@Override
-	public AbstractIntIterator take(int n)
+	public AbstractIntIterator skip(int n)
 	{
 		return new TakeAdapter.OfInt(this, n);
 	}
 
 	@Override
-	public AbstractIntIterator takeWhile(IntPredicate predicate)
+	public AbstractIntIterator skipWhile(IntPredicate predicate)
 	{
 		return new TakewhileAdapter.OfInt(this, predicate);
 	}
@@ -142,13 +142,13 @@ public abstract class AbstractIntIterator extends AbstractIterator implements In
 	@Override
 	public AbstractIntIterator drop(int n)
 	{
-		return new DropAdapter.OfInt(this, n);
+		return new SkipAdapter.OfInt(this, n);
 	}
 
 	@Override
 	public AbstractIntIterator dropWhile(IntPredicate predicate)
 	{
-		return new DropwhileAdapter.OfInt(this, predicate);
+		return new SkipwhileAdapter.OfInt(this, predicate);
 	}
 
 	@Override

@@ -221,13 +221,13 @@ final class VecImpl<E> implements Vec<E>
 		else if (n >= size())
 			return new VecImpl<>();
 		else
-			return iter().drop(n).toVec();
+			return iter().skip(n).toVec();
 	}
 
 	@Override
 	public VecImpl<E> dropWhile(Predicate<? super E> predicate)
 	{
-		return iter().dropWhile(predicate).toVec();
+		return iter().skipWhile(predicate).toVec();
 	}
 
 	@SuppressWarnings("unchecked")

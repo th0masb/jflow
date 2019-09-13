@@ -243,7 +243,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
 	 *         {@link RichIterator} missing the first {@code min(n, length(F))}
 	 *         elements of {@code F}.
 	 */
-	RichIterator<E> drop(int n);
+	RichIterator<E> skip(int n);
 
 	/**
 	 * Creates a new {@link RichIterator} from this {@link RichIterator} by removing
@@ -258,7 +258,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
 	 *         element fails the predicate test then a copy of the source is
 	 *         returned.
 	 */
-	RichIterator<E> dropWhile(Predicate<? super E> predicate);
+	RichIterator<E> skipWhile(Predicate<? super E> predicate);
 
 	/**
 	 * Creates a new {@link RichIterator} from this {@link RichIterator} by removing
@@ -715,5 +715,4 @@ public interface RichIterator<E> extends OptionalIterator<E>
 	{
 		return chain(first).chain(second).chain(third);
 	}
-
 }

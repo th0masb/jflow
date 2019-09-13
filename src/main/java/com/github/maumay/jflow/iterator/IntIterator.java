@@ -135,7 +135,7 @@ public interface IntIterator extends OptionalIntIterator
 	 *         {@link IntIterator} consisting of the first {@code max(n, length(F))}
 	 *         elements of {@code F}.
 	 */
-	IntIterator take(int n);
+	IntIterator skip(int n);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by selecting
@@ -149,7 +149,7 @@ public interface IntIterator extends OptionalIntIterator
 	 *         {@link IntIterator}. If no element fails the predicate test then a
 	 *         copy of the source is returned.
 	 */
-	IntIterator takeWhile(IntPredicate predicate);
+	IntIterator skipWhile(IntPredicate predicate);
 
 	/**
 	 * Creates a new {@link IntIterator} from this {@link IntIterator} by removing

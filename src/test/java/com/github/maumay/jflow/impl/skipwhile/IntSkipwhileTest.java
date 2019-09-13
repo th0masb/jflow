@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.maumay.jflow.impl.dropwhile;
+package com.github.maumay.jflow.impl.skipwhile;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.github.maumay.jflow.test.AbstractIntAdapterTest;
  * @author t
  *
  */
-public final class IntDropwhileTest extends AbstractIntAdapterTest<AbstractIntIterator>
+public final class IntSkipwhileTest extends AbstractIntAdapterTest<AbstractIntIterator>
 {
 	@Override
 	protected List<Case<AbstractIntIterator>> getTestCases()

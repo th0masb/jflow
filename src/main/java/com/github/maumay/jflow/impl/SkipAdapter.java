@@ -7,9 +7,9 @@ package com.github.maumay.jflow.impl;
  * @author thomasb
  *
  */
-public class DropAdapter
+public class SkipAdapter
 {
-	private DropAdapter()
+	private SkipAdapter()
 	{
 	}
 

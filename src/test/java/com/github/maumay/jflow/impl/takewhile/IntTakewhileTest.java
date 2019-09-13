@@ -17,7 +17,7 @@ public final class IntTakewhileTest extends AbstractIntAdapterTest<AbstractIntIt
 	@Override
 	protected List<Case<AbstractIntIterator>> getTestCases()
 	{
-		Adapter<AbstractIntIterator> adapter = i -> i.takeWhile(x -> x > 3);
+		Adapter<AbstractIntIterator> adapter = i -> i.skipWhile(x -> x > 3);
 		return list(new Case<>(list(), adapter, list()),
 				new Case<>(list(3, 1, 5), adapter, list()),
 				new Case<>(list(4, 4, 2, 4), adapter, list(4, 4)),
