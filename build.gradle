@@ -13,7 +13,7 @@ modularity.mixedJavaRelease 8
 
 group = "com.github.maumay"
 archivesBaseName = "jflow"
-version = "0.6.0"
+version = "0.7.0"
 
 jar {
     exclude("src/examples/**")
@@ -88,7 +88,7 @@ uploadArchives {
 		  name 'jflow'
 		  packaging 'jar'
 		  // optionally artifactId can be defined here
-		  description 'Enhanced iterators for Java'
+		  description 'Enhanced iterators for Java with immutable, feature-rich arrays.'
 		  url 'https://github.com/maumay/jflow'
   
 		  scm {
