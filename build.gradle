@@ -4,14 +4,16 @@ plugins {
 	id 'jacoco'
 	id 'maven'
 	id 'signing'
+	id 'org.javamodularity.moduleplugin' version '1.5.0'
 }
 
-sourceCompatibility = 8
-targetCompatibility = 8
+// From the java moduluarity plugin. Enables the library to compiled against 8 but the module descriptor (module-info.java)
+// still to be compiled (which requires java 9+).
+modularity.mixedJavaRelease 8
 
 group = "com.github.maumay"
 archivesBaseName = "jflow"
-version = "0.7.0"
+version = "0.6.0"
 
 jar {
     exclude("src/examples/**")
@@ -40,6 +42,10 @@ test {
 	
 	testLogging {
 		events "skipped", "failed"
+	}
+	
+	moduleOptions {
+		runOnClasspath = true
 	}
 }
 
@@ -82,7 +88,7 @@ uploadArchives {
 		  name 'jflow'
 		  packaging 'jar'
 		  // optionally artifactId can be defined here
-		  description 'Enhanced Java iterators alongside immutable and feature-rich immutable arrays.'
+		  description 'Enhanced iterators for Java'
 		  url 'https://github.com/maumay/jflow'
   
 		  scm {
