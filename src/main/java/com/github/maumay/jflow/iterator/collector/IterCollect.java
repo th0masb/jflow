@@ -91,7 +91,7 @@ public class IterCollect
 	 * @param f The function which determines the values of the map.
 	 * @return see {@link RichIterator#associate(Function)}
 	 */
-	public static <K extends Enum<K>, R> IteratorCollector1<K, Map<K, R>> enumAssociate(
+	public static <K extends Enum<K>, R> IteratorCollector<K, Map<K, R>> enumAssociate(
 			Function<? super K, ? extends R> f)
 	{
 		return new EnumAssociator<K, R>(f);
@@ -110,7 +110,7 @@ public class IterCollect
 	 * @param packSize The size of vectors to pack elements into.
 	 * @return The packing collector.
 	 */
-	public static <E> IteratorCollector1<E, Vec<Vec<E>>> pack(int packSize)
+	public static <E> IteratorCollector<E, Vec<Vec<E>>> pack(int packSize)
 	{
 		return new Packer.OfObject<>(packSize, Type.EXCLUDE_REMAINDER);
 	}
@@ -127,7 +127,7 @@ public class IterCollect
 	 * @param packSize The size of vectors to pack elements into.
 	 * @return The packing collector.
 	 */
-	public static <E> IteratorCollector1<E, Vec<Vec<E>>> packAll(int packSize)
+	public static <E> IteratorCollector<E, Vec<Vec<E>>> packAll(int packSize)
 	{
 		return new Packer.OfObject<>(packSize, Type.INCLUDE_REMAINDER);
 	}
@@ -167,7 +167,7 @@ public class IterCollect
 	 * Returns a collector which splits an iterator of tuples into a tuple of equal
 	 * sized vectors containing the left and right elements respectively.
 	 */
-	public static <L, R> IteratorCollector1<Tup<L, R>, Tup<Vec<L>, Vec<R>>> split()
+	public static <L, R> IteratorCollector<Tup<L, R>, Tup<Vec<L>, Vec<R>>> split()
 	{
 		return source -> {
 			List<L> left = new ArrayList<>();

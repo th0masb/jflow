@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import com.github.maumay.jflow.iterator.DoubleIterator;
 import com.github.maumay.jflow.iterator.collector.DoubleIteratorCollector;
-import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector;
 import com.github.maumay.jflow.utils.Exceptions;
 import com.github.maumay.jflow.vec.DoubleVec;
 import com.github.maumay.jflow.vec.Vec;
@@ -23,7 +23,7 @@ public class Packer
 		INCLUDE_REMAINDER, EXCLUDE_REMAINDER;
 	}
 
-	public static class OfObject<E> implements IteratorCollector1<E, Vec<Vec<E>>>
+	public static class OfObject<E> implements IteratorCollector<E, Vec<Vec<E>>>
 	{
 		private final int packSize;
 		private final Type type;

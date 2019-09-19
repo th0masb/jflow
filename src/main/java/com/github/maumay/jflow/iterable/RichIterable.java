@@ -15,8 +15,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import com.github.maumay.jflow.iterator.RichIterator;
-import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
-import com.github.maumay.jflow.iterator.collector.IteratorCollector2;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector;
 import com.github.maumay.jflow.vec.Vec;
 
 /**
@@ -283,28 +282,28 @@ public interface RichIterable<E> extends Iterable<E>
 	/**
 	 * Creates a new instance of the given type by applying the given collector to
 	 * the iterator returned by {@link #iter()}.
-	 * 
+	 *
 	 * @param                   <R> The target type of the transformation.
 	 * @param iteratorCollector The collector which determines how this vector will
 	 *                          be transformed.
 	 * @return The image of the transformation under the supplied collector.
 	 */
-	default <R> R transform(IteratorCollector1<? super E, R> iteratorCollector)
+	default <R> R transform(IteratorCollector<? super E, R> iteratorCollector)
 	{
 		return iter().collect(iteratorCollector);
 	}
 
-	/**
-	 * Creates a new instance of the given type by applying the given collector to
-	 * the iterator returned by {@link #iter()}.
-	 * 
-	 * @param                   <R> The target type of the transformation.
-	 * @param iteratorCollector The collector which determines how this vector will
-	 *                          be transformed.
-	 * @return The image of the transformation under the supplied collector.
-	 */
-	default <R> R transform(IteratorCollector2<E, R> iteratorCollector)
-	{
-		return iter().collect(iteratorCollector);
-	}
+//	/**
+//	 * Creates a new instance of the given type by applying the given collector to
+//	 * the iterator returned by {@link #iter()}.
+//	 *
+//	 * @param                   <R> The target type of the transformation.
+//	 * @param iteratorCollector The collector which determines how this vector will
+//	 *                          be transformed.
+//	 * @return The image of the transformation under the supplied collector.
+//	 */
+//	default <R> R transform(IteratorCollector2<? super E, ? extends R> iteratorCollector)
+//	{
+//		return iter().collect(iteratorCollector);
+//	}
 }

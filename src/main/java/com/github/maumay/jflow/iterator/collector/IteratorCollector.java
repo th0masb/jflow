@@ -14,7 +14,7 @@ import java.util.Iterator;
  * @author t
  */
 @FunctionalInterface
-public interface IteratorCollector1<E, R>
+public interface IteratorCollector<E, R>
 {
 	/**
 	 * Consumes the argument iterator by aggregating the elements to create a new

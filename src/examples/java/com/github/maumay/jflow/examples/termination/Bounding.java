@@ -29,7 +29,7 @@ public final class Bounding
 	{
 	}
 
-	public static Optional<Bounds> points(Iterator<Point> points)
+	public static Optional<Bounds> points(Iterator<? extends Point> points)
 	{
 		double minx = POSITIVE_INFINITY, maxx = NEGATIVE_INFINITY;
 		double miny = POSITIVE_INFINITY, maxy = NEGATIVE_INFINITY;

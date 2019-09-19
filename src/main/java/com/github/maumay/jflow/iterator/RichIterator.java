@@ -23,8 +23,7 @@ import java.util.function.ToLongFunction;
 
 import com.github.maumay.jflow.impl.RichIteratorAdapter;
 import com.github.maumay.jflow.iterable.RichIterable;
-import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
-import com.github.maumay.jflow.iterator.collector.IteratorCollector2;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector;
 import com.github.maumay.jflow.utils.Tup;
 import com.github.maumay.jflow.vec.Vec;
 
@@ -529,26 +528,26 @@ public interface RichIterator<E> extends OptionalIterator<E>
 	/**
 	 * Consumes this iterator using the supplied collection function to create a new
 	 * instance of the given type.
-	 * 
+	 *
 	 * @param           <R> The type of the collection result.
 	 * @param collector The collection function which is used to consume this
 	 *                  iterator.
 	 * @return The result of the collection function applied to this
 	 *         {@link RichIterator}.
 	 */
-	<R> R collect(IteratorCollector1<? super E, ? extends R> collector);
+	<R> R collect(IteratorCollector<? super E, ? extends R> collector);
 
-	/**
-	 * Consumes this iterator using the supplied collection function to create a new
-	 * instance of the given type.
-	 * 
-	 * @param           <R> The type of the collection result.
-	 * @param collector The collection function which is used to consume this
-	 *                  iterator.
-	 * @return The result of the collection function applied to this
-	 *         {@link RichIterator}.
-	 */
-	<R> R collect(IteratorCollector2<E, ? extends R> collector);
+//	/**
+//	 * Consumes this iterator using the supplied collection function to create a new
+//	 * instance of the given type.
+//	 *
+//	 * @param           <R> The type of the collection result.
+//	 * @param collector The collection function which is used to consume this
+//	 *                  iterator.
+//	 * @return The result of the collection function applied to this
+//	 *         {@link RichIterator}.
+//	 */
+//	<R> R collect(IteratorCollector2<? super E, ? extends R> collector);
 
 	/**
 	 * Associates each unique value in this iterator with the result of applying the

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
+import com.github.maumay.jflow.iterator.collector.IteratorCollector;
 
 /**
  * Collector which converts an iterator of enumerations into a map by
@@ -18,7 +18,7 @@ import com.github.maumay.jflow.iterator.collector.IteratorCollector1;
  * @param <R>
  */
 public class EnumAssociator<K extends Enum<K>, R>
-		implements IteratorCollector1<K, Map<K, R>>
+		implements IteratorCollector<K, Map<K, R>>
 {
 	private final Function<? super K, ? extends R> targetMapper;
 
