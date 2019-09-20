@@ -17,7 +17,7 @@ Frustration about the (imo) unnecessary verbosity of the provided stream API cou
 ---
 #### Accessing and using this library
 
-The coordinates on maven central are `com.github.maumay:jflow:0.7.0`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file. Javadoc can be accessed via the corresponding badge link at the top of this readme, additional documentation is given below.
+The coordinates on maven central are `com.github.maumay:jflow:0.7.1`. If you want something to copy and paste into your build script then please click on the maven badge at the top of this file. Javadoc can be accessed via the corresponding badge link at the top of this readme, additional documentation is given below.
 
 ---
 #### API examples
