@@ -1,10 +1,10 @@
 plugins {
-	id 'java'
-	id 'eclipse'
-	id 'jacoco'
-	id 'maven'
-	id 'signing'
-	id 'org.javamodularity.moduleplugin' version '1.5.0'
+    id 'java'
+    id 'eclipse'
+    id 'jacoco'
+    id 'maven'
+    id 'signing'
+    id 'org.javamodularity.moduleplugin' version '1.5.0'
 }
 
 // From the java moduluarity plugin. Enables the library to compiled against 8 but the module descriptor (module-info.java)
@@ -20,33 +20,33 @@ jar {
 }
 
 dependencies {
-	testCompile('org.junit.platform:junit-platform-launcher:1.1.1')
-	testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
-	testCompile('org.junit.jupiter:junit-jupiter-api:5.1.0')
-	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
+    testCompile('org.junit.platform:junit-platform-launcher:1.1.1')
+    testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.1.0')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
 sourceSets {
-	main
-	test
-	
-	examples {
-		compileClasspath += main.output
-		runtimeClasspath += main.output
-	}
+    main
+    test
+
+    examples {
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
 }
 
 test {
-	useJUnitPlatform()
-	dependsOn 'cleanTest'
-	
-	testLogging {
-		events "skipped", "failed"
-	}
-	
-	moduleOptions {
-		runOnClasspath = true
-	}
+    useJUnitPlatform()
+    dependsOn 'cleanTest'
+
+    testLogging {
+        events "skipped", "failed"
+    }
+
+    moduleOptions {
+        runOnClasspath = true
+    }
 }
 
 repositories {
@@ -68,60 +68,60 @@ artifacts {
 }
 
 signing {
-	sign configurations.archives
+    sign configurations.archives
 }
 
 uploadArchives {
-	repositories {
-	  mavenDeployer {
-		beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-  
-		repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-		  authentication(userName: ossrhUsername, password: ossrhPassword)
-		}
-  
-		snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-		  authentication(userName: ossrhUsername, password: ossrhPassword)
-		}
-  
-		pom.project {
-		  name 'jflow'
-		  packaging 'jar'
-		  // optionally artifactId can be defined here
-		  description 'Enhanced iterators for Java with immutable, feature-rich arrays.'
-		  url 'https://github.com/maumay/jflow'
-  
-		  scm {
-			connection 'scm:git:https://github.com/maumay/jflow.git'
-			developerConnection 'scm:git:https://github.com/maumay/jflow.git'
-			url 'https://github.com/maumay/jflow.git'
-		  }
-  
-		  licenses {
-			license {
-			  name 'The Apache License, Version 2.0'
-			  url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-			}
-		  }
-  
-		  developers {
-			developer {
-			  id 'tom'
-			  name 'Thomas Ball'
-			  email 'tomoliverball@gmail.com'
-			}
-		  }
-		}
-	  }
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'jflow'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Enhanced iterators for Java with immutable, feature-rich arrays.'
+                url 'https://github.com/maumay/jflow'
+
+                scm {
+                    connection 'scm:git:https://github.com/maumay/jflow.git'
+                    developerConnection 'scm:git:https://github.com/maumay/jflow.git'
+                    url 'https://github.com/maumay/jflow.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'tom'
+                        name 'Thomas Ball'
+                        email 'tomoliverball@gmail.com'
+                    }
+                }
+            }
+        }
     }
 }
 
 jacocoTestReport {
     reports {
         xml.enabled true
-	//xml.destination "${buildDir}/reports/jacoco/report.xml"
+        //xml.destination "${buildDir}/reports/jacoco/report.xml"
         csv.enabled false
-	html.enabled false
+        html.enabled false
     }
 }
 

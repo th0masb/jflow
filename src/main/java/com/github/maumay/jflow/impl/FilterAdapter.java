@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -16,204 +16,209 @@ import java.util.function.Predicate;
  */
 public final class FilterAdapter
 {
-	private FilterAdapter()
-	{
-	}
+    private FilterAdapter()
+    {
+    }
 
-	static final class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
-	{
-		private final Predicate<? super E> predicate;
+    static final class OfObject<E>
+            extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
+    {
+        private final Predicate<? super E> predicate;
 
-		private boolean initialized;
-		private E cached;
+        private boolean initialized;
+        private E cached;
 
-		public OfObject(AbstractRichIterator<E> source, Predicate<? super E> predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = Objects.requireNonNull(predicate);
-		}
+        public OfObject(AbstractRichIterator<E> source,
+                Predicate<? super E> predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = Objects.requireNonNull(predicate);
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			while (!initialized && getSource().hasNext()) {
-				E next = getSource().nextImpl();
-				if (predicate.test(next)) {
-					cached = next;
-					initialized = true;
-					break;
-				}
-			}
-			return initialized;
-		}
+        @Override
+        public boolean hasNext()
+        {
+            while (!initialized && getSource().hasNext()) {
+                E next = getSource().nextImpl();
+                if (predicate.test(next)) {
+                    cached = next;
+                    initialized = true;
+                    break;
+                }
+            }
+            return initialized;
+        }
 
-		@Override
-		public E nextImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-				return cached;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public E nextImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+                return cached;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	static final class OfInt extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
-	{
-		private final IntPredicate predicate;
+    static final class OfInt extends
+            AbstractIteratorAdapter.OfInt<AbstractIntIterator>
+    {
+        private final IntPredicate predicate;
 
-		private boolean initialized;
-		private int cached;
+        private boolean initialized;
+        private int cached;
 
-		public OfInt(AbstractIntIterator source, IntPredicate predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = Objects.requireNonNull(predicate);
-		}
+        public OfInt(AbstractIntIterator source, IntPredicate predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = Objects.requireNonNull(predicate);
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			while (!initialized && getSource().hasNext()) {
-				int next = getSource().nextIntImpl();
-				if (predicate.test(next)) {
-					cached = next;
-					initialized = true;
-					break;
-				}
-			}
-			return initialized;
-		}
+        @Override
+        public boolean hasNext()
+        {
+            while (!initialized && getSource().hasNext()) {
+                int next = getSource().nextIntImpl();
+                if (predicate.test(next)) {
+                    cached = next;
+                    initialized = true;
+                    break;
+                }
+            }
+            return initialized;
+        }
 
-		@Override
-		public int nextIntImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-				return cached;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public int nextIntImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+                return cached;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	static final class OfLong extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
-	{
-		private final LongPredicate predicate;
+    static final class OfLong extends
+            AbstractIteratorAdapter.OfLong<AbstractLongIterator>
+    {
+        private final LongPredicate predicate;
 
-		private boolean initialized;
-		private long cached;
+        private boolean initialized;
+        private long cached;
 
-		public OfLong(AbstractLongIterator source, LongPredicate predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = Objects.requireNonNull(predicate);
-		}
+        public OfLong(AbstractLongIterator source, LongPredicate predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = Objects.requireNonNull(predicate);
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			while (!initialized && getSource().hasNext()) {
-				long next = getSource().nextLongImpl();
-				if (predicate.test(next)) {
-					cached = next;
-					initialized = true;
-					break;
-				}
-			}
-			return initialized;
-		}
+        @Override
+        public boolean hasNext()
+        {
+            while (!initialized && getSource().hasNext()) {
+                long next = getSource().nextLongImpl();
+                if (predicate.test(next)) {
+                    cached = next;
+                    initialized = true;
+                    break;
+                }
+            }
+            return initialized;
+        }
 
-		@Override
-		public long nextLongImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-				return cached;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public long nextLongImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+                return cached;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	static final class OfDouble extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
-	{
-		private final DoublePredicate predicate;
+    static final class OfDouble extends
+            AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
+    {
+        private final DoublePredicate predicate;
 
-		private boolean initialized;
-		private double cached;
+        private boolean initialized;
+        private double cached;
 
-		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = Objects.requireNonNull(predicate);
-		}
+        public OfDouble(AbstractDoubleIterator source,
+                DoublePredicate predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = Objects.requireNonNull(predicate);
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			while (!initialized && getSource().hasNext()) {
-				double next = getSource().nextDoubleImpl();
-				if (predicate.test(next)) {
-					cached = next;
-					initialized = true;
-					break;
-				}
-			}
-			return initialized;
-		}
+        @Override
+        public boolean hasNext()
+        {
+            while (!initialized && getSource().hasNext()) {
+                double next = getSource().nextDoubleImpl();
+                if (predicate.test(next)) {
+                    cached = next;
+                    initialized = true;
+                    break;
+                }
+            }
+            return initialized;
+        }
 
-		@Override
-		public double nextDoubleImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-				return cached;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public double nextDoubleImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+                return cached;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				initialized = false;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                initialized = false;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 }

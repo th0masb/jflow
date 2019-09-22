@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.test;
 
@@ -12,5 +12,5 @@ import com.github.maumay.jflow.impl.AbstractIterator;
 @FunctionalInterface
 public interface TestIterable<I extends AbstractIterator>
 {
-	I iter();
+    I iter();
 }

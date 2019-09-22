@@ -16,25 +16,25 @@ import java.util.function.Supplier;
  */
 public interface OptionalIterator<E> extends Iterator<E>, Supplier<E>
 {
-	/**
-	 * A safe alternative to directly calling {@link Iterator#next()} method.
-	 *
-	 * @return An Optional wrapping the next element if there is one.
-	 */
-	Optional<E> nextOp();
+    /**
+     * A safe alternative to directly calling {@link Iterator#next()} method.
+     *
+     * @return An Optional wrapping the next element if there is one.
+     */
+    Optional<E> nextOp();
 
-	/**
-	 * Perform the supplied action for each element left in this iterator sequence,
-	 * in doing so the iterator is consumed.
-	 *
-	 * @param action The action to perform.
-	 */
-	void forEach(Consumer<? super E> action);
+    /**
+     * Perform the supplied action for each element left in this iterator sequence,
+     * in doing so the iterator is consumed.
+     *
+     * @param action The action to perform.
+     */
+    void forEach(Consumer<? super E> action);
 
-	@Override
-	default E get()
-	{
-		return nextOp().orElseThrow(
-				() -> new NoSuchElementException("Supply has been exhausted"));
-	}
+    @Override
+    default E get()
+    {
+        return nextOp().orElseThrow(
+                () -> new NoSuchElementException("Supply has been exhausted"));
+    }
 }

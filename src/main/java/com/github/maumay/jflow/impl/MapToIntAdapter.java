@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -13,96 +13,99 @@ import java.util.function.ToIntFunction;
  */
 public final class MapToIntAdapter
 {
-	private MapToIntAdapter()
-	{
-	}
+    private MapToIntAdapter()
+    {
+    }
 
-	public static final class FromObject<E>
-			extends AbstractIteratorAdapter.OfInt<AbstractRichIterator<E>>
-	{
-		private final ToIntFunction<? super E> map;
+    public static final class FromObject<E>
+            extends AbstractIteratorAdapter.OfInt<AbstractRichIterator<E>>
+    {
+        private final ToIntFunction<? super E> map;
 
-		public FromObject(AbstractRichIterator<E> source, ToIntFunction<? super E> map)
-		{
-			super(source.getSize().copy(), source);
-			this.map = map;
-		}
+        public FromObject(AbstractRichIterator<E> source,
+                ToIntFunction<? super E> map)
+        {
+            super(source.getSize().copy(), source);
+            this.map = map;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return getSource().hasNext();
+        }
 
-		@Override
-		public int nextIntImpl()
-		{
-			return map.applyAsInt(getSource().nextImpl());
-		}
+        @Override
+        public int nextIntImpl()
+        {
+            return map.applyAsInt(getSource().nextImpl());
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			getSource().forwardImpl();
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            getSource().forwardImpl();
+        }
+    }
 
-	public static final class FromDouble
-			extends AbstractIteratorAdapter.OfInt<AbstractDoubleIterator>
-	{
-		private final DoubleToIntFunction map;
+    public static final class FromDouble
+            extends AbstractIteratorAdapter.OfInt<AbstractDoubleIterator>
+    {
+        private final DoubleToIntFunction map;
 
-		public FromDouble(AbstractDoubleIterator source, DoubleToIntFunction map)
-		{
-			super(source.getSize().copy(), source);
-			this.map = map;
-		}
+        public FromDouble(AbstractDoubleIterator source,
+                DoubleToIntFunction map)
+        {
+            super(source.getSize().copy(), source);
+            this.map = map;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return getSource().hasNext();
+        }
 
-		@Override
-		public int nextIntImpl()
-		{
-			return map.applyAsInt(getSource().nextDoubleImpl());
-		}
+        @Override
+        public int nextIntImpl()
+        {
+            return map.applyAsInt(getSource().nextDoubleImpl());
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			getSource().forwardImpl();
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            getSource().forwardImpl();
+        }
+    }
 
-	public static final class FromLong extends AbstractIteratorAdapter.OfInt<AbstractLongIterator>
-	{
-		private final LongToIntFunction map;
+    public static final class FromLong extends
+            AbstractIteratorAdapter.OfInt<AbstractLongIterator>
+    {
+        private final LongToIntFunction map;
 
-		public FromLong(AbstractLongIterator source, LongToIntFunction map)
-		{
-			super(source.getSize().copy(), source);
-			this.map = map;
-		}
+        public FromLong(AbstractLongIterator source, LongToIntFunction map)
+        {
+            super(source.getSize().copy(), source);
+            this.map = map;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return getSource().hasNext();
+        }
 
-		@Override
-		public int nextIntImpl()
-		{
-			return map.applyAsInt(getSource().nextLongImpl());
-		}
+        @Override
+        public int nextIntImpl()
+        {
+            return map.applyAsInt(getSource().nextLongImpl());
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			getSource().forwardImpl();
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            getSource().forwardImpl();
+        }
+    }
 }

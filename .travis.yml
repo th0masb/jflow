@@ -1,16 +1,16 @@
 language: java
 
 jdk:
- - openjdk11
- 
+  - openjdk11
+
 before_install:
- - chmod +x gradlew
+  - chmod +x gradlew
 
 install:
- - ./gradlew assemble -x signArchives
+  - ./gradlew assemble -x signArchives
 
 script:
- - ./gradlew check -x signArchives
+  - ./gradlew check -x signArchives
 
 after_success:
- - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)

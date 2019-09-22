@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -15,269 +15,273 @@ import java.util.function.Predicate;
  */
 public class SkipwhileAdapter
 {
-	private SkipwhileAdapter()
-	{
-	}
+    private SkipwhileAdapter()
+    {
+    }
 
-	public static final class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
-	{
-		private final Predicate<? super E> predicate;
+    public static final class OfObject<E>
+            extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
+    {
+        private final Predicate<? super E> predicate;
 
-		private E firstFailure;
-		private boolean firstFailureInitialised, firstFailureConsumed;
+        private E firstFailure;
+        private boolean firstFailureInitialised, firstFailureConsumed;
 
-		public OfObject(AbstractRichIterator<E> source, Predicate<? super E> predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = predicate;
-			this.firstFailure = null;
-			this.firstFailureInitialised = false;
-			this.firstFailureConsumed = false;
-		}
+        public OfObject(AbstractRichIterator<E> source,
+                Predicate<? super E> predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = predicate;
+            this.firstFailure = null;
+            this.firstFailureInitialised = false;
+            this.firstFailureConsumed = false;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			if (firstFailureInitialised) {
-				return !firstFailureConsumed || getSource().hasNext();
-			} else {
-				AbstractRichIterator<E> src = getSource();
-				while (src.hasNext()) {
-					E next = src.nextImpl();
-					if (!predicate.test(next)) {
-						firstFailure = next;
-						firstFailureInitialised = true;
-						return true;
-					}
-				}
-				return false;
-			}
-		}
+        @Override
+        public boolean hasNext()
+        {
+            if (firstFailureInitialised) {
+                return !firstFailureConsumed || getSource().hasNext();
+            } else {
+                AbstractRichIterator<E> src = getSource();
+                while (src.hasNext()) {
+                    E next = src.nextImpl();
+                    if (!predicate.test(next)) {
+                        firstFailure = next;
+                        firstFailureInitialised = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
-		@Override
-		public E nextImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					return getSource().nextImpl();
-				} else {
-					firstFailureConsumed = true;
-					return firstFailure;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public E nextImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    return getSource().nextImpl();
+                } else {
+                    firstFailureConsumed = true;
+                    return firstFailure;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					getSource().forwardImpl();
-				} else {
-					firstFailureConsumed = true;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    getSource().forwardImpl();
+                } else {
+                    firstFailureConsumed = true;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	public static final class OfInt extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
-	{
-		private final IntPredicate predicate;
+    public static final class OfInt extends
+            AbstractIteratorAdapter.OfInt<AbstractIntIterator>
+    {
+        private final IntPredicate predicate;
 
-		private int firstFailure;
-		private boolean firstFailureInitialised, firstFailureConsumed;
+        private int firstFailure;
+        private boolean firstFailureInitialised, firstFailureConsumed;
 
-		public OfInt(AbstractIntIterator source, IntPredicate predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = predicate;
-			this.firstFailure = 0;
-			this.firstFailureInitialised = false;
-			this.firstFailureConsumed = false;
-		}
+        public OfInt(AbstractIntIterator source, IntPredicate predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = predicate;
+            this.firstFailure = 0;
+            this.firstFailureInitialised = false;
+            this.firstFailureConsumed = false;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			if (firstFailureInitialised) {
-				return !firstFailureConsumed || getSource().hasNext();
-			} else {
-				AbstractIntIterator src = getSource();
-				while (src.hasNext()) {
-					int next = src.nextIntImpl();
-					if (!predicate.test(next)) {
-						firstFailure = next;
-						firstFailureInitialised = true;
-						return true;
-					}
-				}
-				return false;
-			}
-		}
+        @Override
+        public boolean hasNext()
+        {
+            if (firstFailureInitialised) {
+                return !firstFailureConsumed || getSource().hasNext();
+            } else {
+                AbstractIntIterator src = getSource();
+                while (src.hasNext()) {
+                    int next = src.nextIntImpl();
+                    if (!predicate.test(next)) {
+                        firstFailure = next;
+                        firstFailureInitialised = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
-		@Override
-		public int nextIntImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					return getSource().nextIntImpl();
-				} else {
-					firstFailureConsumed = true;
-					return firstFailure;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public int nextIntImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    return getSource().nextIntImpl();
+                } else {
+                    firstFailureConsumed = true;
+                    return firstFailure;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					getSource().forwardImpl();
-				} else {
-					firstFailureConsumed = true;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    getSource().forwardImpl();
+                } else {
+                    firstFailureConsumed = true;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	public static final class OfLong extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
-	{
-		private final LongPredicate predicate;
+    public static final class OfLong extends
+            AbstractIteratorAdapter.OfLong<AbstractLongIterator>
+    {
+        private final LongPredicate predicate;
 
-		private long firstFailure;
-		private boolean firstFailureInitialised, firstFailureConsumed;
+        private long firstFailure;
+        private boolean firstFailureInitialised, firstFailureConsumed;
 
-		public OfLong(AbstractLongIterator source, LongPredicate predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = predicate;
-			this.firstFailure = 0;
-			this.firstFailureInitialised = false;
-			this.firstFailureConsumed = false;
-		}
+        public OfLong(AbstractLongIterator source, LongPredicate predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = predicate;
+            this.firstFailure = 0;
+            this.firstFailureInitialised = false;
+            this.firstFailureConsumed = false;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			if (firstFailureInitialised) {
-				return !firstFailureConsumed || getSource().hasNext();
-			} else {
-				AbstractLongIterator src = getSource();
-				while (src.hasNext()) {
-					long next = src.nextLongImpl();
-					if (!predicate.test(next)) {
-						firstFailure = next;
-						firstFailureInitialised = true;
-						return true;
-					}
-				}
-				return false;
-			}
-		}
+        @Override
+        public boolean hasNext()
+        {
+            if (firstFailureInitialised) {
+                return !firstFailureConsumed || getSource().hasNext();
+            } else {
+                AbstractLongIterator src = getSource();
+                while (src.hasNext()) {
+                    long next = src.nextLongImpl();
+                    if (!predicate.test(next)) {
+                        firstFailure = next;
+                        firstFailureInitialised = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
-		@Override
-		public long nextLongImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					return getSource().nextLongImpl();
-				} else {
-					firstFailureConsumed = true;
-					return firstFailure;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public long nextLongImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    return getSource().nextLongImpl();
+                } else {
+                    firstFailureConsumed = true;
+                    return firstFailure;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					getSource().forwardImpl();
-				} else {
-					firstFailureConsumed = true;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    getSource().forwardImpl();
+                } else {
+                    firstFailureConsumed = true;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	public static final class OfDouble
-			extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
-	{
-		private final DoublePredicate predicate;
+    public static final class OfDouble
+            extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
+    {
+        private final DoublePredicate predicate;
 
-		private double firstFailure;
-		private boolean firstFailureInitialised, firstFailureConsumed;
+        private double firstFailure;
+        private boolean firstFailureInitialised, firstFailureConsumed;
 
-		public OfDouble(AbstractDoubleIterator source, DoublePredicate predicate)
-		{
-			super(source.getSize().dropLowerBound(), source);
-			this.predicate = predicate;
-			this.firstFailure = 0;
-			this.firstFailureInitialised = false;
-			this.firstFailureConsumed = false;
-		}
+        public OfDouble(AbstractDoubleIterator source,
+                DoublePredicate predicate)
+        {
+            super(source.getSize().dropLowerBound(), source);
+            this.predicate = predicate;
+            this.firstFailure = 0;
+            this.firstFailureInitialised = false;
+            this.firstFailureConsumed = false;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			if (firstFailureInitialised) {
-				return !firstFailureConsumed || getSource().hasNext();
-			} else {
-				AbstractDoubleIterator src = getSource();
-				while (src.hasNext()) {
-					double next = src.nextDoubleImpl();
-					if (!predicate.test(next)) {
-						firstFailure = next;
-						firstFailureInitialised = true;
-						return true;
-					}
-				}
-				return false;
-			}
-		}
+        @Override
+        public boolean hasNext()
+        {
+            if (firstFailureInitialised) {
+                return !firstFailureConsumed || getSource().hasNext();
+            } else {
+                AbstractDoubleIterator src = getSource();
+                while (src.hasNext()) {
+                    double next = src.nextDoubleImpl();
+                    if (!predicate.test(next)) {
+                        firstFailure = next;
+                        firstFailureInitialised = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
-		@Override
-		public double nextDoubleImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					return getSource().nextDoubleImpl();
-				} else {
-					firstFailureConsumed = true;
-					return firstFailure;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public double nextDoubleImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    return getSource().nextDoubleImpl();
+                } else {
+                    firstFailureConsumed = true;
+                    return firstFailure;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (hasNext()) {
-				if (firstFailureConsumed) {
-					getSource().forwardImpl();
-				} else {
-					firstFailureConsumed = true;
-				}
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (hasNext()) {
+                if (firstFailureConsumed) {
+                    getSource().forwardImpl();
+                } else {
+                    firstFailureConsumed = true;
+                }
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 }

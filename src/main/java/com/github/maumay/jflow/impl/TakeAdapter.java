@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -11,165 +11,167 @@ import java.util.NoSuchElementException;
  */
 public class TakeAdapter
 {
-	private TakeAdapter()
-	{
-	}
+    private TakeAdapter()
+    {
+    }
 
-	public static final class OfObject<E>
-			extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
-	{
-		private final int takeCount;
-		private int count;
+    public static final class OfObject<E>
+            extends AbstractIteratorAdapter.OfObject<AbstractRichIterator<E>, E>
+    {
+        private final int takeCount;
+        private int count;
 
-		public OfObject(AbstractRichIterator<E> source, int takeCount)
-		{
-			super(source.getSize().min(takeCount), source);
-			this.takeCount = IteratorSizes.requireNonNegative(takeCount);
-			this.count = 0;
-		}
+        public OfObject(AbstractRichIterator<E> source, int takeCount)
+        {
+            super(source.getSize().min(takeCount), source);
+            this.takeCount = IteratorSizes.requireNonNegative(takeCount);
+            this.count = 0;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return count < takeCount && getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return count < takeCount && getSource().hasNext();
+        }
 
-		@Override
-		public E nextImpl()
-		{
-			if (count++ < takeCount) {
-				return getSource().nextImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public E nextImpl()
+        {
+            if (count++ < takeCount) {
+                return getSource().nextImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (count++ < takeCount) {
-				getSource().forwardImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (count++ < takeCount) {
+                getSource().forwardImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	public static final class OfInt extends AbstractIteratorAdapter.OfInt<AbstractIntIterator>
-	{
-		private final int takeCount;
-		private int count;
+    public static final class OfInt extends
+            AbstractIteratorAdapter.OfInt<AbstractIntIterator>
+    {
+        private final int takeCount;
+        private int count;
 
-		public OfInt(AbstractIntIterator source, int takeCount)
-		{
-			super(source.getSize().min(takeCount), source);
-			this.takeCount = IteratorSizes.requireNonNegative(takeCount);
-			this.count = 0;
-		}
+        public OfInt(AbstractIntIterator source, int takeCount)
+        {
+            super(source.getSize().min(takeCount), source);
+            this.takeCount = IteratorSizes.requireNonNegative(takeCount);
+            this.count = 0;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return count < takeCount && getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return count < takeCount && getSource().hasNext();
+        }
 
-		@Override
-		public int nextIntImpl()
-		{
-			if (count++ < takeCount) {
-				return getSource().nextIntImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public int nextIntImpl()
+        {
+            if (count++ < takeCount) {
+                return getSource().nextIntImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (count++ < takeCount) {
-				getSource().forwardImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (count++ < takeCount) {
+                getSource().forwardImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	public static final class OfLong extends AbstractIteratorAdapter.OfLong<AbstractLongIterator>
-	{
-		private final int takeCount;
-		private int count;
+    public static final class OfLong extends
+            AbstractIteratorAdapter.OfLong<AbstractLongIterator>
+    {
+        private final int takeCount;
+        private int count;
 
-		public OfLong(AbstractLongIterator source, int takeCount)
-		{
-			super(source.getSize().min(takeCount), source);
-			this.takeCount = IteratorSizes.requireNonNegative(takeCount);
-			this.count = 0;
-		}
+        public OfLong(AbstractLongIterator source, int takeCount)
+        {
+            super(source.getSize().min(takeCount), source);
+            this.takeCount = IteratorSizes.requireNonNegative(takeCount);
+            this.count = 0;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return count < takeCount && getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return count < takeCount && getSource().hasNext();
+        }
 
-		@Override
-		public long nextLongImpl()
-		{
-			if (count++ < takeCount) {
-				return getSource().nextLongImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public long nextLongImpl()
+        {
+            if (count++ < takeCount) {
+                return getSource().nextLongImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (count++ < takeCount) {
-				getSource().forwardImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (count++ < takeCount) {
+                getSource().forwardImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 
-	public static final class OfDouble
-			extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
-	{
-		private final int takeCount;
-		private int count;
+    public static final class OfDouble
+            extends AbstractIteratorAdapter.OfDouble<AbstractDoubleIterator>
+    {
+        private final int takeCount;
+        private int count;
 
-		public OfDouble(AbstractDoubleIterator source, int takeCount)
-		{
-			super(source.getSize().min(takeCount), source);
-			this.takeCount = IteratorSizes.requireNonNegative(takeCount);
-			this.count = 0;
-		}
+        public OfDouble(AbstractDoubleIterator source, int takeCount)
+        {
+            super(source.getSize().min(takeCount), source);
+            this.takeCount = IteratorSizes.requireNonNegative(takeCount);
+            this.count = 0;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return count < takeCount && getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return count < takeCount && getSource().hasNext();
+        }
 
-		@Override
-		public double nextDoubleImpl()
-		{
-			if (count++ < takeCount) {
-				return getSource().nextDoubleImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        @Override
+        public double nextDoubleImpl()
+        {
+            if (count++ < takeCount) {
+                return getSource().nextDoubleImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			if (count++ < takeCount) {
-				getSource().forwardImpl();
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            if (count++ < takeCount) {
+                getSource().forwardImpl();
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+    }
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -13,24 +13,24 @@ import com.github.maumay.jflow.utils.Exceptions;
  */
 public final class SingleUseIterable<E> implements RichIterable<E>
 {
-	private final AbstractRichIterator<E> source;
-	private boolean consumed;
+    private final AbstractRichIterator<E> source;
+    private boolean consumed;
 
-	public SingleUseIterable(AbstractRichIterator<E> source)
-	{
-		Exceptions.require(source.hasOwnership());
-		this.source = source;
-		this.consumed = false;
-	}
+    public SingleUseIterable(AbstractRichIterator<E> source)
+    {
+        Exceptions.require(source.hasOwnership());
+        this.source = source;
+        this.consumed = false;
+    }
 
-	@Override
-	public RichIterator<E> iter()
-	{
-		if (consumed) {
-			throw new IllegalStateException();
-		} else {
-			consumed = true;
-			return source;
-		}
-	}
+    @Override
+    public RichIterator<E> iter()
+    {
+        if (consumed) {
+            throw new IllegalStateException();
+        } else {
+            consumed = true;
+            return source;
+        }
+    }
 }

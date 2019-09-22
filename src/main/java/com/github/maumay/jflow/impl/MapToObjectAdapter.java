@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -13,97 +13,99 @@ import java.util.function.LongFunction;
  */
 public class MapToObjectAdapter
 {
-	private MapToObjectAdapter()
-	{
-	}
+    private MapToObjectAdapter()
+    {
+    }
 
-	public static final class FromInt<R>
-			extends AbstractIteratorAdapter.OfObject<AbstractIntIterator, R>
-	{
-		private final IntFunction<? extends R> map;
+    public static final class FromInt<R>
+            extends AbstractIteratorAdapter.OfObject<AbstractIntIterator, R>
+    {
+        private final IntFunction<? extends R> map;
 
-		public FromInt(AbstractIntIterator source, IntFunction<? extends R> map)
-		{
-			super(source.getSize().copy(), source);
-			this.map = map;
-		}
+        public FromInt(AbstractIntIterator source, IntFunction<? extends R> map)
+        {
+            super(source.getSize().copy(), source);
+            this.map = map;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return getSource().hasNext();
+        }
 
-		@Override
-		public R nextImpl()
-		{
-			return map.apply(getSource().nextIntImpl());
-		}
+        @Override
+        public R nextImpl()
+        {
+            return map.apply(getSource().nextIntImpl());
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			getSource().forwardImpl();
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            getSource().forwardImpl();
+        }
+    }
 
-	public static final class FromLong<R>
-			extends AbstractIteratorAdapter.OfObject<AbstractLongIterator, R>
-	{
-		private final LongFunction<? extends R> map;
+    public static final class FromLong<R>
+            extends AbstractIteratorAdapter.OfObject<AbstractLongIterator, R>
+    {
+        private final LongFunction<? extends R> map;
 
-		public FromLong(AbstractLongIterator source, LongFunction<? extends R> map)
-		{
-			super(source.getSize().copy(), source);
-			this.map = map;
-		}
+        public FromLong(AbstractLongIterator source,
+                LongFunction<? extends R> map)
+        {
+            super(source.getSize().copy(), source);
+            this.map = map;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return getSource().hasNext();
+        }
 
-		@Override
-		public R nextImpl()
-		{
-			return map.apply(getSource().nextLongImpl());
-		}
+        @Override
+        public R nextImpl()
+        {
+            return map.apply(getSource().nextLongImpl());
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			getSource().forwardImpl();
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            getSource().forwardImpl();
+        }
+    }
 
-	public static final class FromDouble<R>
-			extends AbstractIteratorAdapter.OfObject<AbstractDoubleIterator, R>
-	{
-		private final DoubleFunction<? extends R> map;
+    public static final class FromDouble<R>
+            extends AbstractIteratorAdapter.OfObject<AbstractDoubleIterator, R>
+    {
+        private final DoubleFunction<? extends R> map;
 
-		public FromDouble(AbstractDoubleIterator source, DoubleFunction<? extends R> map)
-		{
-			super(source.getSize().copy(), source);
-			this.map = map;
-		}
+        public FromDouble(AbstractDoubleIterator source,
+                DoubleFunction<? extends R> map)
+        {
+            super(source.getSize().copy(), source);
+            this.map = map;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return getSource().hasNext();
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return getSource().hasNext();
+        }
 
-		@Override
-		public R nextImpl()
-		{
-			return map.apply(getSource().nextDoubleImpl());
-		}
+        @Override
+        public R nextImpl()
+        {
+            return map.apply(getSource().nextDoubleImpl());
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			getSource().forwardImpl();
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            getSource().forwardImpl();
+        }
+    }
 }

@@ -15,36 +15,37 @@ import java.util.function.LongSupplier;
  *
  * @author t
  */
-public interface OptionalLongIterator extends PrimitiveIterator.OfLong, LongSupplier
+public interface OptionalLongIterator extends PrimitiveIterator.OfLong,
+        LongSupplier
 {
 
-	/**
-	 * A safe alternative to directly calling {@link #nextLong()} method.
-	 *
-	 * @return An OptionalLong wrapping the next element if there is one.
-	 */
-	OptionalLong nextLongOp();
+    /**
+     * A safe alternative to directly calling {@link #nextLong()} method.
+     *
+     * @return An OptionalLong wrapping the next element if there is one.
+     */
+    OptionalLong nextLongOp();
 
-	/**
-	 * Perform the supplied action for each element left in this iterator sequence,
-	 * in doing so the iterator is consumed.
-	 *
-	 * @param action The action to perform.
-	 */
-	void forEach(LongConsumer action);
+    /**
+     * Perform the supplied action for each element left in this iterator sequence,
+     * in doing so the iterator is consumed.
+     *
+     * @param action The action to perform.
+     */
+    void forEach(LongConsumer action);
 
-	@Override
-	@Deprecated
-	default Long next()
-	{
-		throw new UnsupportedOperationException(
-				"Boxing using this method is banned for Flows!!");
-	}
+    @Override
+    @Deprecated
+    default Long next()
+    {
+        throw new UnsupportedOperationException(
+                "Boxing using this method is banned for Flows!!");
+    }
 
-	@Override
-	default long getAsLong()
-	{
-		return nextLongOp().orElseThrow(
-				() -> new NoSuchElementException("Supply has been exhausted"));
-	}
+    @Override
+    default long getAsLong()
+    {
+        return nextLongOp().orElseThrow(
+                () -> new NoSuchElementException("Supply has been exhausted"));
+    }
 }

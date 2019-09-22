@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -11,40 +11,40 @@ import java.util.function.UnaryOperator;
  */
 public final class ApplicationSource
 {
-	private ApplicationSource()
-	{
-	}
+    private ApplicationSource()
+    {
+    }
 
-	public static class OfObject<E> extends AbstractRichIterator<E>
-	{
-		private final UnaryOperator<E> applicationOperator;
-		private E currentValue;
+    public static class OfObject<E> extends AbstractRichIterator<E>
+    {
+        private final UnaryOperator<E> applicationOperator;
+        private E currentValue;
 
-		public OfObject(UnaryOperator<E> applicationOperator, E initialValue)
-		{
-			super(InfiniteSize.instance());
-			this.applicationOperator = applicationOperator;
-			this.currentValue = initialValue;
-		}
+        public OfObject(UnaryOperator<E> applicationOperator, E initialValue)
+        {
+            super(InfiniteSize.instance());
+            this.applicationOperator = applicationOperator;
+            this.currentValue = initialValue;
+        }
 
-		@Override
-		public boolean hasNext()
-		{
-			return true;
-		}
+        @Override
+        public boolean hasNext()
+        {
+            return true;
+        }
 
-		@Override
-		public E nextImpl()
-		{
-			E prev = currentValue;
-			currentValue = applicationOperator.apply(currentValue);
-			return prev;
-		}
+        @Override
+        public E nextImpl()
+        {
+            E prev = currentValue;
+            currentValue = applicationOperator.apply(currentValue);
+            return prev;
+        }
 
-		@Override
-		public void forwardImpl()
-		{
-			currentValue = applicationOperator.apply(currentValue);
-		}
-	}
+        @Override
+        public void forwardImpl()
+        {
+            currentValue = applicationOperator.apply(currentValue);
+        }
+    }
 }

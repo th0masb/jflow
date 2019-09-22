@@ -18,321 +18,325 @@ import java.util.function.LongUnaryOperator;
  */
 public final class Option
 {
-	private Option()
-	{
-	}
+    private Option()
+    {
+    }
 
-	/**
-	 * Boxes this primitive optional value.
-	 * 
-	 * @param x The primitive optional value to be boxed.
-	 * @return a boxed version of the wrapped primitive if it exists, nothing
-	 *         otherwise.
-	 */
-	public static Optional<Double> box(OptionalDouble x)
-	{
-		if (x.isPresent()) {
-			return Optional.of(x.getAsDouble());
-		} else {
-			return Optional.empty();
-		}
-	}
+    /**
+     * Boxes this primitive optional value.
+     *
+     * @param x The primitive optional value to be boxed.
+     * @return a boxed version of the wrapped primitive if it exists, nothing
+     *         otherwise.
+     */
+    public static Optional<Double> box(OptionalDouble x)
+    {
+        if (x.isPresent()) {
+            return Optional.of(x.getAsDouble());
+        } else {
+            return Optional.empty();
+        }
+    }
 
-	/**
-	 * Boxes this primitive optional value.
-	 * 
-	 * @param x The primitive optional value to be boxed.
-	 * @return a boxed version of the wrapped primitive if it exists, nothing
-	 *         otherwise.
-	 */
-	public static Optional<Integer> box(OptionalInt x)
-	{
-		if (x.isPresent()) {
-			return Optional.of(x.getAsInt());
-		} else {
-			return Optional.empty();
-		}
-	}
+    /**
+     * Boxes this primitive optional value.
+     *
+     * @param x The primitive optional value to be boxed.
+     * @return a boxed version of the wrapped primitive if it exists, nothing
+     *         otherwise.
+     */
+    public static Optional<Integer> box(OptionalInt x)
+    {
+        if (x.isPresent()) {
+            return Optional.of(x.getAsInt());
+        } else {
+            return Optional.empty();
+        }
+    }
 
-	/**
-	 * Boxes this primitive optional value.
-	 * 
-	 * @param x The primitive optional value to be boxed.
-	 * @return a boxed version of the wrapped primitive if it exists, nothing
-	 *         otherwise.
-	 */
-	public static Optional<Long> box(OptionalLong x)
-	{
-		if (x.isPresent()) {
-			return Optional.of(x.getAsLong());
-		} else {
-			return Optional.empty();
-		}
-	}
+    /**
+     * Boxes this primitive optional value.
+     *
+     * @param x The primitive optional value to be boxed.
+     * @return a boxed version of the wrapped primitive if it exists, nothing
+     *         otherwise.
+     */
+    public static Optional<Long> box(OptionalLong x)
+    {
+        if (x.isPresent()) {
+            return Optional.of(x.getAsLong());
+        } else {
+            return Optional.empty();
+        }
+    }
 
-	// /**
-	// * Performs a 'safe-cast' of a source object to a type specified by the given
-	// * class parameter.
-	// *
-	// * @param <R> The type which we will attempt to cast the object
-	// * reference to.
-	// * @param src The object to cast.
-	// * @param targetType The type to attempt to cast to.
-	// * @return The result of the cast if the given object is an instance of the
-	// * target type. Nothing otherwise.
-	// */
-	// @SuppressWarnings("unchecked")
-	// public static <R> Optional<R> cast(Object src, Class<R> targetType)
-	// {
-	// if (targetType.isInstance(src)) {
-	// return Optional.of((R) src);
-	// } else {
-	// return Optional.empty();
-	// }
-	// }
+    // /**
+    // * Performs a 'safe-cast' of a source object to a type specified by the given
+    // * class parameter.
+    // *
+    // * @param <R> The type which we will attempt to cast the object
+    // * reference to.
+    // * @param src The object to cast.
+    // * @param targetType The type to attempt to cast to.
+    // * @return The result of the cast if the given object is an instance of the
+    // * target type. Nothing otherwise.
+    // */
+    // @SuppressWarnings("unchecked")
+    // public static <R> Optional<R> cast(Object src, Class<R> targetType)
+    // {
+    // if (targetType.isInstance(src)) {
+    // return Optional.of((R) src);
+    // } else {
+    // return Optional.empty();
+    // }
+    // }
 
-	/**
-	 * Wraps a value in an optional.
-	 *
-	 * @param   <T> The type of the wrapped object reference.
-	 * @param t The value to wrap in an optional.
-	 * @return An optional wrapping the parameter value.
-	 */
-	public static <T> Optional<T> of(T t)
-	{
-		return Optional.of(t);
-	}
+    /**
+     * Wraps a value in an optional.
+     *
+     * @param   <T> The type of the wrapped object reference.
+     * @param t The value to wrap in an optional.
+     * @return An optional wrapping the parameter value.
+     */
+    public static <T> Optional<T> of(T t)
+    {
+        return Optional.of(t);
+    }
 
-	/**
-	 * Creates an empty optional.
-	 * 
-	 * @param <T> The inferred type parameterisation of the returned optional.
-	 * @return an empty optional.
-	 */
-	public static <T> Optional<T> empty()
-	{
-		return Optional.empty();
-	}
+    /**
+     * Creates an empty optional.
+     *
+     * @param <T> The inferred type parameterisation of the returned optional.
+     * @return an empty optional.
+     */
+    public static <T> Optional<T> empty()
+    {
+        return Optional.empty();
+    }
 
-	/**
-	 * Wraps a value in an optional.
-	 *
-	 * @param x The value to wrap in an optional.
-	 * @return An optional wrapping the parameter value.
-	 */
-	public static OptionalInt of(int x)
-	{
-		return OptionalInt.of(x);
-	}
+    /**
+     * Wraps a value in an optional.
+     *
+     * @param x The value to wrap in an optional.
+     * @return An optional wrapping the parameter value.
+     */
+    public static OptionalInt of(int x)
+    {
+        return OptionalInt.of(x);
+    }
 
-	/**
-	 * Creates an empty optional.
-	 * 
-	 * @return an empty optional.
-	 */
-	public static OptionalInt emptyInt()
-	{
-		return OptionalInt.empty();
-	}
+    /**
+     * Creates an empty optional.
+     *
+     * @return an empty optional.
+     */
+    public static OptionalInt emptyInt()
+    {
+        return OptionalInt.empty();
+    }
 
-	/**
-	 * Wraps a value in an optional.
-	 *
-	 * @param x The value to wrap in an optional.
-	 * @return An optional wrapping the parameter value.
-	 */
-	public static OptionalDouble of(double x)
-	{
-		return OptionalDouble.of(x);
-	}
+    /**
+     * Wraps a value in an optional.
+     *
+     * @param x The value to wrap in an optional.
+     * @return An optional wrapping the parameter value.
+     */
+    public static OptionalDouble of(double x)
+    {
+        return OptionalDouble.of(x);
+    }
 
-	/**
-	 * Creates an empty optional.
-	 * 
-	 * @return an empty optional.
-	 */
-	public static OptionalDouble emptyDouble()
-	{
-		return OptionalDouble.empty();
-	}
+    /**
+     * Creates an empty optional.
+     *
+     * @return an empty optional.
+     */
+    public static OptionalDouble emptyDouble()
+    {
+        return OptionalDouble.empty();
+    }
 
-	/**
-	 * Wraps a value in an optional.
-	 *
-	 * @param x The value to wrap in an optional.
-	 * @return An optional wrapping the parameter value.
-	 */
-	public static OptionalLong of(long x)
-	{
-		return OptionalLong.of(x);
-	}
+    /**
+     * Wraps a value in an optional.
+     *
+     * @param x The value to wrap in an optional.
+     * @return An optional wrapping the parameter value.
+     */
+    public static OptionalLong of(long x)
+    {
+        return OptionalLong.of(x);
+    }
 
-	/**
-	 * Creates an empty optional.
-	 * 
-	 * @return an empty optional.
-	 */
-	public static OptionalLong emptyLong()
-	{
-		return OptionalLong.empty();
-	}
+    /**
+     * Creates an empty optional.
+     *
+     * @return an empty optional.
+     */
+    public static OptionalLong emptyLong()
+    {
+        return OptionalLong.empty();
+    }
 
-	/**
-	 * Applies a function to a given optional value if it exists.
-	 *
-	 * @param f The mapping function.
-	 * @param x The optional value.
-	 * @return An optional wrapping the mapped value if the original value existed.
-	 *         Otherwise nothing is returned.
-	 */
-	public static OptionalInt map(IntUnaryOperator f, OptionalInt x)
-	{
-		return x.isPresent() ? OptionalInt.of(f.applyAsInt(x.getAsInt())) : OptionalInt.empty();
-	}
+    /**
+     * Applies a function to a given optional value if it exists.
+     *
+     * @param f The mapping function.
+     * @param x The optional value.
+     * @return An optional wrapping the mapped value if the original value existed.
+     *         Otherwise nothing is returned.
+     */
+    public static OptionalInt map(IntUnaryOperator f, OptionalInt x)
+    {
+        return x.isPresent() ? OptionalInt
+                .of(f.applyAsInt(x.getAsInt())) : OptionalInt.empty();
+    }
 
-	/**
-	 * Applies a function to a given optional value if it exists.
-	 *
-	 * @param f The mapping function.
-	 * @param x The optional value.
-	 * @return An optional wrapping the mapped value if the original value existed.
-	 *         Otherwise nothing is returned.
-	 */
-	public static OptionalDouble map(DoubleUnaryOperator f, OptionalDouble x)
-	{
-		return x.isPresent() ? OptionalDouble.of(f.applyAsDouble(x.getAsDouble()))
-				: OptionalDouble.empty();
-	}
+    /**
+     * Applies a function to a given optional value if it exists.
+     *
+     * @param f The mapping function.
+     * @param x The optional value.
+     * @return An optional wrapping the mapped value if the original value existed.
+     *         Otherwise nothing is returned.
+     */
+    public static OptionalDouble map(DoubleUnaryOperator f, OptionalDouble x)
+    {
+        return x.isPresent() ? OptionalDouble
+                .of(f.applyAsDouble(x.getAsDouble()))
+                             : OptionalDouble.empty();
+    }
 
-	/**
-	 * Applies a function to a given optional value if it exists.
-	 *
-	 * @param f The mapping function.
-	 * @param x The optional value.
-	 * @return An optional wrapping the mapped value if the original value existed.
-	 *         Otherwise nothing is returned.
-	 */
-	public static OptionalLong map(LongUnaryOperator f, OptionalLong x)
-	{
-		return x.isPresent() ? OptionalLong.of(f.applyAsLong(x.getAsLong())) : OptionalLong.empty();
-	}
+    /**
+     * Applies a function to a given optional value if it exists.
+     *
+     * @param f The mapping function.
+     * @param x The optional value.
+     * @return An optional wrapping the mapped value if the original value existed.
+     *         Otherwise nothing is returned.
+     */
+    public static OptionalLong map(LongUnaryOperator f, OptionalLong x)
+    {
+        return x.isPresent() ? OptionalLong
+                .of(f.applyAsLong(x.getAsLong())) : OptionalLong.empty();
+    }
 
-	// /**
-	// * Given an optional value this method attempts to retrieve the value
-	// contained
-	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	// *
-	// * @param <T> The type of the value wrapped by the passed optional.
-	// * @param errorMessage The message to pass to the exception if the extraction
-	// * fails.
-	// * @param x The optional to extract a value from.
-	// * @return The value inside the optional if it exists.
-	// */
-	// public static <T> T extract(Optional<? extends T> x, String errorMessage)
-	// {
-	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	// }
-	//
-	// /**
-	// * Given an optional value this method attempts to retrieve the value
-	// contained
-	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	// *
-	// * @param x The optional to extract a value from.
-	// * @param errorMessage The message to pass to the exception if the extraction
-	// * fails.
-	// * @return The value inside the optional if it exists.
-	// */
-	// public static int extract(OptionalInt x, String errorMessage)
-	// {
-	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	// }
-	//
-	// /**
-	// * Given an optional value this method attempts to retrieve the value
-	// contained
-	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	// *
-	// * @param x The optional to extract a value from.
-	// * @param errorMessage The message to pass to the exception if the extraction
-	// * fails.
-	// * @return The value inside the optional if it exists.
-	// */
-	// public static double extract(OptionalDouble x, String errorMessage)
-	// {
-	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	// }
-	//
-	// /**
-	// * Given an optional value this method attempts to retrieve the value
-	// contained
-	// * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
-	// *
-	// * @param x The optional to extract a value from.
-	// * @param errorMessage The message to pass to the exception if the extraction
-	// * fails.
-	// * @return The value inside the optional if it exists.
-	// */
-	// public static double extract(OptionalLong x, String errorMessage)
-	// {
-	// return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
-	// }
+    // /**
+    // * Given an optional value this method attempts to retrieve the value
+    // contained
+    // * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+    // *
+    // * @param <T> The type of the value wrapped by the passed optional.
+    // * @param errorMessage The message to pass to the exception if the extraction
+    // * fails.
+    // * @param x The optional to extract a value from.
+    // * @return The value inside the optional if it exists.
+    // */
+    // public static <T> T extract(Optional<? extends T> x, String errorMessage)
+    // {
+    // return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+    // }
+    //
+    // /**
+    // * Given an optional value this method attempts to retrieve the value
+    // contained
+    // * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+    // *
+    // * @param x The optional to extract a value from.
+    // * @param errorMessage The message to pass to the exception if the extraction
+    // * fails.
+    // * @return The value inside the optional if it exists.
+    // */
+    // public static int extract(OptionalInt x, String errorMessage)
+    // {
+    // return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+    // }
+    //
+    // /**
+    // * Given an optional value this method attempts to retrieve the value
+    // contained
+    // * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+    // *
+    // * @param x The optional to extract a value from.
+    // * @param errorMessage The message to pass to the exception if the extraction
+    // * fails.
+    // * @return The value inside the optional if it exists.
+    // */
+    // public static double extract(OptionalDouble x, String errorMessage)
+    // {
+    // return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+    // }
+    //
+    // /**
+    // * Given an optional value this method attempts to retrieve the value
+    // contained
+    // * inside, if the optional is empty an {@linkplain AssertionError} is thrown.
+    // *
+    // * @param x The optional to extract a value from.
+    // * @param errorMessage The message to pass to the exception if the extraction
+    // * fails.
+    // * @return The value inside the optional if it exists.
+    // */
+    // public static double extract(OptionalLong x, String errorMessage)
+    // {
+    // return x.orElseThrow(() -> new NoSuchElementException(errorMessage));
+    // }
 
-	/**
-	 * An addition function acting on optional values.
-	 *
-	 * @param first  An optional value
-	 * @param second An optional value
-	 * @return An optional wrapping the result of adding the numbers wrapped by the
-	 *         provided optionals if they both exist, nothing otherwise.
-	 */
-	public static OptionalInt add(OptionalInt first, OptionalInt second)
-	{
-		return first.isPresent() && second.isPresent()
-				? OptionalInt.of(first.getAsInt() + second.getAsInt())
-				: OptionalInt.empty();
-	}
+    /**
+     * An addition function acting on optional values.
+     *
+     * @param first  An optional value
+     * @param second An optional value
+     * @return An optional wrapping the result of adding the numbers wrapped by the
+     *         provided optionals if they both exist, nothing otherwise.
+     */
+    public static OptionalInt add(OptionalInt first, OptionalInt second)
+    {
+        return first.isPresent() && second.isPresent()
+               ? OptionalInt.of(first.getAsInt() + second.getAsInt())
+               : OptionalInt.empty();
+    }
 
-	/**
-	 * An addition function acting on optional values.
-	 *
-	 * @param first  An optional value
-	 * @param second An optional value
-	 * @return An optional wrapping the result of adding the numbers wrapped by the
-	 *         provided optionals if they both exist, nothing otherwise.
-	 */
-	public static OptionalDouble add(OptionalDouble first, OptionalDouble second)
-	{
-		return first.isPresent() && second.isPresent()
-				? OptionalDouble.of(first.getAsDouble() + second.getAsDouble())
-				: OptionalDouble.empty();
-	}
+    /**
+     * An addition function acting on optional values.
+     *
+     * @param first  An optional value
+     * @param second An optional value
+     * @return An optional wrapping the result of adding the numbers wrapped by the
+     *         provided optionals if they both exist, nothing otherwise.
+     */
+    public static OptionalDouble add(OptionalDouble first,
+            OptionalDouble second)
+    {
+        return first.isPresent() && second.isPresent()
+               ? OptionalDouble.of(first.getAsDouble() + second.getAsDouble())
+               : OptionalDouble.empty();
+    }
 
-	/**
-	 * An addition function acting on optional values.
-	 *
-	 * @param first  An optional value
-	 * @param second An optional value
-	 * @return An optional wrapping the result of adding the numbers wrapped by the
-	 *         provided optionals if they both exist, nothing otherwise.
-	 */
-	public static OptionalLong add(OptionalLong first, OptionalLong second)
-	{
-		return first.isPresent() && second.isPresent()
-				? OptionalLong.of(first.getAsLong() + second.getAsLong())
-				: OptionalLong.empty();
-	}
+    /**
+     * An addition function acting on optional values.
+     *
+     * @param first  An optional value
+     * @param second An optional value
+     * @return An optional wrapping the result of adding the numbers wrapped by the
+     *         provided optionals if they both exist, nothing otherwise.
+     */
+    public static OptionalLong add(OptionalLong first, OptionalLong second)
+    {
+        return first.isPresent() && second.isPresent()
+               ? OptionalLong.of(first.getAsLong() + second.getAsLong())
+               : OptionalLong.empty();
+    }
 
-	/**
-	 * Runs a given procedure if the given optional is empty.
-	 * 
-	 * @param optional  The optional used to test the absence of an element.
-	 * @param procedure The procedure to execute if the absence test returns true.
-	 */
-	public static void ifAbsent(Optional<?> optional, Runnable procedure)
-	{
-		if (!optional.isPresent()) {
-			procedure.run();
-		}
-	}
+    /**
+     * Runs a given procedure if the given optional is empty.
+     *
+     * @param optional  The optional used to test the absence of an element.
+     * @param procedure The procedure to execute if the absence test returns true.
+     */
+    public static void ifAbsent(Optional<?> optional, Runnable procedure)
+    {
+        if (!optional.isPresent()) {
+            procedure.run();
+        }
+    }
 }

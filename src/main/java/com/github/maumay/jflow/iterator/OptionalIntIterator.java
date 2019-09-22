@@ -15,34 +15,36 @@ import java.util.function.IntSupplier;
  *
  * @author t
  */
-public interface OptionalIntIterator extends PrimitiveIterator.OfInt, IntSupplier
+public interface OptionalIntIterator extends PrimitiveIterator.OfInt,
+        IntSupplier
 {
-	/**
-	 * A safe alternative to directly calling {@link #nextInt()} method.
-	 *
-	 * @return An OptionalInt wrapping the next element if there is one.
-	 */
-	OptionalInt nextIntOp();
+    /**
+     * A safe alternative to directly calling {@link #nextInt()} method.
+     *
+     * @return An OptionalInt wrapping the next element if there is one.
+     */
+    OptionalInt nextIntOp();
 
-	/**
-	 * Perform the supplied action for each element left in this iterator sequence,
-	 * in doing so the iterator is consumed.
-	 *
-	 * @param action The action to perform.
-	 */
-	void forEach(IntConsumer action);
+    /**
+     * Perform the supplied action for each element left in this iterator sequence,
+     * in doing so the iterator is consumed.
+     *
+     * @param action The action to perform.
+     */
+    void forEach(IntConsumer action);
 
-	@Override
-	@Deprecated
-	default Integer next()
-	{
-		throw new UnsupportedOperationException("Boxing using this method is banned!!");
-	}
+    @Override
+    @Deprecated
+    default Integer next()
+    {
+        throw new UnsupportedOperationException(
+                "Boxing using this method is banned!!");
+    }
 
-	@Override
-	default int getAsInt()
-	{
-		return nextIntOp().orElseThrow(
-				() -> new NoSuchElementException("Supply has been exhausted"));
-	}
+    @Override
+    default int getAsInt()
+    {
+        return nextIntOp().orElseThrow(
+                () -> new NoSuchElementException("Supply has been exhausted"));
+    }
 }

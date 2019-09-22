@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.maumay.jflow.impl;
 
@@ -9,6 +9,6 @@ package com.github.maumay.jflow.impl;
  */
 public class InfiniteConsumptionException extends RuntimeException
 {
-	private static final long serialVersionUID = -1868083007256890099L;
+    private static final long serialVersionUID = -1868083007256890099L;
 
 }

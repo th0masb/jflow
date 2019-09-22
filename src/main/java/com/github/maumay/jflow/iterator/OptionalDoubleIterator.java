@@ -17,32 +17,33 @@ import java.util.function.DoubleSupplier;
  */
 public interface OptionalDoubleIterator extends OfDouble, DoubleSupplier
 {
-	/**
-	 * A safe alternative to directly calling {@link #nextDouble()} method.
-	 *
-	 * @return An OptionalDouble wrapping the next element if there is one.
-	 */
-	OptionalDouble nextDoubleOp();
+    /**
+     * A safe alternative to directly calling {@link #nextDouble()} method.
+     *
+     * @return An OptionalDouble wrapping the next element if there is one.
+     */
+    OptionalDouble nextDoubleOp();
 
-	/**
-	 * Perform the supplied action for each element left in this iterator sequence,
-	 * in doing so the iterator is consumed.
-	 *
-	 * @param action The action to perform.
-	 */
-	void forEach(DoubleConsumer action);
+    /**
+     * Perform the supplied action for each element left in this iterator sequence,
+     * in doing so the iterator is consumed.
+     *
+     * @param action The action to perform.
+     */
+    void forEach(DoubleConsumer action);
 
-	@Override
-	@Deprecated
-	default Double next()
-	{
-		throw new UnsupportedOperationException("Boxing using this method is banned!!");
-	}
+    @Override
+    @Deprecated
+    default Double next()
+    {
+        throw new UnsupportedOperationException(
+                "Boxing using this method is banned!!");
+    }
 
-	@Override
-	default double getAsDouble()
-	{
-		return nextDoubleOp().orElseThrow(
-				() -> new NoSuchElementException("Supply has been exhausted"));
-	}
+    @Override
+    default double getAsDouble()
+    {
+        return nextDoubleOp().orElseThrow(
+                () -> new NoSuchElementException("Supply has been exhausted"));
+    }
 }
