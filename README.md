@@ -11,14 +11,15 @@ functionality can be summarised as follows:
 
  - An extension to the `Iterator` interface called `RichIterator` (along with primitive analogs) with a large amount of 
  additional functionality in the style of `Stream` but with some tweaks. 
- - A variety of static factory methods for constructing these iterators (both finite and infinite) from various sources.
- - An immutable, array-backed alternative to `List` (along with primitive specializations) called `Vec` which is well 
+ - A collection of static factory methods for constructing these iterators from various sources.
+ - An immutable, array-backed alternative to `List` (along with primitive analogs) called `Vec` which is well 
  integrated with these iterators to facilitate easy construction, manipulation and conversion to/from standard `Collection` 
  implementations.
 
-The (imo) unnecessary verbosity of the stream API coupled with my desire for an immutable and ergonomic list motivated 
-me to write this library. Writing Java has become much better for me - more done with increased readability with less 
-characters with less bugs and with more enjoyment.
+The (imo) unnecessary verbosity of the stream API in a sequential setting coupled with my desire for an immutable and 
+ergonomic list motivated me to write this library. Writing Java has become much better for me - increased 
+readability with less characters with less bugs and with more enjoyment. I hope this library can be of use to other 
+people.
 
 ---
 #### Accessing and using this library
@@ -128,12 +129,72 @@ one. In this way we remove the potential danger of subtle bugs arising from allo
 
 
 ---
-#### Acknowledgements
+#### Collecting lazy sequences
 
-I would like to thank [Lhasa Limited](https://www.lhasalimited.org/) (my employer at the time this library was created) for their contribution. This started as a personal project of mine to improve the quality of my own work but after recognising the potential usefulness I was permitted to spend some time at work tying everything together into a well tested, well documented and high quality package before being allowed to release it as unaffiliated (to the company) OSS.
+One of my issues with the stream api was the overly verbose collecting mechanism when working within a sequential setting.
+I wanted to reduce the amount of boilerplate as well as the complexity. Let us consider the simple use case of computing
+the bounding box of a sequence of 2D points. It is desirable to be able to do this with lazily computed points, for 
+example if we have a list of points and we want to find the bounds of the points under some transformation without having 
+to allocate a new list. Lets define a couple of classes:
+
+```Java
+
+class Point {
+    static final Random PRNG = new Random();
+    final double x, y;
+    Point() {
+        this(PRNG.nextDouble(), PRNG.nextDouble());
+    }
+
+    Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Bounds {
+    final double x, y, w, h;
+    Bounds(double x, double y, double w, double h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    }
+    
+    static Optional<Bounds> fromPoints(Iterator<? extends Point> ps) {
+        // Implementation omitted...
+    }   
+}
+```
+
+Now the static factory method defined in the `Bounds` class let's us compute the bounds of any `Iterable` of points with 
+ease, but what about the problem defined above? In the stream case we would have two choices, the first would be to 
+implement a separate `Collector` which is pretty tedious, I'd recommend you try it yourself. The second would be something like 
+the following snippet:
+
+```Java
+List<Point> ps = Iter.call(Point::new).take(10).toList();
+UnaryOperator<Point> translate = p -> new Point(p.x + 1, p.y - 1);
+Optional<Bounds> translatedBounds = Bounds.fromPoints(ps.stream().map(translate).iterator());
+```
+
+Whereas with the rich iterators we can modify it slightly and write something like:
+
+```Java
+Vec<Point> ps = Iter.call(Point::new).take(10).toVec();
+UnaryOperator<Point> translate = p -> new Point(p.x + 1, p.y - 1);
+Optional<Bounds> translatedBounds = ps.iter().map(translate).collect(Bounds::fromPoints);
+
+```
+
+which in my opinion is nicer to read.
 
 
 ---
-#### Collecting, consuming and adapting
+#### Acknowledgements
 
-... still need to write stuff
+I would like to thank [Lhasa Limited](https://www.lhasalimited.org/) (my employer at the time this library was created) 
+for their contribution. This started as a personal project of mine to improve the quality of my own work but after 
+recognising the potential usefulness I was permitted to spend some time at work tying everything together into a well 
+tested, well documented and high quality package before being allowed to release it as unaffiliated (to the company) OSS.
+
