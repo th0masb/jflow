@@ -35,7 +35,7 @@ assert supplier.get().filter(s -> s.equals("a")).toVec() == vec("a");
 
 // *****************************************************************************************
 // Chaining
-assert supplier.get().chain(supplier.get()).toVec() == vec("a", "b", "b", "a");
+assert supplier.get().chain(supplier.get()).toVec() == vec("a", "b", "a", "b");
 
 // *****************************************************************************************
 // Zipping
