@@ -17,16 +17,17 @@ functionality can be summarised as follows:
  implementations.
 
 The (imo) unnecessary verbosity of the stream API in a sequential setting coupled with my desire for an immutable and 
-ergonomic list motivated me to write this library. Writing Java has become much better for me - increased 
-readability with less characters with less bugs and with more enjoyment. I hope this library can be of use to other 
-people.
+ergonomic list motivated me to write this library. Writing Java has become much better for me - increased readability 
+with less characters with less bugs and with more enjoyment. I hope this library can be of use to other people.
 
 ---
 #### Accessing and using this library
 
 The coordinates on maven central are `com.github.maumay:jflow:0.7.1`. If you want something to copy and paste into your 
 build script then please click on the maven badge at the top of this file. Javadoc can be accessed via the corresponding 
-badge link at the top of this readme, additional documentation is given below.
+badge link at the top of this readme, additional documentation is given below. The library is compiled with Java 11 and
+exports a single module called `jflow.iterator` but it is also backwards compatible to Java 8 in which case the module 
+information is ignored.
 
 ---
 #### API examples
@@ -131,11 +132,12 @@ one. In this way we remove the potential danger of subtle bugs arising from allo
 ---
 #### Collecting lazy sequences
 
-One of my issues with the stream api was the overly verbose collecting mechanism when working within a sequential setting.
-I wanted to reduce the amount of boilerplate as well as the complexity. Let us consider the simple use case of computing
-the bounding box of a sequence of 2D points. It is desirable to be able to do this with lazily computed points, for 
-example if we have a list of points and we want to find the bounds of the points under some transformation without having 
-to allocate a new list. Lets define a couple of classes:
+One of my issues with the stream api was the collecting mechanism when working within a sequential setting. You can use
+implement an instance of `Collector`  which involves a hefty amount of boilerplate and complexity or you can delegate to 
+iterators. I wanted to implement something as readable as the collection mechanism for streams but as simple as the 
+iterator delegation. Let us consider the simple use case of computing the bounding box of a sequence of 2D points. It is 
+desirable to be able to do this with lazily computed points, for example if we have a list of points and we want to find 
+the bounds of the points under some transformation without having to allocate a new list. Lets define a couple of classes:
 
 ```Java
 
