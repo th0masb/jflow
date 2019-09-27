@@ -1,6 +1,13 @@
-Here is a snippet of boilerplate free Java code demonstrating some of the functionality provided by the `RichIterator` interface. **Please note** that I use referential equality in the assertion statements which will cause many to fail if you executed this code but it greatly improves readability.
+Here is a snippet of boilerplate free Java code demonstrating some of the functionality provided by the `RichIterator` 
+interface. **Please note** that I use referential equality in the assertion statements which will cause many to fail if
+ you executed this code but it greatly improves readability.
 
-All iterators in this example are sourced from a static factory method in the `Iter` class (which I assume you have read about). The functionality here should look familiar to you already but I'd like to stress the laziness point again. When you create an iterator it does not evaluate anything until you specifically command it to by calling terminal method. It is easy to tell whether a method is lazy or strict, if the method returns another iterator we call it an 'intermediate operation' which evaluates lazily and if it returns anything else it is called a 'terminal operation' and evaluates in a strict manner.
+All iterators in this example are sourced from a static factory method in the `Iter` class (which I assume you have read
+about). The functionality here should look familiar to you already but I'd like to stress the laziness point again. When 
+you create an iterator it does not evaluate anything until you specifically command it to by calling terminal method. It 
+is easy to tell whether a method is lazy or strict, if the method returns another iterator we call it an 'intermediate 
+operation' which evaluates lazily and if it returns anything else it is called a 'terminal operation' and evaluates in a 
+strict manner.
 
 ```java
 // The source of the RichIterator instances used in the following examples.
@@ -34,16 +41,21 @@ assert supplier.get().mapToLong(s -> s.length()).toVec() == LongVec.of(1, 1);
 assert supplier.get().filter(s -> s.equals("a")).toVec() == vec("a");
 
 // *****************************************************************************************
+// FilterMap - map to optional before filtering on present values before unwrapping
+Function<String, Optional<String>> fn = s -> Optional.of(s).filter(x -> x.equals("b"));
+assert supplier.get().filterMap(fn).toVec() == vec("b");
+
+// *****************************************************************************************
 // Chaining
-assert supplier.get().chain(supplier.get()).toVec() == vec("a", "b", "a", "b");
+assert supplier.get().chain(supplier.get()).toVec() == vec("a", "b", "b", "a");
 
 // *****************************************************************************************
 // Zipping
 assert supplier.get().zip(supplier.get()).map(pair -> pair._1 + pair._2).toVec() == vec("aa", "bb");
 
 // *****************************************************************************************
-// Easy type manipulation. It is unsafe (any type can be passed) due to Java generics
-// deficiencies but can be very useful and convenient.
+// Easy type manipulation. It is unsafe (any type can be passed) due to Java
+// generics deficiencies but can be very useful and convenient.
 assert supplier.get().<CharSequence>cast().toVec() == Vec.<CharSequence>of("a", "b");
 
 // *****************************************************************************************
@@ -70,7 +82,7 @@ assert iter.nextOp() == Option.of("b");
 assert !iter.hasNext();
 assert !iter.nextOp().isPresent();
 try {
-	System.out.println(iter.next());
+    System.out.println(iter.next());
 } catch (NoSuchElementException ex) {
 }
 ```
