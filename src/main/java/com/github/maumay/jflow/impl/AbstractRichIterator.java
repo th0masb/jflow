@@ -88,34 +88,34 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 
     // EnhancedIterator API
     @Override
-    public <R> AbstractRichIterator<R> map(Function<? super E, ? extends R> f)
+    public <R> AbstractRichIterator<R> map(Function<? super E, ? extends R> fn)
     {
-        return new MapAdapter.OfObject<>(this, f);
+        return new MapAdapter.OfObject<>(this, fn);
     }
 
     @Override
-    public AbstractIntIterator mapToInt(ToIntFunction<? super E> f)
+    public AbstractIntIterator mapToInt(ToIntFunction<? super E> fn)
     {
-        return new MapToIntAdapter.FromObject<>(this, f);
+        return new MapToIntAdapter.FromObject<>(this, fn);
     }
 
     @Override
-    public AbstractDoubleIterator mapToDouble(ToDoubleFunction<? super E> f)
+    public AbstractDoubleIterator mapToDouble(ToDoubleFunction<? super E> fn)
     {
-        return new MapToDoubleAdapter.FromObject<>(this, f);
+        return new MapToDoubleAdapter.FromObject<>(this, fn);
     }
 
     @Override
-    public AbstractLongIterator mapToLong(ToLongFunction<? super E> f)
+    public AbstractLongIterator mapToLong(ToLongFunction<? super E> fn)
     {
-        return new MapToLongAdapter.FromObject<>(this, f);
+        return new MapToLongAdapter.FromObject<>(this, fn);
     }
 
     @Override
     public <R> AbstractRichIterator<R> flatMap(
-            Function<? super E, ? extends Iterator<? extends R>> mapping)
+            Function<? super E, ? extends Iterator<? extends R>> fn)
     {
-        return new FlatmapAdapter<>(this, mapping);
+        return new FlatmapAdapter<>(this, fn);
     }
 
     @Override
@@ -138,9 +138,9 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
     }
 
     @Override
-    public AbstractRichIterator<E> slice(IteratorSlicer f)
+    public AbstractRichIterator<E> slice(IteratorSlicer fn)
     {
-        return new SliceAdapter.OfObject<>(this, f);
+        return new SliceAdapter.OfObject<>(this, fn);
     }
 
     @Override
@@ -150,9 +150,9 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
     }
 
     @Override
-    public AbstractRichIterator<E> takeWhile(Predicate<? super E> predicate)
+    public AbstractRichIterator<E> takeWhile(Predicate<? super E> fn)
     {
-        return new TakewhileAdapter.OfObject<>(this, predicate);
+        return new TakewhileAdapter.OfObject<>(this, fn);
     }
 
     @Override
@@ -162,15 +162,21 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
     }
 
     @Override
-    public AbstractRichIterator<E> skipWhile(Predicate<? super E> predicate)
+    public AbstractRichIterator<E> skipWhile(Predicate<? super E> fn)
     {
-        return new SkipwhileAdapter.OfObject<>(this, predicate);
+        return new SkipwhileAdapter.OfObject<>(this, fn);
     }
 
     @Override
-    public AbstractRichIterator<E> filter(Predicate<? super E> predicate)
+    public AbstractRichIterator<E> filter(Predicate<? super E> fn)
     {
-        return new FilterAdapter.OfObject<>(this, predicate);
+        return new FilterAdapter.OfObject<>(this, fn);
+    }
+
+    @Override
+    public <R> AbstractRichIterator<R> filterMap(Function<? super E, Optional<R>> fn)
+    {
+        return map(fn).filter(Optional::isPresent).map(Optional::get);
     }
 
     @Override
@@ -240,45 +246,45 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
 //	}
 
     @Override
-    public Optional<E> minOp(Comparator<? super E> orderingFunction)
+    public Optional<E> minOp(Comparator<? super E> fn)
     {
-        return ObjectMinMaxConsumption.findMin(this, orderingFunction);
+        return ObjectMinMaxConsumption.findMin(this, fn);
     }
 
     @Override
-    public Optional<E> maxOp(Comparator<? super E> orderingFunction)
+    public Optional<E> maxOp(Comparator<? super E> fn)
     {
-        return ObjectMinMaxConsumption.findMax(this, orderingFunction);
+        return ObjectMinMaxConsumption.findMax(this, fn);
     }
 
     @Override
-    public E min(Comparator<? super E> orderingFunction)
+    public E min(Comparator<? super E> fn)
     {
-        return minOp(orderingFunction).orElseThrow(IllegalStateException::new);
+        return minOp(fn).orElseThrow(IllegalStateException::new);
     }
 
     @Override
-    public E max(Comparator<? super E> orderingFunction)
+    public E max(Comparator<? super E> fn)
     {
-        return maxOp(orderingFunction).orElseThrow(IllegalStateException::new);
+        return maxOp(fn).orElseThrow(IllegalStateException::new);
     }
 
     @Override
-    public boolean all(Predicate<? super E> predicate)
+    public boolean all(Predicate<? super E> fn)
     {
-        return ObjectPredicateConsumption.allMatch(this, predicate);
+        return ObjectPredicateConsumption.allMatch(this, fn);
     }
 
     @Override
-    public boolean any(Predicate<? super E> predicate)
+    public boolean any(Predicate<? super E> fn)
     {
-        return ObjectPredicateConsumption.anyMatch(this, predicate);
+        return ObjectPredicateConsumption.anyMatch(this, fn);
     }
 
     @Override
-    public boolean none(Predicate<? super E> predicate)
+    public boolean none(Predicate<? super E> fn)
     {
-        return ObjectPredicateConsumption.noneMatch(this, predicate);
+        return ObjectPredicateConsumption.noneMatch(this, fn);
     }
 
     @Override
@@ -397,14 +403,14 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
     }
 
     @Override
-    public E find(Predicate<? super E> predicate)
+    public E find(Predicate<? super E> fn)
     {
-        return filter(predicate).next();
+        return filter(fn).next();
     }
 
     @Override
-    public Optional<E> findOp(Predicate<? super E> predicate)
+    public Optional<E> findOp(Predicate<? super E> fn)
     {
-        return filter(predicate).nextOp();
+        return filter(fn).nextOp();
     }
 }

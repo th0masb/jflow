@@ -36,45 +36,45 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * {@link RichIterator}.
      *
      * @param <R> The target element type of the mapping operation.
-     * @param f   A mapping function.
+     * @param fn   A mapping function.
      * @return A new {@link RichIterator} instance whose elements are obtained
      * by applying the parameter mapping function to each element of this {@link
      * RichIterator} instance in turn.
      */
-    <R> RichIterator<R> map(Function<? super E, ? extends R> f);
+    <R> RichIterator<R> map(Function<? super E, ? extends R> fn);
 
     /**
      * Applies a function elementwise to this {@link RichIterator} to make a new
      * {@link IntIterator}.
      *
-     * @param mappingFunction A mapping function.
+     * @param fn A mapping function.
      * @return A new {@link IntIterator} instance whose elements are obtained by
      * applying the parameter mapping function to each element of this {@link
      * RichIterator} instance in turn.
      */
-    IntIterator mapToInt(ToIntFunction<? super E> mappingFunction);
+    IntIterator mapToInt(ToIntFunction<? super E> fn);
 
     /**
      * Applies a function elementwise to this {@link RichIterator} to make a new
      * {@link DoubleIterator}.
      *
-     * @param f A mapping function.
+     * @param fn A mapping function.
      * @return A new {@link DoubleIterator} instance whose elements are obtained
      * by applying the parameter mapping function to each element of this {@link
      * RichIterator} instance in turn.
      */
-    DoubleIterator mapToDouble(ToDoubleFunction<? super E> f);
+    DoubleIterator mapToDouble(ToDoubleFunction<? super E> fn);
 
     /**
      * Applies a function elementwise to this {@link RichIterator} to make a new
      * {@link LongIterator}.
      *
-     * @param f A mapping function.
+     * @param fn A mapping function.
      * @return A new {@link LongIterator} instance whose elements are obtained
      * by applying the parameter mapping function to each element of this {@link
      * RichIterator} instance in turn.
      */
-    LongIterator mapToLong(ToLongFunction<? super E> f);
+    LongIterator mapToLong(ToLongFunction<? super E> fn);
 
     /**
      * Maps elements of this {@link RichIterator} to {@link RichIterator}
@@ -82,13 +82,13 @@ public interface RichIterator<E> extends OptionalIterator<E>
      *
      * @param <R>     The element type of the target {@link RichIterator}
      *                instances.
-     * @param mapping A function taking elements to instances of {@link
+     * @param fn A function taking elements to instances of {@link
      *                RichIterator}
      * @return A {@link RichIterator} obtained by applying the mapping function
      * to each element in turn and sequentially concatenating the results.
      */
     <R> RichIterator<R> flatMap(
-            Function<? super E, ? extends Iterator<? extends R>> mapping);
+            Function<? super E, ? extends Iterator<? extends R>> fn);
 
     /**
      * Combines this {@link RichIterator} with another iterator to create a new
@@ -172,7 +172,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * Creates a new {@link RichIterator} from this {@link RichIterator} by
      * selecting elements with indices defined by the parameter index mapping.
      *
-     * @param indexMap A strictly monotonically increasing function {@code f: N
+     * @param fn A strictly monotonically increasing function {@code f: N
      *                 -> N}
      * @return Let {@code F} denote this source {@link RichIterator}, let {@code
      * n = length(F)} and denote the indexMap by {@code f}. Then this method
@@ -182,7 +182,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * <li><code> length(G) = supremum {i | f(i) &lt; length(F)} </code></li>
      * </ul>
      */
-    RichIterator<E> slice(IteratorSlicer indexMap);
+    RichIterator<E> slice(IteratorSlicer fn);
 
     /**
      * Creates a new {@link RichIterator} from this {@link RichIterator} by
@@ -201,7 +201,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * selecting elements until an element fails the supplied test, the first
      * failure is not selected.
      *
-     * @param predicate A predicate applicable to the type of elements in this
+     * @param fn A predicate applicable to the type of elements in this
      *                  {@link RichIterator}.
      * @return Let {@code n} be the index of the first element that the
      * parameter predicate fails for. Then this method returns a {@link
@@ -209,7 +209,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * {@link RichIterator}. If no element fails the predicate test then a copy
      * of the source is returned.
      */
-    RichIterator<E> takeWhile(Predicate<? super E> predicate);
+    RichIterator<E> takeWhile(Predicate<? super E> fn);
 
     /**
      * Creates a new {@link RichIterator} from this {@link RichIterator} by
@@ -228,7 +228,7 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * removing elements until an element fails the supplied test, the first
      * failure is the first element of the result.
      *
-     * @param predicate A predicate applicable to the type of elements in this
+     * @param fn A predicate applicable to the type of elements in this
      *                  {@link RichIterator}.
      * @return Let {@code n} be the index of the first element that the
      * parameter predicate fails for. Then this method returns a {@link
@@ -236,19 +236,30 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * RichIterator}. If no element fails the predicate test then a copy of the
      * source is returned.
      */
-    RichIterator<E> skipWhile(Predicate<? super E> predicate);
+    RichIterator<E> skipWhile(Predicate<? super E> fn);
 
     /**
      * Creates a new {@link RichIterator} from this {@link RichIterator} by
      * removing any element which fails the supplied predicate test.
      *
-     * @param predicate A predicate applicable to the type of elements in this
+     * @param fn A predicate applicable to the type of elements in this
      *                  {@link RichIterator}.
      * @return A {@link RichIterator} containing only those elements of this
      * source {@link RichIterator} which pass the test defined by the parameter
      * predicate. The relative ordering of elements is retained.
      */
-    RichIterator<E> filter(Predicate<? super E> predicate);
+    RichIterator<E> filter(Predicate<? super E> fn);
+
+    /**
+     * Create a new iterator from this one by applying a mapping function (whose
+     * image type is optional) element-wise before filtering on whether the
+     * images are present and then unwrapping the optional values.
+     *
+     * @param fn The mapping function.
+     * @param <R> The target type of the mapping function.
+     * @return A new transformed iterator.
+     */
+    <R> RichIterator<R> filterMap(Function<? super E, Optional<R>> fn);
 
     /**
      * Creates a new {@link RichIterator} from this {@link RichIterator} by
@@ -324,81 +335,81 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * Calculates the minimum element in this {@link RichIterator} with respect
      * to the ordering specified by the parameter.
      *
-     * @param orderingFunction This function defines the ordering on this
+     * @param fn This function defines the ordering on this
      *                         element type.
      * @return Nothing if the {@link RichIterator} is empty. Otherwise the
      * minimum element in this {@link RichIterator}.
      */
-    Optional<E> minOp(Comparator<? super E> orderingFunction);
+    Optional<E> minOp(Comparator<? super E> fn);
 
     /**
      * Calculates the minimum element in this {@link RichIterator} with respect
      * to the ordering specified by the parameter throwing an exception if this
      * iterator is empty.
      *
-     * @param orderingFunction This function defines the ordering on this
+     * @param fn This function defines the ordering on this
      *                         element type.
      * @return The minimum element in this {@link RichIterator}.
      */
-    E min(Comparator<? super E> orderingFunction);
+    E min(Comparator<? super E> fn);
 
     /**
      * Calculates the maximum element in this {@link RichIterator} with respect
      * to the ordering specified by the parameter.
      *
-     * @param orderingFunction This function defines the ordering on this
+     * @param fn This function defines the ordering on this
      *                         element type.
      * @return Nothing if the {@link RichIterator} is empty. Otherwise the
      * maximum element in this {@link RichIterator}.
      */
-    Optional<E> maxOp(Comparator<? super E> orderingFunction);
+    Optional<E> maxOp(Comparator<? super E> fn);
 
     /**
      * Calculates the maximum element in this {@link RichIterator} with respect
      * to the ordering specified by the parameter throwing an exception if this
      * iterator is empty.
      *
-     * @param orderingFunction This function defines the ordering on this
+     * @param fn This function defines the ordering on this
      *                         element type.
      * @return The maximum element in this {@link RichIterator}.
      */
-    E max(Comparator<? super E> orderingFunction);
+    E max(Comparator<? super E> fn);
 
     /**
      * Checks whether every element in this {@link RichIterator} passes the
      * supplied predicate test. This method is a 'consuming method', i.e. it
      * will iterate through this {@link RichIterator}.
      *
-     * @param predicate A predicate applicable to the type of elements in this
+     * @param fn A predicate applicable to the type of elements in this
      *                  {@link RichIterator}.
      * @return True if every element passes the parameter predicate test, false
      * otherwise.
      */
-    boolean all(Predicate<? super E> predicate);
+    boolean all(Predicate<? super E> fn);
 
     /**
      * Checks whether any element in this {@link RichIterator} passes the
      * supplied predicate test. This method is a 'consuming method', i.e. it
      * will iterate through this {@link RichIterator}.
      *
-     * @param predicate A predicate applicable to the type of elements in this
+     * @param fn A predicate applicable to the type of elements in this
      *                  {@link RichIterator}.
      * @return True if any element passes the parameter predicate test, false
      * otherwise.
      */
-    boolean any(Predicate<? super E> predicate);
+    boolean any(Predicate<? super E> fn);
 
     /**
      * Checks whether every element in this {@link RichIterator} fails the
      * supplied predicate test. This method is a 'consuming method', i.e. it
      * will iterate through this {@link RichIterator}.
      *
-     * @param predicate A predicate applicable to the type of elements in this
+     * @param fn A predicate applicable to the type of elements in this
      *                  {@link RichIterator}.
      * @return True if every element fails the parameter predicate test, false
      * otherwise.
      */
-    boolean none(Predicate<? super E> predicate);
+    boolean none(Predicate<? super E> fn);
 
     /**
      * Finds the first element in traversed by this iterator for which the given
@@ -406,12 +417,12 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * will be thrown. This method will cause this iterator to relinquish it's
      * ownership.
      *
-     * @param predicate The logical check to apply to the elements in this
+     * @param fn The logical check to apply to the elements in this
      *                  iterator.
      * @return The first element which returns true when applied to the
      * predicate.
      */
-    E find(Predicate<? super E> predicate);
+    E find(Predicate<? super E> fn);
 
     /**
      * Finds the first element in traversed by this iterator for which the given
@@ -419,12 +430,12 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * returned. This method will cause this iterator to relinquish it's
      * ownership.
      *
-     * @param predicate The logical check to apply to the elements in this
+     * @param fn The logical check to apply to the elements in this
      *                  iterator.
      * @return The first element which returns true when applied to the
      * predicate.
      */
-    Optional<E> findOp(Predicate<? super E> predicate);
+    Optional<E> findOp(Predicate<? super E> fn);
 
     /**
      * Fold this {@link RichIterator} to a single value via some reduction
@@ -521,18 +532,6 @@ public interface RichIterator<E> extends OptionalIterator<E>
      * RichIterator}.
      */
     <R> R collect(IteratorCollector<? super E, ? extends R> collector);
-
-//	/**
-//	 * Consumes this iterator using the supplied collection function to create a new
-//	 * instance of the given type.
-//	 *
-//	 * @param           <R> The type of the collection result.
-//	 * @param collector The collection function which is used to consume this
-//	 *                  iterator.
-//	 * @return The result of the collection function applied to this
-//	 *         {@link RichIterator}.
-//	 */
-//	<R> R collect(IteratorCollector2<? super E, ? extends R> collector);
 
     /**
      * Associates each unique value in this iterator with the result of applying
