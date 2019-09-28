@@ -1,7 +1,7 @@
 # jflow
 ### Enhanced iterators with immutable and ergonomic fixed length arrays
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=purple)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://img.shields.io/badge/javadoc-0.7.1-purple.svg?color=purple)](https://javadoc.io/doc/com.github.maumay/jflow) [![License](https://img.shields.io/badge/License-Apache%202.0-purple.svg)](https://opensource.org/licenses/Apache-2.0) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![codecov](https://codecov.io/gh/maumay/jflow/branch/master/graph/badge.svg)](https://codecov.io/gh/maumay/jflow) 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow/badge.svg?color=purple)](https://maven-badges.herokuapp.com/maven-central/com.github.maumay/jflow) [![Javadocs](https://img.shields.io/badge/javadoc-0.7.2-purple.svg?color=purple)](https://javadoc.io/doc/com.github.maumay/jflow) [![License](https://img.shields.io/badge/License-Apache%202.0-purple.svg)](https://opensource.org/licenses/Apache-2.0) [![Build Status](https://travis-ci.org/maumay/JFlow.svg?branch=master)](https://travis-ci.org/maumay/JFlow) [![codecov](https://codecov.io/gh/maumay/jflow/branch/master/graph/badge.svg)](https://codecov.io/gh/maumay/jflow) 
 
 
 ---
@@ -23,7 +23,7 @@ with less characters with less bugs and with more enjoyment. I hope this library
 ---
 #### Accessing and using this library
 
-The coordinates on maven central are `com.github.maumay:jflow:0.7.1`. If you want something to copy and paste into your 
+The coordinates on maven central are `com.github.maumay:jflow:0.7.2`. If you want something to copy and paste into your 
 build script then please click on the maven badge at the top of this file. Javadoc can be accessed via the corresponding 
 badge link at the top of this readme, additional documentation is given below. The library is compiled with Java 11 and
 exports a single module called `jflow.iterator` but it is also backwards compatible to Java 8 in which case the module 
