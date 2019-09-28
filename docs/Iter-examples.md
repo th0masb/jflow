@@ -17,9 +17,6 @@ assert Iter.enums(Hand.class).toVec() == vec(Hand.LEFT, Hand.RIGHT);
 assert Iter.over(Optional.empty()).toVec() == vec();
 assert Iter.over(Optional.of("a")).toVec() == vec("a");
 
-// Example usage is flattening a sequence of optional values
-assert Iter.args(Optional.of("a"), Optional.empty()).flatMap(Iter::over).toVec() == vec("a");
-
 // *****************************************************************************************
 // Flatten stacked collections
 Iterable<Iterable<String>> stacked = asList(asList("a"), new HashSet<>(), vec("b"));

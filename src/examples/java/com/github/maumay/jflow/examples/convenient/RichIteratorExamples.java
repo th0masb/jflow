@@ -25,89 +25,85 @@ public class RichIteratorExamples
 {
     public static void main(String[] args)
     {
-// The source of the RichIterator instances used in the following examples.
-        Supplier<RichIterator<String>> supplier = () -> Iter.args("a", "b");
-
 // *****************************************************************************************
 // Create collections
-        assert supplier.get().toVec() == Vec.of("a", "b");
-        assert supplier.get().toList() == Arrays.asList("a", "b");
-        assert supplier.get().toSet() == new HashSet<>(Arrays.asList("a", "b"));
-        assert supplier.get().to(ArrayDeque::new) == new ArrayDeque<>(
-                Arrays.asList("a", "b"));
+assert Iter.args(1, 2, 3).toVec() == Vec.of(1, 2, 3);
+assert Iter.args(1, 2, 3).toList() == Arrays.asList(1, 2, 3);
+assert Iter.args(1, 2, 3).toSet() == new HashSet<>(Arrays.asList(1, 2, 3));
+assert Iter.args(1, 2, 3).to(ArrayDeque::new) == new ArrayDeque<>(Arrays.asList(1, 2, 3));
 
 // *****************************************************************************************
 // Create maps
-        Map<String, String> expected = new HashMap<>();
-        expected.put("a", "aa");
-        expected.put("b", "bb");
+Map<Integer, Integer> expected = new HashMap<>();
+expected.put(1, 2);
+expected.put(2, 4);
+expected.put(3, 6);
 
-        assert supplier.get().toMap(x -> x, x -> x + x) == expected;
-        assert supplier.get().associate(x -> x + x) == expected;
+assert Iter.args(1, 2, 3).toMap(n -> n, n -> n + n) == expected;
+assert Iter.args(1, 2, 3).associate(n -> n + n) == expected;
 
 // *****************************************************************************************
 // Mapping
-        assert supplier.get().map(s -> s.length()).toVec() == vec(1, 1);
-        assert supplier.get().mapToInt(s -> s.length()).toVec() == IntVec
-                .of(1, 1);
-        assert supplier.get().mapToDouble(s -> s.length()).toVec() == DoubleVec
-                .of(1, 1);
-        assert supplier.get().mapToLong(s -> s.length()).toVec() == LongVec
-                .of(1, 1);
+assert Iter.args(1, 2, 3).map(n -> n.toString()).toVec() == vec("1", "2", "3");
+assert Iter.args(1, 2, 3).mapToInt(n -> n).toVec() == IntVec.of(1, 2, 3);
+assert Iter.args(1, 2, 3).mapToDouble(n -> n.doubleValue()).toVec() == DoubleVec.of(1, 2, 3);
+assert Iter.args(1, 2, 3).mapToLong(n -> n.longValue()).toVec() == LongVec.of(1, 2, 3);
 
 // *****************************************************************************************
 // Filter
-        assert supplier.get().filter(s -> s.equals("a")).toVec() == vec("a");
+assert Iter.args(1, 2, 3).filter(n -> n.equals(2)).toVec() == vec(2);
 
 // *****************************************************************************************
 // FilterMap - map to optional before filtering on present values before unwrapping
-        Function<String, Optional<String>> fn = s -> Optional.of(s)
-                .filter(x -> x.equals("b"));
-        assert supplier.get().filterMap(fn).toVec() == vec("b");
+Function<Integer, Optional<String>> fn = s -> Optional.of(s.toString()).filter(x -> x.equals("3"));
+assert Iter.args(1, 2, 3).filterMap(fn).toVec() == vec("3");
 
 // *****************************************************************************************
 // Chaining
-        assert supplier.get().chain(supplier.get()).toVec() == vec("a", "b",
-                "b", "a");
+assert Iter.args(1, 2, 3).chain(Iter.args(3, 2, 1)).toVec() == vec(1, 2, 3, 3, 2, 1);
+assert Iter.args(1, 2, 3).rchain(Iter.args(3, 2, 1)).toVec() == vec(3, 2, 1, 1, 2, 3);
 
 // *****************************************************************************************
 // Zipping
-        assert supplier.get().zip(supplier.get()).map(pair -> pair._1 + pair._2)
-                .toVec() == vec("aa", "bb");
+assert Iter.args(1, 2, 3).zip(Iter.args(4, 5, 6)).map(p -> p._1 + p._2).toVec() == vec(5, 7, 9);
 
 // *****************************************************************************************
 // Easy type manipulation. It is unsafe (any type can be passed) due to Java
 // generics deficiencies but can be very useful and convenient.
-        assert supplier.get().<CharSequence>cast()
-                .toVec() == Vec.<CharSequence>of("a", "b");
+assert Iter.args(1, 2, 3).<Number>cast().toVec() == Vec.<Number>of(1, 2, 3);
 
 // *****************************************************************************************
 // Take, skip
-        assert supplier.get().take(1).toVec() == vec("a");
-        assert supplier.get().skip(1).toVec() == vec("b");
+assert Iter.args(1, 2, 3).take(1).toVec() == vec(1);
+assert Iter.args(1, 2, 3).skip(1).toVec() == vec(2, 3);
 
-        assert supplier.get().takeWhile(s -> s.equals("a")).toVec() == vec("a");
-        assert supplier.get().skipWhile(s -> s.equals("a")).toVec() == vec("b");
+assert Iter.args(1, 2, 3).takeWhile(n -> n < 2).toVec() == vec(1);
+assert Iter.args(1, 2, 3).skipWhile(n -> n < 2).toVec() == vec(2, 3);
 
 // *****************************************************************************************
 // Predicate matching / finding
-        assert supplier.get().all(s -> !s.equals("c"));
-        assert supplier.get().any(s -> s.equals("b"));
-        assert supplier.get().none(s -> s.equals("0"));
-        assert supplier.get().find(s -> !s.equals("z")) == "a";
-        assert supplier.get()
-                .findOp(s -> s.equals("c")) == Optional.<String>empty();
+assert Iter.args(1, 2, 3).all(n -> n < 4);
+assert Iter.args(1, 2, 3).any(n -> n > 2);
+assert Iter.args(1, 2, 3).none(n -> n > 5);
+assert Iter.args(1, 2, 3).find(n -> n > 1) == 2;
+assert Iter.args(1, 2, 3).findOp(n -> n > 3) == Optional.<Integer>empty();
+
+// *****************************************************************************************
+// Slicing
+assert Iter.args(0, 1, 2, 3, 4).slice(i -> i + 2).toVec() == vec(2, 3, 4);
+assert Iter.args(0, 1, 2, 3, 4).slice(i -> 2 * i).toVec() == vec(0, 2, 4);
+assert Iter.args(0, 1, 2, 3, 4).slice(i -> 2 * i + 1).toVec() == vec(1, 3);
 
 // *****************************************************************************************
 // Fine grained control over consumption.
-        RichIterator<String> iter = supplier.get();
-        assert iter.next() == "a";
-        assert iter.nextOp() == Option.of("b");
-        assert !iter.hasNext();
-        assert !iter.nextOp().isPresent();
-        try {
-            System.out.println(iter.next());
-        } catch (NoSuchElementException ex) {
-        }
+RichIterator<Integer> iter = Iter.args(1, 2);
+assert iter.next() == 1;
+assert iter.nextOp() == Optional.of(2);
+assert !iter.hasNext();
+assert !iter.nextOp().isPresent();
+try {
+    System.out.println(iter.next());
+} catch (NoSuchElementException ex) {
+}
     }
 }
