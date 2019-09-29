@@ -1,5 +1,6 @@
-This file demonstrates some of the static factory methods contained in the class `Iter` which enable you to construct rich iterators from various sources. **Please note** that I use referential equality in the assertion statements which will cause many to fail if you executed this code but it greatly improves readability.
-
+This file demonstrates some of the static factory methods contained in the class `Iter` which enable you to construct 
+rich iterators from various sources. **Please note** that I use referential equality in the assertion statements which 
+will cause many to fail if you executed this code but it greatly improves readability.
 
 ```java
 // Construct from varargs
@@ -34,6 +35,14 @@ assert Iter.values(map).fold(sum) == 30;
 assert Iter.over(map).map(pair -> pair._1 * pair._2).fold(sum) == 50;
 
 // *****************************************************************************************
+// Construct using supplier functions
+// Create n empty list of strings
+assert Iter.call(ArrayList::new).<List<String>>cast().take(9).toVec().all(list -> list.isEmpty());
+// Generate n random numbers
+var prng = new Random();
+assert Iter.callDoubles(prng::nextDouble).take(100).all(x -> x >= 0);
+
+// *****************************************************************************************
 // Construct primitive iterators
 assert Iter.ints(1, 2, 3).any(n -> n == 2);
 assert Iter.doubles(1.0, 2.0, 3.0).all(n -> n > 0);
@@ -45,4 +54,5 @@ assert Iter.until(5).toVec() == IntVec.of(0, 1, 2, 3, 4);
 assert Iter.between(1, 4).toVec() == IntVec.of(1, 2, 3);
 assert Iter.between(1, 10, 2).toVec() == IntVec.of(1, 3, 5, 7, 9);
 assert Iter.between(9, 0, -2).toVec() == IntVec.of(9, 7, 5, 3, 1);
+assert Iter.partition(0, 1, 5).toVec() == DoubleVec.of(0, .2, .4, .6, .8, 1);
 ```
