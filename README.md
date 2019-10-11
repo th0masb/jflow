@@ -16,9 +16,7 @@ functionality can be summarised as follows:
  integrated with these iterators to facilitate easy construction, manipulation and conversion to/from standard `Collection` 
  implementations.
 
-The (imo) unnecessary verbosity of the stream API in a sequential setting coupled with my desire for an immutable and 
-ergonomic list motivated me to write this library. Writing Java has become much better for me - increased readability 
-with less characters with less bugs and with more enjoyment. I hope this library can be of use to other people.
+In a sequential context I felt streams were unnecessarily verbose and lacked functionality compared to similar constructs in other languages (such as iterators in Rust). Coupled with my desire for an immutable and ergonomic list I decided it would be a good use of time to create this library. It is designed to complement streams, not replace them completely. I generally use streams in a parallel setting and iterators in a sequential setting. Writing Java has become much better for me - increased readability with less characters with less bugs and with more enjoyment. I hope this library can be of use to other people.
 
 ---
 #### Accessing and using this library
