@@ -35,8 +35,10 @@ assert Iter.args(1, 2, 3).mapToDouble(n -> n.doubleValue()).toVec() == DoubleVec
 assert Iter.args(1, 2, 3).mapToLong(n -> n.longValue()).toVec() == LongVec.of(1, 2, 3);
 
 // *****************************************************************************************
-// Filter
-assert Iter.args(1, 2, 3).filter(n -> n.equals(2)).toVec() == vec(2);
+// Filter and filterNot
+var intset = Vec.of(2, 3, 4).toSet();
+assert Iter.args(1, 2, 3).filter(intset::contains).toVec() == vec(2, 3);
+assert Iter.args(1, 2, 3).filterNot(intset::contains).toVec() == vec(1);
 
 // *****************************************************************************************
 // FilterMap - map to optional before filtering on present values before unwrapping
