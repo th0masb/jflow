@@ -251,6 +251,18 @@ public interface RichIterator<E> extends OptionalIterator<E>
     RichIterator<E> filter(Predicate<? super E> fn);
 
     /**
+     * Creates a new {@link RichIterator} from this {@link RichIterator} by
+     * removing any element which passes the supplied predicate test.
+     *
+     * @param fn A predicate applicable to the type of elements in this
+     *                  {@link RichIterator}.
+     * @return A {@link RichIterator} containing only those elements of this
+     * source {@link RichIterator} which fail the test defined by the parameter
+     * predicate. The relative ordering of elements is retained.
+     */
+    RichIterator<E> filterNot(Predicate<? super E> fn);
+
+    /**
      * Create a new iterator from this one by applying a mapping function (whose
      * image type is optional) element-wise before filtering on whether the
      * images are present and then unwrapping the optional values.

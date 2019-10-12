@@ -174,6 +174,12 @@ public abstract class AbstractRichIterator<E> extends AbstractIterator
     }
 
     @Override
+    public AbstractRichIterator<E> filterNot(Predicate<? super E> fn)
+    {
+        return filter(fn.negate());
+    }
+
+    @Override
     public <R> AbstractRichIterator<R> filterMap(Function<? super E, Optional<R>> fn)
     {
         return map(fn).filter(Optional::isPresent).map(Optional::get);
